@@ -1,0 +1,26 @@
+{
+  "name": "virdio-web",
+  "version": "1.0.0",
+  "description": "Virdio is live communication with people.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "concurrently": "^4.0.1",
+    "dotenv": "^8.0.0",
+    "express": "^4.16.4",
+    "is-empty": "^1.2.0",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.3.11",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "underscore": "^1.9.1",
+    "validator": "^10.9.0"
+  }
+}

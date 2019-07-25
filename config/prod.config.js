@@ -3,7 +3,7 @@
 let config = {
 	rootpath : process.cwd(),
 	mongo : {
-		uri : "mongodb://localhost:27017/virdiodb",
+		uri : process.env.PROD_MONGODB_URI,
 	},
 	auth : {
 		key:"djghhhhuuwiwuewieuwieuriwu",

@@ -1,4 +1,5 @@
 const auth = require(process.cwd() + '/library/Auth');
+const isEmpty = require("is-empty");
 const user = require('../../models/User');
 
 class UserCtrl {
@@ -45,7 +46,7 @@ class UserCtrl {
 	    try {
 	    	let userObj = await user.getUser({name : req.body.name});
 	    	// console.log(userObj)
-			if(req.body.name == userObj.name){
+			if(isEmpty(userObj)){
 				const token = await auth.createToken(userObj._id);
 				// console.log(token);
 				let updateUser = user.updateToken(userObj.id, token);

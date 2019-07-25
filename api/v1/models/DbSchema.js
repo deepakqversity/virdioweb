@@ -43,6 +43,7 @@ const conferenceUserSchema = new Schema({
   userId: ObjectId,
   type: {type: Number, require: require}, // 0= host , 1 = attendies
   sessionType: {type: Number, require: require, default:0}, // 0 = aduence , 1 = broadcaster
+  streamId: String,
   status: {type:Boolean, default:0}
 })
 const ConferenceUser = mongoose.model('conference_users', conferenceUserSchema);

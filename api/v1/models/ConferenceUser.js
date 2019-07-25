@@ -26,6 +26,16 @@ class ConferenceUser{
 	    }
 	}
 
+	async updateConferenceUser(userId, confId, data){
+		let model = this.model;
+
+		try{
+			return await model.updateOne({userId:userId, confId:confId}, data, {upsert:false});
+		} catch(exception) {
+	      return exception;
+	    }
+	}
+
 }
 
 module.exports = new ConferenceUser();

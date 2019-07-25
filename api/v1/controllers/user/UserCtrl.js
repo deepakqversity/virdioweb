@@ -23,8 +23,8 @@ class UserCtrl {
 	async login(req, res) {
 	    try {
 	    	let userObj = await userModel.getUser({name : req.body.name});
-	    	// console.log(userObj)
-			if(req.body.name == userObj.name){
+	    	console.log(userObj)
+			if(userObj != null && req.body.name == userObj.name){
 				const token = await auth.createToken(userObj._id);
 				// console.log(token);
 				let updateUser = tokenModel.updateToken(userObj._id, token);

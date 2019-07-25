@@ -1,22 +1,18 @@
 const auth = require(process.cwd() + '/library/Auth');
 const isEmpty = require("is-empty");
-const user = require('../../models/User');
+const userModel = require('../../models/User');
+const tokenModel = require('../../models/AuthToken');
 
 class UserCtrl {
 
 	index(req, res) {
-	    try {
-			
-			res.send({message:"success"});
-	    } catch(exception) {
-			res.status(500).send(exception)
-	    }
+		res.send({status:true});
 	}
 
 	async userDetail(req, res) {
 	    try {
 	    	console.log(req.currentUser)
-			let user1 = await user.getUser({_id : req.currentUser._id});
+			let user1 = await userModel.getUser({_id : req.currentUser._id});
 			res.send({status:true, data:user1});
 				
 	    } catch(exception) {
@@ -26,13 +22,13 @@ class UserCtrl {
 
 	async login(req, res) {
 	    try {
-	    	let userObj = await user.getUser({name : req.body.name});
+	    	let userObj = await userModel.getUser({name : req.body.name});
 	    	// console.log(userObj)
 			if(req.body.name == userObj.name){
 				const token = await auth.createToken(userObj._id);
 				// console.log(token);
-				let updateUser = user.updateToken(userObj.id, token);
-				res.send({status:true, data:{token:"Bearer " +token, id:userObj.id}});
+				let updateUser = tokenModel.updateToken(userObj._id, token);
+				res.send({status:true, data:{token:"Bearer " +token, id:userObj._id}});
 			} else {
 				res.status(400).send({status:false, message:"user not found"})
 			}
@@ -44,12 +40,12 @@ class UserCtrl {
 
 	async register(req, res) {
 	    try {
-	    	let userObj = await user.getUser({name : req.body.name});
+	    	let userObj = await userModel.getUser({name : req.body.name});
 	    	// console.log(userObj)
 			if(isEmpty(userObj)){
 				const token = await auth.createToken(userObj._id);
 				// console.log(token);
-				let updateUser = user.updateToken(userObj.id, token);
+				let updateUser = userModel.updateToken(userObj.id, token);
 				res.send({status:true, data:{token:"Bearer " +token, id:userObj.id}});
 			} else {
 				res.status(400).send({status:false, message:"user not found"})

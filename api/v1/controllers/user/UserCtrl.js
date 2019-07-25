@@ -13,7 +13,7 @@ class UserCtrl {
 	    try {
 	    	console.log(req.currentUser)
 			let user1 = await userModel.getUser({_id : req.currentUser._id});
-			res.send({status:true, data:user1});
+			res.status(200).send(user1);
 				
 	    } catch(exception) {
 			res.status(500).send(exception)
@@ -28,9 +28,9 @@ class UserCtrl {
 				const token = await auth.createToken(userObj._id);
 				// console.log(token);
 				let updateUser = tokenModel.updateToken(userObj._id, token);
-				res.status(200).send({status:true, token:token, id:userObj._id, name:userObj.name});
+				res.status(200).send({token:token, id:userObj._id, name:userObj.name});
 			} else {
-				res.status(400).send({status:false, message:"user not found"})
+				res.status(400).send({message:"user not found"})
 			}
 				
 	    } catch(exception) {
@@ -46,9 +46,9 @@ class UserCtrl {
 				const token = await auth.createToken(userObj._id);
 				// console.log(token);
 				let updateUser = userModel.updateToken(userObj.id, token);
-				res.status(200).send({status:true, token:token, id:userObj.id});
+				res.status(200).send({token:token, id:userObj.id});
 			} else {
-				res.status(400).send({status:false, message:"user not found"})
+				res.status(400).send({message:"user not found"})
 			}
 				
 	    } catch(exception) {

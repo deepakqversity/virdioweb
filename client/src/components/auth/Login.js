@@ -13,7 +13,7 @@ class Login extends Component {
       email: "",
       password: "",
       name:"",
-      type:"",
+      type:"1",
       errors: {}
     };
   }
@@ -107,7 +107,7 @@ return (
                 <div className = "col-sm-offset-2 col-sm-10">
                 <div class = "radio">
             <label>
-                <input type = "radio" name = "type" id = "host" onChange={this.handleChange} value = '1' checked={this.state.type === "1"} /> Host
+                <input type = "radio" name = "type" id = "host" onChange={this.handleChange} value = '1' checked /> Host
             </label>
             </div>
 

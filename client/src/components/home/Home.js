@@ -20,8 +20,9 @@ render() {
     const  {user}  = this.props.auth;
 
    // console.log(user);
-    console.log('------------------------------', user);
-
+   
+   var retrievedObject = localStorage.getItem('jwtToken');
+   var localstoragedata=JSON.parse(retrievedObject);
 return (
       <div style={{ height: "75vh" }} className="container valign-wrapper">
       <div className="row">
@@ -37,10 +38,9 @@ return (
       
           <div className="col s12 center-align">
             <h4>
-              <b>Hey there,</b> {user.id}
-              <p className="flow-text grey-text text-darken-1">
-                You are logged into a full-stack{" "}
-                <span style={{ fontFamily: "monospace" }}>Virdio</span> app 
+              <b>Hey,</b> {localstoragedata.name}
+              <p className="flow-text grey-text text-darken-1">               
+                <span>Virdio</span>
               </p>
             </h4>
             <button

@@ -11,17 +11,20 @@ render() {
     const  {user}  = this.props.auth;
 
    // console.log(user);
-    console.log('------------------------------', user);
+    //console.log('------------------------------', user);
+
+    var retrievedObject = localStorage.getItem('jwtToken');
+    var localstoragedata=JSON.parse(retrievedObject);
+  // console.log(JSON.parse(retrievedObject).name);
 
 return (
       <div style={{ height: "75vh" }} className="container valign-wrapper">
         <div className="row">
           <div className="col s12 center-align">
             <h4>
-              <b>Hey there,</b> {user.id}
+              Hey, {localstoragedata.name}
               <p className="flow-text grey-text text-darken-1">
-                You are logged into a full-stack{" "}
-                <span style={{ fontFamily: "monospace" }}>Virdio</span> app 
+                <span>Virdio</span> app 
               </p>
             </h4>
             <button

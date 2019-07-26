@@ -13,8 +13,7 @@ class Login extends Component {
       email: "",
       password: "",
       name:"",
-      host:"1",
-      client:"2",
+      type:"",
       errors: {}
     };
   }
@@ -28,9 +27,17 @@ class Login extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
+
+      var retrievedObject = localStorage.getItem('jwtToken');
+      var localstoragedata=JSON.parse(retrievedObject);
+     // console.log(JSON.parse(retrievedObject).userType);
+     if(localstoragedata.userType ==1){
       this.props.history.push("/home"); // push user to dashboard when they login
+     }else{
+      this.props.history.push("/dashboard");
+     }
     }
-    this.props.history.push("/dashboard");
+
 
 if (nextProps.errors) {
       this.setState({
@@ -56,7 +63,7 @@ onSubmit = e => {
       name: this.state.name,
       type: this.state.type
     };
-    console.log(userData);
+   // console.log(userData);
     this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
   };
 render() {

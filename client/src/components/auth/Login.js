@@ -12,6 +12,9 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
+      name:"",
+      host:"1",
+      client:"2",
       errors: {}
     };
   }
@@ -27,6 +30,8 @@ class Login extends Component {
     if (nextProps.auth.isAuthenticated) {
       this.props.history.push("/home"); // push user to dashboard when they login
     }
+    this.props.history.push("/dashboard");
+
 if (nextProps.errors) {
       this.setState({
         errors: nextProps.errors
@@ -39,12 +44,19 @@ if (nextProps.errors) {
 onChange = e => {
     this.setState({ [e.target.id]: e.target.value });
   };
+
+  handleChange= e => {
+    this.setState({type: e.target.value});
+  };
+
 onSubmit = e => {
     e.preventDefault();
-const userData = {
+      const userData = {
       email: this.state.email,
-      name: this.state.name
+      name: this.state.name,
+      type: this.state.type
     };
+    console.log(userData);
     this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
   };
 render() {
@@ -65,59 +77,49 @@ return (
                 Don't have an account? <Link to="/register">Register</Link>
               </p>
             </div>
-            <form noValidate onSubmit={this.onSubmit}>
-              <div className="input-field col s12">
-                <input
-                  onChange={this.onChange}
-                  value={this.state.email}
-                  error={errors.email}
-                  id="email"
-                  type="email"
 
-                  className={classnames("", {
-                    invalid: errors.email || errors.emailnotfound
-                  })}
+            <form className = "form-horizontal" role = "form"  noValidate onSubmit={this.onSubmit}>
+            
+            <div className = "form-group">
+                <label for = "name" className = "col-sm-2 control-label">Name</label>
+                <span className="red-text">{errors.name}{errors.nameincorrect}</span>
+                <div className = "col-sm-10">
+                  <input type="name"  id="name" onChange={this.onChange} value={this.state.name}  error={errors.name}  className={classnames("", { invalid: errors.name || errors.nameincorrect })} className = "form-control"  placeholder = "Enter  Name" />
+                </div>
+            </div>
+            
+            <div className = "form-group">
+                <label for = "email" class = "col-sm-2 control-label">Email Id</label>
+                <span className="red-text">{errors.name}{errors.nameincorrect} </span>
+                <div className = "col-sm-10">
+                  <input type="email"  id="email" value={this.state.email}  error={errors.email} onChange={this.onChange}  className={classnames("", {invalid: errors.email || errors.emailnotfound})} className = "form-control"  placeholder = "Enter Email" />
+                </div>
+            </div>
+            
+            <div className = "form-group">
+                <div className = "col-sm-offset-2 col-sm-10">
+                <div class = "radio">
+            <label>
+                <input type = "radio" name = "type" id = "host" onChange={this.handleChange} value = '1' checked={this.state.type === "1"} /> Host
+            </label>
+            </div>
 
-                />
-                <label htmlFor="email">Email</label>
-                <span className="red-text">
-                  {errors.email}
-                  {errors.emailnotfound}
-                </span>
-              </div>
-              <div className="input-field col s12">
-                <input
-                  onChange={this.onChange}
-                  value={this.state.name}
-                  error={errors.name}
-                  id="name"
-                  type="name"
 
-                  className={classnames("", {
-                    invalid: errors.name || errors.nameincorrect
-                  })}
-                />
-                <label htmlFor="name">Name</label>
-                <span className="red-text">
-                  {errors.name}
-                  {errors.nameincorrect}
-                </span>
-              </div>
-              <div className="col s12" style={{ paddingLeft: "11.250px" }}>
-                <button
-                  style={{
-                    width: "150px",
-                    borderRadius: "3px",
-                    letterSpacing: "1.5px",
-                    marginTop: "1rem"
-                  }}
-                  type="submit"
-                  className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-                >
-                  Login
-                </button>
-              </div>
-            </form>
+            <div class = "radio">
+            <label>
+                <input type = "radio" name = "type" id = "client" onChange={this.handleChange} value = '2'  checked={this.state.type === "2"}  /> Client
+            </label>
+            </div>
+            </div>
+            </div>
+   
+            <div className = "form-group">
+                <div className = "col-sm-offset-2 col-sm-10">
+                  <button type = "submit" className = "btn btn-default"  className="btn btn-large btn-default waves-effect waves-light hoverable blue accent-3">Login</button>
+                </div>
+            </div>
+            
+          </form>      
           </div>
         </div>
       </div>

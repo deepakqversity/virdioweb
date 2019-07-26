@@ -1,6 +1,9 @@
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
+// import React from 'react'
+// import { Redirect } from "react-router-dom"
+
 import {
   GET_ERRORS,
   SET_CURRENT_USER,
@@ -67,4 +70,13 @@ export const logoutUser = () => dispatch => {
   setAuthToken(false);
   // Set current user to empty object {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
+};
+
+// Log user out
+export const joinConf = (channel) => dispatch => {
+  localStorage.setItem("channel", channel);
+  console.log("U are here");
+  console.log(localStorage);
+  //return <Redirect to="/host" />;
+  window.location.href  = '/host';
 };

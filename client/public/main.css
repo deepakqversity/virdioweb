@@ -1,0 +1,39 @@
+ div#video .subscribers-list{
+      float:left; 
+      height:156px;
+      display:inline-block;
+          margin-bottom: 30px;
+    }
+
+    div#video video{ position: relative !important; }
+
+    div#video .subscribers-list .mute-unmute{
+      cursor:pointer; background: url('/assets/sound48.png') 0 0 no-repeat;
+      width: 48px;
+      height: 48px;
+      display: inline-block;
+      position: absolute;
+      z-index: 5;
+      right: 0px;
+    }
+    div#video .subscribers-list .mute-unmute.mute{
+      background: url(/assets/mute48.png) -6px 0 no-repeat;
+      width: 48px;
+      }
+      .d-flex-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+      }
+      .d-flex {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+      }
+      .button-group button{
+        margin: 0 5px;
+      }
+      .subscribers-list video{
+        object-fit: contain !important;
+      }

@@ -152,6 +152,8 @@ return (
       </div>
 
       </div>
+
+      <input type="hidden" id="conf-page" />
     
   </div>
     );

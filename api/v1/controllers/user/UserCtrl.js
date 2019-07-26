@@ -28,7 +28,7 @@ class UserCtrl {
 				const token = await auth.createToken(userObj._id);
 				// console.log(token);
 				let updateUser = tokenModel.updateToken(userObj._id, token);
-				res.status(200).send({token:token, id:userObj._id, name:userObj.name});
+				res.status(200).send({token:token, id:userObj._id, name:userObj.name, userType:req.body.type});
 			} else {
 				res.status(400).send({message:"user not found"})
 			}

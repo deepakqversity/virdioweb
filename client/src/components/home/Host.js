@@ -62,31 +62,9 @@ return (
           <button type="button" className="btn btn-outline-secondary float-right">"Show Attendees"</button>
         </div>
       </div>
-      <div className="row one-gutters">
+      
+      <div className="row one-gutters" id="subscribers-list"></div>
 
-        <div className="col-md-4 col-lg-3 col-sm-6 col-6">
-          <div className="video-holder position-relative">
-            <img src="images/a1.png" /> <span className="hand-icon position-absolute"></span>
-            
-            <div className="att-details"> <span className="att-name">James K, TX</span>
-              <span className="icon1"></span>
-              
-            </div>
-          </div>
-        </div>
-        
-        <div className="col-md-4 col-lg-3 col-sm-6 col-6">
-          <div className="video-holder position-relative">
-            <img src="images/a8.png" />
-            
-            <div className="att-details"> <span className="att-name">Michelle U, LA</span>
-            
-              <span className="icon2"></span>
-            </div>
-          </div>
-        </div>
-        
-      </div>
     </section>
     <div className="row four-gutters">
       <div className="col-12 col-md-12 mt-2 col-lg-5 host-section">
@@ -97,6 +75,7 @@ return (
               <img src="images/mute-microphone.png" className="unmute-icon" />
               <img src="images/music-icon.png" className="music-icon" />
               <img src="images/video-icon.png" className="video-icon" />
+              <img src="images/video-close.png" className="video-icon" />
               <img src="images/circle.png" className="circle-icon" />
             </div>
 
@@ -147,6 +126,42 @@ return (
         </div>
       </div>
     </div>
+
+      <div className="modal fade" id="hand-raise" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+      <div className="modal-dialog" role="document">
+
+        <div className="modal-content">
+
+        <div className="modal-header">
+
+          <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
+
+          <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+
+          <span aria-hidden="true">&times;</span>
+
+          </button>
+
+        </div>
+
+        <div className="modal-body">
+
+          ...
+
+        </div>
+
+        <div className="modal-footer">
+
+           <button type="button" className="btn btn-primary">Button</button>
+
+        </div>
+
+        </div>
+
+      </div>
+
+      </div>
     
   </div>
     );

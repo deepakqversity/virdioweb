@@ -23,7 +23,7 @@ function test(){
     alert('Function from index.html');
   }
   function join() {
-    
+
     console.log('-****', localStorage.getItem("channel"));
     document.getElementById("join").disabled = true;
     // document.getElementById("video").disabled = true;
@@ -102,6 +102,7 @@ function test(){
             }, function (err) {
               console.log("getUserMedia failed", err);
             });
+
           });
           
         }
@@ -135,18 +136,36 @@ function test(){
       });
     });
 
+
+
+    // client.on('stream-subscribed', function (evt) {
+    //   var stream = evt.stream;
+    //   console.log("Subscribe remote stream successfully:********** " + stream.getId());
+    //   if ($('div#video .col-md-10 #agora_remote'+stream.getId()).length === 0) {
+    //     let _control = '<a class="mute-unmute" data-id="'+stream.getId()+'"></a>';
+    //     $('div#video .col-md-10').append('<div class="subscribers-list col-md-4 col-xs-6" id="agora_remote'+stream.getId()+'"><div style="position:relative;">'+_control+'</div><div style="width:100%; height:100%; float:left;" id="agora_remote_vdo'+stream.getId()+'"></div></div>');
+    //   }
+    //   stream.play('agora_remote_vdo' + stream.getId());
+
+    //   checkMuteUnmute(stream.getId());
+    // });
+
     client.on('stream-subscribed', function (evt) {
       var stream = evt.stream;
       console.log("Subscribe remote stream successfully:********** " + stream.getId());
-      if ($('div#video .col-md-10 #agora_remote'+stream.getId()).length === 0) {
-        // $('div#video').append('<div id="agora_remote'+stream.getId()+'" style="float:left; width:810px;height:607px;display:inline-block;"></div>');
-        let _control = '<a class="mute-unmute" data-id="'+stream.getId()+'"></a>';
-        $('div#video .col-md-10').append('<div class="subscribers-list col-md-4 col-xs-6" id="agora_remote'+stream.getId()+'"><div style="position:relative;">'+_control+'</div><div style="width:100%; height:100%; float:left;" id="agora_remote_vdo'+stream.getId()+'"></div></div>');
+      if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
+        
+        // $('div#video .col-md-10').append('<div class="subscribers-list col-md-4 col-xs-6" id="agora_remote'+stream.getId()+'"><div style="position:relative;"><a class="mute-unmute" data-id="'+stream.getId()+'</div><div style="width:100%; height:100%; float:left;" id="agora_remote_vdo'+stream.getId()+'"></div></div>');
+
+        $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div> <a href="#" class="unmute-icon position-absolute"><i class="fa fa-volume-off " aria-hidden="true"></i></a><span class="hand-icon position-absolute" data-toggle="modal" data-target="#hand-raise"></span><div class="att-details"> <span class="att-name">James K, TX</span><span class="icon1"></span></div></div></div>');
       }
       stream.play('agora_remote_vdo' + stream.getId());
 
       checkMuteUnmute(stream.getId());
     });
+    
+
+
 
     client.on('stream-removed', function (evt) {
       var stream = evt.stream;

@@ -78,5 +78,6 @@ export const joinConf = (channel) => dispatch => {
   console.log("U are here");
   console.log(localStorage);
   //return <Redirect to="/host" />;
+  
   window.location.href  = '/host';
 };

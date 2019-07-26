@@ -186,22 +186,19 @@ h3.main-heading span{
 	cursor: pointer;
 }
 .video-holder .mute-icon{
-    font-size: 28px;
+    font-size: 16px;
     top: 10px;
     right: 10px;
-    color: #000;
+    color: #fff;
     display: flex;
     text-decoration: none;
+    background: #9b51e0;
+    padding: 8px;
+    border-radius: 55px;
+	    width: 32px;
+    height: 32px;
 }
-.video-holder .unmute-icon{
-    font-size: 28px;
-    top: 10px;
-    right: 10px;
-    color: #000;
-    display: flex;
-    text-decoration: none;
-	    width: 28px;
-}
+
 .video-holder .att-details{
 	position: absolute;
     bottom: 0;
@@ -337,7 +334,6 @@ h3.main-heading span{
 	width:20px;
 }
 
-.video-streams video {position: relative !important;}
 
 
 

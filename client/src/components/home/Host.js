@@ -127,7 +127,7 @@ return (
       </div>
     </div>
 
-      <div className="modal fade" id="hand-raise" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div className="modal fade" id="hand-raise" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
       <div className="modal-dialog" role="document">
 

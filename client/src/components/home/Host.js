@@ -72,27 +72,17 @@ return (
           <div className="d-flex justify-content-between align-items-center mb-3">
             <h3 className="main-heading float-left">Streaming</h3>
             <div className="host-header">
-              <img src="images/mute-microphone.png" className="unmute-icon" />
-              <img src="images/music-icon.png" className="music-icon" />
-              <img src="images/video-icon.png" className="video-icon" />
-              <img src="images/video-close.png" className="video-icon" />
-              <img src="images/circle.png" className="circle-icon" />
+              <img src="images/mute-microphone.png" className="unmute-icon" id="mute-unmute-local" />
+              <img src="images/music-icon.png" className="music-icon" id="bg-music" />
+              <img src="images/video-icon.png" className="video-icon d-none" id="publish" />
+              <img src="images/video-close.png" className="video-icon" id="unpublish" />
+              <img src="images/circle.png" className="circle-icon" id="record-stream" />
             </div>
-
-            <div class="clearfix"></div>
-            <div className="row">
-                <div className="d-flex button-group">
-                  <button id="join" className="btn btn-primary">Join</button>
-                  <button id="leave" className="btn btn-primary">Leave</button>
-                  <button id="publish" className="btn btn-primary">Publish</button>
-                  <button id="unpublish" className="btn btn-primary">Unpublish</button>
-                </div>
-              </div>
           </div>
           <div id="agora_local" className="video-streams"></div>
         </div>
-        
       </div>
+        
       <div className="col-12 col-md-12 mt-2 col-lg-7">
         <div className="bg-gray  p-3 rounded overflow-hidden h-100">
           <div className="d-md-flex justify-content-between align-items-center mb-3">
@@ -129,7 +119,7 @@ return (
 
       <div className="modal fade" id="hand-raise" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-      <div className="modal-dialog" role="document">
+      <div className="modal-dialog modal-dialog-lg" role="document">
 
         <div className="modal-content">
 
@@ -145,7 +135,7 @@ return (
 
         </div>
 
-        <div className="modal-body">
+        <div className="modal-body" id="active-single-user">
 
           ...
 

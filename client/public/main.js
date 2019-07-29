@@ -19,12 +19,19 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   // var audioSelect = document.querySelector('select#audioSource');
   // var videoSelect = document.querySelector('select#videoSource');
+  var storageData = localStorage.getItem("jwtToken");
 
   function join() {
 
+    var storeData = JSON.parse(storageData);
+    console.log(storeData.userType);
     console.log('-****', localStorage.getItem("channel"));
-    document.getElementById("join").disabled = true;
+
+    $('#join').addClass('d-none');
+    $('#unpublish').removeClass('d-none');
+    // document.getElementById("join").disabled = true;
     // document.getElementById("video").disabled = true;
+    
     var channel_key = null;
     var appId = '232f270a5aeb4e0097d8b5ceb8c24ab3';
     
@@ -68,7 +75,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
             microphone = _audioSource;
 
             
-            localStream = AgoraRTC.createStream({streamID: uid, audio: true, cameraId: camera, microphoneId: microphone, video: hostType, screen: false});
+            localStream = AgoraRTC.createStream({streamID: uid, audio: true, cameraId: camera, microphoneId: microphone, video: hostType, screen: false, });
             //localStream = AgoraRTC.createStream({streamID: uid, audio: false, cameraId: camera, microphoneId: microphone, video: false, screen: true, extensionId: 'minllpmhdgpndnkomcoccfekfegnlikg'});
             
             if (hostType) {
@@ -234,7 +241,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   function leave() {
     document.getElementById("leave").disabled = true;
     client.leave(function () {
-      $('.subscribers-list').remove();
+      $('#subscribers-list').html('');
       console.log("Leavel channel successfully");
     }, function (err) {
       console.log("Leave channel failed");
@@ -242,19 +249,33 @@ if(!AgoraRTC.checkSystemRequirements()) {
   }
 
   function publish() {
-    document.getElementById("publish").disabled = true;
-    document.getElementById("unpublish").disabled = false;
+    $('#publish').removeClass('d-none');
+    $('#unpublish').addClass('d-none');
+    // document.getElementById("publish").disabled = true;
+    // document.getElementById("unpublish").disabled = false;
     client.publish(localStream, function (err) {
       console.log("Publish local stream error: " + err);
     });
   }
 
   function unpublish() {
-    document.getElementById("publish").disabled = false;
-    document.getElementById("unpublish").disabled = true;
+    
+    $('#publish').removeClass('d-none');
+    $('#unpublish').addClass('d-none');
+
+    // document.getElementById("publish").disabled = false;
+    // document.getElementById("unpublish").disabled = true;
     client.unpublish(localStream, function (err) {
-      console.log("Unpublish local stream failed" + err);
+      console.log("Unpublish local stream failed == " + err);
     });
+
+    // client.leave(function () {
+    //   $('#subscribers-list').html('');
+    //   $('#agora_local').html('');
+    //   console.log("Leavel channel successfully");
+    // }, function (err) {
+    //   console.log("Leave channel failed");
+    // });
   }
 
   function getDevices() {
@@ -305,7 +326,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       }
     });
 
-    // join();
+    join();
     
     $(document).on('click', '#join', function(){
       join();

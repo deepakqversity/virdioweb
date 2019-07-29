@@ -31,11 +31,8 @@ class Login extends Component {
       var retrievedObject = localStorage.getItem('jwtToken');
       var localstoragedata=JSON.parse(retrievedObject);
 
-     if(localstoragedata.userType ==1){
       this.props.history.push("/home"); // push user to dashboard when they login
-     }else{
-      this.props.history.push("/dashboard");
-     }
+
     }
 
 

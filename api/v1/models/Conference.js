@@ -16,6 +16,16 @@ class Conference{
 	    }
 	}
 
+	async findSingleDetail(find){
+		let model = this.model;
+
+		try{
+			return await model.findOne(find);
+		} catch(exception) {
+	      return exception;
+	    }
+	}
+
 	async getChannel(){
 		let model = this.model;
 		let find = {};

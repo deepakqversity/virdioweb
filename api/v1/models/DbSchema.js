@@ -41,8 +41,8 @@ const conferenceUserSchema = new Schema({
   id: ObjectId,
   confId: ObjectId,
   userId: ObjectId,
-  type: {type: Number, require: require}, // 0= host , 1 = attendies , 2 = attendies 
-  sessionType: {type: Number, require: require, default:0}, // 0 = aduence (audio only) , 1 = broadcaster (audio + video)
+  type: Number, // 0= host , 1 = attendies , 2 = attendies 
+  sessionType: Number, // 0 = aduence (audio only) , 1 = broadcaster (audio + video)
   streamId: String,
   status: {type:Boolean, default:0}
 })

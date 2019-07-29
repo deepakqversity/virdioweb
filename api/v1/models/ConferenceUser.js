@@ -16,6 +16,16 @@ class ConferenceUser{
 	    }
 	}
 
+	async getOne(find){
+		let model = this.model;
+
+		try{
+			return await model.findOne(find);
+		} catch(exception) {
+	      return exception;
+	    }
+	}
+
 	async updateCurrentSessionType(userId, confId, flag){
 		let model = this.model;
 

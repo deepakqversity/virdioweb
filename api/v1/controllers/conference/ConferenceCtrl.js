@@ -34,7 +34,7 @@ class ConferenceCtrl {
 	    	let confId = req.params.confId;
 	    	let userId = req.params.userId;
 
-			let updateData = confUserModel.updateCurrentSessionType(userId, confId, req.body.state);
+			let updateData = await confUserModel.updateCurrentSessionType(userId, confId, req.body.state);
 			res.status(200).send(updateData);
 				
 	    } catch(exception) {
@@ -47,9 +47,32 @@ class ConferenceCtrl {
 	    	let confId = req.params.confId;
 	    	let userId = req.params.userId;
 	    	let streamId = req.body.streamId;
+	    	let userType = req.body.userType;
+
+	    	confId = '5d39850a71adb09e6afa6806';
+	    	// if(confId == '2222')
+	    	// 	confId = '5d39850a71adb09e6afa6806';
 
 			// console.log(token);
-			let updateData = confUserModel.updateConferenceUser(userId, confId, {streamId : streamId});
+			let updateData = await confUserModel.updateConferenceUser(userId, confId, {streamId : streamId, type: userType});
+			res.status(200).send(updateData);
+				
+	    } catch(exception) {
+			res.status(500).send(exception)
+	    }
+	}
+
+	async getStreamUser(req, res) {
+		try {
+	    	let confId = req.params.confId;
+	    	let streamId = req.params.streamId;
+
+	    	confId = '5d39850a71adb09e6afa6806';
+	    	// if(confId == '2222')
+	    	// 	confId = '5d39850a71adb09e6afa6806';
+
+			console.log('req.params = ',req.params, {streamId : streamId, confId: confId});
+			let updateData = await confUserModel.getOne({streamId : streamId, confId: confId});
 			res.status(200).send(updateData);
 				
 	    } catch(exception) {

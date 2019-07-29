@@ -9,5 +9,6 @@ route
   .get('/:confId/users', auth.verifyToken, ConferenceCtrl.getConferenceUsers)
   .put('/:confId/:userId', auth.verifyToken, ConferenceCtrl.updateCurrentUserSession)
   .put('/:confId/:userId/stream-id', auth.verifyToken, ConferenceCtrl.updateUserStream)
+  .get('/:confId/:streamId/stream-id', auth.verifyToken, ConferenceCtrl.getStreamUser)
 
 module.exports = route;

@@ -31,7 +31,12 @@
 /* 2. Reset CSS */
 body{
 	background:#000;
-	padding: 20px;
+	padding: 0px;
+	    position: relative;
+}
+.container{
+	width:98% !important;
+	max-width:98% !important;
 }
 .border-right {
     border-right: 1px solid #9b51e0 !important;
@@ -122,6 +127,15 @@ h3.main-heading span{
     font-size: 24px;
     color: #D8D8D8;
 }
+.second-heading{
+	font-family: Avenir-Heavy;
+	font-size: 30px;
+    color: #fff;
+	margin: 0;
+}
+.zindex-5{
+	z-index:5;
+}
 
 
 /* 3. Header */
@@ -134,6 +148,8 @@ h3.main-heading span{
     width: 100%;
     height: auto;
     padding: 10px;
+	position: relative;
+    z-index: 3;
 }
 
 
@@ -215,7 +231,13 @@ h3.main-heading span{
 	bottom:5px;
 	left:10px;
 }
-.video-holder .att-details .icon1{
+.vid-icons{
+	position: absolute;
+    right: 10px;
+    bottom: 12px;
+}
+.video-holder .att-details .icon1, 
+.attendee-list .icon1{
     background: #fff url(../images/icon1.png);
     width: 22px;
     height: 22px;
@@ -223,14 +245,12 @@ h3.main-heading span{
     background-repeat: no-repeat;
     background-position: center;
     border-radius: 20px;
-    position: absolute;
-    right: 10px;
-    bottom: 12px;
     padding: 2px;
     float: left;
 	cursor:pointer;
 }
-.video-holder .att-details .icon2{
+.video-holder .att-details .icon2, 
+.attendee-list .icon2{
 	background: #fff url(../images/icon2.png);
     width: 22px;
     height: 22px;
@@ -238,11 +258,9 @@ h3.main-heading span{
     background-repeat: no-repeat;
     background-position: center;
     border-radius: 20px;
-    position: absolute;
-    right: 40px;
-    bottom: 12px;
     padding: 2px;
     float: left;
+	    margin-left: 3px;
 	cursor:pointer;
 }
 
@@ -303,7 +321,7 @@ h3.main-heading span{
 
 
 /* ---------Attendees Screen------------------- */
-.trp-gray{
+.transparent-gray{
     background: rgba(62,62,62,0.5);
     position: relative;
     z-index: 3;
@@ -311,6 +329,12 @@ h3.main-heading span{
     width: 100%;
     height: auto;
     padding: 20px 15px;
+	    float: left;
+}
+.slide-right-left{
+	-webkit-transition: width 700ms; 
+  transition: width 700ms;
+  padding: 20px 8px;
 }
 .v-logo img{
 	width: 28px;
@@ -320,6 +344,9 @@ h3.main-heading span{
 	width: 100%;
     left: 0;
     top: 0;
+	    object-fit: fill;
+    height: 100vh;
+    min-height: 100%;
 }
 .overlay:before{
 	content: '';
@@ -329,10 +356,125 @@ h3.main-heading span{
     position: absolute;
     top: 0;
     left: 0;
+	z-index: 1;
 }
 .default-btns .btn img{
 	width:20px;
 }
+
+
+/* right-sidebar */
+.right-sidebar{
+	
+}
+.show-everyone{
+	display:none;
+}
+.right-sidebar .title{
+	font-family: Avenir-Black;
+    font-size: 18px;
+    color: #fff;
+    font-weight: normal;
+    margin: 0;
+}
+.right-sidebar .title span {
+    font-family: Avenir-Book;
+}
+.joined-attendees{
+	    float: left;
+    width: 100%;
+    margin-bottom: 15px;
+}
+.attendee-list{
+	    background: #000;
+    border-radius: 10px;
+    padding: 5px;
+	    float: left;
+    width: 100%;
+    margin: 1px 0;
+	position:relative;
+}
+.attendee-list>img{
+	    float: left;
+    width: 46px;
+    margin-right: 10px;
+}
+.attendee-list>span{
+	    color: #fff;
+    font-family: Avenir-Medium;
+    font-size: 16px;
+    width: auto;
+    float: left;
+	-webkit-transition: display 700ms; 
+  transition: display 700ms;
+}
+.attendee-list>span .fa{
+	    font-size: 16px;
+}
+.attendee-list>span>span{
+	float: left;
+    width: 100%;
+    font-family: Avenir-Heavy;
+    color: #9A9A9A;
+    font-size: 14px;
+}
+
+
+
+
+
+/* footer */
+.footer{
+	position:relative;
+}
+.bottom-links li a{
+	color: #fff;
+    text-decoration: none;
+    font-family: Avenir-Heavy;
+    font-size: 16px;
+}
+.self-video{
+    max-width: 100%;
+}
+.self-video video{
+	width: 100%;
+    border-radius: 10px;
+}
+.self-video1{
+	position:absolute;
+	bottom:0;
+	right:8px;
+	max-width:240px;
+	display:none;
+}
+.self-video1 video{
+	width: 100%;
+    border-radius: 10px;
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* DEV CSS */
+.video-streams video {position: relative !important;}
+
+
+
+
+
+
 
 
 

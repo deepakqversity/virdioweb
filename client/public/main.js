@@ -1,7 +1,7 @@
 if(!AgoraRTC.checkSystemRequirements()) {
     alert("Your browser does not support WebRTC!");
   }
-
+var apiurl = 'http://192.168.1.131:8001';
   /* select Log type */
   // AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.NONE);
   // AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.ERROR);
@@ -74,9 +74,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
             camera = _videoSource;
             microphone = _audioSource;
             
-            localStream = AgoraRTC.createStream({streamID: uid, audio: true, cameraId: camera, microphoneId: microphone, video: sessionState, screen: false, sid : "6" });
-            //localStream = AgoraRTC.createStream({streamID: uid, audio: false, cameraId: camera, microphoneId: microphone, video: false, screen: true, extensionId: 'minllpmhdgpndnkomcoccfekfegnlikg'});
-            localStream.setUserId('88');
+            localStream = AgoraRTC.createStream({streamID: uid, audio: true, cameraId: camera, microphoneId: microphone, video: sessionState, screen: false, attributes : { name : "deepak", type : 1} });
+            // localStream = AgoraRTC.createStream({streamID: uid, audio: false, cameraId: camera, microphoneId: microphone, video: false, screen: true, extensionId: 'minllpmhdgpndnkomcoccfekfegnlikg'});
+            localStream.setUserId("999");
             if (sessionState) {
               localStream.setVideoProfile('720p_3');
 
@@ -96,13 +96,45 @@ if(!AgoraRTC.checkSystemRequirements()) {
               console.log("getUserMedia successfully");
               localStream.play('agora_local');
 
-              client.publish(localStream, function (err) {
-                console.log("Publish local stream error: " + err);
+              
+              // client.publish(localStream, function (err) {
+              //   console.log("Publish local stream error: " + err);
+              // });
+
+              // client.on('stream-published', function (evt) {
+              //   console.log("Publish local stream successfully");
+              //   console.log('localStream ==========================*******************', localStream)
+              //   console.log('client ------------', client)
+              // });
+              
+              $.ajax({
+                  headers: { 
+                      "Content-Type": "application/json; charset=utf-8",
+                      "Authorization": storeData.token
+                  },
+                  url: apiurl+'/api/v1/conference/'+channelName+'/'+storeData.id+'/stream-id',
+                  dataType: 'json',
+                  type: 'PUT',
+                  contentType: 'application/json',
+                  data: JSON.stringify({ "streamId": uid, "userType": storeData.userType }),
+                  success: function( data, textStatus, jQxhr ){
+                      
+                      client.publish(localStream, function (err) {
+                        console.log("Publish local stream error: " + err);
+                      });
+
+                      client.on('stream-published', function (evt) {
+                        console.log("Publish local stream successfully");
+                        console.log('localStream ==========================*******************', localStream)
+                        console.log('client ------------', client)
+                      });
+                  },
+                  error: function( jqXhr, textStatus, errorThrown ){
+                      console.log( errorThrown );
+                  }
               });
 
-              client.on('stream-published', function (evt) {
-                console.log("Publish local stream successfully");
-              });
+
             }, function (err) {
               console.log("getUserMedia failed", err);
             });
@@ -132,6 +164,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
     client.on('stream-added', function (evt) {
       var stream = evt.stream;
+      console.log("New stream user id added:=========== " + stream.getUserId());
       console.log("New stream added:=========== " + stream.getId());
       console.log("Subscribe ", stream);
       
@@ -155,18 +188,61 @@ if(!AgoraRTC.checkSystemRequirements()) {
     // });
 
     client.on('stream-subscribed', function (evt) {
+
+      var channelName = localStorage.getItem("channel");
+      var storageData = localStorage.getItem("jwtToken");
+      var storeData = JSON.parse(storageData);
+
       var stream = evt.stream;
-      console.log("Subscribe remote stream successfully:********** " , stream.getUserId());
       console.log("Subscribe remote stream successfully:********** " , stream);
-      if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
-        
-        // $('div#video .col-md-10').append('<div class="subscribers-list col-md-4 col-xs-6" id="agora_remote'+stream.getId()+'"><div style="position:relative;"><a class="mute-unmute" data-id="'+stream.getId()+'</div><div style="width:100%; height:100%; float:left;" id="agora_remote_vdo'+stream.getId()+'"></div></div>');
+      if(storeData.userType == 1) {
 
-        $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div> <a href="#" class="mute-icon position-absolute mute-unmute" data-id="'+stream.getId()+'"><i class="fa fa-volume-off" aria-hidden="true"></i></a><span class="hand-icon position-absolute" data-toggle="modal" data-target="#hand-raise"></span><div class="att-details"> <span class="att-name">James K, TX</span><span class="icon1"></span></div></div></div>');
+        // console.log("Subscribe remote stream successfully:********** " , stream.getUserId());
+        if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
+          
+          // $('div#video .col-md-10').append('<div class="subscribers-list col-md-4 col-xs-6" id="agora_remote'+stream.getId()+'"><div style="position:relative;"><a class="mute-unmute" data-id="'+stream.getId()+'</div><div style="width:100%; height:100%; float:left;" id="agora_remote_vdo'+stream.getId()+'"></div></div>');
+
+          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div> <a href="#" class="mute-icon position-absolute mute-unmute" data-id="'+stream.getId()+'"><i class="fa fa-volume-off" aria-hidden="true"></i></a><span class="hand-icon position-absolute" data-toggle="modal" data-target="#hand-raise"></span><div class="att-details"> <span class="att-name">James K, TX</span><span class="icon1"></span></div></div></div>');
+        }
+        stream.play('agora_remote_vdo' + stream.getId());
+
+        checkMuteUnmute(stream.getId());
+      } else {
+        if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
+          $.ajax({
+              headers: { 
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Authorization": storeData.token
+              },
+              url: apiurl + '/api/v1/conference/'+channelName+'/'+stream.getId()+'/stream-id',
+              dataType: 'json',
+              type: 'GET',
+              success: function( data, textStatus, jQxhr ){
+                  
+                  let respData = data;
+                  if(respData.status){
+                    if(respData.type == 1){
+
+                      // console.log("Subscribe remote stream successfully:********** " , stream.getUserId());
+                      if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
+                        
+                        // $('div#video .col-md-10').append('<div class="subscribers-list col-md-4 col-xs-6" id="agora_remote'+stream.getId()+'"><div style="position:relative;"><a class="mute-unmute" data-id="'+stream.getId()+'</div><div style="width:100%; height:100%; float:left;" id="agora_remote_vdo'+stream.getId()+'"></div></div>');
+
+                        $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div> <a href="#" class="mute-icon position-absolute mute-unmute" data-id="'+stream.getId()+'"><i class="fa fa-volume-off" aria-hidden="true"></i></a><span class="hand-icon position-absolute" data-toggle="modal" data-target="#hand-raise"></span><div class="att-details"> <span class="att-name">James K, TX</span><span class="icon1"></span></div></div></div>');
+                      }
+                      stream.play('agora_remote_vdo' + stream.getId());
+
+                      checkMuteUnmute(stream.getId());
+                    }
+                  }
+                  
+              },
+              error: function( jqXhr, textStatus, errorThrown ){
+                  console.log( errorThrown );
+              }
+          });
+        }
       }
-      stream.play('agora_remote_vdo' + stream.getId());
-
-      checkMuteUnmute(stream.getId());
     });
     
 

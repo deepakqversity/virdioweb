@@ -9,8 +9,9 @@ class ConferenceCtrl {
 
 	async getChannel(req, res) {
 	    try {
-	    	console.log(req.currentUser)
-			let userObj = await userModel.getUser({_id : req.currentUser._id});
+	    	console.log(req.currentUser._id)
+			let userObj = await confModel.get({userId : req.currentUser._id});
+	    	console.log(userObj)
 			res.status(200).send(userObj);
 				
 	    } catch(exception) {
@@ -21,7 +22,7 @@ class ConferenceCtrl {
 	async getConferenceUsers(req, res) {
 	    try {
 	    	console.log(req.currentUser)
-			let userObj = await userModel.getUser({_id : req.currentUser._id});
+			let userObj = await confModel.get({userId : req.currentUser._id});
 			res.status(200).send(userObj);
 				
 	    } catch(exception) {

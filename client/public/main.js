@@ -1,7 +1,7 @@
 if(!AgoraRTC.checkSystemRequirements()) {
     alert("Your browser does not support WebRTC!");
   }
-var apiurl = 'http://192.168.1.131:8001';
+
   /* select Log type */
   // AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.NONE);
   // AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.ERROR);
@@ -34,7 +34,7 @@ var apiurl = 'http://192.168.1.131:8001';
     
     var channel_key = null;
     var appId = '748f9639fa864651bef8419d5870ec50';// provided by arjun 
-    var appId = '232f270a5aeb4e0097d8b5ceb8c24ab3';
+    // var appId = '232f270a5aeb4e0097d8b5ceb8c24ab3';
     
     console.log("Init AgoraRTC client with App ID: " + appId);
     
@@ -113,7 +113,7 @@ var apiurl = 'http://192.168.1.131:8001';
                       "Content-Type": "application/json; charset=utf-8",
                       "Authorization": storeData.token
                   },
-                  url: apiurl+'/api/v1/conference/'+channelName+'/'+storeData.id+'/stream-id',
+                  url: '/api/v1/conference/'+channelName+'/'+storeData.id+'/stream-id',
                   dataType: 'json',
                   type: 'PUT',
                   contentType: 'application/json',
@@ -215,7 +215,7 @@ var apiurl = 'http://192.168.1.131:8001';
                   "Content-Type": "application/json; charset=utf-8",
                   "Authorization": storeData.token
               },
-              url: apiurl + '/api/v1/conference/'+channelName+'/'+stream.getId()+'/stream-id',
+              url: '/api/v1/conference/'+channelName+'/'+stream.getId()+'/stream-id',
               dataType: 'json',
               type: 'GET',
               success: function( data, textStatus, jQxhr ){

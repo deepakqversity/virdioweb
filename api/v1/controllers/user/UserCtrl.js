@@ -22,7 +22,7 @@ class UserCtrl {
 
 	async login(req, res) {
 	    try {
-	    	let userObj = await userModel.getUser({name : req.body.name});
+	    	let userObj = await userModel.getUser({name : req.body.name });
 	    	
 			if(!isEmpty(userObj) && req.body.name == userObj.name){
 				const token = await auth.createToken(userObj._id);

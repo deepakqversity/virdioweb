@@ -87,7 +87,7 @@ export const joinConf = (channel) => dispatch => {
   if(localstoragedata.userType == 1){
     window.location.href  = '/host'; // push user to dashboard when they login
    }else{
-    window.location.href  = '/dashboard';
+    window.location.href  = '/guest';
     //this.props.history.push("/dashboard");
    }
 };

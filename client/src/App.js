@@ -20,6 +20,7 @@ import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
 import Home from "./components/home/Home";
 import Host from "./components/home/Host";
+import Guest from "./components/home/Guest";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -54,6 +55,7 @@ class App extends Component {
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute exact path="/home" component={Home} />
               <PrivateRoute exact path="/host" component={Host} />
+              <PrivateRoute exact path="/guest" component={Guest} />
             </Switch>
       </div>
       </Router>

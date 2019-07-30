@@ -1,4 +1,5 @@
 .video-streams video {position: relative !important;}
+.video-streams > div{ background-color: transparent!important; }
 
 
 

@@ -340,13 +340,16 @@ h3.main-heading span{
 	width: 28px;
 }
 .fix-host{
-	position:absolute;
+	position:absolute !important;
 	width: 100%;
     left: 0;
     top: 0;
 	    object-fit: fill;
-    height: 100vh;
+    height: 100%;
     min-height: 100%;
+}
+.fix-host div{
+    height: 100%;
 }
 .overlay:before{
 	content: '';

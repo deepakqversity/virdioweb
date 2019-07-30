@@ -33,6 +33,7 @@ var apiurl = 'http://192.168.1.131:8001';
     // document.getElementById("video").disabled = true;
     
     var channel_key = null;
+    var appId = '748f9639fa864651bef8419d5870ec50';// provided by arjun 
     var appId = '232f270a5aeb4e0097d8b5ceb8c24ab3';
     
     console.log("Init AgoraRTC client with App ID: " + appId);
@@ -202,13 +203,13 @@ var apiurl = 'http://192.168.1.131:8001';
           
           // $('div#video .col-md-10').append('<div class="subscribers-list col-md-4 col-xs-6" id="agora_remote'+stream.getId()+'"><div style="position:relative;"><a class="mute-unmute" data-id="'+stream.getId()+'</div><div style="width:100%; height:100%; float:left;" id="agora_remote_vdo'+stream.getId()+'"></div></div>');
 
-          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div> <a href="#" class="mute-icon position-absolute mute-unmute" data-id="'+stream.getId()+'"><i class="fa fa-volume-off" aria-hidden="true"></i></a><span class="hand-icon position-absolute" data-toggle="modal" data-target="#hand-raise"></span><div class="att-details"> <span class="att-name">James K, TX</span><span class="icon1"></span></div></div></div>');
+          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div> <a href="javascript:;" class="mute-icon position-absolute mute-unmute" data-id="'+stream.getId()+'"><i class="fa fa-volume-off" aria-hidden="true"></i></a><span class="hand-icon position-absolute" data-toggle="modal" data-target="#hand-raise"></span><div class="att-details"> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1"></span></div></div></div></div>');
         }
         stream.play('agora_remote_vdo' + stream.getId());
 
         checkMuteUnmute(stream.getId());
       } else {
-        if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
+        if ($('#agora_host #agora_remote'+stream.getId()).length === 0) {
           $.ajax({
               headers: { 
                   "Content-Type": "application/json; charset=utf-8",
@@ -224,11 +225,11 @@ var apiurl = 'http://192.168.1.131:8001';
                     if(respData.type == 1){
 
                       // console.log("Subscribe remote stream successfully:********** " , stream.getUserId());
-                      if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
+                      if ($('#agora_host #agora_remote'+stream.getId()).length === 0) {
                         
                         // $('div#video .col-md-10').append('<div class="subscribers-list col-md-4 col-xs-6" id="agora_remote'+stream.getId()+'"><div style="position:relative;"><a class="mute-unmute" data-id="'+stream.getId()+'</div><div style="width:100%; height:100%; float:left;" id="agora_remote_vdo'+stream.getId()+'"></div></div>');
 
-                        $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div> <a href="#" class="mute-icon position-absolute mute-unmute" data-id="'+stream.getId()+'"><i class="fa fa-volume-off" aria-hidden="true"></i></a><span class="hand-icon position-absolute" data-toggle="modal" data-target="#hand-raise"></span><div class="att-details"> <span class="att-name">James K, TX</span><span class="icon1"></span></div></div></div>');
+                        $('#agora_host').append('<div id="agora_remote'+stream.getId()+'"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div></div>');
                       }
                       stream.play('agora_remote_vdo' + stream.getId());
 
@@ -420,6 +421,20 @@ var apiurl = 'http://192.168.1.131:8001';
     $(document).on('click', '#unpublish', function(){
       unpublish();
     })
+
+    // attendy
+    $(".minimize-others").click(function(){
+        $(".slide-right-left").css({"width": "72px", "float": "right"});
+        $(".minimize-others").attr("style", "display: none !important");
+        $(".slide-right-left .self-video, .slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").hide();
+        $(".show-everyone, .self-video1").show();
+      })
+      $(".show-everyone").click(function(){
+        $(".slide-right-left").css({"width": "100%", "float": "right"});
+        $(".minimize-others").attr("style", "display: block !important");
+        $(".slide-right-left .self-video, .slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").show();
+        $(".show-everyone, .self-video1").hide();
+      })
 
   });
 

@@ -45,8 +45,10 @@ return (
               </div>
             </div>
             <div className="col col-md-3 justify-content-end d-flex align-items-center">
-              <div className="border-right pr-20">  <a href="#" className="btn btn-primary " tabIndex="1">details</a>
-              </div>
+              
+              
+              <a className="btn btn-primary border-right pr-20" href="javascript:;" tabIndex="1">details</a>
+              <button className="btn btn-primary border-right pr-20 px-4 ml-2" onClick={this.onLogoutClick} tabIndex="1"><i className="fa fa-power-off"></i></button>
               <img src="images/voice-commands.png" className="mic-icon" />
             </div>
           </div>

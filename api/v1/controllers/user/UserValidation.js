@@ -16,11 +16,11 @@ class UserValidation {
 			errors.name = "Name field is required";
 		}
 		// Email checks
-		if (!data.email || Validator.isEmpty(data.email)) {
-			errors.email = "Email field is required";
-		} else if (!Validator.isEmail(data.email)) {
-			errors.email = "Email is invalid";
-		}
+		// if (!data.email || Validator.isEmpty(data.email)) {
+		// 	errors.email = "Email field is required";
+		// } else if (!Validator.isEmail(data.email)) {
+		// 	errors.email = "Email is invalid";
+		// }
 
 		if(true != isEmpty(errors)){
 			res.status(400).json(errors);

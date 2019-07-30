@@ -32,19 +32,19 @@ return (
     <header className="header bg-gray mt-3">
       <div className="row d-block d-md-flex align-items-center">
         <div className="col-12 col-md-1">
-          <a href="#" className="logo">
+          <a href="#" className="logo d-table mx-auto py-xs-1">
             <img src="images/logo.png" />
           </a>
         </div>
         <div className="col col-md-11">
           <h3 className="main-heading">A long title that can come here <span>by host name</span></h3>
           <div className="row justify-content-between align-items-center mt-2">
-            <div className="col col-md-7">
-              <div className="time">  <span>04/23/2019, at 12:00 PM</span>
+            <div className="col-12 col-sm-7">
+              <div className="time py-xs-1">  <span>04/23/2019, at 12:00 PM</span>
                 <span>Time Remaining: 01:10:00</span>
               </div>
             </div>
-            <div className="col col-md-3 justify-content-end d-flex align-items-center">
+            <div className="col-12 col-sm-3 justify-content-end d-flex align-items-center">
               <a className="btn btn-primary border-right pr-20" href="javascript:;" tabIndex="1">details</a>
               <button className="btn btn-primary border-right pr-20 px-4 ml-2" onClick={this.onLogoutClick} tabIndex="1"><i className="fa fa-power-off"></i></button>
               <img src="images/voice-commands.png" className="mic-icon mr-2" />
@@ -54,7 +54,7 @@ return (
       </div>
     </header>
     <section className="bg-gray mt-2 p-3 rounded section attendees">
-      <div className="row px-3 pb-2 pt-0 justify-content-between align-items-center">
+      <div className="row px-0 px-sm-3 pb-2 pt-0 justify-content-between align-items-center">
         <div className="col-6 col-md-6">
           <h4 className="title">Wine Testers <span>(24/44)</span></h4>
         </div>

@@ -166,7 +166,7 @@ h3.main-heading span{
 }
 .second-heading{
 	font-family: Avenir-Heavy;
-	font-size: 30px;
+	font-size: 25px;
     color: #fff;
 	margin: 0;
 }
@@ -177,6 +177,10 @@ h3.main-heading span{
 	.mx-xs-auto{
 		margin-left:auto !important;
 		margin-right:auto !important;
+	}
+	.py-xs-1{
+		padding-top:10px !important;
+		padding-bottom:10px !important;
 	}
 }
 
@@ -367,7 +371,9 @@ h3.main-heading span{
     max-width: 132px;
 }
 .item-description .list-info li span:last-child{
-	float: left;
+	width: 100%;
+    float: left;
+    max-width: 160px;
 }
 .item-description .item-text{
 	color: #fff;
@@ -441,7 +447,7 @@ h3.main-heading span{
 }
 .right-sidebar .title{
 	font-family: 'Avenir-Black';
-    font-size: 18px;
+    font-size: 16px;
     color: #fff;
     font-weight: normal;
     margin: 0;
@@ -455,37 +461,37 @@ h3.main-heading span{
     margin-bottom: 15px;
 }
 .attendee-list{
-	    background: #000;
+	background: #000;
     border-radius: 10px;
     padding: 5px;
-	    float: left;
+	float: left;
     width: 100%;
     margin: 1px 0;
 	position:relative;
 }
 .attendee-list>img{
-	    float: left;
+	float: left;
     width: 46px;
     margin-right: 10px;
 }
 .attendee-list>span{
-	    color: #fff;
+	color: #fff;
     font-family: Avenir-Medium;
-    font-size: 16px;
+    font-size: 14px;
     width: auto;
     float: left;
 	-webkit-transition: display 700ms; 
   transition: display 700ms;
 }
 .attendee-list>span .fa{
-	    font-size: 16px;
+	font-size: 14px;
 }
 .attendee-list>span>span{
 	float: left;
     width: 100%;
     font-family: Avenir-Heavy;
     color: #9A9A9A;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 
@@ -500,7 +506,7 @@ h3.main-heading span{
 	color: #fff;
     text-decoration: none;
     font-family: Avenir-Heavy;
-    font-size: 16px;
+    font-size: 14px;
 }
 .self-video{
     max-width: 100%;

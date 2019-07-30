@@ -11,20 +11,55 @@
 
 /* 1. Fonts */
 @font-face {
-  font-family: Avenir-Black;
-  src: url('../fonts/Avenir-Black.ttf')  format('truetype');
+	font-family: "Avenir-Black";
+  src: url("../fonts/Avenir-Black.eot"); /* IE9 Compat Modes */
+  src: url("../fonts/Avenir-Black.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("../fonts/Avenir-Black.otf") format("opentype"), /* Open Type Font */
+    url("../fonts/Avenir-Black.svg") format("svg"), /* Legacy iOS */
+    url("../fonts/Avenir-Black.ttf") format("truetype"), /* Safari, Android, iOS */
+    url("../fonts/Avenir-Black.woff") format("woff"), /* Modern Browsers */
+    url("../fonts/Avenir-Black.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Avenir-Book";
+  src: url("../fonts/Avenir-Book.eot"); /* IE9 Compat Modes */
+  src: url("../fonts/Avenir-Book.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("../fonts/Avenir-Book.otf") format("opentype"), /* Open Type Font */
+    url("../fonts/Avenir-Book.svg") format("svg"), /* Legacy iOS */
+    url("../fonts/Avenir-Book.ttf") format("truetype"), /* Safari, Android, iOS */
+    url("../fonts/Avenir-Book.woff") format("woff"), /* Modern Browsers */
+    url("../fonts/Avenir-Book.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
 }
 @font-face {
-  font-family: Avenir-Book;
-  src: url('../fonts/Avenir-Book.ttf')  format('truetype');
+  font-family: "Avenir-Medium";
+  src: url("../fonts/Avenir-Medium.eot"); /* IE9 Compat Modes */
+  src: url("../fonts/Avenir-Medium.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("../fonts/Avenir-Medium.otf") format("opentype"), /* Open Type Font */
+    url("../fonts/Avenir-Medium.svg") format("svg"), /* Legacy iOS */
+    url("../fonts/Avenir-Medium.ttf") format("truetype"), /* Safari, Android, iOS */
+    url("../fonts/Avenir-Medium-webfont.woff") format("woff"), /* Modern Browsers */
+    url("../fonts/Avenir-Medium.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
 }
+
+
 @font-face {
-  font-family: Avenir-Medium;
-  src: url('../fonts/Avenir-Medium.ttf')  format('truetype');
-}
-@font-face {
-  font-family: Avenir-Heavy;
-  src: url('../fonts/Avenir-Heavy.ttf')  format('truetype');
+  font-family: "Avenir-Heavy";
+  src: url("../fonts/Avenir-Heavy.eot"); /* IE9 Compat Modes */
+  src: url("../fonts/Avenir-Heavy.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("../fonts/Avenir-Heavy.otf") format("opentype"), /* Open Type Font */
+    url("../fonts/Avenir-Heavy.svg") format("svg"), /* Legacy iOS */
+    url("../fonts/Avenir-Heavy.ttf") format("truetype"), /* Safari, Android, iOS */
+    url("../fonts/Avenir-Heavy.woff") format("woff"), /* Modern Browsers */
+    url("../fonts/Avenir-Heavy.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
 }
 
 
@@ -34,6 +69,7 @@ body{
 	padding: 0px;
 	    position: relative;
 }
+
 .container{
 	width:98% !important;
 	max-width:98% !important;
@@ -52,7 +88,7 @@ body{
     background-color: #9b51e0 !important;
 	border-color: #9b51e0 !important;
 	font-family: Avenir-Book;
-    font-size: 16px;
+    font-size: 14px;
 	border-radius: 50px;
 	padding:7px 20px;
 }
@@ -79,7 +115,8 @@ a.bg-primary:hover, a.bg-primary:focus, button.bg-primary:hover, button.bg-prima
     color: #fff;
     border-color: #9b51e0;
     font-family: Avenir-Black;
-    font-size: 16px;
+    letter-spacing: 0.3px;
+    font-size: 14px;
     border-radius: 50px;
 }
 .btn-outline-secondary:hover {
@@ -117,14 +154,14 @@ a.bg-primary:hover, a.bg-primary:focus, button.bg-primary:hover, button.bg-prima
     padding-right: 4px;
 }
 h3.main-heading{
-	font-family: Avenir-Black;
-	font-size: 30px;
+	font-family: 'Avenir-Black';
+	font-size: 25px;
     color: #fff;
 	margin: 0;
 }
 h3.main-heading span{
     font-family: Avenir-Book;
-    font-size: 24px;
+    font-size: 20px;
     color: #D8D8D8;
 }
 .second-heading{
@@ -135,6 +172,12 @@ h3.main-heading span{
 }
 .zindex-5{
 	z-index:5;
+}
+@media (max-width:768px){
+	.mx-xs-auto{
+		margin-left:auto !important;
+		margin-right:auto !important;
+	}
 }
 
 
@@ -156,7 +199,7 @@ h3.main-heading span{
 .time span{
 	color:#fff;
 	font-family: Avenir-Medium;
-	font-size: 18px;
+	font-size: 16px;
 }
 .time span:nth-child(1){
 	border-right: 1px solid #9b51e0;
@@ -165,16 +208,29 @@ h3.main-heading span{
 .time span:nth-child(2){
 	padding-left: 20px;
 }
+@media (max-width:900px){
+.time span{
+    width: 100%;
+    display: block;
+}
+.time span:nth-child(1){
+	border-right: 0;
+    padding-right: 0px;
+}
+.time span:nth-child(2){
+	padding-left: 0px;
+}
+}
 .mic-icon{
-	width:28px;
+	width:24px;
 	    margin-left: 20px;
 }
 
 
 /* 4. Attendees Section */
 .section.attendees .title{
-    font-family: Avenir-Black;
-    font-size: 18px;
+    font-family: 'Avenir-Black';
+    font-size: 16px;
     color: #fff;
     font-weight: normal;
     margin: 0;
@@ -224,12 +280,12 @@ h3.main-heading span{
 	    border-radius: 0 0 7px 7px;
 }
 .video-holder .att-name{
-	font-family: Avenir-Heavy;
+    font-family: Avenir-Heavy;
     color: #000;
-    font-size: 20px;
-	position:absolute;
-	bottom:5px;
-	left:10px;
+    font-size: 17px;
+    position: absolute;
+    bottom: 10px;
+    left: 15px;
 }
 .vid-icons{
 	position: absolute;
@@ -271,8 +327,8 @@ h3.main-heading span{
     border-radius: 10px;
 }
 .host-header>img{
-	width: 30px;
-    margin: 0 10px;
+	width: 25px;
+    margin: 0 15px;
 	cursor: pointer;
 }
 
@@ -285,7 +341,7 @@ h3.main-heading span{
 /* 6. Item Description Section */
 .item-name{
 	font-family: Avenir-Book;
-	font-size:24px;
+	font-size:20px;
 	color:#fff;
 	margin:0;
 }
@@ -295,29 +351,39 @@ h3.main-heading span{
 .item-description .list-info li{
     color: #fff;
     display: block;
-    font-size: 16px;
+    font-size: 14px;
     font-family: Avenir-Book;
     overflow: hidden;
     float: left;
     width: 100%;
 	margin: 2px 0;
 }
+
 .item-description .list-info li span:first-child{
 	font-family: Avenir-Heavy;
     float: left;
     text-align: left;
+	width: 100%;
+    max-width: 132px;
 }
 .item-description .list-info li span:last-child{
-	float: right;
+	float: left;
 }
 .item-description .item-text{
 	color: #fff;
     display: block;
-    font-size: 16px;
+    font-size: 14px;
     font-family: Avenir-Book;
 	margin-bottom: 0;
 }
-
+@media (max-width:480px){
+	.item-description .list-info li span:last-child{
+		float: left;
+	}
+	.second-heading{
+		font-size: 20px;
+	}
+}
 
 
 /* ---------Attendees Screen------------------- */
@@ -374,7 +440,7 @@ h3.main-heading span{
 	display:none;
 }
 .right-sidebar .title{
-	font-family: Avenir-Black;
+	font-family: 'Avenir-Black';
     font-size: 18px;
     color: #fff;
     font-weight: normal;

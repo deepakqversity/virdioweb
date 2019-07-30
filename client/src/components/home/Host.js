@@ -29,7 +29,7 @@ render() {
 
 return (
     <div className="container">
-    <header className="header bg-gray">
+    <header className="header bg-gray mt-3">
       <div className="row d-block d-md-flex align-items-center">
         <div className="col-12 col-md-1">
           <a href="#" className="logo">
@@ -38,25 +38,23 @@ return (
         </div>
         <div className="col col-md-11">
           <h3 className="main-heading">A long title that can come here <span>by host name</span></h3>
-          <div className="row justify-content-between align-items-center">
+          <div className="row justify-content-between align-items-center mt-2">
             <div className="col col-md-7">
               <div className="time">  <span>04/23/2019, at 12:00 PM</span>
                 <span>Time Remaining: 01:10:00</span>
               </div>
             </div>
             <div className="col col-md-3 justify-content-end d-flex align-items-center">
-              
-              
               <a className="btn btn-primary border-right pr-20" href="javascript:;" tabIndex="1">details</a>
               <button className="btn btn-primary border-right pr-20 px-4 ml-2" onClick={this.onLogoutClick} tabIndex="1"><i className="fa fa-power-off"></i></button>
-              <img src="images/voice-commands.png" className="mic-icon" />
+              <img src="images/voice-commands.png" className="mic-icon mr-2" />
             </div>
           </div>
         </div>
       </div>
     </header>
     <section className="bg-gray mt-2 p-3 rounded section attendees">
-      <div className="row px-3 py-2 justify-content-between align-items-center">
+      <div className="row px-3 pb-2 pt-0 justify-content-between align-items-center">
         <div className="col-6 col-md-6">
           <h4 className="title">Wine Testers <span>(24/44)</span></h4>
         </div>
@@ -69,8 +67,8 @@ return (
 
     </section>
     <div className="row four-gutters">
-      <div className="col-12 col-md-12 mt-2 col-lg-5 host-section">
-        <div className="bg-gray  p-3 rounded overflow-hidden h-100">
+      <div className="col-12 col-md-12 mt-2 col-lg-4 host-section">
+        <div className="bg-gray  px-3 pt-3 pb-2 rounded overflow-hidden h-100">
           <div className="d-flex justify-content-between align-items-center mb-3">
             <h3 className="main-heading float-left">Streaming</h3>
             <div className="host-header">
@@ -78,19 +76,19 @@ return (
               <img src="images/music-icon.png" className="music-icon" id="bg-music" />
               <img src="images/video-icon.png" className="video-icon d-none" id="publish" />
               <img src="images/video-close.png" className="video-icon" id="unpublish" />
-              <img src="images/circle.png" className="circle-icon" id="record-stream" />
+              <img src="images/circle.png" className="circle-icon mr-0" id="record-stream" />
             </div>
           </div>
           <div id="agora_local" className="video-streams"></div>
         </div>
       </div>
         
-      <div className="col-12 col-md-12 mt-2 col-lg-7">
+      <div className="col-12 col-md-12 mt-2 col-lg-8">
         <div className="bg-gray  p-3 rounded overflow-hidden h-100">
           <div className="d-md-flex justify-content-between align-items-center mb-3">
-            <h3 className="main-heading">Testing Script <span>1/4 wines</span></h3>
-            <div className="col-12 mt-3 mt-md-0 col-md-4 d-md-flex justify-content-between align-items-center">
-              <button type="button" className="btn btn-outline-secondary">"Show Script"</button>
+            <h3 className="main-heading">Testing Script <span className="ml-md-4">1/4 wines</span></h3>
+            <div className=" mt-3 mt-md-0 d-md-flex justify-content-between align-items-center">
+              <button type="button" className="btn btn-outline-secondary mr-4">"Show Script"</button>
               <img src="images/next-icon.png" className="next-btn" />
             </div>
           </div>

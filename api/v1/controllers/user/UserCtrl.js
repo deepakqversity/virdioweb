@@ -22,9 +22,9 @@ class UserCtrl {
 
 	async login(req, res) {
 	    try {
-	    	let userObj = await userModel.getUser({name : req.body.name });
+	    	let userObj = await userModel.getUser({"name" : { $regex: new RegExp("^" + req.body.name, "i") } });
 	    	
-			if(!isEmpty(userObj) && req.body.name == userObj.name){
+			if(!isEmpty(userObj)){
 				const token = await auth.createToken(userObj._id);
 				// console.log(token);
 				let updateUser = tokenModel.updateToken(userObj._id, token);

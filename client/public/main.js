@@ -211,7 +211,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         checkMuteUnmute(stream.getId());
       } else {
 
-        if ($('#agora_host #agora_remote'+stream.getId()).length === 0) {
+        // if ($('#agora_host #agora_remote'+stream.getId()).length === 0) {
           $.ajax({
               headers: { 
                   "Content-Type": "application/json; charset=utf-8",
@@ -256,22 +256,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
                   console.log( errorThrown );
               }
           });
-        } else {
-            // console.log(' check video = ', stream.hasVideo())
-            // console.log(' check audio = ', stream.hasAudio())
-            
-            // $('#agora_host').append('<div id="agora_remote'+stream.getId()+'"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div></div>');
-            // stream.play('agora_remote_vdo' + stream.getId());
-            // checkMuteUnmute(stream.getId());
-
-            if(stream.hasVideo())
-              stream.muteVideo();
-            
-            if(stream.hasAudio())
-              stream.muteAudio();
-
-          }
-        }
+        // }
       }
     });
     

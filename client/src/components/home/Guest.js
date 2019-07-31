@@ -39,16 +39,16 @@ return (
       
     <header className="header">
       <div className="row">
-        <div className="col-9">
+        <div className="col-lg-9 col-md-12">
           <div className="transparent-gray">
             <div className="row">
-              <a href="#" className="col-1 d-md-flex justify-content-center align-items-center v-logo">
+              <a href="#" className=" py-xs-1 col-lg-1 col-md-1 col-sm-12 d-flex justify-content-center align-items-center v-logo">
                 <img src="images/v-logo.png" />
                               </a>
-              <div className="col-11">
+              <div className="col-lg-11 col-md-11 col-sm-12">
                 <div className="row justify-content-between align-items-center">
-                  <div className="col-9">
-                    <div className="time">  <span>04/23/2019, at 12:00 PM</span>
+                  <div className="col-lg-10 text-center text-md-left col-sm-12">
+                    <div className="time py-xs-1">  <span>04/23/2019, at 12:00 PM</span>
                       <span>Time Remaining: 01:10:00</span>
                     </div>
                   </div>
@@ -63,13 +63,11 @@ return (
           </div>
           
         </div>
-        <div className="col-3 d-md-flex align-items-center">
-          <div className="default-btns">
-            <a href="javascript:;" className="btn btn-primary px-4 rounded"><img src="images/hand.png" /></a>
-            
-            
-              <a href="javascript:;" className="btn btn-outline-secondary px-4 rounded" id="broadcaster"><img src="images/video-icon.png" className="video-icon" /></a>
-              <a href="javascript:;" className="btn btn-outline-secondary px-4 rounded" id="audience"><img src="images/video-close.png" className="video-icon" /></a>
+        <div className="col-lg-3 col-md-12 d-md-flex align-items-center">
+          <div className="default-btns py-xs-1">
+            <a href="javascript:;" className="btn btn-primary px-4 rounded m-1"><img src="images/hand.png" /></a>
+            <a href="javascript:;" className="btn btn-outline-secondary px-4 rounded m-1" id="broadcaster"><img src="images/video-icon.png" className="video-icon" /></a>
+              <a href="javascript:;" className="btn btn-outline-secondary px-4 rounded m-1" id="audience"><img src="images/video-close.png" className="video-icon" /></a>
 
           </div>
         </div>
@@ -77,7 +75,7 @@ return (
       
     </header>
     <div className="row justify-content-between zindex-5 position-relative">
-    <div className="col-3">
+    <div className="col-lg-3 col-md-4 col-sm-5 col-6">
       <div className="left-section">
         <h2 className="item-name py-3">1/4 Wines</h2>
         <h3 className="second-heading my-3">2014 Bliss Block Pinot Noir</h3>
@@ -106,7 +104,7 @@ return (
         <button type="button" className="btn btn-outline-secondary">"Show Details"</button>
       </div>
     </div>
-    <div className="col-3 float-right">
+    <div className="col-lg-3 col-md-4 col-sm-5 col-6 float-right">
         <div className="right-sidebar">
           <div className="transparent-gray slide-right-left">
             <h4 className="title mb-2">Wine Testers <span>(24/44)</span></h4>
@@ -194,7 +192,7 @@ return (
   </div>
     <footer className="footer position-relative zindex-5">
       
-      <ul className="bottom-links list-group list-group-horizontal mx-auto d-md-flex justify-content-center">
+      <ul className="bottom-links flex-wrap list-group list-group-horizontal mx-auto d-md-flex justify-content-center py-xs-1">
         <li className="list-group-item bg-transparent border-0"><a href="#">APPEARANCE</a></li>
         <li className="list-group-item bg-transparent border-0"><a href="#">AROMA</a></li>
         <li className="list-group-item bg-transparent border-0"><a href="#">PALATE</a></li>

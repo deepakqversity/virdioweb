@@ -1,7 +1,7 @@
 if(!AgoraRTC.checkSystemRequirements()) {
     alert("Your browser does not support WebRTC!");
   }
-var apiurl = 'http://192.168.1.131:8001';
+
   /* select Log type */
   // AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.NONE);
   // AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.ERROR);
@@ -46,7 +46,11 @@ var apiurl = 'http://192.168.1.131:8001';
       
       var channelName = localStorage.getItem("channel");
 
-      client.join(channel_key, channelName, null, function(uid) {
+      client.join(channel_key, channelName, storeData.id.toString(), function(uid) {
+
+        // uid = storeData.id.toString();
+        // 
+
         console.log("User " + uid + " join channel successfully");
 
         let sessionState = true;
@@ -75,9 +79,9 @@ var apiurl = 'http://192.168.1.131:8001';
             camera = _videoSource;
             microphone = _audioSource;
             
-            localStream = AgoraRTC.createStream({streamID: uid, audio: true, cameraId: camera, microphoneId: microphone, video: sessionState, screen: false, attributes : { name : "deepak", type : 1} });
+            localStream = AgoraRTC.createStream({streamID: uid, audio: true, cameraId: camera, microphoneId: microphone, video: sessionState, screen: false });
             // localStream = AgoraRTC.createStream({streamID: uid, audio: false, cameraId: camera, microphoneId: microphone, video: false, screen: true, extensionId: 'minllpmhdgpndnkomcoccfekfegnlikg'});
-            localStream.setUserId("999");
+            // localStream.setUserId("999");
             if (sessionState) {
               localStream.setVideoProfile('720p_3');
 
@@ -113,7 +117,7 @@ var apiurl = 'http://192.168.1.131:8001';
                       "Content-Type": "application/json; charset=utf-8",
                       "Authorization": storeData.token
                   },
-                  url: apiurl+'/api/v1/conference/'+channelName+'/'+storeData.id+'/stream-id',
+                  url: '/api/v1/conference/'+channelName+'/'+storeData.id+'/stream-id',
                   dataType: 'json',
                   type: 'PUT',
                   contentType: 'application/json',
@@ -126,7 +130,7 @@ var apiurl = 'http://192.168.1.131:8001';
 
                       client.on('stream-published', function (evt) {
                         console.log("Publish local stream successfully");
-                        console.log('localStream ==========================*******************', localStream)
+                        // console.log('localStream ==========================*******************', localStream)
                         console.log('client ------------', client)
                       });
                   },
@@ -165,7 +169,6 @@ var apiurl = 'http://192.168.1.131:8001';
 
     client.on('stream-added', function (evt) {
       var stream = evt.stream;
-      console.log("New stream user id added:=========== " + stream.getUserId());
       console.log("New stream added:=========== " + stream.getId());
       console.log("Subscribe ", stream);
       
@@ -202,41 +205,58 @@ var apiurl = 'http://192.168.1.131:8001';
         // console.log("Subscribe remote stream successfully:********** " , stream.getUserId());
         if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
           
+<<<<<<< HEAD
           // $('div#video .col-md-10').append('<div class="subscribers-list col-md-4 col-xs-6" id="agora_remote'+stream.getId()+'"><div style="position:relative;"><a class="mute-unmute" data-id="'+stream.getId()+'</div><div style="width:100%; height:100%; float:left;" id="agora_remote_vdo'+stream.getId()+'"></div></div>');
         
           $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'"  class="col-md-4 col-lg-3 col-sm-6 col-6 newcss"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div> <a href="javascript:;" class="mute-icon position-absolute mute-unmute" data-id="'+stream.getId()+'"><i class="fa fa-volume-off" aria-hidden="true"></i></a><span class="hand-icon position-absolute" data-toggle="modal" data-target="#hand-raise"></span><div class="att-details"> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1"></span></div></div></div></div>');
         
+=======
+          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div> <a href="javascript:;" class="mute-icon position-absolute mute-unmute" data-id="'+stream.getId()+'"><i class="fa fa-volume-off" aria-hidden="true"></i></a><span class="hand-icon position-absolute" data-toggle="modal" data-target="#hand-raise"></span><div class="att-details"> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1"></span></div></div></div></div>');
+>>>>>>> c5e78e000b61066f27221a741c05dbd9a4aa17ea
         }
         stream.play('agora_remote_vdo' + stream.getId());
         SwitchVideoSize();
         checkMuteUnmute(stream.getId());
         
       } else {
-        if ($('#agora_host #agora_remote'+stream.getId()).length === 0) {
+
+        // if ($('#agora_host #agora_remote'+stream.getId()).length === 0) {
           $.ajax({
               headers: { 
                   "Content-Type": "application/json; charset=utf-8",
                   "Authorization": storeData.token
               },
-              url: apiurl + '/api/v1/conference/'+channelName+'/'+stream.getId()+'/stream-id',
+              url: '/api/v1/conference/'+channelName+'/'+stream.getId()+'/stream-id',
               dataType: 'json',
               type: 'GET',
               success: function( data, textStatus, jQxhr ){
                   
                   let respData = data;
+
                   if(respData.status){
                     if(respData.type == 1){
 
-                      // console.log("Subscribe remote stream successfully:********** " , stream.getUserId());
                       if ($('#agora_host #agora_remote'+stream.getId()).length === 0) {
                         
-                        // $('div#video .col-md-10').append('<div class="subscribers-list col-md-4 col-xs-6" id="agora_remote'+stream.getId()+'"><div style="position:relative;"><a class="mute-unmute" data-id="'+stream.getId()+'</div><div style="width:100%; height:100%; float:left;" id="agora_remote_vdo'+stream.getId()+'"></div></div>');
-
                         $('#agora_host').append('<div id="agora_remote'+stream.getId()+'"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div></div>');
                       }
                       stream.play('agora_remote_vdo' + stream.getId());
 
                       checkMuteUnmute(stream.getId());
+                    } else {
+                      // console.log(' check video = ', stream.hasVideo())
+                      // console.log(' check audio = ', stream.hasAudio())
+                      
+                      // $('#agora_host').append('<div id="agora_remote'+stream.getId()+'"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div></div>');
+                      // stream.play('agora_remote_vdo' + stream.getId());
+                      // checkMuteUnmute(stream.getId());
+
+                      if(stream.hasVideo())
+                        stream.muteVideo();
+                      
+                      if(stream.hasAudio())
+                        stream.muteAudio();
+
                     }
                   }
                   
@@ -245,7 +265,7 @@ var apiurl = 'http://192.168.1.131:8001';
                   console.log( errorThrown );
               }
           });
-        }
+        // }
       }
      
     });

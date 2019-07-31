@@ -46,7 +46,7 @@ return (
             </div>
             <div className="col-12 col-sm-3 justify-content-end d-flex align-items-center">
               <a className="btn btn-primary border-right pr-20" href="javascript:;" tabIndex="1">details</a>
-              <button className="btn btn-primary border-right pr-20 px-4 ml-2" onClick={this.onLogoutClick} tabIndex="1"><i className="fa fa-power-off"></i></button>
+              <button className="cross_btn inner_btn_cross  pr-20 px-4 ml-2" onClick={this.onLogoutClick} tabIndex="1"><i className="fa fa-close"></i></button>
               <img src="images/voice-commands.png" className="mic-icon mr-2" />
             </div>
           </div>

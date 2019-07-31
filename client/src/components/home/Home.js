@@ -88,6 +88,9 @@ return (
         <div>
         <select name="channel" id="channel" className="form-control" style={{ display:"inline-block" }} >
         <option value="2222">2222</option><option value="1111">1111</option></select>
+        <select>
+        
+        </select>
 
 
         </div>

@@ -437,17 +437,18 @@ if(!AgoraRTC.checkSystemRequirements()) {
     })
 
     // attendy
-    $(".minimize-others").click(function(){
+    $("#minimize-others").click(function(){
         $(".slide-right-left").css({"width": "72px", "float": "right"});
-        $(".minimize-others").attr("style", "display: none !important");
-        $(".slide-right-left .self-video, .slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").hide();
-        $(".show-everyone, .self-video1").show();
+        $(".slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").hide();
+        $("#minimize-others").addClass('d-none');
+        $("#show-everyone").removeClass('d-none');
       })
-      $(".show-everyone").click(function(){
+    
+      $("#show-everyone").click(function(){
         $(".slide-right-left").css({"width": "100%", "float": "right"});
-        $(".minimize-others").attr("style", "display: block !important");
-        $(".slide-right-left .self-video, .slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").show();
-        $(".show-everyone, .self-video1").hide();
+        $(".slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").show();
+        $("#minimize-others").removeClass('d-none');
+        $("#show-everyone").addClass('d-none');
       })
 
   });

@@ -32,9 +32,9 @@ return (
 
       <div id="agora_host" className="fix-host"></div>
       
-    <header className="header">
+  <header className="header">
       <div className="row">
-        <div className="col-lg-9 col-md-12">
+        <div className="col-lg-12 col-md-12">
           <div className="transparent-gray">
             <div className="row">
               <a href="#" className=" py-xs-1 col-lg-1 col-md-1 col-sm-12 d-flex justify-content-center align-items-center v-logo">
@@ -42,29 +42,31 @@ return (
                               </a>
               <div className="col-lg-11 col-md-11 col-sm-12">
                 <div className="row justify-content-between align-items-center">
-                  <div className="col-lg-10 text-center text-md-left col-sm-12">
+                  <div className="col-lg-7 text-center text-md-left col-sm-12">
                     <div className="time py-xs-1">  <span>04/23/2019, at 12:00 PM</span>
                       <span>Time Remaining: 01:10:00</span>
                     </div>
                   </div>
-                  <div className="col-lg-2 col-sm-12 justify-content-end d-flex align-items-center ">
-                    <a className="btn btn-primary mx-xs-auto " href="#" className="btn btn-primary " tabIndex="1">Details</a>
-                    <button className="btn btn-primary ml-2" onClick={this.onLogoutClick} tabIndex="1"><i className="fa fa-power-off"></i></button>
-                  </div>
+              
+
+                       <div className="col-lg-5 col-md-12">
+          <div className="default-btns py-xs-1 float-right">
+
+           <a className="btn btn-primary mx-xs-auto " href="#" className="btn btn-primary " tabIndex="1">Details</a>
+            <a href="javascript:;" className="rounded_hand rounded m-1"><img src="images/hand.png" /></a>
+             <button className="cross_btn_guest  ml-2" onClick={this.onLogoutClick} tabIndex="1"><i className="fa fa-close"></i></button>
+          </div>
+        </div>
+
                 </div>
               </div>
             </div>
           </div>
+
+         
           
         </div>
-        <div className="col-lg-3 col-md-12 d-md-flex align-items-center">
-          <div className="default-btns py-xs-1">
-            <a href="javascript:;" className="btn btn-primary px-4 rounded m-1"><img src="images/hand.png" /></a>
-            <a href="javascript:;" className="btn btn-outline-secondary px-4 rounded m-1" id="broadcaster"><img src="images/video-icon.png" className="video-icon" /></a>
-              <a href="javascript:;" className="btn btn-outline-secondary px-4 rounded m-1" id="audience"><img src="images/video-close.png" className="video-icon" /></a>
-
-          </div>
-        </div>
+        
       </div>
       
     </header>
@@ -84,21 +86,16 @@ return (
               <li><span>Year</span><span>2014​</span></li>
               <li><span>Country</span><span>United States​</span></li>
               <li><span>Appellation</span><span>Sonoma</span></li>
-              <li><span>Alcohol</span><span>14.3%</span></li> 
+             
             </ul>
-            <ul className="col-12 col-md-12 list-info my-0">
-              <li><span>pH</span><span>3.69</span></li>
-              <li><span>Aging</span><span>15 months in French Oak Barrels, 82%</span></li>
-              <li><span>Price</span><span>$80​</span></li>
-              <li><span>Case Production</span><span>250</span></li>
-            </ul>
+          
             
           </div>
         </div>
         <button type="button" className="btn btn-outline-secondary">"Show Details"</button>
       </div>
     </div>
-    <div className="col-lg-3 col-md-4 col-sm-5 col-6 float-right">
+     <div className="col-lg-3 col-md-4 col-sm-5 col-6 float-right">
         <div className="right-sidebar">
           <div className="transparent-gray slide-right-left">
             <h4 className="title mb-2">Wine Testers <span>(24/44)</span></h4>
@@ -143,28 +140,7 @@ return (
                   <span><i className="fa fa-map-marker" aria-hidden="true"></i> CO</span>
                 </span>
               </div>
-              <div className="attendee-list">
-                <img src="images/attendee.png" />
-                <span>
-                  Edward K
-                  <span><i className="fa fa-map-marker" aria-hidden="true"></i> CO</span>
-                </span>
-              </div>
-              <div className="attendee-list">
-                  <img src="images/attendee.png" />
-                  <span>
-                    Edward K
-                    <span><i className="fa fa-map-marker" aria-hidden="true"></i> CO</span>
-                  </span>
-                </div>
-              <div className="attendee-list">
-                <img src="images/attendee.png" />
-                <span>
-                  Edward K
-                  <span><i className="fa fa-map-marker" aria-hidden="true"></i> CO</span>
-                </span>
-              </div>
-              <div className="attendee-list">
+               <div className="attendee-list">
                 <img src="images/attendee.png" />
                 <span>
                   Edward K
@@ -172,13 +148,18 @@ return (
                 </span>
               </div>
               
+              
+
             </div>
-            <button type="button" className="minimize-others btn btn-outline-secondary mt-3 mx-auto d-table">"Minimize others"</button>
-            
+           
             <div className="self-video mt-3">
-              <div id="agora_local" className="video-streams"></div>
+              
             </div>
+
+           
+           
           </div>
+          
           
         </div>
       
@@ -194,10 +175,10 @@ return (
       </ul>
       
       <div className="self-video1 mt-3">
-          <button type="button" className="show-everyone btn btn-outline-secondary mb-3 mx-auto">"Show everyone"</button>
-        <video autoPlay loop muted>
-          <source src="images/video.mp4" type="video/mp4" />
-        </video>
+          <button type="button" id="show-everyone" className="minimize-others btn btn-outline-secondary mx-auto">Show Everyone</button>
+          <button type="button" id="minimize-others" className="minimize-others btn btn-outline-secondary mx-auto d-none">Minimize Others</button>
+        <div id="agora_local" className="video-streams"></div>
+
       </div>
     </footer>
 

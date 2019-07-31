@@ -144,7 +144,6 @@ return (
 
         <div className="modal-body" id="active-single-user">
 
-
         </div>
 
         <div className="modal-footer">

@@ -95,7 +95,7 @@ return (
      <div className="col-lg-3 col-md-4 col-sm-5 col-6 float-right">
         <div className="right-sidebar">
           <div className="transparent-gray slide-right-left">
-            <h4 className="title mb-2">Wine Testers <span>(24/44)</span></h4>
+            <h4 className="mb-2 head"><span className="title">Wine Testers</span> <span className="count">(24/44)</span></h4>
             <div className="joined-attendees">
               <div className="attendee-list">
                 <img src="images/attendee.png" />
@@ -144,9 +144,6 @@ return (
                   <span><i className="fa fa-map-marker" aria-hidden="true"></i> CO</span>
                 </span>
               </div>
-              
-              
-
             </div>
            
             <div className="self-video mt-3">

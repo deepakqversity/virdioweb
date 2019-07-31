@@ -459,6 +459,13 @@ h3.main-heading span{
 .right-sidebar .title span {
     font-family: Avenir-Book;
 }
+.right-sidebar .head span.count {
+    font-family: 'Avenir-Black';
+    font-size: 16px;
+    color: #fff;
+    font-weight: normal;
+    margin: 0;
+}
 .joined-attendees{
 	    float: left;
     width: 100%;

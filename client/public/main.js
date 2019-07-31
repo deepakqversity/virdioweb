@@ -491,16 +491,19 @@ if(!AgoraRTC.checkSystemRequirements()) {
     // attendy
     $("#minimize-others").click(function(){
         $(".slide-right-left").css({"width": "72px", "float": "right"});
-        $(".slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").hide();
         $("#minimize-others").addClass('d-none');
         $("#show-everyone").removeClass('d-none');
+        $(".slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").hide();
       })
     
       $("#show-everyone").click(function(){
         $(".slide-right-left").css({"width": "100%", "float": "right"});
-        $(".slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").show();
         $("#minimize-others").removeClass('d-none');
         $("#show-everyone").addClass('d-none');
+        setTimeout(function(){
+          
+        $(".slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").show();
+        }, 1000)
       })
 
   });

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import $ from 'jquery';
 class Guest extends Component {
   onLogoutClick = e => {
     e.preventDefault();
@@ -13,6 +14,10 @@ class Guest extends Component {
     let channel = document.getElementById('channel').value;
     this.props.joinConf(channel);
   };
+
+  callfunction(){
+    $('#logout_button').trigger('click');
+  }
 
   componentDidMount(){
   // console.log(2);    //
@@ -49,7 +54,8 @@ return (
                   </div>
                   <div className="col-3">
                     <a className="col-2 justify-content-end d-flex align-items-center" href="#" className="btn btn-primary " tabIndex="1">Details</a>
-                    <button className="btn btn-primary ml-2" onClick={this.onLogoutClick} tabIndex="1"><i className="fa fa-power-off"></i></button>
+                    {/* <button className="btn btn-primary ml-2" onClick={this.onLogoutClick} tabIndex="1"><i className="fa fa-power-off"></i></button> */}
+                    <button className="btn btn-primary ml-2" onClick={this.callfunction.bind(this)} tabIndex="1"><i className="fa fa-power-off"></i></button>
                   </div>
                 </div>
               </div>

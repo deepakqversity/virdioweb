@@ -187,7 +187,7 @@ var apiurl = 'http://192.168.1.131:8001';
 
     //   checkMuteUnmute(stream.getId());
     // });
-
+    var count=1;
     client.on('stream-subscribed', function (evt) {
 
       var channelName = localStorage.getItem("channel");
@@ -195,19 +195,22 @@ var apiurl = 'http://192.168.1.131:8001';
       var storeData = JSON.parse(storageData);
 
       var stream = evt.stream;
+      
       console.log("Subscribe remote stream successfully:********** " , stream);
       if(storeData.userType == 1) {
-
+        //console.log('------------------------lalit',count);
         // console.log("Subscribe remote stream successfully:********** " , stream.getUserId());
         if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
           
           // $('div#video .col-md-10').append('<div class="subscribers-list col-md-4 col-xs-6" id="agora_remote'+stream.getId()+'"><div style="position:relative;"><a class="mute-unmute" data-id="'+stream.getId()+'</div><div style="width:100%; height:100%; float:left;" id="agora_remote_vdo'+stream.getId()+'"></div></div>');
-
-          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div> <a href="javascript:;" class="mute-icon position-absolute mute-unmute" data-id="'+stream.getId()+'"><i class="fa fa-volume-off" aria-hidden="true"></i></a><span class="hand-icon position-absolute" data-toggle="modal" data-target="#hand-raise"></span><div class="att-details"> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1"></span></div></div></div></div>');
+        
+          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'"  class="col-md-4 col-lg-3 col-sm-6 col-6 newcss"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div> <a href="javascript:;" class="mute-icon position-absolute mute-unmute" data-id="'+stream.getId()+'"><i class="fa fa-volume-off" aria-hidden="true"></i></a><span class="hand-icon position-absolute" data-toggle="modal" data-target="#hand-raise"></span><div class="att-details"> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1"></span></div></div></div></div>');
+        
         }
         stream.play('agora_remote_vdo' + stream.getId());
-
+        SwitchVideoSize();
         checkMuteUnmute(stream.getId());
+        
       } else {
         if ($('#agora_host #agora_remote'+stream.getId()).length === 0) {
           $.ajax({
@@ -244,15 +247,57 @@ var apiurl = 'http://192.168.1.131:8001';
           });
         }
       }
+     
     });
+
+    function SwitchVideoSize(){
+      count++;
+      let len = $('#subscribers-list .newcss').length;
+      console.log('------------------------lalit',len);
+      if(len == 0) return false;
+
+      let vdoSize = '';
+      if(len == 1){
+        vdoSize = 'col-md-6 col-lg-5 col-sm-6 col-12 mx-auto';
+      } else if(len == 2) {
+        vdoSize = 'col-md-6 col-lg-6 col-sm-6 col-6';
+      } else if(len == 3) {
+        vdoSize = 'col-md-4 col-lg-4 col-sm-4 col-12';
+      } else {
+        vdoSize = 'col-md-3 col-lg-3 col-sm-3 col-12';
+      }
+
+        // javascript each
+        $('#subscribers-list .newcss').each(function (index, value) {
+          
+          $(this).removeClass('col-md-6')
+            .removeClass('col-md-4')
+            .removeClass('col-md-4')
+            .removeClass('col-lg-6')
+            .removeClass('col-lg-5')
+            .removeClass('col-lg-4')
+            .removeClass('col-lg-3')
+            .removeClass('col-sm-6')
+            .removeClass('col-sm-4')
+            .removeClass('col-sm-3')
+            .removeClass('col-6')
+            .removeClass('col-12')
+            .removeClass('mx-auto');
+
+          $('#subscribers-list .newcss').addClass(vdoSize);
+
+          });
+
+          
+    }
     
 
-
-
+  
     client.on('stream-removed', function (evt) {
       var stream = evt.stream;
       stream.stop();
       $('#agora_remote' + stream.getId()).remove();
+      SwitchVideoSize();
       console.log("Remote stream is removed " + stream.getId());
     });
 
@@ -261,6 +306,7 @@ var apiurl = 'http://192.168.1.131:8001';
       if (stream) {
         stream.stop();
         $('#agora_remote' + stream.getId()).remove();
+        SwitchVideoSize();
         console.log(evt.uid + " leaved from this channel");
       }
     });
@@ -294,7 +340,7 @@ var apiurl = 'http://192.168.1.131:8001';
     // client.enableAudioVolumeIndicator(); // Triggers the "volume-indicator" callback event every two seconds.
     // client.on("volume-indicator", function(evt){
     //     evt.attr.forEach(function(volume, index){
-    //             // console.log(#{index} UID ${volume.uid} Level ${volume.level});
+    // console.log(#{index} UID ${volume.uid} Level ${volume.level});
     //             console.log(`#{index} UID= ${volume.uid} Level ${volume.level}`);
     //     });
     // });
@@ -316,7 +362,7 @@ var apiurl = 'http://192.168.1.131:8001';
   }
 
   function leave() {
-    document.getElementById("leave").disabled = true;
+   // document.getElementById("leave").disabled = true;
     client.leave(function () {
       $('#subscribers-list').html('');
       console.log("Leavel channel successfully");
@@ -324,6 +370,12 @@ var apiurl = 'http://192.168.1.131:8001';
       console.log("Leave channel failed");
     });
   }
+
+  $('#logout_button').click(function(){     
+    leave();
+    localStorage.removeItem("jwtToken");
+    window.location.href  = '/login';
+  });
 
   function publish() {
     $('#publish').addClass('d-none');

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import $ from 'jquery';
 class Host extends Component {
   onLogoutClick = e => {
     e.preventDefault();
@@ -14,6 +15,9 @@ class Host extends Component {
     this.props.joinConf(channel);
   };
 
+  callfunction(){
+    $('#logout_button').trigger('click');
+  }
   componentDidMount(){
   // console.log(2);    //
   }
@@ -48,7 +52,9 @@ return (
               
               
               <a className="btn btn-primary border-right pr-20" href="javascript:;" tabIndex="1">details</a>
-              <button className="btn btn-primary border-right pr-20 px-4 ml-2" onClick={this.onLogoutClick} tabIndex="1"><i className="fa fa-power-off"></i></button>
+              {/* <button className="btn btn-primary border-right pr-20 px-4 ml-2" onClick={this.onLogoutClick} tabIndex="1"><i className="fa fa-power-off"></i></button> */}
+              <button className="btn btn-primary border-right pr-20 px-4 ml-2" onClick={this.callfunction.bind(this)} tabIndex="1"><i className="fa fa-power-off"></i></button>
+              
               <img src="images/voice-commands.png" className="mic-icon" />
             </div>
           </div>

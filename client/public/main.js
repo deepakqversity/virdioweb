@@ -18,9 +18,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
   var client, localStream, camera, microphone;
 
   function join() {
-
+   
     var storageData = localStorage.getItem("jwtToken");
     var storeData = JSON.parse(storageData);
+   
     console.log('-****', localStorage.getItem("channel"), storeData.userType);
 
     var channel_key = null;
@@ -254,7 +255,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     function SwitchVideoSize(){
       count++;
       let len = $('#subscribers-list .newcss').length;
-      console.log('------------------------lalit',len);
+     // console.log('------------------------lalit',len);
       if(len == 0) return false;
 
       let vdoSize = '';
@@ -273,6 +274,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
           
           $(this).removeClass('col-md-6')
             .removeClass('col-md-4')
+            .removeClass('col-lg-8')
             .removeClass('col-md-4')
             .removeClass('col-lg-6')
             .removeClass('col-lg-5')

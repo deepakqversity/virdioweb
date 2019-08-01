@@ -28,7 +28,7 @@ render() {
     console.log('------------------------------', user);
 
 return (
-    <div className="container">
+    <div className="container justify-content-between d-flex flex-column h-100">
     <header className="header bg-gray mt-3">
       <div className="row d-block d-md-flex align-items-center">
         <div className="col-12 col-md-1">
@@ -53,7 +53,7 @@ return (
         </div>
       </div>
     </header>
-    <section className="bg-gray mt-2 p-3 rounded section attendees">
+    <section className="bg-gray mt-2 p-3 rounded section attendees flex-grow-1">
       <div className="row px-0 px-sm-3 pb-2 pt-0 justify-content-between align-items-center">
         <div className="col-6 col-md-6">
           <h4 className="title">Wine Testers <span>(24/44)</span></h4>
@@ -63,7 +63,7 @@ return (
         </div>
       </div>
       
-      <div className="row one-gutters" id="subscribers-list"></div>
+    <div className="row one-gutters align-items-center h-lg-100" id="subscribers-list"></div>
 
     </section>
     <div className="row four-gutters">

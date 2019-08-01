@@ -33,7 +33,7 @@ render() {
 
 return (
     <div className="container justify-content-between d-flex flex-column h-100">
-    <header className="header bg-gray mt-3">
+    <header className="header bg-gray mt-2">
       <div className="row d-block d-md-flex align-items-center">
         <div className="col-12 col-md-1">
           <a href="#" className="logo d-table mx-auto py-xs-1">

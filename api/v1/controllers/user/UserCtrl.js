@@ -30,7 +30,7 @@ class UserCtrl {
 				let updateUser = tokenModel.updateToken(userObj._id, token);
 				res.status(200).send({token:token, id:userObj._id, name:userObj.name, userType:req.body.type});
 			} else {
-				res.status(400).send({message:"user not found"})
+				res.status(400).send({message:"User doesn\'t exists in system."})
 			}
 				
 	    } catch(exception) {

@@ -33,7 +33,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
     // document.getElementById("video").disabled = true;
     
     var channel_key = null;
-    var appId = '748f9639fa864651bef8419d5870ec50';// provided by arjun 
+    //var appId = '748f9639fa864651bef8419d5870ec50';// provided by arjun 
+
     var appId = '232f270a5aeb4e0097d8b5ceb8c24ab3';
     
     console.log("Init AgoraRTC client with App ID: " + appId);

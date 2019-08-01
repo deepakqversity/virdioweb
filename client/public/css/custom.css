@@ -117,8 +117,8 @@ a.bg-primary:hover, a.bg-primary:focus, button.bg-primary:hover, button.bg-prima
 .btn-outline-secondary{
     color: #fff;
     border-color: #9b51e0;
-    font-family: Avenir-Black;
-    letter-spacing: 0.3px;
+    font-family: Avenir-Medium;
+    letter-spacing: 0.5px;
     font-size: 14px;
     border-radius: 50px;
 }
@@ -167,6 +167,18 @@ h3.main-heading span{
     font-size: 20px;
     color: #D8D8D8;
 }
+.logout-btn{
+    right: 18px;
+    background: transparent;
+    color: #fff;
+    border: none;
+    outline: none;
+    top: -6px;
+}
+.logout-btn:focus{
+	border: none;
+    outline: none;
+}
 .second-heading{
 	font-family: Avenir-Heavy;
 	font-size: 25px;
@@ -192,6 +204,10 @@ h3.main-heading span{
 	}
 }
 
+.font-size-16{
+	font-size:16px !important;
+}
+
 /* 3. Header */
 .logo img{
 	width:65px;
@@ -201,7 +217,7 @@ h3.main-heading span{
     border-radius: 10px;
     width: 100%;
     height: auto;
-    padding: 10px;
+    padding: 10px 0;
 	position: relative;
     z-index: 3;
 }
@@ -352,7 +368,7 @@ h3.main-heading span{
 /* 6. Item Description Section */
 .item-name{
 	font-family: Avenir-Book;
-	font-size:20px;
+	font-size:16px;
 	color:#fff;
 	margin:0;
 }

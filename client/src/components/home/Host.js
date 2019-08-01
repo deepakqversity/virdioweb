@@ -41,7 +41,11 @@ return (
           </a>
         </div>
         <div className="col col-md-11">
-          <h3 className="main-heading">A long title that can come here <span>by host name</span></h3>
+          <h3 className="main-heading">A long title that can come here <span>by host name</span>
+          <button className="position-absolute logout-btn" onClick={this.callfunction.bind(this)} tabIndex="1">
+                <i className="fa fa-times" aria-hidden="true"></i>
+              </button>
+          </h3>
           <div className="row justify-content-between align-items-center mt-2">
             <div className="col-12 col-sm-7">
               <div className="time py-xs-1">  <span>04/23/2019, at 12:00 PM</span>
@@ -50,10 +54,6 @@ return (
             </div>
             <div className="col-12 col-sm-3 justify-content-end d-flex align-items-center">
               <a className="btn btn-primary border-right pr-20" href="javascript:;" tabIndex="1">details</a>
-
-              {/* <button className="btn btn-primary border-right pr-20 px-4 ml-2" onClick={this.onLogoutClick} tabIndex="1"><i className="fa fa-power-off"></i></button> */}
-              <button className="btn btn-primary border-right pr-20 px-4 ml-2" onClick={this.callfunction.bind(this)} tabIndex="1"><i className="fa fa-power-off"></i></button>
-              
               <img src="images/voice-commands.png" className="mic-icon" />
             </div>
           </div>
@@ -77,7 +77,7 @@ return (
       <div className="col-12 col-md-12 mt-2 col-lg-4 host-section">
         <div className="bg-gray  px-3 pt-3 pb-2 rounded overflow-hidden h-100">
           <div className="d-flex justify-content-between align-items-center mb-3">
-            <h3 className="main-heading float-left">Streaming</h3>
+            <h3 className="main-heading font-size-16 float-left">Streaming</h3>
             <div className="host-header">
               <img src="images/mute-microphone.png" className="unmute-icon" id="mute-unmute-local" />
               <img src="images/music-icon.png" className="music-icon" id="bg-music" />
@@ -93,7 +93,7 @@ return (
       <div className="col-12 col-md-12 mt-2 col-lg-8">
         <div className="bg-gray  p-3 rounded overflow-hidden h-100">
           <div className="d-md-flex justify-content-between align-items-center mb-3">
-            <h3 className="main-heading">Testing Script <span className="ml-md-4">1/4 wines</span></h3>
+            <h3 className="main-heading font-size-16">Testing Script <span className="ml-md-4 font-size-16">1/4 wines</span></h3>
             <div className=" mt-3 mt-md-0 d-md-flex justify-content-between align-items-center">
               <button type="button" className="btn btn-outline-secondary mr-4">"Show Script"</button>
               <img src="images/next-icon.png" className="next-btn" />

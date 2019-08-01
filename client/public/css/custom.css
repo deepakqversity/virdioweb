@@ -217,7 +217,7 @@ h3.main-heading span{
     border-radius: 10px;
     width: 100%;
     height: auto;
-    padding: 10px 0;
+    padding: 10px 15px;
 	position: relative;
     z-index: 3;
 }

@@ -73,7 +73,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
             camera = _videoSource;
             microphone = _audioSource;
             
-            localStream = AgoraRTC.createStream({streamID: uid, audio: true, cameraId: camera, microphoneId: microphone, video: sessionState, screen: false });
+            localStream = AgoraRTC.createStream({streamID: uid, audio: storeData.userType == 1 ? true : false, cameraId: camera, microphoneId: microphone, video: sessionState, screen: false });
             // localStream = AgoraRTC.createStream({streamID: uid, audio: false, cameraId: camera, microphoneId: microphone, video: false, screen: true, extensionId: 'minllpmhdgpndnkomcoccfekfegnlikg'});
             // localStream.setUserId("999");
             if (sessionState) {
@@ -393,6 +393,18 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   }
 
+  function raiseHand(){
+    console.log('=========1',localStream.hasAudio())
+    if(localStream.hasAudio() == false)
+        localStream.unmuteAudio();
+  }
+
+  function downHand(){
+    console.log('=========2',localStream.hasAudio())
+    if(localStream.hasAudio())
+        localStream.muteAudio();
+  }
+
   function getDevices() {
     AgoraRTC.getDevices(function (devices) {
       for (var i = 0; i !== devices.length; ++i) {
@@ -474,6 +486,18 @@ if(!AgoraRTC.checkSystemRequirements()) {
       unpublish();
       $('#strm-publish').removeClass('d-none');
       $('#strm-unpublish').addClass('d-none');
+    })
+
+    $(document).on('click', '#mocrophone-off', function(){
+      raiseHand();
+      $('#mocrophone-on').removeClass('d-none');
+      $('#mocrophone-off').addClass('d-none');
+    })
+
+    $(document).on('click', '#mocrophone-on', function(){
+      downHand()
+      $('#mocrophone-off').removeClass('d-none');
+      $('#mocrophone-on').addClass('d-none');
     })
 
     // attendy

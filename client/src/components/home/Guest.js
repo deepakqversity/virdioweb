@@ -54,6 +54,10 @@ return (
                   </div>
                   <div className="col-3">
                     <a className="col-2 justify-content-end d-flex align-items-center" href="#" className="btn btn-primary " tabIndex="1">Details</a>
+
+                    <a href="javascript:;" className="btn btn-primary ml-2" id="mocrophone-off" alt="Microphone" title="Microphone Off"><i className="fa fa-microphone-slash"></i></a>
+                    <a href="javascript:;" className="btn btn-primary ml-2 d-none" id="mocrophone-on" alt="Microphone" title="Microphone On"><i className="fa fa-microphone"></i></a>
+                    
                     <a href="javascript:;" className="btn btn-primary ml-2" id="strm-publish" alt="Broadcaster" title="Broadcaster"><i className="fa fa-user-plus"></i></a>
                     <a href="javascript:;" className="btn btn-primary ml-2 d-none" id="strm-unpublish" alt="Audience" title="Audience"><i className="fa fa-user-times"></i></a>
 

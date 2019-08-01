@@ -34,7 +34,7 @@ return (
       
     <header className="header">
       <div className="row">
-        <div className="col-lg-9 col-md-12">
+        <div className="col-lg-9 col-md-12 pr-0">
           <div className="transparent-gray">
             <div className="row">
               <a href="#" className=" py-xs-1 col-lg-1 col-md-1 col-sm-12 d-flex justify-content-center align-items-center v-logo">
@@ -98,7 +98,7 @@ return (
         <button type="button" className="btn btn-outline-secondary">"Show Details"</button>
       </div>
     </div>
-    <div className="col-lg-3 col-md-4 col-sm-5 col-6 float-right">
+    <div className="col-lg-3 col-md-4 col-sm-5 col-6 float-right pl-0">
         <div className="right-sidebar">
           <div className="transparent-gray slide-right-left">
             <h4 className="title mb-2">Wine Testers <span>(24/44)</span></h4>

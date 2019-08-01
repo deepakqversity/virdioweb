@@ -32,7 +32,7 @@ class Home extends Component {
         initialPlanets = data.map((channel) => {
             return channel
         });
-        // console.log(initialPlanets);
+        console.log('****',initialPlanets);
         this.setState({
             channels: initialPlanets,
         });
@@ -67,7 +67,7 @@ render() {
 
     const channels = this.state.channels;
     const optionItems = channels.map((planet) =>
-                <option key={planet._id}>{planet.channel}</option>
+                <option value={planet.channel}>{planet.channel}</option>
             );
 
     // console.log('$$$$',optionItems);
@@ -86,13 +86,9 @@ return (
         <h5 style={{ marginTop:"50px" }}>To join conference please select channel</h5>
         
         <div>
-        <select name="channel" id="channel" className="form-control" style={{ display:"inline-block" }} >
-        <option value="2222">2222</option><option value="1111">1111</option></select>
-        <select>
-        
-        </select>
-
-
+          <select name="channel" id="channel" className="form-control" style={{ display:"inline-block" }} >
+          {optionItems}
+          </select>
         </div>
         <div><button type="button" className="mx-auto d-table mt-4 btn btn-primary" id="join" onClick={this.joinOnClick}>Join</button></div>
       

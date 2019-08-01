@@ -54,8 +54,12 @@ return (
                   </div>
                   <div className="col-3">
                     <a className="col-2 justify-content-end d-flex align-items-center" href="#" className="btn btn-primary " tabIndex="1">Details</a>
+                    <a href="javascript:;" className="btn btn-primary ml-2" id="strm-publish" alt="Broadcaster" title="Broadcaster"><i className="fa fa-user-plus"></i></a>
+                    <a href="javascript:;" className="btn btn-primary ml-2 d-none" id="strm-unpublish" alt="Audience" title="Audience"><i className="fa fa-user-times"></i></a>
+
                     {/* <button className="btn btn-primary ml-2" onClick={this.onLogoutClick} tabIndex="1"><i className="fa fa-power-off"></i></button> */}
-                    <button className="btn btn-primary ml-2" onClick={this.callfunction.bind(this)} tabIndex="1"><i className="fa fa-power-off"></i></button>
+                    <button className="btn ml-2 text-white" onClick={this.callfunction.bind(this)} tabIndex="1"><i className="fa fa-times"></i></button>
+
                   </div>
                 </div>
               </div>

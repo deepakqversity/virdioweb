@@ -52,8 +52,8 @@ return (
               <a className="btn btn-primary border-right pr-20" href="javascript:;" tabIndex="1">details</a>
 
               {/* <button className="btn btn-primary border-right pr-20 px-4 ml-2" onClick={this.onLogoutClick} tabIndex="1"><i className="fa fa-power-off"></i></button> */}
-              <button className="btn btn-primary border-right pr-20 px-4 ml-2" onClick={this.callfunction.bind(this)} tabIndex="1"><i className="fa fa-power-off"></i></button>
-              
+              <button className="btn ml-2 text-white" onClick={this.callfunction.bind(this)} tabIndex="1"><i className="fa fa-times"></i></button>
+
               <img src="images/voice-commands.png" className="mic-icon" />
             </div>
           </div>
@@ -159,7 +159,7 @@ return (
       </div>
 
       <input type="hidden" id="conf-page" />
-    
+      
   </div>
     );
   }

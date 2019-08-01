@@ -11,11 +11,11 @@ class ConferenceCtrl {
 	async getChannel(req, res) {
 	    try {
 	    	console.log(req.currentUser._id)
-			let confUserObj = await confUserModel.get({userId : req.currentUser._id, status : true});
+			let confUserObj = await confUserModel.get({userId : req.currentUser._id});
 			console.log('confUserObj = ', confUserObj)
 			let confIds = underscore.pluck(confUserObj, 'confId');
 
-			let confObj = await confModel.get({_id : {$in : confIds}, status : true});
+			let confObj = await confModel.get({_id : {$in : confIds}});
 
 			console.log('confObj = ', confObj)
 

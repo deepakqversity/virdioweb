@@ -74,11 +74,10 @@ return (
               </h4>
               
             </div>
-
             <form className = "form-horizontal" role = "form"  noValidate onSubmit={this.onSubmit}>
             
             <div className = "form-group">
-                <span className="text-danger col-md-12">{errors.name}{errors.nameincorrect}</span>
+                <span className="text-danger col-md-12">{errors.name}{errors.nameincorrect}{errors.message}</span>
                 <div className = "col-sm-10">
                   <input type="name"  id="name" onChange={this.onChange} value={this.state.name}  error={errors.name}  className={classnames("", { invalid: errors.name || errors.nameincorrect })} className = "form-control"  placeholder = "Username" />
                 </div>

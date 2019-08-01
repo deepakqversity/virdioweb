@@ -2,5 +2,32 @@
 .video-streams > div{ background-color: transparent!important; }
 
 
-
+button.cross_btn {position: absolute;right: 7px;top: -40px;font-size: 19px;background: none;border: none;color:#fff;}
+a.rounded_hand {
+    border: 1px solid #9b51e0;
+    background: none;
+    color: #fff;
+    padding: 6px 12px 10px;
+    margin-left: 11px!important;
+}
+button.cross_btn_guest {
+    border: 1px solid #9b51e0;
+    background: none;
+    color: #fff;
+    font-size: 19px;
+    padding: 4px 15px 6px;
+    border-radius: 10px;
+    margin-top: 1px;
+    float: right;
+    line-height: 24px;}
+.no-padding{padding:0;}
+.minimize_btn {
+    display: none;
+}
+button.show-everyone.btn.btn-outline-secondary.mb-3.mx-auto {
+    position: absolute;
+    bottom: -17px;
+    width: 155px;
+    left: -159px;
+}
 

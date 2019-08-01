@@ -1,14 +1,60 @@
+import axios from "axios";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser, joinConf} from "../../actions/authActions";
 // import { joinConf } from "../../actions/authActions";
 class Home extends Component {
+
+  constructor(props){
+
+    super(props);
+    this.state = {
+            channels: [],
+        };
+  }
+
   onLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();
 
   };
+  componentDidMount(){
+
+    let retrievedObject = localStorage.getItem('jwtToken');
+    let localstoragedata=JSON.parse(retrievedObject);
+
+    let initialPlanets = [];
+    fetch('/api/v1/conference/channels', {headers : {'Authorization': localstoragedata.token}})
+        .then(response => {
+            return response.json();
+        }).then(data => {
+        initialPlanets = data.map((channel) => {
+            return channel
+        });
+        // console.log(initialPlanets);
+        this.setState({
+            channels: initialPlanets,
+        });
+    });
+
+    // axios
+    // .get("/api/v1/conference/channels", {headers : {'Authorization': localstoragedata.token}} )
+    // .then(res => {
+    //     console.log(' channle ', res.data)
+    //     let data = res.data;
+    //     let teamsFromApi = data.map(team => { return {value: team._id, display: team.channel} })
+    //       this.setState({ teams: [{value: '', display: '(Select your favourite team)'}].concat(teamsFromApi) });
+
+
+    // }) // re-direct to login on successful register
+    // .catch(err =>
+    //   {
+        
+    //   }
+    // );
+
+  }
 
   joinOnClick = e => {
     let channel = document.getElementById('channel').value;
@@ -19,7 +65,12 @@ class Home extends Component {
 render() {
     const  {user}  = this.props.auth;
 
-   // console.log(user);
+    const channels = this.state.channels;
+    const optionItems = channels.map((planet) =>
+                <option key={planet._id}>{planet.channel}</option>
+            );
+
+    // console.log('$$$$',optionItems);
    
    var retrievedObject = localStorage.getItem('jwtToken');
    var localstoragedata=JSON.parse(retrievedObject);
@@ -37,6 +88,11 @@ return (
         <div>
         <select name="channel" id="channel" className="form-control" style={{ display:"inline-block" }} >
         <option value="2222">2222</option><option value="1111">1111</option></select>
+        <select>
+        
+        </select>
+
+
         </div>
         <div><button type="button" className="mx-auto d-table mt-4 btn btn-primary" id="join" onClick={this.joinOnClick}>Join</button></div>
       

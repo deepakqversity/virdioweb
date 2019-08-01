@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import $ from 'jquery';
 class Host extends Component {
   onLogoutClick = e => {
     e.preventDefault();
@@ -14,6 +15,9 @@ class Host extends Component {
     this.props.joinConf(channel);
   };
 
+  callfunction(){
+    $('#logout_button').trigger('click');
+  }
   componentDidMount(){
   // console.log(2);    //
   }
@@ -38,7 +42,7 @@ return (
         </div>
         <div className="col col-md-11">
           <h3 className="main-heading">A long title that can come here <span>by host name</span>
-          <button className="position-absolute logout-btn" onClick={this.onLogoutClick} tabIndex="1">
+          <button className="position-absolute logout-btn" onClick={this.callfunction.bind(this)} tabIndex="1">
                 <i className="fa fa-times" aria-hidden="true"></i>
               </button>
           </h3>
@@ -50,8 +54,7 @@ return (
             </div>
             <div className="col-12 col-sm-3 justify-content-end d-flex align-items-center">
               <a className="btn btn-primary border-right pr-20" href="javascript:;" tabIndex="1">details</a>
-              
-              <img src="images/voice-commands.png" className="mic-icon mr-2" />
+              <img src="images/voice-commands.png" className="mic-icon" />
             </div>
           </div>
         </div>
@@ -140,8 +143,6 @@ return (
         </div>
 
         <div className="modal-body" id="active-single-user">
-
-          ...
 
         </div>
 

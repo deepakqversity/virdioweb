@@ -1,6 +1,8 @@
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
+import $ from 'jquery';
+//import AgoraRTC from "agora-rtc-sdk";
 // import React from 'react'
 // import { Redirect } from "react-router-dom"
 
@@ -9,6 +11,7 @@ import {
   SET_CURRENT_USER,
   USER_LOADING
 } from "./types";
+
 // Register User
 export const registerUser = (userData, history) => dispatch => {
   axios
@@ -64,13 +67,17 @@ export const setUserLoading = () => {
 };
 // Log user out
 export const logoutUser = () => dispatch => {
+
   // Remove token from local storage
+ // leave();
   localStorage.removeItem("jwtToken");
   // Remove auth header for future requests
   setAuthToken(false);
   // Set current user to empty object {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
+  
 };
+
 
 // Log user out
 export const joinConf = (channel) => dispatch => {

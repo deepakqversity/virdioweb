@@ -68,8 +68,11 @@ body{
 	background:#000;
 	padding: 0px;
 	    position: relative;
+		height:100vh;
 }
-
+#root, .App{
+	height:100%;
+}
 .container{
 	width:98% !important;
 	max-width:98% !important;
@@ -114,8 +117,8 @@ a.bg-primary:hover, a.bg-primary:focus, button.bg-primary:hover, button.bg-prima
 .btn-outline-secondary{
     color: #fff;
     border-color: #9b51e0;
-    font-family: Avenir-Black;
-    letter-spacing: 0.3px;
+    font-family: Avenir-Medium;
+    letter-spacing: 0.5px;
     font-size: 14px;
     border-radius: 50px;
 }
@@ -164,6 +167,18 @@ h3.main-heading span{
     font-size: 20px;
     color: #D8D8D8;
 }
+.logout-btn{
+    right: 18px;
+    background: transparent;
+    color: #fff;
+    border: none;
+    outline: none;
+    top: -6px;
+}
+.logout-btn:focus{
+	border: none;
+    outline: none;
+}
 .second-heading{
 	font-family: Avenir-Heavy;
 	font-size: 25px;
@@ -183,7 +198,15 @@ h3.main-heading span{
 		padding-bottom:10px !important;
 	}
 }
+@media (min-width:1920px){
+	.h-lg-100{
+		height:100%;
+	}
+}
 
+.font-size-16{
+	font-size:16px !important;
+}
 
 /* 3. Header */
 .logo img{
@@ -194,7 +217,7 @@ h3.main-heading span{
     border-radius: 10px;
     width: 100%;
     height: auto;
-    padding: 10px;
+    padding: 10px 0;
 	position: relative;
     z-index: 3;
 }
@@ -278,24 +301,23 @@ h3.main-heading span{
 .video-holder .att-details{
 	position: absolute;
     bottom: 0;
-    background-image: linear-gradient(to bottom, rgba(255,255,255,0) , rgba(255,255,255,1));
+    background: #fff;
     width: 100%;
-    height: 60px;
+    height: 25px;
 	    border-radius: 0 0 7px 7px;
 }
 .video-holder .att-name{
     font-family: Avenir-Heavy;
     color: #000;
-    font-size: 17px;
+    font-size: 16px;
     position: absolute;
-    bottom: 10px;
+    bottom: 1px;
     left: 15px;
 }
 .vid-icons{
 	position: absolute;
     right: 10px;
-    bottom: 12px;
-    display: none;
+    bottom: 30px;
 }
 .video-holder .att-details .icon1, 
 .attendee-list .icon1{
@@ -346,7 +368,7 @@ h3.main-heading span{
 /* 6. Item Description Section */
 .item-name{
 	font-family: Avenir-Book;
-	font-size:20px;
+	font-size:16px;
 	color:#fff;
 	margin:0;
 }

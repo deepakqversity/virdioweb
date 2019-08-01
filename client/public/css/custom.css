@@ -427,11 +427,13 @@ h3.main-heading span{
 	    float: left;
 }
 .slide-right-left{
-	-webkit-transition: width 700ms; 
-  transition: width 700ms;
+	-webkit-transition: width 600ms; 
+  transition: width 600ms;
   padding: 20px 8px;
-  width:72px;
   float: right;
+      position: relative;
+    z-index: 4;
+    overflow: hidden;
 }
 .v-logo img{
 	width: 22px;
@@ -476,7 +478,6 @@ h3.main-heading span{
     color: #fff;
     font-weight: normal;
     margin: 0;
-    display: none;
 }
 .right-sidebar .title span {
     font-family: Avenir-Book;
@@ -491,7 +492,7 @@ h3.main-heading span{
 .joined-attendees{
 	    float: left;
     width: 100%;
-    margin-bottom: 15px;
+    
 }
 .attendee-list{
 	background: #000;
@@ -501,6 +502,11 @@ h3.main-heading span{
     width: 100%;
     margin: 1px 0;
 	position:relative;
+	-webkit-transition: all 500ms ease;
+  -moz-transition: all 500ms ease;
+  -o-transition: all 500ms ease;
+  -ms-transition: all 500ms ease;
+  transition: all 500ms ease;
 }
 .attendee-list>img{
 	float: left;
@@ -513,9 +519,7 @@ h3.main-heading span{
     font-size: 14px;
     width: auto;
     float: left;
-	-webkit-transition: display 700ms; 
-  transition: display 700ms;
-  display: none;
+
 }
 .attendee-list>span .fa{
 	font-size: 14px;
@@ -553,7 +557,7 @@ h3.main-heading span{
 	position:absolute;
 	bottom:0;
 	right:8px;
-	max-width:240px;
+	max-width:270px;
 	display:block;
 }
 .self-video1 video{

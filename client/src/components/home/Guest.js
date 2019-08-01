@@ -33,13 +33,13 @@ render() {
     console.log('------------------------------', user);
 
 return (
-    <div className="container overlay position-relative">
+    <div className="container d-flex flex-column justify-content-between h-100 overlay position-relative">
 
       <div id="agora_host" className="fix-host"></div>
       
   <header className="header">
       <div className="row">
-        <div className="col-lg-9 col-md-12 pr-0">
+        <div className="col-lg-12 col-md-12">
           <div className="transparent-gray">
             <div className="row">
               <a href="#" className=" py-xs-1 col-lg-1 col-md-1 col-sm-12 d-flex justify-content-center align-items-center v-logo">
@@ -52,11 +52,13 @@ return (
                       <span>Time Remaining: 01:10:00</span>
                     </div>
                   </div>
-                  <div className="col-3">
+                  <div className="col-12 col-sm-12 col-md-3 d-flex justify-content-end">
                     <a className="col-2 justify-content-end d-flex align-items-center" href="#" className="btn btn-primary " tabIndex="1">Details</a>
                     {/* <button className="btn btn-primary ml-2" onClick={this.onLogoutClick} tabIndex="1"><i className="fa fa-power-off"></i></button> */}
-                    <button className="btn btn-primary ml-2" onClick={this.callfunction.bind(this)} tabIndex="1"><i className="fa fa-power-off"></i></button>
-                  </div>
+                    <button className="ml-2 logout-btn" onClick={this.callfunction.bind(this)} tabIndex="1">
+                      <i className="fa fa-times" aria-hidden="true"></i>
+                    </button>
+                    </div>
                 </div>
               </div>
             </div>
@@ -67,7 +69,7 @@ return (
       </div>
       
     </header>
-    <div className="row justify-content-between zindex-5 position-relative">
+    <div className="row justify-content-between zindex-5 position-relative flex-grow-1">
     <div className="col-lg-3 col-md-4 col-sm-5 col-6">
       <div className="left-section">
         <h2 className="item-name py-3">1/4 Wines</h2>
@@ -95,8 +97,9 @@ return (
     <div className="col-lg-3 col-md-4 col-sm-5 col-6 float-right pl-0">
         <div className="right-sidebar">
           <div className="transparent-gray slide-right-left">
+            
+            <div className="joined-attendees ">
             <h4 className="mb-2 head"><span className="title">Wine Testers</span> <span className="count">(24/44)</span></h4>
-            <div className="joined-attendees">
               <div className="attendee-list">
                 <img src="images/attendee.png" />
                 <span>
@@ -169,8 +172,8 @@ return (
       </ul>
       
       <div className="self-video1 mt-3">
-          <button type="button" id="show-everyone" className="minimize-others btn btn-outline-secondary mx-auto">Show Everyone</button>
-          <button type="button" id="minimize-others" className="minimize-others btn btn-outline-secondary mx-auto d-none">Minimize Others</button>
+          <button type="button" id="show-everyone" className="mb-2 minimize-others btn btn-outline-secondary mx-auto d-none">Show Everyone</button>
+          <button type="button" id="minimize-others" className="mb-2 minimize-others btn btn-outline-secondary mx-auto">Minimize Others</button>
         <div id="agora_local" className="video-streams"></div>
 
       </div>

@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema,
       ObjectId = Schema.ObjectId;
 
+mongoose.set('debug', true);
+
 //User Schema
 const userSchema = new Schema({
   id: ObjectId,
@@ -44,7 +46,7 @@ const conferenceUserSchema = new Schema({
   type: Number, // 0= host , 1 = attendies , 2 = attendies 
   sessionType: Number, // 0 = aduence (audio only) , 1 = broadcaster (audio + video)
   streamId: String,
-  status: {type:Boolean, default:0}
+  status: {type:Boolean, default:false}
 })
 const ConferenceUser = mongoose.model('conference_users', conferenceUserSchema);
 

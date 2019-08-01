@@ -54,6 +54,7 @@ return (
             </div>
             <div className="col-12 col-sm-3 justify-content-end d-flex align-items-center">
               <a className="btn btn-primary border-right pr-20" href="javascript:;" tabIndex="1">details</a>
+
               <img src="images/voice-commands.png" className="mic-icon" />
             </div>
           </div>
@@ -159,7 +160,7 @@ return (
       </div>
 
       <input type="hidden" id="conf-page" />
-    
+      
   </div>
     );
   }

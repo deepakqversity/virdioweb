@@ -17,23 +17,15 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   var client, localStream, camera, microphone;
 
-  // var audioSelect = document.querySelector('select#audioSource');
-  // var videoSelect = document.querySelector('select#videoSource');
-
   function join() {
 
     var storageData = localStorage.getItem("jwtToken");
     var storeData = JSON.parse(storageData);
-    console.log(storeData.userType);
-    console.log('-****', localStorage.getItem("channel"));
+    console.log('-****', localStorage.getItem("channel"), storeData.userType);
 
-    $('#join').addClass('d-none');
-    $('#unpublish').removeClass('d-none');
-    // document.getElementById("join").disabled = true;
-    // document.getElementById("video").disabled = true;
-    
     var channel_key = null;
-    var appId = '748f9639fa864651bef8419d5870ec50';// provided by arjun 
+    //var appId = '748f9639fa864651bef8419d5870ec50';// provided by arjun 
+
     var appId = '232f270a5aeb4e0097d8b5ceb8c24ab3';
     
     console.log("Init AgoraRTC client with App ID: " + appId);
@@ -43,26 +35,31 @@ if(!AgoraRTC.checkSystemRequirements()) {
     client.init(appId, function () {
       
       console.log("AgoraRTC client initialized");
-      
+      console.log('join as Role = ', storeData.userType == 1 ? "host" : "audience")
+      client.setClientRole(storeData.userType == 1 ? "host" : "audience", function(err) {
+        if(err) {
+          console.log("user role failed", e);
+        } else {
+          console.log("user role set success");
+
       var channelName = localStorage.getItem("channel");
 
       client.join(channel_key, channelName, storeData.id.toString(), function(uid) {
 
-        // uid = storeData.id.toString();
-        // 
+          console.log("User " + uid + " join channel successfully");
 
-        console.log("User " + uid + " join channel successfully");
+          let sessionState = true;
 
-        let sessionState = true;
-        if (sessionState) {
-
-
+          // check for device type
           AgoraRTC.getDevices(function (devices) {
             
             var _videoSource = _audioSource = '';
             
+            console.log(' device type ===> ', devices)
+
             for (var i = 0; i !== devices.length; ++i) {
               var device = devices[i];
+              
 
               if (device.kind === 'audioinput' && _audioSource == '') {
                   _audioSource = device.deviceId;
@@ -72,9 +69,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
                 console.log('Some other kind of source/device: ', device);
               }
             }
-
-            // camera = videoSource.value;
-            // microphone = audioSource.value;
 
             camera = _videoSource;
             microphone = _audioSource;
@@ -100,17 +94,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
             localStream.init(function() {
               console.log("getUserMedia successfully");
               localStream.play('agora_local');
-
-              
-              // client.publish(localStream, function (err) {
-              //   console.log("Publish local stream error: " + err);
-              // });
-
-              // client.on('stream-published', function (evt) {
-              //   console.log("Publish local stream successfully");
-              //   console.log('localStream ==========================*******************', localStream)
-              //   console.log('client ------------', client)
-              // });
               
               $.ajax({
                   headers: { 
@@ -124,15 +107,18 @@ if(!AgoraRTC.checkSystemRequirements()) {
                   data: JSON.stringify({ "streamId": uid, "userType": storeData.userType }),
                   success: function( data, textStatus, jQxhr ){
                       
-                      client.publish(localStream, function (err) {
-                        console.log("Publish local stream error: " + err);
-                      });
+                      if(storeData.userType == 1){
 
-                      client.on('stream-published', function (evt) {
-                        console.log("Publish local stream successfully");
-                        // console.log('localStream ==========================*******************', localStream)
-                        console.log('client ------------', client)
-                      });
+                        client.publish(localStream, function (err) {
+                          console.log("Publish local stream error: " + err);
+                        });
+
+                        client.on('stream-published', function (evt) {
+                          console.log("Publish local stream successfully");
+                          // console.log('localStream ==========================*******************', localStream)
+                          console.log('client ------------', client)
+                        });
+                      }
                   },
                   error: function( jqXhr, textStatus, errorThrown ){
                       console.log( errorThrown );
@@ -145,11 +131,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
             });
 
           });
-          
-        }
+        
       }, function(err) {
         console.log("Join channel failed", err);
       });
+      }
+    });// client as host/ audience
+
     }, function (err) {
       console.log("AgoraRTC client init failed", err);
     });
@@ -204,11 +192,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
         //console.log('------------------------lalit',count);
         // console.log("Subscribe remote stream successfully:********** " , stream.getUserId());
         if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
-          
-          // $('div#video .col-md-10').append('<div class="subscribers-list col-md-4 col-xs-6" id="agora_remote'+stream.getId()+'"><div style="position:relative;"><a class="mute-unmute" data-id="'+stream.getId()+'</div><div style="width:100%; height:100%; float:left;" id="agora_remote_vdo'+stream.getId()+'"></div></div>');
         
           $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'"  class="col-md-4 col-lg-3 col-sm-6 col-6 newcss"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div> <a href="javascript:;" class="mute-icon position-absolute mute-unmute" data-id="'+stream.getId()+'"><i class="fa fa-volume-off" aria-hidden="true"></i></a><span class="hand-icon position-absolute" data-toggle="modal" data-target="#hand-raise"></span><div class="att-details"> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1"></span></div></div></div></div>');
-        
         }
         stream.play('agora_remote_vdo' + stream.getId());
         SwitchVideoSize();
@@ -238,7 +223,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
                       }
                       stream.play('agora_remote_vdo' + stream.getId());
 
-                      checkMuteUnmute(stream.getId());
+                      // checkMuteUnmute(stream.getId());
                     } else {
                       // console.log(' check video = ', stream.hasVideo())
                       // console.log(' check audio = ', stream.hasAudio())
@@ -394,10 +379,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
   });
 
   function publish() {
-    $('#publish').addClass('d-none');
-    $('#unpublish').removeClass('d-none');
-    // document.getElementById("publish").disabled = true;
-    // document.getElementById("unpublish").disabled = false;
     client.publish(localStream, function (err) {
       console.log("Publish local stream error: " + err);
     });
@@ -405,22 +386,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   function unpublish() {
     
-    $('#publish').removeClass('d-none');
-    $('#unpublish').addClass('d-none');
-
-    // document.getElementById("publish").disabled = false;
-    // document.getElementById("unpublish").disabled = true;
     client.unpublish(localStream, function (err) {
       console.log("Unpublish local stream failed == " + err);
     });
 
-    // client.leave(function () {
-    //   $('#subscribers-list').html('');
-    //   $('#agora_local').html('');
-    //   console.log("Leavel channel successfully");
-    // }, function (err) {
-    //   console.log("Leave channel failed");
-    // });
   }
 
   function getDevices() {
@@ -484,24 +453,44 @@ if(!AgoraRTC.checkSystemRequirements()) {
    
     $(document).on('click', '#publish', function(){
       publish();
+      $('#publish').addClass('d-none');
+      $('#unpublish').removeClass('d-none');
     })
    
     $(document).on('click', '#unpublish', function(){
       unpublish();
+      $('#publish').removeClass('d-none');
+      $('#unpublish').addClass('d-none');
+    })
+
+    $(document).on('click', '#strm-publish', function(){
+      publish();
+       $('#strm-publish').addClass('d-none');
+      $('#strm-unpublish').removeClass('d-none');
+    })
+   
+    $(document).on('click', '#strm-unpublish', function(){
+      unpublish();
+      $('#strm-publish').removeClass('d-none');
+      $('#strm-unpublish').addClass('d-none');
     })
 
     // attendy
-    $(".minimize-others").click(function(){
+    $("#minimize-others").click(function(){
         $(".slide-right-left").css({"width": "72px", "float": "right"});
-        $(".minimize-others").attr("style", "display: none !important");
-        $(".slide-right-left .self-video, .slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").hide();
-        $(".show-everyone, .self-video1").show();
+        $("#minimize-others").addClass('d-none');
+        $("#show-everyone").removeClass('d-none');
+        $(".slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").hide();
       })
-      $(".show-everyone").click(function(){
+    
+      $("#show-everyone").click(function(){
         $(".slide-right-left").css({"width": "100%", "float": "right"});
-        $(".minimize-others").attr("style", "display: block !important");
-        $(".slide-right-left .self-video, .slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").show();
-        $(".show-everyone, .self-video1").hide();
+        $("#minimize-others").removeClass('d-none');
+        $("#show-everyone").addClass('d-none');
+        setTimeout(function(){
+          
+        $(".slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").show();
+        }, 1000)
       })
 
   });

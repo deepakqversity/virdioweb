@@ -76,7 +76,7 @@ return (
 
     </section>
     <div className="row four-gutters position-fixed host-script-section">
-      <div className="col-12 col-md-12 mt-2 col-lg-4 host-section">
+      <div className="col-12 col-md-12 mt-2 col-lg-3 host-section">
         <div className="bg-gray px-3 pt-2 pb-1 rounded overflow-hidden h-100">
           <div className="d-flex justify-content-between align-items-center mb-3">
             <h3 className="main-heading font-size-16 float-left">Streaming</h3>
@@ -92,9 +92,9 @@ return (
         </div>
       </div>
         
-      <div className="col-12 col-md-12 mt-2 col-lg-8">
-        <div className="bg-gray  p-3 rounded overflow-hidden h-100">
-          <div className="d-md-flex justify-content-between align-items-center mb-3">
+      <div className="col-12 col-md-12 mt-2 col-lg-9">
+        <div className="bg-gray px-3 py-2 rounded overflow-hidden h-100">
+          <div className="d-md-flex justify-content-between align-items-center mb-2">
             <h3 className="main-heading font-size-16">Testing Script <span className="ml-md-4 font-size-16">1/4 wines</span></h3>
             <div className=" mt-3 mt-md-0 d-md-flex justify-content-between align-items-center">
               <button type="button" className="btn btn-outline-secondary mr-4">"Show Script"</button>

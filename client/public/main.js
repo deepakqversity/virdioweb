@@ -31,12 +31,16 @@ if(!AgoraRTC.checkSystemRequirements()) {
     
     console.log("Init AgoraRTC client with App ID: " + appId);
     
+    // create client first
     client = AgoraRTC.createClient({mode: 'live'});
     
+    // initialize client
     client.init(appId, function () {
       
       console.log("AgoraRTC client initialized");
-      console.log('join as Role = ', storeData.userType == 1 ? "host" : "audience")
+      console.log('join as Role = ', storeData.userType == 1 ? "host" : "audience");
+
+      // Before join channel add user role 
       client.setClientRole(storeData.userType == 1 ? "host" : "audience", function(err) {
         if(err) {
           console.log("user role failed", e);
@@ -45,6 +49,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
       var channelName = localStorage.getItem("channel");
 
+      // create and join channel
       client.join(channel_key, channelName, storeData.id.toString(), function(uid) {
 
           console.log("User " + uid + " join channel successfully");
@@ -60,7 +65,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
             for (var i = 0; i !== devices.length; ++i) {
               var device = devices[i];
-              
 
               if (device.kind === 'audioinput' && _audioSource == '') {
                   _audioSource = device.deviceId;
@@ -74,12 +78,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
             camera = _videoSource;
             microphone = _audioSource;
             
-            localStream = AgoraRTC.createStream({streamID: uid, audio: storeData.userType == 1 ? true : false, cameraId: camera, microphoneId: microphone, video: sessionState, screen: false });
-            // localStream = AgoraRTC.createStream({streamID: uid, audio: false, cameraId: camera, microphoneId: microphone, video: false, screen: true, extensionId: 'minllpmhdgpndnkomcoccfekfegnlikg'});
-            // localStream.setUserId("999");
+            // create local stream
+            localStream = AgoraRTC.createStream({streamID: uid, audio: storeData.userType == 1 ? true : true, cameraId: camera, microphoneId: microphone, video: sessionState, screen: false });
+            
+            
+
             if (sessionState) {
               localStream.setVideoProfile('720p_3');
-
             }
 
             // The user has granted access to the camera and mic.
@@ -93,6 +98,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
             });
 
             localStream.init(function() {
+
+              localStream.muteAudio(); 
+
               console.log("getUserMedia successfully");
               localStream.play('agora_local');
               
@@ -119,6 +127,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
                           // console.log('localStream ==========================*******************', localStream)
                           console.log('client ------------', client)
                         });
+                      } else {
+
                       }
                   },
                   error: function( jqXhr, textStatus, errorThrown ){
@@ -238,7 +248,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
                       
                       if(stream.hasAudio())
                         stream.muteAudio();
-
                     }
                   }
                   
@@ -305,6 +314,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     });
 
     client.on('peer-leave', function (evt) {
+      console.log('peer-leave = ', evt)
       var stream = evt.stream;
       if (stream) {
         stream.stop();
@@ -317,14 +327,14 @@ if(!AgoraRTC.checkSystemRequirements()) {
     client.on('mute-audio', function (evt) {
       var stream = evt.stream;
       if (stream) {
-        console.log(evt.uid + " muted from this channel");
+        console.log(evt.uid + " ===> muted from this channel");
       }
     });
 
     client.on('unmute-audio', function (evt) {
       var stream = evt.stream;
       if (stream) {
-        console.log(evt.uid + " unmuted from this channel");
+        console.log(evt.uid + " ===> unmuted from this channel");
       }
     });
 
@@ -362,6 +372,22 @@ if(!AgoraRTC.checkSystemRequirements()) {
         }
     });
 
+    client.on("client-role-changed", function (evt) {
+      console.log('client-role-changed = ', evt)
+      var stream = evt.stream;
+      if (stream) {
+        console.log(evt.uid + " ===> role changed");
+      }
+    });
+
+    client.on("peer-online", function (evt) {
+      console.log('peer-online = ', evt)
+      // var stream = evt.stream;
+      // if (stream) {
+      //   console.log(evt.uid + " ===> peer online");
+      // }
+    });
+
   }
 
   function leave() {
@@ -381,6 +407,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   });
 
   function publish() {
+    // localStream.muteAudio();
     client.publish(localStream, function (err) {
       console.log("Publish local stream error: " + err);
     });
@@ -395,15 +422,41 @@ if(!AgoraRTC.checkSystemRequirements()) {
   }
 
   function raiseHand(){
-    console.log('=========1',localStream.hasAudio())
-    if(localStream.hasAudio() == false)
-        localStream.unmuteAudio();
+    console.log('localStream.hasAudio = ', localStream.hasAudio())
+    // if(localStream.hasAudio())
+      localStream.unmuteAudio(); 
+    // client.setClientRole('host', function(err){
+      // console.log('=========1',localStream.hasAudio())
+      // if(localStream.hasAudio() == false)
+      //     localStream.unmuteAudio();
+      
+      // client.publish(localStream, function (err) {
+        
+      //   console.log("Publish local stream error: " + err);
+
+      //   if(err) {
+      //     console.log("111 user role failed", err);
+      //   } else {
+      //     console.log("111 user role set success");
+      //     }
+      // });
+    // });
+
   }
 
   function downHand(){
-    console.log('=========2',localStream.hasAudio())
-    if(localStream.hasAudio())
-        localStream.muteAudio();
+    console.log('localStream.hasAudio = ', localStream.hasAudio())
+    // if(localStream.hasAudio() == true)
+      localStream.muteAudio();
+    // client.setClientRole('audience', function(err){
+
+    //   if(err){
+    //     console.log('====== err ' ,err)
+    //   }
+
+    //     console.log('====== no err ' ,err)
+
+    // });
   }
 
   function getDevices() {

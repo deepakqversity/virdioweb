@@ -18,9 +18,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
   var client, localStream, camera, microphone;
 
   function join() {
-
+   
     var storageData = localStorage.getItem("jwtToken");
     var storeData = JSON.parse(storageData);
+   
     console.log('-****', localStorage.getItem("channel"), storeData.userType);
 
     var channel_key = null;
@@ -192,9 +193,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
         //console.log('------------------------lalit',count);
         // console.log("Subscribe remote stream successfully:********** " , stream.getUserId());
         if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
-          
         
-          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'"  class="col-md-4 col-lg-3 col-sm-6 col-6 newcss"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div> <a href="javascript:;" class="mute-icon position-absolute mute-unmute" data-id="'+stream.getId()+'"><i class="fa fa-volume-off" aria-hidden="true"></i></a><span class="hand-icon position-absolute" data-toggle="modal" data-target="#hand-raise"></span><div class="att-details"> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1"></span></div></div></div></div>');
+          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'"  class="col-md-4 col-lg-3 col-sm-6 col-6 newcss"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div> <a href="javascript:;" class="mute-icon position-absolute mute-unmute" data-id="'+stream.getId()+'"><i class="fa fa-volume-off" aria-hidden="true"></i></a><span class="hand-icon position-absolute" data-toggle="modal" data-target="#guest-video"></span><div class="att-details"> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1"></span></div></div></div></div>');
         }
         stream.play('agora_remote_vdo' + stream.getId());
         SwitchVideoSize();
@@ -255,12 +255,12 @@ if(!AgoraRTC.checkSystemRequirements()) {
     function SwitchVideoSize(){
       count++;
       let len = $('#subscribers-list .newcss').length;
-      console.log('------------------------lalit',len);
+     // console.log('------------------------lalit',len);
       if(len == 0) return false;
 
       let vdoSize = '';
       if(len == 1){
-        vdoSize = 'col-md-6 col-lg-5 col-sm-6 col-12 mx-auto';
+        vdoSize = 'col-md-6 col-lg-8 col-sm-6 col-12 mx-auto';
       } else if(len == 2) {
         vdoSize = 'col-md-6 col-lg-6 col-sm-6 col-6';
       } else if(len == 3) {
@@ -274,6 +274,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
           
           $(this).removeClass('col-md-6')
             .removeClass('col-md-4')
+            .removeClass('col-lg-8')
             .removeClass('col-md-4')
             .removeClass('col-lg-6')
             .removeClass('col-lg-5')
@@ -502,21 +503,31 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
     // attendy
     $("#minimize-others").click(function(){
-        $(".slide-right-left").css({"width": "72px", "float": "right"});
-        $("#minimize-others").addClass('d-none');
+      $(".slide-right-left").css({"width": "72px", "float": "right"});
+        //$(".joined-attendees").css("right", "-280px");
+        
+        $("#minimize-others, .right-sidebar .title").addClass('d-none');
         $("#show-everyone").removeClass('d-none');
+        $(".attendee-list").css("background", "transparent");
         $(".slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").hide();
       })
     
       $("#show-everyone").click(function(){
         $(".slide-right-left").css({"width": "100%", "float": "right"});
-        $("#minimize-others").removeClass('d-none');
+        //$(".joined-attendees").removeAttr("style");
+        
         $("#show-everyone").addClass('d-none');
         setTimeout(function(){
-          
-        $(".slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").show();
-        }, 1000)
+          $("#minimize-others").removeClass('d-none').fadeIn(500);
+          $(".right-sidebar .title").removeClass('d-none');
+          $(".attendee-list").css("background", "#000");
+        $(".slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").fadeIn(500);
+        }, 200)
       })
+
+      
+        
+      
 
   });
 

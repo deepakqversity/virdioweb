@@ -33,7 +33,7 @@ render() {
 
 return (
     <div className="container justify-content-between d-flex flex-column h-100">
-    <header className="header bg-gray mt-3">
+    <header className="header bg-gray mt-2">
       <div className="row d-block d-md-flex align-items-center">
         <div className="col-12 col-md-1">
           <a href="#" className="logo d-table mx-auto py-xs-1">
@@ -52,10 +52,11 @@ return (
                 <span>Time Remaining: 01:10:00</span>
               </div>
             </div>
-            <div className="col-12 col-sm-3 justify-content-end d-flex align-items-center">
-              <a className="btn btn-primary border-right pr-20" href="javascript:;" tabIndex="1">details</a>
-
-              <img src="images/voice-commands.png" className="mic-icon" />
+            <div className="col-12 col-sm-3">
+              <div className="col-12 justify-content-end d-flex align-items-center">
+                <a className="btn btn-primary border-right pr-20" href="javascript:;" tabIndex="1">details</a>
+                <img src="images/voice-commands.png" className="mic-icon" />
+              </div>
             </div>
           </div>
         </div>
@@ -124,7 +125,26 @@ return (
         </div>
       </div>
     </div>
-
+    <div className="modal fade" id="guest-video" role="dialog">
+    <div className="modal-dialog modal-lg bg-black px-4 m-0 mw-100 h-100 d-flex w-100 align-items-center">
+      <div className="h-100 modal-content bg-transparent w-100 d-flex justify-content-between flex-direction-column">
+        <div>
+          <button type="button" className="close-model-btn close float-left" data-dismiss="modal">&times;</button>
+          <a href="#" className="eject-this">Eject from Session <img src="images/eject.png" /></a>
+        </div>
+        <div className="modal-content clone-guest-video"></div>
+        <div className="guest-video-footer">
+          <div className="conversations">
+            <a href="#"><img src="images/private-conversation.png" />Public Conversation</a>
+            <a href="#"><img src="images/private-conversation.png" />Private Conversation</a>
+            <a href="#" className="float-right mr-0">Emotions <img className="ml-3" src="images/quote-circular-button.png" /></a>
+          </div>
+          
+      </div>
+    </div>
+      
+    </div>
+  </div>
       <div className="modal fade" id="hand-raise" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
       <div className="modal-dialog modal-dialog-lg" role="document">

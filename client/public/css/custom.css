@@ -136,6 +136,9 @@ a.bg-primary:hover, a.bg-primary:focus, button.bg-primary:hover, button.bg-prima
 .bg-gray{
 	background: #2F2F2F;
 }
+.bg-black{
+	background: #000;
+}
 .rounded {
     border-radius: 10px !important;
 }
@@ -203,10 +206,22 @@ h3.main-heading span{
 		height:100%;
 	}
 }
-
+@media (min-width:1200px){
+	.max-width-300{
+		max-width:300px;
+	}
+}
 .font-size-16{
 	font-size:16px !important;
 }
+.flex-direction-column{
+	flex-direction:column;
+}
+
+
+
+
+
 
 /* 3. Header */
 .logo img{
@@ -217,7 +232,7 @@ h3.main-heading span{
     border-radius: 10px;
     width: 100%;
     height: auto;
-    padding: 10px 0;
+    padding: 10px 0px;
 	position: relative;
     z-index: 3;
 }
@@ -348,6 +363,118 @@ h3.main-heading span{
 }
 
 
+.close-model-btn{
+	margin: 20px;
+    color: #964DD9;
+    z-index: 4;
+    text-shadow: none;
+    opacity: 1;
+    font-size: 36px;
+    line-height: 20px;
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+}
+.close-model-btn:hover{
+	text-decoration:none;
+	color:#964DD9 !important;
+}
+.clone-guest-video{
+flex-grow: 1;
+}
+#guest-video a:hover, #guest-video button:hover{
+	text-decoration:none;
+	color:#964DD9 !important;
+}
+.eject-this{
+    float: right;
+    z-index: 4;
+    margin: 20px;
+    color: #fff;
+    font-family: Avenir-Book;
+    font-size: 17px;
+	line-height: 30px;
+}
+.eject-this img{
+	width: 20px;
+    margin-left: 20px;
+}
+.guest-video-footer{
+position: relative;
+    bottom: 6px;
+    left: 0;
+    width: 100%;
+    padding: 20px 0;
+}
+.conversations a{
+	    color: #fff;
+    font-family: Avenir-Book;
+    font-size: 16px;
+    margin-right: 20px;
+}
+.conversations a img{
+	    margin-right: 13px;
+    width: 20px;
+}
+
+
+/*----detail button popup----*/
+.carousel-indicators{
+	
+}
+#show-details .carousel-indicators li {
+    box-sizing: content-box;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    margin-right: 3px;
+    margin-left: 3px;
+    text-indent: -999px;
+    cursor: pointer;
+    background-color: #777;
+    background-clip: padding-box;
+    border-top: 0;
+    border-bottom: 0;
+    opacity: 1;
+    transition: opacity 0.6s ease;
+}
+#show-details .carousel-indicators li.active{
+	background-color:#964DD9;
+}
+#show-details .modal-content{
+	padding: 15px;
+    background: #000;
+}
+.content-scroll{
+	max-height:500px;
+}
+
+.content-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+
+.content-scroll::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+
+.content-scroll::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+
+.content-scroll::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+
+
 /* 5. Host Section */
 .host-section video{
     width: 100%;
@@ -391,12 +518,12 @@ h3.main-heading span{
     float: left;
     text-align: left;
 	width: 100%;
-    max-width: 132px;
+    max-width: 130px;
 }
 .item-description .list-info li span:last-child{
 	width: 100%;
     float: left;
-    max-width: 160px;
+    max-width: 130px;
 }
 .item-description .item-text{
 	color: #fff;
@@ -427,11 +554,13 @@ h3.main-heading span{
 	    float: left;
 }
 .slide-right-left{
-	-webkit-transition: width 700ms; 
-  transition: width 700ms;
+	-webkit-transition: width 600ms; 
+  transition: width 600ms;
   padding: 20px 8px;
-  width:72px;
   float: right;
+      position: relative;
+    z-index: 4;
+    overflow: hidden;
 }
 .v-logo img{
 	width: 22px;
@@ -450,13 +579,15 @@ h3.main-heading span{
 }
 .overlay:before{
 	content: '';
-    background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 51%, rgba(0,0,0,0.8) 100%);
+    background: url(../images/overlay.png);
     height: 100%;
     width: 100%;
     position: absolute;
     top: 0;
     left: 0;
 	z-index: 1;
+	background-size: cover;
+    background-position: center;
 }
 .default-btns .btn img{
 	width:20px;
@@ -476,7 +607,6 @@ h3.main-heading span{
     color: #fff;
     font-weight: normal;
     margin: 0;
-    display: none;
 }
 .right-sidebar .title span {
     font-family: Avenir-Book;
@@ -491,7 +621,7 @@ h3.main-heading span{
 .joined-attendees{
 	    float: left;
     width: 100%;
-    margin-bottom: 15px;
+    
 }
 .attendee-list{
 	background: #000;
@@ -501,6 +631,11 @@ h3.main-heading span{
     width: 100%;
     margin: 1px 0;
 	position:relative;
+	-webkit-transition: all 500ms ease;
+  -moz-transition: all 500ms ease;
+  -o-transition: all 500ms ease;
+  -ms-transition: all 500ms ease;
+  transition: all 500ms ease;
 }
 .attendee-list>img{
 	float: left;
@@ -513,9 +648,7 @@ h3.main-heading span{
     font-size: 14px;
     width: auto;
     float: left;
-	-webkit-transition: display 700ms; 
-  transition: display 700ms;
-  display: none;
+
 }
 .attendee-list>span .fa{
 	font-size: 14px;
@@ -553,7 +686,7 @@ h3.main-heading span{
 	position:absolute;
 	bottom:0;
 	right:8px;
-	max-width:240px;
+	max-width:270px;
 	display:block;
 }
 .self-video1 video{

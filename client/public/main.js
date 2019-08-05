@@ -98,8 +98,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
             });
 
             localStream.init(function() {
-
-              localStream.muteAudio(); 
+              if(storeData.userType != 1){
+                localStream.muteAudio();
+              } 
 
               console.log("getUserMedia successfully");
               localStream.play('agora_local');
@@ -204,7 +205,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         // console.log("Subscribe remote stream successfully:********** " , stream.getUserId());
         if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
         
-          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'"  class="col-md-4 col-lg-3 col-sm-6 col-6 newcss"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div> <a href="javascript:;" class="mute-icon position-absolute mute-unmute" data-id="'+stream.getId()+'"><i class="fa fa-volume-off" aria-hidden="true"></i></a><span class="hand-icon position-absolute" data-toggle="modal" data-target="#guest-video"></span><div class="att-details"> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1"></span></div></div></div></div>');
+          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'"  class="col-md-4 col-lg-3 col-sm-6 col-6 newcss"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div> <a href="javascript:;" class="mute-icon position-absolute speaker mute-unmute d-none" data-id="'+stream.getId()+'"><i class="fa fa-volume-off" aria-hidden="true"></i></a><span class="hand-icon position-absolute hand d-none" data-toggle="modal" data-target="#guest-video"></span><div class="att-details"> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1"></span></div></div></div></div>');
         }
         stream.play('agora_remote_vdo' + stream.getId());
         SwitchVideoSize();
@@ -325,17 +326,31 @@ if(!AgoraRTC.checkSystemRequirements()) {
     });
 
     client.on('mute-audio', function (evt) {
-      var stream = evt.stream;
-      if (stream) {
-        console.log(evt.uid + " ===> muted from this channel");
+      console.log('------------------->111', evt)
+      if ($('#subscribers-list #agora_remote'+evt.uid).length > 0){
+        $('#subscribers-list #agora_remote'+evt.uid).find('.speaker').addClass('d-none')
+        $('#subscribers-list #agora_remote'+evt.uid).find('.hand').addClass('d-none')
       }
+      // var stream = evt.stream;
+      // if (stream) {
+      //   console.log(evt.uid + " ===> muted from this channel");
+      // }
     });
 
     client.on('unmute-audio', function (evt) {
-      var stream = evt.stream;
-      if (stream) {
-        console.log(evt.uid + " ===> unmuted from this channel");
+      console.log('------------------->222', evt)
+      
+        console.log('8*******************',evt.uid);
+      if ($('#subscribers-list #agora_remote'+evt.uid).length > 0){
+        $('#subscribers-list #agora_remote'+evt.uid).find('.speaker').removeClass('d-none')
+        $('#subscribers-list #agora_remote'+evt.uid).find('.hand').removeClass('d-none')
       }
+
+      // var stream = evt.stream;
+      // if (stream) {
+      //   console.log(evt.uid + " ===> unmuted from this channel");
+      // }
+      
     });
 
     client.on('active-speaker', function(evt) {
@@ -387,6 +402,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
       //   console.log(evt.uid + " ===> peer online");
       // }
     });
+
+
 
   }
 

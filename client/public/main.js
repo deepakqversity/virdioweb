@@ -194,11 +194,18 @@ if(!AgoraRTC.checkSystemRequirements()) {
         // console.log("Subscribe remote stream successfully:********** " , stream.getUserId());
         if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
         
-          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'"  class="col-md-4 col-lg-3 col-sm-6 col-6 newcss"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div> <a href="javascript:;" class="mute-icon position-absolute mute-unmute" data-id="'+stream.getId()+'"><i class="fa fa-volume-off" aria-hidden="true"></i></a><span class="hand-icon position-absolute" data-toggle="modal" data-target="#guest-video"></span><div class="att-details"> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1"></span></div></div></div></div>');
-        }
+          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'"  class="col-md-4 col-lg-3 col-sm-6 col-6 newcss d-none"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div> <a href="javascript:;" class="mute-icon position-absolute mute-unmute" data-id="'+stream.getId()+'"><i class="fa fa-volume-off" aria-hidden="true"></i></a><span class="hand-icon position-absolute" data-toggle="modal" data-target="#guest-video"></span><div class="att-details"> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1"></span></div></div></div></div>');
+          onPageResize();
+        
         stream.play('agora_remote_vdo' + stream.getId());
         SwitchVideoSize();
         checkMuteUnmute(stream.getId());
+        $('#subscribers-list #agora_remote'+stream.getId()).removeClass('d-none');
+
+        }
+  
+  // window.onload = onPageResize;
+
         
       } else {
 
@@ -258,16 +265,20 @@ if(!AgoraRTC.checkSystemRequirements()) {
      // console.log('------------------------lalit',len);
       if(len == 0) return false;
 
-      /*let vdoSize = '';
+      let vdoSize = '';
       if(len == 1){
-        vdoSize = 'col-md-6 col-lg-8 col-sm-6 col-12 mx-auto';
+        vdoSize = 'one mx-auto';
+        vdoSize = 'one mx-auto';
       } else if(len == 2) {
         vdoSize = 'col-md-6 col-lg-6 col-sm-6 col-6';
+        vdoSize = 'two';
       } else if(len == 3) {
         vdoSize = 'col-md-4 col-lg-4 col-sm-4 col-12';
+        vdoSize = 'three';
       } else {
         vdoSize = 'col-md-3 col-lg-3 col-sm-3 col-12';
-      }*/
+        vdoSize = 'four';
+      }
 
         // javascript each
         $('#subscribers-list .newcss').each(function (index, value) {
@@ -291,6 +302,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
           });
 
+         
           
     }
     
@@ -418,6 +430,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
   // getDevices();
   $(document).ready(function(){
     
+  window.onresize = onPageResize;
+  // window.onload = onPageLoad;
 
     $(document).on('click', '#subscribers-list .mute-unmute' ,function(){
 
@@ -501,25 +515,85 @@ if(!AgoraRTC.checkSystemRequirements()) {
         }, 200)
       })
       
+
+      $(".close-model-btn").click(function(){
+      
+        $("#show-details").removeClass("show").hide();
+        $("body").removeClass("modal-open");
+        $(".modal-backdrop").hide();
+        //alert("hllo");
+      });
+      $(".show-details-btn").click(function(){
+        $("#show-details").addClass("show").show();
+        $("body").addClass("modal-open");
+        $(".modal-backdrop").show();
+      })
       
       
 
   });
-  window.onload = onPageLoad;
-  window.onresize = onPageLoad;
+  // window.onresize = onPageResize;
+  // window.onload = onPageLoad;
+  
+
     function onPageLoad(){
 
       let winHeight = window.innerHeight;
-      let headerHeight = $(".header.bg-gray").height();
+      let headerHeight = $(".header.bg-gray").height()+20;
       let hostHeight = $(".host-script-section").height();
       let sectionHeight = winHeight - (hostHeight+headerHeight);
       $(".section.attendees").height(`${sectionHeight - 67}px`);
-      $("#subscribers-list").height(`${sectionHeight - 110}px`)
+      $("#subscribers-list").height(`${sectionHeight - 150}px`)
+      let sub_list_y = $("#subscribers-list").height(); 
+      let sub_list_x = $("#subscribers-list").width(); 
+
+    setTimeout(function(){
+     // $(".newcss.one").height(`${sub_list_y }px`);
+      
+      if(sub_list_x > 1400){
+        $(".newcss.one").width(`${sub_list_x / 3 }px`);
+      }
+      else{
+        $(".newcss.one").width(`${sub_list_x / 4 }px`);
+      }
+    }, 600)
+
+    //console.log(`${sectionHeight}px`);
+    //let vid_y = $("#subscribers-list video").height();
+    //let vid_x = $("#subscribers-list video").width();
+  }
+
+    function onPageResize(){
+
+      let winHeight = window.innerHeight;
+      let headerHeight = $(".header.bg-gray").height()+20;
+      let hostHeight = $(".host-script-section").height();
+      let sectionHeight = winHeight - (hostHeight+headerHeight);
+      $(".section.attendees").height(`${sectionHeight - 67}px`);
+      $("#subscribers-list").height(`${sectionHeight - 150}px`)
+      let sub_list_y = $("#subscribers-list").height(); 
+      let sub_list_x = $("#subscribers-list").width(); 
+      setTimeout(function(){
+        // $(".newcss.one").height(`${sub_list_y }px`);
+         
+         if(sub_list_x > 1400){
+           $(".newcss.one").width(`${sub_list_x / 3 }px`);
+         }
+         else if(sub_list_x > 1600){
+          $(".newcss.one").width(`${sub_list_x }px`);
+        }
+         else{
+           $(".newcss.one").width(`${sub_list_x / 4 }px`);
+         }
+       }, 600)
+
+
       //console.log(`${sectionHeight}px`);
       //let vid_y = $("#subscribers-list video").height();
       //let vid_x = $("#subscribers-list video").width();
     }
-    
+
+   
     
 
   function checkMuteUnmute(id) {

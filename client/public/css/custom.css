@@ -191,6 +191,9 @@ h3.main-heading span{
 .zindex-5{
 	z-index:5;
 }
+.w-90{
+width:90%;
+}
 @media (max-width:768px){
 	.mx-xs-auto{
 		margin-left:auto !important;
@@ -278,12 +281,7 @@ h3.main-heading span{
 
 
 /* 4. Attendees Section */
-#subscribers-list, 
-#subscribers-list>div, 
-#subscribers-list>div>div, 
-#subscribers-list .video-streams{
-	height:100%;
-}
+
 .section.attendees{
 	margin-top: 110px !important;
 }
@@ -556,6 +554,15 @@ position: relative;
     font-family: Avenir-Book;
 	margin-bottom: 0;
 }
+.sub-heading{
+    font-family: Avenir-Heavy;
+    float: left;
+    text-align: left;
+    width: 100%;
+    color: #fff;
+    font-size: 14px;
+}
+
 @media (max-width:480px){
 	.item-description .list-info li span:last-child{
 		float: left;
@@ -685,6 +692,12 @@ position: relative;
     font-size: 13px;
 }
 
+/* item-description  */
+.detail-model{
+	background:#2B2B2B;
+	border-radius:10px;
+	padding:25px 30px !important;
+}
 
 
 

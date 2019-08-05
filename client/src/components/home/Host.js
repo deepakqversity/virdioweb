@@ -72,7 +72,7 @@ return (
         </div>
       </div>
       
-    <div className="row one-gutters align-items-center h-lg-100" id="subscribers-list"></div>
+    <div className="row one-gutters align-items-center" id="subscribers-list"></div>
 
     </section>
     <div className="row four-gutters position-fixed host-script-section">

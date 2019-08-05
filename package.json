@@ -4,15 +4,15 @@
   "description": "Virdio is live communication with people.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "server": "nodemon server.js"
+    "client": "cd client && npm start",
+    "server": "nodemon server.js",
+    "dev": "HTTPS=true concurrently \"npm run server\" \"npm run client\""
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
-    "concurrently": "^4.0.1",
     "cors": "^2.8.5",
     "dotenv": "^8.0.0",
     "express": "^4.16.4",
@@ -23,5 +23,12 @@
     "passport-jwt": "^4.0.0",
     "underscore": "^1.9.1",
     "validator": "^10.9.0"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.1",
+    "express-pino-logger": "^4.0.0",
+    "node-env-run": "^3.0.2",
+    "npm-run-all": "^4.1.5",
+    "pino-colada": "^1.4.5"
   }
 }

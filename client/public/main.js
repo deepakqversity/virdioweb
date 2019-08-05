@@ -258,7 +258,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
      // console.log('------------------------lalit',len);
       if(len == 0) return false;
 
-      let vdoSize = '';
+      /*let vdoSize = '';
       if(len == 1){
         vdoSize = 'col-md-6 col-lg-8 col-sm-6 col-12 mx-auto';
       } else if(len == 2) {
@@ -267,7 +267,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         vdoSize = 'col-md-4 col-lg-4 col-sm-4 col-12';
       } else {
         vdoSize = 'col-md-3 col-lg-3 col-sm-3 col-12';
-      }
+      }*/
 
         // javascript each
         $('#subscribers-list .newcss').each(function (index, value) {
@@ -500,12 +500,27 @@ if(!AgoraRTC.checkSystemRequirements()) {
         $(".slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").fadeIn(500);
         }, 200)
       })
-
       
-        
+      
       
 
   });
+  window.onload = onPageLoad;
+  window.onresize = onPageLoad;
+    function onPageLoad(){
+
+      let winHeight = window.innerHeight;
+      let headerHeight = $(".header.bg-gray").height();
+      let hostHeight = $(".host-script-section").height();
+      let sectionHeight = winHeight - (hostHeight+headerHeight);
+      $(".section.attendees").height(`${sectionHeight - 67}px`);
+      $("#subscribers-list").height(`${sectionHeight - 110}px`)
+      //console.log(`${sectionHeight}px`);
+      //let vid_y = $("#subscribers-list video").height();
+      //let vid_x = $("#subscribers-list video").width();
+    }
+    
+    
 
   function checkMuteUnmute(id) {
 

@@ -32,8 +32,8 @@ render() {
     console.log('------------------------------', user);
 
 return (
-    <div className="container justify-content-between d-flex flex-column h-100">
-    <header className="header bg-gray mt-2">
+    <div className="container justify-content-between d-flex flex-column h-100 position-relative">
+    <header className="header bg-gray mt-2 position-fixed">
       <div className="row d-block d-md-flex align-items-center">
         <div className="col-12 col-md-1">
           <a href="#" className="logo d-table mx-auto py-xs-1">
@@ -62,7 +62,7 @@ return (
         </div>
       </div>
     </header>
-    <section className="bg-gray mt-2 p-3 rounded section attendees flex-grow-1">
+    <section className="bg-gray mt-2 p-3 rounded section attendees">
       <div className="row px-0 px-sm-3 pb-2 pt-0 justify-content-between align-items-center">
         <div className="col-6 col-md-6">
           <h4 className="title">Wine Testers <span>(24/44)</span></h4>
@@ -75,9 +75,9 @@ return (
     <div className="row one-gutters align-items-center h-lg-100" id="subscribers-list"></div>
 
     </section>
-    <div className="row four-gutters">
+    <div className="row four-gutters position-fixed host-script-section">
       <div className="col-12 col-md-12 mt-2 col-lg-4 host-section">
-        <div className="bg-gray  px-3 pt-3 pb-2 rounded overflow-hidden h-100">
+        <div className="bg-gray px-3 pt-2 pb-1 rounded overflow-hidden h-100">
           <div className="d-flex justify-content-between align-items-center mb-3">
             <h3 className="main-heading font-size-16 float-left">Streaming</h3>
             <div className="host-header">

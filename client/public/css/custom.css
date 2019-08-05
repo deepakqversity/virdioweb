@@ -227,16 +227,24 @@ h3.main-heading span{
 .logo img{
 	width:65px;
 }
-.header{
-    
+/*.header{
     border-radius: 10px;
     width: 100%;
     height: auto;
     padding: 10px 0px;
 	position: relative;
     z-index: 3;
+}*/
+.header{
+	border-radius: 10px;
+    width: 96%;
+    height: auto;
+    padding: 10px 0px;
+    z-index: 3;
+    left: 0;
+    right: 0;
+    margin: auto;
 }
-
 
 .time span{
 	color:#fff;
@@ -270,6 +278,15 @@ h3.main-heading span{
 
 
 /* 4. Attendees Section */
+#subscribers-list, 
+#subscribers-list>div, 
+#subscribers-list>div>div, 
+#subscribers-list .video-streams{
+	height:100%;
+}
+.section.attendees{
+	margin-top: 110px !important;
+}
 .section.attendees .title{
     font-family: 'Avenir-Black';
     font-size: 16px;
@@ -476,6 +493,13 @@ position: relative;
 
 
 /* 5. Host Section */
+.host-script-section{
+	bottom: 0;
+    left: 0;
+    width: 96%;
+    margin: auto;
+    right: 0;
+}
 .host-section video{
     width: 100%;
     border-radius: 10px;

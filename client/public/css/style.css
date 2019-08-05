@@ -31,3 +31,4 @@ button.show-everyone.btn.btn-outline-secondary.mb-3.mx-auto {
     left: -159px;
 }
 
+.default-btns .btn img{ max-width: 20px; }

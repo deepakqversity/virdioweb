@@ -53,7 +53,16 @@ return (
                     </div>
                   </div>
                   <div className="col-12 col-sm-12 col-md-3 d-flex justify-content-end">
+                  
+                  <div className="default-btns mr-2">
+                    <a href="javascript:;" className="btn btn-primary ml-2" id="mocrophone-off" alt="Microphone" title="Microphone Off"><img src="images/hand.png" /></a>
+                    <a href="javascript:;" className="btn btn-primary ml-2 d-none" id="mocrophone-on" alt="Microphone" title="Microphone On"><i className="fa fa-microphone"></i></a>
+
+                  </div>
+
                     <a className="col-2 justify-content-end d-flex align-items-center" href="#" className="btn btn-primary " tabIndex="1">Details</a>
+
+                    
                     <a href="javascript:;" className="btn btn-primary ml-2" id="strm-publish" alt="Broadcaster" title="Broadcaster"><i className="fa fa-user-plus"></i></a>
                     <a href="javascript:;" className="btn btn-primary ml-2 d-none" id="strm-unpublish" alt="Audience" title="Audience"><i className="fa fa-user-times"></i></a>
 
@@ -73,7 +82,7 @@ return (
       
     </header>
     <div className="row justify-content-between zindex-5 position-relative flex-grow-1">
-    <div className="col-lg-3 col-md-4 col-sm-5 col-6">
+    <div className="col-lg-3 col-md-4 col-sm-5 col-6 max-width-300">
       <div className="left-section">
         <h2 className="item-name py-3">1/4 Wines</h2>
         <h3 className="second-heading my-3">2014 Bliss Block Pinot Noir</h3>
@@ -94,10 +103,10 @@ return (
             
           </div>
         </div>
-        <button type="button" className="btn btn-outline-secondary">"Show Details"</button>
+        <button type="button" data-toggle="modal" data-target="#show-details" className="btn btn-outline-secondary">"Show Details"</button>
       </div>
     </div>
-    <div className="col-lg-3 col-md-4 col-sm-5 col-6 float-right pl-0">
+    <div className="col-lg-3 col-md-4 col-sm-5 col-6 max-width-300 float-right pl-0">
         <div className="right-sidebar">
           <div className="transparent-gray slide-right-left">
             
@@ -150,6 +159,8 @@ return (
                   <span><i className="fa fa-map-marker" aria-hidden="true"></i> CO</span>
                 </span>
               </div>
+            <button type="button" id="minimize-others" className="mt-2 minimize-others btn btn-outline-secondary mx-auto">"Minimize Others"</button>
+        
             </div>
            
             <div className="self-video mt-3">
@@ -175,13 +186,74 @@ return (
       </ul>
       
       <div className="self-video1 mt-3">
-          <button type="button" id="show-everyone" className="mb-2 minimize-others btn btn-outline-secondary mx-auto d-none">Show Everyone</button>
-          <button type="button" id="minimize-others" className="mb-2 minimize-others btn btn-outline-secondary mx-auto">Minimize Others</button>
-        <div id="agora_local" className="video-streams"></div>
-
+          <button type="button" id="show-everyone" className="mb-2 minimize-others btn btn-outline-secondary mx-auto d-none">"Show Everyone"</button>
+          
+          <div id="agora_local" className="video-streams guest-video"></div>
+          
       </div>
     </footer>
+    
+  
+    
+    <div id="show-details" className="modal bg-black fade" role="dialog">
+      <div className="w-100 d-flex align-items-center flex-direction-column h-100 mw-100 px-3 justify-content-center">
+        <div className="modal-content">
+          
+           <div className="row">
+            <div className="col-12 col-sm-6">
+              
+            <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
+              <ol className="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+              </ol>
+              <div className="carousel-inner">
+                <div className="carousel-item active">
+                  <img className="d-block mx-auto" src="images/product.png" alt="First slide" />
+                </div>
+                <div className="carousel-item">
+                  <img className="d-block mx-auto" src="images/product.png" alt="Second slide" />
+                </div>
+                <div className="carousel-item">
+                  <img className="d-block mx-auto" src="images/product.png" alt="Third slide" />
+                </div>
+              </div>
+              
+            </div>
+            </div>
+            <div className="col-12 col-sm-6 item-description">
+              <button type="button" className="close close-model-btn" data-dismiss="modal">&times;</button>
+              <div className="details-content">
+              <h3 class="second-heading my-3">2014 Bliss Block Pinot Noir</h3>
+              <div class="content-scroll">
+                <div className=" row w-100">
+                  <ul class="col-12 col-md-12 col-lg-6 list-info">
+                    <li><span>Varietal</span><span>100% Pinot Noir</span></li>
+                    <li><span>Year</span><span>2014&#8203;</span></li>
+                    <li><span>Country</span><span>United States&#8203;</span></li>
+                    <li><span>Appellation</span><span>Sonoma</span></li>
+                    <li><span>Alcohol</span><span>14.3%</span></li>
+                  </ul>
+                  <ul class="col-12 col-md-12 col-lg-6 list-info">
+                    <li><span>pH</span><span>3.69</span></li>
+                    <li><span>Aging</span><span>15 months in French Oak Barrels, 82%</span></li>
+                    <li><span>Price</span><span>$80&#8203;</span></li>
+                    <li><span>Case Production</span><span>250</span></li>
+                  </ul>
+                  <div class="col col-md-12">
+                    <p class="item-text">The Bliss Block Pinot Noir beautifully captures the rich spice qualities that are characteristic of this cool pocket of our Quail Hill Estate vineyard. A bright garnet hue </p>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </div>
+           </div>
+          
+        </div>
 
+      </div>
+    </div>
     <input type="hidden" id="conf-page" />
 
   </div>

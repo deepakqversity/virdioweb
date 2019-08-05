@@ -7,17 +7,14 @@ const confUserModel = require('../../models/ConferenceUser');
 
 class ConferenceCtrl {
 
-
 	async getChannel(req, res) {
 	    try {
-	    	console.log(req.currentUser._id)
+	    	// console.log(req.currentUser._id)
 			let confUserObj = await confUserModel.get({userId : req.currentUser._id, status : 1});
-			console.log('confUserObj = ', confUserObj)
+
 			let confIds = underscore.pluck(confUserObj, 'confId');
 
 			let confObj = await confModel.get({_id : {$in : confIds}, status : 1});
-
-			console.log('confObj = ', confObj)
 
 			res.status(200).send(confObj);
 				

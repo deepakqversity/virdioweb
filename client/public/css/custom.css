@@ -508,9 +508,9 @@ position: relative;
     border-radius: 10px;
 }
 .host-header>img{
-	width: 25px;
-    margin: 0 15px;
-	cursor: pointer;
+    width: 20px;
+    margin: 0 12px;
+    cursor: pointer;
 }
 
 .next-btn{

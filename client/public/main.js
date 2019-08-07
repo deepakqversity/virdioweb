@@ -294,7 +294,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         //vdoSize = 'col-md-4 col-lg-4 col-sm-4 col-12';
         vdoSize = 'four';
       } else {
-        vdoSize = 'col-md-3 col-lg-3 col-sm-3 col-12';
+        //vdoSize = 'col-md-3 col-lg-3 col-sm-3 col-12';
         vdoSize = 'five';
       }
 

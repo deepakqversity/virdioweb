@@ -496,8 +496,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
                 defaultSetting = 'checked';
                 ctr1++;
             } else {
-              if(ctr1++ == 0)
+              if(ctr1 == 0)
                 defaultSetting = 'checked';
+              ctr1++;
             }
           }
           // console.log('---------- microphoneId == device.deviceId - ', microphoneId , device.deviceId,  defaultSetting)
@@ -509,20 +510,19 @@ if(!AgoraRTC.checkSystemRequirements()) {
         } else if (device.kind === 'videoinput') {
 
           if(cameraId == null) {
-            if(ctr++ == 0)
+            if(ctr == 0)
               defaultSetting = 'checked';
           } else {
             if(cameraId == device.deviceId) {
                 defaultSetting = 'checked';
-                ctr++;
             } else {
-              if(ctr++ == 0)
+              if(ctr == 0)
                 defaultSetting = 'checked';
             }
           }
           // console.log('---------- cameraId == device.deviceId - ', cameraId , device.deviceId,  defaultSetting)
 
-          vdoMediaHtml = '<div class="col-12 col-md-3 mx-auto" id="vdo-'+device.deviceId+'"><div id="local-media-'+device.deviceId+'" ></div><br /><input type="radio" name="video-type" id="lbl-'+device.deviceId+'" value="'+device.deviceId+'" '+ defaultSetting +'><label for="lbl-'+device.deviceId+'">Camera-'+ ++ctr +'</label> </div>';
+          vdoMediaHtml = '<div class="col-12 col-md-3" id="vdo-'+device.deviceId+'"><div id="local-media-'+device.deviceId+'" ></div><div class="text-center"><input type="radio" name="video-type" id="lbl-'+device.deviceId+'" value="'+device.deviceId+'" '+ defaultSetting +'><label for="lbl-'+device.deviceId+'">Camera-'+ ++ctr +'</label></div></div>';
 
           $('#video-media-content').append(vdoMediaHtml)
 

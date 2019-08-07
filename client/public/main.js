@@ -23,7 +23,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
     let mediaIds = localStorage.getItem("media-setting");
       
     if(mediaIds != undefined) {
-        mediaIds = JSON.parse(mediaIds);
+      
+      mediaIds = JSON.parse(mediaIds);
+      
       if(mediaIds.camera != null && mediaIds.microphone != null) {
 
         camera = mediaIds.camera;
@@ -86,44 +88,24 @@ if(!AgoraRTC.checkSystemRequirements()) {
           let sessionState = true;
 
           // check for device type
-          AgoraRTC.getDevices(function (devices) {
+          // AgoraRTC.getDevices(function (devices) {
             
-            var _videoSource = _audioSource = '';
+          //   var _videoSource = _audioSource = '';
             
-            console.log(' device type ===> ', devices)
+          //   console.log(' device type ===> ', devices)
 
-            for (var i = 0; i !== devices.length; ++i) {
-              var device = devices[i];
+          //   for (var i = 0; i !== devices.length; ++i) {
+          //     var device = devices[i];
 
-              if (device.kind === 'audioinput' && _audioSource == '') {
-                  _audioSource = device.deviceId;
-              } else if (device.kind === 'videoinput' && _videoSource == '') {
-                  _videoSource = device.deviceId;
-              } else {
-                console.log('Some other kind of source/device: ', device);
-              }
-            }
+          //     if (device.kind === 'audioinput' && _audioSource == '') {
+          //         _audioSource = device.deviceId;
+          //     } else if (device.kind === 'videoinput' && _videoSource == '') {
+          //         _videoSource = device.deviceId;
+          //     } else {
+          //       console.log('Some other kind of source/device: ', device);
+          //     }
+          //   }
 
-            // let mediaIds = localStorage.getItem("media-setting");
-            // if(mediaIds != undefined) {
-            //   if(mediaIds.camera != null && mediaIds.microphone != null) {
-
-            //     var mediaIds = JSON.parse(mediaIds);
-            //     camera = _videoSource;
-            //     microphone = _audioSource;
-            //   } else {
-            //     console.log('something went wrong')
-
-            //   }
-
-            // } else {
-            
-            //   camera = _videoSource;
-            //   microphone = _audioSource;
-
-            // }
-
-            
             // create local stream
             localStream = AgoraRTC.createStream({streamID: uid, audio: storeData.userType == 1 ? true : true, cameraId: camera, microphoneId: microphone, video: sessionState, screen: false });
             
@@ -188,7 +170,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
               console.log("getUserMedia failed", err);
             });
 
-          });
+          // });
         
       }, function(err) {
         console.log("Join channel failed", err);

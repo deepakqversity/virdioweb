@@ -44,7 +44,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
           console.log("user role set success");
 
       var channelName = localStorage.getItem("channel");
-
+      
       client.join(channel_key, channelName, storeData.id.toString(), function(uid) {
 
           console.log("User " + uid + " join channel successfully");
@@ -81,6 +81,14 @@ if(!AgoraRTC.checkSystemRequirements()) {
               localStream.setVideoProfile('720p_3');
 
             }
+
+            localStream.setVideoEncoderConfiguration({
+              // Video resolution
+              resolution: {
+                  width: 640,
+                  height: 380
+              }
+          });
 
             // The user has granted access to the camera and mic.
             localStream.on("accessAllowed", function() {
@@ -267,13 +275,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
       let vdoSize = '';
       if(len == 1){
-        vdoSize = 'one mx-auto';
+        //vdoSize = 'one mx-auto';
         vdoSize = 'one mx-auto';
       } else if(len == 2) {
-        vdoSize = 'col-md-6 col-lg-6 col-sm-6 col-6';
+        //vdoSize = 'col-md-6 col-lg-6 col-sm-6 col-6';
         vdoSize = 'two';
       } else if(len == 3) {
-        vdoSize = 'col-md-4 col-lg-4 col-sm-4 col-12';
+        //vdoSize = 'col-md-4 col-lg-4 col-sm-4 col-12';
         vdoSize = 'three';
       } else {
         vdoSize = 'col-md-3 col-lg-3 col-sm-3 col-12';
@@ -285,6 +293,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
           
           $(this).removeClass('col-md-6')
             .removeClass('col-md-4')
+            .removeClass('one')
+            .removeClass('two')
             .removeClass('col-lg-8')
             .removeClass('col-md-4')
             .removeClass('col-lg-6')
@@ -429,7 +439,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   //videoSelect.onchange = getDevices;
   // getDevices();
   $(document).ready(function(){
-    
+    //$("#strm-publish").click();
   window.onresize = onPageResize;
   // window.onload = onPageLoad;
 
@@ -536,45 +546,48 @@ if(!AgoraRTC.checkSystemRequirements()) {
   // window.onload = onPageLoad;
   
 
-    function onPageLoad(){
+    //function onPageLoad(){
 
-      let winHeight = window.innerHeight;
-      let headerHeight = $(".header.bg-gray").height()+20;
-      let hostHeight = $(".host-script-section").height();
-      let sectionHeight = winHeight - (hostHeight+headerHeight);
-      $(".section.attendees").height(`${sectionHeight - 67}px`);
-      $("#subscribers-list").height(`${sectionHeight - 150}px`)
-      let sub_list_y = $("#subscribers-list").height(); 
-      let sub_list_x = $("#subscribers-list").width(); 
+      //let winHeight = window.innerHeight;
+      //let headerHeight = $(".header.bg-gray").height()+20;
+      //let hostHeight = $(".host-script-section").height();
+     // let sectionHeight = winHeight - (hostHeight+headerHeight);
+      //$(".section.attendees").height(`${sectionHeight - 67}px`);
+     // $("#subscribers-list").height(`${sectionHeight - 150}px`)
+      //let sub_list_y = $("#subscribers-list").height(); 
+      //let sub_list_x = $("#subscribers-list").width(); 
 
-    setTimeout(function(){
-     // $(".newcss.one").height(`${sub_list_y }px`);
+    //setTimeout(function(){
       
-      if(sub_list_x > 1400){
-        $(".newcss.one").width(`${sub_list_x / 3 }px`);
-      }
-      else{
-        $(".newcss.one").width(`${sub_list_x / 4 }px`);
-      }
-    }, 600)
+      
+      //if(sub_list_x > 1400){
+        //$(".newcss.one").width(`${sub_list_x / 3 }px`);
+      //}
+      //else{
+        //$(".newcss.one").width(`${sub_list_x / 4 }px`);
+      //}
+    //}, 600)
 
     //console.log(`${sectionHeight}px`);
     //let vid_y = $("#subscribers-list video").height();
     //let vid_x = $("#subscribers-list video").width();
-  }
+  //}
 
     function onPageResize(){
-
+      
       let winHeight = window.innerHeight;
       let headerHeight = $(".header.bg-gray").height()+20;
       let hostHeight = $(".host-script-section").height();
       let sectionHeight = winHeight - (hostHeight+headerHeight);
-      $(".section.attendees").height(`${sectionHeight - 67}px`);
-      $("#subscribers-list").height(`${sectionHeight - 150}px`)
+      $(".section.attendees").height(`${sectionHeight - 50}px`);
+      $("#subscribers-list").height(`${sectionHeight - 100}px`)
       let sub_list_y = $("#subscribers-list").height(); 
       let sub_list_x = $("#subscribers-list").width(); 
       setTimeout(function(){
-        // $(".newcss.one").height(`${sub_list_y }px`);
+        $(".newcss.two").width(`${sub_list_x / 2.8}`);
+        $(".newcss.three").width(`${sub_list_x / 3}`);
+        $(".newcss.four").width(`${sub_list_x / 3}`);
+        $(".newcss.two, .newcss.three").parent().addClass("justify-content-center");
          
          if(sub_list_x > 1400){
            $(".newcss.one").width(`${sub_list_x / 3 }px`);

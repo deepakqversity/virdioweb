@@ -564,12 +564,12 @@ position: relative;
 }
 
 @media (max-width:480px){
-	.item-description .list-info li span:last-child{
-		float: left;
-	}
-	.second-heading{
-		font-size: 20px;
-	}
+.item-description .list-info li span:last-child{
+	float: left;
+}
+.second-heading{
+	font-size: 20px;
+}
 }
 
 

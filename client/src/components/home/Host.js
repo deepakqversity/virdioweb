@@ -44,7 +44,7 @@ return (
           <h3 className="main-heading">A long title that can come here <span>by host name</span>
           <button className="position-absolute logout-btn" onClick={this.callfunction.bind(this)} tabIndex="1">
                 <i className="fa fa-times" aria-hidden="true"></i>
-              </button>
+          </button>
           </h3>
           <div className="row justify-content-between align-items-center mt-2">
             <div className="col-12 col-sm-7">

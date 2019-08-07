@@ -489,21 +489,20 @@ console.log('device ------------->>', device)
         if (device.kind === 'audioinput') {
 
           if(microphoneId == null) {
-            if(ctr1++ == 0)
+            if(ctr1 == 0)
               defaultSetting = 'checked';
           } else {
             if(microphoneId == device.deviceId) {
                 defaultSetting = 'checked';
-                ctr1++;
+                
             } else {
               if(ctr1 == 0)
                 defaultSetting = 'checked';
-              ctr1++;
             }
           }
           // console.log('---------- microphoneId == device.deviceId - ', microphoneId , device.deviceId,  defaultSetting)
 
-          adoMediaHtml = '<div id="ado-'+device.deviceId+'"><input type="radio" name="audio-type" id="lbl-'+device.deviceId+'" value="'+device.deviceId+'" '+ defaultSetting +'><label for="lbl-'+device.deviceId+'">'+device.label+'</label> </div>';
+          adoMediaHtml = '<div id="ado-'+device.deviceId+'"><input type="radio" name="audio-type" id="lbl-'+device.deviceId+'" value="'+device.deviceId+'" '+ defaultSetting +'><label for="lbl-'+device.deviceId+'"> Microphone-'+ ++ctr1 +'</label> </div>';
 
           $('#audio-media-content').append(adoMediaHtml)
 

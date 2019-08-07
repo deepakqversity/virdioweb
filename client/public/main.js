@@ -137,7 +137,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
                           console.log('client ------------', client)
                         });
                       } else {
-                        $("#strm-publish").click();
+                        console.log('=================')
+                        publish();
                       }
                   },
                   error: function( jqXhr, textStatus, errorThrown ){
@@ -221,10 +222,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
         checkMuteUnmute(stream.getId());
         $('#subscribers-list #agora_remote'+stream.getId()).removeClass('d-none');
 
-        }
-  
-  // window.onload = onPageResize;
-
         
       } else {
 
@@ -293,9 +290,12 @@ if(!AgoraRTC.checkSystemRequirements()) {
       } else if(len == 3) {
         //vdoSize = 'col-md-4 col-lg-4 col-sm-4 col-12';
         vdoSize = 'three';
+      } else if(len == 4) {
+        //vdoSize = 'col-md-4 col-lg-4 col-sm-4 col-12';
+        vdoSize = 'four';
       } else {
         vdoSize = 'col-md-3 col-lg-3 col-sm-3 col-12';
-        vdoSize = 'four';
+        vdoSize = 'five';
       }
 
         // javascript each
@@ -305,6 +305,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
             .removeClass('col-md-4')
             .removeClass('one')
             .removeClass('two')
+            .removeClass('three')
+            .removeClass('four')
+            .removeClass('five')
             .removeClass('col-lg-8')
             .removeClass('col-md-4')
             .removeClass('col-lg-6')
@@ -673,14 +676,21 @@ if(!AgoraRTC.checkSystemRequirements()) {
       let headerHeight = $(".header.bg-gray").height()+20;
       let hostHeight = $(".host-script-section").height();
       let sectionHeight = winHeight - (hostHeight+headerHeight);
-      $(".section.attendees").height(`${sectionHeight - 50}px`);
+      $(".section.attendees").height(`${sectionHeight - 23}px`);
       $("#subscribers-list").height(`${sectionHeight - 100}px`)
       let sub_list_y = $("#subscribers-list").height(); 
       let sub_list_x = $("#subscribers-list").width(); 
+      let len_subs = $('#subscribers-list .newcss').length;
+      if(len_subs>4){
+        $("#subscribers-list")
+        .removeClass("justify-content-center")
+        .addClass("justify-content-between display-grid-auto-4");
+      }
       setTimeout(function(){
         $(".newcss.two").width(`${sub_list_x / 2.8}`);
         $(".newcss.three").width(`${sub_list_x / 3}`);
-        $(".newcss.four").width(`${sub_list_x / 3}`);
+        $(".newcss.four").width(`${sub_list_x / 4}`);
+        $(".newcss.five").width(`${sub_list_x / 6}`);
         $(".newcss.two, .newcss.three").parent().addClass("justify-content-center");
          
          if(sub_list_x > 1400){

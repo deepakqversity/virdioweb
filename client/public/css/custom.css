@@ -194,6 +194,11 @@ h3.main-heading span{
 .w-90{
 width:90%;
 }
+.display-grid-auto-4{
+display:grid;
+display:-ms-grid;
+grid-template-columns: auto auto auto auto;
+}
 @media (max-width:768px){
 	.mx-xs-auto{
 		margin-left:auto !important;

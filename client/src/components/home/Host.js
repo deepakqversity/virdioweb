@@ -62,7 +62,7 @@ return (
         </div>
       </div>
     </header>
-    <section className="bg-gray mt-2 p-3 rounded section attendees">
+    <section className="bg-gray mt-2 px-3 py-1 rounded section attendees">
       <div className="row px-0 px-sm-3 pb-2 pt-0 justify-content-between align-items-center">
         <div className="col-6 col-md-6">
           <h4 className="title">Wine Testers <span>(24/44)</span></h4>

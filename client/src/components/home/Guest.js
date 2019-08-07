@@ -227,57 +227,57 @@ return (
               <div className="">
               <button type="button" className="close close-model-btn m-0" data-dismiss="modal">&times;</button>
                 <div className="details-content">
-                  <h3 class="second-heading my-3">2014 Bliss Block Pinot Noir</h3>
-                  <div class="content-scroll">
+                  <h3 className="second-heading my-3">2014 Bliss Block Pinot Noir</h3>
+                  <div className="content-scroll">
                     <div className=" row w-100">
-                      <ul class="col-12 col-md-12 col-lg-6 list-info">
+                      <ul className="col-12 col-md-12 col-lg-6 list-info">
                         <li><span>Varietal</span><span>100% Pinot Noir</span></li>
                         <li><span>Year</span><span>2014&#8203;</span></li>
                         <li><span>Country</span><span>United States&#8203;</span></li>
                         <li><span>Appellation</span><span>Sonoma</span></li>
                         <li><span>Alcohol</span><span>14.3%</span></li>
                       </ul>
-                      <ul class="col-12 col-md-12 col-lg-6 list-info">
+                      <ul className="col-12 col-md-12 col-lg-6 list-info">
                         <li><span>pH</span><span>3.69</span></li>
                         <li><span>Aging</span><span>15 months in French Oak Barrels, 82%</span></li>
                         <li><span>Price</span><span>$80&#8203;</span></li>
                         <li><span>Case Production</span><span>250</span></li>
                       </ul>
-                      <div class="col col-md-12">
-                        <p class="item-text">The Bliss Block Pinot Noir beautifully captures the rich spice qualities that are characteristic of this cool pocket of our Quail Hill Estate vineyard. A bright garnet hue </p>
+                      <div className="col col-md-12">
+                        <p className="item-text">The Bliss Block Pinot Noir beautifully captures the rich spice qualities that are characteristic of this cool pocket of our Quail Hill Estate vineyard. A bright garnet hue </p>
                         
                       </div>
                       <div className="col-md-12 mt-3">
                         <strong className="sub-heading">Varietal Composition</strong>
-                        <p class="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
                       </div>
                       <div className="col-md-12 mt-3">
                         <strong className="sub-heading">Varietal Composition</strong>
-                        <p class="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
                       </div>
                       <div className="col-md-12 mt-3">
                         <strong className="sub-heading">Varietal Composition</strong>
-                        <p class="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
                       </div>
                       <div className="col-md-12 mt-3">
                         <strong className="sub-heading">Varietal Composition</strong>
-                        <p class="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
                       </div>
                       <div className="col-md-12 mt-3">
                         <strong className="sub-heading">Varietal Composition</strong>
-                        <p class="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
                       </div>
                       <div className="col-md-12 mt-3">
                         <strong className="sub-heading">Varietal Composition</strong>
-                        <p class="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
                       </div>
                       <div className="col-md-12 mt-3">
                         <strong className="sub-heading">Varietal Composition</strong>
-                        <p class="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
                       </div>
                       <div className="col-md-12 mt-3">
                         <strong className="sub-heading">Varietal Composition</strong>
-                        <p class="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
                       </div>
                     </div>
                   </div>

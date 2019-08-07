@@ -686,6 +686,11 @@ if(!AgoraRTC.checkSystemRequirements()) {
         .removeClass("justify-content-center")
         .addClass("justify-content-between display-grid-auto-4");
       }
+      else if(len_subs<=4){
+        $("#subscribers-list")
+        .addClass("justify-content-center")
+        .removeClass("justify-content-between display-grid-auto-4");
+      }
       setTimeout(function(){
         $(".newcss.two").width(`${sub_list_x / 2.8}`);
         $(".newcss.three").width(`${sub_list_x / 3}`);

@@ -355,8 +355,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
       // }
     });
 
-
-
   }
 
   function SwitchVideoSize(){
@@ -435,6 +433,14 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   }
 
+  function networkBandwidth() {
+    // client.getTransportStats((stats) => {
+    //     console.log(`Current Transport RTT: ${stats.RTT}`);
+    //     console.log(`Current Network Type: ${stats.networkType}`);
+    //     console.log(`Current Transport OutgoingAvailableBandwidth: ${stats.OutgoingAvailableBandwidth}`);
+    // });
+  }
+
   function raiseHand(){
       localStream.unmuteAudio(); 
   }
@@ -494,7 +500,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
                 defaultSetting = 'checked';
             }
           }
-          console.log('---------- microphoneId == device.deviceId - ', microphoneId , device.deviceId,  defaultSetting)
+          // console.log('---------- microphoneId == device.deviceId - ', microphoneId , device.deviceId,  defaultSetting)
 
           adoMediaHtml = '<div id="ado-'+device.deviceId+'"><audio /><input type="radio" name="audio-type" id="lbl-'+device.deviceId+'" value="'+device.deviceId+'" '+ defaultSetting +'><label for="lbl-'+device.deviceId+'">'+device.label+'</label> </div>';
 
@@ -514,9 +520,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
                 defaultSetting = 'checked';
             }
           }
-          console.log('---------- cameraId == device.deviceId - ', cameraId , device.deviceId,  defaultSetting)
+          // console.log('---------- cameraId == device.deviceId - ', cameraId , device.deviceId,  defaultSetting)
 
-          vdoMediaHtml = '<div className="col-12 col-md-4" id="vdo-'+device.deviceId+'"><div id="local-media-'+device.deviceId+'" ></div><br /><input type="radio" name="video-type" id="lbl-'+device.deviceId+'" value="'+device.deviceId+'" '+ defaultSetting +'><label for="lbl-'+device.deviceId+'">Camera-'+ ++ctr +'</label> </div>';
+          vdoMediaHtml = '<div class="col-12 col-md-4" id="vdo-'+device.deviceId+'"><div id="local-media-'+device.deviceId+'" ></div><br /><input type="radio" name="video-type" id="lbl-'+device.deviceId+'" value="'+device.deviceId+'" '+ defaultSetting +'><label for="lbl-'+device.deviceId+'">Camera-'+ ++ctr +'</label> </div>';
 
           $('#video-media-content').append(vdoMediaHtml)
 
@@ -528,6 +534,15 @@ if(!AgoraRTC.checkSystemRequirements()) {
               cameraId: device.deviceId,
           });
           d = device.deviceId;
+
+          stream1.setVideoEncoderConfiguration({
+            // Video resolution
+              resolution: {
+                  width: 640,
+                  height: 380
+              }
+          });
+            
           // Initialize the stream.
           stream1.init(function(){
               stream1.play('local-media-' + d);
@@ -561,6 +576,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
       mediaSetting['camera'] = $('input[name="video-type"]').length > 0 ? $('input[name="video-type"]:checked').val():null;
       mediaSetting['microphone'] = $('input[name="audio-type"]').length > 0 ? $('input[name="audio-type"]:checked').val():null;
       localStorage.setItem("media-setting", JSON.stringify(mediaSetting));
+    } else {
+      localStorage.removeItem("media-setting");
     }
     $('#media-config').modal('hide');
     join();
@@ -607,6 +624,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     if($('#conf-page').length > 0){
       // join();
 
+      networkBandwidth();
       if($('#media-config').length > 0){
         
         getDevices();

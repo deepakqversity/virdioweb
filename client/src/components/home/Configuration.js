@@ -18,7 +18,7 @@ return (
     
       <div className="modal fade" id="media-config" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-      <div className="modal-dialog modal-dialog-lg w-75" role="document">
+      <div className="modal-dialog modal-dialog-lg mw-75" role="document">
 
         <div className="modal-content">
 
@@ -37,9 +37,9 @@ return (
         <div className="modal-body" id="media-content">
           
           <div className="row">
-            <h6>Choose Camera</h6>
+            <div className="col-12"><h6>Choose Camera</h6></div>
             <div className="col-12 video-streams" id="video-media-content"></div>
-            <h6>Chosse Mocrophone</h6>
+            <div className="col-12"><h6>Chosse Mocrophone</h6></div>
             <div className="col-12" id="audio-media-content"></div>
           </div>
         

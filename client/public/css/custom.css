@@ -192,7 +192,10 @@ h3.main-heading span{
 	z-index:5;
 }
 .w-90{
-width:90%;
+	width:90%;
+}
+.mw-75{
+	max-width:75%;
 }
 @media (max-width:768px){
 	.mx-xs-auto{

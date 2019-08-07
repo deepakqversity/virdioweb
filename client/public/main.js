@@ -522,7 +522,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
           }
           // console.log('---------- cameraId == device.deviceId - ', cameraId , device.deviceId,  defaultSetting)
 
-          vdoMediaHtml = '<div class="col-12 col-md-4" id="vdo-'+device.deviceId+'"><div id="local-media-'+device.deviceId+'" ></div><br /><input type="radio" name="video-type" id="lbl-'+device.deviceId+'" value="'+device.deviceId+'" '+ defaultSetting +'><label for="lbl-'+device.deviceId+'">Camera-'+ ++ctr +'</label> </div>';
+          vdoMediaHtml = '<div class="col-12 col-md-3 mx-auto" id="vdo-'+device.deviceId+'"><div id="local-media-'+device.deviceId+'" ></div><br /><input type="radio" name="video-type" id="lbl-'+device.deviceId+'" value="'+device.deviceId+'" '+ defaultSetting +'><label for="lbl-'+device.deviceId+'">Camera-'+ ++ctr +'</label> </div>';
 
           $('#video-media-content').append(vdoMediaHtml)
 

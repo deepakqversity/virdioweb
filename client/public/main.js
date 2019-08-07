@@ -137,7 +137,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
                           console.log('client ------------', client)
                         });
                       } else {
-
+                        $("#strm-publish").click();
                       }
                   },
                   error: function( jqXhr, textStatus, errorThrown ){
@@ -521,7 +521,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   //videoSelect.onchange = getDevices;
   // getDevices();
   $(document).ready(function(){
-    //$("#strm-publish").click();
+    //
   window.onresize = onPageResize;
   // window.onload = onPageLoad;
 

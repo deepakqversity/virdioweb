@@ -360,47 +360,57 @@ if(!AgoraRTC.checkSystemRequirements()) {
   function SwitchVideoSize(){
       count++;
       let len = $('#subscribers-list .newcss').length;
-     // console.log('------------------------lalit',len);
+     console.log('------------------------length ',len);
       if(len == 0) return false;
 
       let vdoSize = '';
       if(len == 1){
+        //vdoSize = 'one mx-auto';
         vdoSize = 'one mx-auto';
       } else if(len == 2) {
+        //vdoSize = 'col-md-6 col-lg-6 col-sm-6 col-6';
         vdoSize = 'two';
       } else if(len == 3) {
+        //vdoSize = 'col-md-4 col-lg-4 col-sm-4 col-12';
         vdoSize = 'three';
       } else if(len == 4) {
+        //vdoSize = 'col-md-4 col-lg-4 col-sm-4 col-12';
         vdoSize = 'four';
       } else {
-        vdoSize = 'five'
+        //vdoSize = 'col-md-3 col-lg-3 col-sm-3 col-12';
+        vdoSize = 'five';
       }
-      // javascript each
-      $('#subscribers-list .newcss').each(function (index, value) {
-        
-        $(this).removeClass('col-md-6')
-          .removeClass('col-md-4')
-          .removeClass('one')
-          .removeClass('two')
-          .removeClass('three')
-          .removeClass('four')
-          .removeClass('five')
-          .removeClass('col-lg-8')
-          .removeClass('col-md-4')
-          .removeClass('col-lg-6')
-          .removeClass('col-lg-5')
-          .removeClass('col-lg-4')
-          .removeClass('col-lg-3')
-          .removeClass('col-sm-6')
-          .removeClass('col-sm-4')
-          .removeClass('col-sm-3')
-          .removeClass('col-6')
-          .removeClass('col-12')
-          .removeClass('mx-auto');
 
-        $('#subscribers-list .newcss').addClass(vdoSize);
+        // javascript each
+        $('#subscribers-list .newcss').each(function (index, value) {
+          
+          $(this).removeClass('col-md-6')
+            .removeClass('col-md-4')
+            .removeClass('one')
+            .removeClass('two')
+            .removeClass('three')
+            .removeClass('four')
+            .removeClass('five')
+            .removeClass('col-lg-8')
+            .removeClass('col-md-4')
+            .removeClass('col-lg-6')
+            .removeClass('col-lg-5')
+            .removeClass('col-lg-4')
+            .removeClass('col-lg-3')
+            .removeClass('col-sm-6')
+            .removeClass('col-sm-4')
+            .removeClass('col-sm-3')
+            .removeClass('col-6')
+            .removeClass('col-12')
+            .removeClass('mx-auto');
 
-        });
+          // $('#subscribers-list .newcss').addClass(vdoSize);
+          $(this).addClass(vdoSize);
+
+          });
+
+         
+          
     }
 
   function leave() {

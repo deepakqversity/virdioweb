@@ -358,7 +358,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
   }
 
   function SwitchVideoSize(){
-      count++;
       let len = $('#subscribers-list .newcss').length;
      console.log('------------------------length ',len);
       if(len == 0) return false;

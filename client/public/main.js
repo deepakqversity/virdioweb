@@ -365,17 +365,15 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
       let vdoSize = '';
       if(len == 1){
-        //vdoSize = 'one mx-auto';
         vdoSize = 'one mx-auto';
       } else if(len == 2) {
-        //vdoSize = 'col-md-6 col-lg-6 col-sm-6 col-6';
         vdoSize = 'two';
       } else if(len == 3) {
-        //vdoSize = 'col-md-4 col-lg-4 col-sm-4 col-12';
         vdoSize = 'three';
-      } else {
-        vdoSize = 'col-md-3 col-lg-3 col-sm-3 col-12';
+      } else if(len == 4) {
         vdoSize = 'four';
+      } else {
+        vdoSize = 'five'
       }
       // javascript each
       $('#subscribers-list .newcss').each(function (index, value) {
@@ -384,6 +382,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
           .removeClass('col-md-4')
           .removeClass('one')
           .removeClass('two')
+          .removeClass('three')
+          .removeClass('four')
+          .removeClass('five')
           .removeClass('col-lg-8')
           .removeClass('col-md-4')
           .removeClass('col-lg-6')
@@ -502,7 +503,7 @@ console.log('device ------------->>', device)
           }
           // console.log('---------- microphoneId == device.deviceId - ', microphoneId , device.deviceId,  defaultSetting)
 
-          adoMediaHtml = '<div id="ado-'+device.deviceId+'"><input type="radio" name="audio-type" id="lbl-'+device.deviceId+'" value="'+device.deviceId+'" '+ defaultSetting +'><label for="lbl-'+device.deviceId+'"> Microphone-'+ ++ctr1 +'</label> </div>';
+          adoMediaHtml = '<div id="ado-'+device.deviceId+'"><input type="radio" name="audio-type" id="lbl-'+device.deviceId+'" value="'+device.deviceId+'" '+ defaultSetting +'> <label for="lbl-'+device.deviceId+'"> Microphone-'+ ++ctr1 +'</label> </div>';
 
           $('#audio-media-content').append(adoMediaHtml)
 
@@ -756,41 +757,44 @@ console.log('device ------------->>', device)
     //let vid_x = $("#subscribers-list video").width();
   //}
 
-    function onPageResize(){
-      
-      let winHeight = window.innerHeight;
-      let headerHeight = $(".header.bg-gray").height()+20;
-      let hostHeight = $(".host-script-section").height();
-      let sectionHeight = winHeight - (hostHeight+headerHeight);
-      $(".section.attendees").height(`${sectionHeight - 50}px`);
-      $("#subscribers-list").height(`${sectionHeight - 100}px`)
-      let sub_list_y = $("#subscribers-list").height(); 
-      let sub_list_x = $("#subscribers-list").width(); 
-      setTimeout(function(){
-        $(".newcss.two").width(`${sub_list_x / 2.8}`);
-        $(".newcss.three").width(`${sub_list_x / 3}`);
-        $(".newcss.four").width(`${sub_list_x / 3}`);
-        $(".newcss.two, .newcss.three").parent().addClass("justify-content-center");
-         
-         if(sub_list_x > 1400){
-           $(".newcss.one").width(`${sub_list_x / 3 }px`);
-         }
-         else if(sub_list_x > 1600){
-          $(".newcss.one").width(`${sub_list_x }px`);
+    function onPageResize(){      let winHeight = window.innerHeight;
+     let headerHeight = $(".header.bg-gray").height()+20;
+     let hostHeight = $(".host-script-section").height();
+     let sectionHeight = winHeight - (hostHeight+headerHeight);
+     $(".section.attendees").height(${sectionHeight - 23}px);
+     $("#subscribers-list").height(${sectionHeight - 100}px)
+     let sub_list_y = $("#subscribers-list").height();
+     let sub_list_x = $("#subscribers-list").width();
+     let len_subs = $('#subscribers-list .newcss').length;
+     if(len_subs>4){
+       $("#subscribers-list")
+       .removeClass("justify-content-center")
+       .addClass("justify-content-between display-grid-auto-4");
+     }
+     else if(len_subs<=4){
+       $("#subscribers-list")
+       .addClass("justify-content-center")
+       .removeClass("justify-content-between display-grid-auto-4");
+     }
+     setTimeout(function(){
+       $(".newcss.two").width(${sub_list_x / 2.8});
+       $(".newcss.three").width(${sub_list_x / 3});
+       $(".newcss.four").width(${sub_list_x / 4});
+       $(".newcss.five").width(${sub_list_x / 6});
+       $(".newcss.two, .newcss.three").parent().addClass("justify-content-center");         if(sub_list_x > 1400){
+          $(".newcss.one").width(${sub_list_x / 3 }px);
         }
-         else{
-           $(".newcss.one").width(`${sub_list_x / 4 }px`);
-         }
-       }, 600)
-
-
-      //console.log(`${sectionHeight}px`);
-      //let vid_y = $("#subscribers-list video").height();
-      //let vid_x = $("#subscribers-list video").width();
-    }
-
-   
-    
+        else if(sub_list_x > 1600){
+         $(".newcss.one").width(${sub_list_x }px);
+       }
+        else{
+          $(".newcss.one").width(${sub_list_x / 4 }px);
+        }
+      }, 600)      
+    //console.log(${sectionHeight}px);
+    //let vid_y = $("#subscribers-list video").height();
+    //let vid_x = $("#subscribers-list video").width();
+   }
 
   function checkMuteUnmute(id) {
 

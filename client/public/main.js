@@ -18,6 +18,35 @@ if(!AgoraRTC.checkSystemRequirements()) {
   var client, localStream, camera, microphone;
 
   function join() {
+
+    let camera = microphone= null;
+    let mediaIds = localStorage.getItem("media-setting");
+      
+    if(mediaIds != undefined) {
+        mediaIds = JSON.parse(mediaIds);
+      if(mediaIds.camera != null && mediaIds.microphone != null) {
+
+        camera = mediaIds.camera;
+        microphone = mediaIds.microphone;
+      } else {
+        console.log('something went wrong')
+        return false;
+      }
+
+    } else {
+      if($('input[name="video-type"]').length > 0 && $('input[name="audio-type"]').length > 0){
+
+        camera = $('input[name="video-type"]:checked').val();
+        microphone = $('input[name="audio-type"]:checked').val();
+      } else {
+        console.log('Media device not found')
+        return false;
+      }
+
+    }
+
+    console.log('camera, microphone = ', camera, microphone)
+
    
     var storageData = localStorage.getItem("jwtToken");
     var storeData = JSON.parse(storageData);
@@ -75,8 +104,25 @@ if(!AgoraRTC.checkSystemRequirements()) {
               }
             }
 
-            camera = _videoSource;
-            microphone = _audioSource;
+            // let mediaIds = localStorage.getItem("media-setting");
+            // if(mediaIds != undefined) {
+            //   if(mediaIds.camera != null && mediaIds.microphone != null) {
+
+            //     var mediaIds = JSON.parse(mediaIds);
+            //     camera = _videoSource;
+            //     microphone = _audioSource;
+            //   } else {
+            //     console.log('something went wrong')
+
+            //   }
+
+            // } else {
+            
+            //   camera = _videoSource;
+            //   microphone = _audioSource;
+
+            // }
+
             
             // create local stream
             localStream = AgoraRTC.createStream({streamID: uid, audio: storeData.userType == 1 ? true : true, cameraId: camera, microphoneId: microphone, video: sessionState, screen: false });
@@ -205,7 +251,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
         // console.log("Subscribe remote stream successfully:********** " , stream.getUserId());
         if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
         
-          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'"  class="col-md-4 col-lg-3 col-sm-6 col-6 newcss"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div> <a href="javascript:;" class="mute-icon position-absolute speaker mute-unmute d-none" data-id="'+stream.getId()+'"><i class="fa fa-volume-off" aria-hidden="true"></i></a><span class="hand-icon position-absolute hand d-none" data-toggle="modal" data-target="#guest-video"></span><div class="att-details"> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1"></span></div></div></div></div>');
+          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'"  class="col-md-4 col-lg-3 col-sm-6 col-6 newcss"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div> <span class="hand-icon position-absolute hand d-none" data-id="'+stream.getId()+'" data-toggle="modal" data-target="#guest-video"></span><div class="att-details"> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1"></span></div></div></div></div>');
+
+          // $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'"  class="col-md-4 col-lg-3 col-sm-6 col-6 newcss"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div> <a href="javascript:;" class="mute-icon position-absolute speaker mute-unmute d-none" data-id="'+stream.getId()+'"><i class="fa fa-volume-off" aria-hidden="true"></i></a><span class="hand-icon position-absolute hand d-none" data-toggle="modal" data-target="#guest-video"></span><div class="att-details"> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1"></span></div></div></div></div>');
         }
         stream.play('agora_remote_vdo' + stream.getId());
         SwitchVideoSize();
@@ -278,33 +326,28 @@ if(!AgoraRTC.checkSystemRequirements()) {
       } else {
         vdoSize = 'col-md-3 col-lg-3 col-sm-3 col-12';
       }
+      // javascript each
+      $('#subscribers-list .newcss').each(function (index, value) {
+        
+        $(this).removeClass('col-md-6')
+          .removeClass('col-md-4')
+          .removeClass('col-lg-8')
+          .removeClass('col-md-4')
+          .removeClass('col-lg-6')
+          .removeClass('col-lg-5')
+          .removeClass('col-lg-4')
+          .removeClass('col-lg-3')
+          .removeClass('col-sm-6')
+          .removeClass('col-sm-4')
+          .removeClass('col-sm-3')
+          .removeClass('col-6')
+          .removeClass('col-12')
+          .removeClass('mx-auto');
 
-        // javascript each
-        $('#subscribers-list .newcss').each(function (index, value) {
-          
-          $(this).removeClass('col-md-6')
-            .removeClass('col-md-4')
-            .removeClass('col-lg-8')
-            .removeClass('col-md-4')
-            .removeClass('col-lg-6')
-            .removeClass('col-lg-5')
-            .removeClass('col-lg-4')
-            .removeClass('col-lg-3')
-            .removeClass('col-sm-6')
-            .removeClass('col-sm-4')
-            .removeClass('col-sm-3')
-            .removeClass('col-6')
-            .removeClass('col-12')
-            .removeClass('mx-auto');
+        $('#subscribers-list .newcss').addClass(vdoSize);
 
-          $('#subscribers-list .newcss').addClass(vdoSize);
-
-          });
-
-          
+      });
     }
-    
-
   
     client.on('stream-removed', function (evt) {
       var stream = evt.stream;
@@ -328,28 +371,17 @@ if(!AgoraRTC.checkSystemRequirements()) {
     client.on('mute-audio', function (evt) {
       console.log('------------------->111', evt)
       if ($('#subscribers-list #agora_remote'+evt.uid).length > 0){
-        $('#subscribers-list #agora_remote'+evt.uid).find('.speaker').addClass('d-none')
         $('#subscribers-list #agora_remote'+evt.uid).find('.hand').addClass('d-none')
       }
-      // var stream = evt.stream;
-      // if (stream) {
-      //   console.log(evt.uid + " ===> muted from this channel");
-      // }
     });
 
     client.on('unmute-audio', function (evt) {
-      console.log('------------------->222', evt)
-      
-        console.log('8*******************',evt.uid);
+
+      console.log('8*******************',evt.uid);
       if ($('#subscribers-list #agora_remote'+evt.uid).length > 0){
-        $('#subscribers-list #agora_remote'+evt.uid).find('.speaker').removeClass('d-none')
+        // $('#subscribers-list #agora_remote'+evt.uid).find('.speaker').removeClass('d-none')
         $('#subscribers-list #agora_remote'+evt.uid).find('.hand').removeClass('d-none')
       }
-
-      // var stream = evt.stream;
-      // if (stream) {
-      //   console.log(evt.uid + " ===> unmuted from this channel");
-      // }
       
     });
 
@@ -424,7 +456,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   });
 
   function publish() {
-    // localStream.muteAudio();
+
     client.publish(localStream, function (err) {
       console.log("Publish local stream error: " + err);
     });
@@ -439,67 +471,146 @@ if(!AgoraRTC.checkSystemRequirements()) {
   }
 
   function raiseHand(){
-    console.log('localStream.hasAudio = ', localStream.hasAudio())
-    // if(localStream.hasAudio())
       localStream.unmuteAudio(); 
-    // client.setClientRole('host', function(err){
-      // console.log('=========1',localStream.hasAudio())
-      // if(localStream.hasAudio() == false)
-      //     localStream.unmuteAudio();
-      
-      // client.publish(localStream, function (err) {
-        
-      //   console.log("Publish local stream error: " + err);
-
-      //   if(err) {
-      //     console.log("111 user role failed", err);
-      //   } else {
-      //     console.log("111 user role set success");
-      //     }
-      // });
-    // });
-
   }
 
   function downHand(){
-    console.log('localStream.hasAudio = ', localStream.hasAudio())
-    // if(localStream.hasAudio() == true)
       localStream.muteAudio();
-    // client.setClientRole('audience', function(err){
-
-    //   if(err){
-    //     console.log('====== err ' ,err)
-    //   }
-
-    //     console.log('====== no err ' ,err)
-
-    // });
+  
   }
-
+  
   function getDevices() {
     AgoraRTC.getDevices(function (devices) {
-      for (var i = 0; i !== devices.length; ++i) {
-        var device = devices[i];
-        var option = document.createElement('option');
-        option.value = device.deviceId;
-        if (device.kind === 'audioinput') {
-          option.text = device.label || 'microphone ' + (audioSelect.length + 1);
-          audioSelect.appendChild(option);
-        } else if (device.kind === 'videoinput') {
-          option.text = device.label || 'camera ' + (videoSelect.length + 1);
-          videoSelect.appendChild(option);
+      let vdoMediaHtml = '';
+      let adoMediaHtml = '';
+      
+      let cameraId = microphoneId = null;
+      let mediaIds = localStorage.getItem("media-setting");
+
+      if(mediaIds != undefined) {
+          mediaIds = JSON.parse(mediaIds);
+        if(mediaIds.camera != null && mediaIds.microphone != null) {
+
+          cameraId = mediaIds.camera;
+          microphoneId = mediaIds.microphone;
+
+          $('#set-default').prop('checked', true);
+
         } else {
-          console.log('Some other kind of source/device: ', device);
+          console.log('something went wrong')
+          return false;
+        }
+
+      }
+
+      let stream1;
+      let device = '';
+      for (var i = 0, ctr = 0, ctr1 = 0; i !== devices.length; ++i) {
+
+        if(!devices[i] || devices[i] == undefined) continue;
+
+        device = devices[i];
+
+        defaultSetting = '';
+
+
+        // option.value = device.deviceId;
+        if (device.kind === 'audioinput') {
+
+          if(microphoneId == null) {
+            if(ctr1++ == 0)
+              defaultSetting = 'checked';
+          } else {
+            if(microphoneId == device.deviceId) {
+                defaultSetting = 'checked';
+                ctr1++;
+            } else {
+              if(ctr1++ == 0)
+                defaultSetting = 'checked';
+            }
+          }
+          console.log('---------- microphoneId == device.deviceId - ', microphoneId , device.deviceId,  defaultSetting)
+
+          adoMediaHtml = '<div id="ado-'+device.deviceId+'"><audio /><input type="radio" name="audio-type" id="lbl-'+device.deviceId+'" value="'+device.deviceId+'" '+ defaultSetting +'><label for="lbl-'+device.deviceId+'">'+device.label+'</label> </div>';
+
+          $('#audio-media-content').append(adoMediaHtml)
+
+        } else if (device.kind === 'videoinput') {
+
+          if(cameraId == null) {
+            if(ctr++ == 0)
+              defaultSetting = 'checked';
+          } else {
+            if(cameraId == device.deviceId) {
+                defaultSetting = 'checked';
+                ctr++;
+            } else {
+              if(ctr++ == 0)
+                defaultSetting = 'checked';
+            }
+          }
+          console.log('---------- cameraId == device.deviceId - ', cameraId , device.deviceId,  defaultSetting)
+
+          vdoMediaHtml = '<div className="col-12 col-md-4" id="vdo-'+device.deviceId+'"><div id="local-media-'+device.deviceId+'" ></div><br /><input type="radio" name="video-type" id="lbl-'+device.deviceId+'" value="'+device.deviceId+'" '+ defaultSetting +'><label for="lbl-'+device.deviceId+'">Camera-'+ ++ctr +'</label> </div>';
+
+          $('#video-media-content').append(vdoMediaHtml)
+
+          stream1 = AgoraRTC.createStream({
+              streamID: Math.floor(Math.random()*1000000),
+              // Set audio to true if testing the microphone.
+              video: true,
+              audio: false,
+              cameraId: device.deviceId,
+          });
+          d = device.deviceId;
+          // Initialize the stream.
+          stream1.init(function(){
+              stream1.play('local-media-' + d);
+          })
         }
       }
+
     });
   }
 
-  //audioSelect.onchange = getDevices;
-  //videoSelect.onchange = getDevices;
-  // getDevices();
+  function speakerOnOff(id){
+
+      let vdo = $('#video'+ id)[0];   
+      let ado = $('#audio'+ id)[0]; 
+
+      if(vdo.muted || ado.muted){
+        vdo.muted = false;
+        ado.muted = false;
+      }
+      else {
+        vdo.muted = true;
+        ado.muted = true;
+      }
+  }
+
+   function continueJoin(){
+
+    let mediaSetting = {};
+    if($('#set-default').prop('checked')){
+
+      mediaSetting['camera'] = $('input[name="video-type"]').length > 0 ? $('input[name="video-type"]:checked').val():null;
+      mediaSetting['microphone'] = $('input[name="audio-type"]').length > 0 ? $('input[name="audio-type"]:checked').val():null;
+      localStorage.setItem("media-setting", JSON.stringify(mediaSetting));
+    }
+    $('#media-config').modal('hide');
+    join();
+  }
+
+
   $(document).ready(function(){
     
+    $(document).on('click', '#continue-join', function(){
+      continueJoin();
+    });
+
+    $(document).on('click', '#subscribers-list .hand', function(){
+      $('#guest-video').modal('show');
+    });
 
     $(document).on('click', '#subscribers-list .mute-unmute' ,function(){
 
@@ -524,8 +635,24 @@ if(!AgoraRTC.checkSystemRequirements()) {
       }
     });
 
-    if($('#conf-page').length > 0)
-      join();
+    if($('#conf-page').length > 0){
+      // join();
+
+      if($('#media-config').length > 0){
+        
+        getDevices();
+
+        $('#media-config').modal({
+          backdrop : "static",
+          keyboard: false
+        });
+
+        $('#media-config').on('hidden.bs.modal', function (e) {
+          console.log('close event')
+        })
+      }
+
+    }
     
     $(document).on('click', '#join', function(){
       join();

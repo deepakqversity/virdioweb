@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import $ from 'jquery';
+import Config from "./Configuration";
+
 class Host extends Component {
   onLogoutClick = e => {
     e.preventDefault();
@@ -180,7 +182,7 @@ return (
       </div>
 
       <input type="hidden" id="conf-page" />
-      
+      <Config />
   </div>
     );
   }

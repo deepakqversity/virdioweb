@@ -692,14 +692,16 @@ if(!AgoraRTC.checkSystemRequirements()) {
         .removeClass("justify-content-between display-grid-auto-4");
       }
       setTimeout(function(){
-        $(".newcss.two").width(`${sub_list_x / 2.8}`);
-        $(".newcss.three").width(`${sub_list_x / 3}`);
-        $(".newcss.four").width(`${sub_list_x / 4}`);
-        $(".newcss.five").width(`${sub_list_x / 6}`);
+        
+        $(".newcss.two").width(`${sub_list_x / 2.8 }`);
+        $(".newcss.three").width(`${sub_list_x / 3 }`);
+        $(".newcss.four").width(`${sub_list_x / 4 }`);
+        $(".newcss.five").width(`${sub_list_x / 6 }`);
         $(".newcss.two, .newcss.three").parent().addClass("justify-content-center");
          
          if(sub_list_x > 1400){
-           $(".newcss.one").width(`${sub_list_x / 3 }px`);
+         
+           $(".newcss.one").width(`${sub_list_x  / 3 }px`);
          }
          else if(sub_list_x > 1600){
           $(".newcss.one").width(`${sub_list_x }px`);

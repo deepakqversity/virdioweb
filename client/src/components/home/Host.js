@@ -94,16 +94,18 @@ return (
         
       <div className="col-12 col-md-12 mt-2 col-lg-9">
         <div className="bg-gray px-3 py-2 rounded overflow-hidden h-100">
-          <div id="myCarousel" class="carousel slide" data-ride="carousel">
+          <div id="carouselExampleControls" class="carousel slide carousel-fade script-info" data-ride="carousel">
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+              <img src="images/next-icon.png" className="next-btn" />
+            </a>
             <div className="carousel-inner">
-              <div className="item active">
+
+              <div className="carousel-item active">
                 <div className="d-md-flex justify-content-between align-items-center mb-2">
                   <h3 className="main-heading font-size-16">Testing Script <span className="ml-md-4 font-size-16">1/4 wines</span></h3>
                   <div className=" mt-3 mt-md-0 d-md-flex justify-content-between align-items-center">
-                    <button type="button" className="btn btn-outline-secondary mr-4">"Show Script"</button>
-                    <a class="right carousel-control" href="#myCarousel" data-slide="next" >
-                      <img src="images/next-icon.png" className="next-btn" />
-                    </a>
+                    <button type="button" className="btn btn-outline-secondary mr-5">"Show Script"</button>
+                    
                   </div>
               </div>
               <div className="item-description">
@@ -128,9 +130,96 @@ return (
                 </div>
               </div>
             </div>
-            {/*<div className="item">2</div>
-            <div className="item">3</div>
-<div className="item">4</div>*/}
+              <div className="carousel-item">
+              <div className="d-md-flex justify-content-between align-items-center mb-2">
+                  <h3 className="main-heading font-size-16">Testing Script <span className="ml-md-4 font-size-16">2/4 wines</span></h3>
+                  <div className=" mt-3 mt-md-0 d-md-flex justify-content-between align-items-center">
+                    <button type="button" className="btn btn-outline-secondary mr-5">"Show Script"</button>
+                    
+                  </div>
+              </div>
+              <div className="item-description">
+                <h4 className="item-name">2014 Bliss Block Pinot Noir</h4>
+                <div className="row">
+                  <ul className="col-12 col-md-12 col-lg-5 list-info">
+                    <li><span>Varietal</span><span>100% Pinot Noir</span></li>
+                    <li><span>Year</span><span>2014​</span></li>
+                    <li><span>Country</span><span>United States​</span></li>
+                    <li><span>Appellation</span><span>Sonoma</span></li>
+                    <li><span>Alcohol</span><span>14.3%</span></li> 
+                  </ul>
+                  <ul className="col-12 col-md-12 col-lg-7 list-info">
+                    <li><span>pH</span><span>3.69</span></li>
+                    <li><span>Aging</span><span>15 months in French Oak Barrels, 82%</span></li>
+                    <li><span>Price</span><span>$80​</span></li>
+                    <li><span>Case Production</span><span>250</span></li>
+                  </ul>
+                  <div className="col col-md-12">
+                    <p className="item-text">The Bliss Block Pinot Noir beautifully captures the rich spice qualities that are characteristic of this cool pocket of our Quail Hill Estate vineyard. A bright garnet hue </p>
+                  </div>
+                </div>
+              </div>
+              </div>
+              <div className="carousel-item">
+              <div className="d-md-flex justify-content-between align-items-center mb-2">
+                  <h3 className="main-heading font-size-16">Testing Script <span className="ml-md-4 font-size-16">3/4 wines</span></h3>
+                  <div className=" mt-3 mt-md-0 d-md-flex justify-content-between align-items-center">
+                    <button type="button" className="btn btn-outline-secondary mr-5">"Show Script"</button>
+                    
+                  </div>
+              </div>
+              <div className="item-description">
+                <h4 className="item-name">2014 Bliss Block Pinot Noir</h4>
+                <div className="row">
+                  <ul className="col-12 col-md-12 col-lg-5 list-info">
+                    <li><span>Varietal</span><span>100% Pinot Noir</span></li>
+                    <li><span>Year</span><span>2014​</span></li>
+                    <li><span>Country</span><span>United States​</span></li>
+                    <li><span>Appellation</span><span>Sonoma</span></li>
+                    <li><span>Alcohol</span><span>14.3%</span></li> 
+                  </ul>
+                  <ul className="col-12 col-md-12 col-lg-7 list-info">
+                    <li><span>pH</span><span>3.69</span></li>
+                    <li><span>Aging</span><span>15 months in French Oak Barrels, 82%</span></li>
+                    <li><span>Price</span><span>$80​</span></li>
+                    <li><span>Case Production</span><span>250</span></li>
+                  </ul>
+                  <div className="col col-md-12">
+                    <p className="item-text">The Bliss Block Pinot Noir beautifully captures the rich spice qualities that are characteristic of this cool pocket of our Quail Hill Estate vineyard. A bright garnet hue </p>
+                  </div>
+                </div>
+              </div>
+              </div>
+              <div className="carousel-item">
+              <div className="d-md-flex justify-content-between align-items-center mb-2">
+                  <h3 className="main-heading font-size-16">Testing Script <span className="ml-md-4 font-size-16">4/4 wines</span></h3>
+                  <div className=" mt-3 mt-md-0 d-md-flex justify-content-between align-items-center">
+                    <button type="button" className="btn btn-outline-secondary mr-5">"Show Script"</button>
+                    
+                  </div>
+              </div>
+              <div className="item-description">
+                <h4 className="item-name">2014 Bliss Block Pinot Noir</h4>
+                <div className="row">
+                  <ul className="col-12 col-md-12 col-lg-5 list-info">
+                    <li><span>Varietal</span><span>100% Pinot Noir</span></li>
+                    <li><span>Year</span><span>2014​</span></li>
+                    <li><span>Country</span><span>United States​</span></li>
+                    <li><span>Appellation</span><span>Sonoma</span></li>
+                    <li><span>Alcohol</span><span>14.3%</span></li> 
+                  </ul>
+                  <ul className="col-12 col-md-12 col-lg-7 list-info">
+                    <li><span>pH</span><span>3.69</span></li>
+                    <li><span>Aging</span><span>15 months in French Oak Barrels, 82%</span></li>
+                    <li><span>Price</span><span>$80​</span></li>
+                    <li><span>Case Production</span><span>250</span></li>
+                  </ul>
+                  <div className="col col-md-12">
+                    <p className="item-text">The Bliss Block Pinot Noir beautifully captures the rich spice qualities that are characteristic of this cool pocket of our Quail Hill Estate vineyard. A bright garnet hue </p>
+                  </div>
+                </div>
+              </div>
+              </div>
             </div>
           </div>
           

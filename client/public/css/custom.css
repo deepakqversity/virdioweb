@@ -5,6 +5,7 @@
 	  4. Attendees Section
 	  5. Host Section
 	  6. Item Description Section
+	  7. Testing Script section
 		
 ----------------------------------*/
 
@@ -576,6 +577,22 @@ position: relative;
 	font-size: 20px;
 }
 }
+
+/*----7. Testing Script section-----*/
+.script-info .carousel-control-next{
+	width: 20px;
+	height:21px;
+    background: none;
+    background-color: none;
+    opacity: 1;
+    top: 8px;
+    z-index: 5;
+    right: 3px;
+}
+
+
+
+
 
 
 /* ---------Attendees Screen------------------- */

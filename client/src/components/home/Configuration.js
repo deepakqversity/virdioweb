@@ -26,11 +26,7 @@ return (
 
           <h5 className="modal-title" id="exampleModalLabel">Media Configuration</h5>
 
-          <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-
-          <span aria-hidden="true">&times;</span>
-
-          </button>
+          
 
         </div>
 

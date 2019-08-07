@@ -5,6 +5,7 @@
 	  4. Attendees Section
 	  5. Host Section
 	  6. Item Description Section
+	  7. Testing Script section
 		
 ----------------------------------*/
 
@@ -196,6 +197,11 @@ h3.main-heading span{
 }
 .mw-75{
 	max-width:75%;
+}
+.display-grid-auto-4{
+display:grid;
+display:-ms-grid;
+grid-template-columns: auto auto auto auto;
 }
 @media (max-width:768px){
 	.mx-xs-auto{
@@ -506,9 +512,9 @@ position: relative;
     border-radius: 10px;
 }
 .host-header>img{
-	width: 25px;
-    margin: 0 15px;
-	cursor: pointer;
+    width: 20px;
+    margin: 0 12px;
+    cursor: pointer;
 }
 
 .next-btn{
@@ -574,6 +580,22 @@ position: relative;
 	font-size: 20px;
 }
 }
+
+/*----7. Testing Script section-----*/
+.script-info .carousel-control-next{
+	width: 20px;
+	height:21px;
+    background: none;
+    background-color: none;
+    opacity: 1;
+    top: 8px;
+    z-index: 5;
+    right: 3px;
+}
+
+
+
+
 
 
 /* ---------Attendees Screen------------------- */

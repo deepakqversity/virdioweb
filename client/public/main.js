@@ -73,101 +73,107 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
       // Before join channel add user role 
       client.setClientRole(storeData.userType == 1 ? "host" : "audience", function(err) {
+
         if(err) {
           console.log("user role failed", e);
         } else {
           console.log("user role set success");
 
-      var channelName = localStorage.getItem("channel");
+          var channelName = localStorage.getItem("channel");
 
-      // create and join channel
-      client.join(channel_key, channelName, storeData.id.toString(), function(uid) {
+          // create and join channel
+          client.join(channel_key, channelName, storeData.id.toString(), function(uid) {
 
-        console.log("User " + uid + " join channel successfully");
+            console.log("User " + uid + " join channel successfully");
 
-        let sessionState = true;
+            let sessionState = true;
 
-        // create local stream
-        localStream = AgoraRTC.createStream({streamID: uid, audio: storeData.userType == 1 ? true : true, cameraId: camera, microphoneId: microphone, video: sessionState, screen: false });
-        
-        
+            // create local stream
+            localStream = AgoraRTC.createStream({streamID: uid, audio: storeData.userType == 1 ? true : true, cameraId: camera, microphoneId: microphone, video: sessionState, screen: false });
+            
 
-        if (sessionState) {
-          localStream.setVideoProfile('720p_3');
-        }
-
-        localStream.setVideoEncoderConfiguration({
-            // Video resolution
-            resolution: {
-                width: 640,
-                height: 380
+            if (sessionState) {
+              localStream.setVideoProfile('720p_3');
             }
-        });
 
-        // The user has granted access to the camera and mic.
-        localStream.on("accessAllowed", function() {
-          console.log("accessAllowed");
-        });
+            localStream.setVideoEncoderConfiguration({
+                // Video resolution
+                resolution: {
+                    width: 640,
+                    height: 380
+                }
+            });
 
-        // The user has denied access to the camera and mic.
-        localStream.on("accessDenied", function() {
-          console.log("accessDenied");
-        });
+            // The user has granted access to the camera and mic.
+            localStream.on("accessAllowed", function() {
+              console.log("accessAllowed");
+            });
 
-        localStream.init(function() {
-          if(storeData.userType != 1){
-            localStream.muteAudio();
-          } 
+            // The user has denied access to the camera and mic.
+            localStream.on("accessDenied", function() {
+              console.log("accessDenied");
+            });
 
-          console.log("getUserMedia successfully");
-          localStream.play('agora_local');
-          
-          $.ajax({
-              headers: { 
-                  "Content-Type": "application/json; charset=utf-8",
-                  "Authorization": storeData.token
-              },
-              url: '/api/v1/conference/'+channelName+'/'+storeData.id+'/stream-id',
-              dataType: 'json',
-              type: 'PUT',
-              contentType: 'application/json',
-              data: JSON.stringify({ "streamId": uid, "userType": storeData.userType }),
-              success: function( data, textStatus, jQxhr ){
+            localStream.init(function() {
+              if(storeData.userType != 1){
+                localStream.muteAudio();
+              } 
+
+                
+
+                  console.log("getUserMedia successfully");
+                  localStream.play('agora_local');
                   
-                  if(storeData.userType == 1){
+                  $.ajax({
+                      headers: { 
+                          "Content-Type": "application/json; charset=utf-8",
+                          "Authorization": storeData.token
+                      },
+                      url: '/api/v1/conference/'+channelName+'/'+storeData.id+'/stream-id',
+                      dataType: 'json',
+                      type: 'PUT',
+                      contentType: 'application/json',
+                      data: JSON.stringify({ "streamId": uid, "userType": storeData.userType }),
+                      success: function( data, textStatus, jQxhr ){
+                          
+                          if(storeData.userType == 1){
 
-                    client.publish(localStream, function (err) {
-                      console.log("Publish local stream error: " + err);
-                    });
+                            client.publish(localStream, function (err) {
+                              console.log("Publish local stream error: " + err);
+                            });
 
-                    client.on('stream-published', function (evt) {
-                      console.log("Publish local stream successfully");
-                      // console.log('localStream ==========================*******************', localStream)
-                      // console.log('client ------------', client)
-                    });
-                  } else {
-                    $("#strm-publish").click();
-                  }
-              },
-              error: function( jqXhr, textStatus, errorThrown ){
-                  console.log( errorThrown );
-              }
+                            client.on('stream-published', function (evt) {
+                              console.log("Publish local stream successfully");
+                              // console.log('localStream ==========================*******************', localStream)
+                              console.log('client ------------', client)
+                            });
+                          } else {
+                            console.log('=================')
+                            publish();
+                          }
+                      },
+                      error: function( jqXhr, textStatus, errorThrown ){
+                          console.log( errorThrown );
+
+                      }
+                  });
+
+
+            }, function (err) {
+              console.log("getUserMedia failed", err);
+            });
+            
+          }, function(err) {
+            console.log("Join channel failed", err);
           });
-
-
-        }, function (err) {
-          console.log("getUserMedia failed", err);
-        });
-        
-      }, function(err) {
-        console.log("Join channel failed", err);
-      });
-      }
-    });// client as host/ audience
+        }
+      });// client as host/ audience
 
     }, function (err) {
       console.log("AgoraRTC client init failed", err);
     });
+  
+
 
     channelKey = "";
     client.on('error', function(err) {
@@ -217,7 +223,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         checkMuteUnmute(stream.getId());
 
         $('#subscribers-list #agora_remote'+stream.getId()).removeClass('d-none');
-  
+
       } else {
 
         // if ($('#agora_host #agora_remote'+stream.getId()).length === 0) {
@@ -268,6 +274,64 @@ if(!AgoraRTC.checkSystemRequirements()) {
       }
      
     });
+
+
+    function SwitchVideoSize(){
+      count++;
+      let len = $('#subscribers-list .newcss').length;
+     // console.log('------------------------lalit',len);
+      if(len == 0) return false;
+
+      let vdoSize = '';
+      if(len == 1){
+        //vdoSize = 'one mx-auto';
+        vdoSize = 'one mx-auto';
+      } else if(len == 2) {
+        //vdoSize = 'col-md-6 col-lg-6 col-sm-6 col-6';
+        vdoSize = 'two';
+      } else if(len == 3) {
+        //vdoSize = 'col-md-4 col-lg-4 col-sm-4 col-12';
+        vdoSize = 'three';
+      } else if(len == 4) {
+        //vdoSize = 'col-md-4 col-lg-4 col-sm-4 col-12';
+        vdoSize = 'four';
+      } else {
+        //vdoSize = 'col-md-3 col-lg-3 col-sm-3 col-12';
+        vdoSize = 'five';
+      }
+
+        // javascript each
+        $('#subscribers-list .newcss').each(function (index, value) {
+          
+          $(this).removeClass('col-md-6')
+            .removeClass('col-md-4')
+            .removeClass('one')
+            .removeClass('two')
+            .removeClass('three')
+            .removeClass('four')
+            .removeClass('five')
+            .removeClass('col-lg-8')
+            .removeClass('col-md-4')
+            .removeClass('col-lg-6')
+            .removeClass('col-lg-5')
+            .removeClass('col-lg-4')
+            .removeClass('col-lg-3')
+            .removeClass('col-sm-6')
+            .removeClass('col-sm-4')
+            .removeClass('col-sm-3')
+            .removeClass('col-6')
+            .removeClass('col-12')
+            .removeClass('mx-auto');
+
+          $('#subscribers-list .newcss').addClass(vdoSize);
+
+          });
+
+         
+          
+    }
+    
+
   
     client.on('stream-removed', function (evt) {
       var stream = evt.stream;
@@ -765,6 +829,54 @@ console.log('device ------------->>', device)
     //let vid_y = $("#subscribers-list video").height();
     //let vid_x = $("#subscribers-list video").width();
   //}
+
+    function onPageResize(){
+      
+      let winHeight = window.innerHeight;
+      let headerHeight = $(".header.bg-gray").height()+20;
+      let hostHeight = $(".host-script-section").height();
+      let sectionHeight = winHeight - (hostHeight+headerHeight);
+      $(".section.attendees").height(`${sectionHeight - 23}px`);
+      $("#subscribers-list").height(`${sectionHeight - 100}px`)
+      let sub_list_y = $("#subscribers-list").height(); 
+      let sub_list_x = $("#subscribers-list").width(); 
+      let len_subs = $('#subscribers-list .newcss').length;
+      if(len_subs>4){
+        $("#subscribers-list")
+        .removeClass("justify-content-center")
+        .addClass("justify-content-between display-grid-auto-4");
+      }
+      else if(len_subs<=4){
+        $("#subscribers-list")
+        .addClass("justify-content-center")
+        .removeClass("justify-content-between display-grid-auto-4");
+      }
+      setTimeout(function(){
+        
+        $(".newcss.two").width(`${sub_list_x / 2.8 }`);
+        $(".newcss.three").width(`${sub_list_x / 3 }`);
+        $(".newcss.four").width(`${sub_list_x / 4 }`);
+        $(".newcss.five").width(`${sub_list_x / 6 }`);
+
+        $(".newcss.two, .newcss.three").parent().addClass("justify-content-center");
+         
+         if(sub_list_x > 1400){
+         
+           $(".newcss.one").width(`${sub_list_x  / 3 }px`);
+         }
+         else if(sub_list_x > 1600){
+          $(".newcss.one").width(`${sub_list_x }px`);
+        }
+         else{
+           $(".newcss.one").width(`${sub_list_x / 4 }px`);
+         }
+       }, 600)
+
+
+      //console.log(`${sectionHeight}px`);
+      //let vid_y = $("#subscribers-list video").height();
+      //let vid_x = $("#subscribers-list video").width();
+    }
 
     function onPageResize(){
       

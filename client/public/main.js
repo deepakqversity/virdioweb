@@ -481,7 +481,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         if(!devices[i] || devices[i] == undefined) continue;
 
         device = devices[i];
-
+console.log('device ------------->>', device)
         defaultSetting = '';
 
 
@@ -503,7 +503,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
           }
           // console.log('---------- microphoneId == device.deviceId - ', microphoneId , device.deviceId,  defaultSetting)
 
-          adoMediaHtml = '<div id="ado-'+device.deviceId+'"><audio /><input type="radio" name="audio-type" id="lbl-'+device.deviceId+'" value="'+device.deviceId+'" '+ defaultSetting +'><label for="lbl-'+device.deviceId+'">'+device.label+'</label> </div>';
+          adoMediaHtml = '<div id="ado-'+device.deviceId+'"><input type="radio" name="audio-type" id="lbl-'+device.deviceId+'" value="'+device.deviceId+'" '+ defaultSetting +'><label for="lbl-'+device.deviceId+'">'+device.label+'</label> </div>';
 
           $('#audio-media-content').append(adoMediaHtml)
 

@@ -5,6 +5,7 @@
 	  4. Attendees Section
 	  5. Host Section
 	  6. Item Description Section
+	  7. Testing Script section
 		
 ----------------------------------*/
 
@@ -191,6 +192,17 @@ h3.main-heading span{
 .zindex-5{
 	z-index:5;
 }
+.w-90{
+	width:90%;
+}
+.mw-75{
+	max-width:75%;
+}
+.display-grid-auto-4{
+display:grid;
+display:-ms-grid;
+grid-template-columns: auto auto auto auto;
+}
 @media (max-width:768px){
 	.mx-xs-auto{
 		margin-left:auto !important;
@@ -227,16 +239,24 @@ h3.main-heading span{
 .logo img{
 	width:65px;
 }
-.header{
-    
+/*.header{
     border-radius: 10px;
     width: 100%;
     height: auto;
     padding: 10px 0px;
 	position: relative;
     z-index: 3;
+}*/
+.header{
+	border-radius: 10px;
+    width: 96%;
+    height: auto;
+    padding: 10px 0px;
+    z-index: 3;
+    left: 0;
+    right: 0;
+    margin: auto;
 }
-
 
 .time span{
 	color:#fff;
@@ -270,6 +290,10 @@ h3.main-heading span{
 
 
 /* 4. Attendees Section */
+
+.section.attendees{
+	margin-top: 110px !important;
+}
 .section.attendees .title{
     font-family: 'Avenir-Black';
     font-size: 16px;
@@ -476,14 +500,21 @@ position: relative;
 
 
 /* 5. Host Section */
+.host-script-section{
+	bottom: 0;
+    left: 0;
+    width: 96%;
+    margin: auto;
+    right: 0;
+}
 .host-section video{
     width: 100%;
     border-radius: 10px;
 }
 .host-header>img{
-	width: 25px;
-    margin: 0 15px;
-	cursor: pointer;
+    width: 20px;
+    margin: 0 12px;
+    cursor: pointer;
 }
 
 .next-btn{
@@ -500,7 +531,7 @@ position: relative;
 	margin:0;
 }
 .item-description .list-info{
-    margin: 15px 0;
+    margin: 5px 0;
 }
 .item-description .list-info li{
     color: #fff;
@@ -532,14 +563,39 @@ position: relative;
     font-family: Avenir-Book;
 	margin-bottom: 0;
 }
-@media (max-width:480px){
-	.item-description .list-info li span:last-child{
-		float: left;
-	}
-	.second-heading{
-		font-size: 20px;
-	}
+.sub-heading{
+    font-family: Avenir-Heavy;
+    float: left;
+    text-align: left;
+    width: 100%;
+    color: #fff;
+    font-size: 14px;
 }
+
+@media (max-width:480px){
+.item-description .list-info li span:last-child{
+	float: left;
+}
+.second-heading{
+	font-size: 20px;
+}
+}
+
+/*----7. Testing Script section-----*/
+.script-info .carousel-control-next{
+	width: 20px;
+	height:21px;
+    background: none;
+    background-color: none;
+    opacity: 1;
+    top: 8px;
+    z-index: 5;
+    right: 3px;
+}
+
+
+
+
 
 
 /* ---------Attendees Screen------------------- */
@@ -661,6 +717,12 @@ position: relative;
     font-size: 13px;
 }
 
+/* item-description  */
+.detail-model{
+	background:#2B2B2B;
+	border-radius:10px;
+	padding:25px 30px !important;
+}
 
 
 

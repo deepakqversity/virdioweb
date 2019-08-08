@@ -24,17 +24,17 @@ class Home extends Component {
     let retrievedObject = localStorage.getItem('jwtToken');
     let localstoragedata=JSON.parse(retrievedObject);
 
-    let initialPlanets = [];
+    let initialChannels = [];
     fetch('/api/v1/conference/channels', {headers : {'Authorization': localstoragedata.token}})
         .then(response => {
             return response.json();
         }).then(data => {
-        initialPlanets = data.map((channel) => {
+        initialChannels = data.map((channel) => {
             return channel
         });
-        console.log('****',initialPlanets);
+        console.log('****',initialChannels);
         this.setState({
-            channels: initialPlanets,
+            channels: initialChannels,
         });
     });
 
@@ -66,8 +66,8 @@ render() {
     const  {user}  = this.props.auth;
 
     const channels = this.state.channels;
-    const optionItems = channels.map((planet) =>
-                <option value={planet.channel}>{planet.channel}</option>
+    const optionItems = channels.map((opt) =>
+                <option value={opt.channel}>{opt.channel}</option>
             );
 
     // console.log('$$$$',optionItems);

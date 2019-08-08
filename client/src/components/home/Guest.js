@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import $ from 'jquery';
+import Config from "./Configuration";
+
 class Guest extends Component {
   onLogoutClick = e => {
     e.preventDefault();
@@ -41,7 +43,7 @@ return (
 
       <div id="agora_host" className="fix-host"></div>
       
-  <header className="header">
+  <header className="header w-100">
       <div className="row">
         <div className="col-lg-12 col-md-12">
           <div className="transparent-gray">
@@ -56,10 +58,18 @@ return (
                       <span>Time Remaining: 01:10:00</span>
                     </div>
                   </div>
-                  <div id="msg" style={{color:'green'}}></div>
+                  <div id="hostmsg" style={{color:'green'}}></div>
                   <div className="col-12 col-sm-12 col-md-3 d-flex justify-content-end">
-                  <div className="default-btns mr-2"><a href="#"  className="btn btn-primary px-4"><img src="images/hand.png" /></a></div>
+                  
+                  <div className="default-btns mr-2">
+                    <a href="javascript:;" className="btn btn-primary ml-2" id="mocrophone-off" alt="Microphone" title="Microphone Off"><img src="images/hand.png" /></a>
+                    <a href="javascript:;" className="btn btn-primary ml-2 d-none" id="mocrophone-on" alt="Microphone" title="Microphone On"><i className="fa fa-microphone"></i></a>
+
+                  </div>
+
                     <a className="col-2 justify-content-end d-flex align-items-center" href="#" className="btn btn-primary " tabIndex="1">Details</a>
+
+                    
                     <a href="javascript:;" className="btn btn-primary ml-2" id="strm-publish" alt="Broadcaster" title="Broadcaster"><i className="fa fa-user-plus"></i></a>
                     <a href="javascript:;" className="btn btn-primary ml-2 d-none" id="strm-unpublish" alt="Audience" title="Audience"><i className="fa fa-user-times"></i></a>
 
@@ -100,7 +110,7 @@ return (
             
           </div>
         </div>
-        <button type="button" data-toggle="modal" data-target="#show-details" className="btn btn-outline-secondary">"Show Details"</button>
+        <button type="button" data-toggle="modal" data-target="#show-details" className="btn btn-outline-secondary show-details-btn">"Show Details"</button>
       </div>
     </div>
     <div className="col-lg-3 col-md-4 col-sm-5 col-6 max-width-300 float-right pl-0">
@@ -192,11 +202,11 @@ return (
     
   
     
-    <div id="show-details" className="modal bg-black fade" role="dialog">
-      <div className="w-100 d-flex align-items-center flex-direction-column h-100 mw-100 px-3 justify-content-center">
+    <div id="show-details" className="modal fade " role="dialog">
+      <div className="w-100 d-flex align-items-center bg-dark flex-direction-column h-100 mw-100 justify-content-center">
         <div className="modal-content">
-          
-           <div className="row">
+        
+           <div className="row no-gutters">
             <div className="col-12 col-sm-6">
               
             <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
@@ -219,30 +229,66 @@ return (
               
             </div>
             </div>
-            <div className="col-12 col-sm-6 item-description">
-              <button type="button" className="close close-model-btn" data-dismiss="modal">&times;</button>
-              <div className="details-content">
-              <h3 class="second-heading my-3">2014 Bliss Block Pinot Noir</h3>
-              <div class="content-scroll">
-                <div className=" row w-100">
-                  <ul class="col-12 col-md-12 col-lg-6 list-info">
-                    <li><span>Varietal</span><span>100% Pinot Noir</span></li>
-                    <li><span>Year</span><span>2014&#8203;</span></li>
-                    <li><span>Country</span><span>United States&#8203;</span></li>
-                    <li><span>Appellation</span><span>Sonoma</span></li>
-                    <li><span>Alcohol</span><span>14.3%</span></li>
-                  </ul>
-                  <ul class="col-12 col-md-12 col-lg-6 list-info">
-                    <li><span>pH</span><span>3.69</span></li>
-                    <li><span>Aging</span><span>15 months in French Oak Barrels, 82%</span></li>
-                    <li><span>Price</span><span>$80&#8203;</span></li>
-                    <li><span>Case Production</span><span>250</span></li>
-                  </ul>
-                  <div class="col col-md-12">
-                    <p class="item-text">The Bliss Block Pinot Noir beautifully captures the rich spice qualities that are characteristic of this cool pocket of our Quail Hill Estate vineyard. A bright garnet hue </p>
+            <div className="col-12 col-sm-6 detail-model item-description">
+              
+              <div className="">
+              <button type="button" className="close close-model-btn m-0" data-dismiss="modal">&times;</button>
+                <div className="details-content">
+                  <h3 className="second-heading my-3">2014 Bliss Block Pinot Noir</h3>
+                  <div className="content-scroll">
+                    <div className=" row w-100">
+                      <ul className="col-12 col-md-12 col-lg-6 list-info">
+                        <li><span>Varietal</span><span>100% Pinot Noir</span></li>
+                        <li><span>Year</span><span>2014&#8203;</span></li>
+                        <li><span>Country</span><span>United States&#8203;</span></li>
+                        <li><span>Appellation</span><span>Sonoma</span></li>
+                        <li><span>Alcohol</span><span>14.3%</span></li>
+                      </ul>
+                      <ul className="col-12 col-md-12 col-lg-6 list-info">
+                        <li><span>pH</span><span>3.69</span></li>
+                        <li><span>Aging</span><span>15 months in French Oak Barrels, 82%</span></li>
+                        <li><span>Price</span><span>$80&#8203;</span></li>
+                        <li><span>Case Production</span><span>250</span></li>
+                      </ul>
+                      <div className="col col-md-12">
+                        <p className="item-text">The Bliss Block Pinot Noir beautifully captures the rich spice qualities that are characteristic of this cool pocket of our Quail Hill Estate vineyard. A bright garnet hue </p>
+                        
+                      </div>
+                      <div className="col-md-12 mt-3">
+                        <strong className="sub-heading">Varietal Composition</strong>
+                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                      </div>
+                      <div className="col-md-12 mt-3">
+                        <strong className="sub-heading">Varietal Composition</strong>
+                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                      </div>
+                      <div className="col-md-12 mt-3">
+                        <strong className="sub-heading">Varietal Composition</strong>
+                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                      </div>
+                      <div className="col-md-12 mt-3">
+                        <strong className="sub-heading">Varietal Composition</strong>
+                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                      </div>
+                      <div className="col-md-12 mt-3">
+                        <strong className="sub-heading">Varietal Composition</strong>
+                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                      </div>
+                      <div className="col-md-12 mt-3">
+                        <strong className="sub-heading">Varietal Composition</strong>
+                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                      </div>
+                      <div className="col-md-12 mt-3">
+                        <strong className="sub-heading">Varietal Composition</strong>
+                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                      </div>
+                      <div className="col-md-12 mt-3">
+                        <strong className="sub-heading">Varietal Composition</strong>
+                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
               </div>
             </div>
            </div>
@@ -251,6 +297,7 @@ return (
 
       </div>
     </div>
+    <Config />
     <input type="hidden" id="conf-page" />
 
   </div>

@@ -559,6 +559,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
       })
   };
 
+  var stream1 = null;
+
   function getDevices() {
     
 
@@ -587,7 +589,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       
       // $('#audio-media-content').append('<div id="local-audio-media" ></div>');
 
-      let stream1;
+      
       let device = '';
       for (var i = 0, ctr = 0, ctr1 = 0; i !== devices.length; ++i) {
 
@@ -702,7 +704,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
       localStorage.removeItem("media-setting");
     }
     $('#media-config').modal('hide');
+    stream1.close()
     join();
+
   }
 
 

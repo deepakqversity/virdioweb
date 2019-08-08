@@ -148,8 +148,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
                               console.log('client ------------', client)
                             });
                           } else {
-                            console.log('=================')
-                            publish();
+                            // console.log('=================')
+                            // publish();
                           }
                       },
                       error: function( jqXhr, textStatus, errorThrown ){

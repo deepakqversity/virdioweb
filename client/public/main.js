@@ -28,13 +28,16 @@ if(!AgoraRTC.checkSystemRequirements()) {
     //var appId = '748f9639fa864651bef8419d5870ec50';// provided by arjun 
 
     var appId = '232f270a5aeb4e0097d8b5ceb8c24ab3';
-    
+     
     console.log("Init AgoraRTC client with App ID: " + appId);
     
     client = AgoraRTC.createClient({mode: 'live'});
-    
+
     client.init(appId, function () {
-      
+     
+
+
+    //  console.log('------------------lalit-------',session);
       console.log("AgoraRTC client initialized");
       console.log('join as Role = ', storeData.userType == 1 ? "host" : "audience")
       client.setClientRole(storeData.userType == 1 ? "host" : "audience", function(err) {
@@ -45,10 +48,12 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
       var channelName = localStorage.getItem("channel");
 
+    
+
       client.join(channel_key, channelName, storeData.id.toString(), function(uid) {
 
-          console.log("User " + uid + " join channel successfully");
-
+          console.log('--------lalit--------',"User " + uid + " join channel successfully");
+       
           let sessionState = true;
 
           // check for device type
@@ -91,7 +96,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
             localStream.on("accessDenied", function() {
               console.log("accessDenied");
             });
-
+        
             localStream.init(function() {
               console.log("getUserMedia successfully");
               localStream.play('agora_local');
@@ -107,7 +112,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
                   contentType: 'application/json',
                   data: JSON.stringify({ "streamId": uid, "userType": storeData.userType }),
                   success: function( data, textStatus, jQxhr ){
-                      
+                    
                       if(storeData.userType == 1){
 
                         client.publish(localStream, function (err) {
@@ -125,14 +130,22 @@ if(!AgoraRTC.checkSystemRequirements()) {
                       console.log( errorThrown );
                   }
               });
+           
+              /*if(storeData.userType == 1)
+                {
+                  recievemsg();
+                }*/
 
-
+                if(storeData.userType == 2)
+                {
+                  recievesinalfromhost();
+                }
             }, function (err) {
               console.log("getUserMedia failed", err);
             });
 
           });
-        
+         
       }, function(err) {
         console.log("Join channel failed", err);
       });
@@ -194,14 +207,14 @@ if(!AgoraRTC.checkSystemRequirements()) {
         // console.log("Subscribe remote stream successfully:********** " , stream.getUserId());
         if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
         
-          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'"  class="col-md-4 col-lg-3 col-sm-6 col-6 newcss"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div> <a href="javascript:;" class="mute-icon position-absolute mute-unmute" data-id="'+stream.getId()+'"><i class="fa fa-volume-off" aria-hidden="true"></i></a><span class="hand-icon position-absolute" data-toggle="modal" data-target="#guest-video"></span><div class="att-details"> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1"></span></div></div></div></div>');
+          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'"  class="col-md-4 col-lg-3 col-sm-6 col-6 newcss"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div> <a href="javascript:;" class="mute-icon position-absolute mute-unmute" data-id="'+stream.getId()+'"><i class="fa fa-volume-off" aria-hidden="true"></i></a><span class="hand-icon position-absolute" data-toggle="modal" data-target="#hand-raise"   onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><div class="att-details"> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1" id="agora_'+stream.getId()+'"></span></div></div></div></div>');
         }
         stream.play('agora_remote_vdo' + stream.getId());
         SwitchVideoSize();
         checkMuteUnmute(stream.getId());
         
       } else {
-
+       
         // if ($('#agora_host #agora_remote'+stream.getId()).length === 0) {
           $.ajax({
               headers: { 
@@ -232,13 +245,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
                       // $('#agora_host').append('<div id="agora_remote'+stream.getId()+'"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div></div>');
                       // stream.play('agora_remote_vdo' + stream.getId());
                       // checkMuteUnmute(stream.getId());
-
                       if(stream.hasVideo())
                         stream.muteVideo();
                       
                       if(stream.hasAudio())
                         stream.muteAudio();
 
+                        
                     }
                   }
                   
@@ -251,6 +264,77 @@ if(!AgoraRTC.checkSystemRequirements()) {
       }
      
     });
+
+
+    /*function recievemsg()
+    {
+      var storageData = localStorage.getItem("jwtToken");
+      var storeData = JSON.parse(storageData);
+    var userType=storeData.userType;
+    //alert(userType);return false;
+    if(storeData.userType == 1) {
+ 
+     recievesignal();
+     }
+    }
+
+          function recievesignal()
+          {
+            console.log('------------------lalit-------');
+
+          var appId = '232f270a5aeb4e0097d8b5ceb8c24ab3';
+
+            let signal = new Signal(appId);
+            var account='host';
+            var session = signal.login(account, token = '_no_need_token');
+
+                session.onLoginSuccess = function(uid){
+                
+              session.onMessageInstantReceive = function(account, uid, msg){ 
+
+                console.log('--------------hello--------',account,'----------',msg);
+                  
+              };
+            
+              session.onLogout = function(ecode){
+              }
+          }
+        
+          }*/
+
+          function recievesinalfromhost()
+          {
+        
+            var storageData = localStorage.getItem("jwtToken");
+            var storeData = JSON.parse(storageData);
+             var userType=storeData.userType;
+             
+            var appId = '232f270a5aeb4e0097d8b5ceb8c24ab3';
+
+            let signal = new Signal(appId);
+            var account=storeData.id;
+            var name=storeData.name;
+            var session = signal.login(account, token = '_no_need_token');
+            console.log('--------------QBS--------',account,'----------',session);
+            session.onLoginSuccess = function(uid){
+                
+              session.onMessageInstantReceive = function(account, uid, msg){ 
+                
+                  console.log('------------hello--------',account,'----------',msg);
+
+                  $('#msg').html(msg);
+
+                  setTimeout(function(){
+                    $('#msg').remove();
+                  }, 10000);
+                  
+              };
+              
+              session.onLogout = function(ecode){
+              }
+           }
+          }
+
 
     function SwitchVideoSize(){
       count++;
@@ -293,9 +377,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
           
     }
-    
 
-  
+
+
+
     client.on('stream-removed', function (evt) {
       var stream = evt.stream;
       stream.stop();
@@ -364,6 +449,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   }
 
+ 
+
+
   function leave() {
    // document.getElementById("leave").disabled = true;
     client.leave(function () {
@@ -379,6 +467,65 @@ if(!AgoraRTC.checkSystemRequirements()) {
     localStorage.removeItem("jwtToken");
     window.location.href  = '/login';
   });
+
+  function onclickhandRaise(receiver)
+  {       
+    var storageData = localStorage.getItem("jwtToken");
+    var storeData = JSON.parse(storageData);
+    var appId = '232f270a5aeb4e0097d8b5ceb8c24ab3';
+    var userType=storeData.userType;
+    var clientaccount=storeData.id;
+    if(storeData.userType == 1) {
+      sendsignaltoclient(appId,receiver,clientaccount);
+    }
+  }
+
+  function sendsignaltoclient(appId,receiver,account)
+  {
+    let signal = new Signal(appId);
+    var session = signal.login(account, token = '_no_need_token');
+    console.log('------------------lalit-------',session);
+    var msg="Now You Can Talk";
+    session.onLoginSuccess = function(uid){      
+    session.messageInstantSend(receiver, msg);
+    console.log('--------------hi---------------',msg);
+    session.logout();
+    };     
+    session.onLogout = function(ecode){
+    }        
+  }
+
+  $('#handRaise_button').click(function(){       
+    var storageData = localStorage.getItem("jwtToken");
+    var storeData = JSON.parse(storageData);
+    var appId = '232f270a5aeb4e0097d8b5ceb8c24ab3';
+    var userType=storeData.userType;
+    var clientaccount=storeData.name;
+    var receiver="host";
+    if(storeData.userType == 2) {
+
+      sendsignal(appId,receiver,clientaccount);
+    }
+     
+  });
+
+
+
+  function sendsignal(appId,receiver,account)
+  {
+    let signal = new Signal(appId);
+   // var account='Lalit';
+    var session = signal.login(account, token = '_no_need_token');
+    console.log('------------------lalit-------',session);
+
+    var msg="Please allow to Talk";
+      session.onLoginSuccess = function(uid){      
+      session.messageInstantSend(receiver, msg);
+     session.logout();
+      };     
+      session.onLogout = function(ecode){
+      }    
+  }
 
   function publish() {
     client.publish(localStream, function (err) {
@@ -491,19 +638,14 @@ if(!AgoraRTC.checkSystemRequirements()) {
       $("#show-everyone").click(function(){
         $(".slide-right-left").css({"width": "100%", "float": "right"});
         //$(".joined-attendees").removeAttr("style");
-        
+        $("#minimize-others").removeClass('d-none');
         $("#show-everyone").addClass('d-none');
         setTimeout(function(){
-          $("#minimize-others").removeClass('d-none').fadeIn(500);
           $(".right-sidebar .title").removeClass('d-none');
           $(".attendee-list").css("background", "#000");
         $(".slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").fadeIn(500);
         }, 200)
       })
-
-      
-        
-      
 
   });
 

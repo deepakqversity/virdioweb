@@ -18,6 +18,7 @@ class Host extends Component {
   callfunction(){
     $('#logout_button').trigger('click');
   }
+
   componentDidMount(){
   // console.log(2);    //
   }

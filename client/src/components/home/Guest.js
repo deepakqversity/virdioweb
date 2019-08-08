@@ -21,6 +21,10 @@ class Guest extends Component {
     $('#logout_button').trigger('click');
   }
 
+  onclickhandRaise(){
+    $('#handRaise_button').trigger('click');
+  }
+
   componentDidMount(){
   // console.log(2);    //
   }
@@ -44,7 +48,7 @@ return (
         <div className="col-lg-12 col-md-12">
           <div className="transparent-gray">
             <div className="row">
-              <a href="#" className=" py-xs-1 col-lg-1 col-md-1 col-sm-12 d-flex justify-content-center align-items-center v-logo">
+              <a href="" className=" py-xs-1 col-lg-1 col-md-1 col-sm-12 d-flex justify-content-center align-items-center v-logo">
                 <img src="images/v-logo.png" />
                               </a>
               <div className="col-lg-11 col-md-11 col-sm-12">
@@ -54,6 +58,7 @@ return (
                       <span>Time Remaining: 01:10:00</span>
                     </div>
                   </div>
+                  <div id="hostmsg" style={{color:'green'}}></div>
                   <div className="col-12 col-sm-12 col-md-3 d-flex justify-content-end">
                   
                   <div className="default-btns mr-2">

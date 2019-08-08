@@ -526,13 +526,14 @@ if(!AgoraRTC.checkSystemRequirements()) {
   
   let checkoutMic = function(micId){
 
-      let stream2 = AgoraRTC.createStream({
+      stream2 = AgoraRTC.createStream({
           streamID: Math.floor(Math.random()*1000000),
           // Set audio to true if testing the microphone.
           video: false,
           audio: true,
           microphoneId: micId,
       });
+      console.log('----------', micId)
 
       // The user has granted access to the camera and mic.
         stream2.on("accessAllowed", function() {
@@ -551,15 +552,15 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
       // Initialize the stream.
       stream2.init(function(){
-          // stream2.play('local-audio-media');
-          // setInterval(function(){
-          // // should be greater than 0
-          //     console.log(`Local Stream Audio Level ${stream2.getAudioLevel()}`);
-          // }, 1000);
+          stream2.play('local-audio-media');
+          setInterval(function(){
+          // should be greater than 0
+              console.log(`Local Stream Audio Level ${stream2.getAudioLevel()}`);
+          }, 1000);
       })
   };
 
-  var stream1 = null;
+  var stream1 = stream2 = null;
 
   function getDevices() {
     
@@ -587,19 +588,22 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
       }
       
+      console.log('&&&&&&&&&&&&&&&&&&&&&', devices)
       // $('#audio-media-content').append('<div id="local-audio-media" ></div>');
 
       
       let device = '';
+      let deviceArray = [];
       for (var i = 0, ctr = 0, ctr1 = 0; i !== devices.length; ++i) {
 
         if(!devices[i] || devices[i] == undefined) continue;
 
         device = devices[i];
 
+        if(deviceArray.includes(device.deviceId)) continue;
+
         defaultSetting = '';
-
-
+        deviceArray.push(device.deviceId);
         // option.value = device.deviceId;
         if (device.kind === 'audioinput') {
 
@@ -637,7 +641,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
                 defaultSetting = 'checked';
             }
           }
-          // console.log('---------- cameraId == device.deviceId - ', cameraId , device.deviceId,  defaultSetting)
+          console.log('---------- cameraId == device.deviceId - ', cameraId , device.deviceId,  defaultSetting)
 
           vdoMediaHtml = '<div class="col-12 col-md-3" id="vdo-'+device.deviceId+'"><div id="local-media-'+device.deviceId+'" ></div><div class="text-center"><input type="radio" name="video-type" id="lbl-'+device.deviceId+'" value="'+device.deviceId+'" '+ defaultSetting +'><label for="lbl-'+device.deviceId+'">Camera-'+ ++ctr +'</label></div></div>';
 
@@ -704,7 +708,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
       localStorage.removeItem("media-setting");
     }
     $('#media-config').modal('hide');
-    stream1.close()
+    stream1.stop()
+    stream2.stop()
     join();
 
   }

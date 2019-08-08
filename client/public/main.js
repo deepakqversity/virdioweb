@@ -524,7 +524,44 @@ if(!AgoraRTC.checkSystemRequirements()) {
   
   }
   
+  let checkoutMic = function(micId){
+
+      let stream2 = AgoraRTC.createStream({
+          streamID: Math.floor(Math.random()*1000000),
+          // Set audio to true if testing the microphone.
+          video: false,
+          audio: true,
+          microphoneId: micId,
+      });
+
+      // The user has granted access to the camera and mic.
+        stream2.on("accessAllowed", function() {
+          console.log("accessAllowed");
+
+          $('#audio-media-content').find('.fa-microphone').removeClass('text-success');
+          $('#ado-'+micId).find('.fa-microphone').addClass('text-success');
+        });
+
+        // The user has denied access to the camera and mic.
+        stream2.on("accessDenied", function() {
+          $('#audio-media-content').find('.fa-microphone').removeClass('text-success');
+          console.log("accessDenied");
+
+        });
+
+      // Initialize the stream.
+      stream2.init(function(){
+          // stream2.play('local-audio-media');
+          // setInterval(function(){
+          // // should be greater than 0
+          //     console.log(`Local Stream Audio Level ${stream2.getAudioLevel()}`);
+          // }, 1000);
+      })
+  };
+
   function getDevices() {
+    
+
     AgoraRTC.getDevices(function (devices) {
       let vdoMediaHtml = '';
       let adoMediaHtml = '';
@@ -547,6 +584,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
         }
 
       }
+      
+      // $('#audio-media-content').append('<div id="local-audio-media" ></div>');
 
       let stream1;
       let device = '';
@@ -555,7 +594,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         if(!devices[i] || devices[i] == undefined) continue;
 
         device = devices[i];
-console.log('device ------------->>', device)
+
         defaultSetting = '';
 
 
@@ -574,9 +613,12 @@ console.log('device ------------->>', device)
                 defaultSetting = 'checked';
             }
           }
-          // console.log('---------- microphoneId == device.deviceId - ', microphoneId , device.deviceId,  defaultSetting)
+          if(defaultSetting == 'checked')
+            checkoutMic(device.deviceId);
 
-          adoMediaHtml = '<div id="ado-'+device.deviceId+'"><input type="radio" name="audio-type" id="lbl-'+device.deviceId+'" value="'+device.deviceId+'" '+ defaultSetting +'> <label for="lbl-'+device.deviceId+'"> Microphone-'+ ++ctr1 +'</label> </div>';
+          console.log('---------- microphoneId == device.deviceId - ', microphoneId)
+
+          adoMediaHtml = '<div id="ado-'+device.deviceId+'"><i class="fa fa-microphone"></i> <input type="radio" name="audio-type" id="lbl-'+device.deviceId+'" value="'+device.deviceId+'" '+ defaultSetting +'> <label for="lbl-'+device.deviceId+'"> Microphone-'+ ++ctr1 +'</label> </div>';
 
           $('#audio-media-content').append(adoMediaHtml)
 
@@ -600,7 +642,7 @@ console.log('device ------------->>', device)
           $('#video-media-content').append(vdoMediaHtml)
 
           stream1 = AgoraRTC.createStream({
-              streamID: Math.floor(Math.random()*1000000),
+              // streamID: Math.floor(Math.random()*1000000),
               // Set audio to true if testing the microphone.
               video: true,
               audio: false,
@@ -619,10 +661,17 @@ console.log('device ------------->>', device)
           // Initialize the stream.
           stream1.init(function(){
               stream1.play('local-media-' + d);
+              // stream1.muteAudio();
           })
         }
       }
 
+    });
+
+
+    $(document).on('click', 'input[name="audio-type"]', function(){
+        console.log($(this).val());
+        checkoutMic($(this).val());
     });
   }
 
@@ -658,7 +707,6 @@ console.log('device ------------->>', device)
 
 
   $(document).ready(function(){
-
     
     window.onresize = onPageResize;
     // window.onload = onPageLoad;

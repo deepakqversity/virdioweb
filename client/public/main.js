@@ -441,6 +441,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
     let vdo = $('#video'+ receiverId )[0];   
     let ado = $('#audio'+ receiverId )[0];   
 
+    console.log('++++++ vdo +++++ ado', vdo, ado);
+
     if(vdo.muted || ado.muted){
       vdo.muted = false;
       ado.muted = false;

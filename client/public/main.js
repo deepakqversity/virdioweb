@@ -441,13 +441,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
     let vdo2 = $('#video'+ receiverId )[0];   
     let ado2 = $('#audio'+ receiverId )[0];   
 
-    console.log('++++++ vdo +++++ ado', vdo1, ado1);
-    
-    vdo1.muted = true;
-    ado1.muted = true;
-
-    console.log('++++++ vdo +++++ ado1', vdo, ado);
+    console.log('++++++ vdo1 +++++ ado1', vdo1, ado1);
+    console.log('++++++ vdo +++++ ado', vdo, ado);
     console.log('++++++ vdo +++++ ado2', vdo2, ado2);
+    
+    // vdo1.muted = true;
+    // ado1.muted = true;
+
     console.log('++++++ vdo +++++ ado3', vdo.muted, ado.muted);
 
 

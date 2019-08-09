@@ -432,19 +432,19 @@ if(!AgoraRTC.checkSystemRequirements()) {
   {       
     sendMessage(receiverId, "Now You Can Talk");
 
-    // let vdo1 = $('video')[0];   
-    // let ado1 = $('audio')[0];   
+    let vdo1 = $('video')[0];   
+    let ado1 = $('audio')[0];   
     
-    // vdo1.muted = true;
-    // ado1.muted = true;
+    vdo1.muted = true;
+    ado1.muted = true;
 
-    // let vdo = $('#video'+ receiverId )[0];   
-    // let ado = $('#audio'+ receiverId )[0];   
+    let vdo = $('#video'+ receiverId )[0];   
+    let ado = $('#audio'+ receiverId )[0];   
 
-    // if(vdo.muted || ado.muted){
-    //   vdo.muted = false;
-    //   ado.muted = false;
-    // }
+    if(vdo.muted || ado.muted){
+      vdo.muted = false;
+      ado.muted = false;
+    }
     // $('#clone-guest-video').append( $('#subscribers-list #agora_remote_vdo'+receiverId).html() );
     // $('#subscribers-list #agora_remote_vdo'+receiverId).html('')
     // $('#guest-video').modal('show');

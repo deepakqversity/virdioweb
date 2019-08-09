@@ -432,14 +432,16 @@ if(!AgoraRTC.checkSystemRequirements()) {
   {       
     sendMessage(receiverId, "Now You Can Talk");
 
-    let vdo1 = $('video')[0];   
-    let ado1 = $('audio')[0];   
+    let vdo1 = $('video');   
+    let ado1 = $('audio');   
+
+    console.log('++++++ vdo +++++ ado', vdo1, ado1);
     
     vdo1.muted = true;
     ado1.muted = true;
 
-    let vdo = $('#video'+ receiverId )[0];   
-    let ado = $('#audio'+ receiverId )[0];   
+    let vdo = $('#video'+ receiverId );   
+    let ado = $('#audio'+ receiverId );   
 
     console.log('++++++ vdo +++++ ado', vdo, ado);
 

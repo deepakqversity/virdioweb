@@ -236,7 +236,7 @@ return (
           <button type="button" className="close-model-btn close float-left" data-dismiss="modal">&times;</button>
           <a href="#" className="eject-this">Eject from Session <img src="images/eject.png" /></a>
         </div>
-        <div className="modal-content clone-guest-video"></div>
+        <div className="modal-content clone-guest-video" id="clone-guest-video"></div>
         <div className="guest-video-footer">
           <div className="conversations">
             <a href="#"><img src="images/private-conversation.png" />Public Conversation</a>

@@ -432,29 +432,21 @@ if(!AgoraRTC.checkSystemRequirements()) {
   {       
     sendMessage(receiverId, "Now You Can Talk");
 
-    let vdo1 = $('#subscribers-list video');   
-    let ado1 = $('#subscribers-list audio');   
+    let allVdo = $('#subscribers-list video');   
+    let allAdo = $('#subscribers-list audio');   
 
-    let vdo = $('#subscribers-list #agora_remote'+ receiverId + ' video' );   
-    let ado = $('#subscribers-list #agora_remote'+ receiverId + ' audio' );   
-
-    let vdo2 = $('#subscribers-list #agora_remote'+ receiverId + ' video')[0];   
-    let ado2 = $('#subscribers-list #agora_remote'+ receiverId + ' audio')[0];   
-
-    console.log('++++++ vdo1 +++++ ado1', vdo1, ado1);
-    console.log('++++++ vdo +++++ ado', vdo, ado);
-    console.log('++++++ vdo +++++ ado2', vdo2, ado2);
+    let vdo = $('#subscribers-list #agora_remote'+ receiverId + ' video' )[0];   
+    let ado = $('#subscribers-list #agora_remote'+ receiverId + ' audio' )[0];   
     
-    // vdo1.muted = true;
-    // ado1.muted = true;
+    // $.each(allVdo, function(i, val){
 
-    console.log('++++++ vdo +++++ ado3', vdo2.muted, ado2.muted);
-
+      // allVdo.muted = true;
+      // allAdo.muted = true;
+    // })
 
     if(vdo.muted || ado.muted){
       vdo.muted = false;
       ado.muted = false;
-      console.log('++++++ vdo +++++ ado', vdo.muted, ado.muted);
     }
     // $('#clone-guest-video').append( $('#subscribers-list #agora_remote_vdo'+receiverId).html() );
     // $('#subscribers-list #agora_remote_vdo'+receiverId).html('')

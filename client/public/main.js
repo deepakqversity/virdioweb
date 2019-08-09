@@ -17,6 +17,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   var client, localStream, camera, microphone;
 
+  //var appId = '748f9639fa864651bef8419d5870ec50';// provided by arjun 
+
+  var appId = '232f270a5aeb4e0097d8b5ceb8c24ab3';
+
   function join() {
 
     let camera = microphone= null;
@@ -56,9 +60,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
     console.log('-****', localStorage.getItem("channel"), storeData.userType);
 
     var channel_key = null;
-    //var appId = '748f9639fa864651bef8419d5870ec50';// provided by arjun 
-
-    var appId = '232f270a5aeb4e0097d8b5ceb8c24ab3';
      
     console.log("Init AgoraRTC client with App ID: " + appId);
     
@@ -149,9 +150,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
                               // console.log('localStream ==========================*******************', localStream)
                               console.log('client ------------', client)
                             });
-                          } else {
-                            // console.log('=================')
-                            // publish();
                           }
                       },
                       error: function( jqXhr, textStatus, errorThrown ){
@@ -160,15 +158,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
                       }
                   });
            
-              /*if(storeData.userType == 1)
-                {
-                  recievemsg();
-                }*/
-
-                if(storeData.userType == 2)
-                {
-                  recievesinalfromhost();
-                }
             }, function (err) {
               console.log("getUserMedia failed", err);
             });
@@ -222,11 +211,11 @@ if(!AgoraRTC.checkSystemRequirements()) {
         // console.log("Subscribe remote stream successfully:********** " , stream.getUserId());
         if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
         
-          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'"  class="col-md-4 col-lg-3 col-sm-6 col-6 newcss"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute" data-toggle="modal" data-target="#hand-raise"   onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><div class="att-details"> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1" id="agora_'+stream.getId()+'"></span></div></div></div></div>');
+          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'"  class="col-md-4 col-lg-3 col-sm-6 col-6 newcss"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><div class="att-details"> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1" id="agora_'+stream.getId()+'"></span></div></div></div></div>');
         }
         stream.play('agora_remote_vdo' + stream.getId());
 
-        SwitchVideoSize();
+        switchVideoSize();
 
         checkMuteUnmute(stream.getId());
 
@@ -282,140 +271,11 @@ if(!AgoraRTC.checkSystemRequirements()) {
      
     });
 
-
-    /*function recievemsg()
-    {
-      var storageData = localStorage.getItem("jwtToken");
-      var storeData = JSON.parse(storageData);
-    var userType=storeData.userType;
-    //alert(userType);return false;
-    if(storeData.userType == 1) {
- 
-     recievesignal();
-     }
-    }
-
-          function recievesignal()
-          {
-            console.log('------------------lalit-------');
-
-          var appId = '232f270a5aeb4e0097d8b5ceb8c24ab3';
-
-            let signal = new Signal(appId);
-            var account='host';
-            var session = signal.login(account, token = '_no_need_token');
-
-                session.onLoginSuccess = function(uid){
-                
-              session.onMessageInstantReceive = function(account, uid, msg){ 
-
-                console.log('--------------hello--------',account,'----------',msg);
-                  
-              };
-            
-              session.onLogout = function(ecode){
-              }
-          }
-        
-          }*/
-
-          function recievesinalfromhost()
-          {
-        
-            var storageData = localStorage.getItem("jwtToken");
-            var storeData = JSON.parse(storageData);
-             var userType=storeData.userType;
-             
-            var appId = '232f270a5aeb4e0097d8b5ceb8c24ab3';
-
-            let signal = new Signal(appId);
-            var account=storeData.id;
-            var name=storeData.name;
-            var session = signal.login(account, token = '_no_need_token');
-            console.log('--------------QBS--------',account,'----------',session);
-            session.onLoginSuccess = function(uid){
-                
-              session.onMessageInstantReceive = function(account, uid, msg){ 
-                
-                  console.log('------------hello--------',account,'----------',msg);
-
-                  $('#hostmsg').html(msg);
-
-                  setTimeout(function(){
-                    $('#hostmsg').remove();
-                  }, 10000);
-                  
-              };
-              session.logout();
-              session.onLogout = function(ecode){
-              }
-           }
-          }
-
-
-    function SwitchVideoSize(){
-      count++;
-      let len = $('#subscribers-list .newcss').length;
-     // console.log('------------------------lalit',len);
-      if(len == 0) return false;
-
-      let vdoSize = '';
-      if(len == 1){
-        //vdoSize = 'one mx-auto';
-        vdoSize = 'one mx-auto';
-      } else if(len == 2) {
-        //vdoSize = 'col-md-6 col-lg-6 col-sm-6 col-6';
-        vdoSize = 'two';
-      } else if(len == 3) {
-        //vdoSize = 'col-md-4 col-lg-4 col-sm-4 col-12';
-        vdoSize = 'three';
-      } else if(len == 4) {
-        //vdoSize = 'col-md-4 col-lg-4 col-sm-4 col-12';
-        vdoSize = 'four';
-      } else {
-        //vdoSize = 'col-md-3 col-lg-3 col-sm-3 col-12';
-        vdoSize = 'five';
-      }
-
-        // javascript each
-        $('#subscribers-list .newcss').each(function (index, value) {
-          
-          $(this).removeClass('col-md-6')
-            .removeClass('col-md-4')
-            .removeClass('one')
-            .removeClass('two')
-            .removeClass('three')
-            .removeClass('four')
-            .removeClass('five')
-            .removeClass('col-lg-8')
-            .removeClass('col-md-4')
-            .removeClass('col-lg-6')
-            .removeClass('col-lg-5')
-            .removeClass('col-lg-4')
-            .removeClass('col-lg-3')
-            .removeClass('col-sm-6')
-            .removeClass('col-sm-4')
-            .removeClass('col-sm-3')
-            .removeClass('col-6')
-            .removeClass('col-12')
-            .removeClass('mx-auto');
-
-          $('#subscribers-list .newcss').addClass(vdoSize);
-
-          });
-
-         
-          
-    }
-
-
-
-
     client.on('stream-removed', function (evt) {
       var stream = evt.stream;
       stream.stop();
       $('#agora_remote' + stream.getId()).remove();
-      SwitchVideoSize();
+      switchVideoSize();
       console.log("Remote stream is removed " + stream.getId());
     });
 
@@ -425,7 +285,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       if (stream) {
         stream.stop();
         $('#agora_remote' + stream.getId()).remove();
-        SwitchVideoSize();
+        switchVideoSize();
         console.log(evt.uid + " leaved from this channel");
       }
     });
@@ -499,7 +359,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   }
 
-  function SwitchVideoSize(){
+    
+
+  function switchVideoSize(){
       let len = $('#subscribers-list .newcss').length;
      console.log('------------------------length ',len);
       if(len == 0) return false;
@@ -564,71 +426,61 @@ if(!AgoraRTC.checkSystemRequirements()) {
     });
   }
 
-  $('#logout_button').click(function(){     
-    leave();
-    localStorage.removeItem("jwtToken");
-    window.location.href  = '/login';
-  });
 
-  function onclickhandRaise(receiver)
+
+  function onclickhandRaise(receiverId)
   {       
+    sendMessage(receiverId, "Now You Can Talk");
+
+    let vdo1 = $('video')[0];   
+    let ado1 = $('audio')[0];   
+    
+    vdo1.muted = true;
+    ado1.muted = true;
+
+    let vdo = $('#video'+ receiverId )[0];   
+    let ado = $('#audio'+ receiverId )[0];   
+
+    if(vdo.muted || ado.muted){
+      vdo.muted = false;
+      ado.muted = false;
+    }
+    $('#guest-video').modal('show');
+  }
+
+  var signal = new Signal(appId);
+
+  var session;
+
+  function recieveMessage()
+  {
     var storageData = localStorage.getItem("jwtToken");
     var storeData = JSON.parse(storageData);
-    var appId = '232f270a5aeb4e0097d8b5ceb8c24ab3';
-    var userType=storeData.userType;
-    var clientaccount=storeData.id;
-    if(storeData.userType == 1) {
-      sendsignaltoclient(appId,receiver,clientaccount);
-    }
+    session = signal.login(storeData.id, '_no_need_token');
+
+    session.onLoginSuccess = function(uid){
+      
+      session.onMessageInstantReceive = function(account, uid, msg){ 
+        
+          $('#hostmsg').html(msg);
+
+          setTimeout(function(){
+            $('#hostmsg').html('');
+          }, 10000);
+          
+      };
+      // session.logout();
+   }
+    // session.onLogout = function(ecode){}
   }
 
-  function sendsignaltoclient(appId,receiver,account)
+  function sendMessage(receiverId, msg)
   {
-    let signal = new Signal(appId);
-    var session = signal.login(account, token = '_no_need_token');
-    console.log('------------------lalit-------',session);
-    var msg="Now You Can Talk";
-    session.onLoginSuccess = function(uid){      
-    session.messageInstantSend(receiver, msg);
-    console.log('--------------hi---------------',msg);
-    session.logout();
-    };     
-    session.onLogout = function(ecode){
-    }        
+      session.messageInstantSend(receiverId, msg);
+      console.log('--------------hi---------------',msg);
   }
 
-  $('#handRaise_button').click(function(){       
-    var storageData = localStorage.getItem("jwtToken");
-    var storeData = JSON.parse(storageData);
-    var appId = '232f270a5aeb4e0097d8b5ceb8c24ab3';
-    var userType=storeData.userType;
-    var clientaccount=storeData.name;
-    var receiver="host";
-    if(storeData.userType == 2) {
-
-      sendsignal(appId,receiver,clientaccount);
-    }
-     
-  });
-
-
-
-  function sendsignal(appId,receiver,account)
-  {
-    let signal = new Signal(appId);
-   // var account='Lalit';
-    var session = signal.login(account, token = '_no_need_token');
-    console.log('------------------lalit-------',session);
-
-    var msg="Please allow to Talk";
-      session.onLoginSuccess = function(uid){      
-      session.messageInstantSend(receiver, msg);
-     session.logout();
-      };     
-      session.onLogout = function(ecode){
-      }    
-  }
-
+  
   function publish() {
 
     client.publish(localStream, function (err) {
@@ -657,8 +509,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   }
 
   function downHand(){
-      localStream.muteAudio();
-  
+      localStream.muteAudio();  
   }
   
   let checkMic = function(micId){
@@ -845,10 +696,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
       localStorage.removeItem("media-setting");
     }
     $('#media-config').modal('hide');
-    stream1.stop()
-    stream2.stop()
+    stream1.close()
+    stream2.close()
     join();
-
+    recieveMessage();
   }
 
 
@@ -989,7 +840,24 @@ if(!AgoraRTC.checkSystemRequirements()) {
         $(".modal-backdrop").show();
       })
       
-      
+      $('#handRaise_button').click(function(){       
+        var storageData = localStorage.getItem("jwtToken");
+        var storeData = JSON.parse(storageData);
+        var userType=storeData.userType;
+        var clientaccount=storeData.name;
+        var receiver="host";
+        if(storeData.userType == 2) {
+
+          sendsignal(receiver,clientaccount);
+        }
+         
+      });
+
+      $('#logout_button').click(function(){     
+        leave();
+        localStorage.removeItem("jwtToken");
+        window.location.href  = '/login';
+      });
 
   });
   // window.onresize = onPageResize;

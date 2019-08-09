@@ -661,7 +661,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   
   }
   
-  let checkoutMic = function(micId){
+  let checkMic = function(micId){
 
       stream2 = AgoraRTC.createStream({
           streamID: Math.floor(Math.random()*1000000),
@@ -670,14 +670,14 @@ if(!AgoraRTC.checkSystemRequirements()) {
           audio: true,
           microphoneId: micId,
       });
-      console.log('----------', micId)
+      // console.log('----------', micId)
 
       // The user has granted access to the camera and mic.
         stream2.on("accessAllowed", function() {
           console.log("accessAllowed");
 
           $('#audio-media-content').find('.fa-microphone').removeClass('text-success');
-          $('#ado-'+micId).find('.fa-microphone').addClass('text-success');
+          $("#ado-"+micId).find('.fa-microphone').addClass('text-success');
         });
 
         // The user has denied access to the camera and mic.
@@ -689,11 +689,11 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
       // Initialize the stream.
       stream2.init(function(){
-          stream2.play('local-audio-media');
-          setInterval(function(){
-          // should be greater than 0
-              console.log(`Local Stream Audio Level ${stream2.getAudioLevel()}`);
-          }, 1000);
+          // stream2.play('local-audio-media');
+          // setInterval(function(){
+          // // should be greater than 0
+          //     console.log(`Local Stream Audio Level ${stream2.getAudioLevel()}`);
+          // }, 1000);
       })
   };
 
@@ -701,7 +701,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   function getDevices() {
     
-
     AgoraRTC.getDevices(function (devices) {
       let vdoMediaHtml = '';
       let adoMediaHtml = '';
@@ -725,62 +724,64 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
       }
       
-      console.log('&&&&&&&&&&&&&&&&&&&&&', devices)
+      // console.log('&&&&&&&&&&&&&&&&&&&&&', devices)
       // $('#audio-media-content').append('<div id="local-audio-media" ></div>');
 
       
       let device = '';
+      let deviceId = '';
       let deviceArray = [];
       for (var i = 0, ctr = 0, ctr1 = 0; i !== devices.length; ++i) {
 
         if(!devices[i] || devices[i] == undefined) continue;
 
         device = devices[i];
+        deviceId = device.deviceId;
 
-        if(deviceArray.includes(device.deviceId)) continue;
+        if(deviceArray.includes(deviceId)) continue;
 
         defaultSetting = '';
-        deviceArray.push(device.deviceId);
-        // option.value = device.deviceId;
+        deviceArray.push(deviceId);
+        
         if (device.kind === 'audioinput') {
+          
+          console.log('deviceId,,,,,,,,,,,, ', deviceId)
 
           if(microphoneId == null) {
             if(ctr1 == 0)
               defaultSetting = 'checked';
           } else {
-            if(microphoneId == device.deviceId) {
-                defaultSetting = 'checked';
-                
-            } else {
-              if(ctr1 == 0)
+            if(microphoneId == deviceId) {
                 defaultSetting = 'checked';
             }
           }
-          if(defaultSetting == 'checked')
-            checkoutMic(device.deviceId);
+          console.log('---------- microphoneId == deviceId - ', microphoneId, deviceId, ctr1)
 
-          console.log('---------- microphoneId == device.deviceId - ', microphoneId)
 
-          adoMediaHtml = '<div id="ado-'+device.deviceId+'"><i class="fa fa-microphone"></i> <input type="radio" name="audio-type" id="lbl-'+device.deviceId+'" value="'+device.deviceId+'" '+ defaultSetting +'> <label for="lbl-'+device.deviceId+'"> Microphone-'+ ++ctr1 +'</label> </div>';
+          adoMediaHtml = '<div id="ado-'+deviceId+'"><i class="fa fa-microphone"></i> <input type="radio" name="audio-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'> <label for="lbl-'+deviceId+'"> Microphone-'+ ++ctr1 +'</label> </div>';
 
           $('#audio-media-content').append(adoMediaHtml)
 
+          if(defaultSetting == 'checked'){
+            console.log('current =============', deviceId)
+            checkMic(deviceId);
+          }
         } else if (device.kind === 'videoinput') {
 
           if(cameraId == null) {
             if(ctr == 0)
               defaultSetting = 'checked';
           } else {
-            if(cameraId == device.deviceId) {
+            if(cameraId == deviceId) {
                 defaultSetting = 'checked';
             } else {
               if(ctr == 0)
                 defaultSetting = 'checked';
             }
           }
-          console.log('---------- cameraId == device.deviceId - ', cameraId , device.deviceId,  defaultSetting)
+          // console.log('---------- cameraId == deviceId - ', cameraId , deviceId,  defaultSetting)
 
-          vdoMediaHtml = '<div class="col-12 col-md-3" id="vdo-'+device.deviceId+'"><div id="local-media-'+device.deviceId+'" ></div><div class="text-center"><input type="radio" name="video-type" id="lbl-'+device.deviceId+'" value="'+device.deviceId+'" '+ defaultSetting +'><label for="lbl-'+device.deviceId+'">Camera-'+ ++ctr +'</label></div></div>';
+          vdoMediaHtml = '<div class="col-12 col-md-3" id="vdo-'+deviceId+'"><div id="local-media-'+deviceId+'" ></div><div class="text-center"><input type="radio" name="video-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'><label for="lbl-'+deviceId+'">Camera-'+ ++ctr +'</label></div></div>';
 
           $('#video-media-content').append(vdoMediaHtml)
 
@@ -789,9 +790,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
               // Set audio to true if testing the microphone.
               video: true,
               audio: false,
-              cameraId: device.deviceId,
+              cameraId: deviceId,
           });
-          d = device.deviceId;
+          d = deviceId;
 
           stream1.setVideoEncoderConfiguration({
             // Video resolution
@@ -811,10 +812,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
     });
 
-
     $(document).on('click', 'input[name="audio-type"]', function(){
         console.log($(this).val());
-        checkoutMic($(this).val());
+        checkMic($(this).val());
     });
   }
 

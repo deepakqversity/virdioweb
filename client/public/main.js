@@ -434,8 +434,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
     let vdo1 = $('video');   
     let ado1 = $('audio');   
-    let vdo = $('#video'+ receiverId );   
-    let ado = $('#audio'+ receiverId );   
+    let vdo = $('#video'+ receiverId )[0];   
+    let ado = $('#audio'+ receiverId )[0];   
 
     console.log('++++++ vdo +++++ ado', vdo1, ado1);
     
@@ -448,6 +448,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     if(vdo.muted || ado.muted){
       vdo.muted = false;
       ado.muted = false;
+      console.log('++++++ vdo +++++ ado', vdo, ado);
     }
     // $('#clone-guest-video').append( $('#subscribers-list #agora_remote_vdo'+receiverId).html() );
     // $('#subscribers-list #agora_remote_vdo'+receiverId).html('')

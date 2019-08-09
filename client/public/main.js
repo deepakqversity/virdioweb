@@ -437,7 +437,12 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
     let vdo = $('#subscribers-list #agora_remote'+ receiverId + ' video' )[0];   
     let ado = $('#subscribers-list #agora_remote'+ receiverId + ' audio' )[0];   
+
+    console.log('++++++ vdo1 +++++ ado1', allVdo, allAdo);
+    console.log('++++++ vdo +++++ ado', vdo, ado);
+    console.log('++++++ vdo +++++ ado', vdo.muted, ado.muted);
     
+
     // $.each(allVdo, function(i, val){
 
       // allVdo.muted = true;

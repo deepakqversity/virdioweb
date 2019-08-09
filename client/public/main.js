@@ -443,13 +443,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
     console.log('++++++ vdo +++++ ado', vdo.muted, ado.muted);
     
 
-    // $.each(allVdo, function(i, val){
-
-      // allVdo.muted = true;
-      // allAdo.muted = true;
-    // })
+    $.each(allVdo, function (index, value) {
+      allVdo[index].muted = true;
+      allAdo[index].muted = true;
+    });
 
     if(vdo.muted || ado.muted){
+      console.log('unmute successfully')
       vdo.muted = false;
       ado.muted = false;
     }

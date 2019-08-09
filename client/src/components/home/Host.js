@@ -36,7 +36,7 @@ render() {
 
 return (
     <div className="container justify-content-between d-flex flex-column h-100 position-relative">
-    <header className="header bg-gray mt-2 position-fixed">
+    <header className="header bg-gray mt-0 position-fixed">
       <div className="row d-block d-md-flex align-items-center">
         <div className="col-12 col-md-1">
           <a href="#" className="logo d-table mx-auto py-xs-1">
@@ -49,7 +49,7 @@ return (
                 <i className="fa fa-times" aria-hidden="true"></i>
           </button>
           </h3>
-          <div className="row justify-content-between align-items-center mt-2">
+          <div className="row justify-content-between align-items-center mt-0">
             <div className="col-12 col-sm-7">
               <div className="time py-xs-1">  <span>04/23/2019, at 12:00 PM</span>
                 <span>Time Remaining: 01:10:00</span>
@@ -65,23 +65,23 @@ return (
         </div>
       </div>
     </header>
-    <section className="bg-gray mt-2 px-3 py-1 rounded section attendees">
+    <section className="bg-gray mt-1 px-3 py-1 rounded section attendees">
       <div className="row px-0 px-sm-3 pb-2 pt-0 justify-content-between align-items-center">
         <div className="col-6 col-md-6">
           <h4 className="title">Wine Testers <span>(24/44)</span></h4>
         </div>
         <div className="col-6 col-md-4">
-          <button type="button" className="btn btn-outline-secondary float-right">"Show Attendees"</button>
+          <button type="button" className="btn btn-outline-secondary float-right show-hide-footer-panel">"Show Attendees"</button>
         </div>
       </div>
       
     <div className="row one-gutters align-items-center" id="subscribers-list"></div>
 
     </section>
-    <div className="row four-gutters position-fixed host-script-section">
-      <div className="col-12 col-md-12 mt-2 col-lg-3 host-section">
-        <div className="bg-gray px-3 pt-2 pb-1 rounded overflow-hidden h-100">
-          <div className="d-flex justify-content-between align-items-center mb-2">
+    <div className="row position-fixed host-script-section justify-content-between">
+      <div className=" host-section d-flex justify-content-end flex-direction-column">
+        <div className="overflow-hidden ">
+          <div className="add-remove-round add-remove-height h-100 px-3 bg-gray pt-2 pb-2 top-rounded d-flex justify-content-between align-items-center">
             <h3 className="main-heading font-size-16 float-left">Streaming</h3>
             <div className="host-header">
               <img src="images/mute-microphone.png" className="unmute-icon" id="mute-unmute-local" />
@@ -91,27 +91,28 @@ return (
               <img src="images/circle.png" className="circle-icon mr-0" id="record-stream" />
             </div>
           </div>
-          <div id="agora_local" className="video-streams"></div>
+          <div className="add-remove-round host-show-hide px-3 bg-gray pt-2 pb-1 bottom-rounded">
+            <div id="agora_local" className="video-streams"></div>
+          </div>
+          
         </div>
       </div>
-        
-      <div className="col-12 col-md-12 mt-2 col-lg-9">
-        <div className="bg-gray px-3 py-2 rounded overflow-hidden h-100">
-          <div id="carouselExampleControls" className="carousel slide carousel-fade script-info" data-ride="carousel">
-            <a className="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-              <img src="images/next-icon.png" className="next-btn" />
-            </a>
-            <div className="carousel-inner">
-
-              <div className="carousel-item active">
-                <div className="d-md-flex justify-content-between align-items-center mb-2">
+      
+      <div className="test-script">
+      
+        <div className="overflow-hidden h-100">
+          <div id="carouselExampleControls" data-interval="false" className="carousel slide carousel-fade script-info h-100" data-ride="carousel">
+            <div className="carousel-inner h-100">
+              <div className="carousel-item active h-100 d-flex justify-content-end flex-direction-column">
+                <div className="bg-gray top-rounded d-md-flex justify-content-between align-items-center px-3 py-3 add-remove-round ">
                   <h3 className="main-heading font-size-16">Testing Script <span className="ml-md-4 font-size-16">1/4 wines</span></h3>
-                  <div className=" mt-3 mt-md-0 d-md-flex justify-content-between align-items-center">
-                    <button type="button" className="btn btn-outline-secondary mr-5">"Show Script"</button>
-                    
-                  </div>
-              </div>
-              <div className="item-description">
+                  <button type="button" className="btn btn-outline-secondary mr-5 show-hide-script">"Hide Script"</button>
+                  <a className="carousel-control-next position-relative" href="#carouselExampleControls" role="button" data-slide="next">
+                    <img src="images/next-icon.png" className="next-btn" />
+                  </a>
+                </div>
+              
+              <div className="bg-gray bottom-rounded px-3 pb-2 item-description script-section mt--1 flex-grow-1">
                 <h4 className="item-name">2014 Bliss Block Pinot Noir</h4>
                 <div className="row">
                   <ul className="col-12 col-md-12 col-lg-5 list-info">
@@ -133,15 +134,16 @@ return (
                 </div>
               </div>
             </div>
-              <div className="carousel-item">
-              <div className="d-md-flex justify-content-between align-items-center mb-2">
+            <div className="carousel-item h-100 d-flex justify-content-end flex-direction-column">
+                <div className="bg-gray top-rounded d-md-flex justify-content-between align-items-center px-3 py-3 add-remove-round ">
                   <h3 className="main-heading font-size-16">Testing Script <span className="ml-md-4 font-size-16">2/4 wines</span></h3>
-                  <div className=" mt-3 mt-md-0 d-md-flex justify-content-between align-items-center">
-                    <button type="button" className="btn btn-outline-secondary mr-5">"Show Script"</button>
-                    
-                  </div>
-              </div>
-              <div className="item-description">
+                  <button type="button" className="btn btn-outline-secondary mr-5 show-hide-script">"Hide Script"</button>
+                  <a className="carousel-control-next position-relative" href="#carouselExampleControls" role="button" data-slide="next">
+                    <img src="images/next-icon.png" className="next-btn" />
+                  </a>
+                </div>
+              
+              <div className="bg-gray bottom-rounded px-3 pb-2 item-description script-section mt--1 flex-grow-1">
                 <h4 className="item-name">2014 Bliss Block Pinot Noir</h4>
                 <div className="row">
                   <ul className="col-12 col-md-12 col-lg-5 list-info">
@@ -162,16 +164,17 @@ return (
                   </div>
                 </div>
               </div>
-              </div>
-              <div className="carousel-item">
-              <div className="d-md-flex justify-content-between align-items-center mb-2">
+            </div>
+            <div className="carousel-item h-100 d-flex justify-content-end flex-direction-column">
+                <div className="bg-gray top-rounded d-md-flex justify-content-between align-items-center px-3 py-3 add-remove-round ">
                   <h3 className="main-heading font-size-16">Testing Script <span className="ml-md-4 font-size-16">3/4 wines</span></h3>
-                  <div className=" mt-3 mt-md-0 d-md-flex justify-content-between align-items-center">
-                    <button type="button" className="btn btn-outline-secondary mr-5">"Show Script"</button>
-                    
-                  </div>
-              </div>
-              <div className="item-description">
+                  <button type="button" className="btn btn-outline-secondary mr-5 show-hide-script">"Hide Script"</button>
+                  <a className="carousel-control-next position-relative" href="#carouselExampleControls" role="button" data-slide="next">
+                    <img src="images/next-icon.png" className="next-btn" />
+                  </a>
+                </div>
+              
+              <div className="bg-gray bottom-rounded px-3 pb-2 item-description script-section mt--1 flex-grow-1">
                 <h4 className="item-name">2014 Bliss Block Pinot Noir</h4>
                 <div className="row">
                   <ul className="col-12 col-md-12 col-lg-5 list-info">
@@ -192,16 +195,17 @@ return (
                   </div>
                 </div>
               </div>
-              </div>
-              <div className="carousel-item">
-              <div className="d-md-flex justify-content-between align-items-center mb-2">
+            </div>
+            <div className="carousel-item h-100 d-flex justify-content-end flex-direction-column">
+                <div className="bg-gray top-rounded d-md-flex justify-content-between align-items-center px-3 py-3 add-remove-round ">
                   <h3 className="main-heading font-size-16">Testing Script <span className="ml-md-4 font-size-16">4/4 wines</span></h3>
-                  <div className=" mt-3 mt-md-0 d-md-flex justify-content-between align-items-center">
-                    <button type="button" className="btn btn-outline-secondary mr-5">"Show Script"</button>
-                    
-                  </div>
-              </div>
-              <div className="item-description">
+                  <button type="button" className="btn btn-outline-secondary mr-5 show-hide-script">"Hide Script"</button>
+                  <a className="carousel-control-next position-relative" href="#carouselExampleControls" role="button" data-slide="next">
+                    <img src="images/next-icon.png" className="next-btn" />
+                  </a>
+                </div>
+              
+              <div className="bg-gray bottom-rounded px-3 pb-2 item-description script-section mt--1 flex-grow-1">
                 <h4 className="item-name">2014 Bliss Block Pinot Noir</h4>
                 <div className="row">
                   <ul className="col-12 col-md-12 col-lg-5 list-info">
@@ -222,7 +226,7 @@ return (
                   </div>
                 </div>
               </div>
-              </div>
+            </div>
             </div>
           </div>
           
@@ -236,7 +240,7 @@ return (
           <button type="button" className="close-model-btn close float-left" data-dismiss="modal">&times;</button>
           <a href="#" className="eject-this">Eject from Session <img src="images/eject.png" /></a>
         </div>
-        <div className="modal-content clone-guest-video"></div>
+        <div className="modal-content clone-guest-video" id="clone-guest-video"></div>
         <div className="guest-video-footer">
           <div className="conversations">
             <a href="#"><img src="images/private-conversation.png" />Public Conversation</a>

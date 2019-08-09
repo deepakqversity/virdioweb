@@ -780,9 +780,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
       continueJoin();
     });
 
-    $(document).on('click', '#subscribers-list .hand', function(){
-      $('#guest-video').modal('show');
-    });
+    // $(document).on('click', '#subscribers-list .hand', function(){
+    //   $('#guest-video').modal('show');
+    // });
 
     $(document).on('click', '#subscribers-list .mute-unmute' ,function(){
 

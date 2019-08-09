@@ -448,7 +448,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     // vdo1.muted = true;
     // ado1.muted = true;
 
-    console.log('++++++ vdo +++++ ado3', vdo.muted, ado.muted);
+    console.log('++++++ vdo +++++ ado3', vdo2.muted, ado2.muted);
 
 
     if(vdo.muted || ado.muted){

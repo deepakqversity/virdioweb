@@ -75,8 +75,9 @@ body{
 	height:100%;
 }
 .container{
-	width:98% !important;
-	max-width:98% !important;
+    width: 100% !important;
+    max-width: 1400px !important;
+    padding: 0;
 }
 .border-right {
     border-right: 1px solid #9b51e0 !important;
@@ -143,6 +144,12 @@ a.bg-primary:hover, a.bg-primary:focus, button.bg-primary:hover, button.bg-prima
 .rounded {
     border-radius: 10px !important;
 }
+.top-rounded {
+    border-radius: 10px 10px 0 0!important;
+}
+.bottom-rounded {
+    border-radius:0 0 10px 10px !important;
+}
 .one-gutters {
     margin-right: 0;
     margin-left: 0;
@@ -198,10 +205,19 @@ h3.main-heading span{
 .mw-75{
 	max-width:75%;
 }
+.w-866{
+	max-width: 866px;
+}
+.mt--1{
+	margin-top:-1px;
+}
+.h53{
+	height:53px;
+}
 .display-grid-auto-4{
-display:grid;
-display:-ms-grid;
-grid-template-columns: auto auto auto auto;
+	display:grid;
+	display:-ms-grid;
+	grid-template-columns: auto auto auto auto;
 }
 @media (max-width:768px){
 	.mx-xs-auto{
@@ -237,7 +253,7 @@ grid-template-columns: auto auto auto auto;
 
 /* 3. Header */
 .logo img{
-	width:65px;
+	width:52px;
 }
 /*.header{
     border-radius: 10px;
@@ -249,10 +265,12 @@ grid-template-columns: auto auto auto auto;
 }*/
 .header{
 	border-radius: 10px;
-    width: 96%;
+    width: 100%;
+    max-width: 1400px;
     height: auto;
     padding: 10px 0px;
     z-index: 3;
+	max-height:85px;
     left: 0;
     right: 0;
     margin: auto;
@@ -292,7 +310,7 @@ grid-template-columns: auto auto auto auto;
 /* 4. Attendees Section */
 
 .section.attendees{
-	margin-top: 110px !important;
+	margin-top: 91px !important;
 }
 .section.attendees .title{
     font-family: 'Avenir-Black';
@@ -307,6 +325,7 @@ grid-template-columns: auto auto auto auto;
 .video-holder{
 	width: 100%;
 	position:relative;
+	height:100%;
 }
 .video-holder video{
 	width: 100%;
@@ -342,7 +361,7 @@ grid-template-columns: auto auto auto auto;
     bottom: 0;
     background: #fff;
     width: 100%;
-    height: 25px;
+    height: 25px !important;
 	    border-radius: 0 0 7px 7px;
 }
 .video-holder .att-name{
@@ -503,9 +522,11 @@ position: relative;
 .host-script-section{
 	bottom: 0;
     left: 0;
-    width: 96%;
+        width: 100%;
+    max-width: 1400px;
     margin: auto;
     right: 0;
+	
 }
 .host-section video{
     width: 100%;
@@ -516,7 +537,13 @@ position: relative;
     margin: 0 12px;
     cursor: pointer;
 }
-
+@media (max-width:1200px){
+.host-header>img {
+    width: 18px;
+    margin: 0 6px;
+    cursor: pointer;
+}
+}
 .next-btn{
 	width:20px;
 	float: right;
@@ -571,6 +598,11 @@ position: relative;
     color: #fff;
     font-size: 14px;
 }
+.show-hide-script{
+	position: absolute;
+    right: 0;
+    z-index: 6;
+}
 
 @media (max-width:480px){
 .item-description .list-info li span:last-child{
@@ -588,10 +620,11 @@ position: relative;
     background: none;
     background-color: none;
     opacity: 1;
-    top: 8px;
+    top: 0px;
     z-index: 5;
     right: 3px;
 }
+
 
 
 
@@ -773,7 +806,9 @@ position: relative;
 
 /* DEV CSS */
 .video-streams video {position: relative !important;}
-
+.video-streams>div{
+	border-radius:10px;
+}
 
 
 

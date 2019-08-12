@@ -952,6 +952,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
         window.location.href  = '/login';
       });
 
+      $(document).on('click', '#fullscreen', function(){
+        GoInFullscreen();
+      })
+
   });
   // window.onresize = onPageResize;
   // window.onload = onPageLoad;

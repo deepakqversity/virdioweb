@@ -710,10 +710,12 @@ if(!AgoraRTC.checkSystemRequirements()) {
     stream2.close()
     join();
     recieveMessage();
-    GoInFullscreen('body');
+    
   }
 
-  function GoInFullscreen(element) {
+  function GoInFullscreen() {
+    let element = document.documentElement
+
     if(element.requestFullscreen)
       element.requestFullscreen();
     else if(element.mozRequestFullScreen)
@@ -832,8 +834,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
     if($('#conf-page').length > 0){
       // join();
-
-      networkBandwidth();
+      GoInFullscreen();
+      // networkBandwidth();
       if($('#media-config').length > 0){
         
         getDevices();

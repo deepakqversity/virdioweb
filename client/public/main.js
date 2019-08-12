@@ -211,7 +211,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         // console.log("Subscribe remote stream successfully:********** " , stream.getUserId());
         if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
         
-          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'"  class="col-md-4 col-lg-3 col-sm-6 col-6 newcss"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><div class="att-details"> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1" id="agora_'+stream.getId()+'"></span></div></div></div></div>');
+          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'"  class="col-md-4 col-lg-3 col-sm-6 col-6 newcss"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><div class="att-details"> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1" id="agora_'+stream.getId()+'"></span></div></div></div></div>');
         }
         stream.play('agora_remote_vdo' + stream.getId());
 
@@ -432,19 +432,27 @@ if(!AgoraRTC.checkSystemRequirements()) {
   {       
     sendMessage(receiverId, "Now You Can Talk");
 
-    // let vdo1 = $('video')[0];   
-    // let ado1 = $('audio')[0];   
+    let allVdo = $('#subscribers-list video');   
+    let allAdo = $('#subscribers-list audio');   
+
+    let vdo = $('#subscribers-list #agora_remote'+ receiverId + ' video' )[0];   
+    let ado = $('#subscribers-list #agora_remote'+ receiverId + ' audio' )[0];   
+
+    console.log('++++++ vdo1 +++++ ado1', allVdo, allAdo);
+    console.log('++++++ vdo +++++ ado', vdo, ado);
+    console.log('++++++ vdo +++++ ado', vdo.muted, ado.muted);
     
-    // vdo1.muted = true;
-    // ado1.muted = true;
 
-    // let vdo = $('#video'+ receiverId )[0];   
-    // let ado = $('#audio'+ receiverId )[0];   
+    $.each(allVdo, function (index, value) {
+      allVdo[index].muted = true;
+      allAdo[index].muted = true;
+    });
 
-    // if(vdo.muted || ado.muted){
-    //   vdo.muted = false;
-    //   ado.muted = false;
-    // }
+    if(vdo.muted || ado.muted){
+      console.log('unmute successfully')
+      vdo.muted = false;
+      ado.muted = false;
+    }
     // $('#clone-guest-video').append( $('#subscribers-list #agora_remote_vdo'+receiverId).html() );
     // $('#subscribers-list #agora_remote_vdo'+receiverId).html('')
     // $('#guest-video').modal('show');
@@ -772,9 +780,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
       continueJoin();
     });
 
-    $(document).on('click', '#subscribers-list .hand', function(){
-      $('#guest-video').modal('show');
-    });
+    // $(document).on('click', '#subscribers-list .hand', function(){
+    //   $('#guest-video').modal('show');
+    // });
 
     $(document).on('click', '#subscribers-list .mute-unmute' ,function(){
 

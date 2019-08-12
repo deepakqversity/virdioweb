@@ -62,6 +62,8 @@ return (
                   <div className="col-12 col-sm-12 col-md-3 d-flex justify-content-end">
                   
                   <div className="default-btns mr-2">
+
+                    <a href="javascript:;" className="btn btn-primary ml-2" id="fullscreen" alt="Fullscreen" title="Fullscreen">fullscreen</a>
                     <a href="javascript:;" className="btn btn-primary ml-2" id="mocrophone-off" alt="Microphone" title="Microphone Off"><img src="images/hand.png" /></a>
                     <a href="javascript:;" className="btn btn-primary ml-2 d-none" id="mocrophone-on" alt="Microphone" title="Microphone On"><i className="fa fa-microphone"></i></a>
 

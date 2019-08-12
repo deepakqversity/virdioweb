@@ -710,10 +710,33 @@ if(!AgoraRTC.checkSystemRequirements()) {
     stream2.close()
     join();
     recieveMessage();
+    GoInFullscreen('body');
   }
 
+  function GoInFullscreen(element) {
+    if(element.requestFullscreen)
+      element.requestFullscreen();
+    else if(element.mozRequestFullScreen)
+      element.mozRequestFullScreen();
+    else if(element.webkitRequestFullscreen)
+      element.webkitRequestFullscreen();
+    else if(element.msRequestFullscreen)
+      element.msRequestFullscreen();
+  }
+
+  function GoOutFullscreen() {
+    if(document.exitFullscreen)
+      document.exitFullscreen();
+    else if(document.mozCancelFullScreen)
+      document.mozCancelFullScreen();
+    else if(document.webkitExitFullscreen)
+      document.webkitExitFullscreen();
+    else if(document.msExitFullscreen)
+      document.msExitFullscreen();
+  }
 
   $(document).ready(function(){
+
 
     function showHideScript(){
       if($(".add-remove-round").hasClass("top-rounded")){

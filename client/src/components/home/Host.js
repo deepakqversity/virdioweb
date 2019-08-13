@@ -57,6 +57,7 @@ return (
             </div>
             <div className="col-12 col-sm-3">
               <div className="col-12 justify-content-end d-flex align-items-center">
+                <a className="btn btn-primary border-right pr-20" href="javascript:;" tabIndex="0" id="fullscreen">fullscreen</a>
                 <a className="btn btn-primary border-right pr-20" href="javascript:;" tabIndex="1">details</a>
                 <img src="images/voice-commands.png" className="mic-icon" />
               </div>
@@ -91,7 +92,7 @@ return (
               <img src="images/circle.png" className="circle-icon mr-0" id="record-stream" />
             </div>
           </div>
-          <div className="add-remove-round host-show-hide px-3 bg-gray pt-2 pb-1 bottom-rounded">
+          <div className="add-remove-round host-show-hide px-3 bg-gray mt--1 pt-2 pb-1 bottom-rounded">
             <div id="agora_local" className="video-streams"></div>
           </div>
           

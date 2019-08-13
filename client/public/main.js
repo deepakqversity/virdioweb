@@ -212,7 +212,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
         
           //$('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'"  class="col-md-4 col-lg-3 col-sm-6 col-6 newcss"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><div class="att-details"> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1" id="agora_'+stream.getId()+'"></span></div></div></div></div>');
-          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" data-dismiss="modal">&times;</button><a href="#" class="eject-this">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><div class="att-details"> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1" id="agora_'+stream.getId()+'"  onclick="onclickChannelChange(\''+stream.getId()+'\')"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
+          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" data-dismiss="modal">&times;</button><a href="#" class="eject-this">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><div class="att-details"><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1" id="agora_'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
       
         }
         stream.play('agora_remote_vdo' + stream.getId());
@@ -222,6 +222,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
         checkMuteUnmute(stream.getId());
 
         $('#subscribers-list #agora_remote'+stream.getId()).removeClass('d-none');
+
+        onPageResize();
 
       } else {
        
@@ -755,8 +757,47 @@ if(!AgoraRTC.checkSystemRequirements()) {
     else if(document.msExitFullscreen)
       document.msExitFullscreen();
   }
+  function onPageResize(){
+      
+    let winHeight = window.innerHeight;
+    let headerHeight = $(".header.bg-gray").height();
+    let hostHeight = $(".host-script-section").height();
+    let sectionHeights = winHeight - (hostHeight+headerHeight);
+    $(".attendees").height(`${sectionHeights - 58 }px`);  // 
+    $("#subscribers-list").height(`${sectionHeights - 101}px`)
+    let sub_list_y = $("#subscribers-list").height(); 
+    let sub_list_x = $("#subscribers-list").width(); 
+    let len_subs = $('#subscribers-list .newcss').length;
+    if(len_subs>4){
+      $("#subscribers-list")
+      .removeClass("justify-content-center")
+      .addClass("justify-content-between display-grid-auto-4");
+    }
+    else if(len_subs<=4){
+      $("#subscribers-list")
+      .addClass("justify-content-center")
+      .removeClass("justify-content-between display-grid-auto-4");
+    }
+    setTimeout(function(){
+      let sub_list_x = $("#subscribers-list").width(); 
+      $(".newcss.one").width(`${sub_list_x / 2.1 }px`);
+      $(".newcss.two").width(`${sub_list_x / 2.8 }px`);
+      $(".newcss.three").width(`${sub_list_x / 3 }px`);
+      $(".newcss.four").width(`${sub_list_x / 4 }px`);
+      $(".newcss.five").width(`${sub_list_x / 6 }px`);
 
+      $(".newcss.two, .newcss.three").parent().addClass("justify-content-center");
+      $(".video-holder.popup-added").height("auto");
+       
+     }, 600)
+     
+
+    //console.log(`${sectionHeight}px`);
+    //let vid_y = $("#subscribers-list video").height();
+    //let vid_x = $("#subscribers-list video").width();
+  }
   $(document).ready(function(){
+    
     $(document).on('click', ".hand-icon", function(){
 
       if($(this).closest(".video-holder").hasClass("popup-added") == false){
@@ -838,7 +879,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
     
     window.onresize = onPageResize;
-    // window.onload = onPageLoad;
+    
+ 
 
     $(document).on('click', '#continue-join', function(){
       continueJoin();
@@ -995,93 +1037,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
       })
 
   });
-  // window.onresize = onPageResize;
-  // window.onload = onPageLoad;
-  
-
-    //function onPageLoad(){
-
-      //let winHeight = window.innerHeight;
-      //let headerHeight = $(".header.bg-gray").height()+20;
-      //let hostHeight = $(".host-script-section").height();
-     // let sectionHeight = winHeight - (hostHeight+headerHeight);
-      //$(".section.attendees").height(`${sectionHeight - 67}px`);
-     // $("#subscribers-list").height(`${sectionHeight - 150}px`)
-      //let sub_list_y = $("#subscribers-list").height(); 
-      //let sub_list_x = $("#subscribers-list").width(); 
-
-    //setTimeout(function(){
-      
-      
-      //if(sub_list_x > 1400){
-        //$(".newcss.one").width(`${sub_list_x / 3 }px`);
-      //}
-      //else{
-        //$(".newcss.one").width(`${sub_list_x / 4 }px`);
-      //}
-    //}, 600)
-
-    //console.log(`${sectionHeight}px`);
-    //let vid_y = $("#subscribers-list video").height();
-    //let vid_x = $("#subscribers-list video").width();
-  //}
-
-    function onPageResize(){
-      
-      let winHeight = window.innerHeight;
-      let headerHeight = $(".header.bg-gray").height()+20;
-      let hostHeight = $(".host-script-section").height();
-      let sectionHeight = winHeight - (hostHeight+headerHeight);
-      $(".section.attendees").height(`${sectionHeight - 23}px`);
-      $("#subscribers-list").height(`${sectionHeight - 100}px`)
-      let sub_list_y = $("#subscribers-list").height(); 
-      let sub_list_x = $("#subscribers-list").width(); 
-      let len_subs = $('#subscribers-list .newcss').length;
-      if(len_subs>4){
-        $("#subscribers-list")
-        .removeClass("justify-content-center")
-        .addClass("justify-content-between display-grid-auto-4");
-      }
-      else if(len_subs<=4){
-        $("#subscribers-list")
-        .addClass("justify-content-center")
-        .removeClass("justify-content-between display-grid-auto-4");
-      }
-      setTimeout(function(){
-        
-        //$(".newcss.two").width(`${sub_list_x / 2.8 }`);
-        //$(".newcss.three").width(`${sub_list_x / 3 }`);
-        //$(".newcss.four").width(`${sub_list_x / 4 }`);
-        //$(".newcss.five").width(`${sub_list_x / 6 }`);
-
-        $(".newcss.two").width("672px").height("378px");
-        //$(".newcss.two div, .newcss.one div, .newcss.three div").height("100%");
-        $(".newcss.three").width("448px").height("252px");
-        $(".newcss.four").width("336px").height("189px");
-        $(".newcss.five").width("336px").height("189px");
-
-        $(".newcss.two, .newcss.three").parent().addClass("justify-content-center");
-        $(".video-holder.popup-added").height("auto");
-         if(sub_list_x > 1400){
-         
-           //$(".newcss.one").width(`${sub_list_x  / 3 }px`);
-           $(".newcss.one").width("672px").height("378px");
-           //$(".newcss.one div").height("100%");
-         }
-         else if(sub_list_x > 1600){
-          $(".newcss.one").width(`${sub_list_x }px`);
-        }
-         else{
-          $(".newcss.one").width("672px").height("378px");
-          //$(".newcss.one div").height("100%");
-         }
-       }, 600)
-       
-
-      //console.log(`${sectionHeight}px`);
-      //let vid_y = $("#subscribers-list video").height();
-      //let vid_x = $("#subscribers-list video").width();
-    }
+ 
+    
 
     function onPageResize(){
       

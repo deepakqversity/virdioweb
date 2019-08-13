@@ -271,9 +271,11 @@ h3.main-heading span{
     padding: 10px 0px;
     z-index: 3;
 	max-height:85px;
+	height:85px;
     left: 0;
     right: 0;
     margin: auto;
+	margin-top: 10px !important;
 }
 
 .time span{
@@ -310,7 +312,7 @@ h3.main-heading span{
 /* 4. Attendees Section */
 
 .section.attendees{
-	margin-top: 91px !important;
+	margin-top: 105px !important;
 }
 .section.attendees .title{
     font-family: 'Avenir-Black';
@@ -329,8 +331,93 @@ h3.main-heading span{
 	overflow: hidden;
 }
 .popup-added .att-details{
-display:none;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+	    align-items: flex-end;
 }
+.popup-added .att-details .att-name, 
+.popup-added .att-details .vid-icons{
+    position: relative;
+	width: auto;
+	right: auto;
+    bottom: auto;
+	left:auto;
+}
+.popup-added .att-details .vid-icons{
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: 200px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 10px;
+    left: 25px;
+    height: 50px;
+	    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.kick-out{
+	display:none;
+}
+.popup-added .kick-out{
+	display:block;
+	font-family: Avenir-Medium;
+    font-size: 16px;
+    background: rgba(0,0,0,0.5);
+    padding: 20px 15px;
+    color: #fff;
+	    border-radius: 10px;
+}
+.popup-added .kick-out div div span:nth-child(1){
+    font-family: Avenir-Medium;
+    font-size: 20px;
+	    display: block;
+}
+.kick-out a{
+font-size: 18px;
+    font-family: Avenir-Medium;
+}
+.popup-added .kick-out div div span:nth-child(2){
+    font-family: Avenir-Medium;
+    font-size: 16px;
+	    display: block;
+}
+.video-holder.popup-added .att-details .icon1{
+    width: 35px;
+    height: 35px;
+    background-size: 20px;
+}
+.popup-added .att-details .att-name{
+	font-family: Avenir-Medium;
+    font-size: 16px;
+    position: relative;
+    bottom: 0px;
+    left: inherit;
+	    right: 30px;
+    width: 200px;
+    background: rgba(0,0,0,0.5);
+    border-radius: 10px;
+    padding: 20px 15px;
+    color: #fff;
+}
+.video-holder.popup-added .att-details {
+    position: absolute;
+    bottom: 50px;
+    background: transparent;
+    width: 100%;
+    height: auto !important;
+    border-radius: 0;
+}
+.popup-added .att-details {
+    position: absolute;
+    bottom: 50px;
+    background: transparent;
+    width: 100%;
+    height: auto !important;
+    border-radius: 0;
+}
+
 .video-holder video{
 	width: 100%;
 	    border-radius: 10px;

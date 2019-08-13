@@ -70,7 +70,7 @@ render() {
                 <option value={opt.channel}>{opt.channel}</option>
             );
 
-    // console.log('$$$$',optionItems);
+     console.log('$$$$----------------lalit',optionItems);
    
    var retrievedObject = localStorage.getItem('jwtToken');
    var localstoragedata=JSON.parse(retrievedObject);

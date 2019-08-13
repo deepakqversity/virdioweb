@@ -326,6 +326,10 @@ h3.main-heading span{
 	width: 100%;
 	position:relative;
 	height:100%;
+	overflow: hidden;
+}
+.popup-added .att-details{
+display:none;
 }
 .video-holder video{
 	width: 100%;
@@ -352,7 +356,7 @@ h3.main-heading span{
     background: #9b51e0;
     padding: 8px;
     border-radius: 55px;
-	    width: 32px;
+	width: 32px;
     height: 32px;
 }
 
@@ -362,7 +366,7 @@ h3.main-heading span{
     background: #fff;
     width: 100%;
     height: 25px !important;
-	    border-radius: 0 0 7px 7px;
+	border-radius: 0 0 7px 7px;
 }
 .video-holder .att-name{
     font-family: Avenir-Heavy;
@@ -401,7 +405,7 @@ h3.main-heading span{
     border-radius: 20px;
     padding: 2px;
     float: left;
-	    margin-left: 3px;
+	margin-left: 3px;
 	cursor:pointer;
 }
 
@@ -426,40 +430,104 @@ h3.main-heading span{
 	color:#964DD9 !important;
 }
 .clone-guest-video{
-flex-grow: 1;
+	flex-grow: 1;
 }
-#guest-video a:hover, #guest-video button:hover{
+#guest-video a:hover, 
+#guest-video button:hover{
 	text-decoration:none;
 	color:#964DD9 !important;
 }
 .eject-this{
     float: right;
     z-index: 4;
-    margin: 20px;
+    margin: 10px;
     color: #fff;
     font-family: Avenir-Book;
-    font-size: 17px;
-	line-height: 30px;
+        font-size: 14px;
+    line-height: 24px;
+}
+.eject-this:focus,
+.eject-this:active,
+.eject-this:hover{
+text-decoration:none;
+color: #fff;
 }
 .eject-this img{
 	width: 20px;
-    margin-left: 20px;
+    margin-left: 10px;
+}
+.popup-removed .eject-popup, 
+.popup-removed .guest-video-footer{
+	display:none;
+}
+.popup-removed .popup-added .eject-popup, 
+.popup-removed .popup-added .guest-video-footer{
+	display:block !important;
+}
+.popup-added .hand-icon{
+display:none;
+}
+.popup-added{
+    
+    position: fixed !important;
+    left: 0;
+    margin: auto;
+    right: 0;
+	width: 90%;
+    max-width: 1024px;
+    height: auto !important;
+    z-index: 9;
+	    top: 5%;
+		    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.popup-added::before{
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,1);
+    width: 100%;
+    height: 100%;
+}
+.eject-popup, .zoom-box, .guest-video-footer{
+	width:100%;
+	float:left;
+    z-index: 5;
+    position: relative;
+}
+.eject-popup .close-model-btn{
+    margin: 10px;
+    color: #964DD9;
+    z-index: 4;
+    text-shadow: none;
+    opacity: 1;
+    font-size: 30px;
+    line-height: 20px;
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 20px;
 }
 .guest-video-footer{
-position: relative;
+	position: relative;
     bottom: 6px;
     left: 0;
     width: 100%;
-    padding: 20px 0;
+    padding: 10px 0;
 }
 .conversations a{
-	    color: #fff;
+	color: #fff;
     font-family: Avenir-Book;
-    font-size: 16px;
-    margin-right: 20px;
+    font-size: 14px;
+    margin-right: 15px;
+	    float: left;
 }
 .conversations a img{
-	    margin-right: 13px;
+    margin-right: 10px;
     width: 20px;
 }
 

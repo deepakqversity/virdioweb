@@ -706,14 +706,40 @@ if(!AgoraRTC.checkSystemRequirements()) {
       localStorage.removeItem("media-setting");
     }
     $('#media-config').modal('hide');
-    stream1.close()
-    stream2.close()
+    stream1.close();
+    stream2.close();
+    GoInFullscreen();
     join();
     recieveMessage();
+    
   }
 
+  function GoInFullscreen() {
+    let element = document.documentElement
+
+    if(element.requestFullscreen)
+      element.requestFullscreen();
+    else if(element.mozRequestFullScreen)
+      element.mozRequestFullScreen();
+    else if(element.webkitRequestFullscreen)
+      element.webkitRequestFullscreen();
+    else if(element.msRequestFullscreen)
+      element.msRequestFullscreen();
+  }
+
+  function GoOutFullscreen() {
+    if(document.exitFullscreen)
+      document.exitFullscreen();
+    else if(document.mozCancelFullScreen)
+      document.mozCancelFullScreen();
+    else if(document.webkitExitFullscreen)
+      document.webkitExitFullscreen();
+    else if(document.msExitFullscreen)
+      document.msExitFullscreen();
+  }
 
   $(document).ready(function(){
+
 
     function showHideScript(){
       if($(".add-remove-round").hasClass("top-rounded")){
@@ -808,9 +834,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     });
 
     if($('#conf-page').length > 0){
-      // join();
-
-      networkBandwidth();
+      // networkBandwidth();
       if($('#media-config').length > 0){
         
         getDevices();
@@ -824,6 +848,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
           console.log('close event')
         })
       }
+      GoInFullscreen();
 
     }
     
@@ -926,6 +951,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
         localStorage.removeItem("jwtToken");
         window.location.href  = '/login';
       });
+
+      $(document).on('click', '#fullscreen', function(){
+        GoInFullscreen();
+      })
 
   });
   // window.onresize = onPageResize;

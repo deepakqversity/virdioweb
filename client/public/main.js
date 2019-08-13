@@ -706,8 +706,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
       localStorage.removeItem("media-setting");
     }
     $('#media-config').modal('hide');
-    stream1.close()
-    stream2.close()
+    stream1.close();
+    stream2.close();
+    GoInFullscreen();
     join();
     recieveMessage();
     
@@ -833,8 +834,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
     });
 
     if($('#conf-page').length > 0){
-      // join();
-      GoInFullscreen();
       // networkBandwidth();
       if($('#media-config').length > 0){
         
@@ -849,6 +848,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
           console.log('close event')
         })
       }
+      GoInFullscreen();
 
     }
     

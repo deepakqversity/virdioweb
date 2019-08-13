@@ -708,12 +708,37 @@ if(!AgoraRTC.checkSystemRequirements()) {
       localStorage.removeItem("media-setting");
     }
     $('#media-config').modal('hide');
-    stream1.close()
-    stream2.close()
+    stream1.close();
+    stream2.close();
+    GoInFullscreen();
     join();
     recieveMessage();
+    
   }
 
+  function GoInFullscreen() {
+    let element = document.documentElement
+
+    if(element.requestFullscreen)
+      element.requestFullscreen();
+    else if(element.mozRequestFullScreen)
+      element.mozRequestFullScreen();
+    else if(element.webkitRequestFullscreen)
+      element.webkitRequestFullscreen();
+    else if(element.msRequestFullscreen)
+      element.msRequestFullscreen();
+  }
+
+  function GoOutFullscreen() {
+    if(document.exitFullscreen)
+      document.exitFullscreen();
+    else if(document.mozCancelFullScreen)
+      document.mozCancelFullScreen();
+    else if(document.webkitExitFullscreen)
+      document.webkitExitFullscreen();
+    else if(document.msExitFullscreen)
+      document.msExitFullscreen();
+  }
 
   $(document).ready(function(){
     $(document).on('click', ".hand-icon", function(){
@@ -735,6 +760,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     $(document).on('click', ".eject-popup button", function(){
       $(this).closest(".video-holder").removeClass("popup-added");
     });
+
 
 
     function showHideScript(){
@@ -830,9 +856,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     });
 
     if($('#conf-page').length > 0){
-      // join();
-
-      networkBandwidth();
+      // networkBandwidth();
       if($('#media-config').length > 0){
         
         getDevices();
@@ -846,6 +870,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
           console.log('close event')
         })
       }
+      GoInFullscreen();
 
     }
     
@@ -948,6 +973,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
         localStorage.removeItem("jwtToken");
         window.location.href  = '/login';
       });
+
+      $(document).on('click', '#fullscreen', function(){
+        GoInFullscreen();
+      })
 
   });
   // window.onresize = onPageResize;

@@ -7,20 +7,26 @@ class UserValidation {
 		
 		let data = req.body;
 		let errors = {};
-
+console.log(data)
 		// Convert empty fields to an empty string so we can use validator functions
-		data.name = !isEmpty(data.name) ? data.name : "";
+		data.password = !isEmpty(data.password) ? data.password : "";
 
 		// Name checks
-		if (Validator.isEmpty(data.name)) {
-			errors.name = "Name field is required";
-		}
-		// Email checks
-		// if (!data.email || Validator.isEmpty(data.email)) {
-		// 	errors.email = "Email field is required";
-		// } else if (!Validator.isEmail(data.email)) {
-		// 	errors.email = "Email is invalid";
+		// if (Validator.isEmpty(data.name)) {
+		// 	errors.name = "Name field is required";
 		// }
+
+		// Email checks
+		if (!data.email || Validator.isEmpty(data.email)) {
+			errors.email = "Email field is required";
+		} else if (!Validator.isEmail(data.email)) {
+			errors.email = "Email is invalid";
+		}
+		
+		// Password checks
+		if (Validator.isEmpty(data.password)) {
+			errors.password = "Password field is required";
+		}
 
 		if(true != isEmpty(errors)){
 			res.status(400).json(errors);

@@ -54,8 +54,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     console.log('camera, microphone = ', camera, microphone)
 
    
-    var storageData = localStorage.getItem("jwtToken");
-    var storeData = JSON.parse(storageData);
+    var storeData = getCurrentUserData();
    
     console.log('-****', localStorage.getItem("channel"), storeData.userType);
 
@@ -201,17 +200,19 @@ if(!AgoraRTC.checkSystemRequirements()) {
     client.on('stream-subscribed', function (evt) {
 
       var channelName = localStorage.getItem("channel");
-      var storageData = localStorage.getItem("jwtToken");
-      var storeData = JSON.parse(storageData);
+      var storeData = getCurrentUserData();
 
       var stream = evt.stream;
       
       console.log("Subscribe remote stream successfully:********** " , stream);
+      // for host user
       if(storeData.userType == 1) {
         // console.log("Subscribe remote stream successfully:********** " , stream.getUserId());
         if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
         
-          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'"  class="col-md-4 col-lg-3 col-sm-6 col-6 newcss"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><div class="att-details"> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1" id="agora_'+stream.getId()+'"></span></div></div></div></div>');
+          //$('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'"  class="col-md-4 col-lg-3 col-sm-6 col-6 newcss"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><div class="att-details"> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1" id="agora_'+stream.getId()+'"></span></div></div></div></div>');
+
+          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" data-dismiss="modal">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><div class="att-details"><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1" id="agora_'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
         }
         stream.play('agora_remote_vdo' + stream.getId());
 
@@ -221,9 +222,11 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
         $('#subscribers-list #agora_remote'+stream.getId()).removeClass('d-none');
 
+        onPageResize();
+
       } else {
-       
-        // if ($('#agora_host #agora_remote'+stream.getId()).length === 0) {
+      // for attendy user
+      
           $.ajax({
               headers: { 
                   "Content-Type": "application/json; charset=utf-8",
@@ -266,7 +269,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
                   console.log( errorThrown );
               }
           });
-        // }
       }
      
     });
@@ -359,62 +361,61 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   }
 
-    
+  function getCurrentUserData(){
+    return JSON.parse(localStorage.getItem("jwtToken"));
+  }    
 
   function switchVideoSize(){
-      let len = $('#subscribers-list .newcss').length;
-     console.log('------------------------length ',len);
-      if(len == 0) return false;
+    let len = $('#subscribers-list .newcss').length;
+    console.log('------------------------length ',len);
+    if(len == 0) return false;
 
-      let vdoSize = '';
-      if(len == 1){
-        //vdoSize = 'one mx-auto';
-        vdoSize = 'one mx-auto';
-      } else if(len == 2) {
-        //vdoSize = 'col-md-6 col-lg-6 col-sm-6 col-6';
-        vdoSize = 'two';
-      } else if(len == 3) {
-        //vdoSize = 'col-md-4 col-lg-4 col-sm-4 col-12';
-        vdoSize = 'three';
-      } else if(len == 4) {
-        //vdoSize = 'col-md-4 col-lg-4 col-sm-4 col-12';
-        vdoSize = 'four';
-      } else {
-        //vdoSize = 'col-md-3 col-lg-3 col-sm-3 col-12';
-        vdoSize = 'five';
-      }
-
-        // javascript each
-        $('#subscribers-list .newcss').each(function (index, value) {
-          
-          $(this).removeClass('col-md-6')
-            .removeClass('col-md-4')
-            .removeClass('one')
-            .removeClass('two')
-            .removeClass('three')
-            .removeClass('four')
-            .removeClass('five')
-            .removeClass('col-lg-8')
-            .removeClass('col-md-4')
-            .removeClass('col-lg-6')
-            .removeClass('col-lg-5')
-            .removeClass('col-lg-4')
-            .removeClass('col-lg-3')
-            .removeClass('col-sm-6')
-            .removeClass('col-sm-4')
-            .removeClass('col-sm-3')
-            .removeClass('col-6')
-            .removeClass('col-12')
-            .removeClass('mx-auto');
-
-          // $('#subscribers-list .newcss').addClass(vdoSize);
-          $(this).addClass(vdoSize);
-
-          });
-
-         
-          
+    let vdoSize = '';
+    if(len == 1){
+      //vdoSize = 'one mx-auto';
+      vdoSize = 'one mx-auto';
+    } else if(len == 2) {
+      //vdoSize = 'col-md-6 col-lg-6 col-sm-6 col-6';
+      vdoSize = 'two';
+    } else if(len == 3) {
+      //vdoSize = 'col-md-4 col-lg-4 col-sm-4 col-12';
+      vdoSize = 'three';
+    } else if(len == 4) {
+      //vdoSize = 'col-md-4 col-lg-4 col-sm-4 col-12';
+      vdoSize = 'four';
+    } else {
+      //vdoSize = 'col-md-3 col-lg-3 col-sm-3 col-12';
+      vdoSize = 'five';
     }
+
+    // javascript each
+    $('#subscribers-list .newcss').each(function (index, value) {
+      
+      $(this).removeClass('col-md-6')
+        .removeClass('col-md-4')
+        .removeClass('one')
+        .removeClass('two')
+        .removeClass('three')
+        .removeClass('four')
+        .removeClass('five')
+        .removeClass('col-lg-8')
+        .removeClass('col-md-4')
+        .removeClass('col-lg-6')
+        .removeClass('col-lg-5')
+        .removeClass('col-lg-4')
+        .removeClass('col-lg-3')
+        .removeClass('col-sm-6')
+        .removeClass('col-sm-4')
+        .removeClass('col-sm-3')
+        .removeClass('col-6')
+        .removeClass('col-12')
+        .removeClass('mx-auto');
+
+      // $('#subscribers-list .newcss').addClass(vdoSize);
+      $(this).addClass(vdoSize);
+
+    });
+  }
 
   function leave() {
    // document.getElementById("leave").disabled = true;
@@ -430,18 +431,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   function onclickhandRaise(receiverId)
   {       
-    sendMessage(receiverId, "Now You Can Talk");
+    sendMessage(receiverId, JSON.stringify({code:"100", message:"Now You Can Talk"}));
 
     let allVdo = $('#subscribers-list video');   
     let allAdo = $('#subscribers-list audio');   
 
     let vdo = $('#subscribers-list #agora_remote'+ receiverId + ' video' )[0];   
     let ado = $('#subscribers-list #agora_remote'+ receiverId + ' audio' )[0];   
-
-    console.log('++++++ vdo1 +++++ ado1', allVdo, allAdo);
-    console.log('++++++ vdo +++++ ado', vdo, ado);
-    console.log('++++++ vdo +++++ ado', vdo.muted, ado.muted);
-    
 
     $.each(allVdo, function (index, value) {
       allVdo[index].muted = true;
@@ -453,9 +449,33 @@ if(!AgoraRTC.checkSystemRequirements()) {
       vdo.muted = false;
       ado.muted = false;
     }
-    // $('#clone-guest-video').append( $('#subscribers-list #agora_remote_vdo'+receiverId).html() );
-    // $('#subscribers-list #agora_remote_vdo'+receiverId).html('')
-    // $('#guest-video').modal('show');
+  }
+
+  function signalHandler(account, uid, signalData, userType) {
+
+    signalData = JSON.parse(signalData);
+        console.log('**************** signalData ', account, uid, signalData, userType)
+    
+    if(userType == 1) { // Host
+
+      if(signalData.code == '101'){
+
+      } else {
+        $('#hostmsg').html(signalData.message);
+        setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
+      }
+
+    } else { // Attendy
+
+      if(signalData.code == '101'){
+
+      } else {
+        $('#hostmsg').html(signalData.message);
+        setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
+      }
+
+    }
+
   }
 
   var signal = new Signal(appId);
@@ -464,20 +484,14 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   function recieveMessage()
   {
-    var storageData = localStorage.getItem("jwtToken");
-    var storeData = JSON.parse(storageData);
+    var storeData = getCurrentUserData();
     session = signal.login(storeData.id, '_no_need_token');
 
     session.onLoginSuccess = function(uid){
       
       session.onMessageInstantReceive = function(account, uid, msg){ 
-        
-          $('#hostmsg').html(msg);
-
-          setTimeout(function(){
-            $('#hostmsg').html('');
-          }, 10000);
-          
+          console.log('$$$$$$$$$$$$$$$$$$$$$$$****************$$$$$$$$$$$$$ ',account, uid, msg, storeData)
+          signalHandler(account, uid, msg, storeData.userType);
       };
       // session.logout();
    }
@@ -487,7 +501,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   function sendMessage(receiverId, msg)
   {
       session.messageInstantSend(receiverId, msg);
-      console.log('--------------hi---------------',msg);
+      console.log('############-------##########',msg);
   }
 
   
@@ -706,8 +720,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
       localStorage.removeItem("media-setting");
     }
     $('#media-config').modal('hide');
-    stream1.close()
-    stream2.close()
+    stream1.close();
+    stream2.close();
+    GoInFullscreen();
     join();
     recieveMessage();
     
@@ -736,8 +751,67 @@ if(!AgoraRTC.checkSystemRequirements()) {
     else if(document.msExitFullscreen)
       document.msExitFullscreen();
   }
+  function onPageResize(){
+      
+    let winHeight = window.innerHeight;
+    let headerHeight = $(".header.bg-gray").height();
+    let hostHeight = $(".host-script-section").height();
+    let sectionHeights = winHeight - (hostHeight+headerHeight);
+    $(".attendees").height(`${sectionHeights - 58 }px`);  // 
+    $("#subscribers-list").height(`${sectionHeights - 101}px`)
+    let sub_list_y = $("#subscribers-list").height(); 
+    let sub_list_x = $("#subscribers-list").width(); 
+    let len_subs = $('#subscribers-list .newcss').length;
+    if(len_subs>4){
+      $("#subscribers-list")
+      .removeClass("justify-content-center")
+      .addClass("justify-content-between display-grid-auto-4");
+    }
+    else if(len_subs<=4){
+      $("#subscribers-list")
+      .addClass("justify-content-center")
+      .removeClass("justify-content-between display-grid-auto-4");
+    }
+    setTimeout(function(){
+      let sub_list_x = $("#subscribers-list").width(); 
+      $(".newcss.one").width(`${sub_list_x / 2.1 }px`);
+      $(".newcss.two").width(`${sub_list_x / 2.8 }px`);
+      $(".newcss.three").width(`${sub_list_x / 3 }px`);
+      $(".newcss.four").width(`${sub_list_x / 4 }px`);
+      $(".newcss.five").width(`${sub_list_x / 6 }px`);
 
+      $(".newcss.two, .newcss.three").parent().addClass("justify-content-center");
+      $(".video-holder.popup-added").height("auto");
+       
+     }, 600)
+     
+
+    //console.log(`${sectionHeight}px`);
+    //let vid_y = $("#subscribers-list video").height();
+    //let vid_x = $("#subscribers-list video").width();
+  }
   $(document).ready(function(){
+    
+    $(document).on('click', ".hand-icon", function(){
+
+      if($(this).closest(".video-holder").hasClass("popup-added") == false){
+        $(this).closest(".video-holder").addClass("popup-added");
+        
+        if($(".video-streams").hasClass("popup-overlay")){
+          $(".guest-video-footer").show();
+        }
+      }
+      else {
+        $(this).closest(".video-holder").removeClass("popup-added");
+      }
+      
+      
+    });
+
+    $(document).on('click', ".eject-popup button", function(){
+      $(this).closest(".video-holder").removeClass("popup-added");
+    });
+
 
 
     function showHideScript(){
@@ -799,7 +873,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
     
     window.onresize = onPageResize;
-    // window.onload = onPageLoad;
+    
+ 
 
     $(document).on('click', '#continue-join', function(){
       continueJoin();
@@ -833,8 +908,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
     });
 
     if($('#conf-page').length > 0){
-      // join();
-      GoInFullscreen();
       // networkBandwidth();
       if($('#media-config').length > 0){
         
@@ -849,6 +922,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
           console.log('close event')
         })
       }
+      GoInFullscreen();
 
     }
     
@@ -934,8 +1008,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       })
       
       $('#handRaise_button').click(function(){       
-        var storageData = localStorage.getItem("jwtToken");
-        var storeData = JSON.parse(storageData);
+        var storeData = getCurrentUserData();
         var userType=storeData.userType;
         var clientaccount=storeData.name;
         var receiver="host";
@@ -956,94 +1029,15 @@ if(!AgoraRTC.checkSystemRequirements()) {
         GoInFullscreen();
       })
 
+      $(document).on('click', '.eject-session', function(){
+        let strmId = $(this).closest('.video-holder').attr('id');
+        console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ strmId ', strmId);
+        sendMessage(strmId, JSON.stringify({code:'101'}));
+      });
+
   });
-  // window.onresize = onPageResize;
-  // window.onload = onPageLoad;
-  
-
-    //function onPageLoad(){
-
-      //let winHeight = window.innerHeight;
-      //let headerHeight = $(".header.bg-gray").height()+20;
-      //let hostHeight = $(".host-script-section").height();
-     // let sectionHeight = winHeight - (hostHeight+headerHeight);
-      //$(".section.attendees").height(`${sectionHeight - 67}px`);
-     // $("#subscribers-list").height(`${sectionHeight - 150}px`)
-      //let sub_list_y = $("#subscribers-list").height(); 
-      //let sub_list_x = $("#subscribers-list").width(); 
-
-    //setTimeout(function(){
-      
-      
-      //if(sub_list_x > 1400){
-        //$(".newcss.one").width(`${sub_list_x / 3 }px`);
-      //}
-      //else{
-        //$(".newcss.one").width(`${sub_list_x / 4 }px`);
-      //}
-    //}, 600)
-
-    //console.log(`${sectionHeight}px`);
-    //let vid_y = $("#subscribers-list video").height();
-    //let vid_x = $("#subscribers-list video").width();
-  //}
-
-    function onPageResize(){
-      
-      let winHeight = window.innerHeight;
-      let headerHeight = $(".header.bg-gray").height();
-      let hostHeight = $(".host-script-section").height();
-      let sectionHeight = winHeight - (hostHeight+headerHeight);
-      $(".section.attendees").height(`${sectionHeight -40 }px`);
-      $("#subscribers-list").height(`${sectionHeight - 90}px`)
-      let sub_list_y = $("#subscribers-list").height(); 
-      let sub_list_x = $("#subscribers-list").width(); 
-      let len_subs = $('#subscribers-list .newcss').length;
-      if(len_subs>4){
-        $("#subscribers-list")
-        .removeClass("justify-content-center")
-        .addClass("justify-content-between display-grid-auto-4");
-      }
-      else if(len_subs<=4){
-        $("#subscribers-list")
-        .addClass("justify-content-center")
-        .removeClass("justify-content-between display-grid-auto-4");
-      }
-      setTimeout(function(){
-        
-        //$(".newcss.two").width(`${sub_list_x / 2.8 }`);
-        //$(".newcss.three").width(`${sub_list_x / 3 }`);
-        //$(".newcss.four").width(`${sub_list_x / 4 }`);
-        //$(".newcss.five").width(`${sub_list_x / 6 }`);
-
-        $(".newcss.two").width("672px").height("378px");
-        $(".newcss.two div, .newcss.one div, .newcss.three div").height("100%");
-        $(".newcss.three").width("448px").height("252px");
-        $(".newcss.four").width("336px").height("189px");
-        $(".newcss.five").width("336px").height("189px");
-
-        $(".newcss.two, .newcss.three").parent().addClass("justify-content-center");
-         
-         if(sub_list_x > 1400){
-         
-           //$(".newcss.one").width(`${sub_list_x  / 3 }px`);
-           $(".newcss.one").width("672px").height("378px");
-           $(".newcss.one div").height("100%");
-         }
-         //else if(sub_list_x > 1600){
-          //$(".newcss.one").width(`${sub_list_x }px`);
-        //}
-         else{
-          $(".newcss.one").width("672px").height("378px");
-          $(".newcss.one div").height("100%");
-         }
-       }, 600)
-
-
-      //console.log(`${sectionHeight}px`);
-      //let vid_y = $("#subscribers-list video").height();
-      //let vid_x = $("#subscribers-list video").width();
-    }
+ 
+    
 
     /*function onPageResize(){
       
@@ -1089,6 +1083,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
       //let vid_y = $("#subscribers-list video").height();
       //let vid_x = $("#subscribers-list video").width();
     }*/
+
+
 
   function checkMuteUnmute(id) {
 

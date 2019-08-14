@@ -66,7 +66,7 @@ return (
         </div>
       </div>
     </header>
-    <section className="bg-gray mt-1 px-3 py-1 rounded section attendees">
+    <section className="bg-gray mt-1 px-0 py-1 rounded section attendees">
       <div className="row px-0 px-sm-3 pb-2 pt-0 justify-content-between align-items-center">
         <div className="col-6 col-md-6">
           <h4 className="title">Wine Testers <span>(24/44)</span></h4>
@@ -92,7 +92,7 @@ return (
               <img src="images/circle.png" className="circle-icon mr-0" id="record-stream" />
             </div>
           </div>
-          <div className="add-remove-round host-show-hide px-3 bg-gray pt-2 pb-1 bottom-rounded">
+          <div className="add-remove-round host-show-hide px-3 bg-gray mt--1 pt-2 pb-1 bottom-rounded">
             <div id="agora_local" className="video-streams"></div>
           </div>
           

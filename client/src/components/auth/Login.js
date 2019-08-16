@@ -10,7 +10,8 @@ class Login extends Component {
   constructor() {
     super();
     this.state = {
-      name:"",
+      email:"",
+      password:"",
       type:"1",
       errors: {}
     };
@@ -55,10 +56,11 @@ onSubmit = e => {
     e.preventDefault();
       const userData = {
       email: this.state.email,
-      name: this.state.name,
+      password: this.state.password,
+      // name: this.state.name,
       type: this.state.type
     };
-   // console.log(userData);
+   console.log(userData);
     this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
   };
 render() {
@@ -70,16 +72,23 @@ return (
             
             <div className="col-12">
               <h4>
-                <b>Login</b> below
+                <b>Login</b>
               </h4>
               
             </div>
             <form className = "form-horizontal" role = "form"  noValidate onSubmit={this.onSubmit}>
             
             <div className = "form-group">
-                <span className="text-danger col-md-12">{errors.name}{errors.nameincorrect}{errors.message}</span>
+                <span className="text-danger col-md-12">{errors.email}{errors.emailincorrect}{errors.message}</span>
                 <div className = "col-sm-10">
-                  <input type="name"  id="name" onChange={this.onChange} value={this.state.name}  error={errors.name}  className={classnames("", { invalid: errors.name || errors.nameincorrect })} className = "form-control"  placeholder = "Username" />
+                  <input type="email"  id="email" onChange={this.onChange} value={this.state.email}  error={errors.email}  className={classnames("", { invalid: errors.email || errors.emailincorrect })} className = "form-control"  placeholder = "Email" />
+                </div>
+            </div>
+
+            <div className = "form-group">
+                <span className="text-danger col-md-12">{errors.password}{errors.passwordincorrect}</span>
+                <div className = "col-sm-10">
+                  <input type="password"  id="password" onChange={this.onChange} value={this.state.password} error={errors.password} className={classnames("", { invalid: errors.password || errors.passwordincorrect })} className = "form-control"  placeholder = "Password" />
                 </div>
             </div>
             

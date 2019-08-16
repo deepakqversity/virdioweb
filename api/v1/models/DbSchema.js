@@ -10,7 +10,8 @@ const userSchema = new Schema({
   id: ObjectId,
   name: {type: String, require: true},
   email: {type: String, require: false},
-  password: {type: String, require: false}
+  password: {type: String, require: false},
+  status: {type:Boolean, default:false}
 })
 const User = mongoose.model('users', userSchema);
 
@@ -34,7 +35,7 @@ const conferenceSchema = new Schema({
   id: ObjectId,
   userId: ObjectId, // only host id
   channel: {type: String, require: require},
-  status: {type:Boolean, default:0}
+  status: {type:Boolean, default:false}
 })
 const Conference = mongoose.model('conferences', conferenceSchema);
 

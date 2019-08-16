@@ -151,6 +151,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
                               console.log('client ------------', client)
                             });
                           }
+                          else{
+                            publish();
+                          }
                       },
                       error: function( jqXhr, textStatus, errorThrown ){
                           console.log( errorThrown );
@@ -764,11 +767,41 @@ if(!AgoraRTC.checkSystemRequirements()) {
     }
     setTimeout(function(){
       let sub_list_x = $("#subscribers-list").width(); 
-      $(".newcss.one").width(`${sub_list_x / 2.1 }px`);
-      $(".newcss.two").width(`${sub_list_x / 2.8 }px`);
+      let sub_list_y = $("#subscribers-list").height(); 
+      let newHeight = $(".newcss.one").height();
+      
+      if(sub_list_y < 400){
+        $(".newcss.one, .newcss.two, .newcss.three").height(`${sub_list_y - 20}px`);
+        $(".newcss.one, .newcss.two, .newcss.three, .newcss.four").css("width", `${(sub_list_y - 20) * 1.778 }px`);
+        if($(".newcss").hasClass("four")){
+          $(".newcss.four").width(`${sub_list_x / 4 }px`);
+          let fourWidth = $(".newcss.four").width();
+          //console.log(fourWidth);
+          $(".newcss.four").height(`${fourWidth / 1.778}px`);
+          
+        }
+      }
+      else{
+        //$(".newcss.one, .newcss.two, .newcss.three, .newcss.four").width("auto");
+        
+        setTimeout(function(){
+          let newWidth = $(".newcss.one, .newcss.two, .newcss.three, .newcss.four").width();
+          console.log(newWidth);
+          $(".newcss.one, .newcss.two, .newcss.three").height(`${newWidth / 1.778}px` );
+        }, 200)
+        
+      }
+      //$(".newcss.one").css("max-width", "50%");
+      //$(".newcss.one").css("max-height", "480px");
+      //$(".newcss.one").width(`${sub_list_y - 20 }px`);
+      
+      //$(".newcss.one").width(`${newHeight * 1.778 }px`);  // for 16:9 ratio
+      
+      //$(".newcss.two").width(`${sub_list_x / 2.2 }px`);
+     
       $(".newcss.three").width(`${sub_list_x / 3 }px`);
-      $(".newcss.four").width(`${sub_list_x / 4 }px`);
-      $(".newcss.five").width(`${sub_list_x / 6 }px`);
+      //
+      //$(".newcss.five").width(`${sub_list_x / 6 }px`);
 
       $(".newcss.two, .newcss.three").parent().addClass("justify-content-center");
       $(".video-holder.popup-added").height("auto");
@@ -780,8 +813,11 @@ if(!AgoraRTC.checkSystemRequirements()) {
     //let vid_y = $("#subscribers-list video").height();
     //let vid_x = $("#subscribers-list video").width();
   }
+ 
   $(document).ready(function(){
-    
+    $("body, div").bind('mousewheel', function() {
+      return false
+    });
     $(document).on('click', ".hand-icon", function(){
 
       if($(this).closest(".video-holder").hasClass("popup-added") == false){

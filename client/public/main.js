@@ -225,7 +225,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
         $('#subscribers-list #agora_remote'+stream.getId()).removeClass('d-none');
 
-        onPageResize();
+        let ref = setInterval(function(){
+          if($('#subscribers-list #agora_remote'+stream.getId()).hasClass('d-none') == false){
+
+            onPageResize();
+            clearInterval(ref);
+          }
+        }, 50);
 
       } else {
       // for attendy user
@@ -759,18 +765,64 @@ if(!AgoraRTC.checkSystemRequirements()) {
     let winHeight = window.innerHeight;
     let headerHeight = $(".header.bg-gray").height();
     let hostHeight = $(".host-script-section").height();
+    let sectionHeights = winHeight - (hostHeight + headerHeight);
+    console.log('winHeight, headerHeight, hostHeight, sectionHeights', winHeight, headerHeight, hostHeight, sectionHeights);
+    console.log('---------', parseInt(sectionHeights) - 58)
+    // $(".attendees").height(`${parseInt(sectionHeights) - 58 }px`);  // set new height for attendies
+    $("#subscribers-list").height(`${sectionHeights - 101}px`)
+    
+    let sub_list_y = $("#subscribers-list").height(); 
+    let sub_list_x = $("#subscribers-list").width(); 
+    let len_subs = $('#subscribers-list .newcss').length;
+    console.log('sub_list_y, sub_list_x, len_subs = ', sub_list_y, sub_list_x, len_subs)
+
+    if(len_subs>4) {
+      $("#subscribers-list")
+      .removeClass("justify-content-center")
+      .addClass("justify-content-between display-grid-auto-4");
+    } else {
+      $("#subscribers-list")
+      .addClass("justify-content-center")
+      .removeClass("justify-content-between display-grid-auto-4");
+    }
+
+    setTimeout(function(){
+
+      let newHt = sub_list_y;
+      if(len_subs > 4) {
+        newHt = sub_list_y / 2;
+      }
+
+      let newWt = newHt * 1.778
+      $(".newcss.one, .newcss.two, .newcss.three, .newcss.four, .newcss.five").height(`${newHt}px`);
+      $(".newcss.one, .newcss.two, .newcss.three, .newcss.four, .newcss.five").width(`${newWt}px`);
+
+      
+       
+     }, 600)
+     
+
+    //console.log(`${sectionHeight}px`);
+    //let vid_y = $("#subscribers-list video").height();
+    //let vid_x = $("#subscribers-list video").width();
+  }
+
+  function onPageResize_bkup(){
+      
+    let winHeight = window.innerHeight;
+    let headerHeight = $(".header.bg-gray").height();
+    let hostHeight = $(".host-script-section").height();
     let sectionHeights = winHeight - (hostHeight+headerHeight);
     $(".attendees").height(`${sectionHeights - 58 }px`);  // 
     $("#subscribers-list").height(`${sectionHeights - 101}px`)
     let sub_list_y = $("#subscribers-list").height(); 
     let sub_list_x = $("#subscribers-list").width(); 
     let len_subs = $('#subscribers-list .newcss').length;
-    if(len_subs>4){
+    if(len_subs>4) {
       $("#subscribers-list")
       .removeClass("justify-content-center")
       .addClass("justify-content-between display-grid-auto-4");
-    }
-    else if(len_subs<=4){
+    } else {
       $("#subscribers-list")
       .addClass("justify-content-center")
       .removeClass("justify-content-between display-grid-auto-4");
@@ -909,8 +961,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
     
     window.onresize = onPageResize;
-    
- 
 
     $(document).on('click', '#continue-join', function(){
       continueJoin();

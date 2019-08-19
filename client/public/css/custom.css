@@ -68,16 +68,24 @@
 body{
 	background:#000;
 	padding: 0px;
-	    position: relative;
-		height:100vh;
+	position: relative;
+	height:100vh;
+	overflow:hidden;
 }
 #root, .App{
 	height:100%;
 }
 .container{
-    width: 100% !important;
-    max-width: 1400px !important;
+    width: 98% !important;
     padding: 0;
+	max-width: 98%;
+}
+@media (max-width:1600px){
+.container, .header, .host-script-section{
+    width: 98% !important;
+    padding: 0;
+	max-width: 1400px;
+}
 }
 .border-right {
     border-right: 1px solid #9b51e0 !important;
@@ -265,8 +273,7 @@ h3.main-heading span{
 }*/
 .header{
 	border-radius: 10px;
-    width: 100%;
-    max-width: 1400px;
+    width: 98%;
     height: auto;
     padding: 10px 0px;
     z-index: 3;
@@ -584,6 +591,10 @@ display:none;
     z-index: 5;
     position: relative;
 }
+.zoom-box, .zoom-box .video-streams{
+	height:100%;
+}
+
 .eject-popup .close-model-btn{
     margin: 10px;
     color: #964DD9;
@@ -677,8 +688,7 @@ display:none;
 .host-script-section{
 	bottom: 0;
     left: 0;
-        width: 100%;
-    max-width: 1400px;
+        width: 98%;
     margin: auto;
     right: 0;
 	

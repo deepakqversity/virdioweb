@@ -39,7 +39,7 @@ class UserCtrl {
 					// console.log(token);
 					let updateUser = tokenModel.updateToken(userObj._id, token);
 					
-					res.status(200).send({token:token, id:userObj._id, name:userObj.name, userType:req.body.type});
+					res.status(200).send({token:token, id:userObj._id, name:userObj.name, email:userObj.email, userType:req.body.type});
 				} else {
 					res.status(400).send({password:"Invalid password"})
 				}

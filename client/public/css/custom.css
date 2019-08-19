@@ -317,7 +317,9 @@ h3.main-heading span{
 
 
 /* 4. Attendees Section */
-
+#subscribers-list .newcss{
+	margin:1px;
+}
 .section.attendees{
 	margin-top: 105px !important;
 }
@@ -390,7 +392,7 @@ font-size: 18px;
     font-size: 16px;
 	    display: block;
 }
-.video-holder.popup-added .att-details .icon1{
+.video-holder.popup-added .att-details .icon-appearance{
     width: 35px;
     height: 35px;
     background-size: 20px;
@@ -475,8 +477,8 @@ font-size: 18px;
     right: 10px;
     bottom: 30px;
 }
-.video-holder .att-details .icon1, 
-.attendee-list .icon1{
+.video-holder .att-details .icon-appearance, 
+.attendee-list .icon-appearance{
     background: #fff url(../images/icon1.png);
     width: 22px;
     height: 22px;
@@ -488,8 +490,8 @@ font-size: 18px;
     float: left;
 	cursor:pointer;
 }
-.video-holder .att-details .icon2, 
-.attendee-list .icon2{
+.video-holder .att-details .icon-aroma, 
+.attendee-list .icon-aroma{
 	background: #fff url(../images/icon2.png);
     width: 22px;
     height: 22px;
@@ -499,7 +501,35 @@ font-size: 18px;
     border-radius: 20px;
     padding: 2px;
     float: left;
-	margin-left: 3px;
+	margin-left: 5px;
+	cursor:pointer;
+}
+.video-holder .att-details .icon-palate, 
+.attendee-list .icon-palate{
+	background: #fff url(../images/icon3.png);
+    width: 22px;
+    height: 22px;
+    background-size: 13px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 20px;
+    padding: 2px;
+    float: left;
+	margin-left: 5px;
+	cursor:pointer;
+}
+.video-holder .att-details .icon-score, 
+.attendee-list .icon-score{
+	background: #fff url(../images/icon4.png);
+    width: 22px;
+    height: 22px;
+    background-size: 13px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 20px;
+    padding: 2px;
+    float: left;
+	margin-left: 5px;
 	cursor:pointer;
 }
 
@@ -686,11 +716,14 @@ display:none;
 
 /* 5. Host Section */
 .host-script-section{
-	bottom: 0;
+	bottom: 10px;
     left: 0;
         width: 98%;
     margin: auto;
     right: 0;
+	    display: grid;
+    grid-template-columns: 380px 1fr;
+    grid-column-gap: 8px;
 	
 }
 .host-section video{

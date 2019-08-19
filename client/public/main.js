@@ -215,7 +215,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         
           //$('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'"  class="col-md-4 col-lg-3 col-sm-6 col-6 newcss"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><div class="att-details"> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1" id="agora_'+stream.getId()+'"></span></div></div></div></div>');
 
-          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" data-dismiss="modal">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><div class="att-details"><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1" id="agora_'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
+          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" data-dismiss="modal">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><div class="att-details"><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon-appearance" id="agora_'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
         }
         stream.play('agora_remote_vdo' + stream.getId());
 
@@ -766,40 +766,51 @@ if(!AgoraRTC.checkSystemRequirements()) {
     let headerHeight = $(".header.bg-gray").height();
     let hostHeight = $(".host-script-section").height();
     let sectionHeights = winHeight - (hostHeight + headerHeight);
-    console.log('winHeight, headerHeight, hostHeight, sectionHeights', winHeight, headerHeight, hostHeight, sectionHeights);
-    console.log('---------', parseInt(sectionHeights) - 58)
+    console.log('demo== winHeight, headerHeight, hostHeight, sectionHeights', winHeight, headerHeight, hostHeight, sectionHeights);
+    // console.log('---------', parseInt(sectionHeights) - 58)
     // $(".attendees").height(`${parseInt(sectionHeights) - 58 }px`);  // set new height for attendies
-    $("#subscribers-list").height(`${sectionHeights - 101}px`)
+    $("#subscribers-list").height(`${sectionHeights - 111}px`)
     
     let sub_list_y = $("#subscribers-list").height(); 
     let sub_list_x = $("#subscribers-list").width(); 
-    let len_subs = $('#subscribers-list .newcss').length;
-    console.log('sub_list_y, sub_list_x, len_subs = ', sub_list_y, sub_list_x, len_subs)
+    let len_subs = $('#subscribers-list').find('video').length;
+    console.log('demo== sub_list_y, sub_list_x, len_subs = ', sub_list_y, sub_list_x, len_subs)
 
     if(len_subs>4) {
       $("#subscribers-list")
-      .removeClass("justify-content-center")
-      .addClass("justify-content-between display-grid-auto-4");
-    } else {
-      $("#subscribers-list")
-      .addClass("justify-content-center")
-      .removeClass("justify-content-between display-grid-auto-4");
+      .addClass("display-grid-auto-4");
     }
-
     setTimeout(function(){
 
       let newHt = sub_list_y;
       if(len_subs > 4) {
         newHt = sub_list_y / 2;
+        
       }
-
-      let newWt = newHt * 1.778
-      $(".newcss.one, .newcss.two, .newcss.three, .newcss.four, .newcss.five").height(`${newHt}px`);
-      $(".newcss.one, .newcss.two, .newcss.three, .newcss.four, .newcss.five").width(`${newWt}px`);
+      let newWt = newHt * 1.778;
+      console.log('demo== newHt, newWt ***', newHt, newWt)
+      
+      if(len_subs >= 3){
+        
+        if(newWt * len_subs > sub_list_x) {
+          let tmpWt = newWt * len_subs - sub_list_x;
+          tmpWt = tmpWt / len_subs;
+          newWt = newWt - tmpWt;
+          newHt = newWt / 1.778; 
+          //newHt = newHt - 10;
+          //newWt = newHt * 1.778;
+        }
+        
+      }
+      console.log('demo== newHt, newWt =', newHt, newWt)
+      
+      $(".newcss.one, .newcss.two, .newcss.three, .newcss.four, .newcss.five").height(`${newHt -2 }px`);
+      $(".newcss.one, .newcss.two, .newcss.three, .newcss.four, .newcss.five").width(`${newWt -2 }px`);
+      
 
       
        
-     }, 600)
+     }, 700)
      
 
     //console.log(`${sectionHeight}px`);
@@ -912,7 +923,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       else{
         $(".add-remove-round").removeClass("rounded").addClass("top-rounded");
         setTimeout(function(){
-                  
+                
          }, 500)
         
       }
@@ -929,14 +940,11 @@ if(!AgoraRTC.checkSystemRequirements()) {
       $(".script-section").slideToggle();
       
     });
-    $(".host-script-section").height("305px");
-    
-     
-        $(".test-script").addClass("w-866");
-        $(".host-section").css({"min-width": "524px", "max-width": "524px"});
+    $(".host-script-section").height("255px");
+    $(".host-section").css({"min-width": "380px", "max-width": "380px"});
       
     $(".show-hide-footer-panel").click(function(){
-      $(".host-script-section").height() < 305 ? $(".host-script-section").height("305px") : $(".host-script-section").height("auto");
+      $(".host-script-section").height() < 255 ? $(".host-script-section").height("255px") : $(".host-script-section").height("auto");
       
       
        
@@ -945,12 +953,12 @@ if(!AgoraRTC.checkSystemRequirements()) {
       setTimeout(function(){
        onPageResize();
       }, 500);
-      if($(".add-remove-height").hasClass("h-100")){
-        $(".add-remove-height").removeClass("h-100");
+      if($(".add-remove-height").hasClass("height-53")){
+        $(".add-remove-height").removeClass("height-53");
         $(".add-remove-height").addClass("h53")
       }
       else{
-        $(".add-remove-height").addClass("h-100");
+        $(".add-remove-height").addClass("height-53");
         $(".add-remove-height").removeClass("h53");
       }
       $(this).text($(this).text() == '"Show Attendees"' ? '"Hide Attendees"' : '"Show Attendees"');

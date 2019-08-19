@@ -76,13 +76,13 @@ return (
         </div>
       </div>
       
-    <div className="row one-gutters align-items-center" id="subscribers-list"></div>
+    <div className="row one-gutters justify-content-center align-items-center" id="subscribers-list"></div>
 
     </section>
     <div className="row position-fixed host-script-section justify-content-between">
-      <div className=" host-section d-flex justify-content-end flex-direction-column">
-        <div className="overflow-hidden ">
-          <div className="add-remove-round add-remove-height h-100 px-3 bg-gray pt-2 pb-2 top-rounded d-flex justify-content-between align-items-center">
+      <div className=" host-section d-flex justify-content-end flex-direction-column h-100">
+        <div className="">
+          <div className="add-remove-round add-remove-height height-53 px-3 bg-gray pt-2 pb-2 top-rounded d-flex justify-content-between align-items-center">
             <h3 className="main-heading font-size-16 float-left">Streaming</h3>
             <div className="host-header">
               <img src="images/mute-microphone.png" className="unmute-icon" id="mute-unmute-local" />
@@ -99,7 +99,7 @@ return (
         </div>
       </div>
       
-      <div className="test-script">
+      <div className="test-script h-100">
       
         <div className="overflow-hidden h-100">
           <div id="carouselExampleControls" data-interval="false" className="carousel slide carousel-fade script-info h-100" data-ride="carousel">

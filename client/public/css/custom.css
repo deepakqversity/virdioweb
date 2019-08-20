@@ -227,7 +227,19 @@ h3.main-heading span{
 	display:-ms-grid;
 	grid-template-columns: auto auto auto auto;
 }
-@media (max-width:768px){
+@media (max-width: 1024px){
+	.logo img{
+		margin-left:10px;
+	}
+	h3.main-heading{
+		    font-size: 18px;
+	}
+	h3.main-heading span{
+		    font-size: 14px;
+	}
+	.time span{
+		    font-size: 12px !important;
+	}
 	.mx-xs-auto{
 		margin-left:auto !important;
 		margin-right:auto !important;
@@ -317,7 +329,9 @@ h3.main-heading span{
 
 
 /* 4. Attendees Section */
-
+#subscribers-list .newcss{
+	margin:1px;
+}
 .section.attendees{
 	margin-top: 105px !important;
 }
@@ -390,7 +404,7 @@ font-size: 18px;
     font-size: 16px;
 	    display: block;
 }
-.video-holder.popup-added .att-details .icon1{
+.video-holder.popup-added .att-details .icon-appearance{
     width: 35px;
     height: 35px;
     background-size: 20px;
@@ -401,7 +415,7 @@ font-size: 18px;
     position: relative;
     bottom: 0px;
     left: inherit;
-	    right: 30px;
+	right: 30px;
     width: 200px;
     background: rgba(0,0,0,0.5);
     border-radius: 10px;
@@ -475,8 +489,8 @@ font-size: 18px;
     right: 10px;
     bottom: 30px;
 }
-.video-holder .att-details .icon1, 
-.attendee-list .icon1{
+.video-holder .att-details .icon-appearance, 
+.attendee-list .icon-appearance{
     background: #fff url(../images/icon1.png);
     width: 22px;
     height: 22px;
@@ -488,8 +502,8 @@ font-size: 18px;
     float: left;
 	cursor:pointer;
 }
-.video-holder .att-details .icon2, 
-.attendee-list .icon2{
+.video-holder .att-details .icon-aroma, 
+.attendee-list .icon-aroma{
 	background: #fff url(../images/icon2.png);
     width: 22px;
     height: 22px;
@@ -499,7 +513,35 @@ font-size: 18px;
     border-radius: 20px;
     padding: 2px;
     float: left;
-	margin-left: 3px;
+	margin-left: 5px;
+	cursor:pointer;
+}
+.video-holder .att-details .icon-palate, 
+.attendee-list .icon-palate{
+	background: #fff url(../images/icon3.png);
+    width: 22px;
+    height: 22px;
+    background-size: 13px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 20px;
+    padding: 2px;
+    float: left;
+	margin-left: 5px;
+	cursor:pointer;
+}
+.video-holder .att-details .icon-score, 
+.attendee-list .icon-score{
+	background: #fff url(../images/icon4.png);
+    width: 22px;
+    height: 22px;
+    background-size: 13px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 20px;
+    padding: 2px;
+    float: left;
+	margin-left: 5px;
 	cursor:pointer;
 }
 
@@ -686,11 +728,14 @@ display:none;
 
 /* 5. Host Section */
 .host-script-section{
-	bottom: 0;
+	bottom: 10px;
     left: 0;
         width: 98%;
     margin: auto;
     right: 0;
+	    display: grid;
+    grid-template-columns: 380px 1fr;
+    grid-column-gap: 8px;
 	
 }
 .host-section video{
@@ -755,6 +800,29 @@ display:none;
     font-family: Avenir-Book;
 	margin-bottom: 0;
 }
+.max-h200{
+	max-height:200px;
+	overflow-y:scroll;
+	overflow-x:hidden;
+}
+.max-h200::-webkit-scrollbar {
+  width: 6px;
+}
+
+.max-h200::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+.max-h200::-webkit-scrollbar-thumb {
+  background: #9b51e0; 
+}
+@media (min-width:1110px){
+.max-h200::-webkit-scrollbar-track, 
+.max-h200::-webkit-scrollbar, .max-h200::-webkit-scrollbar-thumb {
+	display:none !important;
+	width: 0 !important
+}
+}
 .sub-heading{
     font-family: Avenir-Heavy;
     float: left;
@@ -789,7 +857,9 @@ display:none;
     z-index: 5;
     right: 3px;
 }
-
+.script-info .carousel-inner	{
+	height: 100%;
+}
 
 
 

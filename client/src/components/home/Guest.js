@@ -6,10 +6,18 @@ import $ from 'jquery';
 import Config from "./Configuration";
 
 class Guest extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {getMail : ''}
+  }
+
   onLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();
+    
   };
+  
 
   joinOnClick = e => {
     e.preventDefault();
@@ -21,13 +29,42 @@ class Guest extends Component {
     $('#logout_button').trigger('click');
   }
 
-  onclickhandRaise(){
-    $('#handRaise_button').trigger('click');
+  getAppearence(){
+    //console.log(this.state.getMail);
+    var email=this.state.getMail;
+    console.log(email);
+    $("#appearence_button").val(email);
+    $('#appearence_button').trigger('click');
   }
 
-  componentDidMount(){
-  // console.log(2);    //
+  getAroma(){
+    //console.log(this.state.getMail);
+    var email=this.state.getMail;
+    console.log(email);
+    $("#aroma_button").val(email);
+    $('#aroma_button').trigger('click');
   }
+  getPalate(){
+    //console.log(this.state.getMail);
+    var email=this.state.getMail;
+    console.log(email);
+    $("#palate_button").val(email);
+    $('#palate_button').trigger('click');
+  }
+  getScore(){
+    //console.log(this.state.getMail);
+    var email=this.state.getMail;
+    console.log(email);
+    $("#score_button").val(email);
+    $('#score_button').trigger('click');
+  }
+  
+  componentDidMount(){
+    var userData = JSON.parse(localStorage.getItem("jwtToken"));
+    var  email=userData.email;
+    this.setState({getMail : email});
+  }
+
   componentWillMount(){
     //console.log(1);
     // window.test();
@@ -36,7 +73,10 @@ render() {
     const  {user}  = this.props.auth;
 
    // console.log(user);
-    console.log('------------------------------', user);
+
+   var userData = JSON.parse(localStorage.getItem("jwtToken"));
+  var  email=userData.email;
+    console.log('----------munmun--------------------', userData.email);
 
 return (
     <div className="container d-flex flex-column justify-content-between h-100 overlay position-relative">
@@ -186,10 +226,11 @@ return (
     <footer className="footer position-relative zindex-5">
       
       <ul className="bottom-links flex-wrap list-group list-group-horizontal mx-auto d-md-flex justify-content-center py-xs-1">
-        <li className="list-group-item bg-transparent border-0"><a href="#">APPEARANCE</a></li>
-        <li className="list-group-item bg-transparent border-0"><a href="#">AROMA</a></li>
-        <li className="list-group-item bg-transparent border-0"><a href="#">PALATE</a></li>
-        <li className="list-group-item bg-transparent border-0"><a href="#">SCORE</a></li>
+
+        <li className="list-group-item bg-transparent border-0"><a href="#"  onClick={this.getAppearence.bind(this)}>APPEARANCE</a></li>
+        <li className="list-group-item bg-transparent border-0"><a href="#" onClick={this.getAroma.bind(this)}>AROMA</a></li>
+        <li className="list-group-item bg-transparent border-0"><a href="#" onClick={this.getPalate.bind(this)}>PALATE</a></li>
+        <li className="list-group-item bg-transparent border-0"><a href="#" onClick={this.getScore.bind(this)}>SCORE</a></li>
       </ul>
       
       <div className="self-video1 mt-3">

@@ -216,7 +216,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         
           //$('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'"  class="col-md-4 col-lg-3 col-sm-6 col-6 newcss"><div class="video-holder position-relative"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><div class="att-details"> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1" id="agora_'+stream.getId()+'"></span></div></div></div></div>');
 
-          $('#subscribers-list').append('<div id="agora_remote' + stream.subscribeLTS + '" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.subscribeLTS+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" data-dismiss="modal">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.subscribeLTS+'" class="video-streams"></div><span class="hand-icon position-absolute hand" onclick="onclickhandRaise(\''+stream.subscribeLTS+'\')"></span><div class="att-details"><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon1" id="agora_'+stream.subscribeLTS+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
+          $('#subscribers-list').append('<div id="agora_remote' + stream.subscribeLTS + '" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.subscribeLTS+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" data-dismiss="modal">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.subscribeLTS+'" class="video-streams"></div><span class="hand-icon position-absolute hand" onclick="onclickhandRaise(\''+stream.subscribeLTS+'\')"></span><div class="att-details"><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div> <span class="att-name">James K, TX</span><div class="vid-icons"><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
         }
         stream.play('agora_remote_vdo' + stream.subscribeLTS);
 
@@ -476,28 +476,42 @@ if(!AgoraRTC.checkSystemRequirements()) {
   }
 
   function signalHandler(account, uid, signalData, userType) {
-
     signalData = JSON.parse(signalData);
-        console.log('**************** signalData ', account, uid, signalData, userType)
-    
+    console.log('*********manjit******* signalData ', account, uid, signalData.data, userType);
     if(userType == 1) { // Host
-
       if(signalData.code == '101'){
-
-      } else {
+      } else if(signalData.code == '100') {
         $('#hostmsg').html(signalData.message);
         setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
       }
-
-    } else { // Attendy
-
+     else if(signalData.code == '110')
+      {
+        setEmojies(account, uid, signalData, userType);
+      }
+    } else { 
+    // Attendy
       if(signalData.code == '101'){
-
-      } else {
+      } else if(signalData.code == '100') {
         $('#hostmsg').html(signalData.message);
         setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
       }
-
+    }
+  }
+  function setEmojies(account, uid, signalData, userType)
+  {
+    console.log('**************** signalData ', account, uid, signalData.data, userType);
+    if(signalData.message=="appearence")
+    {
+    $('.icon-appearance[data-attr=\''+signalData.data+'\']').removeClass("d-none");
+    }else if(signalData.message=="aroma")
+    {
+      $('.icon-aroma[data-attr=\''+signalData.data+'\']').removeClass("d-none");
+    }else if(signalData.message=="palate")
+    {
+      $('.icon-palate[data-attr=\''+signalData.data+'\']').removeClass("d-none");
+    }else if(signalData.message=="score")
+    {
+      $('.icon-score[data-attr=\''+signalData.data+'\']').removeClass("d-none");
     }
 
   }
@@ -514,7 +528,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     session.onLoginSuccess = function(uid){
       
       session.onMessageInstantReceive = function(account, uid, msg){ 
-          console.log('$$$$$$$$$$$$$$$$$$$$$$$****************$$$$$$$$$$$$$ ',account, uid, msg, storeData)
+          console.log('$$$$$$$$$$$$$$$$$$$$$$$****gudu************$$$$$$$$$$$$$ ',account, uid, msg, storeData)
           signalHandler(account, uid, msg, storeData.userType);
       };
       // session.logout();
@@ -1137,6 +1151,32 @@ if(!AgoraRTC.checkSystemRequirements()) {
         leave();
         localStorage.removeItem("jwtToken");
         window.location.href  = '/login';
+      });
+
+
+      $( '#appearence_button' ).bind( "click", function(event) {
+        var attendies_email=$( '#appearence_button' ).val();
+       // alert(newval);
+       var receiver='deepak1@test.com';
+        sendMessage(receiver, JSON.stringify({code:"110",data:attendies_email, message:"appearence"}));
+      });
+      $( '#aroma_button' ).bind( "click", function(event) {
+        var attendies_email=$( '#aroma_button' ).val();
+       // alert(newval);
+       var receiver='deepak1@test.com';
+        sendMessage(receiver, JSON.stringify({code:"110",data:attendies_email, message:"aroma"}));
+      });
+      $( '#palate_button' ).bind( "click", function(event) {
+        var attendies_email=$( '#palate_button' ).val();
+       // alert(newval);
+       var receiver='deepak1@test.com';
+        sendMessage(receiver, JSON.stringify({code:"110",data:attendies_email, message:"palate"}));
+      });
+      $( '#score_button' ).bind( "click", function(event) {
+        var attendies_email=$( '#score_button' ).val();
+       // alert(newval);
+       var receiver='deepak1@test.com';
+        sendMessage(receiver, JSON.stringify({code:"110",data:attendies_email, message:"score"}));
       });
 
       $(document).on('click', '#fullscreen', function(){

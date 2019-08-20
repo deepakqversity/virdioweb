@@ -31,7 +31,7 @@ class Guest extends Component {
 
   getAppearence(){
     //console.log(this.state.getMail);
-    var email=this.state.getMail;
+   var email=this.state.getMail;
     console.log(email);
     $("#appearence_button").val(email);
     $('#appearence_button').trigger('click');
@@ -76,7 +76,7 @@ render() {
 
    var userData = JSON.parse(localStorage.getItem("jwtToken"));
   var  email=userData.email;
-    console.log('----------munmun--------------------', userData.email);
+   // console.log('------------------------------', userData.email);
 
 return (
     <div className="container d-flex flex-column justify-content-between h-100 overlay position-relative">
@@ -226,11 +226,11 @@ return (
     <footer className="footer position-relative zindex-5">
       
       <ul className="bottom-links flex-wrap list-group list-group-horizontal mx-auto d-md-flex justify-content-center py-xs-1">
-
+      
         <li className="list-group-item bg-transparent border-0"><a href="#"  onClick={this.getAppearence.bind(this)}>APPEARANCE</a></li>
-        <li className="list-group-item bg-transparent border-0"><a href="#" onClick={this.getAroma.bind(this)}>AROMA</a></li>
-        <li className="list-group-item bg-transparent border-0"><a href="#" onClick={this.getPalate.bind(this)}>PALATE</a></li>
-        <li className="list-group-item bg-transparent border-0"><a href="#" onClick={this.getScore.bind(this)}>SCORE</a></li>
+        <li className="list-group-item bg-transparent border-0"><a href="#"  onClick={this.getAroma.bind(this)}>AROMA</a></li>
+        <li className="list-group-item bg-transparent border-0"><a href="#"  onClick={this.getPalate.bind(this)}>PALATE</a></li>
+        <li className="list-group-item bg-transparent border-0"><a href="#"  onClick={this.getScore.bind(this)}>SCORE</a></li>
       </ul>
       
       <div className="self-video1 mt-3">

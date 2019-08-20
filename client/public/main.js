@@ -775,7 +775,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     let sub_list_x = $("#subscribers-list").width(); 
     let len_subs = $('#subscribers-list').find('video').length;
     console.log('demo== sub_list_y, sub_list_x, len_subs = ', sub_list_y, sub_list_x, len_subs)
-
+    
     if(len_subs>4) {
       $("#subscribers-list")
       .addClass("display-grid-auto-4");
@@ -790,8 +790,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
       let newWt = newHt * 1.778;
       console.log('demo== newHt, newWt ***', newHt, newWt)
       
-      if(len_subs >= 3){
-        
+      if(len_subs >= 2 ){
+        if(len_subs>4)
+          len_subs = 4
+
         if(newWt * len_subs > sub_list_x) {
           let tmpWt = newWt * len_subs - sub_list_x;
           tmpWt = tmpWt / len_subs;
@@ -802,15 +804,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
         }
         
       }
+      
       console.log('demo== newHt, newWt =', newHt, newWt)
       
-      $(".newcss.one, .newcss.two, .newcss.three, .newcss.four, .newcss.five").height(`${newHt -2 }px`);
-      $(".newcss.one, .newcss.two, .newcss.three, .newcss.four, .newcss.five").width(`${newWt -2 }px`);
+      $(".newcss.one, .newcss.two, .newcss.three, .newcss.four, .newcss.five").height(`${newHt - 2 }px`);
+      $(".newcss.one, .newcss.two, .newcss.three, .newcss.four, .newcss.five").width(`${newWt - 2 }px`);
       
-
-      
-       
-     }, 700)
+     }, 100)
      
 
     //console.log(`${sectionHeight}px`);

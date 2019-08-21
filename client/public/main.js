@@ -957,8 +957,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
     $(".show-hide-script").click(function(){
       
-      
-
       $(this).text($(this).text() == '"Hide Script"' ? '"Show Script"' : '"Hide Script"');
       showHideScript();
       //$(".add-remove-flex").removeClass( ? '" "' : '"flex-grow-1"');
@@ -966,6 +964,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       $(".script-section").slideToggle();
       
     });
+
     $(".host-script-section").height("255px");
     $(".host-section").css({"min-width": "380px", "max-width": "380px"});
       
@@ -981,7 +980,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       }, 500);
       if($(".add-remove-height").hasClass("height-53")){
         $(".add-remove-height").removeClass("height-53");
-        $(".add-remove-height").addClass("h53")
+        $(".add-remove-height").addClass("h53");
       }
       else{
         $(".add-remove-height").addClass("height-53");

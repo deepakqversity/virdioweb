@@ -59,7 +59,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
    
     console.log('-****', localStorage.getItem("channel"), storeData.userType);
 
-    var channel_key = "006748f9639fa864651bef8419d5870ec50IACuPs1GG9xz4j9PqlVihwwhfD6WQ+5X7nFf14KDZEmxzjvCKVoAAAAAEADC8knpbPRcXQEAAQBr9Fxd";
+    var channel_key = "006748f9639fa864651bef8419d5870ec50IADkxvcsOQU6KTqFkiyGLtyqEEWvPKhHAtQIz4vbwg/SijvCKVoAAAAAEAAyNWuCv0heXQEAAQC/SF5d";
     
     console.log("Init AgoraRTC client with App ID: " + appId);
     
@@ -85,7 +85,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
           var channelName = localStorage.getItem("channel");
           // create and join channel
-          client.join(channel_key, channelName, storeData.email, function(uid) {
+          client.join(channel_key, channelName, storeData.id.toString(), function(uid) {
 
             console.log("User " + uid + " join channel successfully");
 
@@ -99,13 +99,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
               localStream.setVideoProfile('720p_3');
             }
 
-            localStream.setVideoEncoderConfiguration({
+            /*localStream.setVideoEncoderConfiguration({
                 // Video resolution
                 resolution: {
                     width: 640,
                     height: 380
                 }
-            });
+            });*/
 
             // The user has granted access to the camera and mic.
             localStream.on("accessAllowed", function() {
@@ -786,7 +786,99 @@ if(!AgoraRTC.checkSystemRequirements()) {
       document.msExitFullscreen();
   }
 
-  function onPageResize(){
+ function onPageResize(){
+      
+    let winHeight = window.innerHeight;
+    let headerHeight = $(".header.bg-gray").height();
+    let hostHeight = $(".host-script-section").height();
+    let sectionHeights = winHeight - (hostHeight + headerHeight);
+    console.log('demo== winHeight, headerHeight, hostHeight, sectionHeights', winHeight, headerHeight, hostHeight, sectionHeights);
+    // console.log('---------', parseInt(sectionHeights) - 58)
+    // $(".attendees").height(`${parseInt(sectionHeights) - 58 }px`);  // set new height for attendies
+    $("#subscribers-list").height(`${sectionHeights - 111}px`)
+    
+    let sub_list_y = $("#subscribers-list").height(); 
+    let sub_list_x = $("#subscribers-list").width(); 
+    let len_subs = $('#subscribers-list').find('video').length;
+    console.log('demo== sub_list_y, sub_list_x, len_subs = ', sub_list_y, sub_list_x, len_subs)
+    
+    if(sub_list_x <= 800){
+      if(len_subs>2) {
+        $("#subscribers-list")
+        .addClass("display-grid-auto-2");
+      }
+    } else {
+      if(len_subs>4) {
+        $("#subscribers-list")
+        .addClass("display-grid-auto-4");
+      }
+    }
+    setTimeout(function(){
+
+      let newHt = sub_list_y;
+      if(sub_list_x <= 800){
+        if(len_subs > 2) {
+          
+          let rem = len_subs % 2;
+
+          // get num of rows of vdos
+          let numVdoRw = parseInt(len_subs / 2) + ( rem == 0 ? 0 : 1 );
+
+          newHt = sub_list_y / numVdoRw;
+        }
+      }
+      else{
+        if(len_subs > 4) {
+          newHt = sub_list_y / 2;
+        }
+      }
+      let newWt = newHt * 1.778;
+      console.log('demo== newHt, newWt ***', newHt, newWt)
+      
+      if(sub_list_x <= 800){
+
+        if(len_subs >= 2 ){
+
+          if(len_subs>2)
+            len_subs = 2;
+
+          if(newWt * len_subs > sub_list_x) {
+            let tmpWt = newWt * len_subs - sub_list_x;
+            tmpWt = tmpWt / len_subs;
+            newWt = newWt - tmpWt;
+            newHt = newWt / 1.778; 
+            //newHt = newHt - 10;
+            //newWt = newHt * 1.778;
+          }
+        }
+
+      } else {
+
+        if(len_subs >= 2 ){
+
+          if(len_subs>4)
+            len_subs = 4
+
+          if(newWt * len_subs > sub_list_x) {
+            let tmpWt = newWt * len_subs - sub_list_x;
+            tmpWt = tmpWt / len_subs;
+            newWt = newWt - tmpWt;
+            newHt = newWt / 1.778; 
+            //newHt = newHt - 10;
+            //newWt = newHt * 1.778;
+          }
+        }
+      }
+      
+      console.log('demo== newHt, newWt =', newHt, newWt)
+      
+      $(".newcss.one, .newcss.two, .newcss.three, .newcss.four, .newcss.five").height(`${newHt - 2 }px`);
+      $(".newcss.one, .newcss.two, .newcss.three, .newcss.four, .newcss.five").width(`${newWt - 2 }px`);
+      
+     }, 100)
+  }  
+
+ /* function onPageResize(){
       
     let winHeight = window.innerHeight;
     let headerHeight = $(".header.bg-gray").height();
@@ -842,7 +934,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     //console.log(`${sectionHeight}px`);
     //let vid_y = $("#subscribers-list video").height();
     //let vid_x = $("#subscribers-list video").width();
-  }
+  }*/
 
   /*function onPageResize(){
       

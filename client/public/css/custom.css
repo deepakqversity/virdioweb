@@ -10,6 +10,8 @@
 ----------------------------------*/
 
 
+
+
 /* 1. Fonts */
 @font-face {
 	font-family: "Avenir-Black";
@@ -227,6 +229,14 @@ h3.main-heading span{
 	display:-ms-grid;
 	grid-template-columns: auto auto auto auto;
 }
+@media (max-width:991px){
+.display-grid-auto-2 {
+    display: grid;
+    display: -ms-grid;
+    grid-template-columns: auto auto;
+}
+}
+
 @media (max-width: 1024px){
 	.logo img{
 		margin-left:10px;
@@ -733,15 +743,21 @@ display:none;
         width: 98%;
     margin: auto;
     right: 0;
-	    display: grid;
-    grid-template-columns: 380px 1fr;
-    grid-column-gap: 8px;
+	    display: flex;
+    
 	
+}
+.host-section{
+	margin-right:8px;
+}
+.test-script{
+	flex:1;
 }
 .host-section video{
     width: 100%;
     border-radius: 10px;
 }
+
 .host-header>img{
     width: 20px;
     margin: 0 12px;
@@ -835,6 +851,7 @@ display:none;
 	position: absolute;
     right: 0;
     z-index: 6;
+	top:9px;
 }
 
 @media (max-width:480px){

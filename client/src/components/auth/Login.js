@@ -94,18 +94,16 @@ return (
             
             <div className = "form-group">
               <div className = "col-sm-12">
-                <div class = "form-check-inline radio">
+                <div className="form-check-inline radio">
                   <label>
                       <input type = "radio" name = "type" id = "host" onChange={this.handleChange} value = '1' checked /> Host
                   </label>
                 </div>
-                <div class="form-check-inline radio">
+                <div className="form-check-inline radio">
                   <label>
                       <input type = "radio" name = "type" id = "client" onChange={this.handleChange} value = '2'  checked={this.state.type === "2"}  /> Client
                   </label>
               </div>
-
-
             
             </div>
             </div>

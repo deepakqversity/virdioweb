@@ -67,55 +67,46 @@ render() {
     const { errors } = this.state;
 return (
       <div className="container">
-        <div style={{ marginTop: "4rem" }} className="row">
-          <div className="col-md-4 text-light mx-auto">
-            
-            <div className="col-12">
-              <h4>
-                <b>Login</b>
-              </h4>
+        <div className="row">
+          <div className="login-bg">
+            <div className="login-box">
+              <div className="col-md-6 text-light mx-auto">
               
-            </div>
-            <form className = "form-horizontal" role = "form"  noValidate onSubmit={this.onSubmit}>
-            
-            <div className = "form-group">
-                <span className="text-danger col-md-12">{errors.email}{errors.emailincorrect}{errors.message}</span>
-                <div className = "col-sm-10">
-                  <input type="email"  id="email" onChange={this.onChange} value={this.state.email}  error={errors.email}  className={classnames("", { invalid: errors.email || errors.emailincorrect })} className = "form-control"  placeholder = "Email" />
-                </div>
-            </div>
-
-            <div className = "form-group">
-                <span className="text-danger col-md-12">{errors.password}{errors.passwordincorrect}</span>
-                <div className = "col-sm-10">
-                  <input type="password"  id="password" onChange={this.onChange} value={this.state.password} error={errors.password} className={classnames("", { invalid: errors.password || errors.passwordincorrect })} className = "form-control"  placeholder = "Password" />
-                </div>
-            </div>
-            
-            <div className = "form-group">
-              <div className = "col-sm-12">
-                <div className="form-check-inline radio">
-                  <label>
-                      <input type = "radio" name = "type" id = "host" onChange={this.handleChange} value = '1' checked /> Host
-                  </label>
-                </div>
-                <div className="form-check-inline radio">
-                  <label>
-                      <input type = "radio" name = "type" id = "client" onChange={this.handleChange} value = '2'  checked={this.state.type === "2"}  /> Client
-                  </label>
+              <div className="col-12">
+                <img src="/images/login-logo.png" className="login-logo" />
+                <p className="login-tagline">Login and Join a Virtual Studio</p>
               </div>
-            
-            </div>
-            </div>
-   
-            <div className = "form-group">
-                <div className = "col-sm-offset-2 col-sm-10">
-                  <button type = "submit" className="btn btn-large btn-primary waves-effect waves-light hoverable blue accent-3">Login</button>
+              <form className = "form-horizontal" role = "form"  noValidate onSubmit={this.onSubmit}>
+                <div className="login-inner">
+                <div className = "form-group">
+                    <span className="text-danger col-md-12">{errors.email}{errors.emailincorrect}{errors.message}</span>
+                    <label>Enter your email id</label>
+                    <input type="email"  id="email" onChange={this.onChange} value={this.state.email}  error={errors.email}  className={classnames("", { invalid: errors.email || errors.emailincorrect })} className = "form-control"  />
+                  <img src="/images/login-user.png" className="user-login" />
                 </div>
+
+                <div className = "form-group">
+                    <span className="text-danger col-md-12">{errors.password}{errors.passwordincorrect}</span>
+                    <label>Password</label>
+                    <input type="password"  id="password" onChange={this.onChange} value={this.state.password} error={errors.password} className={classnames("", { invalid: errors.password || errors.passwordincorrect })} className = "form-control"  />
+                    <img src="/images/login-user.png" className="user-login" />
+                </div>
+      
+                <div className = "form-group">
+                    <div className = "d-flex justify-content-between align-items-center">
+                      <button type = "submit" className="btn-cancel btn btn-large btn-outline-secondary waves-effect waves-light hoverable blue accent-3 rounded p-3 px-4">Cancel</button>
+                      <button type = "submit" className="btn-login btn btn-large btn-primary waves-effect waves-light hoverable blue accent-3 p-3 px-4 rounded">Log in</button>
+                      <a href="#" className="forgot-password">Forgot password?</a>
+                    </div>
+                </div>
+              </div>
+              
+              
+            </form>      
             </div>
-            
-          </form>      
+            </div>
           </div>
+          
         </div>
       </div>
     );

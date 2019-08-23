@@ -1,4 +1,3 @@
-
 if(!AgoraRTC.checkSystemRequirements()) {
     alert("Your browser does not support WebRTC!");
   }
@@ -59,7 +58,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
    
     console.log('-****', localStorage.getItem("channel"), storeData.userType);
 
-    var channel_key = "006748f9639fa864651bef8419d5870ec50IADkxvcsOQU6KTqFkiyGLtyqEEWvPKhHAtQIz4vbwg/SijvCKVoAAAAAEAAyNWuCv0heXQEAAQC/SF5d";
+    var channel_key = "006748f9639fa864651bef8419d5870ec50IADF467lRQfajZBV5gg3gcMeajtaggNGMxABZqtcTnU93TvCKVoAAAAAEACXu9S6S0thXQEAAQBLS2Fd";
     
     console.log("Init AgoraRTC client with App ID: " + appId);
     
@@ -85,7 +84,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
           var channelName = localStorage.getItem("channel");
           // create and join channel
-          client.join(channel_key, channelName, storeData.id.toString(), function(uid) {
+          client.join(channel_key, channelName, storeData.id, function(uid) {
 
             console.log("User " + uid + " join channel successfully");
 
@@ -99,13 +98,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
               localStream.setVideoProfile('720p_3');
             }
 
-            /*localStream.setVideoEncoderConfiguration({
+            localStream.setVideoEncoderConfiguration({
                 // Video resolution
                 resolution: {
-                    width: 640,
-                    height: 380
+                    width: 1280,
+                    height: 720
                 }
-            });*/
+            });
 
             // The user has granted access to the camera and mic.
             localStream.on("accessAllowed", function() {
@@ -802,7 +801,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     let len_subs = $('#subscribers-list').find('video').length;
     console.log('demo== sub_list_y, sub_list_x, len_subs = ', sub_list_y, sub_list_x, len_subs)
     
-    if(sub_list_x <= 800){
+    if(sub_list_x <= 992){
       if(len_subs>2) {
         $("#subscribers-list")
         .addClass("display-grid-auto-2");
@@ -816,7 +815,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     setTimeout(function(){
 
       let newHt = sub_list_y;
-      if(sub_list_x <= 800){
+      if(sub_list_x <= 992){
         if(len_subs > 2) {
           
           let rem = len_subs % 2;
@@ -835,7 +834,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       let newWt = newHt * 1.778;
       console.log('demo== newHt, newWt ***', newHt, newWt)
       
-      if(sub_list_x <= 800){
+      if(sub_list_x <= 992){
 
         if(len_subs >= 2 ){
 

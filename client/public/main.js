@@ -232,7 +232,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
           }
         }, 10);
 
-
       } else {
       // for attendy user
         console.log('###################', currentSession.id, stream.getId());
@@ -796,7 +795,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
     let headerHeight = $(".header.bg-gray").height();
     let hostHeight = $(".host-script-section").height();
     let sectionHeights = winHeight - (hostHeight + headerHeight);
-    // console.log('demo== winHeight, headerHeight, hostHeight, sectionHeights', winHeight, headerHeight, hostHeight, sectionHeights);
     // console.log('---------', parseInt(sectionHeights) - 58)
     // $(".attendees").height(`${parseInt(sectionHeights) - 58 }px`);  // set new height for attendies
     $("#subscribers-list").height(`${sectionHeights - 111}px`)
@@ -804,82 +802,46 @@ if(!AgoraRTC.checkSystemRequirements()) {
     let sub_list_y = $("#subscribers-list").height(); 
     let sub_list_x = $("#subscribers-list").width(); 
     let len_subs = $('#subscribers-list').find('video').length;
-    // console.log('demo== sub_list_y, sub_list_x, len_subs = ', sub_list_y, sub_list_x, len_subs)
+    console.log('demo== sub_list_y, sub_list_x, len_subs = ', sub_list_y, sub_list_x, len_subs)
     
-    if(sub_list_x <= 800){
-      if(len_subs>2) {
-        $("#subscribers-list")
-        .addClass("display-grid-auto-2");
-      }
-    } else {
-      if(len_subs>4) {
-        $("#subscribers-list")
-        .addClass("display-grid-auto-4");
-      }
+    if(len_subs>4) {
+      $("#subscribers-list")
+      .addClass("display-grid-auto-4");
     }
     setTimeout(function(){
 
       let newHt = sub_list_y;
-      if(sub_list_x <= 800){
-        if(len_subs > 2) {
-          
-          let rem = len_subs % 2;
-
-          // get num of rows of vdos
-          let numVdoRw = parseInt(len_subs / 2) + ( rem == 0 ? 0 : 1 );
-
-          newHt = sub_list_y / numVdoRw;
-        }
-      }
-      else{
-        if(len_subs > 4) {
-          newHt = sub_list_y / 2;
-        }
+      if(len_subs > 4) {
+        newHt = sub_list_y / 2;
+        
       }
       let newWt = newHt * 1.778;
-      // console.log('demo== newHt, newWt ***', newHt, newWt)
+      console.log('demo== newHt, newWt ***', newHt, newWt)
       
-      if(sub_list_x <= 800){
+      if(len_subs >= 2 ){
+        if(len_subs>4)
+          len_subs = 4
 
-        if(len_subs >= 2 ){
-
-          if(len_subs>2)
-            len_subs = 2;
-
-          if(newWt * len_subs > sub_list_x) {
-            let tmpWt = newWt * len_subs - sub_list_x;
-            tmpWt = tmpWt / len_subs;
-            newWt = newWt - tmpWt;
-            newHt = newWt / 1.778; 
-            //newHt = newHt - 10;
-            //newWt = newHt * 1.778;
-          }
+        if(newWt * len_subs > sub_list_x) {
+          let tmpWt = newWt * len_subs - sub_list_x;
+          tmpWt = tmpWt / len_subs;
+          newWt = newWt - tmpWt;
+          newHt = newWt / 1.778; 
+          //newHt = newHt - 10;
+          //newWt = newHt * 1.778;
         }
-
-      } else {
-
-        if(len_subs >= 2 ){
-
-          if(len_subs>4)
-            len_subs = 4
-
-          if(newWt * len_subs > sub_list_x) {
-            let tmpWt = newWt * len_subs - sub_list_x;
-            tmpWt = tmpWt / len_subs;
-            newWt = newWt - tmpWt;
-            newHt = newWt / 1.778; 
-            //newHt = newHt - 10;
-            //newWt = newHt * 1.778;
-          }
-        }
+        
       }
-      
-      // console.log('demo== newHt, newWt =', newHt, newWt)
       
       $(".newcss.one, .newcss.two, .newcss.three, .newcss.four, .newcss.five").height(`${newHt - 2 }px`);
       $(".newcss.one, .newcss.two, .newcss.three, .newcss.four, .newcss.five").width(`${newWt - 2 }px`);
       
      }, 100)
+     
+
+    //console.log(`${sectionHeight}px`);
+    //let vid_y = $("#subscribers-list video").height();
+    //let vid_x = $("#subscribers-list video").width();
   }
 
   function loadPopup(){
@@ -942,7 +904,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       else{
         $(".add-remove-round").removeClass("rounded").addClass("top-rounded");
         setTimeout(function(){
-                  
+                
          }, 500)
         
       }
@@ -950,8 +912,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
     $(".show-hide-script").click(function(){
       
-      
-
       $(this).text($(this).text() == '"Hide Script"' ? '"Show Script"' : '"Hide Script"');
       showHideScript();
       //$(".add-remove-flex").removeClass( ? '" "' : '"flex-grow-1"');
@@ -960,12 +920,11 @@ if(!AgoraRTC.checkSystemRequirements()) {
       
     });
 
-    $(".host-script-section").height("305px"); 
-    $(".test-script").addClass("w-866");
-    $(".host-section").css({"min-width": "524px", "max-width": "524px"});
+    $(".host-script-section").height("255px");
+    $(".host-section").css({"min-width": "380px", "max-width": "380px"});
       
     $(".show-hide-footer-panel").click(function(){
-      $(".host-script-section").height() < 305 ? $(".host-script-section").height("305px") : $(".host-script-section").height("auto");
+      $(".host-script-section").height() < 255 ? $(".host-script-section").height("255px") : $(".host-script-section").height("auto");
       
       
        
@@ -974,12 +933,12 @@ if(!AgoraRTC.checkSystemRequirements()) {
       setTimeout(function(){
        onPageResize();
       }, 500);
-      if($(".add-remove-height").hasClass("h-100")){
-        $(".add-remove-height").removeClass("h-100");
-        $(".add-remove-height").addClass("h53")
+      if($(".add-remove-height").hasClass("height-53")){
+        $(".add-remove-height").removeClass("height-53");
+        $(".add-remove-height").addClass("h53");
       }
       else{
-        $(".add-remove-height").addClass("h-100");
+        $(".add-remove-height").addClass("height-53");
         $(".add-remove-height").removeClass("h53");
       }
       $(this).text($(this).text() == '"Show Attendees"' ? '"Hide Attendees"' : '"Show Attendees"');

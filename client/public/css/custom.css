@@ -229,6 +229,7 @@ h3.main-heading span{
 	display:-ms-grid;
 	grid-template-columns: auto auto auto auto;
 }
+
 @media (max-width:991px){
 .display-grid-auto-2 {
     display: grid;
@@ -743,8 +744,9 @@ display:none;
         width: 98%;
     margin: auto;
     right: 0;
-	    display: flex;
-    
+	    display: grid;
+    grid-template-columns: 380px 1fr;
+    grid-column-gap: 8px;
 	
 }
 .host-section{

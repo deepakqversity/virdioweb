@@ -748,16 +748,19 @@ if(!AgoraRTC.checkSystemRequirements()) {
   }
 
    function continueJoin(){
-
+console.log('111')
     let mediaSetting = {};
     if($('#set-default').prop('checked')){
+console.log('222')
 
       mediaSetting['camera'] = $('input[name="video-type"]').length > 0 ? $('input[name="video-type"]:checked').val():null;
       mediaSetting['microphone'] = $('input[name="audio-type"]').length > 0 ? $('input[name="audio-type"]:checked').val():null;
       localStorage.setItem("media-setting", JSON.stringify(mediaSetting));
     } else {
+console.log('333')
       localStorage.removeItem("media-setting");
     }
+console.log('4')
     $('#media-config').modal('hide');
     stream1.close();
     stream2.close();
@@ -790,24 +793,19 @@ if(!AgoraRTC.checkSystemRequirements()) {
       document.msExitFullscreen();
   }
 
-  let agoraLocal = $("#agora_local").find("video").width();
-    $("#agora_local video").height(`${agoraLocal / 1.778 }px`);
   function onPageResize(){
       
     let winHeight = window.innerHeight;
     let headerHeight = $(".header.bg-gray").height();
     let hostHeight = $(".host-script-section").height();
     let sectionHeights = winHeight - (hostHeight + headerHeight);
-    // console.log('---------', parseInt(sectionHeights) - 58)
-    // $(".attendees").height(`${parseInt(sectionHeights) - 58 }px`);  // set new height for attendies
+
     $("#subscribers-list").height(`${sectionHeights - 111}px`)
     
     let sub_list_y = $("#subscribers-list").height(); 
     let sub_list_x = $("#subscribers-list").width(); 
     let len_subs = $('#subscribers-list').find('video').length;
-    console.log('demo== sub_list_y, sub_list_x, len_subs = ', sub_list_y, sub_list_x, len_subs)
-
-    
+    // console.log('demo== sub_list_y, sub_list_x, len_subs = ', sub_list_y, sub_list_x, len_subs)
 
     if(sub_list_x <= 992){
       if(len_subs>2) {
@@ -840,7 +838,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         }
       }
       let newWt = newHt * 1.778;
-      console.log('demo== newHt, newWt ***', newHt, newWt)
+      // console.log('demo== newHt, newWt ***', newHt, newWt)
       
       if(sub_list_x <= 992){
 
@@ -882,22 +880,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
       
      }, 100)
   }
-  var countdownNumberEl = document.getElementById('countdown-number');
-  var countdownNumberEl2 = document.getElementById('countdown-number2');
-  var countdown = 30;
-  
-  countdownNumberEl.textContent = countdown;
-  countdownNumberEl2.textContent = countdown;
-  
-  setInterval(function() {
-    countdown = --countdown <= 0 ? 30 : countdown;
-  
-    countdownNumberEl.textContent = `${countdown} \
-    SEC`;
-  }, 1000);
-
-  
-
   
 
   function loadPopup(){
@@ -923,8 +905,49 @@ if(!AgoraRTC.checkSystemRequirements()) {
     $(".test-script").addClass("w-866");
     $(".host-section").css({"min-width": "524px", "max-width": "524px"});
   }
+
+  function showHideScript(){
+      if($(".add-remove-round").hasClass("top-rounded")){
+               
+        setTimeout(function(){
+          $(".add-remove-round").addClass("rounded").removeClass("top-rounded");
+        }, 400);
+      }
+      else{
+        $(".add-remove-round").removeClass("rounded").addClass("top-rounded");
+        setTimeout(function(){
+                
+         }, 500)
+        
+      }
+    }
+
+  function removeSession(){
+    localStorage.setItem("currentSession", "");
+    localStorage.setItem("sessionId", "");
+    localStorage.setItem("load-page", "");
+  }
  
   $(document).ready(function(){
+
+    // var countdownNumberEl = document.getElementById('countdown-number');
+    // var countdownNumberEl2 = document.getElementById('countdown-number2');
+    // var countdown = 30;
+    
+    // countdownNumberEl.textContent = countdown;
+    // countdownNumberEl2.textContent = countdown;
+    
+    // setInterval(function() {
+    //   countdown = --countdown <= 0 ? 30 : countdown;
+    
+    //   countdownNumberEl.textContent = `${countdown} \
+    //   SEC`;
+    // }, 1000);
+
+
+    let agoraLocal = $("#agora_local").find("video").width();
+    $("#agora_local video").height(`${agoraLocal / 1.778 }px`);
+
     $("body, div").bind('mousewheel', function() {
       return false
     });
@@ -947,24 +970,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
     $(document).on('click', ".eject-popup button", function(){
       $(this).closest(".video-holder").removeClass("popup-added");
     });
-
-
-
-    function showHideScript(){
-      if($(".add-remove-round").hasClass("top-rounded")){
-               
-        setTimeout(function(){
-          $(".add-remove-round").addClass("rounded").removeClass("top-rounded");
-        }, 400);
-      }
-      else{
-        $(".add-remove-round").removeClass("rounded").addClass("top-rounded");
-        setTimeout(function(){
-                
-         }, 500)
-        
-      }
-    }
 
     $(".show-hide-script").click(function(){
       
@@ -1152,8 +1157,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
       $('#logout_button').click(function(){
         leave();
         localStream.stop();
-        // localStorage.removeItem("jwtToken");
-        window.location.href  = '/home';
+        removeSession();
+        location.href  = '/home';
       });
 
       $( '#appearence_button' ).bind( "click", function(event) {

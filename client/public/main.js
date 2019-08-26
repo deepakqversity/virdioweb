@@ -789,6 +789,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   let agoraLocal = $("#agora_local").find("video").width();
     $("#agora_local video").height(`${agoraLocal / 1.778 }px`);
+function attendeeScreenHeight(){
+  let attendeeHeight = $(".attend-mid-section").height();
+}
+
   function onPageResize(){
       
     let winHeight = window.innerHeight;
@@ -882,19 +886,19 @@ if(!AgoraRTC.checkSystemRequirements()) {
       
      }, 100)
   }
-  var countdownNumberEl = document.getElementById('countdown-number');
-  var countdownNumberEl2 = document.getElementById('countdown-number2');
-  var countdown = 30;
+  // var countdownNumberEl = document.getElementById('countdown-number');
+  // var countdownNumberEl2 = document.getElementById('countdown-number2');
+  // var countdown = 30;
   
-  countdownNumberEl.textContent = countdown;
-  countdownNumberEl2.textContent = countdown;
+  // countdownNumberEl.textContent = countdown;
+  // countdownNumberEl2.textContent = countdown;
   
-  setInterval(function() {
-    countdown = --countdown <= 0 ? 30 : countdown;
+  // setInterval(function() {
+  //   countdown = --countdown <= 0 ? 30 : countdown;
   
-    countdownNumberEl.textContent = `${countdown} \
-    SEC`;
-  }, 1000);
+  //   countdownNumberEl.textContent = `${countdown} \
+  //   SEC`;
+  // }, 1000);
 
   
 
@@ -970,6 +974,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   }
  
   $(document).ready(function(){
+    
     $("body, div").bind('mousewheel', function() {
       return false
     });

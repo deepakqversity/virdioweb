@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 23, 2019 at 08:29 PM
+-- Generation Time: Aug 26, 2019 at 11:19 AM
 -- Server version: 5.7.27-0ubuntu0.18.04.1
 -- PHP Version: 7.2.19-0ubuntu0.18.04.2
 
@@ -29,8 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `agora_config` (
   `id` int(11) NOT NULL,
   `appId` varchar(255) DEFAULT NULL,
-  `channel` varchar(255) DEFAULT NULL,
-  `token` text,
+  `appCertificate` varchar(255) NOT NULL,
   `status` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -38,8 +37,8 @@ CREATE TABLE `agora_config` (
 -- Dumping data for table `agora_config`
 --
 
-INSERT INTO `agora_config` (`id`, `appId`, `channel`, `token`, `status`) VALUES
-(1, '232f270a5aeb4e0097d8b5ceb8c24ab3', '', NULL, 1);
+INSERT INTO `agora_config` (`id`, `appId`, `appCertificate`, `status`) VALUES
+(1, 'aec6fd9ab0924971a5b670e522f47c87', 'c0fbd3f61c274aeb9b78c6378780361d', 1);
 
 -- --------------------------------------------------------
 
@@ -91,7 +90,7 @@ INSERT INTO `session_users` (`id`, `sessionId`, `userId`, `type`, `sessionType`,
 (4, 1, 4, 2, NULL, NULL, 1),
 (5, 1, 5, 2, NULL, NULL, 1),
 (6, 1, 6, 2, NULL, NULL, 1),
-(7, 1, 7, 2, NULL, NULL, 1),
+(7, 1, 7, 2, NULL, 7, 1),
 (8, 1, 8, 2, NULL, NULL, 1),
 (9, 1, 9, 2, NULL, NULL, 1),
 (10, 1, 10, 2, NULL, NULL, 1),
@@ -119,9 +118,10 @@ CREATE TABLE `token` (
 --
 
 INSERT INTO `token` (`id`, `userId`, `token`) VALUES
-(1, 1, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTY2NTcyMjU3LCJleHAiOjE1OTgxMjkxODN9.k-cz-Z9fUaPjbILixkAwWdM6twQBu4ikYepPEmAOHcY'),
+(1, 1, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTY2Nzk1MzU1LCJleHAiOjE1OTgzNTIyODF9.scFwxXpXdhJ9BS6JZEGTQQvd5J7HnwUZvEiuEACVuH4'),
 (6, 2, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTY2NTQ2MTUyLCJleHAiOjE1OTgxMDMwNzh9.plbTqpFvEw3W0601Md2IyhgigICXGVxjSKz2QTFwPMY'),
-(24, 12, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImlhdCI6MTU2NjU3MjI4MywiZXhwIjoxNTk4MTI5MjA5fQ.UUbh8nLGYHCvNIeaGgIVPAFeG4IOEmJ5SwY-wtzUUfk');
+(24, 12, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImlhdCI6MTU2NjU3MjI4MywiZXhwIjoxNTk4MTI5MjA5fQ.UUbh8nLGYHCvNIeaGgIVPAFeG4IOEmJ5SwY-wtzUUfk'),
+(26, 7, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNTY2Nzk3MDg0LCJleHAiOjE1OTgzNTQwMTB9._LVj15c5HR-GLMHbDcAh3664T36KH-QeGzkNvjFMeKY');
 
 -- --------------------------------------------------------
 
@@ -215,7 +215,7 @@ ALTER TABLE `session_users`
 -- AUTO_INCREMENT for table `token`
 --
 ALTER TABLE `token`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `users`
 --

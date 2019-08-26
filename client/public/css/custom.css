@@ -6,8 +6,11 @@
 	  5. Host Section
 	  6. Item Description Section
 	  7. Testing Script section
-		
+	  8. Fitness Script Section
+	  9. Login Screen
 ----------------------------------*/
+
+
 
 
 /* 1. Fonts */
@@ -158,6 +161,9 @@ a.bg-primary:hover, a.bg-primary:focus, button.bg-primary:hover, button.bg-prima
 .bottom-rounded {
     border-radius:0 0 10px 10px !important;
 }
+.fitness-script .script-info .add-remove-round.rounded .carousel-control-next{
+	    right: 190px;
+}
 .one-gutters {
     margin-right: 0;
     margin-left: 0;
@@ -227,7 +233,28 @@ h3.main-heading span{
 	display:-ms-grid;
 	grid-template-columns: auto auto auto auto;
 }
-@media (max-width:768px){
+
+@media (max-width:991px){
+.display-grid-auto-2 {
+    display: grid;
+    display: -ms-grid;
+    grid-template-columns: auto auto;
+}
+}
+
+@media (max-width: 1024px){
+	.logo img{
+		margin-left:10px;
+	}
+	h3.main-heading{
+		    font-size: 18px;
+	}
+	h3.main-heading span{
+		    font-size: 14px;
+	}
+	.time span{
+		    font-size: 12px !important;
+	}
 	.mx-xs-auto{
 		margin-left:auto !important;
 		margin-right:auto !important;
@@ -317,7 +344,9 @@ h3.main-heading span{
 
 
 /* 4. Attendees Section */
-
+#subscribers-list .newcss{
+	margin:1px;
+}
 .section.attendees{
 	margin-top: 105px !important;
 }
@@ -390,7 +419,7 @@ font-size: 18px;
     font-size: 16px;
 	    display: block;
 }
-.video-holder.popup-added .att-details .icon1{
+.video-holder.popup-added .att-details .icon-appearance{
     width: 35px;
     height: 35px;
     background-size: 20px;
@@ -401,7 +430,7 @@ font-size: 18px;
     position: relative;
     bottom: 0px;
     left: inherit;
-	    right: 30px;
+	right: 30px;
     width: 200px;
     background: rgba(0,0,0,0.5);
     border-radius: 10px;
@@ -475,8 +504,8 @@ font-size: 18px;
     right: 10px;
     bottom: 30px;
 }
-.video-holder .att-details .icon1, 
-.attendee-list .icon1{
+.video-holder .att-details .icon-appearance, 
+.attendee-list .icon-appearance{
     background: #fff url(../images/icon1.png);
     width: 22px;
     height: 22px;
@@ -488,8 +517,8 @@ font-size: 18px;
     float: left;
 	cursor:pointer;
 }
-.video-holder .att-details .icon2, 
-.attendee-list .icon2{
+.video-holder .att-details .icon-aroma, 
+.attendee-list .icon-aroma{
 	background: #fff url(../images/icon2.png);
     width: 22px;
     height: 22px;
@@ -499,7 +528,35 @@ font-size: 18px;
     border-radius: 20px;
     padding: 2px;
     float: left;
-	margin-left: 3px;
+	margin-left: 5px;
+	cursor:pointer;
+}
+.video-holder .att-details .icon-palate, 
+.attendee-list .icon-palate{
+	background: #fff url(../images/icon3.png);
+    width: 22px;
+    height: 22px;
+    background-size: 13px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 20px;
+    padding: 2px;
+    float: left;
+	margin-left: 5px;
+	cursor:pointer;
+}
+.video-holder .att-details .icon-score, 
+.attendee-list .icon-score{
+	background: #fff url(../images/icon4.png);
+    width: 22px;
+    height: 22px;
+    background-size: 13px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 20px;
+    padding: 2px;
+    float: left;
+	margin-left: 5px;
 	cursor:pointer;
 }
 
@@ -686,17 +743,29 @@ display:none;
 
 /* 5. Host Section */
 .host-script-section{
-	bottom: 0;
+	bottom: 10px;
     left: 0;
         width: 98%;
     margin: auto;
     right: 0;
+	    display: flex;
+    
 	
+}
+.host-local{
+	
+}
+.host-section{
+	margin-right:8px;
+}
+.test-script{
+	flex:1;
 }
 .host-section video{
     width: 100%;
     border-radius: 10px;
 }
+
 .host-header>img{
     width: 20px;
     margin: 0 12px;
@@ -755,6 +824,29 @@ display:none;
     font-family: Avenir-Book;
 	margin-bottom: 0;
 }
+.max-h200{
+	max-height:200px;
+	overflow-y:scroll;
+	overflow-x:hidden;
+}
+.max-h200::-webkit-scrollbar {
+  width: 6px;
+}
+
+.max-h200::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+.max-h200::-webkit-scrollbar-thumb {
+  background: #9b51e0; 
+}
+@media (min-width:1110px){
+.max-h200::-webkit-scrollbar-track, 
+.max-h200::-webkit-scrollbar, .max-h200::-webkit-scrollbar-thumb {
+	display:none !important;
+	width: 0 !important
+}
+}
 .sub-heading{
     font-family: Avenir-Heavy;
     float: left;
@@ -767,6 +859,7 @@ display:none;
 	position: absolute;
     right: 0;
     z-index: 6;
+	top:9px;
 }
 
 @media (max-width:480px){
@@ -789,9 +882,232 @@ display:none;
     z-index: 5;
     right: 3px;
 }
+.script-info .carousel-inner	{
+	height: 100%;
+}
+
+/*------ 8. Fitness Script Section ------ */
+
+
+.count-box #countdown {
+  position: relative;
+  margin: auto;
+  margin-top: 10px;
+    margin-bottom: 20px;
+      height: 60px;
+    width: 60px;
+  text-align: center;
+      border-radius: 50%;
+    box-shadow: inset 0 0px 0px 4px #484848;
+}
+
+.count-box #countdown-number, .count-box #countdown-number2 {
+  color: white;
+  display: inline-block;
+  line-height: 60px;
+      font-size: 10px;
+}
+
+.count-box svg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 60px;
+  width: 60px;
+  transform: rotateY(0deg) rotateZ(-90deg);
+}
+
+.count-box svg circle {
+  stroke-dasharray: 160px;
+  stroke-dashoffset: 0px;
+  stroke-linecap: round;
+  stroke-width: 6px;
+  stroke: #9b51e0;
+  fill: none;
+  animation: countdown 30s linear infinite forwards;
+}
+.focus-active{
+	    background: rgba(110,67,150,0.3);
+    border: 1.5px solid #9B51E0;
+    border-radius: 12px;
+    padding: 10px;
+	    position: relative;
+}
+.focus-active .target-info span{
+	color:#fff;
+}
+.focus-active.count-box h4{
+	color:#fff;
+}
+.count-box .screen-video{
+	    position: absolute;
+    right: 15px;
+    width: 17px;
+}
+.fitness-script .script-info .carousel-control-next{
+	width: 78px;
+    height: 35px;
+    position: absolute !important;
+    right: 200px;
+    bottom: 6px;
+    top: auto;
+}
+.now-script{
+	    color: #fff;
+    text-align: center;
+    margin: 0;
+    font-size: 14px;
+    margin-top: 6px;
+}
+
+@keyframes countdown {
+  from {
+    stroke-dashoffset: 0px;
+  }
+  to {
+    stroke-dashoffset: 160px;
+  }
+}
+.count-box h4{
+	    font-family: Avenir-Book;
+    color: rgba(255,255,255,0.5);
+    font-weight: normal;
+    font-size: 18px;
+	    text-align: center;
+}
+.target-info{
+	width:100%;
+	float:left;
+}
+.target-info span{
+	    font-family: Avenir-Heavy;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    font-size: 10px;
+    text-align: center;
+    display: block;
+    width: 100%;
+    float: left;
+}
+.target-info span:nth-child(2){
+	font-size: 14px;
+	    margin-top: 5px;
+}
 
 
 
+/*--------9. Login Screen---------*/
+.login-bg{
+	background: url(/images/login-bg.png);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+    top: 0;
+    left: 0;
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.login-logo{
+	margin: 10px auto 25px;
+    display: table;
+	max-width: 200px;
+}
+.login-tagline{
+	font-family: Avenir-Book;
+    font-size: 24px;
+    text-align: center;
+	margin-bottom: 20px;
+}
+.login-box .form-horizontal{
+    background: rgba(0,0,0,0.53);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    margin: auto;
+        max-width: 400px;
+    width: 100%;
+    border-radius: 12px;
+}
+.login-box .form-horizontal input:focus{
+	box-shadow: none;
+	background: rgba(176,2,237,0.11);
+}
+.login-box .form-group input{
+    background: rgba(176,2,237,0.11);
+    border-bottom: 1.4px solid #B002ED;
+    border-left: 1.4px solid #B002ED;
+    border-right: 1.4px solid #B002ED;
+    border-top: 0px solid transparent;
+    height: 60px;
+	color: #B002ED;
+    font-size: 16px;
+    border-radius: 0px 10px 10px 10px;
+}
+.login-box .login-inner{
+    width: 100%;
+    margin: auto;
+    position: relative;
+    top: 0;
+    height: 100%;
+    padding: 15px 25px;
+	    border-radius: 12px;
+    box-shadow: 0px 13px 18px 10px rgba(0,0,0,0.3);
+}
+.login-box .login-inner .form-group{
+	position:relative;
+}
+.login-box .login-inner .form-group label{
+    position: absolute;
+    left: 12px;
+    top: 10px;
+	    margin: 0;
+}
+.login-box .login-inner .form-group .form-check-inline label{
+	position: relative;
+    top: 0;
+    left: 0;
+	cursor:pointer;
+}
+.login-box .form-group input[type="radio"], 
+.login-box .form-group input[type="checkbox"] {
+    box-sizing: border-box;
+    padding: 0;
+	cursor:pointer;
+    background: transparent !important;
+    border: none !important;
+    height: auto !important;
+}
+img.user-login{
+    position: absolute;
+    right: 15px;
+    top: 41px;
+    width: 18px;
+}
+.btn-cancel{
+	border: 1.4px solid #B002ED;
+    color: #B002ED;
+    font-size: 16px;
+	    font-family: Avenir-Medium;
+}
+.btn-cancel:hover{
+	background: rgba(189,0,255, 0.53) !important;
+    border-color: rgba(189,0,255, 0.53) !important;
+}
+.btn-login{
+	background: rgba(189,0,255, 0.53) !important;
+    border-color: rgba(189,0,255, 0.53) !important;
+	font-size: 16px;
+	font-family: Avenir-Medium;
+}
+.login-box .forgot-password{
+	color: #B002ED;
+	text-decoration:none;
+    font-size: 14px;
+    font-family: Avenir-Book;
+}
 
 
 

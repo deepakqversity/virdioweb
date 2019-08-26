@@ -1,7 +1,7 @@
 const auth = require('../../auth/Auth');
 const isEmpty = require("is-empty");
 const underscore = require("underscore");
-const sessionModel = require('../../models/Session');
+const sessionInfoModel = require('../../models/SessionInfo');
 const sessionUserModel = require('../../models/SessionUser');
 const clientToken = require( process.cwd() + '/util/ClientToken');
 
@@ -9,7 +9,7 @@ class SessionCtrl {
 
 	async getSessions(req, res) {
 	    try {
-			let sessionObj = await sessionModel.findAllSessionById(req.currentUser.id);
+			let sessionObj = await sessionInfoModel.findAllSessionById(req.currentUser.id);
 
 			res.status(200).send(sessionObj);
 				
@@ -20,13 +20,14 @@ class SessionCtrl {
 
 	async getSessionDetail(req, res) {
 	    try {
-			let sessionObj = await sessionModel.findSessionDetail(req.params.sessionId, req.currentUser.id);
+			let sessionObj = await sessionInfoModel.findSessionDetail(req.params.sessionId, req.currentUser.id);
 
 			// console.log('sessionObj =============== ',sessionObj);
 			
 			if(true !== underscore.isEmpty(sessionObj)){
-				let token = clientToken.createToken(sessionObj.appId, sessionObj.appCertificate, sessionObj.channel, sessionObj.userId);
-				sessionObj = underscore.extend(sessionObj, {token : token})
+				let token = clientToken.createToken(sessionObj.appId, sessionObj.appCertificate, sessionObj.channelId, sessionObj.userId);
+				sessionObj = underscore.extend(sessionObj, {token : token});
+				sessionObj = underscore.omit(sessionObj, 'appCertificate');
 			}
 
 			res.status(200).send(sessionObj);
@@ -38,7 +39,7 @@ class SessionCtrl {
 	
 	async getSessionUsers(req, res) {
 	    try {
-			let userObj = await sessionModel.findByUserId(req.currentUser.id);
+			let userObj = await sessionInfoModel.findByUserId(req.currentUser.id);
 			res.status(200).send(userObj);
 				
 	    } catch(exception) {

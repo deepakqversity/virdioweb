@@ -64,7 +64,7 @@ render() {
 
     const sessions = this.state.sessions;
     const optionItems = sessions.map((opt, i) =>
-              <option value={opt.id} key={i}>{opt.name} ({opt.type == 1 ? 'Host' : 'Guest'})</option>
+              <option value={opt.id} key={i}>{opt.channelName} ({opt.type == 1 ? 'Host' : 'Guest'})</option>
           );
 
     // console.log('$$$$',optionItems);

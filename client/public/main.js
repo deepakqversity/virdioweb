@@ -82,7 +82,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         } else {
           console.log("user role set success");
 
-          var channelName = currentSession.channel;
+          var channelName = currentSession.channelId;
 
           // create and join channel
          client.join(channel_key, channelName, storeData.id, function(uid) {

@@ -1,8 +1,11 @@
 const auth = require('../../auth/Auth');
 const bcrypt = require('bcrypt');
 const isEmpty = require("is-empty");
+const underscore = require("underscore");
 const userModel = require('../../models/User');
 const tokenModel = require('../../models/AuthToken');
+const sessionInfoModel = require('../../models/SessionInfo');
+const clientToken = require( process.cwd() + '/util/ClientToken');
 
 const saltRounds = 10;
 
@@ -68,6 +71,26 @@ class UserCtrl {
 			} else {
 				res.status(400).send({message:"user not found"})
 			}
+				
+	    } catch(exception) {
+			res.status(500).send(exception)
+	    }
+	}
+
+	async createClientToken(req, res) {
+		try {
+			console.log(req.body)
+			let sessionObj = await sessionInfoModel.findSessionDetail(req.body.sessionId, req.body.userId);
+
+			console.log('sessionObj =============== ',sessionObj);
+			
+			if(true !== underscore.isEmpty(sessionObj)){
+				let token = clientToken.createToken(sessionObj.appId, sessionObj.appCertificate, sessionObj.channelId, sessionObj.userId);
+				sessionObj = underscore.extend(sessionObj, {token : token})
+				sessionObj = underscore.omit(sessionObj, 'appCertificate');
+			}
+
+			res.status(200).send(sessionObj);
 				
 	    } catch(exception) {
 			res.status(500).send(exception)

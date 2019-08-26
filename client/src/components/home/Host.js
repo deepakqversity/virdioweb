@@ -23,6 +23,21 @@ class Host extends Component {
 
   componentDidMount(){
   // console.log(2);    //
+    if(localStorage.getItem('load-page') != 1){  
+        window.loadPopup();
+      localStorage.setItem("load-page", 1);
+    }
+
+    let sessionId = localStorage.getItem('sessionId');
+    let localstoragedata = JSON.parse(localStorage.getItem('jwtToken'));
+
+    fetch('/api/v1/session/'+sessionId, {headers : {'Authorization': localstoragedata.token}})
+    .then(response => { return response.json(); })
+    .then(data => {
+      localStorage.setItem('currentSession', JSON.stringify(data));
+        console.log('data=================', data);
+        
+    });
   }
   componentWillMount(){
     //console.log(1);

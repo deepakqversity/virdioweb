@@ -1,5 +1,5 @@
 const express = require('express');
-const auth = require(process.cwd() + '/library/Auth');
+const auth = require('../../auth/Auth');
 const UserCtrl = require('./UserCtrl');
 const UserValidation = require('./UserValidation');
 const route = express.Router();

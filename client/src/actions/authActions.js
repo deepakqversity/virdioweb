@@ -2,6 +2,8 @@ import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 import $ from 'jquery';
+import React from 'react'
+import  { Redirect } from 'react-router-dom'
 //import AgoraRTC from "agora-rtc-sdk";
 // import React from 'react'
 // import { Redirect } from "react-router-dom"
@@ -87,14 +89,17 @@ export const joinConf = (channel) => dispatch => {
   var localstoragedata=JSON.parse(retrievedObject);
 
 
- // console.log("U are here");
-  //console.log(localStorage);
-  //return <Redirect to="/host" />;
+ console.log("U are here");
+  console.log(localStorage);
 
   if(localstoragedata.userType == 1){
-    window.location.href  = '/host'; // push user to dashboard when they login
+    // return <Redirect to="/host" />;
+    this.props.history.push("/host");
+    // window.location.href  = '/host'; // push user to dashboard when they login
    }else{
-    window.location.href  = '/guest';
+    // return <Redirect to="/guest" />;
+    this.props.history.push("/guest");
+    // window.location.href  = '/guest';
     //this.props.history.push("/dashboard");
    }
 };

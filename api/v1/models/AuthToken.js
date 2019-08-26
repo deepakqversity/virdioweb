@@ -1,40 +1,45 @@
-const schema = require('./DbSchema');
+const db = require(process.cwd() + '/library/Mysql')
 
 class AuthToken{
 
 	constructor(){
-		this.model = schema.Token;
+		this.table = 'token';
 	}
 
-	async get(){
-		let model = this.model;
-
-		try{
-			return await model.find();
-		} catch(exception) {
-	      return exception;
-	    }
-	}
-
-	async getUser(find){
-
-		let model = this.model;
-
-		try{
-			return await model.findOne(find);
-		} catch(exception) {
-	      return exception;
-	    }
-		
-	}
-
+	/**
+	 * Create user auth token 
+	 * @param  {int} userId
+	 * @param  {string} token 
+	 * @return {obj}
+	 */
 	async updateToken(userId, token){
-		let model = this.model;
 
-		try{
-			return await model.updateOne({userId:userId}, {userId:userId ,token:token}, {upsert:true});
-		} catch(exception) {
-	      return exception;
+	    let table = this.table;
+		try
+	    {
+			return await new Promise( (resolve, reject) => {
+				 db.query('INSERT IGNORE INTO ?? (token, userId) VALUES (?, ?)', [table, token, userId], function (error, results, fields) {
+					if (error) reject(error);
+
+					// console.log('*******************', results)
+					if(results.insertId == 0){
+
+						 db.query('UPDATE ?? SET token = ? WHERE userId = ?', [table, token, userId], function (error, results, fields) {
+						  if (error) reject(error);
+						  // console.log('================== 123 results ', results)
+						  // db.end();
+						  return resolve(results);
+						});
+					}
+
+				});
+
+			});
+		}
+	    catch(err)
+	    {
+	    	console.log('err = ',err)
+	       return err;
 	    }
 	}
 }

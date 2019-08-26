@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser, joinConf} from "../../actions/authActions";
+import $ from 'jquery';
 // import { joinConf } from "../../actions/authActions";
 class Home extends Component {
 
@@ -10,7 +11,7 @@ class Home extends Component {
 
     super(props);
     this.state = {
-            channels: [],
+            sessions: [],
         };
   }
 
@@ -21,54 +22,50 @@ class Home extends Component {
   };
   componentDidMount(){
 
-    let retrievedObject = localStorage.getItem('jwtToken');
-    let localstoragedata=JSON.parse(retrievedObject);
+    let localstoragedata=JSON.parse(localStorage.getItem('jwtToken'));
 
-    let initialChannels = [];
-    fetch('/api/v1/conference/channels', {headers : {'Authorization': localstoragedata.token}})
+    let initialSessions = [];
+    fetch('/api/v1/session', {headers : {'Authorization': localstoragedata.token}})
         .then(response => {
             return response.json();
         }).then(data => {
-        initialChannels = data.map((channel) => {
-            return channel
+        initialSessions = data.map((session) => {
+            return session
         });
-        console.log('****',initialChannels);
+        console.log('****',initialSessions);
         this.setState({
-            channels: initialChannels,
+            sessions: initialSessions,
         });
     });
-
-    // axios
-    // .get("/api/v1/conference/channels", {headers : {'Authorization': localstoragedata.token}} )
-    // .then(res => {
-    //     console.log(' channle ', res.data)
-    //     let data = res.data;
-    //     let teamsFromApi = data.map(team => { return {value: team._id, display: team.channel} })
-    //       this.setState({ teams: [{value: '', display: '(Select your favourite team)'}].concat(teamsFromApi) });
-
-
-    // }) // re-direct to login on successful register
-    // .catch(err =>
-    //   {
-        
-    //   }
-    // );
 
   }
 
   joinOnClick = e => {
-    let channel = document.getElementById('channel').value;
+    let sessionId = document.getElementById('sessionId').value;
     e.preventDefault();
-    console.log(this.props)
-    this.props.joinConf(channel);
+
+    // localStorage.setItem("channel", channel);
+    localStorage.setItem("sessionId", sessionId);
+
+    let localstoragedata = JSON.parse(localStorage.getItem('jwtToken'));
+
+    localStorage.setItem("load-page", 0);
+
+    if(localstoragedata.userType == 1){
+      // return <Redirect to="/host" />;
+      this.props.history.push("/host");
+     }else{
+      // return <Redirect to="/guest" />;
+      this.props.history.push("/guest");
+     }
   };
 render() {
     const  {user}  = this.props.auth;
 
-    const channels = this.state.channels;
-    const optionItems = channels.map((opt) =>
-                <option value={opt.channel}>{opt.channel}</option>
-            );
+    const sessions = this.state.sessions;
+    const optionItems = sessions.map((opt, i) =>
+              <option value={opt.id} key={i}>{opt.name} ({opt.type == 1 ? 'Host' : 'Guest'})</option>
+          );
 
     // console.log('$$$$',optionItems);
    
@@ -86,11 +83,11 @@ return (
         <h5 style={{ marginTop:"50px" }}>To join conference please select channel</h5>
         
         <div>
-          <select name="channel" id="channel" className="form-control" style={{ display:"inline-block" }} >
+          <select name="sessionId" id="sessionId" className="form-control" style={{ display:"inline-block" }} >
           {optionItems}
           </select>
         </div>
-        <div><button type="button" className="mx-auto d-table mt-4 btn btn-primary" id="join" onClick={this.joinOnClick}>Join</button></div>
+        <div><button type="button" className="mx-auto d-table mt-4 btn btn-primary" onClick={this.joinOnClick}>Join</button></div>
       
       </div>
       

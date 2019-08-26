@@ -234,6 +234,7 @@ h3.main-heading span{
 	display:-ms-grid;
 	grid-template-columns: auto auto auto auto;
 }
+
 @media (max-width:991px){
 .display-grid-auto-2 {
     display: grid;

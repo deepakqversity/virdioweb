@@ -6,10 +6,18 @@ import $ from 'jquery';
 import Config from "./Configuration";
 
 class Guest extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {getMail : ''}
+  }
+
   onLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();
+    
   };
+  
 
   joinOnClick = e => {
     e.preventDefault();
@@ -21,13 +29,42 @@ class Guest extends Component {
     $('#logout_button').trigger('click');
   }
 
-  onclickhandRaise(){
-    $('#handRaise_button').trigger('click');
+  getAppearence(){
+    //console.log(this.state.getMail);
+    var email=this.state.getMail;
+    console.log(email);
+    $("#appearence_button").val(email);
+    $('#appearence_button').trigger('click');
   }
 
-  componentDidMount(){
-  // console.log(2);    //
+  getAroma(){
+    //console.log(this.state.getMail);
+    var email=this.state.getMail;
+    console.log(email);
+    $("#aroma_button").val(email);
+    $('#aroma_button').trigger('click');
   }
+  getPalate(){
+    //console.log(this.state.getMail);
+    var email=this.state.getMail;
+    console.log(email);
+    $("#palate_button").val(email);
+    $('#palate_button').trigger('click');
+  }
+  getScore(){
+    //console.log(this.state.getMail);
+    var email=this.state.getMail;
+    console.log(email);
+    $("#score_button").val(email);
+    $('#score_button').trigger('click');
+  }
+  
+  componentDidMount(){
+    var userData = JSON.parse(localStorage.getItem("jwtToken"));
+    var  email=userData.email;
+    this.setState({getMail : email});
+  }
+
   componentWillMount(){
     //console.log(1);
     // window.test();
@@ -36,7 +73,10 @@ render() {
     const  {user}  = this.props.auth;
 
    // console.log(user);
-    console.log('------------------------------', user);
+
+   var userData = JSON.parse(localStorage.getItem("jwtToken"));
+  var  email=userData.email;
+    console.log('----------munmun--------------------', userData.email);
 
 return (
     <div className="container d-flex flex-column justify-content-between h-100 overlay position-relative">
@@ -53,13 +93,13 @@ return (
                               </a>
               <div className="col-lg-11 col-md-11 col-sm-12">
                 <div className="row justify-content-between align-items-center">
-                  <div className="col-lg-7 text-center text-md-left col-sm-12">
+                  <div className="col-lg-7 col-md-6 text-center text-md-left col-sm-12">
                     <div className="time py-xs-1">  <span>04/23/2019, at 12:00 PM</span>
                       <span>Time Remaining: 01:10:00</span>
                     </div>
                   </div>
                   <div id="hostmsg" style={{color:'green'}}></div>
-                  <div className="col-12 col-sm-12 col-md-3 d-flex justify-content-end">
+                  <div className="col-12 col-sm-12 col-md-6 col-lg-3 d-flex justify-content-end">
                   
                   <div className="default-btns mr-2">
                     <a href="javascript:;" className="btn btn-primary ml-2" id="mocrophone-off" alt="Microphone" title="Microphone Off"><img src="images/hand.png" /></a>
@@ -88,7 +128,8 @@ return (
       </div>
       
     </header>
-    <div className="row justify-content-between zindex-5 position-relative flex-grow-1">
+    
+    <div className="d-flex justify-content-between zindex-5 position-relative flex-grow-1 attend-mid-section">
     <div className="col-lg-3 col-md-4 col-sm-5 col-6 max-width-300">
       <div className="left-section">
         <h2 className="item-name py-3">1/4 Wines</h2>
@@ -113,7 +154,7 @@ return (
         <button type="button" data-toggle="modal" data-target="#show-details" className="btn btn-outline-secondary show-details-btn">"Show Details"</button>
       </div>
     </div>
-    <div className="col-lg-3 col-md-4 col-sm-5 col-6 max-width-300 float-right pl-0">
+    <div className="col-lg-3 col-md-4 col-sm-5 col-6 max-width-300 float-right pl-0 mt-3">
         <div className="right-sidebar">
           <div className="transparent-gray slide-right-left">
             
@@ -186,10 +227,11 @@ return (
     <footer className="footer position-relative zindex-5">
       
       <ul className="bottom-links flex-wrap list-group list-group-horizontal mx-auto d-md-flex justify-content-center py-xs-1">
-        <li className="list-group-item bg-transparent border-0"><a href="#">APPEARANCE</a></li>
-        <li className="list-group-item bg-transparent border-0"><a href="#">AROMA</a></li>
-        <li className="list-group-item bg-transparent border-0"><a href="#">PALATE</a></li>
-        <li className="list-group-item bg-transparent border-0"><a href="#">SCORE</a></li>
+
+        <li className="list-group-item bg-transparent border-0"><a href="#"  onClick={this.getAppearence.bind(this)}>APPEARANCE</a></li>
+        <li className="list-group-item bg-transparent border-0"><a href="#" onClick={this.getAroma.bind(this)}>AROMA</a></li>
+        <li className="list-group-item bg-transparent border-0"><a href="#" onClick={this.getPalate.bind(this)}>PALATE</a></li>
+        <li className="list-group-item bg-transparent border-0"><a href="#" onClick={this.getScore.bind(this)}>SCORE</a></li>
       </ul>
       
       <div className="self-video1 mt-3">

@@ -111,7 +111,7 @@ class Session{
 		try
 	    {
 	        return await new Promise((resolve, reject) => {
-            	db.query('SELECT s.*, s.userId as hostId, su.type, su.sessionType, su.userId, ac.appId FROM session_users su LEFT JOIN sessions s ON s.id = su.sessionId LEFT JOIN agora_config ac ON ac.id = s.configId WHERE s.status = 1 AND su.sessionId = ? AND su.userId = ?', [sessionId, userId], function (error, results, fields) {
+            	db.query('SELECT s.*, s.userId as hostId, su.type, su.sessionType, su.userId, ac.appId, ac.appCertificate FROM session_users su LEFT JOIN sessions s ON s.id = su.sessionId LEFT JOIN agora_config ac ON ac.id = s.configId WHERE s.status = 1 AND su.sessionId = ? AND su.userId = ?', [sessionId, userId], function (error, results, fields) {
 				  if (error) reject(error);
 				  // console.log('================== ************ results ', results)
 				  // db.end();

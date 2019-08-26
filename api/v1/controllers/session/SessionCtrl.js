@@ -3,6 +3,7 @@ const isEmpty = require("is-empty");
 const underscore = require("underscore");
 const sessionModel = require('../../models/Session');
 const sessionUserModel = require('../../models/SessionUser');
+const clientToken = require( process.cwd() + '/util/ClientToken');
 
 class SessionCtrl {
 
@@ -20,6 +21,13 @@ class SessionCtrl {
 	async getSessionDetail(req, res) {
 	    try {
 			let sessionObj = await sessionModel.findSessionDetail(req.params.sessionId, req.currentUser.id);
+
+			// console.log('sessionObj =============== ',sessionObj);
+			
+			if(true !== underscore.isEmpty(sessionObj)){
+				let token = clientToken.createToken(sessionObj.appId, sessionObj.appCertificate, sessionObj.channel, sessionObj.userId);
+				sessionObj = underscore.extend(sessionObj, {token : token})
+			}
 
 			res.status(200).send(sessionObj);
 				

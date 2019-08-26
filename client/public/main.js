@@ -63,7 +63,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
     var channel_key = currentSession.token != undefined ? currentSession.token : null;
      
-    console.log("Init AgoraRTC client with App ID: " + currentSession.appId);
+    console.log("Init AgoraRTC client with App ID and token: " + currentSession.appId, channel_key);
     
     // create client first
     client = AgoraRTC.createClient({mode: 'live'});

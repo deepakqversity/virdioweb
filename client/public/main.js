@@ -748,19 +748,16 @@ if(!AgoraRTC.checkSystemRequirements()) {
   }
 
    function continueJoin(){
-console.log('111')
+
     let mediaSetting = {};
     if($('#set-default').prop('checked')){
-console.log('222')
 
       mediaSetting['camera'] = $('input[name="video-type"]').length > 0 ? $('input[name="video-type"]:checked').val():null;
       mediaSetting['microphone'] = $('input[name="audio-type"]').length > 0 ? $('input[name="audio-type"]:checked').val():null;
       localStorage.setItem("media-setting", JSON.stringify(mediaSetting));
     } else {
-console.log('333')
       localStorage.removeItem("media-setting");
     }
-console.log('4')
     $('#media-config').modal('hide');
     stream1.close();
     stream2.close();
@@ -923,9 +920,9 @@ console.log('4')
     }
 
   function removeSession(){
-    localStorage.setItem("currentSession", "");
-    localStorage.setItem("sessionId", "");
-    localStorage.setItem("load-page", "");
+    localStorage.removeItem("currentSession");
+    localStorage.removeItem("sessionId");
+    localStorage.removeItem("load-page");
   }
  
   $(document).ready(function(){

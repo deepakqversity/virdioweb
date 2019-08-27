@@ -440,6 +440,16 @@ font-size: 18px;
     left: 2px;
 	cursor: pointer;
 }
+.microphone-icon {
+    background: url(../images/microphone-icon.png);
+    width: 52px;
+    background-size: cover;
+    height: 52px;
+    float: left;
+    top: 6px;
+    left: 2px;
+    cursor: pointer;
+}
 .video-holder .mute-icon{
     font-size: 16px;
     top: 10px;

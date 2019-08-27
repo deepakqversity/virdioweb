@@ -27,6 +27,21 @@ class Host extends Component {
 
   componentDidMount(){
   // console.log(2);    //
+    if(localStorage.getItem('load-page') != 1){  
+        window.loadPopup();
+      localStorage.setItem("load-page", 1);
+    }
+
+    let sessionId = localStorage.getItem('sessionId');
+    let localstoragedata = JSON.parse(localStorage.getItem('jwtToken'));
+
+    fetch('/api/v1/session/'+sessionId, {headers : {'Authorization': localstoragedata.token}})
+    .then(response => { return response.json(); })
+    .then(data => {
+      localStorage.setItem('currentSession', JSON.stringify(data));
+        console.log('data=================', data);
+        
+    });
   }
   componentWillMount(){
     //console.log(1);
@@ -64,8 +79,13 @@ return (
             <div id="guestmsg" style={{color:'green'}}></div>
             <div className="col-12 col-sm-3">
               <div className="col-12 justify-content-end d-flex align-items-center">
+<<<<<<< HEAD
                 <a className="btn btn-primary border-right pr-20" href="javascript:;" tabIndex="0" id="fullscreen">fullscreen</a>
                 <a className="btn btn-primary border-right pr-20" href="javascript:;"  onClick={this.sendMsgAll.bind(this)} tabIndex="1">details</a>
+=======
+                <a className="btn btn-primary border-right pr-20 mr-1" href="javascript:;" tabIndex="0" id="fullscreen">fullscreen</a>
+                <a className="btn btn-primary border-right pr-20" href="javascript:;" tabIndex="1">details</a>
+>>>>>>> 96533a8ed1e7fa1b5df1c7385b4612c6dcda35e0
                 <img src="images/voice-commands.png" className="mic-icon" />
               </div>
             </div>
@@ -79,17 +99,17 @@ return (
           <h4 className="title">Wine Testers (<span id="joined_users">0</span>/<span>44</span>)</h4>
         </div>
         <div className="col-6 col-md-4">
-          <button type="button" className="btn btn-outline-secondary float-right show-hide-footer-panel">"Show Attendees"</button>
+          <button type="button" className="btn btn-outline-secondary float-right mt-1 show-hide-footer-panel">"Show Attendees"</button>
         </div>
       </div>
       
-    <div className="row one-gutters align-items-center" id="subscribers-list"></div>
+    <div className="row one-gutters justify-content-center align-items-center" id="subscribers-list"></div>
 
     </section>
     <div className="row position-fixed host-script-section justify-content-between">
-      <div className=" host-section d-flex justify-content-end flex-direction-column">
-        <div className="overflow-hidden ">
-          <div className="add-remove-round add-remove-height h-100 px-3 bg-gray pt-2 pb-2 top-rounded d-flex justify-content-between align-items-center">
+      <div className=" host-section d-flex flex-direction-column h-100">
+        <div className="host-local">
+          <div className="add-remove-round add-remove-height height-53 px-3 bg-gray pt-2 pb-2 top-rounded d-flex justify-content-between align-items-center">
             <h3 className="main-heading font-size-16 float-left">Streaming</h3>
             <div className="host-header">
               <img src="images/mute-microphone.png" className="unmute-icon" id="mute-unmute-local" />
@@ -106,13 +126,218 @@ return (
         </div>
       </div>
       
-      <div className="test-script">
+      <div className="test-script fitness-script h-100 ">
       
         <div className="overflow-hidden h-100">
+          <div id="carouselExampleControls1" data-interval="false" className="carousel slide script-info h-100" data-ride="carousel">
+            <div className="carousel-inner">
+              <div className="carousel-item active h-100 justify-content-end flex-direction-column position-relative">
+                <div className="bg-gray position-relative top-rounded d-md-flex justify-content-between align-items-center px-3 py-3 add-remove-round ">
+                  <h3 className="main-heading font-size-16">Fitness Script <span className="ml-md-4 font-size-16">3/22 activities</span></h3>
+                  <button type="button" className="btn btn-outline-secondary mr-3 show-hide-script">"Hide Script"</button>
+                  
+                </div>
+              
+              <div className="bg-gray bottom-rounded px-3 pb-2 item-description script-section mt--1 flex-grow-1">
+                <div className="max-h200">
+                  <div className="row">
+                    <div className="col-md-4">
+                      <div className="count-box">
+                        <h4>Rest</h4>
+                        <div id="countdown">
+                          <div id="countdown-number"></div>
+                          <svg>
+                            <circle r="26" cx="30" cy="30"></circle>
+                          </svg>
+                          
+                        </div>
+                        <div className="row">
+                          <div className="col-6 border-right ">
+                            <div className="target-info">
+                              <span>target zone</span>
+                              <span>80%</span>
+                            </div>
+                          </div>
+                          <div className="col-6">
+                            <div className="target-info">
+                              <span>target bpm</span>
+                              <span>150</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-md-4">
+                      <div className="count-box focus-active">
+                      <img src="images/screen-video.png" className="screen-video" />
+                        <h4>Lunges</h4>
+                        <div id="countdown">
+                          <div id="countdown-number2"></div>
+                          <svg>
+                            <circle r="26" cx="30" cy="30"></circle>
+                          </svg>
+                        </div>
+                        <div className="row">
+                          <div className="col-6 border-right ">
+                            <div className="target-info">
+                              <span>target zone</span>
+                              <span>80%</span>
+                            </div>
+                          </div>
+                          <div className="col-6">
+                            <div className="target-info">
+                              <span>target bpm</span>
+                              <span>150</span>
+                            </div>
+                          </div>
+                        </div>
+                        
+                      </div>
+                      <p className="now-script">NOW</p>
+                    </div>
+                    <div className="col-md-4">
+                      <div className="count-box">
+                      <img src="images/screen-video.png" className="screen-video" />
+                        <h4>Pushups</h4>
+                        <div id="countdown">
+                          <div id="countdown-number"></div>
+                          <svg>
+                            <circle r="26" cx="30" cy="30"></circle>
+                          </svg>
+                        </div>
+                        <div className="row">
+                          <div className="col-6 border-right ">
+                            <div className="target-info">
+                              <span>target zone</span>
+                              <span>80%</span>
+                            </div>
+                          </div>
+                          <div className="col-6">
+                            <div className="target-info">
+                              <span>target bpm</span>
+                              <span>150</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> 
+              </div>
+              <a className="carousel-control-next position-relative btn btn-outline-secondary" href="#carouselExampleControls1" role="button" data-slide="next">
+                    Next
+                  </a>
+            </div>
+            <div className="carousel-item h-100 justify-content-end flex-direction-column position-relative">
+                <div className="bg-gray position-relative top-rounded d-md-flex justify-content-between align-items-center px-3 py-3 add-remove-round ">
+                  <h3 className="main-heading font-size-16">Fitness Script <span className="ml-md-4 font-size-16">6/22 activities</span></h3>
+                  <button type="button" className="btn btn-outline-secondary mr-3 show-hide-script">"Hide Script"</button>
+                  
+                </div>
+              
+              <div className="bg-gray bottom-rounded px-3 pb-2 item-description script-section mt--1 flex-grow-1">
+                <div className="max-h200">
+                  <div className="row">
+                    <div className="col-md-4">
+                      <div className="count-box">
+                        <h4>Rest</h4>
+                        <div id="countdown">
+                          <div id="countdown-number"></div>
+                          <svg>
+                            <circle r="26" cx="30" cy="30"></circle>
+                          </svg>
+                          
+                        </div>
+                        <div className="row">
+                          <div className="col-6 border-right ">
+                            <div className="target-info">
+                              <span>target zone</span>
+                              <span>80%</span>
+                            </div>
+                          </div>
+                          <div className="col-6">
+                            <div className="target-info">
+                              <span>target bpm</span>
+                              <span>150</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-md-4">
+                      <div className="count-box focus-active">
+                      <img src="images/screen-video.png" className="screen-video" />
+                        <h4>Lunges</h4>
+                        <div id="countdown">
+                          <div id="countdown-number2"></div>
+                          <svg>
+                            <circle r="26" cx="30" cy="30"></circle>
+                          </svg>
+                        </div>
+                        <div className="row">
+                          <div className="col-6 border-right ">
+                            <div className="target-info">
+                              <span>target zone</span>
+                              <span>80%</span>
+                            </div>
+                          </div>
+                          <div className="col-6">
+                            <div className="target-info">
+                              <span>target bpm</span>
+                              <span>150</span>
+                            </div>
+                          </div>
+                        </div>
+                        
+                      </div>
+                      <p className="now-script">NOW</p>
+                    </div>
+                    <div className="col-md-4">
+                      <div className="count-box">
+                      <img src="images/screen-video.png" className="screen-video" />
+                        <h4>Pushups</h4>
+                        <div id="countdown">
+                          <div id="countdown-number"></div>
+                          <svg>
+                            <circle r="26" cx="30" cy="30"></circle>
+                          </svg>
+                        </div>
+                        <div className="row">
+                          <div className="col-6 border-right ">
+                            <div className="target-info">
+                              <span>target zone</span>
+                              <span>80%</span>
+                            </div>
+                          </div>
+                          <div className="col-6">
+                            <div className="target-info">
+                              <span>target bpm</span>
+                              <span>150</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> 
+              </div>
+              <a className="carousel-control-next position-relative btn btn-outline-secondary" href="#carouselExampleControls1" role="button" data-slide="next">
+                    Next
+                  </a>
+            </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+
+      <div className="test-script h-100 d-none">
+        <div className="overflow-hidden h-100">
           <div id="carouselExampleControls" data-interval="false" className="carousel slide carousel-fade script-info h-100" data-ride="carousel">
-            <div className="carousel-inner h-100">
+            <div className="carousel-inner">
               <div className="carousel-item active h-100 d-flex justify-content-end flex-direction-column">
-                <div className="bg-gray top-rounded d-md-flex justify-content-between align-items-center px-3 py-3 add-remove-round ">
+                <div className="bg-gray position-relative top-rounded d-md-flex justify-content-between align-items-center px-3 py-3 add-remove-round ">
                   <h3 className="main-heading font-size-16">Testing Script <span className="ml-md-4 font-size-16">1/4 wines</span></h3>
                   <button type="button" className="btn btn-outline-secondary mr-5 show-hide-script">"Hide Script"</button>
                   <a className="carousel-control-next position-relative" href="#carouselExampleControls" role="button" data-slide="next">
@@ -121,25 +346,27 @@ return (
                 </div>
               
               <div className="bg-gray bottom-rounded px-3 pb-2 item-description script-section mt--1 flex-grow-1">
-                <h4 className="item-name">2014 Bliss Block Pinot Noir</h4>
-                <div className="row">
-                  <ul className="col-12 col-md-12 col-lg-5 list-info">
-                    <li><span>Varietal</span><span>100% Pinot Noir</span></li>
-                    <li><span>Year</span><span>2014​</span></li>
-                    <li><span>Country</span><span>United States​</span></li>
-                    <li><span>Appellation</span><span>Sonoma</span></li>
-                    <li><span>Alcohol</span><span>14.3%</span></li> 
-                  </ul>
-                  <ul className="col-12 col-md-12 col-lg-7 list-info">
-                    <li><span>pH</span><span>3.69</span></li>
-                    <li><span>Aging</span><span>15 months in French Oak Barrels, 82%</span></li>
-                    <li><span>Price</span><span>$80​</span></li>
-                    <li><span>Case Production</span><span>250</span></li>
-                  </ul>
-                  <div className="col col-md-12">
-                    <p className="item-text">The Bliss Block Pinot Noir beautifully captures the rich spice qualities that are characteristic of this cool pocket of our Quail Hill Estate vineyard. A bright garnet hue </p>
+                <div className="max-h200">
+                  <h4 className="item-name">2014 Bliss Block Pinot Noir</h4>
+                  <div className="row">
+                    <ul className="col-12 col-md-12 col-lg-5 list-info">
+                      <li><span>Varietal</span><span>100% Pinot Noir</span></li>
+                      <li><span>Year</span><span>2014​</span></li>
+                      <li><span>Country</span><span>United States​</span></li>
+                      <li><span>Appellation</span><span>Sonoma</span></li>
+                      <li><span>Alcohol</span><span>14.3%</span></li> 
+                    </ul>
+                    <ul className="col-12 col-md-12 col-lg-7 list-info">
+                      <li><span>pH</span><span>3.69</span></li>
+                      <li><span>Aging</span><span>15 months in French Oak Barrels, 82%</span></li>
+                      <li><span>Price</span><span>$80​</span></li>
+                      <li><span>Case Production</span><span>250</span></li>
+                    </ul>
+                    <div className="col col-md-12">
+                      <p className="item-text">The Bliss Block Pinot Noir beautifully captures the rich spice qualities that are characteristic of this cool pocket of our Quail Hill Estate vineyard. A bright garnet hue </p>
+                    </div>
                   </div>
-                </div>
+                </div> 
               </div>
             </div>
             <div className="carousel-item h-100 d-flex justify-content-end flex-direction-column">
@@ -152,25 +379,28 @@ return (
                 </div>
               
               <div className="bg-gray bottom-rounded px-3 pb-2 item-description script-section mt--1 flex-grow-1">
-                <h4 className="item-name">2014 Bliss Block Pinot Noir</h4>
-                <div className="row">
-                  <ul className="col-12 col-md-12 col-lg-5 list-info">
-                    <li><span>Varietal</span><span>100% Pinot Noir</span></li>
-                    <li><span>Year</span><span>2014​</span></li>
-                    <li><span>Country</span><span>United States​</span></li>
-                    <li><span>Appellation</span><span>Sonoma</span></li>
-                    <li><span>Alcohol</span><span>14.3%</span></li> 
-                  </ul>
-                  <ul className="col-12 col-md-12 col-lg-7 list-info">
-                    <li><span>pH</span><span>3.69</span></li>
-                    <li><span>Aging</span><span>15 months in French Oak Barrels, 82%</span></li>
-                    <li><span>Price</span><span>$80​</span></li>
-                    <li><span>Case Production</span><span>250</span></li>
-                  </ul>
-                  <div className="col col-md-12">
-                    <p className="item-text">The Bliss Block Pinot Noir beautifully captures the rich spice qualities that are characteristic of this cool pocket of our Quail Hill Estate vineyard. A bright garnet hue </p>
+                <div className="max-h200">
+                  <h4 className="item-name">2014 Bliss Block Pinot Noir</h4>
+                  <div className="row">
+                    <ul className="col-12 col-md-12 col-lg-5 list-info">
+                      <li><span>Varietal</span><span>100% Pinot Noir</span></li>
+                      <li><span>Year</span><span>2014​</span></li>
+                      <li><span>Country</span><span>United States​</span></li>
+                      <li><span>Appellation</span><span>Sonoma</span></li>
+                      <li><span>Alcohol</span><span>14.3%</span></li> 
+                    </ul>
+                    <ul className="col-12 col-md-12 col-lg-7 list-info">
+                      <li><span>pH</span><span>3.69</span></li>
+                      <li><span>Aging</span><span>15 months in French Oak Barrels, 82%</span></li>
+                      <li><span>Price</span><span>$80​</span></li>
+                      <li><span>Case Production</span><span>250</span></li>
+                    </ul>
+                    <div className="col col-md-12">
+                      <p className="item-text">The Bliss Block Pinot Noir beautifully captures the rich spice qualities that are characteristic of this cool pocket of our Quail Hill Estate vineyard. A bright garnet hue </p>
+                    </div>
                   </div>
                 </div>
+                
               </div>
             </div>
             <div className="carousel-item h-100 d-flex justify-content-end flex-direction-column">
@@ -183,25 +413,28 @@ return (
                 </div>
               
               <div className="bg-gray bottom-rounded px-3 pb-2 item-description script-section mt--1 flex-grow-1">
+              <div className="max-h200">
                 <h4 className="item-name">2014 Bliss Block Pinot Noir</h4>
-                <div className="row">
-                  <ul className="col-12 col-md-12 col-lg-5 list-info">
-                    <li><span>Varietal</span><span>100% Pinot Noir</span></li>
-                    <li><span>Year</span><span>2014​</span></li>
-                    <li><span>Country</span><span>United States​</span></li>
-                    <li><span>Appellation</span><span>Sonoma</span></li>
-                    <li><span>Alcohol</span><span>14.3%</span></li> 
-                  </ul>
-                  <ul className="col-12 col-md-12 col-lg-7 list-info">
-                    <li><span>pH</span><span>3.69</span></li>
-                    <li><span>Aging</span><span>15 months in French Oak Barrels, 82%</span></li>
-                    <li><span>Price</span><span>$80​</span></li>
-                    <li><span>Case Production</span><span>250</span></li>
-                  </ul>
-                  <div className="col col-md-12">
-                    <p className="item-text">The Bliss Block Pinot Noir beautifully captures the rich spice qualities that are characteristic of this cool pocket of our Quail Hill Estate vineyard. A bright garnet hue </p>
+                  <div className="row">
+                    <ul className="col-12 col-md-12 col-lg-5 list-info">
+                      <li><span>Varietal</span><span>100% Pinot Noir</span></li>
+                      <li><span>Year</span><span>2014​</span></li>
+                      <li><span>Country</span><span>United States​</span></li>
+                      <li><span>Appellation</span><span>Sonoma</span></li>
+                      <li><span>Alcohol</span><span>14.3%</span></li> 
+                    </ul>
+                    <ul className="col-12 col-md-12 col-lg-7 list-info">
+                      <li><span>pH</span><span>3.69</span></li>
+                      <li><span>Aging</span><span>15 months in French Oak Barrels, 82%</span></li>
+                      <li><span>Price</span><span>$80​</span></li>
+                      <li><span>Case Production</span><span>250</span></li>
+                    </ul>
+                    <div className="col col-md-12">
+                      <p className="item-text">The Bliss Block Pinot Noir beautifully captures the rich spice qualities that are characteristic of this cool pocket of our Quail Hill Estate vineyard. A bright garnet hue </p>
+                    </div>
                   </div>
                 </div>
+                
               </div>
             </div>
             <div className="carousel-item h-100 d-flex justify-content-end flex-direction-column">
@@ -214,25 +447,28 @@ return (
                 </div>
               
               <div className="bg-gray bottom-rounded px-3 pb-2 item-description script-section mt--1 flex-grow-1">
-                <h4 className="item-name">2014 Bliss Block Pinot Noir</h4>
-                <div className="row">
-                  <ul className="col-12 col-md-12 col-lg-5 list-info">
-                    <li><span>Varietal</span><span>100% Pinot Noir</span></li>
-                    <li><span>Year</span><span>2014​</span></li>
-                    <li><span>Country</span><span>United States​</span></li>
-                    <li><span>Appellation</span><span>Sonoma</span></li>
-                    <li><span>Alcohol</span><span>14.3%</span></li> 
-                  </ul>
-                  <ul className="col-12 col-md-12 col-lg-7 list-info">
-                    <li><span>pH</span><span>3.69</span></li>
-                    <li><span>Aging</span><span>15 months in French Oak Barrels, 82%</span></li>
-                    <li><span>Price</span><span>$80​</span></li>
-                    <li><span>Case Production</span><span>250</span></li>
-                  </ul>
-                  <div className="col col-md-12">
-                    <p className="item-text">The Bliss Block Pinot Noir beautifully captures the rich spice qualities that are characteristic of this cool pocket of our Quail Hill Estate vineyard. A bright garnet hue </p>
+                <div className="max-h200">
+                  <h4 className="item-name">2014 Bliss Block Pinot Noir</h4>
+                  <div className="row">
+                    <ul className="col-12 col-md-12 col-lg-5 list-info">
+                      <li><span>Varietal</span><span>100% Pinot Noir</span></li>
+                      <li><span>Year</span><span>2014​</span></li>
+                      <li><span>Country</span><span>United States​</span></li>
+                      <li><span>Appellation</span><span>Sonoma</span></li>
+                      <li><span>Alcohol</span><span>14.3%</span></li> 
+                    </ul>
+                    <ul className="col-12 col-md-12 col-lg-7 list-info">
+                      <li><span>pH</span><span>3.69</span></li>
+                      <li><span>Aging</span><span>15 months in French Oak Barrels, 82%</span></li>
+                      <li><span>Price</span><span>$80​</span></li>
+                      <li><span>Case Production</span><span>250</span></li>
+                    </ul>
+                    <div className="col col-md-12">
+                      <p className="item-text">The Bliss Block Pinot Noir beautifully captures the rich spice qualities that are characteristic of this cool pocket of our Quail Hill Estate vineyard. A bright garnet hue </p>
+                    </div>
                   </div>
                 </div>
+                
               </div>
             </div>
             </div>
@@ -240,6 +476,9 @@ return (
           
         </div>
       </div>
+
+
+
     </div>
     <div className="modal fade" id="guest-video" role="dialog">
     <div className="modal-dialog modal-lg bg-black px-4 m-0 mw-100 h-100 d-flex w-100 align-items-center">
@@ -292,6 +531,7 @@ return (
         </div>
 
       </div>
+
 
       </div>
 

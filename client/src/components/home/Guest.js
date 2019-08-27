@@ -64,9 +64,24 @@ class Guest extends Component {
   
   componentDidMount(){
     var userData = JSON.parse(localStorage.getItem("jwtToken"));
-    //var  email=userData.email;
     var  userID=userData.id;
     this.setState({getID : userID});
+
+    if(localStorage.getItem('load-page') != 1){  
+        window.loadPopup();
+      localStorage.setItem("load-page", 1);
+    }
+
+    let sessionId = localStorage.getItem('sessionId');
+    let localstoragedata = JSON.parse(localStorage.getItem('jwtToken'));
+
+    fetch('/api/v1/session/'+sessionId, {headers : {'Authorization': localstoragedata.token}})
+    .then(response => { return response.json(); })
+    .then(data => {
+      localStorage.setItem('currentSession', JSON.stringify(data));
+        console.log('data=================', data);
+        
+    });
   }
 
   componentWillMount(){
@@ -92,18 +107,19 @@ return (
         <div className="col-lg-12 col-md-12">
           <div className="transparent-gray">
             <div className="row">
-              <a href="" className=" py-xs-1 col-lg-1 col-md-1 col-sm-12 d-flex justify-content-center align-items-center v-logo">
+              <a href="" className=" py-xs-1 col-lg-1 col-md-1 col-sm-1 d-flex v-logo align-items-center">
                 <img src="images/v-logo.png" />
-                              </a>
+              </a>
               <div className="col-lg-11 col-md-11 col-sm-12">
+              
                 <div className="row justify-content-between align-items-center">
-                  <div className="col-lg-7 text-center text-md-left col-sm-12">
+                  <div className="col-lg-7 col-md-6 text-center text-md-left col-sm-12">
                     <div className="time py-xs-1">  <span>04/23/2019, at 12:00 PM</span>
                       <span>Time Remaining: 01:10:00</span>
                     </div>
                   </div>
                   <div id="hostmsg" style={{color:'green'}}></div>
-                  <div className="col-12 col-sm-12 col-md-3 d-flex justify-content-end">
+                  <div className="col-12 col-sm-12 col-md-6 col-lg-3 d-flex justify-content-end">
                   
                   <div className="default-btns mr-2">
                     <a href="javascript:;" className="btn btn-primary ml-2" id="mocrophone-off"  onClick={this.handRaise.bind(this)} alt="Microphone" title="Microphone Off"><img src="images/hand.png" /></a>
@@ -132,8 +148,9 @@ return (
       </div>
       
     </header>
-    <div className="row justify-content-between zindex-5 position-relative flex-grow-1">
-    <div className="col-lg-3 col-md-4 col-sm-5 col-6 max-width-300">
+    
+    <div className="d-flex justify-content-between zindex-5 position-relative flex-grow-1 attend-mid-section">
+    {/*<div className="col-lg-3 col-md-4 col-sm-5 col-6 max-width-300">
       <div className="left-section">
         <h2 className="item-name py-3">1/4 Wines</h2>
         <h3 className="second-heading my-3">2014 Bliss Block Pinot Noir</h3>
@@ -155,9 +172,22 @@ return (
           </div>
         </div>
         <button type="button" data-toggle="modal" data-target="#show-details" className="btn btn-outline-secondary show-details-btn">"Show Details"</button>
+    </div>
+      
+    </div>*/}
+    <div className="col-lg-1 col-md-1 col-sm-1 col-1 max-width-300 d-flex">
+      <div className="left-section">
+        <div class="bpm-bar">
+          <span className="pop-text">Your BPM</span>
+          <div className="readings">
+            <span>20</span><span>40</span><span>60</span><span>80</span><span>100</span><span>120</span><span>140</span>
+            <span>160</span><span className="target-read">180</span><span>200</span><span>220</span>
+          </div>
+          <div class="skills bpm">153</div>
+        </div>
       </div>
     </div>
-    <div className="col-lg-3 col-md-4 col-sm-5 col-6 max-width-300 float-right pl-0">
+    <div className="col-lg-3 col-md-4 col-sm-5 col-6 max-width-300 float-right pl-0 mt-3">
         <div className="right-sidebar">
           <div className="transparent-gray slide-right-left">
             
@@ -229,17 +259,41 @@ return (
       
     </div>
   </div>
-    <footer className="footer position-relative zindex-5">
+    <footer className="footer position-relative zindex-5 count-box mb-5 mt-4">
       
       <ul className="bottom-links flex-wrap list-group list-group-horizontal mx-auto d-md-flex justify-content-center py-xs-1">
 
-        <li className="list-group-item bg-transparent border-0"><a href="javascript:;"  onClick={this.getAppearence.bind(this)}>APPEARANCE</a></li>
-        <li className="list-group-item bg-transparent border-0"><a href="javascript:;" onClick={this.getAroma.bind(this)}>AROMA</a></li>
-        <li className="list-group-item bg-transparent border-0"><a href="javascript:;" onClick={this.getPalate.bind(this)}>PALATE</a></li>
-        <li className="list-group-item bg-transparent border-0"><a href="javascript:;" onClick={this.getScore.bind(this)}>SCORE</a></li>
+        <li className="list-group-item bg-transparent border-0"><a href="#"  onClick={this.getAppearence.bind(this)}>APPEARANCE</a></li>
+        <li className="list-group-item bg-transparent border-0"><a href="#" onClick={this.getAroma.bind(this)}>AROMA</a></li>
+        <li className="list-group-item bg-transparent border-0"><a href="#" onClick={this.getPalate.bind(this)}>PALATE</a></li>
+        <li className="list-group-item bg-transparent border-0"><a href="#" onClick={this.getScore.bind(this)}>SCORE</a></li>
       </ul>
-      
-      <div className="self-video1 mt-3">
+      <div className="d-flex justify-content-between w-75 arrow-after align-items-center">
+        <div id="countdown">
+          <div id="countdown-number"></div>
+          <svg>
+            <circle r="26" cx="30" cy="30"></circle>
+          </svg>
+          <h4 className="mt-5">Pushups</h4>
+        </div>
+        <img src="images/arrow-img.png" />
+        <div id="countdown" className="current-box">
+          <div id="countdown-number"></div>
+          <svg>
+            <circle r="26" cx="30" cy="30"></circle>
+          </svg>
+          <h4 className="mt-5 pt-2">Lunges</h4>
+        </div>
+        <img src="images/arrow-img.png" />
+        <div id="countdown">
+          <div id="countdown-number"></div>
+          <svg>
+            <circle r="26" cx="30" cy="30"></circle>
+          </svg>
+          <h4 className="mt-5">Rest</h4>
+        </div>
+      </div>
+      <div className="self-video1 mt-3 w-25">
           <button type="button" id="show-everyone" className="mb-2 minimize-others btn btn-outline-secondary mx-auto d-none">"Show Everyone"</button>
           
           <div id="agora_local" className="video-streams guest-video"></div>

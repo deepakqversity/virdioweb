@@ -1,7 +1,7 @@
 // Configuration
 const jwt = require("jsonwebtoken")
 const config = require(process.cwd() + "/config/config");
-const userModel = require(process.cwd() + '/api/v1/models/User');
+const userModel = require('../models/User');
 
 class Auth{
 

@@ -5,7 +5,9 @@ const underscore = require("underscore");
 const userModel = require('../../models/User');
 const tokenModel = require('../../models/AuthToken');
 const sessionInfoModel = require('../../models/SessionInfo');
+const sessionModel = require('../../models/Session');
 const clientToken = require( process.cwd() + '/util/ClientToken');
+const utils = require(process.cwd() + '/util/Utils');
 
 const saltRounds = 10;
 
@@ -36,6 +38,7 @@ class UserCtrl {
 	    	let email = req.body.email;
 	    	let password = req.body.password;
 	    	let userObj = await userModel.getUserByEmail(email);
+	    	console.log('----------------------%%%%%%%%%%%', userObj)
 	    	
 			if(!isEmpty(userObj)){
 				// let hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -43,9 +46,27 @@ class UserCtrl {
         		let t = await bcrypt.compare(password, userObj.password);
 				if(t){
 					const token = await auth.createToken(userObj.id);
-					console.log('token-------------',token);
-					let updateUser = tokenModel.updateToken(userObj.id, token);
-					
+					// console.log('token-------------',token);
+					let updateUser = await tokenModel.updateToken(userObj.id, token);
+
+					userObj = underscore.extend(userObj, {token:token});
+
+					let currentSession = await sessionModel.getUpcommingSession(userObj.id);
+
+					let sessionData = {};
+					if(!isEmpty(currentSession)){
+						currentSession = currentSession[0];
+						console.log(currentSession, currentSession.scheduleDate);
+						let SessionDt = currentSession.scheduleDate;
+						utils.dateTimeDiff(currentSession.scheduleDate);
+
+					} else {
+						sessionData = {
+							sessionData : { message : "There are no sessions available."}
+						}
+					}
+						underscore.extends(userObj, sessionData);
+
 					res.status(200).send({token:token, id:userObj.id, name:userObj.name, email:userObj.email, userType:req.body.type});
 				} else {
 					res.status(400).send({password:"Invalid password"})

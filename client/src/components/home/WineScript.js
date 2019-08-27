@@ -16,7 +16,7 @@ render() {
 
 return (
     
-      <div className="test-script h-100">
+      <div className="test-script h-100 d-none">
         <div className="overflow-hidden h-100">
           <div id="carouselExampleControls" data-interval="false" className="carousel slide carousel-fade script-info h-100" data-ride="carousel">
             <div className="carousel-inner">

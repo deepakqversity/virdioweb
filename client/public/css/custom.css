@@ -1227,6 +1227,20 @@ img.user-login{
 }
 
 
+@media (max-width:768px){
+.arrow-after>img{
+		width:100px;
+	}
+.count-box .arrow-after #countdown {
+    margin: 0 15px;
+    font-family: Avenir-Medium;
+}
+}
+@media (max-width:576px){
+.arrow-after>img {
+    width: 0;
+}
+}
 
 
 
@@ -1281,6 +1295,12 @@ img.user-login{
 }
 .default-btns .btn img{
 	width:20px;
+}
+
+@media (max-width:576px){
+	.v-logo, .center-mob{
+		justify-content:center !important;
+	}
 }
 
 

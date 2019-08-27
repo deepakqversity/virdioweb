@@ -1130,21 +1130,27 @@ function attendeeScreenHeight(){
 
     // attendy
     $("#minimize-others").click(function(){
+      
       $(".slide-right-left").css({"width": "72px", "float": "right"});
-        //$(".joined-attendees").css("right", "-280px");
+      $("#minimize-others, .right-sidebar .title").addClass('d-none');
+      $("#show-everyone").removeClass('d-none');
+      $(".attendee-list").css("background", "transparent");
+      $(".slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").hide();
         
-        $("#minimize-others, .right-sidebar .title").addClass('d-none');
-        $("#show-everyone").removeClass('d-none');
+        
+      })
+        
         $(".attendee-list").css("background", "transparent");
         $(".slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").hide();
-      })
-    
+
+
       $("#show-everyone").click(function(){
         $(".slide-right-left").css({"width": "100%", "float": "right"});
         //$(".joined-attendees").removeAttr("style");
-        $("#minimize-others").removeClass('d-none');
+        
         $("#show-everyone").addClass('d-none');
         setTimeout(function(){
+          $("#minimize-others").removeClass('d-none');
           $(".right-sidebar .title").removeClass('d-none');
           $(".attendee-list").css("background", "#000");
         $(".slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").fadeIn(500);

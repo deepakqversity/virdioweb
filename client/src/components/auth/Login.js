@@ -92,7 +92,7 @@ return (
                     <img src="/images/login-user.png" className="user-login" />
                 </div>
                 
-                {/* <div className = "form-group">
+                <div className = "form-group">
                   <div class = "form-check-inline radio">
                       <label>
                           <input type = "radio" name = "type" id = "host" onChange={this.handleChange} value = '1' checked /> Host
@@ -103,7 +103,7 @@ return (
                           <input type = "radio" name = "type" id = "client" onChange={this.handleChange} value = '2'  checked={this.state.type === "2"}  /> Client
                       </label>
                     </div>
-                  </div> */}
+                  </div>
       
                 <div className = "form-group">
                     <div className = "d-flex flex-wrap justify-content-between align-items-center">

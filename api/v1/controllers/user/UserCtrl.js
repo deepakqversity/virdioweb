@@ -4,7 +4,6 @@ const isEmpty = require("is-empty");
 const underscore = require("underscore");
 const userModel = require('../../models/User');
 const tokenModel = require('../../models/AuthToken');
-const sessionInfoModel = require('../../models/SessionInfo');
 const sessionModel = require('../../models/Session');
 const productModel = require('../../models/Products');
 const clientToken = require( process.cwd() + '/util/ClientToken');
@@ -69,7 +68,7 @@ class UserCtrl {
 						currentSession = underscore.omit(currentSession, 'appCertificate');
 
 
-						let productDetail = await productModel.getProductDetail(currentSession.id, userObj.id);
+						let productDetail = await productModel.getProductDetail(currentSession.id, currentSession.hostId );
 						underscore.extend(currentSession, {productDetail : productDetail});
 						
 						underscore.extend(userObj, { sessionData : currentSession });
@@ -112,10 +111,8 @@ class UserCtrl {
 	async createClientToken(req, res) {
 		try {
 			console.log(req.body)
-			let sessionObj = await sessionInfoModel.findSessionDetail(req.body.sessionId, req.body.userId);
+			let sessionObj = await sessionModel.findSessionDetail(req.body.sessionId, req.body.userId);
 
-			console.log('sessionObj =============== ',sessionObj);
-			
 			if(true !== underscore.isEmpty(sessionObj)){
 				let token = clientToken.createToken(sessionObj.appId, sessionObj.appCertificate, sessionObj.channelId, sessionObj.userId);
 				sessionObj = underscore.extend(sessionObj, {token : token})

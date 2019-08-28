@@ -203,7 +203,7 @@ return (
                           <div className="count-box">
                             <h4>Rest</h4>
                             <div id="countdown">
-                              <div id="countdown-number"></div>
+                              <div id="countdown-number3"></div>
                               <svg>
                                 <circle r="26" cx="30" cy="30"></circle>
                               </svg>
@@ -231,7 +231,7 @@ return (
                           <div className="count-box">
                             <h4>Rest</h4>
                             <div id="countdown">
-                              <div id="countdown-number"></div>
+                              <div id="countdown-number4"></div>
                               <svg>
                                 <circle r="26" cx="30" cy="30"></circle>
                               </svg>
@@ -260,7 +260,7 @@ return (
                           <div className="count-box">
                             <h4>Rest</h4>
                             <div id="countdown">
-                              <div id="countdown-number"></div>
+                              <div id="countdown-number5"></div>
                               <svg>
                                 <circle r="26" cx="30" cy="30"></circle>
                               </svg>
@@ -290,32 +290,7 @@ return (
                     </div>
                     
                     
-                    <div className="col-md-4 d-none">
-                      <div className="count-box">
-                      <img src="images/screen-video.png" className="screen-video" />
-                        <h4>Pushups</h4>
-                        <div id="countdown">
-                          <div id="countdown-number"></div>
-                          <svg>
-                            <circle r="26" cx="30" cy="30"></circle>
-                          </svg>
-                        </div>
-                        <div className="row">
-                          <div className="col-6 border-right ">
-                            <div className="target-info">
-                              <span>target zone</span>
-                              <span>80%</span>
-                            </div>
-                          </div>
-                          <div className="col-6">
-                            <div className="target-info">
-                              <span>target bpm</span>
-                              <span>150</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    
                   </div>
                 </div> 
               </div>

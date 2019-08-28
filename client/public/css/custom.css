@@ -9,6 +9,7 @@
 	  8. Fitness Script Section
 	  9. Login Screen
 	  10. Attendee Screen
+	  11. Prescreen popup
 ----------------------------------*/
 
 
@@ -957,7 +958,7 @@ display:none;
   transform: rotateY(0deg) rotateZ(-90deg);
 }
 
-.count-box svg circle {
+.swiper-slide-next .count-box svg circle {
   stroke-dasharray: 160px;
   stroke-dashoffset: 0px;
   stroke-linecap: round;
@@ -1276,6 +1277,76 @@ img.user-login{
 }
 
 
+
+/*------11. Prescreen popup----------*/
+.modal-open .modal.attendy-list {
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: rgba(0,0,0,0.93);
+}
+.attendy-list .modal-content{
+	    background: #343434;
+}
+.attendy-list .modal-title{
+	color:#fff;
+}
+.attendy-list .modal-title {
+    color: #fff;
+	font-family: Avenir-Book;
+}
+.attendy-list .close {
+    float: right;
+    font-size: 40px;
+    font-weight: 100;
+    line-height: 1;
+    color: #bd00ff;
+    text-shadow: none;
+    opacity: 1;
+}
+
+.attendy-list .table thead th {
+    vertical-align: bottom;
+    border-bottom: 1px solid #565656;
+    color: #fff;
+    font-family: Avenir-Book;
+    font-size: 14px;
+}
+.attendy-list .table th, .attendy-list .table td {
+    padding: 0.75rem;
+    vertical-align: middle;
+    border-top: 1px solid #565656;
+    color: #fff;
+    font-family: Avenir-Book;
+}
+.attendy-list .table td{
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+.attendy-list .modal-header{
+	border-bottom:0;
+}
+.attendy-list .modal-body{
+	padding-top:0;
+}
+.attendy-list .table thead th{
+	    border-top: 2px solid #bd00ff;
+		    padding: 15px 10px;
+}
+.attendy-list .table {
+    margin-bottom: 0;
+}
+.attendy-list .modal-dialog{
+    height: 100%;
+    max-width: 86%;
+    margin: 1.75rem auto;
+    display: flex;
+    align-items: center;
+}
+.attendy-list .table th:nth-child(1), 
+.attendy-list .table td:nth-child(1){
+	padding-left:0;
+	padding-right:0;
+}
 
 
 

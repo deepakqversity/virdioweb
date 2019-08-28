@@ -6,6 +6,7 @@ const userModel = require('../../models/User');
 const tokenModel = require('../../models/AuthToken');
 const sessionInfoModel = require('../../models/SessionInfo');
 const sessionModel = require('../../models/Session');
+const productModel = require('../../models/Products');
 const clientToken = require( process.cwd() + '/util/ClientToken');
 const utils = require(process.cwd() + '/util/Utils');
 
@@ -38,7 +39,6 @@ class UserCtrl {
 	    	let email = req.body.email;
 	    	let password = req.body.password;
 	    	let userObj = await userModel.getUserByEmail(email);
-	    	console.log('----------------------%%%%%%%%%%%', userObj)
 	    	
 			if(!isEmpty(userObj)){
 				// let hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -56,18 +56,29 @@ class UserCtrl {
 					let sessionData = {};
 					if(!isEmpty(currentSession)){
 						currentSession = currentSession[0];
-						console.log(currentSession, currentSession.scheduleDate);
-						let SessionDt = currentSession.scheduleDate;
-						utils.dateTimeDiff(currentSession.scheduleDate);
+
+						underscore.extend(userObj, {userType : currentSession.type});	
+						
+						// get timing remaining
+						let str = utils.dateTimeDiff(currentSession.scheduleDate);
+						underscore.extend(currentSession, {messgae:str});
+
+						// generate streaming token
+						let streamToken = clientToken.createToken(currentSession.appId, currentSession.appCertificate, currentSession.channelId, currentSession.userId);
+						underscore.extend(currentSession, {streamToken : streamToken});
+						currentSession = underscore.omit(currentSession, 'appCertificate');
+
+
+						let productDetail = await productModel.getProductDetail(currentSession.id, userObj.id);
+						underscore.extend(currentSession, {productDetail : productDetail});
+						
+						underscore.extend(userObj, { sessionData : currentSession });
 
 					} else {
-						sessionData = {
-							sessionData : { message : "There are no sessions available."}
-						}
+						underscore.extend(userObj, {sessionData : { message : "There are no sessions available."}});
 					}
-						underscore.extends(userObj, sessionData);
 
-					res.status(200).send({token:token, id:userObj.id, name:userObj.name, email:userObj.email, userType:req.body.type});
+					res.status(200).send(userObj);
 				} else {
 					res.status(400).send({password:"Invalid password"})
 				}

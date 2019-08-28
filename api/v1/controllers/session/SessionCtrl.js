@@ -1,7 +1,7 @@
 const auth = require('../../auth/Auth');
 const isEmpty = require("is-empty");
 const underscore = require("underscore");
-const sessionInfoModel = require('../../models/SessionInfo');
+const sessionModel = require('../../models/Session');
 const sessionUserModel = require('../../models/SessionUser');
 const clientToken = require( process.cwd() + '/util/ClientToken');
 
@@ -9,7 +9,7 @@ class SessionCtrl {
 
 	async getSessions(req, res) {
 	    try {
-			let sessionObj = await sessionInfoModel.findAllSessionById(req.currentUser.id);
+			let sessionObj = await sessionModel.findAllSessionById(req.currentUser.id);
 
 			res.status(200).send(sessionObj);
 				
@@ -20,7 +20,7 @@ class SessionCtrl {
 
 	async getSessionDetail(req, res) {
 	    try {
-			let sessionObj = await sessionInfoModel.findSessionDetail(req.params.sessionId, req.currentUser.id);
+			let sessionObj = await sessionModel.findSessionDetail(req.params.sessionId, req.currentUser.id);
 
 			// console.log('sessionObj =============== ',sessionObj);
 			
@@ -39,7 +39,7 @@ class SessionCtrl {
 	
 	async getSessionUsers(req, res) {
 	    try {
-			let userObj = await sessionInfoModel.findByUserId(req.currentUser.id);
+			let userObj = await sessionModel.findByUserId(req.currentUser.id);
 			res.status(200).send(userObj);
 				
 	    } catch(exception) {

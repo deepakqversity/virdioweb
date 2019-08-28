@@ -112,12 +112,15 @@ return (
                       <a href="#" className="forgot-password mt-sm-0 mt-3">Forgot password?</a>
                     </div>
                 </div>
+                
               </div>
               
               
-            </form>      
+            </form> 
+
             </div>
             </div>
+            <a href="#" className="privacy-link">Click to view the virdio privacy policy</a>
           </div>
           
         </div>

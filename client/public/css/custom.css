@@ -778,6 +778,7 @@ display:none;
 }
 .test-script{
 	flex:1;
+	width:0;
 }
 .host-section video{
     width: 100%;
@@ -966,18 +967,46 @@ display:none;
   animation: countdown 30s linear infinite forwards;
   animation-direction: reverse;
 }
-.focus-active{
+.swiper-slide-next{
 	background: rgba(110,67,150,0.3);
     border: 1.5px solid #9B51E0;
     border-radius: 12px;
     padding: 10px;
 	position: relative;
+	height: auto !important;
 }
-.focus-active .target-info span{
+.swiper-slide-next .target-info span{
 	color:#fff;
 }
-.focus-active.count-box h4{
+.swiper-slide-next .count-box h4{
 	color:#fff;
+}
+.swiper-container{
+	overflow:inherit !important;
+}
+.swiper-container{
+	width:100% !important;
+}
+.swiper-container-horizontal>.swiper-pagination .swiper-pagination-bullet {
+    display: inline-block;
+    border-radius: 50px;
+    background: transparent;
+        bottom: -32px;
+    border: 1px solid #9b51e0;
+    position: absolute;
+    right: 15px;
+    padding: 4px 16px;
+	pointer:cursor;
+	width: auto;
+    height: auto;
+    opacity: 1;
+    font-family: Avenir-Medium;
+}
+.swiper-pagination-bullet{
+	display:none !important;
+}
+.swiper-pagination-bullet.swiper-pagination-bullet-active + .swiper-pagination-bullet{
+	display:block !important;
 }
 .count-box .screen-video{
 	position: absolute;
@@ -993,11 +1022,15 @@ display:none;
     top: auto;
 }
 .now-script{
-	color: #fff;
-    text-align: center;
+color: #fff;
     margin: 0;
     font-size: 14px;
     margin-top: 6px;
+    position: absolute;
+    text-align: center;
+    left: 0;
+    bottom: -25px;
+    right: 0;
 }
 
 @keyframes countdown {
@@ -1227,6 +1260,20 @@ img.user-login{
 }
 
 
+@media (max-width:768px){
+.arrow-after>img{
+		width:100px;
+	}
+.count-box .arrow-after #countdown {
+    margin: 0 15px;
+    font-family: Avenir-Medium;
+}
+}
+@media (max-width:576px){
+.arrow-after>img {
+    width: 0;
+}
+}
 
 
 
@@ -1281,6 +1328,12 @@ img.user-login{
 }
 .default-btns .btn img{
 	width:20px;
+}
+
+@media (max-width:576px){
+	.v-logo, .center-mob{
+		justify-content:center !important;
+	}
 }
 
 

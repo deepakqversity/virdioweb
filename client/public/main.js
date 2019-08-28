@@ -922,9 +922,9 @@ function attendeeScreenHeight(){
       }
       // GoInFullscreen();
     }
-    $(".host-script-section").height("305px"); 
-    $(".test-script").addClass("w-866");
-    $(".host-section").css({"min-width": "524px", "max-width": "524px"});
+    //$(".host-script-section").height("305px"); 
+    //$(".test-script").addClass("w-866");
+    //$(".host-section").css({"min-width": "524px", "max-width": "524px"});
   }
 
   function showHideScript(){
@@ -1006,7 +1006,9 @@ function attendeeScreenHeight(){
 
     $(".host-script-section").height("255px");
     $(".host-section").css({"min-width": "380px", "max-width": "380px"});
-      
+
+    
+
     $(".show-hide-footer-panel").click(function(){
       $(".host-script-section").height() < 255 ? $(".host-script-section").height("255px") : $(".host-script-section").height("auto");
       

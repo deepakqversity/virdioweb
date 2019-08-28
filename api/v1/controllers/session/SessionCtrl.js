@@ -59,7 +59,7 @@ class SessionCtrl {
 
 	async updateUserStream(req, res) {
 	    try {
-			let updateData = await sessionUserModel.updateConferenceUser(req.currentUser.id,  req.params.sessionId, req.body.streamId, req.body.userType);
+			let updateData = await sessionUserModel.updateConferenceUser(req.currentUser.id,  req.params.sessionId, req.body.streamId);
 			res.status(200).send(updateData);
 				
 	    } catch(exception) {
@@ -69,6 +69,7 @@ class SessionCtrl {
 
 	async getStreamUser(req, res) {
 		try {
+			console.log(req.params);
 			let sessionObj = await sessionUserModel.findByStreamUser(req.params.sessionId, req.params.streamId);
 			res.status(200).send(sessionObj);
 				

@@ -22,7 +22,7 @@ class Home extends Component {
   };
   componentDidMount(){
 
-    let localstoragedata=JSON.parse(localStorage.getItem('jwtToken'));
+    let localstoragedata=JSON.parse(localStorage.getItem('userData'));
 
     let initialSessions = [];
     fetch('/api/v1/session', {headers : {'Authorization': localstoragedata.token}})
@@ -47,7 +47,7 @@ class Home extends Component {
     // localStorage.setItem("channel", channel);
     localStorage.setItem("sessionId", sessionId);
 
-    let localstoragedata = JSON.parse(localStorage.getItem('jwtToken'));
+    let localstoragedata = JSON.parse(localStorage.getItem('userData'));
 
     localStorage.setItem("load-page", 0);
 
@@ -69,7 +69,7 @@ render() {
 
     // console.log('$$$$',optionItems);
    
-   var retrievedObject = localStorage.getItem('jwtToken');
+   var retrievedObject = localStorage.getItem('userData');
    var localstoragedata=JSON.parse(retrievedObject);
 return (
       <div className="container mt-5 valign-wrapper">

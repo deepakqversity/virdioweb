@@ -40,7 +40,7 @@ class SessionUser{
 		try
 	    {
 	        return await new Promise((resolve, reject) => {
-            	db.query('SELECT * FROM ?? WHERE sessionInfoId = ? AND streamId = ? AND status = 1', [table, sessionId, streamId], function (error, results, fields) {
+            	db.query('SELECT * FROM ?? WHERE sessionId = ? AND streamId = ? AND status = 1', [table, sessionId, streamId], function (error, results, fields) {
 				  if (error) reject(error);
 				  // console.log('================== results ', results)
 				  return resolve(results[0]);
@@ -49,6 +49,7 @@ class SessionUser{
 	    }
 	    catch(err)
 	    {
+	    	console.log(err)
 	       return err;
 	    }
 	}
@@ -67,7 +68,7 @@ class SessionUser{
 	    {
 			return await new Promise( (resolve, reject) => {
 
-				db.query('UPDATE ?? SET sessionType = ? WHERE sessionInfoId = ? AND userId = ?', [table, flag, sessionId, userId], function (error, results, fields) {
+				db.query('UPDATE ?? SET sessionType = ? WHERE sessionId = ? AND userId = ?', [table, flag, sessionId, userId], function (error, results, fields) {
 				  if (error) reject(error);
 				  // console.log('================== 123 results ', results)
 				  // db.end();
@@ -89,13 +90,13 @@ class SessionUser{
 	 * @param  {int} type
 	 * @return {obj} 
 	 */
-	async updateConferenceUser(userId, sessionId, streamId, type){
+	async updateConferenceUser(userId, sessionId, streamId){
 
 	    let table = this.table;
 		try
 	    {
 			return await new Promise( (resolve, reject) => {
-				db.query('UPDATE ?? SET streamId = ?, type = ? WHERE sessionInfoId = ? AND userId = ?', [table, streamId, type, sessionId, userId], function (error, results, fields) {
+				db.query('UPDATE ?? SET streamId = ? WHERE sessionId = ? AND userId = ?', [table, streamId, sessionId, userId], function (error, results, fields) {
 				  if (error) reject(error);
 				  // console.log('================== 123 results ', results)
 				  // db.end();

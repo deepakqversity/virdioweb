@@ -11,7 +11,7 @@ class Host extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {sessionScript: 1};
+    this.state = {sessionScript: 0};
   }
 
 
@@ -37,17 +37,18 @@ class Host extends Component {
       localStorage.setItem("load-page", 1);
     }
 
-    let sessionId = localStorage.getItem('sessionId');
-    let localstoragedata = JSON.parse(localStorage.getItem('jwtToken'));
+    // let sessionId = localStorage.getItem('sessionId');
+    let localstoragedata = JSON.parse(localStorage.getItem('userData'));
+    this.setState({sessionScript: localstoragedata.sessionData.id});
 
-    fetch('/api/v1/session/'+sessionId, {headers : {'Authorization': localstoragedata.token}})
-    .then(response => { return response.json(); })
-    .then(data => {
-      // console.log('data=================', data);
-      this.setState({sessionScript: data.id});
-      localStorage.setItem('currentSession', JSON.stringify(data));
+    // fetch('/api/v1/session/'+sessionId, {headers : {'Authorization': localstoragedata.token}})
+    // .then(response => { return response.json(); })
+    // .then(data => {
+    //   // console.log('data=================', data);
+    //   this.setState({sessionScript: data.id});
+    //   localStorage.setItem('currentSession', JSON.stringify(data));
         
-    });
+    // });
   }
   componentWillMount(){
     //console.log(1);
@@ -58,8 +59,8 @@ render() {
 
    // console.log(user);
     // console.log('------------------------------', user);
-    let sessionScript = this.state.sessionScript;
     let scriptHtml = '';
+    let sessionScript = this.state.sessionScript;
     if (sessionScript == 1) {
       scriptHtml = <WineScript />;
     } else if(sessionScript == 2) {

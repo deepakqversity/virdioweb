@@ -2,11 +2,7 @@ var swiper = new Swiper('.swiper-container', {
     pagination: '.swiper-pagination',
     slidesPerView: 3,
     paginationClickable: true,
-    spaceBetween: 0,
-	breakpoints: {
-        767: {
-            slidesPerView: 3,
-        }
+    spaceBetween: 0
 });
 
 $(".swiper-container-horizontal>.swiper-pagination .swiper-pagination-bullet").text("Next").addClass("btn-outline-secondary");

@@ -909,7 +909,7 @@ display:none;
 /*------ 8. Fitness Script Section ------ */
 
 
-.count-box #countdown {
+.count-box .countdown {
   position: relative;
   margin: auto;
   margin-top: 10px;
@@ -923,7 +923,7 @@ display:none;
     box-shadow: inset 0 0px 0px 4px #484848;
 }
 
-.count-box #countdown-number, .count-box #countdown-number2 {
+.count-box .countdown-number {
   color: white;
   display: inline-block;
   line-height: 60px;
@@ -1228,7 +1228,7 @@ img.user-login{
 .arrow-after>img{
 	flex: 1;
 }
-.count-box .arrow-after #countdown{
+.count-box .arrow-after .countdown{
 	margin: 0 20px;
 	font-family:Avenir-Medium;
 }
@@ -1265,7 +1265,7 @@ img.user-login{
 .arrow-after>img{
 		width:100px;
 	}
-.count-box .arrow-after #countdown {
+.count-box .arrow-after .countdown {
     margin: 0 15px;
     font-family: Avenir-Medium;
 }

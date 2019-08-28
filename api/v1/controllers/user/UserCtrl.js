@@ -77,6 +77,8 @@ class UserCtrl {
 						underscore.extend(userObj, {sessionData : { message : "There are no sessions available."}});
 					}
 
+					userObj = underscore.omit(userObj, 'password');
+
 					res.status(200).send(userObj);
 				} else {
 					res.status(400).send({password:"Invalid password"})

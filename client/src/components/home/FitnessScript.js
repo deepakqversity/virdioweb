@@ -22,8 +22,28 @@ class FitnessScript extends Component {
     //console.log(1);
     // window.test();
   }
+
+  createProduct = () => {
+    let prodHtml = []
+
+      // Outer loop to create parent
+      for (let i = 0; i < 3; i++) {
+        let children = []
+        //Inner loop to create children
+        for (let j = 0; j < 5; j++) {
+          children.push(<td>Test</td>)
+        }
+        //Create the parent and add the children
+        prodHtml.push(<tr>{children}</tr>)
+      }
+      return prodHtml
+    }
+
 render() {
 
+let localstoragedata = JSON.parse(localStorage.getItem('userData'));
+let products = localstoragedata.sessionData.productDetail;
+console.log('products=', products)
 return (
     
       <div className="test-script fitness-script h-100 ">
@@ -140,156 +160,41 @@ return (
                   <div className="row">
                   <div class="swiper-container">
                       <div class="swiper-wrapper">
-                        <div className="swiper-slide">
+                      {
+                        products.map((opt, i) =>
+                          <div className="swiper-slide" key={i}>
                           <div class="">
                             <div className="count-box">
-                              <h4>Rest</h4>
-                              <div id="countdown">
-                                <div id="countdown-number"></div>
+                              <h4>{opt.name}</h4>
+
+                              <div className="countdown">
+                                <div className="countdown-number">30 SEC</div>
                                 <svg>
                                   <circle r="26" cx="30" cy="30"></circle>
                                 </svg>
                                 
                               </div>
                               <div className="row justify-content-center">
-                                <div className="border-right ">
+                                
+                                {opt.attribute.map(function(attrb, index){
+                                  return <div className="border-right ">
                                   <div className="target-info">
-                                    <span>target zone</span>
-                                    <span>80%</span>
+                                    <span>{attrb.attrLabel}</span>
+                                    <span>{attrb.attrValue}</span>
                                   </div>
-                                </div>
-                                <div>
-                                  <div className="target-info">
-                                    <span>target bpm</span>
-                                    <span>150</span>
-                                  </div>
-                                </div>
+                                </div>;
+                                })}
+                                
                               </div>
                             </div>
                           </div>
                         </div>
-                        <div className="swiper-slide">
-                          <div class="">
-                            <div className="count-box">
-                            
-                            <img src="images/screen-video.png" className="screen-video" />
-                              <h4>Lunges</h4>
-                              <div id="countdown">
-                                <div id="countdown-number2"></div>
-                                <svg>
-                                  <circle r="26" cx="30" cy="30"></circle>
-                                </svg>
-                              </div>
-                              <div className="row justify-content-center">
-                                  <div className="border-right ">
-                                    <div className="target-info">
-                                      <span>target zone</span>
-                                      <span>80%</span>
-                                    </div>
-                                  </div>
-                                  <div>
-                                    <div className="target-info">
-                                      <span>target bpm</span>
-                                      <span>150</span>
-                                    </div>
-                                  </div>
-                                </div>
-                            </div>
-                          </div>
-                          <p className="now-script">NOW</p>
-                        </div>
-                        <div className="swiper-slide">
-                        <div class="">
-                          <div className="count-box">
-                            <h4>Rest</h4>
-                            <div id="countdown">
-                              <div id="countdown-number3"></div>
-                              <svg>
-                                <circle r="26" cx="30" cy="30"></circle>
-                              </svg>
-                              
-                            </div>
-                            <div className="row justify-content-center">
-                                <div className="border-right ">
-                                  <div className="target-info">
-                                    <span>target zone</span>
-                                    <span>80%</span>
-                                  </div>
-                                </div>
-                                <div>
-                                  <div className="target-info">
-                                    <span>target bpm</span>
-                                    <span>150</span>
-                                  </div>
-                                </div>
-                              </div>
-                          </div>
-                        </div>
-                        </div>
-                        <div className="swiper-slide">
-                        <div class="">
-                          <div className="count-box">
-                            <h4>Rest</h4>
-                            <div id="countdown">
-                              <div id="countdown-number4"></div>
-                              <svg>
-                                <circle r="26" cx="30" cy="30"></circle>
-                              </svg>
-                              
-                            </div>
-                            <div className="row justify-content-center">
-                                <div className="border-right ">
-                                  <div className="target-info">
-                                    <span>target zone</span>
-                                    <span>80%</span>
-                                  </div>
-                                </div>
-                                <div>
-                                  <div className="target-info">
-                                    <span>target bpm</span>
-                                    <span>150</span>
-                                  </div>
-                                </div>
-                              </div>
-                          </div>
-                        </div>
-                        </div>
-                        
-                        <div className="swiper-slide">
-                        <div class="">
-                          <div className="count-box">
-                            <h4>Rest</h4>
-                            <div id="countdown">
-                              <div id="countdown-number5"></div>
-                              <svg>
-                                <circle r="26" cx="30" cy="30"></circle>
-                              </svg>
-                              
-                            </div>
-                            <div className="row justify-content-center">
-                                <div className="border-right ">
-                                  <div className="target-info">
-                                    <span>target zone</span>
-                                    <span>80%</span>
-                                  </div>
-                                </div>
-                                <div>
-                                  <div className="target-info">
-                                    <span>target bpm</span>
-                                    <span>150</span>
-                                  </div>
-                                </div>
-                              </div>
-                          </div>
-                        </div>
-                        </div>
-                        
+
+                        )}
                       </div>
                       
                       <div class="swiper-pagination"></div>
                     </div>
-                    
-                    
                     
                   </div>
                 </div> 

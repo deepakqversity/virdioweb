@@ -947,22 +947,30 @@ function attendeeScreenHeight(){
     // localStorage.removeItem("sessionId");
     localStorage.removeItem("load-page");
   }
- 
-  $(document).ready(function(){
-   
 
-    var countdownNumberEl = document.getElementById('countdown-number');
-    //var countdownNumberEl2 = document.getElementById('countdown-number2');
+  function countDown(){
+    var countdownNumberEl = $('.swiper-slide.swiper-slide-next .countdown-number');
+    
     var countdown = 30;
     
-    countdownNumberEl.textContent = countdown;
-    //countdownNumberEl2.textContent = countdown;
+    countdownNumberEl.html(countdown + '\ SEC') ;
     
-    setInterval(function() {
-      countdown = --countdown <= 0 ? 30 : countdown;
+    var ref = setInterval(function() {
+      countdown = --countdown < 0 ? 30 : countdown;
     
-      countdownNumberEl.textContent = `${countdown}`;
+      countdownNumberEl.html(countdown + '\ SEC') ;
+      if(countdown <= 0){
+        clearInterval(ref);
+      }
     }, 1000);
+  }
+ 
+  $(document).ready(function(){
+
+      setTimeout(function(){ countDown(); }, 100);
+      
+
+    
 
 
     let agoraLocal = $("#agora_local").find("video").width();

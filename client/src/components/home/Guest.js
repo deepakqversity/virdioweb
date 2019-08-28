@@ -60,25 +60,23 @@ class Guest extends Component {
   }
   
   componentDidMount(){
-    var userData = JSON.parse(localStorage.getItem("jwtToken"));
-    var  email=userData.email;
-    this.setState({getMail : email});
+    let localstoragedata = JSON.parse(localStorage.getItem('userData'));
+    this.setState({getMail : localstoragedata.email});
 
     if(localStorage.getItem('load-page') != 1){  
         window.loadPopup();
       localStorage.setItem("load-page", 1);
     }
 
-    let sessionId = localStorage.getItem('sessionId');
-    let localstoragedata = JSON.parse(localStorage.getItem('jwtToken'));
+    // let sessionId = localStorage.getItem('sessionId');
 
-    fetch('/api/v1/session/'+sessionId, {headers : {'Authorization': localstoragedata.token}})
-    .then(response => { return response.json(); })
-    .then(data => {
-      localStorage.setItem('currentSession', JSON.stringify(data));
-        console.log('data=================', data);
+    // fetch('/api/v1/session/'+sessionId, {headers : {'Authorization': localstoragedata.token}})
+    // .then(response => { return response.json(); })
+    // .then(data => {
+    //   localStorage.setItem('currentSession', JSON.stringify(data));
+    //     console.log('data=================', data);
         
-    });
+    // });
   }
 
   componentWillMount(){
@@ -90,7 +88,7 @@ render() {
 
    // console.log(user);
 
-   var userData = JSON.parse(localStorage.getItem("jwtToken"));
+   var userData = JSON.parse(localStorage.getItem("userData"));
   var  email=userData.email;
     console.log('----------munmun--------------------', userData.email);
 

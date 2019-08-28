@@ -23,9 +23,10 @@ import Host from "./components/home/Host";
 import Guest from "./components/home/Guest";
 
 // Check for token to keep user logged in
-if (localStorage.jwtToken) {
+if (localStorage.userData) {
   // Set auth token header auth
-  const token = localStorage.jwtToken;
+  const token = JSON.parse(localStorage.userData).token;
+
   setAuthToken(token);
   // Decode token and get user info and exp
   const decoded = jwt_decode(token);

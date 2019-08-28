@@ -763,6 +763,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
     // GoInFullscreen();
     join();
     recieveMessage();
+    $(".host-script-section").height("255px");
+    $(".host-section").css({"min-width": "380px", "max-width": "380px"});
   }
 
   function GoInFullscreen() {

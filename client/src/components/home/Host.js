@@ -59,6 +59,7 @@ render() {
    // console.log(user);
     // console.log('------------------------------', user);
     let sessionScript = this.state.sessionScript;
+    console.log('===============', sessionScript)
     let scriptHtml = '';
     if (sessionScript == 1) {
       scriptHtml = <WineScript />;

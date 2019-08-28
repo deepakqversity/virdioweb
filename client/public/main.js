@@ -950,7 +950,7 @@ function attendeeScreenHeight(){
   }
  
   $(document).ready(function(){
-
+   
 
     // var countdownNumberEl = document.getElementById('countdown-number');
     // var countdownNumberEl2 = document.getElementById('countdown-number2');

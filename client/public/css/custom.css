@@ -963,6 +963,45 @@ display:none;
 .fitness-info>div:nth-child(1){
 	border-right:1px solid #9b51e0 !important;
 }
+.swiper-btns{
+	    position: absolute;
+    right: 25px;
+    bottom: -20px;
+	z-index:9;
+}
+.swiper-btns .swiper-btn-next{
+	    padding-block-end: 2px;
+    padding-block-start: 2px;
+    padding-inline-start: 12px;
+    padding-inline-end: 12px;
+}
+.start span, .end span{
+    margin: auto;
+    float: left;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.start span a, .end span a{
+	color: #fff;
+    text-align: center;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    font-size: 12px;
+    font-family: Avenir-Book;
+    text-decoration: none !important;
+    border: 2px solid #484848;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+}
+.swiper-slide{
+	padding:10px;
+	border:1.5px solid transparent;
+}
 .swiper-slide-next .count-box svg circle {
   stroke-dasharray: 160px;
   stroke-dashoffset: 0px;
@@ -973,9 +1012,12 @@ display:none;
   animation: countdown 30s linear infinite forwards;
   animation-direction: reverse;
 }
+.swiper-slide{
+	box-sizing:border-box;
+}
 .swiper-slide-next{
 	background: rgba(110,67,150,0.3);
-    border: 1.5px solid #9B51E0;
+    border: 1.5px solid #9B51E0 !important;
     border-radius: 12px;
     padding: 10px;
 	position: relative;
@@ -1028,7 +1070,7 @@ display:none;
     top: auto;
 }
 .now-script{
-color: #fff;
+	color: #fff;
     margin: 0;
     font-size: 14px;
     margin-top: 6px;
@@ -1284,6 +1326,65 @@ img.user-login{
 
 
 /*------11. Prescreen popup----------*/
+.prescreen-popup .modal-header{
+	padding: 0;
+}
+.prescreen-popup .session-details{
+	background: #2F2F2F;
+    border-radius: 10px;
+    padding: 15px;
+}
+.prescreen-popup .session-logo{
+	width:197px;
+}
+.prescreen-popup .participant-status{
+    width: 290px;
+    padding: 15px;
+	border-radius: 10px;
+}
+
+.prescreen-popup .open-list{
+	float:right;
+	cursor:pointer;
+}
+.prescreen-popup .modal-content{
+	    background-color: #000;
+    border-radius: 12px;
+    padding: 15px;
+}
+.prescreen-popup .popup-heading{
+	font-family: Avenir-Book;
+    color: #fff;
+    font-size: 24px;
+    margin: 0;
+}
+.w-90{
+	width:90%;
+	max-width:90%;
+}
+.prescreen-popup .popup-heading span{
+	    color: #D8D8D8;
+    font-size: 16px;
+    margin-left: 20px;
+}
+.prescreen-popup .countdown-timer{
+	
+}
+.prescreen-popup .small-heading{
+    border-left: 4px solid #B002ED;
+    color: #fff;
+    font-family: Avenir-Medium;
+    font-size: 17px;
+    padding-left: 18px;
+    margin-left: -14px;
+    margin-bottom: 0;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+
+
+
 .modal-open .modal.attendy-list {
     overflow-x: hidden;
     overflow-y: auto;

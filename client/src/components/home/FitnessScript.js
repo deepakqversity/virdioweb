@@ -160,6 +160,11 @@ return (
                   <div className="row">
                   <div className="swiper-container">
                       <div className="swiper-wrapper">
+                        <div className="swiper-slide start">
+                          <span>
+                            <a href="#">Start</a>
+                          </span>
+                        </div>
                       {
                         sessionScript.map((opt, i) =>
                           <div className="swiper-slide" key={i}>
@@ -191,9 +196,18 @@ return (
                         </div>
 
                         )}
+                        <div className="swiper-slide end">
+                          <span>
+                            <a href="#">End</a>
+                          </span>
+                        </div>
                       </div>
                       
-                      <div className="swiper-pagination"></div>
+                      {/* <div className="swiper-pagination"></div> */}
+                      <div className="swiper-btns">
+                        <a href="#" className="btn btn-outline-secondary swiper-btn-next">"Next"</a>
+                        <a href="#" className="btn btn-outline-secondary swiper-btn-prev d-none">"Prev"</a>
+                      </div>
                     </div>
                     
                   </div>

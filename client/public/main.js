@@ -949,32 +949,44 @@ function attendeeScreenHeight(){
     // localStorage.removeItem("sessionId");
     localStorage.removeItem("load-page");
   }
+  var resetCount = '';
 
   function countDown(){
     var countdownNumberEl = $('.swiper-slide.swiper-slide-next .countdown-number');
     
     var countdown = 30;
-    
+    console.log('===========')
     countdownNumberEl.html(countdown + '\ SEC') ;
     
-    var ref = setInterval(function() {
+    resetCount = setInterval(function() {
       countdown = --countdown < 0 ? 30 : countdown;
     
       countdownNumberEl.html(countdown + '\ SEC') ;
       if(countdown <= 0){
-        clearInterval(ref);
-
+        
+        clearInterval(resetCount);
         // Now you can use all slider methods like
         mySwiper.slideNext();
-        
+        countDown();
       }
     }, 1000);
   }
  
   $(document).ready(function(){
-
-      setTimeout(function(){ countDown(); }, 100);
+  
+     $(document).on("click", ".start span a", function(){
+      $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
+      $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
+      countDown();
+     })
       
+      $(document).on("click", ".swiper-btns .swiper-btn-next", function(e){
+        e.preventDefault();
+        clearInterval(resetCount);
+        // Now you can use all slider methods like
+        mySwiper.slideNext();
+        countDown();
+      })
 
     
 

@@ -16,22 +16,40 @@ render() {
 
 return (
     <div>
-      <div className="modal fade" id="media-config" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div className="prescreen-popup modal fade" id="media-config" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-      <div className="modal-dialog modal-dialog-lg mw-75" role="document">
+      <div className="modal-dialog modal-dialog-lg w-90" role="document">
 
         <div className="modal-content">
 
         <div className="modal-header">
 
-          <h5 className="modal-title" id="exampleModalLabel">Media Configuration</h5>
-          <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#attendy-list">
-            Open modal
-          </button>
+          <div className="d-flex w-100 justify-content-between">
+            <div className="session-logo">
+              <img src="/images/prescreen-logo.png" />
+            </div>
+            <div className="session-details bg-gray flex-grow-1 mx-2">
+                <h4 className="small-heading">Your Upcoming Session</h4>
+                <h3 className="popup-heading">An introduction to wine tasting <span>by Arjun Rishi</span></h3>
+                <div class="time py-xs-1">  
+                  <span>04/23/2019, at 12:00 PM</span>
+                </div>
+                <div className="col-lg-2 float-right">
+                  <span className="countdown-timer">00:23:43</span>
+                  <a href="#" className="btn btn-primary">Session details</a>
+                </div>
+            </div>
+            <div className="participant-status bg-gray">
+              <h4 className="small-heading">Participants <img src="images/list-icon.png" className="open-list" /></h4>
+            </div>
+          </div>
+          
           
 
         </div>
-
+        <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#attendy-list">
+            Open modal
+          </button>
         <div className="modal-body" id="media-content">
           
           <div className="row">

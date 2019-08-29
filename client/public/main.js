@@ -962,6 +962,10 @@ function attendeeScreenHeight(){
     
       countdownNumberEl.html(countdown + '\ SEC') ;
       if(countdown <= 0){
+        
+
+        // Now you can use all slider methods like
+        mySwiper.slideNext();
         clearInterval(ref);
       }
     }, 1000);

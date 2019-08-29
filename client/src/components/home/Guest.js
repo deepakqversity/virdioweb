@@ -239,13 +239,8 @@ return (
                   Edward K
                   <span><i className="fa fa-map-marker" aria-hidden="true"></i> CO</span>
                 </span>
-<<<<<<< HEAD
               </div> */}
             <button type="button" id="minimize-others" className="mt-2 minimize-others btn btn-outline-secondary mx-auto">"Minimize Others"</button>
-=======
-              </div>
-            <button type="button" id="minimize-others" className="mt-2 minimize-others btn btn-outline-secondary mx-auto d-none">"Minimize Others"</button>
->>>>>>> cd61400dbb26df7a1057424ff29e0c666603a584
         
             </div>
            

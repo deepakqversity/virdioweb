@@ -7,3 +7,5 @@ UPDATE `interest` SET `code` = '102' WHERE `interest`.`id` = 3;
 RENAME TABLE `virdiodb`.`products` TO `virdiodb`.`session_script`;
 RENAME TABLE `virdiodb`.`product_attributes` TO `virdiodb`.`script_attributes`;
 RENAME TABLE `virdiodb`.`product_session` TO `virdiodb`.`session_script_mapping`;
+ALTER TABLE `session_script_mapping` CHANGE `productId` `sessionScriptId` INT(11) NOT NULL;
+ALTER TABLE `script_attributes` CHANGE `productId` `sessionScriptId` INT(11) NOT NULL;

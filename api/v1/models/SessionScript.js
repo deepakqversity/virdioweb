@@ -14,11 +14,11 @@ class SessionScript{
 	    {
 	        return await new Promise((resolve, reject) => {
             	
-            	db.query('SELECT ss.*, ssm.productId FROM session_script ss LEFT JOIN session_script_mapping ssm ON ssm.productId = ss.id WHERE ssm.sessionId = ? AND ss.userId = ?', [sessionId, userId], function (error, results, fields) {
+            	db.query('SELECT ss.*, ssm.sessionScriptId FROM session_script ss LEFT JOIN session_script_mapping ssm ON ssm.sessionScriptId = ss.id WHERE ssm.sessionId = ? AND ss.userId = ?', [sessionId, userId], function (error, results, fields) {
 				  if (error) reject(error);
 				  // console.log('================== results ', results)
 				  	
-			  		scriptAttr.getAttributesByIds(underscore.pluck(results, 'productId'))
+			  		scriptAttr.getAttributesByIds(underscore.pluck(results, 'sessionScriptId'))
 				  		.then(function(attributes){
 
 				  			let productData = {};
@@ -30,7 +30,7 @@ class SessionScript{
 				  					let nestedData = [];
 				  					for(let j in attributes){
 					  					let attrData = attributes[j];
-					  					if(sessData.id == attrData.productId){
+					  					if(sessData.id == attrData.sessionScriptId){
 					  						nestedData.push(attrData);
 					  					}
 					  				}

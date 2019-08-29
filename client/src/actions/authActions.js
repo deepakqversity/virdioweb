@@ -73,7 +73,7 @@ export const logoutUser = () => dispatch => {
 
   // Remove token from local storage
  // leave();
-  localStorage.removeItem("jwtToken");
+  localStorage.removeItem("userData");
   // Remove auth header for future requests
   setAuthToken(false);
   // Set current user to empty object {} which will set isAuthenticated to false
@@ -86,7 +86,7 @@ export const logoutUser = () => dispatch => {
 export const joinConf = (channel) => dispatch => {
   localStorage.setItem("channel", channel);
 
-  var retrievedObject = localStorage.getItem('jwtToken');
+  var retrievedObject = localStorage.getItem('userData');
   var localstoragedata=JSON.parse(retrievedObject);
 
 

@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import { getNumberDigit } from "../../utils/functions";
 import $ from 'jquery';
 import Config from "./Configuration";
 import WineScript from "./WineScript";
 import FitnessScript from "./FitnessScript";
+import moment from 'moment'
 
 class Host extends Component {
 
@@ -57,7 +59,14 @@ class Host extends Component {
 render() {
     const  {user}  = this.props.auth;
 
-   // console.log(user);
+    let localstoragedata = JSON.parse(localStorage.getItem('userData'));
+    let sessionData = localstoragedata.sessionData;
+   
+    let localDate = moment(sessionData.scheduleDate).format('MM/DD/YYYY # h:mm a');
+
+    localDate = localDate.replace('#', 'at');
+    let remTime = '';
+    console.log('scheduleDate ',localDate );
     // console.log('------------------------------', user);
     let scriptHtml = '';
     let sessionScript = this.state.sessionScript;
@@ -77,14 +86,14 @@ return (
           </a>
         </div>
         <div className="col col-md-11">
-          <h3 className="main-heading">A long title that can come here <span>by host name</span>
+          <h3 className="main-heading">{sessionData.name} <span>by <span className="welcome-title">{sessionData.hostName.toLowerCase()}</span></span>
           <button className="position-absolute logout-btn" onClick={this.callfunction.bind(this)} tabIndex="1">
                 <i className="fa fa-times" aria-hidden="true"></i>
           </button>
           </h3>
           <div className="row justify-content-between align-items-center mt-0">
             <div className="col-12 col-sm-7">
-              <div className="time py-xs-1">  <span>04/23/2019, at 12:00 PM</span>
+              <div className="time py-xs-1">  <span>{localDate}</span>
                 <span>Time Remaining: 01:10:00</span>
               </div>
             </div>

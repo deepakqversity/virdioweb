@@ -39,7 +39,7 @@ class SessionCtrl {
 	
 	async getSessionUsers(req, res) {
 	    try {
-			let userObj = await sessionModel.findByUserId(req.currentUser.id);
+			let userObj = await sessionModel.findSessionUsers(req.params.sessionId);
 			res.status(200).send(userObj);
 				
 	    } catch(exception) {

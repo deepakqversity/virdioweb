@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import { getNumberDigit } from "../../utils/functions";
 import $ from 'jquery';
 import Config from "./Configuration";
 import WineScript from "./WineScript";
 import FitnessScript from "./FitnessScript";
+import moment from 'moment'
 
 class Host extends Component {
 
@@ -28,6 +30,10 @@ class Host extends Component {
 
   callfunction(){
     $('#logout_button').trigger('click');
+  }
+
+  sendMsgAll(){
+    $('#msgToAll_button').trigger('click');
   }
 
   componentDidMount(){
@@ -57,7 +63,14 @@ class Host extends Component {
 render() {
     const  {user}  = this.props.auth;
 
-   // console.log(user);
+    let localstoragedata = JSON.parse(localStorage.getItem('userData'));
+    let sessionData = localstoragedata.sessionData;
+   
+    let localDate = moment(sessionData.scheduleDate).format('MM/DD/YYYY # h:mm a');
+
+    localDate = localDate.replace('#', 'at');
+    let remTime = '';
+    console.log('scheduleDate ',localDate );
     // console.log('------------------------------', user);
     let scriptHtml = '';
     let sessionScript = this.state.sessionScript;
@@ -77,17 +90,19 @@ return (
           </a>
         </div>
         <div className="col col-md-11">
-          <h3 className="main-heading">A long title that can come here <span>by host name</span>
+          <h3 className="main-heading">{sessionData.name} <span>by <span className="welcome-title">{sessionData.hostName.toLowerCase()}</span></span>
           <button className="position-absolute logout-btn" onClick={this.callfunction.bind(this)} tabIndex="1">
                 <i className="fa fa-times" aria-hidden="true"></i>
           </button>
           </h3>
           <div className="row justify-content-between align-items-center mt-0">
             <div className="col-12 col-sm-7">
-              <div className="time py-xs-1">  <span>04/23/2019, at 12:00 PM</span>
+              <div className="time py-xs-1">  <span>{localDate}</span>
                 <span>Time Remaining: 01:10:00</span>
+                <div id ="all_attendies_list"></div>
               </div>
             </div>
+            <div id="guestmsg" style={{color:'green'}}></div>
             <div className="col-12 col-sm-3">
               <div className="col-12 justify-content-end d-flex align-items-center">
                 <a className="btn btn-primary border-right pr-20 mr-1" href="javascript:;" tabIndex="0" id="fullscreen">fullscreen</a>
@@ -102,7 +117,7 @@ return (
     <section className="bg-gray mt-1 px-0 py-1 rounded section attendees">
       <div className="row px-0 px-sm-3 pb-2 pt-0 justify-content-between align-items-center">
         <div className="col-6 col-md-6">
-          <h4 className="title">Wine Testers <span>(24/44)</span></h4>
+          <h4 className="title">Wine Testers (<span id="joined_users">0</span>/<span>44</span>)</h4>
         </div>
         <div className="col-6 col-md-4">
           <button type="button" className="btn btn-outline-secondary float-right mt-1 show-hide-footer-panel">"Show Attendees"</button>

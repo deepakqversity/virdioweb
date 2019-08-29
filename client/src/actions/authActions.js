@@ -35,7 +35,9 @@ export const loginUser = userData => dispatch => {
       // Save to localStorage
 
       const  token  = res.data.token;
+
     //  console.log(res.data);
+    
       localStorage.setItem("userData", JSON.stringify(res.data));
 
       // Set token to Auth header

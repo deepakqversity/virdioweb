@@ -41,6 +41,8 @@ return (
             </div>
             <div className="participant-status bg-gray">
               <h4 className="small-heading">Participants <img src="images/list-icon.png" className="open-list" /></h4>
+                <span>Total Signup:</span><span id="totalsignup"></span>
+                <span>Online:</span><span id="totalonline"></span>
             </div>
           </div>
           

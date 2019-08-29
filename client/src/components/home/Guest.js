@@ -9,7 +9,7 @@ class Guest extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {getMail : ''}
+    this.state = {getID : ''}
   }
 
   onLogoutClick = e => {
@@ -28,41 +28,46 @@ class Guest extends Component {
   callfunction(){
     $('#logout_button').trigger('click');
   }
+  
+
+  handRaise(){
+    var ID=this.state.getID;
+    console.log(ID);
+    $('#handRaiseClient_button').trigger('click');
+  }
 
   getAppearence(){
-    //console.log(this.state.getMail);
-    var email=this.state.getMail;
-    console.log(email);
-    $("#appearence_button").val(email);
+    var ID=this.state.getID;
+    console.log(ID);
+    $("#appearence_button").val(ID);
     $('#appearence_button').trigger('click');
   }
 
   getAroma(){
-    //console.log(this.state.getMail);
-    var email=this.state.getMail;
-    console.log(email);
-    $("#aroma_button").val(email);
+    var ID=this.state.getID;
+    console.log(ID);
+    $("#aroma_button").val(ID);
     $('#aroma_button').trigger('click');
   }
   getPalate(){
-    //console.log(this.state.getMail);
-    var email=this.state.getMail;
-    console.log(email);
-    $("#palate_button").val(email);
+    var ID=this.state.getID;
+    console.log(ID);
+    $("#palate_button").val(ID);
     $('#palate_button').trigger('click');
   }
   getScore(){
-    //console.log(this.state.getMail);
-    var email=this.state.getMail;
-    console.log(email);
-    $("#score_button").val(email);
+    var ID=this.state.getID;
+    console.log(ID);
+    $("#score_button").val(ID);
     $('#score_button').trigger('click');
   }
   
   componentDidMount(){
+  
     let localstoragedata = JSON.parse(localStorage.getItem('userData'));
-    this.setState({getMail : localstoragedata.email});
-
+    var  userID=localstoragedata.id;
+    this.setState({getID : userID});
+   
     if(localStorage.getItem('load-page') != 1){  
         window.loadPopup();
       localStorage.setItem("load-page", 1);
@@ -89,8 +94,8 @@ render() {
    // console.log(user);
 
    var userData = JSON.parse(localStorage.getItem("userData"));
-  var  email=userData.email;
-    console.log('----------munmun--------------------', userData.email);
+  var  userID=userData.id;
+    console.log('------------------------------', userData);
 
 return (
     <div className="container d-flex flex-column justify-content-between h-100 overlay position-relative">
@@ -116,8 +121,9 @@ return (
                   <div id="hostmsg" style={{color:'green'}}></div>
                   <div className="col-12 center-mob col-sm-7 col-md-6 col-lg-3 d-flex justify-content-end">
                   
+                    <a className="col-2 justify-content-end d-flex align-items-center" href="#" className="btn btn-primary " tabIndex="1">Details</a>
                     <div className="default-btns mr-2">
-                      <a href="javascript:;" className="btn btn-primary ml-2" id="mocrophone-off" alt="Microphone" title="Microphone Off"><img src="images/hand.png" /></a>
+                      <a href="javascript:;" className="btn btn-primary ml-2" id="mocrophone-off" onClick={this.handRaise.bind(this)} alt="Microphone" title="Microphone Off"><img src="images/hand.png" /></a>
                       <a href="javascript:;" className="btn btn-primary ml-2 d-none" id="mocrophone-on" alt="Microphone" title="Microphone On"><i className="fa fa-microphone"></i></a>
                     </div>
 
@@ -184,8 +190,9 @@ return (
           <div className="transparent-gray slide-right-left" style={toggleList}>
             
             <div className="joined-attendees ">
-            <h4 className="mb-2 head"><span className="title d-none">Wine Testers</span> <span className="count">(24/44)</span></h4>
-              <div className="attendee-list">
+            <h4 className="mb-2 head"><span className="title">Wine Testers</span><span className="count">(<span  id="joined_users_at_client">0</span>/<span>44</span>)</span></h4>
+            <div id="all_joined_member_list">
+              {/* <div className="attendee-list">
                 <img src="images/attendee.png" />
                 <span>
                   Edward K
@@ -195,8 +202,9 @@ return (
                   <span className="icon1"></span>
                   <span className="icon2"></span>
                 </div>
+              </div> */}
               </div>
-              <div className="attendee-list">
+              {/* <div className="attendee-list">
                 <img src="images/attendee.png" />
                 <span>
                   Edward K
@@ -231,8 +239,8 @@ return (
                   Edward K
                   <span><i className="fa fa-map-marker" aria-hidden="true"></i> CO</span>
                 </span>
-              </div>
-            <button type="button" id="minimize-others" className="mt-2 minimize-others btn btn-outline-secondary mx-auto d-none">"Minimize Others"</button>
+              </div> */}
+            <button type="button" id="minimize-others" className="mt-2 minimize-others btn btn-outline-secondary mx-auto">"Minimize Others"</button>
         
             </div>
            
@@ -251,13 +259,13 @@ return (
   </div>
     <footer className="footer position-relative zindex-5 count-box mb-5 mt-4">
       
-      {/*<ul className="bottom-links flex-wrap list-group list-group-horizontal mx-auto d-md-flex justify-content-center py-xs-1">
+      <ul className="bottom-links flex-wrap list-group list-group-horizontal mx-auto d-md-flex justify-content-center py-xs-1">
 
         <li className="list-group-item bg-transparent border-0"><a href="#"  onClick={this.getAppearence.bind(this)}>APPEARANCE</a></li>
         <li className="list-group-item bg-transparent border-0"><a href="#" onClick={this.getAroma.bind(this)}>AROMA</a></li>
         <li className="list-group-item bg-transparent border-0"><a href="#" onClick={this.getPalate.bind(this)}>PALATE</a></li>
         <li className="list-group-item bg-transparent border-0"><a href="#" onClick={this.getScore.bind(this)}>SCORE</a></li>
-      </ul>*/}
+      </ul>
       <div className="d-flex justify-content-between w-75 arrow-after align-items-center">
         <div id="countdown">
           <div id="countdown-number"></div>

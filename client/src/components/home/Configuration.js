@@ -25,6 +25,8 @@ return (
         <div className="modal-header">
 
           <h5 className="modal-title" id="exampleModalLabel">Media Configuration</h5>
+          <span>Total Signup:</span><span id="totalsignup"></span>
+         <span>Online:</span><span id="totalonline"></span>
           <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#attendy-list">
             Open modal
           </button>

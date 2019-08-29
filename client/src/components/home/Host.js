@@ -32,6 +32,10 @@ class Host extends Component {
     $('#logout_button').trigger('click');
   }
 
+  sendMsgAll(){
+    $('#msgToAll_button').trigger('click');
+  }
+
   componentDidMount(){
   // console.log(2);    //
     if(localStorage.getItem('load-page') != 1){  
@@ -95,8 +99,10 @@ return (
             <div className="col-12 col-sm-7">
               <div className="time py-xs-1">  <span>{localDate}</span>
                 <span>Time Remaining: 01:10:00</span>
+                <div id ="all_attendies_list"></div>
               </div>
             </div>
+            <div id="guestmsg" style={{color:'green'}}></div>
             <div className="col-12 col-sm-3">
               <div className="col-12 justify-content-end d-flex align-items-center">
                 <a className="btn btn-primary border-right pr-20 mr-1" href="javascript:;" tabIndex="0" id="fullscreen">fullscreen</a>
@@ -111,7 +117,7 @@ return (
     <section className="bg-gray mt-1 px-0 py-1 rounded section attendees">
       <div className="row px-0 px-sm-3 pb-2 pt-0 justify-content-between align-items-center">
         <div className="col-6 col-md-6">
-          <h4 className="title">Wine Testers <span>(24/44)</span></h4>
+          <h4 className="title">Wine Testers (<span id="joined_users">0</span>/<span>44</span>)</h4>
         </div>
         <div className="col-6 col-md-4">
           <button type="button" className="btn btn-outline-secondary float-right mt-1 show-hide-footer-panel">"Show Attendees"</button>

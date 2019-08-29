@@ -1,12 +1,12 @@
 const isEmpty = require("is-empty");
 const underscore = require("underscore");
 const db = require(process.cwd() + '/library/Mysql');
-const productAttr = require('./ProductAttributes');
+const scriptAttr = require('./ScriptAttributes');
 
-class Products{
+class SessionScript{
 
 	constructor(){
-		this.table = 'products';
+		this.table = 'session_script';
 	}
 
 	async getProductDetail(sessionId, userId) {
@@ -14,17 +14,17 @@ class Products{
 	    {
 	        return await new Promise((resolve, reject) => {
             	
-            	db.query('SELECT p.*, pa.productId FROM products p LEFT JOIN product_session pa ON pa.productId = p.id WHERE pa.sessionId = ? AND p.userId = ?', [sessionId, userId], function (error, results, fields) {
+            	db.query('SELECT ss.*, ssm.productId FROM session_script ss LEFT JOIN session_script_mapping ssm ON ssm.productId = ss.id WHERE ssm.sessionId = ? AND ss.userId = ?', [sessionId, userId], function (error, results, fields) {
 				  if (error) reject(error);
-				  console.log('================== results ', results)
+				  // console.log('================== results ', results)
 				  	
-			  		productAttr.getAttributesByIds(underscore.pluck(results, 'productId'))
+			  		scriptAttr.getAttributesByIds(underscore.pluck(results, 'productId'))
 				  		.then(function(attributes){
 
 				  			let productData = {};
 				  			if(!isEmpty(attributes)){
 
-				  			console.log('================== attributes ', attributes)
+				  			// console.log('================== attributes ', attributes)
 				  				for(let i in results){
 				  					let sessData = results[i];
 				  					let nestedData = [];
@@ -53,4 +53,4 @@ class Products{
 	
 }
 
-module.exports = new Products();
+module.exports = new SessionScript();

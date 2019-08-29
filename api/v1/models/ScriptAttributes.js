@@ -1,10 +1,10 @@
 const isEmpty = require("is-empty");
 const db = require(process.cwd() + '/library/Mysql');
 
-class ProductAttributes{
+class ScriptAttributes{
 
 	constructor(){
-		this.table = 'product_attributes';
+		this.table = 'script_attributes';
 	}
 
 	async getAttributesByIds(productIds) {
@@ -30,4 +30,4 @@ class ProductAttributes{
 	
 }
 
-module.exports = new ProductAttributes();
+module.exports = new ScriptAttributes();

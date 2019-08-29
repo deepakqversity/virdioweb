@@ -5,7 +5,7 @@ const underscore = require("underscore");
 const userModel = require('../../models/User');
 const tokenModel = require('../../models/AuthToken');
 const sessionModel = require('../../models/Session');
-const productModel = require('../../models/Products');
+const sessionScriptModel = require('../../models/SessionScript');
 const clientToken = require( process.cwd() + '/util/ClientToken');
 const utils = require(process.cwd() + '/util/Utils');
 
@@ -68,7 +68,7 @@ class UserCtrl {
 						currentSession = underscore.omit(currentSession, 'appCertificate');
 
 
-						let productDetail = await productModel.getProductDetail(currentSession.id, currentSession.hostId );
+						let productDetail = await sessionScriptModel.getProductDetail(currentSession.id, currentSession.hostId );
 						underscore.extend(currentSession, {productDetail : productDetail});
 						
 						underscore.extend(userObj, { sessionData : currentSession });

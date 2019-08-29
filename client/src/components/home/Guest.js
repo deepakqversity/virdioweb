@@ -63,25 +63,25 @@ class Guest extends Component {
   }
   
   componentDidMount(){
-    var userData = JSON.parse(localStorage.getItem("jwtToken"));
-    var  userID=userData.id;
+  
+    let localstoragedata = JSON.parse(localStorage.getItem('userData'));
+    var  userID=localstoragedata.id;
     this.setState({getID : userID});
-
+   
     if(localStorage.getItem('load-page') != 1){  
         window.loadPopup();
       localStorage.setItem("load-page", 1);
     }
 
-    let sessionId = localStorage.getItem('sessionId');
-    let localstoragedata = JSON.parse(localStorage.getItem('jwtToken'));
+    // let sessionId = localStorage.getItem('sessionId');
 
-    fetch('/api/v1/session/'+sessionId, {headers : {'Authorization': localstoragedata.token}})
-    .then(response => { return response.json(); })
-    .then(data => {
-      localStorage.setItem('currentSession', JSON.stringify(data));
-        console.log('data=================', data);
+    // fetch('/api/v1/session/'+sessionId, {headers : {'Authorization': localstoragedata.token}})
+    // .then(response => { return response.json(); })
+    // .then(data => {
+    //   localStorage.setItem('currentSession', JSON.stringify(data));
+    //     console.log('data=================', data);
         
-    });
+    // });
   }
 
   componentWillMount(){
@@ -93,7 +93,7 @@ render() {
 
    // console.log(user);
 
-   var userData = JSON.parse(localStorage.getItem("jwtToken"));
+   var userData = JSON.parse(localStorage.getItem("userData"));
   var  userID=userData.id;
     console.log('------------------------------', userData);
 
@@ -102,41 +102,39 @@ return (
 
       <div id="agora_host" className="fix-host"></div>
       
-  <header className="header w-100">
+  <header className="header w-100 p-0">
       <div className="row">
         <div className="col-lg-12 col-md-12">
           <div className="transparent-gray">
             <div className="row">
-              <a href="" className=" py-xs-1 col-lg-1 col-md-1 col-sm-1 d-flex v-logo align-items-center">
+              <a href="" className="col-12 py-xs-1 col-lg-1 col-md-1 col-sm-1 d-flex v-logo align-items-center">
                 <img src="images/v-logo.png" />
               </a>
-              <div className="col-lg-11 col-md-11 col-sm-12">
+              <div className="col-12 col-lg-11 col-md-11 col-sm-11">
               
                 <div className="row justify-content-between align-items-center">
-                  <div className="col-lg-7 col-md-6 text-center text-md-left col-sm-12">
+                  <div className="col-12 col-lg-7 col-md-6 text-center text-md-left col-sm-4">
                     <div className="time py-xs-1">  <span>04/23/2019, at 12:00 PM</span>
                       <span>Time Remaining: 01:10:00</span>
                     </div>
                   </div>
                   <div id="hostmsg" style={{color:'green'}}></div>
-                  <div className="col-12 col-sm-12 col-md-6 col-lg-3 d-flex justify-content-end">
+                  <div className="col-12 center-mob col-sm-7 col-md-6 col-lg-3 d-flex justify-content-end">
                   
-                  <div className="default-btns mr-2">
-                    <a href="javascript:;" className="btn btn-primary ml-2" id="mocrophone-off"  onClick={this.handRaise.bind(this)} alt="Microphone" title="Microphone Off"><img src="images/hand.png" /></a>
-                    <a href="javascript:;" className="btn btn-primary ml-2 d-none" id="mocrophone-on" alt="Microphone" title="Microphone On"><i className="fa fa-microphone"></i></a>
-
-                  </div>
-
                     <a className="col-2 justify-content-end d-flex align-items-center" href="#" className="btn btn-primary " tabIndex="1">Details</a>
+                    <div className="default-btns mr-2">
+                      <a href="javascript:;" className="btn btn-primary ml-2" id="mocrophone-off" onClick={this.handRaise.bind(this)} alt="Microphone" title="Microphone Off"><img src="images/hand.png" /></a>
+                      <a href="javascript:;" className="btn btn-primary ml-2 d-none" id="mocrophone-on" alt="Microphone" title="Microphone On"><i className="fa fa-microphone"></i></a>
+                    </div>
 
-                    
-                    <a href="javascript:;" className="btn btn-primary ml-2" id="strm-publish" alt="Broadcaster" title="Broadcaster"><i className="fa fa-user-plus"></i></a>
-                    <a href="javascript:;" className="btn btn-primary ml-2 d-none" id="strm-unpublish" alt="Audience" title="Audience"><i className="fa fa-user-times"></i></a>
+                      <a className="col-2 justify-content-end d-flex align-items-center" href="#" className="btn btn-primary " tabIndex="1">Details</a>
+                      <a href="javascript:;" className="btn btn-primary ml-2" id="strm-publish" alt="Broadcaster" title="Broadcaster"><i className="fa fa-user-plus"></i></a>
+                      <a href="javascript:;" className="btn btn-primary ml-2 d-none" id="strm-unpublish" alt="Audience" title="Audience"><i className="fa fa-user-times"></i></a>
 
-                    {/* <button className="btn btn-primary ml-2" onClick={this.onLogoutClick} tabIndex="1"><i className="fa fa-power-off"></i></button> */}
-                    <button className="ml-2 logout-btn" onClick={this.callfunction.bind(this)} tabIndex="1">
-                      <i className="fa fa-times" aria-hidden="true"></i>
-                    </button>
+                      {/* <button className="btn btn-primary ml-2" onClick={this.onLogoutClick} tabIndex="1"><i className="fa fa-power-off"></i></button> */}
+                      <button className="ml-2 logout-btn" onClick={this.callfunction.bind(this)} tabIndex="1">
+                        <i className="fa fa-times" aria-hidden="true"></i>
+                      </button>
                     </div>
                 </div>
               </div>
@@ -176,7 +174,7 @@ return (
       
     </div>*/}
     <div className="col-lg-1 col-md-1 col-sm-1 col-1 max-width-300 d-flex">
-      <div className="left-section">
+      <div className="left-section mt-3">
         <div class="bpm-bar">
           <span className="pop-text">Your BPM</span>
           <div className="readings">
@@ -189,7 +187,7 @@ return (
     </div>
     <div className="col-lg-3 col-md-4 col-sm-5 col-6 max-width-300 float-right pl-0 mt-3">
         <div className="right-sidebar">
-          <div className="transparent-gray slide-right-left">
+          <div className="transparent-gray slide-right-left" style={toggleList}>
             
             <div className="joined-attendees ">
             <h4 className="mb-2 head"><span className="title">Wine Testers</span><span className="count">(<span  id="joined_users_at_client">0</span>/<span>44</span>)</span></h4>
@@ -241,8 +239,13 @@ return (
                   Edward K
                   <span><i className="fa fa-map-marker" aria-hidden="true"></i> CO</span>
                 </span>
+<<<<<<< HEAD
               </div> */}
             <button type="button" id="minimize-others" className="mt-2 minimize-others btn btn-outline-secondary mx-auto">"Minimize Others"</button>
+=======
+              </div>
+            <button type="button" id="minimize-others" className="mt-2 minimize-others btn btn-outline-secondary mx-auto d-none">"Minimize Others"</button>
+>>>>>>> cd61400dbb26df7a1057424ff29e0c666603a584
         
             </div>
            
@@ -294,7 +297,7 @@ return (
         </div>
       </div>
       <div className="self-video1 mt-3 w-25">
-          <button type="button" id="show-everyone" className="mb-2 minimize-others btn btn-outline-secondary mx-auto d-none">"Show Everyone"</button>
+          <button type="button" id="show-everyone" className="mb-2 minimize-others btn btn-outline-secondary mx-auto">"Show Everyone"</button>
           
           <div id="agora_local" className="video-streams guest-video"></div>
           
@@ -405,6 +408,11 @@ return (
     );
   }
 }
+const toggleList = {
+  width: '72px',
+  float: 'right'
+}
+
 Guest.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired

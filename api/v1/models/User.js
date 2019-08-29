@@ -66,7 +66,7 @@ class User{
 		try
 	    {
 			return await new Promise((resolve, reject) => {
-				db.query('SELECT * FROM ?? WHERE email = ? AND status = 1 limit 1', [table, email], function (error, results, fields) {
+				db.query('SELECT id, name, email, password FROM ?? WHERE email = ? AND status = 1 limit 1', [table, email], function (error, results, fields) {
 				  if (error) reject(error);
 				  // console.log('================== results ', results)
 				  // db.end();

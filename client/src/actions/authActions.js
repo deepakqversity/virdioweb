@@ -35,13 +35,19 @@ export const loginUser = userData => dispatch => {
       // Save to localStorage
 
       const  token  = res.data.token;
+<<<<<<< HEAD
    // console.log(res.data);return false;
       localStorage.setItem("jwtToken", JSON.stringify(res.data));
+=======
+    //  console.log(res.data);
+      localStorage.setItem("userData", JSON.stringify(res.data));
+>>>>>>> cd61400dbb26df7a1057424ff29e0c666603a584
 
       // Set token to Auth header
       setAuthToken(token);
       // Decode token to get user data
       const decoded = jwt_decode(token);
+      // console.log('decoded ===========',decoded)
       // Set current user
       dispatch(setCurrentUser(decoded));
     })
@@ -72,7 +78,7 @@ export const logoutUser = () => dispatch => {
 
   // Remove token from local storage
  // leave();
-  localStorage.removeItem("jwtToken");
+  localStorage.removeItem("userData");
   // Remove auth header for future requests
   setAuthToken(false);
   // Set current user to empty object {} which will set isAuthenticated to false
@@ -85,7 +91,7 @@ export const logoutUser = () => dispatch => {
 export const joinConf = (channel) => dispatch => {
   localStorage.setItem("channel", channel);
 
-  var retrievedObject = localStorage.getItem('jwtToken');
+  var retrievedObject = localStorage.getItem('userData');
   var localstoragedata=JSON.parse(retrievedObject);
 
 

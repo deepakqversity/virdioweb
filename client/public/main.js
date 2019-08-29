@@ -55,23 +55,21 @@ if(!AgoraRTC.checkSystemRequirements()) {
     console.log('camera, microphone = ', camera, microphone)
 
     let storeData = getCurrentUserData();
-    let currentSession = getCurrentSession();
+    // let currentSession = getCurrentSession();
    
-    console.log('-*****lalit_current********  channel, utype', currentSession, storeData.userType);
+    console.log('-****  channel, utype', storeData.sessionData.channelId, storeData.userType);
 
-     appId = currentSession.appId;
+    // appId = storeData.sessionData.appId;
 
-    var channel_key = currentSession.token != undefined ? currentSession.token : null;
-
-     //var channel_key =null;
-    console.log("Init AgoraRTC client with App ID and token: " + currentSession.appId, channel_key);
+    var channel_key = storeData.sessionData.streamToken != undefined ? storeData.sessionData.streamToken : null;
+     
+    console.log("Init AgoraRTC client with App ID and token: " + storeData.sessionData.appId, channel_key);
     
     // create client first
     client = AgoraRTC.createClient({mode: 'live'});
     
     // initialize client
-   // client.init(currentSession.appId, function () {
-      client.init(appId, function () {
+    client.init(storeData.sessionData.appId, function () {
 
       console.log("AgoraRTC client initialized");
 
@@ -84,11 +82,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
         } else {
           console.log("user role set success");
 
-          var channelName = currentSession.channel;
-        
+          var channelName = storeData.sessionData.channelId;
 
           // create and join channel
-         client.join(channel_key, channelName, storeData.id, function(uid) {
+         client.join(channel_key, channelName.toString(), storeData.id, function(uid) {
           // client.join(channel_key, channelName, storeData.email, function(uid) {
 
             console.log("User***********Lalit******* " + uid + " join channel successfully");
@@ -103,13 +100,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
               localStream.setVideoProfile('720p_3');
             }
 
-            localStream.setVideoEncoderConfiguration({
-                // Video resolution
-                resolution: {
-                    width: 640,// 1280
-                    height: 380 // 
-                }
-            });
+            // localStream.setVideoEncoderConfiguration({
+            //     // Video resolution
+            //     resolution: {
+            //         width: 640,// 1280
+            //         height: 380 // 
+            //     }
+            // });
 
             // The user has granted access to the camera and mic.
             localStream.on("accessAllowed", function() {
@@ -122,47 +119,46 @@ if(!AgoraRTC.checkSystemRequirements()) {
             });
         
             localStream.init(function() {
-              if(storeData.userType != 1){
-                localStream.muteAudio();
-              } 
 
-        
-                  console.log("getUserMedia successfully", currentSession.id, storeData.id);
-                  localStream.play('agora_local');
-                  
-                  $.ajax({
-                      headers: { 
-                          "Content-Type": "application/json; charset=utf-8",
-                          "Authorization": storeData.token
-                      },
-                      url: '/api/v1/session/'+currentSession.id+'/stream-id',
-                      dataType: 'json',
-                      type: 'PUT',
-                      contentType: 'application/json',
-                      data: JSON.stringify({ "streamId": uid, "userType": parseInt(storeData.userType) }),
-                      success: function( data, textStatus, jQxhr ){
-                          
-                          if(storeData.userType == 1){
+                if(storeData.userType != 1){
+                  localStream.muteAudio();
+                } 
+          
+                console.log("getUserMedia successfully", storeData.sessionData.id, storeData.id);
+                localStream.play('agora_local');
+                
+                $.ajax({
+                    headers: { 
+                        "Content-Type": "application/json; charset=utf-8",
+                        "Authorization": storeData.token
+                    },
+                    url: '/api/v1/session/'+storeData.sessionData.id+'/stream-id',
+                    dataType: 'json',
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ "streamId": uid, "userType": parseInt(storeData.userType) }),
+                    success: function( data, textStatus, jQxhr ){
+                        
+                        if(storeData.userType == 1){
 
-                            client.publish(localStream, function (err) {
-                              console.log("Publish local stream error: " + err);
-                            });
+                          client.publish(localStream, function (err) {
+                            console.log("Publish local stream error: " + err);
+                          });
 
-                            client.on('stream-published', function (evt) {
-                              console.log("Publish local stream successfully");
-                               console.log('localStream ========jjjjjjj==================*******************', localStream)
-                              console.log('client ------------', client)
-                            });
-                          }
-                          else{
-                            // publish();
-                          }
-                      },
-                      error: function( jqXhr, textStatus, errorThrown ){
-                          console.log( errorThrown );
+                          client.on('stream-published', function (evt) {
+                            console.log("Publish local stream successfully");
+                            // console.log('localStream ==========================*******************', localStream)
+                            console.log('client ------------', client)
+                          });
 
-                      }
-                  });
+                        } else {
+                          // publish();
+                        }
+                    },
+                    error: function( jqXhr, textStatus, errorThrown ){
+                        console.log( errorThrown );
+                    }
+                });
            
             }, function (err) {
               console.log("getUserMedia failed", err);
@@ -206,7 +202,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     var count=1;
     client.on('stream-subscribed', function (evt) {
 
-      let currentSession = getCurrentSession();
+      // let currentSession = getCurrentSession();
       var storeData = getCurrentUserData();
 
       var stream = evt.stream;
@@ -237,13 +233,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
       } else {
       // for attendy user
-        console.log('###################', currentSession.id, stream.getId());
+        console.log('###################', storeData.sessionData.id, stream.getId());
           $.ajax({
               headers: { 
                   "Content-Type": "application/json; charset=utf-8",
                   "Authorization": storeData.token
               },
-              url: '/api/v1/session/'+currentSession.id+'/'+stream.getId()+'/stream-id',
+              url: '/api/v1/session/'+storeData.sessionData.id+'/'+stream.getId()+'/stream-id',
               dataType: 'json',
               type: 'GET',
               success: function( data, textStatus, jQxhr ){
@@ -379,7 +375,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   }
 
   function getCurrentUserData(){
-    return JSON.parse(localStorage.getItem("jwtToken"));
+    return JSON.parse(localStorage.getItem("userData"));
   }    
 
   function getCurrentSession(){
@@ -780,8 +776,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
     stream2.close();
     // GoInFullscreen();
     join();
-   // leaveRtm();
-   // rtmJoin();
+    $(".host-script-section").height("255px");
+    $(".host-section").css({"min-width": "380px", "max-width": "380px"});
   }
 
   function GoInFullscreen() {
@@ -942,9 +938,9 @@ function attendeeScreenHeight(){
       
     }
     rtmJoin();
-    $(".host-script-section").height("305px"); 
-    $(".test-script").addClass("w-866");
-    $(".host-section").css({"min-width": "524px", "max-width": "524px"});    
+   // $(".host-script-section").height("305px"); 
+   // $(".test-script").addClass("w-866");
+   // $(".host-section").css({"min-width": "524px", "max-width": "524px"});    
   }
 
   function showHideScript(){
@@ -964,14 +960,32 @@ function attendeeScreenHeight(){
     }
 
   function removeSession(){
-    localStorage.removeItem("currentSession");
-    localStorage.removeItem("sessionId");
+    localStorage.removeItem("userData");
+    // localStorage.removeItem("sessionId");
     localStorage.removeItem("load-page");
   }
 
+  function countDown(){
+    var countdownNumberEl = $('.swiper-slide.swiper-slide-next .countdown-number');
+    
+    var countdown = 30;
+    
+    countdownNumberEl.html(countdown + '\ SEC') ;
+    
+    var ref = setInterval(function() {
+      countdown = --countdown < 0 ? 30 : countdown;
+    
+      countdownNumberEl.html(countdown + '\ SEC') ;
+      if(countdown <= 0){
+        
 
-
-
+        // Now you can use all slider methods like
+        mySwiper.slideNext();
+        clearInterval(ref);
+      }
+    }, 1000);
+  }
+ 
       function sendMessage(peerId, text)
       {
           console.log("sendPeerMessage", text, peerId);
@@ -1172,6 +1186,8 @@ function channelSignalHandler(signalData, userType) {
       }
 
   $(document).ready(function(){
+
+    setTimeout(function(){ countDown(); }, 100);
     // leaveRtm();
      // rtmJoin();
     
@@ -1190,9 +1206,6 @@ function channelSignalHandler(signalData, userType) {
     // setInterval(function() {
     //   countdown = --countdown <= 0 ? 30 : countdown;
     
-    //   countdownNumberEl.textContent = `${countdown} \
-    //   SEC`;
-    // }, 1000);
 
 
     let agoraLocal = $("#agora_local").find("video").width();
@@ -1234,7 +1247,9 @@ function channelSignalHandler(signalData, userType) {
 
     $(".host-script-section").height("255px");
     $(".host-section").css({"min-width": "380px", "max-width": "380px"});
-      
+
+    
+
     $(".show-hide-footer-panel").click(function(){
       $(".host-script-section").height() < 255 ? $(".host-script-section").height("255px") : $(".host-script-section").height("auto");
       
@@ -1358,21 +1373,27 @@ function channelSignalHandler(signalData, userType) {
 
     // attendy
     $("#minimize-others").click(function(){
+      
       $(".slide-right-left").css({"width": "72px", "float": "right"});
-        //$(".joined-attendees").css("right", "-280px");
+      $("#minimize-others, .right-sidebar .title").addClass('d-none');
+      $("#show-everyone").removeClass('d-none');
+      $(".attendee-list").css("background", "transparent");
+      $(".slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").hide();
         
-        $("#minimize-others, .right-sidebar .title").addClass('d-none');
-        $("#show-everyone").removeClass('d-none');
+        
+      })
+        
         $(".attendee-list").css("background", "transparent");
         $(".slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").hide();
-      })
-    
+
+
       $("#show-everyone").click(function(){
         $(".slide-right-left").css({"width": "100%", "float": "right"});
         //$(".joined-attendees").removeAttr("style");
-        $("#minimize-others").removeClass('d-none');
+        
         $("#show-everyone").addClass('d-none');
         setTimeout(function(){
+          $("#minimize-others").removeClass('d-none');
           $(".right-sidebar .title").removeClass('d-none');
           $(".attendee-list").css("background", "#000");
         $(".slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").fadeIn(500);
@@ -1409,7 +1430,8 @@ function channelSignalHandler(signalData, userType) {
         leave();
         localStream.stop();
         removeSession();
-        location.href  = '/home';
+        location.href  = '/login';
+        // location.reload();
       });
 
       $( '#msgToAll_button' ).on( "click", function(event) {

@@ -82,8 +82,22 @@ class Guest extends Component {
     //     console.log('data=================', data);
         
     // });
-  }
 
+
+    var loadScript = function (src) {
+      var tag = document.createElement('script');
+      tag.async = false;
+      tag.src = src;
+      
+      var body = document.getElementsByTagName('body')[0];
+      body.appendChild(tag);
+    }
+    loadScript('/js/swiper.min.js');
+    loadScript('/js/swiper-modifier.js');
+
+    
+  }
+  
   componentWillMount(){
     //console.log(1);
     // window.test();
@@ -240,7 +254,7 @@ return (
                   <span><i className="fa fa-map-marker" aria-hidden="true"></i> CO</span>
                 </span>
               </div> */}
-            <button type="button" id="minimize-others" className="mt-2 minimize-others btn btn-outline-secondary mx-auto">"Minimize Others"</button>
+            <button type="button" id="minimize-others" className="mt-2 minimize-others btn btn-outline-secondary mx-auto d-none">"Minimize Others"</button>
         
             </div>
            

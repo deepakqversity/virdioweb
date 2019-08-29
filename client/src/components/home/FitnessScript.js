@@ -171,9 +171,11 @@ return (
                           <div>
                             <div className="count-box">
                               <h4>{opt.name}</h4>
-
+  
                               <div className="countdown">
+                             
                                 <div className="countdown-number">30 SEC</div>
+
                                 <svg>
                                   <circle r="26" cx="30" cy="30"></circle>
                                 </svg>

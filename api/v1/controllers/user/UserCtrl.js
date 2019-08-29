@@ -68,8 +68,8 @@ class UserCtrl {
 						currentSession = underscore.omit(currentSession, 'appCertificate');
 
 
-						let productDetail = await sessionScriptModel.getProductDetail(currentSession.id, currentSession.hostId );
-						underscore.extend(currentSession, {productDetail : productDetail});
+						let scriptDetail = await sessionScriptModel.getProductDetail(currentSession.id, currentSession.hostId );
+						underscore.extend(currentSession, {scriptDetail : scriptDetail});
 						
 						underscore.extend(userObj, { sessionData : currentSession });
 

@@ -42,8 +42,8 @@ class FitnessScript extends Component {
 render() {
 
 let localstoragedata = JSON.parse(localStorage.getItem('userData'));
-let products = localstoragedata.sessionData.productDetail;
-console.log('products=', products)
+let sessionScript = localstoragedata.sessionData.scriptDetail;
+console.log('sessionScript=', sessionScript)
 return (
     
       <div className="test-script fitness-script h-100 ">
@@ -161,7 +161,7 @@ return (
                   <div class="swiper-container">
                       <div class="swiper-wrapper">
                       {
-                        products.map((opt, i) =>
+                        sessionScript.map((opt, i) =>
                           <div className="swiper-slide" key={i}>
                           <div class="">
                             <div className="count-box">

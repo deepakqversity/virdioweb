@@ -10,9 +10,6 @@ class Home extends Component {
   constructor(props){
 
     super(props);
-    this.state = {
-            sessions: [],
-        };
   }
 
   onLogoutClick = e => {
@@ -21,22 +18,6 @@ class Home extends Component {
 
   };
   componentDidMount(){
-
-    let localstoragedata=JSON.parse(localStorage.getItem('userData'));
-
-    let initialSessions = [];
-    fetch('/api/v1/session', {headers : {'Authorization': localstoragedata.token}})
-        .then(response => {
-            return response.json();
-        }).then(data => {
-        initialSessions = data.map((session) => {
-            return session
-        });
-        console.log('****',initialSessions);
-        this.setState({
-            sessions: initialSessions,
-        });
-    });
 
   }
 
@@ -62,12 +43,6 @@ class Home extends Component {
 render() {
     const  {user}  = this.props.auth;
 
-    const sessions = this.state.sessions;
-    const optionItems = sessions.map((opt, i) =>
-              <option value={opt.id} key={i}>{opt.channelName} ({opt.type == 1 ? 'Host' : 'Guest'})</option>
-          );
-
-    // console.log('$$$$',optionItems);
    
    var retrievedObject = localStorage.getItem('userData');
    var localstoragedata=JSON.parse(retrievedObject);
@@ -75,23 +50,11 @@ return (
       <div className="container mt-5 valign-wrapper">
       <div className="row">
       <div className="text-white col-md-4 mx-auto d-table">
-        <h4><b>Hey,</b> {localstoragedata.name} <button onClick={this.onLogoutClick}
+        <h4><b>Hey,</b> <span className="welcome-title">{localstoragedata.name.toLowerCase()}</span> <button onClick={this.onLogoutClick}
               className="btn btn-danger float-right">
               <i className="fa fa-power-off"></i>
             </button></h4>
-        
-        <h5 style={{ marginTop:"50px" }}>To join conference please select channel</h5>
-        
-        <div>
-          <select name="sessionId" id="sessionId" className="form-control" style={{ display:"inline-block" }} >
-          {optionItems}
-          </select>
-        </div>
-        <div><button type="button" className="mx-auto d-table mt-4 btn btn-primary" onClick={this.joinOnClick}>Join</button></div>
-      
       </div>
-      
-      
           
         </div>
       </div>

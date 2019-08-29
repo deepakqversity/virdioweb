@@ -174,10 +174,10 @@ return (
                                 </svg>
                                 
                               </div>
-                              <div className="row justify-content-center">
+                              <div className="row fitness-info justify-content-center">
                                 
                                 {opt.attribute.map(function(attrb, index){
-                                  return <div className="border-right ">
+                                  return <div className=" ">
                                   <div className="target-info">
                                     <span>{attrb.attrLabel}</span>
                                     <span>{attrb.attrValue}</span>

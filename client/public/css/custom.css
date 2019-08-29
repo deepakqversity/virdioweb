@@ -957,7 +957,12 @@ display:none;
   width: 60px;
   transform: rotateY(0deg) rotateZ(-90deg);
 }
-
+.count-box svg circle{
+	fill: none;
+}
+.fitness-info>div:nth-child(1){
+	border-right:1px solid #9b51e0 !important;
+}
 .swiper-slide-next .count-box svg circle {
   stroke-dasharray: 160px;
   stroke-dashoffset: 0px;

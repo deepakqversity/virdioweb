@@ -31,7 +31,7 @@ return (
             <div className="session-details bg-gray flex-grow-1 mx-2">
                 <h4 className="small-heading">Your Upcoming Session</h4>
                 <h3 className="popup-heading">An introduction to wine tasting <span>by Arjun Rishi</span></h3>
-                <div class="time py-xs-1">  
+                <div className="time py-xs-1">  
                   <span>04/23/2019, at 12:00 PM</span>
                 </div>
                 <div className="col-lg-2 float-right">

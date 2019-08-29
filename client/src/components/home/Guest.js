@@ -123,13 +123,13 @@ return (
                   
                     <a className="col-2 justify-content-end d-flex align-items-center" href="#" className="btn btn-primary " tabIndex="1">Details</a>
                     <div className="default-btns mr-2">
-                      <a href="javascript:;" className="btn btn-primary ml-2" id="mocrophone-off" onClick={this.handRaise.bind(this)} alt="Microphone" title="Microphone Off"><img src="images/hand.png" /></a>
-                      <a href="javascript:;" className="btn btn-primary ml-2 d-none" id="mocrophone-on" alt="Microphone" title="Microphone On"><i className="fa fa-microphone"></i></a>
+                      <a href="#" className="btn btn-primary ml-2" id="mocrophone-off" onClick={this.handRaise.bind(this)} alt="Microphone" title="Microphone Off"><img src="images/hand.png" /></a>
+                      <a href="#" className="btn btn-primary ml-2 d-none" id="mocrophone-on" alt="Microphone" title="Microphone On"><i className="fa fa-microphone"></i></a>
                     </div>
 
                       <a className="col-2 justify-content-end d-flex align-items-center" href="#" className="btn btn-primary " tabIndex="1">Details</a>
-                      <a href="javascript:;" className="btn btn-primary ml-2" id="strm-publish" alt="Broadcaster" title="Broadcaster"><i className="fa fa-user-plus"></i></a>
-                      <a href="javascript:;" className="btn btn-primary ml-2 d-none" id="strm-unpublish" alt="Audience" title="Audience"><i className="fa fa-user-times"></i></a>
+                      <a href="#" className="btn btn-primary ml-2" id="strm-publish" alt="Broadcaster" title="Broadcaster"><i className="fa fa-user-plus"></i></a>
+                      <a href="#" className="btn btn-primary ml-2 d-none" id="strm-unpublish" alt="Audience" title="Audience"><i className="fa fa-user-times"></i></a>
 
                       {/* <button className="btn btn-primary ml-2" onClick={this.onLogoutClick} tabIndex="1"><i className="fa fa-power-off"></i></button> */}
                       <button className="ml-2 logout-btn" onClick={this.callfunction.bind(this)} tabIndex="1">
@@ -175,13 +175,13 @@ return (
     </div>*/}
     <div className="col-lg-1 col-md-1 col-sm-1 col-1 max-width-300 d-flex">
       <div className="left-section mt-3">
-        <div class="bpm-bar">
+        <div className="bpm-bar">
           <span className="pop-text">Your BPM</span>
           <div className="readings">
             <span>20</span><span>40</span><span>60</span><span>80</span><span>100</span><span>120</span><span>140</span>
             <span>160</span><span className="target-read">180</span><span>200</span><span>220</span>
           </div>
-          <div class="skills bpm">153</div>
+          <div className="skills bpm">153</div>
         </div>
       </div>
     </div>

@@ -22,20 +22,26 @@ INSERT INTO `script_attributes` (`id`, `sessionScriptId`, `attrLabel`, `attrValu
 (9, 4, 'TARGET ZONE', '90%', 1),
 (10, 4, 'TARGET BPM', '150', 1),
 (11, 5, 'TARGET ZONE', '80%', 1),
-(12, 5, 'TARGET BPM', '150', 0);
-
+(12, 5, 'TARGET BPM', '150', 1),
+(13, 6, 'TARGET ZONE', '70%', 1),
+(14, 6, 'TARGET BPM', '160', 1),
+(15, 7, 'TARGET ZONE', '90%', 1),
+(16, 7, 'TARGET BPM', '140', 1);
 
 INSERT INTO `session_script` (`id`, `name`, `description`, `note`, `userId`, `interestId`, `status`) VALUES
 (1, 'JBC', 'test', 'test', 1, 1, 1),
 (2, 'Red Wine', 'test', 'test', 1, 1, 1),
 (3, 'Rest', 'test', 'test', 1, 2, 1),
 (4, 'Lunges', 'demo', 'demo', 1, 2, 1),
-(5, 'Pushups', NULL, NULL, 1, 2, 1);
-
+(5, 'Pushups', NULL, NULL, 1, 2, 1),
+(6, 'Chest', NULL, NULL, 1, 2, 1),
+(7, 'Chinup', NULL, NULL, 1, 2, 1);
 
 INSERT INTO `session_script_mapping` (`id`, `sessionId`, `sessionScriptId`) VALUES
 (1, 1, 1),
 (2, 1, 2),
 (3, 2, 3),
 (4, 2, 4),
-(5, 2, 5);
+(5, 2, 5),
+(6, 2, 6),
+(7, 2, 7);

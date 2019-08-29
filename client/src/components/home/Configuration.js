@@ -68,7 +68,7 @@ return (
             </div>
             {/* Modal body */}
             <div className="modal-body">
-            <table class="table">
+            <table className="table">
               <thead>
                 <tr>
                   <th scope="col">&nbsp;</th>

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
-import { getNumberDigit } from "../../utils/functions";
+import utils from "../../utils/functions";
 import $ from 'jquery';
 import Config from "./Configuration";
 import WineScript from "./WineScript";
@@ -13,9 +13,15 @@ class Host extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {sessionScript: 0};
-  }
+    // this.state = {sessionScript: 0};
+    this.state = {
+      sessionScript: 0,
+      timerOn: false,
+      timerStart: 0,
+      timerTime: 0
+    };
 
+  }
 
   onLogoutClick = e => {
     e.preventDefault();
@@ -37,15 +43,23 @@ class Host extends Component {
   }
 
   componentDidMount(){
+
   // console.log(2);    //
     if(localStorage.getItem('load-page') != 1){  
         window.loadPopup();
       localStorage.setItem("load-page", 1);
     }
-
+    
     // let sessionId = localStorage.getItem('sessionId');
     let localstoragedata = JSON.parse(localStorage.getItem('userData'));
     this.setState({sessionScript: localstoragedata.sessionData.id});
+    let scDate = localstoragedata.sessionData.scheduleDate;
+
+    console.log('scDate= ',scDate, new Date(scDate).getTime(), new Date().getTime())
+
+    scDate = (new Date(scDate).getTime()) - (new Date().getTime());
+    console.log('scDate- ', scDate)
+    this.state.timerTime = scDate;// 1 sec 1000 = 1sec
 
     // fetch('/api/v1/session/'+sessionId, {headers : {'Authorization': localstoragedata.token}})
     // .then(response => { return response.json(); })
@@ -57,10 +71,54 @@ class Host extends Component {
     // });
   }
   componentWillMount(){
+    // const { timerTime, timerOn } = this.state;
+    
+    this.startTimer();
     //console.log(1);
     // window.test();
   }
+
+  startTimer = () => {
+    this.setState({
+      timerOn: true,
+      timerTime: this.state.timerTime,
+      timerStart: this.state.timerTime
+    });
+    this.timer = setInterval(() => {
+      const newTime = this.state.timerTime - 10;
+      if (newTime >= 0) {
+        this.setState({
+          timerTime: newTime
+        });
+      } else {
+        clearInterval(this.timer);
+        this.setState({ timerOn: false });
+        alert("Countdown ended");
+      }
+    }, 10);
+  };
+
+  // startTimer = () => {
+  //   this.setState({
+  //     timerOn: true,
+  //     timerTime: this.state.timerTime,
+  //     timerStart: Date.now() - this.state.timerTime
+  //   });
+  //   this.timer = setInterval(() => {
+  //     this.setState({
+  //       timerTime: Date.now() - this.state.timerStart
+  //     });
+  //   }, 10);
+  // };
+
+
 render() {
+    const { timerTime, timerStart, timerOn, sessionScript } = this.state;
+
+    let seconds = ("0" + (Math.floor((timerTime / 1000) % 60) % 60)).slice(-2);
+    let minutes = ("0" + Math.floor((timerTime / 60000) % 60)).slice(-2);
+    let hours = ("0" + Math.floor((timerTime / 3600000) % 60)).slice(-2);
+
     const  {user}  = this.props.auth;
 
     let localstoragedata = JSON.parse(localStorage.getItem('userData'));
@@ -73,7 +131,7 @@ render() {
     console.log('scheduleDate ',localDate );
     // console.log('------------------------------', user);
     let scriptHtml = '';
-    let sessionScript = this.state.sessionScript;
+    // sessionScript = sessionScriptt;
     if (sessionScript == 1) {
       scriptHtml = <WineScript />;
     } else if(sessionScript == 2) {
@@ -98,7 +156,7 @@ return (
           <div className="row justify-content-between align-items-center mt-0">
             <div className="col-12 col-sm-7">
               <div className="time py-xs-1">  <span>{localDate}</span>
-                <span>Time Remaining: 01:10:00</span>
+                <span>Time Remaining: {hours} : {minutes} : {seconds}</span>
                 <div id ="all_attendies_list"></div>
               </div>
             </div>

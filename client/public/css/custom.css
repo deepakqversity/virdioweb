@@ -1012,16 +1012,7 @@ display:none;
   animation: countdown 30s linear infinite forwards;
   animation-direction: reverse;
 }
-.count-box svg circle {
-  stroke-dasharray: 160px;
-  stroke-dashoffset: 0px;
-  stroke-linecap: round;
-  stroke-width: 6px;
-  stroke: #9b51e0;
-  fill: none;
-  animation: countdown 30s linear infinite forwards;
-  animation-direction: reverse;
-}
+
 .swiper-slide{
 	box-sizing:border-box;
 }

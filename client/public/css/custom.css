@@ -1644,7 +1644,7 @@ img.user-login{
 	border-radius:10px;
 }
 
-
+.welcome-title{ text-transform: capitalize; }
 
 
 

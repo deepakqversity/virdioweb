@@ -23,8 +23,10 @@ return (
         <div className="modal-content">
 
         <div className="modal-header">
-
-          <div className="d-flex w-100 justify-content-between">
+        <button type="button" className="float-right col-md-1 btn btn-primary" data-toggle="modal" data-target="#attendy-list">
+            Attendies List
+          </button>
+          <div className="d-none w-100 justify-content-between">
             <div className="session-logo">
               <img src="/images/prescreen-logo.png" />
             </div>
@@ -49,9 +51,7 @@ return (
           
 
         </div>
-        <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#attendy-list">
-            Open modal
-          </button>
+        
         <div className="modal-body" id="media-content">
           
           <div className="row">

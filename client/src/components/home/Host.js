@@ -79,13 +79,8 @@ return (
             <div id="guestmsg" style={{color:'green'}}></div>
             <div className="col-12 col-sm-3">
               <div className="col-12 justify-content-end d-flex align-items-center">
-<<<<<<< HEAD
-                <a className="btn btn-primary border-right pr-20" href="javascript:;" tabIndex="0" id="fullscreen">fullscreen</a>
-                <a className="btn btn-primary border-right pr-20" href="javascript:;"  onClick={this.sendMsgAll.bind(this)} tabIndex="1">details</a>
-=======
                 <a className="btn btn-primary border-right pr-20 mr-1" href="javascript:;" tabIndex="0" id="fullscreen">fullscreen</a>
                 <a className="btn btn-primary border-right pr-20" href="javascript:;" tabIndex="1">details</a>
->>>>>>> 96533a8ed1e7fa1b5df1c7385b4612c6dcda35e0
                 <img src="images/voice-commands.png" className="mic-icon" />
               </div>
             </div>

@@ -24,10 +24,10 @@ return (
 
         <div className="modal-header">
 
-          <h5 className="modal-title" id="exampleModalLabel">Media Configuration</h5>
-
-          
-
+           <h5 className="modal-title" id="exampleModalLabel">Media Configuration</h5> 
+         <span>Total Signup:</span><span id="totalsignup"></span>
+         <span>Online:</span><span id="totalonline"></span>
+         <button  id="user_list" class ="mx-auto d-table mt-4 btn btn-primary">UserList</button>
         </div>
 
         <div className="modal-body" id="media-content">

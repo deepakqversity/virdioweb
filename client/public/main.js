@@ -19,7 +19,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   //var appId = '748f9639fa864651bef8419d5870ec50';// provided by arjun 
 
-  // var appId = '232f270a5aeb4e0097d8b5ceb8c24ab3';
+   //var appId = '232f270a5aeb4e0097d8b5ceb8c24ab3';
   var appId = '';
 
   function join() {
@@ -57,19 +57,21 @@ if(!AgoraRTC.checkSystemRequirements()) {
     let storeData = getCurrentUserData();
     let currentSession = getCurrentSession();
    
-    console.log('-****  channel, utype', currentSession.channel, storeData.userType);
+    console.log('-*****lalit_current********  channel, utype', currentSession, storeData.userType);
 
-    // appId = currentSession.appId;
+     appId = currentSession.appId;
 
     var channel_key = currentSession.token != undefined ? currentSession.token : null;
-     
+
+     //var channel_key =null;
     console.log("Init AgoraRTC client with App ID and token: " + currentSession.appId, channel_key);
     
     // create client first
     client = AgoraRTC.createClient({mode: 'live'});
     
     // initialize client
-    client.init(currentSession.appId, function () {
+   // client.init(currentSession.appId, function () {
+      client.init(appId, function () {
 
       console.log("AgoraRTC client initialized");
 
@@ -83,6 +85,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
           console.log("user role set success");
 
           var channelName = currentSession.channel;
+        
 
           // create and join channel
          client.join(channel_key, channelName, storeData.id, function(uid) {
@@ -445,6 +448,81 @@ if(!AgoraRTC.checkSystemRequirements()) {
     });
   }
 
+  //var currentSession = getCurrentSession();  
+  function rtmJoin()
+  {
+   var appId1 = '232f270a5aeb4e0097d8b5ceb8c24ab3';
+   var channelName1 = '1440';
+
+  var token=null;
+   var newclient = AgoraRTM.createInstance(appId1);
+   var storeData = getCurrentUserData();
+   var peer=storeData.id;
+  // newclient.login({uid: peer.toString(), token});
+
+  newclient.on('ConnectionStateChange', (newState, reason) => {
+    console.log('on connection state changed to ' + newState + ' reason: ' + reason);
+  });
+
+   newclient.login({ token: token, uid: peer.toString() }).then(() => {
+
+    console.log('****shiv*******AgoraRTM client login success***********');
+
+    var channel = newclient.createChannel(channelName1);
+    channel.join().then(() => {
+     console.log('**********shiv*********channel joined successfully**********');
+    
+ 
+     channel.getMembers().then(membersList => {    
+       console.log('*************Total Number Of User******',membersList.length);
+       channelSignalHandler(JSON.stringify({code:"100",member:membersList.length, totalmember:membersList, message:"totalcount"}), storeData.userType);
+
+       }).catch(error => {
+           console.log('*************There is an error******');
+       });
+
+       channel.on('MemberJoined', memberId => { 
+        console.log('This********lalit',memberId,'has joined channel successfully');        
+        channelSignalHandler(JSON.stringify({code:"100",member:memberId, message:"Joined"}), storeData.userType);
+        })
+     
+
+       channel.on('MemberLeft', memberId => { 
+        console.log('This*********munmun',memberId,'has left successfully');
+        channelSignalHandler(JSON.stringify({code:"100",member:memberId, message:"left"}), storeData.userType);
+        })
+     
+
+       channel.on('ChannelMessage', (message, senderId) => {         
+        var msg=message.text;
+       // msg = JSON.parse(msg);
+        console.log('*****Rammmm********',msg,'********************',senderId)
+        console.log('*****shivammmm********',msg.message,'********************',storeData.userType)
+        channelSignalHandler(msg, storeData.userType);
+        });
+ 
+      }).catch(error => {
+        console.log('**********shiv*********There Is a problem to join a channel**********');
+      });
+
+      newclient.on('MessageFromPeer', (message, peerId) => { 
+        var msg=message.text;
+        console.log("message "+ message.text + " peerId" + peerId);
+        signalHandler(peerId, msg, storeData.userType);
+        });
+
+
+
+        }).catch(err => {
+          console.log('AgoraRTM client login failure', err);
+        });
+  
+      }
+
+      function leaveRtm() {
+        channel.leave();
+       }
+
   function onclickaudioOn(audienceID)
   {
     sendMessage(audienceID, JSON.stringify({code:"101", message:"MUTEP"}));
@@ -480,281 +558,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
     sendMessage(attendiesID, JSON.stringify({code:"102", message:"Now You can Publish"}));
   }
   
-
-  function channelSignalHandler(signalData, userType) {
-
-     //console.log('********gudu************** signalData ', signalData, userType);
-    signalData = JSON.parse(signalData);
-    if(signalData.code == '100'){
-    if(userType =='1'){  
-      incrementcountAtHost(signalData,userType);        
-      }else{
-          incrementcountAtAttendies(signalData,userType);    
-      }
-    }else if(signalData.code == '110')
-    {
-      if(userType =='1'){
-      setEmojiesAtHost(signalData, userType);
-      }else{
-        setEmojiesAtClient(signalData, userType);
-      }
-    }
-  }
-
-  function setEmojiesAtHost(signalData, userType)
-  {
-    //console.log('********guduuuuuuuuu************** signalData ', signalData, userType); 
-    if(signalData.message=="appearence")
-    {
-    $('.icon-appearance[data-attr=\''+signalData.data+'\']').removeClass("d-none");
-    }
-    else if(signalData.message=="aroma")
-    {
-      $('.icon-aroma[data-attr=\''+signalData.data+'\']').removeClass("d-none");
-    }else if(signalData.message=="palate")
-    {
-      $('.icon-palate[data-attr=\''+signalData.data+'\']').removeClass("d-none");
-    }else if(signalData.message=="score")
-    {
-      $('.icon-score[data-attr=\''+signalData.data+'\']').removeClass("d-none");
-    }
-   
-  }
-
-  function setEmojiesAtClient(signalData, userType)
-  {
-    console.log('********Rammmmmmmmmmmmm************** signalData ', signalData, userType);
-  }
-
-  function incrementcountAtHost(signalData,userType)
-  {
-    console.log('********munmunHost************** signalData ', signalData, userType);
-    var count=$('#joined_users').html();
-    count=parseInt(count);
-  if(signalData.message=='Joined')
-  {     
-    console.log('********guduHost************** signalData ', signalData, userType);
-    count1=count+1;
-    $('#joined_users').empty(); 
-    $('#joined_users').html(count1); 
-    var peerId=signalData.member;
-    if(count1 <= 8)
-   var text =JSON.stringify({code:"111", message:"welcom, You joined as a broadCaster"});
-   else{
-    var text =JSON.stringify({code:"111", message:"welcom, You joined as a audience"});
-   }
-    sendMessage(peerId, text);
-  }else if(signalData.message=='left') {
-
-    console.log('********swapHost************** signalData ', count);
-    count1=count-1; 
-    $('#joined_users').empty(); 
-    $('#joined_users').html(count1);      
-  }else if(signalData.message=='totalcount') {
-    var arr=signalData.totalmember;
-    
-    console.log('********mmmw************** signalData ', count);
-    count1=signalData.member;
-    count1=parseInt(count1); 
- 
-    arr.forEach(function (value, i) {
-      console.log("--------totalvalue--------------", i, value);
-      if(i > 1)
-      {
-        
-        $('#guestmsg').append('<span class="title" onclick="onclickShowAsBroadcaster(\''+value+'\')">'+value+'</span>');
-      }
-    });
-    $('#joined_users').empty(); 
-    $('#joined_users').html(count1);   
-  }
-
-
-  }
-
-  function incrementcountAtAttendies(signalData,userType)
-  {
-    console.log('********sssssAtt************** signalData ', signalData.message, userType);
-
-    var count3=$('#joined_users_at_client').html();
-    count3=parseInt(count3);
-  if(signalData.message=='Joined')
-  {     
-    console.log('********************** signalData ', count3);
-    count4=count3+1;
-  }else if(signalData.message=='left') {
-
-    console.log('********************** signalData ', count3);
-    count4=count3-1;      
-  }else if(signalData.message=='totalcount') {
-    
-    var arr=signalData.totalmember;
-     arr.shift();
-    console.log('*******totallist*************** signalData ', arr);
-    count4=signalData.member;
-    count4=parseInt(count4);
-    
-    arr.forEach(element => {
-      $('#all_joined_member_list').append('<div className="attendee-list"><img src="images/attendee.png" /><span class="title">'+element+'</span><div className="vid-icons"><span className="icon1"></span><span className="icon2"></span></div></div>');
-    });     
-  }
-  $('#joined_users_at_client').empty(); 
-  $('#joined_users_at_client').html(count4); 
-  }
-
-  function signalHandler(uid, signalData, userType) {
-
-    signalData = JSON.parse(signalData);
-       
-    console.log('********gudu************** signalData ', signalData,uid, userType); 
-    if(userType == 1) { // Host
-
-      if(signalData.code == '101'){
-
-      } else if(signalData.code == '100') {
-        // $('#guestmsg').html(signalData.message);
-        // setTimeout(function(){ $('#guestmsg').html(''); }, 10000);
-        $('#agora_hand_raise'+uid+'').removeClass("d-none");
-        
-      }
-
-  
-    } else { // Attendy
-
-      if(signalData.code == '101'){
-
-        console.log('********gudu************** signalData ', signalData,uid, userType); 
-        $('#hostmsg').html(signalData.message);
-        setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
-
-      } else if(signalData.code == '100') {
-        console.log('********gudu************** signalData ', signalData,uid, userType); 
-        $('#hostmsg').html(signalData.message);
-        setTimeout(function(){ $('#hostmsg').html(''); }, 10000);      
-        //hand-icon position-absolute hand;    
-      }else if(signalData.code == '102') {
-        console.log('********gudu************** signalData ', signalData,uid, userType); 
-        $('#hostmsg').html(signalData.message);
-        setTimeout(function(){ $('#hostmsg').html(''); }, 10000);   
-      }else if(signalData.code == '111')
-      {
-        $('#hostmsg').html(signalData.message);
-        setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
-      }
-
-    }
-
-  }
-
- 
-
-  var currentSession = getCurrentSession();
-    
-  var newclient = AgoraRTM.createInstance(currentSession.appId);
-
-  var storeData = getCurrentUserData();
-  var peer=storeData.id;
-  var token=null;
-  //var token = "006748f9639fa864651bef8419d5870ec50IAD67o1i5SdbD0ZX3uf8PCgJ5hc3aStS7hZZH4Ng1CtF0TvCKVoAAAAAEACXu9S6UCFlXQEAAQBQIWVd";
-  newclient.login({uid: peer.toString(), token});
-  var channel = newclient.createChannel(channelName); // Pass your channel ID here.
-
- 
-
-  function recieveMessage()
-  {
-   /* let storeData = getCurrentUserData();
-    let currentSession = getCurrentSession();
-    
-    var signal = new Signal(currentSession.appId);
-
-    session = signal.login(storeData.email, '_no_need_token');
-    
-    session.onLoginSuccess = function(uid){
-      
-      session.onMessageInstantReceive = function(account, uid, msg){ 
-          console.log('$$$$$$$$$$$$$$$$$$$$$$$********lalit********$$$$$$$$$$$$$ ',account, uid, msg, storeData)
-          signalHandler(account, uid, msg, storeData.userType);
-      };
-      // session.logout();
-    }*/
-    // session.onLogout = function(ecode){}
-
-    let storeData = getCurrentUserData();
-    let peer=storeData.id;
-    //let token=null;
-   // newclient.login({uid: peer.toString(), token});
-    newclient.on('ConnectionStateChange', (newState, reason) => {
-      console.log('on connection state changed to ' + newState + ' reason: ' + reason);
-    });
-
-      newclient.on('MessageFromPeer', (message, peerId) => { 
-      var msg=message.text;
-      console.log("message "+ message.text + " peerId" + peerId);
-      signalHandler(peerId, msg, storeData.userType);
-      });
-  }
-
-  function recieveChannelmassages()
-  {
-   // var channelName='2011';
-
-   channel.join().then(() => {
-    console.log('**********shiv*********channel joined successfully**********');
-    getMemberList();
-     }).catch(error => {
-       console.log('**********shiv*********There Is a problem to join a channel**********');
-     });
-
-       channel.on('MemberJoined', memberId => { 
-        console.log('This',memberId,'has joined channel successfully');        
-        channelSignalHandler(JSON.stringify({code:"100",member:memberId, message:"Joined"}), storeData.userType);
-        })
-     
-
-       channel.on('MemberLeft', memberId => { 
-        console.log('This',memberId,'has left successfully');
-        channelSignalHandler(JSON.stringify({code:"100",member:memberId, message:"left"}), storeData.userType);
-        })
-     
-
-       channel.on('ChannelMessage', (message, senderId) => {         
-        var msg=message.text;
-       // msg = JSON.parse(msg);
-        console.log('*****Rammmm********',msg,'********************',senderId)
-        console.log('*****shivammmm********',msg.message,'********************',storeData.userType)
-        channelSignalHandler(msg, storeData.userType);
-        });
-
-  }
-
-  function sendMessage(peerId, text)
-  {
-      console.log("sendPeerMessage", text, peerId);
-      newclient.sendMessageToPeer({text}, peerId.toString());
-  }
-
-  function sendMessageToChannel(channelName, text)
-  {
-    channel.sendMessage({text},channelName);
-      console.log('mssages send successfully on channel');
-  }
-
-  function getMemberList()
-  {
-    channel.getMembers().then(membersList => {    
-      console.log('*************Total Number Of User******',membersList[1]);
-      channelSignalHandler(JSON.stringify({code:"100",member:membersList.length, totalmember:membersList, message:"totalcount"}), storeData.userType);
-  }).catch(error => {
-    console.log('*************There is an error******');
-  });
-  
-  }
-
-  function leaveRtm() {
-    channel.leave();
-   }
-
 
   function publish() {
 
@@ -977,10 +780,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
     stream2.close();
     // GoInFullscreen();
     join();
-    recieveMessage();
-    recieveChannelmassages();
-    console.log('***************getmemberlist***********');
-    getMemberList();    
+   // leaveRtm();
+   // rtmJoin();
   }
 
   function GoInFullscreen() {
@@ -1138,10 +939,12 @@ function attendeeScreenHeight(){
         })
       }
       // GoInFullscreen();
+      
     }
+    rtmJoin();
     $(".host-script-section").height("305px"); 
     $(".test-script").addClass("w-866");
-    $(".host-section").css({"min-width": "524px", "max-width": "524px"});
+    $(".host-section").css({"min-width": "524px", "max-width": "524px"});    
   }
 
   function showHideScript(){
@@ -1165,9 +968,217 @@ function attendeeScreenHeight(){
     localStorage.removeItem("sessionId");
     localStorage.removeItem("load-page");
   }
- 
-  $(document).ready(function(){
 
+
+
+
+      function sendMessage(peerId, text)
+      {
+          console.log("sendPeerMessage", text, peerId);
+          newclient.sendMessageToPeer({text}, peerId.toString());
+      }
+
+      function sendMessageToChannel(channelName, text)
+      {
+          channel.sendMessage({text},channelName);
+          console.log('mssages send successfully on channel');
+      }
+
+      function getMemberList()
+      {
+          channel.getMembers().then(membersList => {    
+          console.log('*************Total Number Of User******',membersList[1]);
+        // channelSignalHandler(JSON.stringify({code:"100",member:membersList.length, totalmember:membersList, message:"totalcount"}), storeData.userType);
+      }).catch(error => {
+          console.log('*************There is an error******');
+      });
+
+      }
+
+
+function signalHandler(uid, signalData, userType) {
+
+  signalData = JSON.parse(signalData);
+     
+  console.log('********gudu************** signalData ', signalData,uid, userType);
+  if(userType == 1) { // Host
+
+    if(signalData.code == '101'){
+
+    } else if(signalData.code == '100') {
+      // $('#guestmsg').html(signalData.message);
+      // setTimeout(function(){ $('#guestmsg').html(''); }, 10000);
+      $('#agora_hand_raise'+uid+'').removeClass("d-none");
+      
+    }
+
+
+  } else { // Attendy
+
+    console.log('********Munmun************** signalData ', signalData,uid, userType);
+
+    if(signalData.code == '101'){
+
+      console.log('********gudu************** signalData ', signalData,uid, userType); 
+      $('#hostmsg').html(signalData.message);
+      setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
+
+    } else if(signalData.code == '100') {
+      console.log('********gudu************** signalData ', signalData,uid, userType); 
+      $('#hostmsg').html(signalData.message);
+      setTimeout(function(){ $('#hostmsg').html(''); }, 10000);      
+      //hand-icon position-absolute hand;    
+    }else if(signalData.code == '102') {
+      console.log('********gudu************** signalData ', signalData,uid, userType); 
+      $('#hostmsg').html(signalData.message);
+      setTimeout(function(){ $('#hostmsg').html(''); }, 10000);   
+    }else if(signalData.code == '111')
+    {
+      $('#hostmsg').html(signalData.message);
+      setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
+    }
+
+  }
+
+}
+
+function channelSignalHandler(signalData, userType) {
+
+  console.log('********guduorigin************** signalData ', signalData, userType);
+ signalData = JSON.parse(signalData);
+ if(signalData.code == '100'){
+ if(userType =='1'){  
+
+   incrementcountAtHost(signalData,userType);        
+   }else{
+       incrementcountAtAttendies(signalData,userType);    
+   }
+ }else if(signalData.code == '110')
+ {
+   if(userType =='1'){
+   setEmojiesAtHost(signalData, userType);
+   }else{
+     setEmojiesAtClient(signalData, userType);
+   }
+ }
+}
+
+      function incrementcountAtAttendies(signalData,userType)
+      {
+        console.log('********sssssAtt************** signalData ', signalData, userType);
+
+        var count3=$('#totalonline').html();
+
+        console.log('********hhhhhAtt************** signalData ', count3);
+
+        count3=parseInt(count3);
+      if(signalData.message=='Joined')
+      {     
+        console.log('*********lalittiwari************* signalData ', count3);
+        count4=count3+1;
+      }else if(signalData.message=='left') {
+
+        console.log('*********hello************* signalData ', count3);
+        count4=count3-1;      
+      }else if(signalData.message=='totalcount') {
+        
+        var arr=signalData.totalmember;
+        
+        
+        count4=signalData.member;
+        count4=parseInt(count4);
+        console.log('*******totallist*************** signalData ', count4);
+       /* arr.shift();
+        arr.forEach(element => {
+          $('#all_joined_member_list').append('<div className="attendee-list"><img src="images/attendee.png" /><span class="title">'+element+'</span><div className="vid-icons"><span className="icon1"></span><span className="icon2"></span></div></div>');
+        }); */    
+      }
+      $('#totalonline').empty(); 
+      $('#totalonline').html(count4); 
+      }
+
+
+      function incrementcountAtHost(signalData,userType)
+      {  
+        //console.log('********munmunHost************** signalData ', signalData, userType);
+        var count=$('#totalonline').html();
+
+      console.log('********munmunHost************** signalData ', count);
+        count=parseInt(count);
+      if(signalData.message=='Joined')
+      {     
+        console.log('********guduHost************** signalData ', signalData, userType);
+        count1=count+1;
+        $('#totalonline').empty(); 
+        $('#totalonline').html(count1); 
+        var peerId=signalData.member;
+        if(count1 <= 8)
+      var text =JSON.stringify({code:"111", message:"welcom, You joined as a broadCaster"});
+      else{
+        var text =JSON.stringify({code:"111", message:"welcom, You joined as a audience"});
+      }
+        sendMessage(peerId, text);
+      }else if(signalData.message=='left') {
+
+        console.log('********swapHost************** signalData ', count);
+        count1=count-1; 
+        $('#totalonline').empty(); 
+        $('#totalonline').html(count1);      
+      }else if(signalData.message=='totalcount') {
+        var arr=signalData.totalmember;
+        
+       
+        count1=signalData.member;
+        count1=parseInt(count1); 
+        console.log('********mmmw************** signalData ', count1);
+        /*arr.forEach(function (value, i) {
+          console.log("--------totalvalue--------------", i, value);
+          if(i > 1)
+          {
+            
+            $('#guestmsg').append('<span class="title" onclick="onclickShowAsBroadcaster(\''+value+'\')">'+value+'</span>');
+          }
+        });*/
+        $('#totalonline').empty(); 
+        $('#totalonline').html(count1);   
+      }
+
+
+      }
+
+      function setEmojiesAtHost(signalData, userType)
+      {
+        //console.log('********guduuuuuuuuu************** signalData ', signalData, userType); 
+        if(signalData.message=="appearence")
+        {
+        $('.icon-appearance[data-attr=\''+signalData.data+'\']').removeClass("d-none");
+        }
+        else if(signalData.message=="aroma")
+        {
+          $('.icon-aroma[data-attr=\''+signalData.data+'\']').removeClass("d-none");
+        }else if(signalData.message=="palate")
+        {
+          $('.icon-palate[data-attr=\''+signalData.data+'\']').removeClass("d-none");
+        }else if(signalData.message=="score")
+        {
+          $('.icon-score[data-attr=\''+signalData.data+'\']').removeClass("d-none");
+        }
+      
+      }
+
+      function setEmojiesAtClient(signalData, userType)
+      {
+        console.log('********Rammmmmmmmmmmmm************** signalData ', signalData, userType);
+      }
+
+  $(document).ready(function(){
+    // leaveRtm();
+     // rtmJoin();
+    
+    
+    // recieveMessage();
+    // recieveChannelmassages();
+    // getMemberList();
 
     // var countdownNumberEl = document.getElementById('countdown-number');
     // var countdownNumberEl2 = document.getElementById('countdown-number2');
@@ -1401,41 +1412,6 @@ function attendeeScreenHeight(){
         location.href  = '/home';
       });
 
-      $( '#appearence_button' ).bind( "click", function(event) {
-        var attendiesID=$( '#appearence_button' ).val();
-       // alert(channelName);return false;
-       //var receiver='5d36f79fe7446ed34bdb16e1';
-       sendMessageToChannel(channelName, JSON.stringify({code:"110",data:attendiesID, message:"appearence"}));
-
-      });
-
-      $( '#aroma_button' ).bind( "click", function(event) {
-        var attendiesID=$( '#aroma_button' ).val();
-        //var receiver='5d36f79fe7446ed34bdb16e1';
-        sendMessage(channelName, JSON.stringify({code:"110",data:attendiesID, message:"aroma"}));
-
-      });
-
-      $( '#palate_button' ).bind( "click", function(event) {
-        var attendiesID=$( '#palate_button' ).val();
-       //var receiver='5d36f79fe7446ed34bdb16e1';
-        sendMessage(channelName, JSON.stringify({code:"110",data:attendiesID, message:"palate"}));
-
-      });
-
-      $( '#score_button' ).bind( "click", function(event) {
-        var attendiesID=$( '#score_button' ).val();
-       //var receiver='5d36f79fe7446ed34bdb16e1';
-        sendMessage(channelName, JSON.stringify({code:"110",data:attendiesID, message:"score"}));
-
-      });
-
-      $( '#handRaiseClient_button' ).on( "click", function(event) {       
-       var receiver='5d36f79fe7446ed34bdb16e1';
-        sendMessage(receiver, JSON.stringify({code:"100",data:attendies_email, message:"HAND"}));
-      });
-
-
       $( '#msgToAll_button' ).on( "click", function(event) {
         var channel='2011'
         //sendMessageToChannel(channel, JSON.stringify({code:"111", message:"Please Mute Ur audio"}));
@@ -1453,6 +1429,7 @@ function attendeeScreenHeight(){
         console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ strmId ', strmId);
         sendMessage(strmId, JSON.stringify({code:'101'}));
       });
+    
 
   });
  

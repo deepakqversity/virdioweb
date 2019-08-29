@@ -158,12 +158,12 @@ return (
               <div className="bg-gray bottom-rounded px-3 pb-2 item-description script-section mt--1 flex-grow-1">
                 <div className="h-100">
                   <div className="row">
-                  <div class="swiper-container">
-                      <div class="swiper-wrapper">
+                  <div className="swiper-container">
+                      <div className="swiper-wrapper">
                       {
                         sessionScript.map((opt, i) =>
                           <div className="swiper-slide" key={i}>
-                          <div class="">
+                          <div>
                             <div className="count-box">
                               <h4>{opt.name}</h4>
 
@@ -177,7 +177,7 @@ return (
                               <div className="row fitness-info justify-content-center">
                                 
                                 {opt.attribute.map(function(attrb, index){
-                                  return <div className=" ">
+                                  return <div className=" " key={index}>
                                   <div className="target-info">
                                     <span>{attrb.attrLabel}</span>
                                     <span>{attrb.attrValue}</span>
@@ -193,7 +193,7 @@ return (
                         )}
                       </div>
                       
-                      <div class="swiper-pagination"></div>
+                      <div className="swiper-pagination"></div>
                     </div>
                     
                   </div>

@@ -67,22 +67,6 @@ class Guest extends Component {
     let localstoragedata = JSON.parse(localStorage.getItem('userData'));
     var  userID=localstoragedata.id;
     this.setState({getID : userID});
-   
-    if(localStorage.getItem('load-page') != 1){  
-        window.loadPopup();
-      localStorage.setItem("load-page", 1);
-    }
-
-    // let sessionId = localStorage.getItem('sessionId');
-
-    // fetch('/api/v1/session/'+sessionId, {headers : {'Authorization': localstoragedata.token}})
-    // .then(response => { return response.json(); })
-    // .then(data => {
-    //   localStorage.setItem('currentSession', JSON.stringify(data));
-    //     console.log('data=================', data);
-        
-    // });
-
 
     var loadScript = function (src) {
       var tag = document.createElement('script');

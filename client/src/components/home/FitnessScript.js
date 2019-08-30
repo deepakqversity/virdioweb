@@ -187,12 +187,14 @@ return (
                               <div className="row fitness-info justify-content-center">
                                 
                                 {opt.attribute.map(function(attrb, index){
+                                  if(attrb.attrLabel != 'counter'){
                                   return <div className=" " key={index}>
-                                  <div className="target-info">
-                                    <span>{attrb.attrLabel}</span>
-                                    <span>{attrb.attrValue}</span>
-                                  </div>
-                                </div>;
+                                    <div className="target-info">
+                                      <span>{attrb.attrLabel}</span>
+                                      <span>{attrb.attrValue}</span>
+                                    </div>
+                                  </div>;
+                                }
                                 })}
                                 
                               </div>

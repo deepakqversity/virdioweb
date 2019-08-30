@@ -31,8 +31,6 @@ class Login extends Component {
 
       // this.props.history.push("/home"); // push user to dashboard when they login
         
-      localStorage.setItem("load-page", 0);
-
       if(localstoragedata.userType == 1){
         this.props.history.push("/host");
       }else{

@@ -967,18 +967,22 @@ function attendeeScreenHeight(){
   var resetCount = '';
 
   function countDown(){
-    var countdownNumberEl = $('.swiper-slide.swiper-slide-next .countdown-number');
+    let activeEle = $('.swiper-slide.swiper-slide-next');
+    var countdownNumberEl = activeEle.find('.countdown-number');
     
-    var countdown = 30;
-    console.log('===========')
+    // var countdown = 30;
+    var countdown = parseInt(countdownNumberEl.html());
+    activeEle.find('.count-box svg circle').attr("style","animation-duration:"+countdown+"s !important");
+
     countdownNumberEl.html(countdown + '\ SEC') ;
     
     resetCount = setInterval(function() {
-      countdown = --countdown < 0 ? 30 : countdown;
+      countdown = --countdown < 0 ? countdown : countdown;
     
       countdownNumberEl.html(countdown + '\ SEC') ;
       if(countdown <= 0){
         
+        activeEle.find('.count-box svg circle').removeAttr("style");
         clearInterval(resetCount);
         // Now you can use all slider methods like
         mySwiper.slideNext();
@@ -1202,7 +1206,7 @@ function channelSignalHandler(signalData, userType) {
            countDown();
          })
 
-    setTimeout(function(){ countDown(); }, 100);
+    setTimeout(function(){ countDown(); }, 10);
     // leaveRtm();
      // rtmJoin();
     

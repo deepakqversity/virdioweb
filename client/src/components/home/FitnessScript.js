@@ -173,8 +173,11 @@ return (
                               <h4>{opt.name}</h4>
   
                               <div className="countdown">
-                             
-                                <div className="countdown-number">30 SEC</div>
+                                {opt.attribute.map(function(attrb, index){
+                                  if(attrb.attrLabel == 'counter'){
+                                  return <div className="countdown-number" key={index}>{attrb.attrValue} SEC</div>;
+                                  }
+                                })}
 
                                 <svg>
                                   <circle r="26" cx="30" cy="30"></circle>
@@ -184,12 +187,14 @@ return (
                               <div className="row fitness-info justify-content-center">
                                 
                                 {opt.attribute.map(function(attrb, index){
+                                  if(attrb.attrLabel != 'counter'){
                                   return <div className=" " key={index}>
-                                  <div className="target-info">
-                                    <span>{attrb.attrLabel}</span>
-                                    <span>{attrb.attrValue}</span>
-                                  </div>
-                                </div>;
+                                    <div className="target-info">
+                                      <span>{attrb.attrLabel}</span>
+                                      <span>{attrb.attrValue}</span>
+                                    </div>
+                                  </div>;
+                                }
                                 })}
                                 
                               </div>

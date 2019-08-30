@@ -685,7 +685,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
           }
           console.log('---------- microphoneId == deviceId - ', microphoneId, deviceId, ctr1)
 
-          adoMediaHtml = '<div id="ado-'+deviceId+'"><i class="fa fa-microphone"></i> <input type="radio" name="audio-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'> <label for="lbl-'+deviceId+'"> Microphone-'+ ++ctr1 +'</label> </div>';
+          adoMediaHtml = '<div class="" id="ado-'+deviceId+'"><input class="form-radio" type="radio" name="audio-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'> <i class="fa fa-microphone"></i><label for="lbl-'+deviceId+'"> Microphone-'+ ++ctr1 +'</label> </div>';
 
           $('#audio-media-content').append(adoMediaHtml)
 
@@ -708,7 +708,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
           }
           // console.log('---------- cameraId == deviceId - ', cameraId , deviceId,  defaultSetting)
 
-          vdoMediaHtml = '<div class="col-12 col-md-3" id="vdo-'+deviceId+'"><div id="local-media-'+deviceId+'" ></div><div class="text-center"><input type="radio" name="video-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'><label for="lbl-'+deviceId+'">Camera-'+ ++ctr +'</label></div></div>';
+          vdoMediaHtml = '<div class="col-12 col-md-3" id="vdo-'+deviceId+'"><div id="local-media-'+deviceId+'" ></div><div class="check-camera"><input type="radio" class="form-radio" name="video-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'><label for="lbl-'+deviceId+'">Camera-'+ ++ctr +'</label></div></div>';
 
           $('#video-media-content').append(vdoMediaHtml)
 

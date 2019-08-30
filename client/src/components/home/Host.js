@@ -71,7 +71,7 @@ class Host extends Component {
       } else {
         clearInterval(this.timer);
         this.setState({ timerOn: false });
-        alert("Countdown ended");
+        //alert("Countdown ended");
       }
     }, 10);
   };

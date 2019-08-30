@@ -1342,6 +1342,7 @@ img.user-login{
 .prescreen-popup.show.modal{
     display: flex !important;
     align-items: center;
+	background: rgba(0,0,0,0.8);
 }
 .prescreen-popup .modal-header{
 	padding: 0;
@@ -1477,8 +1478,14 @@ img.user-login{
     width: 25px;
      border-radius: 7px;
      cursor: pointer;     
-     margin-right: 7px;
+     margin-right: 2px;
      outline: none;
+}
+.check-camera .fa-microphone{
+	    color: #B002ED;
+    vertical-align: sub;
+    margin-right: 6px;
+    font-size: 20px;
 }
 .form-radio:checked::before{
     position: absolute;
@@ -1533,7 +1540,11 @@ img.user-login{
     display: flex;
     align-items: center;
 }
-
+@media (max-width:1280px){
+	.prescreen-popup .signup-number, .prescreen-popup .online-number{
+		
+	}
+}
 
 
 

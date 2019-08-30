@@ -24,7 +24,7 @@ return (
 
         <div className="modal-header">
         
-          <div className="d-flex w-100 justify-content-between">
+          <div className="d-flex w-100 justify-content-between align-items-center">
             <div className="session-logo">
               <img src="/images/prescreen-logo.png" />
             </div>
@@ -108,7 +108,7 @@ return (
             <input type="checkbox" id="set-default" /><label htmlFor="set-default">Save as Default Setting</label>
             </div> */}
             
-              <div className="col-lg-9">
+              <div className="col-lg-">
                 <h6 className="small-heading mb-3 no-border">Just joined</h6>
                 <div className="">
                   <div className="joiners d-flex flex-wrap">
@@ -128,18 +128,15 @@ return (
                       <img src="images/avtar.png" />
                       Richard, LA
                     </span>
-                    <span>
-                      <img src="images/avtar.png" />
-                      Richard, LA
-                    </span>
+                    
                     <span className="color-purple">
                       +34 more
                     </span>
                   </div>
                 </div>
               </div>
-              <div className="col-2">
-                <div className="d-flex justify-content-between">
+              <div className="">
+                <div className="d-flex justify-content-between flex-wrap">
                   <button type="submit" class="mr-2 btn-cancel btn btn-large btn-outline-secondary rounded py-2 px-4">Leave</button>
                   <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-2 px-4 rounded" id="continue-join">join</button>
                 </div>

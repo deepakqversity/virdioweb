@@ -467,7 +467,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     
  
      channel.getMembers().then(membersList => {    
-       console.log('*************Total Number Of User******',membersList.length);
+       console.log('*************Total Number Of Userkkkkkkkkkkkkkkkkkk******',membersList.length);
        channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
 
        }).catch(error => {
@@ -512,17 +512,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
         });
   
       }
-
-     /*  function getOnlineMemberList()
-      {
-        channel.getMembers().then(membersList => {    
-          console.log('*************Total Number Of User******',membersList[1]);
-         channelSignalHandler(JSON.stringify({code:"100",member:membersList.length, totalmember:membersList, message:"totalcount"}), storeData.userType);
-
-        }).catch(error => {
-          console.log('*************There is an error******');
-          });
-      }*/
 
 
       function sendMessage(peerId, text)
@@ -569,6 +558,17 @@ if(!AgoraRTC.checkSystemRequirements()) {
           console.log('*************There is an error******');
       });
 
+      }
+
+      function getOnlineMemberList()
+      {
+        channel.getMembers().then(membersList => {    
+          console.log('*************Total Number Of User******',membersList[1]);
+          channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
+
+        }).catch(error => {
+          console.log('*************There is an error******');
+          });
       }
 
       function onclickShowAsBroadcaster() {
@@ -845,7 +845,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         sendMessageToChannel(channelName1, JSON.stringify({code:"222", message:"Now U can Join"}));
         getMemberList();
       }
-
+     // getOnlineMemberList();
       
 
     $(".host-script-section").height("255px");
@@ -1092,7 +1092,7 @@ function signalHandler(uid, signalData, userType) {
     } else if(signalData.code == '100') {
       console.log('********gudu************** signalData ', signalData,uid, userType); 
       $('#hostmsg').html(signalData.message);
-      setTimeout(function(){ $('#hostmsg').html(''); }, 100000);      
+      setTimeout(function(){ $('#hostmsg').html(''); }, 10000);      
       //hand-icon position-absolute hand;    
     }else if(signalData.code == '102') {
      // console.log('********gudu************** signalData ', signalData,uid, userType); 
@@ -1295,7 +1295,7 @@ function signalHandler(uid, signalData, userType) {
       }
 
       $(document).ready(function(){
-  
+      
         $(document).on("click", ".start span a", function(){
          $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
          $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
@@ -1445,6 +1445,7 @@ function signalHandler(uid, signalData, userType) {
         $('#media-config').on('hidden.bs.modal', function (e) {
           console.log('close event')
         })
+      rtmJoin(); 
       }
       // GoInFullscreen();
 

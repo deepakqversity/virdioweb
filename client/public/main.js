@@ -55,11 +55,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
     console.log('camera, microphone = ', camera, microphone)
 
     let storeData = getCurrentUserData();
-    // let currentSession = getCurrentSession();
    
     console.log('-****  channel, utype', storeData.sessionData.channelId, storeData.userType);
-
-    // appId = storeData.sessionData.appId;
 
     var channel_key = storeData.sessionData.streamToken != undefined ? storeData.sessionData.streamToken : null;
      
@@ -127,17 +124,17 @@ if(!AgoraRTC.checkSystemRequirements()) {
                 console.log("getUserMedia successfully", storeData.sessionData.id, storeData.id);
                 localStream.play('agora_local');
                 
-                $.ajax({
-                    headers: { 
-                        "Content-Type": "application/json; charset=utf-8",
-                        "Authorization": storeData.token
-                    },
-                    url: '/api/v1/session/'+storeData.sessionData.id+'/stream-id',
-                    dataType: 'json',
-                    type: 'PUT',
-                    contentType: 'application/json',
-                    data: JSON.stringify({ "streamId": uid, "userType": parseInt(storeData.userType) }),
-                    success: function( data, textStatus, jQxhr ){
+                // $.ajax({
+                //     headers: { 
+                //         "Content-Type": "application/json; charset=utf-8",
+                //         "Authorization": storeData.token
+                //     },
+                //     url: '/api/v1/session/'+storeData.sessionData.id+'/stream-id',
+                //     dataType: 'json',
+                //     type: 'PUT',
+                //     contentType: 'application/json',
+                //     data: JSON.stringify({ "streamId": uid, "userType": parseInt(storeData.userType) }),
+                //     success: function( data, textStatus, jQxhr ){
                         
                         if(storeData.userType == 1){
 
@@ -154,11 +151,11 @@ if(!AgoraRTC.checkSystemRequirements()) {
                         } else {
                           // publish();
                         }
-                    },
-                    error: function( jqXhr, textStatus, errorThrown ){
-                        console.log( errorThrown );
-                    }
-                });
+                //     },
+                //     error: function( jqXhr, textStatus, errorThrown ){
+                //         console.log( errorThrown );
+                //     }
+                // });
            
             }, function (err) {
               console.log("getUserMedia failed", err);
@@ -202,7 +199,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
     var count=1;
     client.on('stream-subscribed', function (evt) {
 
-      // let currentSession = getCurrentSession();
       var storeData = getCurrentUserData();
 
       var stream = evt.stream;
@@ -378,30 +374,21 @@ if(!AgoraRTC.checkSystemRequirements()) {
     return JSON.parse(localStorage.getItem("userData"));
   }    
 
-  function getCurrentSession(){
-    return JSON.parse(localStorage.getItem("currentSession"));
-  }    
-
   function switchVideoSize(){
     let len = $('#subscribers-list .newcss').length;
-    console.log('------------------------length ',len);
+
     if(len == 0) return false;
 
     let vdoSize = '';
     if(len == 1){
-      //vdoSize = 'one mx-auto';
       vdoSize = 'one mx-auto';
     } else if(len == 2) {
-      //vdoSize = 'col-md-6 col-lg-6 col-sm-6 col-6';
       vdoSize = 'two';
     } else if(len == 3) {
-      //vdoSize = 'col-md-4 col-lg-4 col-sm-4 col-12';
       vdoSize = 'three';
     } else if(len == 4) {
-      //vdoSize = 'col-md-4 col-lg-4 col-sm-4 col-12';
       vdoSize = 'four';
     } else {
-      //vdoSize = 'col-md-3 col-lg-3 col-sm-3 col-12';
       vdoSize = 'five';
     }
 
@@ -428,7 +415,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
         .removeClass('col-12')
         .removeClass('mx-auto');
 
-      // $('#subscribers-list .newcss').addClass(vdoSize);
       $(this).addClass(vdoSize);
 
     });
@@ -444,7 +430,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
     });
   }
 
-  //var currentSession = getCurrentSession();  
   function rtmJoin()
   {
    var appId1 = '232f270a5aeb4e0097d8b5ceb8c24ab3';

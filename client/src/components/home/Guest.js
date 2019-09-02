@@ -122,8 +122,9 @@ return (
                     <div className="time py-xs-1">  <span>04/23/2019, at 12:00 PM</span>
                       <span>Time Remaining: 01:10:00</span>
                     </div>
+                    <div id="hostmsg" style={{color:'green'}}></div>
                   </div>
-                  <div id="hostmsg" style={{color:'green'}}></div>
+                  
                   <div className="col-12 center-mob col-sm-7 col-md-6 col-lg-3 d-flex justify-content-end">
                   
                     <a className="col-2 justify-content-end d-flex align-items-center" href="#" className="btn btn-primary " tabIndex="1">Details</a>

@@ -513,6 +513,17 @@ if(!AgoraRTC.checkSystemRequirements()) {
   
       }
 
+     /*  function getOnlineMemberList()
+      {
+        channel.getMembers().then(membersList => {    
+          console.log('*************Total Number Of User******',membersList[1]);
+         channelSignalHandler(JSON.stringify({code:"100",member:membersList.length, totalmember:membersList, message:"totalcount"}), storeData.userType);
+
+        }).catch(error => {
+          console.log('*************There is an error******');
+          });
+      }*/
+
 
       function sendMessage(peerId, text)
       {
@@ -526,14 +537,15 @@ if(!AgoraRTC.checkSystemRequirements()) {
           console.log('---------------','mssages send successfully on channel');
       }
 
+
+
       function getMemberList()
       {
           channel.getMembers().then(membersList => {    
           console.log('*************Total Number Of User******',membersList[1]);
         // channelSignalHandler(JSON.stringify({code:"100",member:membersList.length, totalmember:membersList, message:"totalcount"}), storeData.userType);
 
-        var arr=membersList;
-             
+        var arr=membersList;             
         counter=membersList.length;
         counter=parseInt(counter); 
         console.log('********mmmwhello************** signalData ', counter);
@@ -571,7 +583,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   function onclickaudioOn(audienceID)
   {
-    sendMessage(audienceID, JSON.stringify({code:"101", message:"MUTEP"}));
+    sendMessage(audienceID, JSON.stringify({code:"101", message:"MUTEP,Now You Become a Audience"}));
   }
 
   function onclickhandRaise(receiverId)
@@ -1080,7 +1092,7 @@ function signalHandler(uid, signalData, userType) {
     } else if(signalData.code == '100') {
       console.log('********gudu************** signalData ', signalData,uid, userType); 
       $('#hostmsg').html(signalData.message);
-      setTimeout(function(){ $('#hostmsg').html(''); }, 10000);      
+      setTimeout(function(){ $('#hostmsg').html(''); }, 100000);      
       //hand-icon position-absolute hand;    
     }else if(signalData.code == '102') {
      // console.log('********gudu************** signalData ', signalData,uid, userType); 

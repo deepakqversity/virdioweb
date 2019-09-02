@@ -158,31 +158,43 @@ return (
               <div className="bg-gray bottom-rounded px-3 pb-2 item-description script-section mt--1 flex-grow-1">
                 <div className="h-100">
                   <div className="row">
-                  <div class="swiper-container">
-                      <div class="swiper-wrapper">
+                  <div className="swiper-container">
+                      <div className="swiper-wrapper">
+                        <div className="swiper-slide start">
+                          <span>
+                            <a href="#">Start</a>
+                          </span>
+                        </div>
                       {
                         sessionScript.map((opt, i) =>
                           <div className="swiper-slide" key={i}>
-                          <div class="">
+                          <div>
                             <div className="count-box">
                               <h4>{opt.name}</h4>
-
+  
                               <div className="countdown">
-                                <div className="countdown-number">30 SEC</div>
+                                {opt.attribute.map(function(attrb, index){
+                                  if(attrb.attrLabel == 'counter'){
+                                  return <div className="countdown-number" key={index}>{attrb.attrValue} SEC</div>;
+                                  }
+                                })}
+
                                 <svg>
                                   <circle r="26" cx="30" cy="30"></circle>
                                 </svg>
                                 
                               </div>
-                              <div className="row justify-content-center">
+                              <div className="row fitness-info justify-content-center">
                                 
                                 {opt.attribute.map(function(attrb, index){
-                                  return <div className="border-right ">
-                                  <div className="target-info">
-                                    <span>{attrb.attrLabel}</span>
-                                    <span>{attrb.attrValue}</span>
-                                  </div>
-                                </div>;
+                                  if(attrb.attrLabel != 'counter'){
+                                  return <div className=" " key={index}>
+                                    <div className="target-info">
+                                      <span>{attrb.attrLabel}</span>
+                                      <span>{attrb.attrValue}</span>
+                                    </div>
+                                  </div>;
+                                }
                                 })}
                                 
                               </div>
@@ -191,9 +203,18 @@ return (
                         </div>
 
                         )}
+                        <div className="swiper-slide end">
+                          <span>
+                            <a href="#">End</a>
+                          </span>
+                        </div>
                       </div>
                       
-                      <div class="swiper-pagination"></div>
+                      {/* <div className="swiper-pagination"></div> */}
+                      <div className="swiper-btns">
+                        <a href="#" className="btn btn-outline-secondary swiper-btn-next">"Next"</a>
+                        <a href="#" className="btn btn-outline-secondary swiper-btn-prev d-none">"Prev"</a>
+                      </div>
                     </div>
                     
                   </div>

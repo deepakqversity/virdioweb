@@ -55,11 +55,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
     console.log('camera, microphone = ', camera, microphone)
 
     let storeData = getCurrentUserData();
-    // let currentSession = getCurrentSession();
    
     console.log('-****  channel, utype', storeData.sessionData.channelId, storeData.userType);
-
-    // appId = storeData.sessionData.appId;
 
     var channel_key = storeData.sessionData.streamToken != undefined ? storeData.sessionData.streamToken : null;
      
@@ -127,17 +124,17 @@ if(!AgoraRTC.checkSystemRequirements()) {
                 console.log("getUserMedia successfully", storeData.sessionData.id, storeData.id);
                 localStream.play('agora_local');
                 
-                $.ajax({
-                    headers: { 
-                        "Content-Type": "application/json; charset=utf-8",
-                        "Authorization": storeData.token
-                    },
-                    url: '/api/v1/session/'+storeData.sessionData.id+'/stream-id',
-                    dataType: 'json',
-                    type: 'PUT',
-                    contentType: 'application/json',
-                    data: JSON.stringify({ "streamId": uid, "userType": parseInt(storeData.userType) }),
-                    success: function( data, textStatus, jQxhr ){
+                // $.ajax({
+                //     headers: { 
+                //         "Content-Type": "application/json; charset=utf-8",
+                //         "Authorization": storeData.token
+                //     },
+                //     url: '/api/v1/session/'+storeData.sessionData.id+'/stream-id',
+                //     dataType: 'json',
+                //     type: 'PUT',
+                //     contentType: 'application/json',
+                //     data: JSON.stringify({ "streamId": uid, "userType": parseInt(storeData.userType) }),
+                //     success: function( data, textStatus, jQxhr ){
                         
                         if(storeData.userType == 1){
 
@@ -154,11 +151,11 @@ if(!AgoraRTC.checkSystemRequirements()) {
                         } else {
                           // publish();
                         }
-                    },
-                    error: function( jqXhr, textStatus, errorThrown ){
-                        console.log( errorThrown );
-                    }
-                });
+                //     },
+                //     error: function( jqXhr, textStatus, errorThrown ){
+                //         console.log( errorThrown );
+                //     }
+                // });
            
             }, function (err) {
               console.log("getUserMedia failed", err);
@@ -202,7 +199,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
     var count=1;
     client.on('stream-subscribed', function (evt) {
 
-      // let currentSession = getCurrentSession();
       var storeData = getCurrentUserData();
 
       var stream = evt.stream;
@@ -378,30 +374,21 @@ if(!AgoraRTC.checkSystemRequirements()) {
     return JSON.parse(localStorage.getItem("userData"));
   }    
 
-  function getCurrentSession(){
-    return JSON.parse(localStorage.getItem("currentSession"));
-  }    
-
   function switchVideoSize(){
     let len = $('#subscribers-list .newcss').length;
-    console.log('------------------------length ',len);
+
     if(len == 0) return false;
 
     let vdoSize = '';
     if(len == 1){
-      //vdoSize = 'one mx-auto';
       vdoSize = 'one mx-auto';
     } else if(len == 2) {
-      //vdoSize = 'col-md-6 col-lg-6 col-sm-6 col-6';
       vdoSize = 'two';
     } else if(len == 3) {
-      //vdoSize = 'col-md-4 col-lg-4 col-sm-4 col-12';
       vdoSize = 'three';
     } else if(len == 4) {
-      //vdoSize = 'col-md-4 col-lg-4 col-sm-4 col-12';
       vdoSize = 'four';
     } else {
-      //vdoSize = 'col-md-3 col-lg-3 col-sm-3 col-12';
       vdoSize = 'five';
     }
 
@@ -428,7 +415,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
         .removeClass('col-12')
         .removeClass('mx-auto');
 
-      // $('#subscribers-list .newcss').addClass(vdoSize);
       $(this).addClass(vdoSize);
 
     });
@@ -749,7 +735,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
           }
           console.log('---------- microphoneId == deviceId - ', microphoneId, deviceId, ctr1)
 
-          adoMediaHtml = '<div id="ado-'+deviceId+'"><i class="fa fa-microphone"></i> <input type="radio" name="audio-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'> <label for="lbl-'+deviceId+'"> Microphone-'+ ++ctr1 +'</label> </div>';
+          adoMediaHtml = '<div class="" id="ado-'+deviceId+'"><input class="form-radio" type="radio" name="audio-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'> <i class="fa fa-microphone"></i><label for="lbl-'+deviceId+'"> Microphone-'+ ++ctr1 +'</label> </div>';
 
           $('#audio-media-content').append(adoMediaHtml)
 
@@ -772,7 +758,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
           }
           // console.log('---------- cameraId == deviceId - ', cameraId , deviceId,  defaultSetting)
 
-          vdoMediaHtml = '<div class="col-12 col-md-3" id="vdo-'+deviceId+'"><div id="local-media-'+deviceId+'" ></div><div class="text-center"><input type="radio" name="video-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'><label for="lbl-'+deviceId+'">Camera-'+ ++ctr +'</label></div></div>';
+          vdoMediaHtml = '<div class="col-12 col-md-3" id="vdo-'+deviceId+'"><div id="local-media-'+deviceId+'" ></div><div class="check-camera"><input type="radio" class="form-radio" name="video-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'><label for="lbl-'+deviceId+'">Camera-'+ ++ctr +'</label></div></div>';
 
           $('#video-media-content').append(vdoMediaHtml)
 
@@ -1038,23 +1024,29 @@ function attendeeScreenHeight(){
     // localStorage.removeItem("sessionId");
     localStorage.removeItem("load-page");
   }
+  var resetCount = '';
 
   function countDown(){
-    var countdownNumberEl = $('.swiper-slide.swiper-slide-next .countdown-number');
+    let activeEle = $('.swiper-slide.swiper-slide-next');
+    var countdownNumberEl = activeEle.find('.countdown-number');
     
-    var countdown = 30;
-    
+    // var countdown = 30;
+    var countdown = parseInt(countdownNumberEl.html());
+    activeEle.find('.count-box svg circle').attr("style","animation-duration:"+countdown+"s !important");
+
     countdownNumberEl.html(countdown + '\ SEC') ;
     
-    var ref = setInterval(function() {
-      countdown = --countdown < 0 ? 30 : countdown;
+    resetCount = setInterval(function() {
+      countdown = --countdown < 0 ? countdown : countdown;
     
       countdownNumberEl.html(countdown + '\ SEC') ;
       if(countdown <= 0){
         
+        activeEle.find('.count-box svg circle').removeAttr("style");
+        clearInterval(resetCount);
         // Now you can use all slider methods like
         mySwiper.slideNext();
-        clearInterval(ref);
+        countDown();
       }
     }, 1000);
   }
@@ -1290,9 +1282,23 @@ function signalHandler(uid, signalData, userType) {
         console.log('********Rammmmmmmmmmmmm************** signalData ', signalData, userType);
       }
 
-  $(document).ready(function(){
+      $(document).ready(function(){
+  
+        $(document).on("click", ".start span a", function(){
+         $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
+         $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
+         countDown();
+        })
+         
+         $(document).on("click", ".swiper-btns .swiper-btn-next", function(e){
+           e.preventDefault();
+           clearInterval(resetCount);
+           // Now you can use all slider methods like
+           mySwiper.slideNext();
+           countDown();
+         })
 
-    setTimeout(function(){ countDown(); }, 100);
+    setTimeout(function(){ countDown(); }, 10);
     // leaveRtm();
      // rtmJoin();
     

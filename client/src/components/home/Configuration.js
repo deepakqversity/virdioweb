@@ -165,8 +165,9 @@ return (
             {/* <div className="">
             <input type="checkbox" id="set-default" /><label htmlFor="set-default">Save as Default Setting</label>
             </div> */}
-             <span id='newmsg' style={{color:'green'}}></span>
+             
               <div className="col-lg-9">
+              <span id='newmsg' style={{color:'green'}}></span>
                 <h6 className="small-heading mb-3 no-border">Just joined</h6>
                 <div className="">
                   <div className="joiners d-flex flex-wrap">

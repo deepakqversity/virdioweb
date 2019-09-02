@@ -102,7 +102,9 @@ return (
                 <div id ="all_attendies_list"></div>
               </div>
             </div>
-            <div id="guestmsg" style={{color:'green'}}></div>
+            <div id="guestmsg" style={{color:'green'}}>              
+            </div>
+                       
             <div className="col-12 col-sm-3">
               <div className="col-12 justify-content-end d-flex align-items-center">
                 <a className="btn btn-primary border-right pr-20 mr-1" href="javascript:;" tabIndex="0" id="fullscreen">fullscreen</a>

@@ -1,22 +1,80 @@
 import React, { Component } from "react";
+//import header from '../../config.js';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+//import  UserApi from "../../actions/userApi.js";
+import { allUsers } from "../../actions/authActions";
 import $ from 'jquery';
 class Configuration extends Component {
   
- 
+  constructor(props) {
+    super(props);
+   // this.state = {data : '', allData:''}
+
+   this. state = {
+      isLoading: true,
+      users: [],
+      error: null
+    }
+  }
+
   componentDidMount(){
-  // console.log(2);    //
+  this.fetchUsers();
   }
   componentWillMount(){
     //console.log(1);
     // window.test();
   }
+
+
+
+  fetchUsers() {
+    var userData = JSON.parse(localStorage.getItem("userData"));
+    //var  userID=userData.id;
+      
+      var sessionId=userData.sessionData.sessionId;
+    
+    fetch("/api/v1/session/"+sessionId+"/users", {headers : {'Authorization': userData.token}})
+    .then(response => response.json())
+    // ...then we update the users state
+    .then(data =>
+      this.setState({
+        users: data,
+        isLoading: false,
+      })
+    )
+      }
+
+
 render() {
+  //console.log('------hhhhhhhh----users ', this.state.users)
+ let users1 = this.state.users.map(user => {
+    const { username, name, email } = user;
+    return (
+      <tr key={username}>
+      <th scope="row"><img src="/images/avtar.png" /></th>
+      <td>{name}</td>
+      <td>{email}</td>
+      <td><img className="mr-2" src="/images/online.png" />online</td>
+      <td>YES</td>
+      <td>5</td>
+    </tr>
+    );
+  })
+
+
+       // var allData= this.props.dispatch(allUsers(sessionId));
+       var userlength=this.state.users;
+       
+       
+      const newulength=Object.keys(userlength).length;
+
+       console.log('-----------Avishekhllllll-------------------', newulength)
 
 return (
+
     <div>
-      <div className="modal fade" id="media-config" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+           <div className="modal fade" id="media-config" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
       <div className="modal-dialog modal-dialog-lg mw-75" role="document">
 
@@ -25,7 +83,7 @@ return (
         <div className="modal-header">
 
           <h5 className="modal-title" id="exampleModalLabel">Media Configuration</h5>
-          <span>Total Signup:</span><span id="totalsignup"></span>
+          <span>Total Signup:</span><span id="totalsignup">{newulength}</span>
          <span>Online:</span><span id="totalonline"></span>
           <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#attendy-list">
             Open modal
@@ -44,8 +102,8 @@ return (
           </div>
         
         </div>
-
         <div className="modal-footer">
+        <span id='newmsg' style={{color:'green'}}></span>
             <div className="">
             <input type="checkbox" id="set-default" /><label htmlFor="set-default">Save as Default Setting</label>
             </div>
@@ -73,69 +131,14 @@ return (
                 <tr>
                   <th scope="col">&nbsp;</th>
                   <th scope="col">Name</th>
-                  <th scope="col">Location</th>
+                  <th scope="col">Email</th>
                   <th scope="col">Status</th>
                   <th scope="col">Visible</th>
                   <th scope="col"># of Sessions</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row"><img src="/images/avtar.png" /></th>
-                  <td>Mark</td>
-                  <td>San Francisco, California</td>
-                  <td><img className="mr-2" src="/images/online.png" />online</td>
-                  <td>YES</td>
-                  <td>5</td>
-                </tr>
-                <tr>
-                <th scope="row"><img src="/images/avtar.png" /></th>
-                  <td>Mark</td>
-                  <td>San Francisco, California</td>
-                  <td><img className="mr-2" src="/images/offline.png" />offline</td>
-                  <td>YES</td>
-                  <td>5</td>
-                </tr>
-                <tr>
-                <th scope="row"><img src="/images/avtar.png" /></th>
-                  <td>Mark</td>
-                  <td>San Francisco, California</td>
-                  <td><img className="mr-2" src="/images/unknown.png" />Unknown</td>
-                  <td>YES</td>
-                  <td>5</td>
-                </tr>
-                <tr>
-                <th scope="row"><img src="/images/avtar.png" /></th>
-                  <td>Mark</td>
-                  <td>San Francisco, California</td>
-                  <td><img className="mr-2" src="/images/offline.png" />offline</td>
-                  <td>YES</td>
-                  <td>5</td>
-                </tr>
-                <tr>
-                <th scope="row"><img src="/images/avtar.png" /></th>
-                  <td>Mark</td>
-                  <td>San Francisco, California</td>
-                  <td><img className="mr-2" src="/images/unknown.png" />Unknown</td>
-                  <td>YES</td>
-                  <td>5</td>
-                </tr>
-                <tr>
-                <th scope="row"><img src="/images/avtar.png" /></th>
-                  <td>Mark</td>
-                  <td>San Francisco, California</td>
-                  <td><img className="mr-2" src="/images/offline.png" />offline</td>
-                  <td>YES</td>
-                  <td>5</td>
-                </tr>
-                <tr>
-                <th scope="row"><img src="/images/avtar.png" /></th>
-                  <td>Mark</td>
-                  <td>San Francisco, California</td>
-                  <td><img className="mr-2" src="/images/unknown.png" />Unknown</td>
-                  <td>YES</td>
-                  <td>5</td>
-                </tr>
+              { users1 }                
               </tbody>
             </table>
             </div>

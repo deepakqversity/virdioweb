@@ -10,6 +10,7 @@
 	  9. Login Screen
 	  10. Attendee Screen
 	  11. Prescreen popup
+	  12. Register Page
 ----------------------------------*/
 
 
@@ -162,6 +163,9 @@ a.bg-primary:hover, a.bg-primary:focus, button.bg-primary:hover, button.bg-prima
 }
 .bg-gray{
 	background: #2F2F2F;
+}
+.bg-gray2{
+	background: #212121;
 }
 .bg-black{
 	background: #000;
@@ -1154,6 +1158,7 @@ display:none;
     font-size: 24px;
     text-align: center;
 	margin-bottom: 20px;
+	color: #fff;
 }
 .login-box .form-horizontal{
     background: rgba(0,0,0,0.53);
@@ -1165,11 +1170,11 @@ display:none;
     width: 100%;
     border-radius: 12px;
 }
-.login-box .form-horizontal input:focus{
+.login-box .form-horizontal input:focus, .register-box .form-horizontal input:focus{
 	box-shadow: none;
 	background: rgba(176,2,237,0.11);
 }
-.login-box .form-group input{
+.login-box .form-group input, .register-box .form-group input{
     background: rgba(176,2,237,0.11);
     border-bottom: 1.4px solid #B002ED;
     border-left: 1.4px solid #B002ED;
@@ -1180,7 +1185,7 @@ display:none;
     font-size: 16px;
     border-radius: 0px 10px 10px 10px;
 }
-.login-box .login-inner{
+.login-box .login-inner, .register-box .register-inner{
     width: 100%;
     margin: auto;
     position: relative;
@@ -1190,23 +1195,28 @@ display:none;
 	    border-radius: 12px;
     box-shadow: 0px 13px 18px 10px rgba(0,0,0,0.3);
 }
-.login-box .login-inner .form-group{
+.login-box .login-inner .form-group, .register-box .register-inner .form-group{
 	position:relative;
 }
-.login-box .login-inner .form-group label{
+.login-box .login-inner .form-group label, .register-box .register-inner .form-group label{
     position: absolute;
     left: 12px;
     top: 10px;
 	    margin: 0;
+		    color: #fff;
+    font-family: Avenir-Medium;
 }
-.login-box .login-inner .form-group .form-check-inline label{
+.login-box .login-inner .form-group .form-check-inline label, 
+.register-box .register-inner .form-group .form-check-inline label{
 	position: relative;
     top: 0;
     left: 0;
 	cursor:pointer;
 }
 .login-box .form-group input[type="radio"], 
-.login-box .form-group input[type="checkbox"] {
+.login-box .form-group input[type="checkbox"], 
+.register-box .form-group input[type="radio"], 
+.register-box .form-group input[type="checkbox"] {
     box-sizing: border-box;
     padding: 0;
 	cursor:pointer;
@@ -1230,13 +1240,13 @@ img.user-login{
 	background: rgba(189,0,255, 0.53) !important;
     border-color: rgba(189,0,255, 0.53) !important;
 }
-.btn-login{
+.btn-login, .btn-register{
 	background: rgba(189,0,255, 0.53) !important;
     border-color: rgba(189,0,255, 0.53) !important;
 	font-size: 16px;
 	font-family: Avenir-Medium;
 }
-.login-box .forgot-password{
+.login-box .forgot-password, .register-box .forgot-password{
 	color: #B002ED;
 	text-decoration:none;
     font-size: 14px;
@@ -1545,6 +1555,104 @@ img.user-login{
 		
 	}
 }
+
+
+
+/* 12. Register Page */
+.register-page{
+	width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+	align-items:center;
+	position:absolute;
+	top: 0;
+    left: 0;
+}
+.register-page .select-client, .register-page .select-host{
+	    background: rgba(216,216,216,0.18);
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+	    position: relative;
+		    width: 140px;
+    height: 140px;
+	    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.register-page .select-usertype{
+	    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+}
+.register-page .select-usertype p{
+	font-size: 24px;
+    margin: 20px 0;
+}
+.register-page .op1{
+	opacity:1;
+}
+.register-page .op3{
+	opacity:0.3;
+}
+.register-page .select-client{
+	float:right;
+}
+.register-page .select-usertype .select-icon{
+	    width: 65px;
+    margin: auto;
+}
+.select-usertype .select-this{
+		    position: absolute;
+    right: 3px;
+    top: 5px;
+}
+.register-page .register-box .form-horizontal {
+    background: #212121;
+    background-size: cover;
+	    border-radius: 12px;
+}
+.register-page .register-box .form-group input{
+	height:40px;
+}
+.register-page img.user-login {
+    position: absolute;
+    right: 15px;
+    top: 35px;
+    width: 15px;
+}
+.register-box .register-inner{
+	box-shadow:none;
+}
+.signup-details span{
+color: #7C7C7C;
+    font-family: Avenir-Medium;
+    font-size: 14px;
+}
+.signup-details p{
+	font-family: Avenir-Medium;
+    color: #fff;
+    font-size: 18px;
+    letter-spacing: 1px;
+	margin-top: 5px;
+}
+.signup-details img{
+	    margin-right: 15px;
+    vertical-align: baseline;
+}
+.verify-details h3{
+	    color: #fff;
+    font-family: Avenir-Book;
+    font-size: 22px;
+}
+.verify-details p{
+	    color: #7C7C7C;
+    font-size: 18px;
+}
+
+
 
 
 

@@ -1,4 +1,5 @@
 import axios from "axios";
+//import header from '../config.js';
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 import $ from 'jquery';
@@ -13,6 +14,7 @@ import {
   SET_CURRENT_USER,
   USER_LOADING
 } from "./types";
+import { resolve } from "url";
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
@@ -26,6 +28,23 @@ export const registerUser = (userData, history) => dispatch => {
       })
     );
 };
+
+// All User
+// export const allUsers = sessionId => dispatch => {
+//   axios
+//     .get("/api/v1/session/"+sessionId+"/users",{headers: header})
+//     .then(res =>{
+//       console.log('--------mmmmmmmmmmmmm---------',res.data);
+//       return res.data;
+//     })
+//     // .catch(err =>
+//     //   dispatch({
+//     //     type: GET_ERRORS,
+//     //     payload: err.response.data
+//     //   })
+//     // );   
+// };
+
 // Login - get user token
 export const loginUser = userData => dispatch => {
   axios

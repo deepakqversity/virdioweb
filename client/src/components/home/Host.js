@@ -44,16 +44,38 @@ class Host extends Component {
 
   componentDidMount(){
 
+  // console.log(2);    //
+    if(localStorage.getItem('load-page') != 1){  
+        window.loadPopup();
+      localStorage.setItem("load-page", 1);
+    }
+    
     // let sessionId = localStorage.getItem('sessionId');
     let localstoragedata = JSON.parse(localStorage.getItem('userData'));
     this.setState({sessionScript: localstoragedata.sessionData.id});
     let scDate = localstoragedata.sessionData.scheduleDate;
+
+    console.log('scDate= ',scDate, new Date(scDate).getTime(), new Date().getTime())
+
     scDate = (new Date(scDate).getTime()) - (new Date().getTime());
+    console.log('scDate- ', scDate)
     this.state.timerTime = scDate;// 1 sec 1000 = 1sec
+
+    // fetch('/api/v1/session/'+sessionId, {headers : {'Authorization': localstoragedata.token}})
+    // .then(response => { return response.json(); })
+    // .then(data => {
+    //   // console.log('data=================', data);
+    //   this.setState({sessionScript: data.id});
+    //   localStorage.setItem('currentSession', JSON.stringify(data));
+        
+    // });
   }
   componentWillMount(){
+    // const { timerTime, timerOn } = this.state;
     
     this.startTimer();
+    //console.log(1);
+    // window.test();
   }
 
   startTimer = () => {
@@ -76,6 +98,20 @@ class Host extends Component {
     }, 10);
   };
 
+  // startTimer = () => {
+  //   this.setState({
+  //     timerOn: true,
+  //     timerTime: this.state.timerTime,
+  //     timerStart: Date.now() - this.state.timerTime
+  //   });
+  //   this.timer = setInterval(() => {
+  //     this.setState({
+  //       timerTime: Date.now() - this.state.timerStart
+  //     });
+  //   }, 10);
+  // };
+
+
 render() {
     const { timerTime, timerStart, timerOn, sessionScript } = this.state;
 
@@ -89,10 +125,13 @@ render() {
     let sessionData = localstoragedata.sessionData;
    
     let localDate = moment(sessionData.scheduleDate).format('MM/DD/YYYY # h:mm a');
+
     localDate = localDate.replace('#', 'at');
-    
+    let remTime = '';
+    console.log('scheduleDate ',localDate );
+    // console.log('------------------------------', user);
     let scriptHtml = '';
-    
+    // sessionScript = sessionScriptt;
     if (sessionScript == 1) {
       scriptHtml = <WineScript />;
     } else if(sessionScript == 2) {
@@ -122,10 +161,11 @@ return (
               </div>
             </div>
             <div id="guestmsg" style={{color:'green'}}></div>
+                       
             <div className="col-12 col-sm-3">
               <div className="col-12 justify-content-end d-flex align-items-center">
-                <a className="btn btn-primary border-right pr-20 mr-1" href="javascript:;" tabIndex="0" id="fullscreen">fullscreen</a>
-                <a className="btn btn-primary border-right pr-20" href="javascript:;" tabIndex="1">details</a>
+                <a className="btn btn-primary border-right pr-20 mr-1" href="#" tabIndex="0" id="fullscreen">fullscreen</a>
+                <a className="btn btn-primary border-right pr-20" href="#" tabIndex="1">details</a>
                 <img src="images/voice-commands.png" className="mic-icon" />
               </div>
             </div>

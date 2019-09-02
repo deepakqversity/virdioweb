@@ -1541,7 +1541,7 @@ img.user-login{
     align-items: center;
 }
 @media (max-width:1280px){
-	.prescreen-popup .signup-number, .prescreen-popup .online-number{
+	.prescreen-popup .signup-number, .prescreen-popup .online-number{      
 		
 	}
 }

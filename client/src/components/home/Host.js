@@ -160,8 +160,7 @@ return (
                 <div id ="all_attendies_list"></div>
               </div>
             </div>
-            <div id="guestmsg" style={{color:'green'}}>              
-            </div>
+            <div id="guestmsg" style={{color:'green'}}></div>
                        
             <div className="col-12 col-sm-3">
               <div className="col-12 justify-content-end d-flex align-items-center">

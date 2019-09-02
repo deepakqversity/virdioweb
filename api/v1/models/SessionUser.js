@@ -32,15 +32,15 @@ class SessionUser{
 	/**
 	 * Get current running session detail
 	 * @param  {int} sessionId 
-	 * @param  {int} streamId
+	 * @param  {int} userId
 	 * @return {obj} 
 	 */
-	async findByStreamUser(sessionId, streamId){
+	async findByStreamUser(sessionId, userId){
 		let table = this.table;
 		try
 	    {
 	        return await new Promise((resolve, reject) => {
-            	db.query('SELECT * FROM ?? WHERE sessionId = ? AND streamId = ? AND status = 1', [table, sessionId, streamId], function (error, results, fields) {
+            	db.query('SELECT * FROM ?? WHERE sessionId = ? AND userId = ? AND status = 1', [table, sessionId, userId], function (error, results, fields) {
 				  if (error) reject(error);
 				  // console.log('================== results ', results)
 				  return resolve(results[0]);

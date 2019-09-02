@@ -69,8 +69,8 @@ class SessionCtrl {
 
 	async getStreamUser(req, res) {
 		try {
-			console.log(req.params);
-			let sessionObj = await sessionUserModel.findByStreamUser(req.params.sessionId, req.params.streamId);
+			// console.log(req.params);
+			let sessionObj = await sessionUserModel.findByStreamUser(req.params.sessionId, req.params.userId);
 			res.status(200).send(sessionObj);
 				
 	    } catch(exception) {

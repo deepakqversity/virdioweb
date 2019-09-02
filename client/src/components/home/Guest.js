@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import $ from 'jquery';
 import Config from "./Configuration";
+import LeftScriptParticipant from "./LeftScriptParticipant";
+import FooterScriptParticipant from "./FooterScriptParticipant";
 
 class Guest extends Component {
 
@@ -63,21 +65,27 @@ class Guest extends Component {
   }
   
   componentDidMount(){
-  
+    
+    if(localStorage.getItem('load-page') != 1){  
+        window.loadPopup();
+      localStorage.setItem("load-page", 1);
+    }
+    
     let localstoragedata = JSON.parse(localStorage.getItem('userData'));
+
     var  userID=localstoragedata.id;
     this.setState({getID : userID});
 
-    var loadScript = function (src) {
-      var tag = document.createElement('script');
-      tag.async = false;
-      tag.src = src;
+    // var loadScript = function (src) {
+    //   var tag = document.createElement('script');
+    //   tag.async = false;
+    //   tag.src = src;
       
-      var body = document.getElementsByTagName('body')[0];
-      body.appendChild(tag);
-    }
-    loadScript('/js/swiper.min.js');
-    loadScript('/js/swiper-modifier.js');
+    //   var body = document.getElementsByTagName('body')[0];
+    //   body.appendChild(tag);
+    // }
+    // loadScript('/js/swiper.min.js');
+    // loadScript('/js/swiper-modifier.js');
 
     
   }
@@ -87,13 +95,12 @@ class Guest extends Component {
     // window.test();
   }
 render() {
-    const  {user}  = this.props.auth;
+  const  {user}  = this.props.auth;
 
-   // console.log(user);
+  // console.log(user);
 
-   var userData = JSON.parse(localStorage.getItem("userData"));
-  var  userID=userData.id;
-    console.log('------------------------------', userData);
+  var userData = JSON.parse(localStorage.getItem("userData"));
+  var userID = userData.id;
 
 return (
     <div className="container d-flex flex-column justify-content-between h-100 overlay position-relative">
@@ -146,43 +153,9 @@ return (
     </header>
     
     <div className="d-flex justify-content-between zindex-5 position-relative flex-grow-1 attend-mid-section">
-    {/*<div className="col-lg-3 col-md-4 col-sm-5 col-6 max-width-300">
-      <div className="left-section">
-        <h2 className="item-name py-3">1/4 Wines</h2>
-        <h3 className="second-heading my-3">2014 Bliss Block Pinot Noir</h3>
-        <div className="video-holder">
-          <img src="images/Rectangle.png" />
-        </div>
-        
-        <div className="item-description py-4">
-          <div className="row">
-            <ul className="col-12 col-md-12 list-info my-0">
-              <li><span>Varietal</span><span>100% Pinot Noir</span></li>
-              <li><span>Year</span><span>2014​</span></li>
-              <li><span>Country</span><span>United States​</span></li>
-              <li><span>Appellation</span><span>Sonoma</span></li>
-             
-            </ul>
-          
-            
-          </div>
-        </div>
-        <button type="button" data-toggle="modal" data-target="#show-details" className="btn btn-outline-secondary show-details-btn">"Show Details"</button>
-    </div>
-      
-    </div>*/}
-    <div className="col-lg-1 col-md-1 col-sm-1 col-1 max-width-300 d-flex">
-      <div className="left-section mt-3">
-        <div className="bpm-bar">
-          <span className="pop-text">Your BPM</span>
-          <div className="readings">
-            <span>20</span><span>40</span><span>60</span><span>80</span><span>100</span><span>120</span><span>140</span>
-            <span>160</span><span className="target-read">180</span><span>200</span><span>220</span>
-          </div>
-          <div className="skills bpm">153</div>
-        </div>
-      </div>
-    </div>
+    
+    <LeftScriptParticipant sessId={userData.sessionData.id} />
+    
     <div className="col-lg-3 col-md-4 col-sm-5 col-6 max-width-300 float-right pl-0 mt-3">
         <div className="right-sidebar">
           <div className="transparent-gray slide-right-left" style={toggleList}>
@@ -257,38 +230,8 @@ return (
   </div>
     <footer className="footer position-relative zindex-5 count-box mb-5 mt-4">
       
-      <ul className="bottom-links flex-wrap list-group list-group-horizontal mx-auto d-md-flex justify-content-center py-xs-1">
+      <FooterScriptParticipant sessId={userData.sessionData.id} />
 
-        <li className="list-group-item bg-transparent border-0"><a href="#"  onClick={this.getAppearence.bind(this)}>APPEARANCE</a></li>
-        <li className="list-group-item bg-transparent border-0"><a href="#" onClick={this.getAroma.bind(this)}>AROMA</a></li>
-        <li className="list-group-item bg-transparent border-0"><a href="#" onClick={this.getPalate.bind(this)}>PALATE</a></li>
-        <li className="list-group-item bg-transparent border-0"><a href="#" onClick={this.getScore.bind(this)}>SCORE</a></li>
-      </ul>
-      <div className="d-flex justify-content-between w-75 arrow-after align-items-center">
-        <div id="countdown">
-          <div id="countdown-number"></div>
-          <svg>
-            <circle r="26" cx="30" cy="30"></circle>
-          </svg>
-          <h4 className="mt-5">Pushups</h4>
-        </div>
-        <img src="images/arrow-img.png" />
-        <div id="countdown" className="current-box">
-          <div id="countdown-number"></div>
-          <svg>
-            <circle r="26" cx="30" cy="30"></circle>
-          </svg>
-          <h4 className="mt-5 pt-2">Lunges</h4>
-        </div>
-        <img src="images/arrow-img.png" />
-        <div id="countdown">
-          <div id="countdown-number"></div>
-          <svg>
-            <circle r="26" cx="30" cy="30"></circle>
-          </svg>
-          <h4 className="mt-5">Rest</h4>
-        </div>
-      </div>
       <div className="self-video1 mt-3 w-25">
           <button type="button" id="show-everyone" className="mb-2 minimize-others btn btn-outline-secondary mx-auto">"Show Everyone"</button>
           

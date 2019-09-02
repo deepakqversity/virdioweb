@@ -98,8 +98,17 @@ body{
 .border-left {
     border-left: 1px solid #9b51e0 !important;
 }
+.no-border{
+	border:0 !important;
+}
+.border-right-gray{
+	border-right:1px solid #D8D8D8;
+}
 .pr-20{
 	padding-right:20px;
+}
+.pad15{
+	padding:15px;
 }
 .btn-primary{
 	background: #9b51e0;
@@ -109,6 +118,9 @@ body{
     font-size: 14px;
 	border-radius: 50px;
 	padding:7px 20px;
+}
+.color-purple{
+	color:#B002ED !Important;
 }
 img{
 	max-width:100%;
@@ -1327,8 +1339,19 @@ img.user-login{
 
 
 /*------11. Prescreen popup----------*/
-/*.prescreen-popup .modal-header{
+.prescreen-popup.show.modal{
+    display: flex !important;
+    align-items: center;
+}
+.prescreen-popup .modal-header{
 	padding: 0;
+	    border: none;
+}
+.prescreen-popup .select-camera div{
+	background:transparent !Important;
+}
+.prescreen-popup .select-camera video{
+	border-radius:10px;
 }
 .prescreen-popup .session-details{
 	background: #2F2F2F;
@@ -1353,11 +1376,14 @@ img.user-login{
     border-radius: 12px;
     padding: 15px;
 }
+.prescreen-popup .time{
+	    margin-left: 10px !important;
+}
 .prescreen-popup .popup-heading{
-	font-family: Avenir-Book;
+    font-family: Avenir-Book;
     color: #fff;
     font-size: 24px;
-    margin: 0;
+    margin: 14px 0 14px 10px;
 }
 .w-90{
 	width:90%;
@@ -1367,25 +1393,151 @@ img.user-login{
 	    color: #D8D8D8;
     font-size: 16px;
     margin-left: 20px;
+	    position: relative;
 }
 .prescreen-popup .countdown-timer{
-	
+	    color: #fff;
+    font-size: 30px;
+    font-family: Avenir-Book;
+    margin: 10px 0 20px;
+	    float: right;
+}
+.prescreen-popup .signup-total, .prescreen-popup .online-total{
+    color: #fff;
+    font-family: Avenir-Book;
+    font-size: 16px;
+    display: block;
+    text-align: center;
+	width: 100%;
+}
+.prescreen-popup .signup-number, .prescreen-popup .online-number{
+	    color: #BD00FF;
+    font-family: Avenir-Heavy;
+    text-align: center;
+    font-size: 40px;
+    display: block;
+    margin: 0;
+    padding: 0;
+    line-height: 45px;
+    width: 100%;
+}
+
+.prescreen-popup .online-number{
+	color:#6DD400;
+}
+.session-details .btn-primary{
+	background: #BD00FF;
+    background-color: #BD00FF!important;
+    border-color: #BD00FF !important;
+}
+.prescreen-popup .online-status{
+	font-size:12px !important;
+	padding-left: 15px;
+}
+.prescreen-popup .online-status::after{
+	content: '';
+    width: 10px;
+    height: 10px;
+    background: #6DD400;
+    position: absolute;
+    left: 0;
+	    top: 2px;
+    border-radius: 15px;
 }
 .prescreen-popup .small-heading{
     border-left: 4px solid #B002ED;
     color: #fff;
     font-family: Avenir-Medium;
-    font-size: 17px;
+    font-size: 18px;
     padding-left: 18px;
     margin-left: -14px;
     margin-bottom: 0;
     padding-top: 2px;
     padding-bottom: 2px;
-}*/
+}
+.prescreen-popup .modal-footer{
+	border:none;
+	    justify-content: space-between;
+}
 .w-90{
 	width:90%;
 	max-width:90%;
 }
+.form-radio{
+     -webkit-appearance: none;
+     -moz-appearance: none;
+     appearance: none;
+     display: inline-block;
+     position: relative;
+         background-color: transparent;
+    border: 2px solid #BD00FF;
+     color: #666;
+     top: 10px;
+         height: 25px;
+    width: 25px;
+     border-radius: 7px;
+     cursor: pointer;     
+     margin-right: 7px;
+     outline: none;
+}
+.form-radio:checked::before{
+    position: absolute;
+    font-family: 'FontAwesome';
+        left: 6px;
+    top: 3px;
+    font-size: 13px;
+    color: #fff;
+    content: '\f00c';
+}
+.check-camera label{
+    color: #fff;
+    font-family: Avenir-Medium;
+    font-size: 16px;
+    vertical-align: sub;
+    margin: 0;
+    cursor: pointer;
+}
+
+.form-radio:checked{
+     background-color: #BD00FF;
+	     border: none;
+		 border-radius: 50px;
+}
+.max-w-170{
+	max-width:170px;
+}
+.font-20{
+	font-size:20px !important;
+}
+.fill-wifi{
+    color: #6DD400;
+    font-size: 80px;
+    position: absolute;
+    right: 10px;
+    top: 30px;
+}
+.btn-join{
+	background: rgba(189,0,255, 0.53) !important;
+    border-color: rgba(189,0,255, 0.53) !important;
+    font-size: 22px;
+    font-family: Avenir-Black;
+}
+.joiners img{
+	margin-right:10px;
+}
+.joiners span{
+	color:#fff;
+	font-family:Avenir-Medium;
+	margin-right:30px;
+	margin-bottom:15px;
+    display: flex;
+    align-items: center;
+}
+
+
+
+
+
 
 
 

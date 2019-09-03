@@ -7,12 +7,16 @@ let expireTimestamp = 0;
 class ClientToken{
 
 	createToken(appID, appCertificate, channel, uid){
+		try{
 
-		let key = new Token(appID, appCertificate, channel, uid);
-		key.addPriviledge(Priviledges.kJoinChannel, expireTimestamp);
+			let key = new Token(appID, appCertificate, channel.toString(), uid);
+			key.addPriviledge(Priviledges.kJoinChannel, expireTimestamp);
 
-		let token = key.build();
-		return token;
+			return key.build();
+
+		} catch(err){
+			console.log(err)
+		}
 	}
 
 }

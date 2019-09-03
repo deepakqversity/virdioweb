@@ -1,4 +1,5 @@
 import axios from "axios";
+//import header from '../config.js';
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 import $ from 'jquery';
@@ -13,6 +14,7 @@ import {
   SET_CURRENT_USER,
   USER_LOADING
 } from "./types";
+import { resolve } from "url";
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
@@ -26,6 +28,23 @@ export const registerUser = (userData, history) => dispatch => {
       })
     );
 };
+
+// All User
+// export const allUsers = sessionId => dispatch => {
+//   axios
+//     .get("/api/v1/session/"+sessionId+"/users",{headers: header})
+//     .then(res =>{
+//       console.log('--------mmmmmmmmmmmmm---------',res.data);
+//       return res.data;
+//     })
+//     // .catch(err =>
+//     //   dispatch({
+//     //     type: GET_ERRORS,
+//     //     payload: err.response.data
+//     //   })
+//     // );   
+// };
+
 // Login - get user token
 export const loginUser = userData => dispatch => {
   axios
@@ -35,13 +54,16 @@ export const loginUser = userData => dispatch => {
       // Save to localStorage
 
       const  token  = res.data.token;
+
     //  console.log(res.data);
-      localStorage.setItem("jwtToken", JSON.stringify(res.data));
+    
+      localStorage.setItem("userData", JSON.stringify(res.data));
 
       // Set token to Auth header
       setAuthToken(token);
       // Decode token to get user data
       const decoded = jwt_decode(token);
+      // console.log('decoded ===========',decoded)
       // Set current user
       dispatch(setCurrentUser(decoded));
     })
@@ -72,7 +94,7 @@ export const logoutUser = () => dispatch => {
 
   // Remove token from local storage
  // leave();
-  localStorage.removeItem("jwtToken");
+  localStorage.removeItem("userData");
   // Remove auth header for future requests
   setAuthToken(false);
   // Set current user to empty object {} which will set isAuthenticated to false
@@ -85,7 +107,7 @@ export const logoutUser = () => dispatch => {
 export const joinConf = (channel) => dispatch => {
   localStorage.setItem("channel", channel);
 
-  var retrievedObject = localStorage.getItem('jwtToken');
+  var retrievedObject = localStorage.getItem('userData');
   var localstoragedata=JSON.parse(retrievedObject);
 
 

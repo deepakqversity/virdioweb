@@ -9,6 +9,6 @@ route
   .get('/:sessionId/users', auth.verifyToken, SessionCtrl.getSessionUsers)
   // .put('/:sessionId/:userId', auth.verifyToken, SessionCtrl.updateSessionUser)
   .put('/:sessionId/stream-id', auth.verifyToken, SessionCtrl.updateUserStream)
-  .get('/:sessionId/:streamId/stream-id', auth.verifyToken, SessionCtrl.getStreamUser)
+  .get('/:sessionId/:userId/stream-id', auth.verifyToken, SessionCtrl.getStreamUser)
 
 module.exports = route;

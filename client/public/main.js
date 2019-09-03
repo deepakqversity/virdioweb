@@ -19,7 +19,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   //var appId = '748f9639fa864651bef8419d5870ec50';// provided by arjun 
 
-  // var appId = '232f270a5aeb4e0097d8b5ceb8c24ab3';
+   //var appId = '232f270a5aeb4e0097d8b5ceb8c24ab3';
   var appId = '';
 
   function join() {
@@ -55,21 +55,18 @@ if(!AgoraRTC.checkSystemRequirements()) {
     console.log('camera, microphone = ', camera, microphone)
 
     let storeData = getCurrentUserData();
-    let currentSession = getCurrentSession();
    
-    console.log('-****  channel, utype', currentSession.channel, storeData.userType);
+    console.log('-****  channel, utype', storeData.sessionData.channelId, storeData.userType);
 
-    // appId = currentSession.appId;
-
-    var channel_key = currentSession.token != undefined ? currentSession.token : null;
+    var channel_key = storeData.sessionData.streamToken != undefined ? storeData.sessionData.streamToken : null;
      
-    console.log("Init AgoraRTC client with App ID and token: " + currentSession.appId, channel_key);
+    console.log("Init AgoraRTC client with App ID and token: " + storeData.sessionData.appId, channel_key);
     
     // create client first
     client = AgoraRTC.createClient({mode: 'live'});
     
     // initialize client
-    client.init(currentSession.appId, function () {
+    client.init(storeData.sessionData.appId, function () {
 
       console.log("AgoraRTC client initialized");
 
@@ -82,13 +79,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
         } else {
           console.log("user role set success");
 
-          var channelName = currentSession.channel;
+          var channelName = storeData.sessionData.channelId;
 
           // create and join channel
-         client.join(channel_key, channelName, storeData.id, function(uid) {
+         client.join(channel_key, channelName.toString(), storeData.id, function(uid) {
           // client.join(channel_key, channelName, storeData.email, function(uid) {
 
-            console.log("User " + uid + " join channel successfully");
+            console.log("User***********Lalit******* " + uid + " join channel successfully");
 
             let sessionState = true;
 
@@ -100,13 +97,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
               localStream.setVideoProfile('720p_3');
             }
 
-            localStream.setVideoEncoderConfiguration({
-                // Video resolution
-                resolution: {
-                    width: 640,// 1280
-                    height: 380 // 
-                }
-            });
+            // localStream.setVideoEncoderConfiguration({
+            //     // Video resolution
+            //     resolution: {
+            //         width: 640,// 1280
+            //         height: 380 // 
+            //     }
+            // });
 
             // The user has granted access to the camera and mic.
             localStream.on("accessAllowed", function() {
@@ -119,47 +116,46 @@ if(!AgoraRTC.checkSystemRequirements()) {
             });
         
             localStream.init(function() {
-              if(storeData.userType != 1){
-                localStream.muteAudio();
-              } 
 
-        
-                  console.log("getUserMedia successfully", currentSession.id, storeData.id);
-                  localStream.play('agora_local');
-                  
-                  $.ajax({
-                      headers: { 
-                          "Content-Type": "application/json; charset=utf-8",
-                          "Authorization": storeData.token
-                      },
-                      url: '/api/v1/session/'+currentSession.id+'/stream-id',
-                      dataType: 'json',
-                      type: 'PUT',
-                      contentType: 'application/json',
-                      data: JSON.stringify({ "streamId": uid, "userType": parseInt(storeData.userType) }),
-                      success: function( data, textStatus, jQxhr ){
-                          
-                          if(storeData.userType == 1){
+                if(storeData.userType != 1){
+                  localStream.muteAudio();
+                } 
+          
+                console.log("getUserMedia successfully", storeData.sessionData.id, storeData.id);
+                localStream.play('agora_local');
+                
+                // $.ajax({
+                //     headers: { 
+                //         "Content-Type": "application/json; charset=utf-8",
+                //         "Authorization": storeData.token
+                //     },
+                //     url: '/api/v1/session/'+storeData.sessionData.id+'/stream-id',
+                //     dataType: 'json',
+                //     type: 'PUT',
+                //     contentType: 'application/json',
+                //     data: JSON.stringify({ "streamId": uid, "userType": parseInt(storeData.userType) }),
+                //     success: function( data, textStatus, jQxhr ){
+                        
+                        if(storeData.userType == 1){
 
-                            client.publish(localStream, function (err) {
-                              console.log("Publish local stream error: " + err);
-                            });
+                          client.publish(localStream, function (err) {
+                            console.log("Publish local stream error: " + err);
+                          });
 
-                            client.on('stream-published', function (evt) {
-                              console.log("Publish local stream successfully");
-                              // console.log('localStream ==========================*******************', localStream)
-                              console.log('client ------------', client)
-                            });
-                          }
-                          else{
-                            // publish();
-                          }
-                      },
-                      error: function( jqXhr, textStatus, errorThrown ){
-                          console.log( errorThrown );
+                          client.on('stream-published', function (evt) {
+                            console.log("Publish local stream successfully");
+                            // console.log('localStream ==========================*******************', localStream)
+                            console.log('client ------------', client)
+                          });
 
-                      }
-                  });
+                        } else {
+                          // publish();
+                        }
+                //     },
+                //     error: function( jqXhr, textStatus, errorThrown ){
+                //         console.log( errorThrown );
+                //     }
+                // });
            
             }, function (err) {
               console.log("getUserMedia failed", err);
@@ -203,7 +199,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
     var count=1;
     client.on('stream-subscribed', function (evt) {
 
-      let currentSession = getCurrentSession();
       var storeData = getCurrentUserData();
 
       var stream = evt.stream;
@@ -213,7 +208,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
         if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
         
-          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" data-dismiss="modal">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><div class="att-details"><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div> <span class="att-name">James K, TX</span><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
+          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" data-dismiss="modal">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute   d-none"  id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><div class="att-details"><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div> <span class="att-name">James K, TX</span><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
         }
         stream.play('agora_remote_vdo' + stream.getId());
 
@@ -234,13 +229,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
       } else {
       // for attendy user
-        console.log('###################', currentSession.id, stream.getId());
+        console.log('###################', storeData.sessionData.id, stream.getId());
           $.ajax({
               headers: { 
                   "Content-Type": "application/json; charset=utf-8",
                   "Authorization": storeData.token
               },
-              url: '/api/v1/session/'+currentSession.id+'/'+stream.getId()+'/stream-id',
+              url: '/api/v1/session/'+storeData.sessionData.id+'/'+stream.getId()+'/stream-id',
               dataType: 'json',
               type: 'GET',
               success: function( data, textStatus, jQxhr ){
@@ -319,6 +314,15 @@ if(!AgoraRTC.checkSystemRequirements()) {
        console.log("update active speaker: client " + uid);
     });
 
+   /* client.on('peer-online', function(evt) {
+      console.log('peer-online', evt.uid);
+    });
+    
+    client.on("connection-state-change", function(evt) {
+      console.log('******lalit****',evt);
+      console.log(evt.prevState, evt.curState);
+    })*/
+
     // client.on("volume-indicator", function(evt){
     //   evt.attr.forEach(function(volume, index){
     //     console.log(`#{index} UID ${volume.uid} Level ${volume.level}`);
@@ -367,33 +371,24 @@ if(!AgoraRTC.checkSystemRequirements()) {
   }
 
   function getCurrentUserData(){
-    return JSON.parse(localStorage.getItem("jwtToken"));
-  }    
-
-  function getCurrentSession(){
-    return JSON.parse(localStorage.getItem("currentSession"));
+    return JSON.parse(localStorage.getItem("userData"));
   }    
 
   function switchVideoSize(){
     let len = $('#subscribers-list .newcss').length;
-    console.log('------------------------length ',len);
+
     if(len == 0) return false;
 
     let vdoSize = '';
     if(len == 1){
-      //vdoSize = 'one mx-auto';
       vdoSize = 'one mx-auto';
     } else if(len == 2) {
-      //vdoSize = 'col-md-6 col-lg-6 col-sm-6 col-6';
       vdoSize = 'two';
     } else if(len == 3) {
-      //vdoSize = 'col-md-4 col-lg-4 col-sm-4 col-12';
       vdoSize = 'three';
     } else if(len == 4) {
-      //vdoSize = 'col-md-4 col-lg-4 col-sm-4 col-12';
       vdoSize = 'four';
     } else {
-      //vdoSize = 'col-md-3 col-lg-3 col-sm-3 col-12';
       vdoSize = 'five';
     }
 
@@ -420,7 +415,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
         .removeClass('col-12')
         .removeClass('mx-auto');
 
-      // $('#subscribers-list .newcss').addClass(vdoSize);
       $(this).addClass(vdoSize);
 
     });
@@ -436,12 +430,167 @@ if(!AgoraRTC.checkSystemRequirements()) {
     });
   }
 
+  //var currentSession = getCurrentSession(); 
+  var newclient; 
+  var channel;
+  var channelName1 = '1440';
+  function rtmJoin()
+  {
+   var appId1 = '232f270a5aeb4e0097d8b5ceb8c24ab3';
+   var channelName1 = '1440';
 
+  var token=null;
+    newclient = AgoraRTM.createInstance(appId1);
+   var storeData = getCurrentUserData();
+   var peer=storeData.id;
+  // newclient.login({uid: peer.toString(), token});
+
+  newclient.on('ConnectionStateChange', (newState, reason) => {
+    console.log('on connection state changed to ' + newState + ' reason: ' + reason);
+  });
+
+   newclient.login({ token: token, uid: peer.toString() }).then(() => {
+
+    console.log('****shiv*******AgoraRTM client login success***********');
+
+    newclient.on('MessageFromPeer', (message, peerId) => { 
+      var msg=message.text;
+      console.log('********vvvvvvvvvvvvv********',msg,'********************',peerId);
+     // console.log("message "+ message.text + " peerId" + peerId);
+     var  pagetype="1";
+      signalHandler(peerId, msg, storeData.userType);
+      });
+
+     channel = newclient.createChannel(channelName1);
+    channel.join().then(() => {
+     console.log('**********shiv*********channel joined successfully**********');
+    
+ 
+     channel.getMembers().then(membersList => {    
+       console.log('*************Total Number Of Userkkkkkkkkkkkkkkkkkk******',membersList.length);
+       channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
+
+       }).catch(error => {
+           console.log('*************There is an error******');
+       });
+
+       channel.on('MemberJoined', memberId => { 
+        console.log('This********lalit',memberId,'has joined channel successfully');
+        var today = new Date();
+        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        var dateTime = date+' '+time;
+        var massages="208##"+memberId+"joined##"+dateTime;        
+        channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
+        })
+     
+
+       channel.on('MemberLeft', memberId => { 
+        console.log('This*********munmun',memberId,'has left successfully');
+        var today = new Date();
+        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        var dateTime = date+' '+time;
+        var massages="208##"+memberId+"left##"+dateTime;  
+        channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"left"}), storeData.userType);
+        })
+     
+       channel.on('ChannelMessage', (message, senderId) => {         
+        var msg=message.text;
+       // msg = JSON.parse(msg);      
+        console.log('*****shivammmm********',msg.message,'********************',storeData.userType)
+      var  pagetype="1";
+        channelSignalHandler(msg, storeData.userType);
+        });
+ 
+      }).catch(error => {
+        console.log('**********shiv*********There Is a problem to join a channel**********');
+      });
+
+        }).catch(err => {
+          console.log('---------------bbbbbbbb-----client is not logedin-----');
+        });
+  
+      }
+
+
+      function sendMessage(peerId, text)
+      {
+          console.log("sendPeerMessage", text, peerId);
+          newclient.sendMessageToPeer({text}, peerId.toString());
+      }
+
+      function sendMessageToChannel(channelName1, text)
+      {
+          channel.sendMessage({text},channelName1);
+          console.log('---------------','mssages send successfully on channel');
+      }
+
+
+
+      function getMemberList()
+      {
+          channel.getMembers().then(membersList => {    
+          console.log('*************Total Number Of User******',membersList[1]);
+        // channelSignalHandler(JSON.stringify({code:"100",member:membersList.length, totalmember:membersList, message:"totalcount"}), storeData.userType);
+
+        var arr=membersList;             
+        counter=membersList.length;
+        counter=parseInt(counter); 
+        console.log('********mmmwhello************** signalData ', counter);
+        var html = '';
+        var optionbox='';
+        optionbox +='<option value="select">select</option>';
+        arr.forEach(function (value, i) {
+          console.log("--------totalvalueold--------------", i, value);
+          if(i >= 1 && value != 1)
+          {   
+            console.log("--------totalvaluenew--------------", i, value);     
+                                  
+          optionbox +='<option value=' + value + '>' + value + '</option>';
+   
+          }
+        });
+        html += '<select id="opt" onchange="onclickShowAsBroadcaster();">'+optionbox+'</select>';
+        $('#guestmsg').append(html);
+
+      }).catch(error => {
+          console.log('*************There is an error******');
+      });
+
+      }
+
+      function getOnlineMemberList()
+      {
+        channel.getMembers().then(membersList => {    
+          console.log('*************Total Number Of User******',membersList[1]);
+          channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
+
+        }).catch(error => {
+          console.log('*************There is an error******');
+          });
+      }
+
+      function onclickShowAsBroadcaster() {
+        var selectBox = document.getElementById("opt");
+        var attendiesID = selectBox.options[selectBox.selectedIndex].value;
+       // alert(selectedValue);
+        sendMessage(attendiesID, JSON.stringify({code:"102", message:"Now You can Publish"}));
+
+       }
+
+    
+
+  function onclickaudioOn(audienceID)
+  {
+    sendMessage(audienceID, JSON.stringify({code:"101", message:"MUTEP,Now You Become a Audience"}));
+  }
 
   function onclickhandRaise(receiverId)
   {   
-      
-    sendMessage(receiverId, JSON.stringify({code:"100", message:"Now You Can Talk"}));
+    $('#agora_hand_raise'+receiverId+'').addClass("d-none");
+    $('#audion_on'+receiverId+'').removeClass("d-none");
+    sendMessage(receiverId, JSON.stringify({code:"100", message:"ASKQ"}));
 
     let allVdo = $('#subscribers-list video');   
     let allAdo = $('#subscribers-list audio');   
@@ -459,89 +608,15 @@ if(!AgoraRTC.checkSystemRequirements()) {
       vdo.muted = false;
       ado.muted = false;
     }
-  }
 
-  function signalHandler(account, uid, signalData, userType) {
-
-    signalData = JSON.parse(signalData);
-       
-    
-    if(userType == 1) { // Host
-
-      if(signalData.code == '101'){
-
-      } else if(signalData.code == '100') {
-        $('#hostmsg').html(signalData.message);
-        setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
-      }
-
-     else if(signalData.code == '110')
-      {
-        setEmojies(account, uid, signalData, userType);
-      }
-
-    } else { // Attendy
-
-      if(signalData.code == '101'){
-
-      } else if(signalData.code == '100') {
-        $('#hostmsg').html(signalData.message);
-        setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
-      }
-
-    }
 
   }
-
-  function setEmojies(account, uid, signalData, userType)
-  {
-    console.log('**************** signalData ', account, uid, signalData.data, userType);
-    if(signalData.message=="appearence")
-    {
-    $('.icon-appearance[data-attr=\''+signalData.data+'\']').removeClass("d-none");
-    }else if(signalData.message=="aroma")
-    {
-      $('.icon-aroma[data-attr=\''+signalData.data+'\']').removeClass("d-none");
-    }else if(signalData.message=="palate")
-    {
-      $('.icon-palate[data-attr=\''+signalData.data+'\']').removeClass("d-none");
-    }else if(signalData.message=="score")
-    {
-      $('.icon-score[data-attr=\''+signalData.data+'\']').removeClass("d-none");
-    }
-   
-  }
-
-
-  var session;
-
-  function recieveMessage()
-  {
-    let storeData = getCurrentUserData();
-    let currentSession = getCurrentSession();
-    
-    var signal = new Signal(currentSession.appId);
-
-    session = signal.login(storeData.email, '_no_need_token');
-    
-    session.onLoginSuccess = function(uid){
-      
-      session.onMessageInstantReceive = function(account, uid, msg){ 
-          console.log('$$$$$$$$$$$$$$$$$$$$$$$********lalit********$$$$$$$$$$$$$ ',account, uid, msg, storeData)
-          signalHandler(account, uid, msg, storeData.userType);
-      };
-      // session.logout();
-   }
-    // session.onLogout = function(ecode){}
-  }
-
-  function sendMessage(receiverId, msg)
-  {
-      session.messageInstantSend(receiverId, msg);
-      console.log('############-------##########',msg);
-  }
-
+  // function onclickShowAsBroadcaster(attendiesID)
+  // {
+  //   sendMessage(attendiesID, JSON.stringify({code:"102", message:"Now You can Publish"}));
+  // }
   
+
   function publish() {
 
     client.publish(localStream, function (err) {
@@ -561,11 +636,20 @@ if(!AgoraRTC.checkSystemRequirements()) {
   }
 
   function networkBandwidth() {
-    // client.getTransportStats((stats) => {
-    //     console.log(`Current Transport RTT: ${stats.RTT}`);
-    //     console.log(`Current Network Type: ${stats.networkType}`);
-    //     console.log(`Current Transport OutgoingAvailableBandwidth: ${stats.OutgoingAvailableBandwidth}`);
-    // });
+    
+    var storeData = getCurrentUserData();
+
+    client1 = AgoraRTC.createClient({mode: 'live'});
+    client1.init(storeData.sessionData.appId, function () {
+
+    });
+    let ref2 = setInterval(function(){      
+      client1.getTransportStats((stats) => {
+          console.log(`Current Transport RTT: ${stats.RTT}`);
+          console.log(`Current Network Type: ${stats.networkType}`);
+          console.log(`Current Transport OutgoingAvailableBandwidth: ${stats.OutgoingAvailableBandwidth}`);
+      });
+    }, 3000);
   }
 
   function raiseHand(){
@@ -639,10 +723,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
       }
       
-      // console.log('&&&&&&&&&&&&&&&&&&&&&', devices)
-      // $('#audio-media-content').append('<div id="local-audio-media" ></div>');
-
-      
       let device = '';
       let deviceId = '';
       let deviceArray = [];
@@ -650,6 +730,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
         if(!devices[i] || devices[i] == undefined) continue;
 
+        // console.log('devices[i] = ', devices[i])
         device = devices[i];
         deviceId = device.deviceId;
 
@@ -660,7 +741,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         
         if (device.kind === 'audioinput') {
           
-          console.log('deviceId,,,,,,,,,,,, ', deviceId)
+          // console.log('deviceId,,,,,,,,,,,, ', deviceId)
 
           if(microphoneId == null) {
             if(ctr1 == 0)
@@ -670,14 +751,16 @@ if(!AgoraRTC.checkSystemRequirements()) {
                 defaultSetting = 'checked';
             }
           }
-          console.log('---------- microphoneId == deviceId - ', microphoneId, deviceId, ctr1)
+          // console.log('---------- microphoneId == deviceId - ', microphoneId, deviceId, ctr1)
 
-          adoMediaHtml = '<div id="ado-'+deviceId+'"><i class="fa fa-microphone"></i> <input type="radio" name="audio-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'> <label for="lbl-'+deviceId+'"> Microphone-'+ ++ctr1 +'</label> </div>';
+          ++ctr1;
+
+          adoMediaHtml = '<div class="" id="ado-'+deviceId+'"><input class="form-radio" type="radio" name="audio-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'> <i class="fa fa-microphone"></i><label for="lbl-'+deviceId+'"> '+ device.label +'</label> </div>';
 
           $('#audio-media-content').append(adoMediaHtml)
 
           if(defaultSetting == 'checked'){
-            console.log('current =============', deviceId)
+            // console.log('current =============', deviceId)
             checkMic(deviceId);
           }
         } else if (device.kind === 'videoinput') {
@@ -695,7 +778,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
           }
           // console.log('---------- cameraId == deviceId - ', cameraId , deviceId,  defaultSetting)
 
-          vdoMediaHtml = '<div class="col-12 col-md-3" id="vdo-'+deviceId+'"><div id="local-media-'+deviceId+'" ></div><div class="text-center"><input type="radio" name="video-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'><label for="lbl-'+deviceId+'">Camera-'+ ++ctr +'</label></div></div>';
+          vdoMediaHtml = '<div class="col-12 col-md-3" id="vdo-'+deviceId+'"><div id="local-media-'+deviceId+'" ></div><div class="check-camera"><input type="radio" class="form-radio" name="video-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'><label for="lbl-'+deviceId+'">'+ device.label +'</label></div></div>';
 
           $('#video-media-content').append(vdoMediaHtml)
 
@@ -763,7 +846,18 @@ if(!AgoraRTC.checkSystemRequirements()) {
     stream2.close();
     // GoInFullscreen();
     join();
-    recieveMessage();
+    var resp_data = JSON.parse(localStorage.getItem("userData"));
+    console.log('-----------hhhhhhhhh-------------------', resp_data.userType);
+      if(resp_data.userType == 1)
+      {
+        sendMessageToChannel(channelName1, JSON.stringify({code:"222", message:"Now U can Join"}));
+        getMemberList();
+      }
+     // getOnlineMemberList();
+      
+
+    $(".host-script-section").height("255px");
+    $(".host-section").css({"min-width": "380px", "max-width": "380px"});
   }
 
   function GoInFullscreen() {
@@ -921,10 +1015,12 @@ function attendeeScreenHeight(){
         })
       }
       // GoInFullscreen();
+      rtmJoin(); 
     }
-    $(".host-script-section").height("305px"); 
-    $(".test-script").addClass("w-866");
-    $(".host-section").css({"min-width": "524px", "max-width": "524px"});
+    
+   // $(".host-script-section").height("305px"); 
+   // $(".test-script").addClass("w-866");
+   // $(".host-section").css({"min-width": "524px", "max-width": "524px"});    
   }
 
   function showHideScript(){
@@ -944,13 +1040,292 @@ function attendeeScreenHeight(){
     }
 
   function removeSession(){
-    localStorage.removeItem("currentSession");
-    localStorage.removeItem("sessionId");
+    localStorage.removeItem("userData");
+    // localStorage.removeItem("sessionId");
     localStorage.removeItem("load-page");
   }
- 
-  $(document).ready(function(){
+  var resetCount = '';
 
+  function countDown(){
+    let activeEle = $('.swiper-slide.swiper-slide-next');
+    var countdownNumberEl = activeEle.find('.countdown-number');
+    
+    // var countdown = 30;
+    var countdown = parseInt(countdownNumberEl.html());
+    activeEle.find('.count-box svg circle').attr("style","animation-duration:"+countdown+"s !important");
+
+    countdownNumberEl.html(countdown + '\ SEC') ;
+    
+    resetCount = setInterval(function() {
+      countdown = --countdown < 0 ? countdown : countdown;
+    
+      countdownNumberEl.html(countdown + '\ SEC') ;
+      if(countdown <= 0){
+        
+        activeEle.find('.count-box svg circle').removeAttr("style");
+        clearInterval(resetCount);
+        // Now you can use all slider methods like
+        mySwiper.slideNext();
+        countDown();
+      }
+    }, 1000);
+  }
+
+function signalHandler(uid, signalData, userType) {
+
+  signalData = JSON.parse(signalData);
+     
+  console.log('*******bbbbbbb************** signalData ', signalData,uid, userType);
+  if(userType == 1) { // Host
+
+    if(signalData.code == '101'){
+
+    } else if(signalData.code == '100') {
+       $('#guestmsg').html(signalData.message);
+       setTimeout(function(){ $('#guestmsg').html(''); }, 10000);
+      $('#agora_hand_raise'+uid+'').removeClass("d-none");
+      
+    }
+
+  } else { // Attendy
+
+    console.log('********Munmun************** signalData ', signalData,uid, userType);
+
+    if(signalData.code == '101'){
+
+     // console.log('********gudu************** signalData ', signalData,uid, userType); 
+      $('#hostmsg').html(signalData.message);
+      setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
+
+    } else if(signalData.code == '100') {
+      console.log('********gudu************** signalData ', signalData,uid, userType); 
+      $('#hostmsg').html(signalData.message);
+      setTimeout(function(){ $('#hostmsg').html(''); }, 10000);      
+      //hand-icon position-absolute hand;    
+    }else if(signalData.code == '102') {
+     // console.log('********gudu************** signalData ', signalData,uid, userType); 
+      $('#hostmsg').html(signalData.message);
+      setTimeout(function(){ $('#hostmsg').html(''); }, 10000);   
+    }
+     else if(signalData.code == '216')
+    {
+      console.log('********ggggggggggggg************** signalData ', signalData.message); 
+      $('#newmsg').html(signalData.message);
+      setTimeout(function(){ $('#newmsg').html(''); }, 10000);
+    }
+
+  }
+
+}
+
+    function channelSignalHandler(signalData, userType) {
+
+      console.log('********guduorigin************** signalData ', signalData, userType);
+    signalData = JSON.parse(signalData);
+    if(signalData.code == '208'){
+    if(userType =='1'){  
+
+      incrementcountAtHost(signalData,userType);        
+      }else{
+          incrementcountAtAttendies(signalData,userType);    
+      }
+    }else if(signalData.code == '110')
+    {
+      if(userType =='1'){
+      setEmojiesAtHost(signalData, userType);
+      }else{
+        setEmojiesAtClient(signalData, userType);
+      }
+      }else if(signalData.code == '222')
+      {
+        $('#newmsg').html(signalData.message);
+        setTimeout(function(){ $('#newmsg').html(''); }, 10000);
+      }
+    }
+
+      function incrementcountAtAttendies(signalData,userType)
+      {
+        console.log('********sssssAtt************** signalData ', signalData, userType);
+
+        var count3=$('#totalonline').html();
+
+        console.log('********hhhhhAtt************** signalData ', count3);
+
+        count3=parseInt(count3);
+      if(signalData.msgtype=='Joined')
+      {     
+      
+        count4=count3+1;
+      
+          console.log('*********sssssssss************* signalData ', signalData.message);
+        $('#newmsg').html(signalData.message);
+        setTimeout(function(){ $('#newmsg').html(''); }, 10000); 
+     
+          $('#hostmsg').html(signalData.message);
+        setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
+     
+      }else if(signalData.msgtype=='left') {
+
+        console.log('*********hello************* signalData ', count3);
+        count4=count3-1;
+     
+        $('#newmsg').html(signalData.message);
+        setTimeout(function(){ $('#newmsg').html(''); }, 10000);
+     
+          $('#hostmsg').html(signalData.message);
+        setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
+           
+      }else if(signalData.msgtype=='totalcount') {
+        
+        var arr=signalData.totalmember;
+        
+        
+        count4=signalData.member;
+        count4=parseInt(count4);
+        console.log('*******totallist*************** signalData ', count4);
+       /* arr.shift();
+        arr.forEach(element => {
+          $('#all_joined_member_list').append('<div className="attendee-list"><img src="images/attendee.png" /><span class="title">'+element+'</span><div className="vid-icons"><span className="icon1"></span><span className="icon2"></span></div></div>');
+        }); */    
+      }
+      
+      $('#totalonline').empty(); 
+      $('#totalonline').html(count4);
+    
+        $('#joined_users_at_client').empty(); 
+        $('#joined_users_at_client').html(count4); 
+    
+      }
+
+
+      function incrementcountAtHost(signalData,userType)
+      {  
+        //console.log('********munmunHost************** signalData ', signalData, userType);
+        var count=$('#totalonline').html();
+
+      console.log('********munmunHost************** signalData ', count);
+        count=parseInt(count);
+      if(signalData.msgtype=='Joined')
+      {     
+        console.log('********guduHost************** signalData ', signalData, userType);
+        count1=count+1;
+
+       
+          console.log('*********lllllllll************* signalData ', signalData.message);
+          $('#totalonline').empty(); 
+          $('#totalonline').html(count1);  
+        
+            $('#joined_users').empty(); 
+            $('#joined_users').html(count1);
+       
+
+        var peerId=signalData.member;
+
+        $('#newmsg').html(signalData.message);
+        setTimeout(function(){ $('#newmsg').html(''); }, 10000); 
+       
+        if(count1 <= 8)
+      var text =JSON.stringify({code:"216", message:"welcom, You joined as a broadCaster"});
+      else{
+        var text =JSON.stringify({code:"216", message:"welcom, You joined as a audience"});
+      }
+        sendMessage(peerId, text);
+
+        $('#newmsg').html(signalData.message);
+        setTimeout(function(){ $('#newmsg').html(''); }, 10000);
+
+      }else if(signalData.msgtype=='left') {
+
+        console.log('********swapHost************** signalData ', count);
+        count1=count-1; 
+
+       
+          $('#totalonline').empty(); 
+          $('#totalonline').html(count1);  
+          $('#newmsg').html(signalData.message);
+          setTimeout(function(){ $('#newmsg').html(''); }, 10000); 
+        
+            $('#joined_users').empty(); 
+            $('#joined_users').html(count1);
+        
+
+ 
+
+      }else if(signalData.msgtype=='totalcount') {
+        var arr=signalData.totalmember;
+             
+        count1=signalData.member;
+        count1=parseInt(count1); 
+       // console.log('********mmmw************** signalData ', count1);
+        /*arr.forEach(function (value, i) {
+          console.log("--------totalvalue--------------", i, value);
+          if(i > 1)
+          {
+            
+            $('#guestmsg').append('<span class="title" onclick="onclickShowAsBroadcaster(\''+value+'\')">'+value+'</span>');
+          }
+        });*/
+       
+        $('#totalonline').empty(); 
+        $('#totalonline').html(count1);  
+     
+          $('#joined_users').empty(); 
+          $('#joined_users').html(count1);
+       
+      }
+
+
+      }
+
+      function setEmojiesAtHost(signalData, userType)
+      {
+        //console.log('********guduuuuuuuuu************** signalData ', signalData, userType); 
+        if(signalData.message=="appearence")
+        {
+        $('.icon-appearance[data-attr=\''+signalData.data+'\']').removeClass("d-none");
+        }
+        else if(signalData.message=="aroma")
+        {
+          $('.icon-aroma[data-attr=\''+signalData.data+'\']').removeClass("d-none");
+        }else if(signalData.message=="palate")
+        {
+          $('.icon-palate[data-attr=\''+signalData.data+'\']').removeClass("d-none");
+        }else if(signalData.message=="score")
+        {
+          $('.icon-score[data-attr=\''+signalData.data+'\']').removeClass("d-none");
+        }
+      
+      }
+
+      function setEmojiesAtClient(signalData, userType)
+      {
+        console.log('********Rammmmmmmmmmmmm************** signalData ', signalData, userType);
+      }
+
+      $(document).ready(function(){
+      
+        $(document).on("click", ".start span a", function(){
+         $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
+         $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
+         countDown();
+        })
+         
+         $(document).on("click", ".swiper-btns .swiper-btn-next", function(e){
+           e.preventDefault();
+           clearInterval(resetCount);
+           // Now you can use all slider methods like
+           mySwiper.slideNext();
+           countDown();
+         })
+
+    setTimeout(function(){ countDown(); }, 10);
+    // leaveRtm();
+     // rtmJoin();
+    
+    
+    // recieveMessage();
+    // recieveChannelmassages();
+    // getMemberList();
 
     // var countdownNumberEl = document.getElementById('countdown-number');
     // var countdownNumberEl2 = document.getElementById('countdown-number2');
@@ -962,9 +1337,6 @@ function attendeeScreenHeight(){
     // setInterval(function() {
     //   countdown = --countdown <= 0 ? 30 : countdown;
     
-    //   countdownNumberEl.textContent = `${countdown} \
-    //   SEC`;
-    // }, 1000);
 
 
     let agoraLocal = $("#agora_local").find("video").width();
@@ -974,21 +1346,21 @@ function attendeeScreenHeight(){
     $("body, div").bind('mousewheel', function() {
       return false
     });
-    $(document).on('click', ".hand-icon", function(){
+    // $(document).on('click', ".hand-icon", function(){
 
-      if($(this).closest(".video-holder").hasClass("popup-added") == false){
-        $(this).closest(".video-holder").addClass("popup-added");
+    //   if($(this).closest(".video-holder").hasClass("popup-added") == false){
+    //     $(this).closest(".video-holder").addClass("popup-added");
         
-        if($(".video-streams").hasClass("popup-overlay")){
-          $(".guest-video-footer").show();
-        }
-      }
-      else {
-        $(this).closest(".video-holder").removeClass("popup-added");
-      }
+    //     if($(".video-streams").hasClass("popup-overlay")){
+    //       $(".guest-video-footer").show();
+    //     }
+    //   }
+    //   else {
+    //     $(this).closest(".video-holder").removeClass("popup-added");
+    //   }
       
       
-    });
+    // });
 
     $(document).on('click', ".eject-popup button", function(){
       $(this).closest(".video-holder").removeClass("popup-added");
@@ -1006,7 +1378,9 @@ function attendeeScreenHeight(){
 
     $(".host-script-section").height("255px");
     $(".host-section").css({"min-width": "380px", "max-width": "380px"});
-      
+
+    
+
     $(".show-hide-footer-panel").click(function(){
       $(".host-script-section").height() < 255 ? $(".host-script-section").height("255px") : $(".host-script-section").height("auto");
       
@@ -1066,7 +1440,7 @@ function attendeeScreenHeight(){
     });
 
     if($('#conf-page').length > 0){
-      // networkBandwidth();
+      networkBandwidth();
       if($('#media-config').length > 0){
         
         getDevices();
@@ -1079,6 +1453,7 @@ function attendeeScreenHeight(){
         $('#media-config').on('hidden.bs.modal', function (e) {
           console.log('close event')
         })
+      rtmJoin(); 
       }
       // GoInFullscreen();
 
@@ -1130,21 +1505,27 @@ function attendeeScreenHeight(){
 
     // attendy
     $("#minimize-others").click(function(){
+      
       $(".slide-right-left").css({"width": "72px", "float": "right"});
-        //$(".joined-attendees").css("right", "-280px");
+      $("#minimize-others, .right-sidebar .title").addClass('d-none');
+      $("#show-everyone").removeClass('d-none');
+      $(".attendee-list").css("background", "transparent");
+      $(".slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").hide();
         
-        $("#minimize-others, .right-sidebar .title").addClass('d-none');
-        $("#show-everyone").removeClass('d-none');
+        
+      })
+        
         $(".attendee-list").css("background", "transparent");
         $(".slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").hide();
-      })
-    
+
+
       $("#show-everyone").click(function(){
         $(".slide-right-left").css({"width": "100%", "float": "right"});
         //$(".joined-attendees").removeAttr("style");
-        $("#minimize-others").removeClass('d-none');
+        
         $("#show-everyone").addClass('d-none');
         setTimeout(function(){
+          $("#minimize-others").removeClass('d-none');
           $(".right-sidebar .title").removeClass('d-none');
           $(".attendee-list").css("background", "#000");
         $(".slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").fadeIn(500);
@@ -1181,43 +1562,11 @@ function attendeeScreenHeight(){
         leave();
         localStream.stop();
         removeSession();
-        location.href  = '/home';
+        location.href  = '/login';
+        // location.reload();
       });
 
-      $( '#appearence_button' ).bind( "click", function(event) {
-        var attendies_email=$( '#appearence_button' ).val();
-       // alert(newval);
-       var receiver='deepak1@test.com';
-        sendMessage(receiver, JSON.stringify({code:"110",data:attendies_email, message:"appearence"}));
-
-      });
-
-      $( '#aroma_button' ).bind( "click", function(event) {
-        var attendies_email=$( '#aroma_button' ).val();
-       // alert(newval);
-       var receiver='deepak1@test.com';
-        sendMessage(receiver, JSON.stringify({code:"110",data:attendies_email, message:"aroma"}));
-
-      });
-
-      $( '#palate_button' ).bind( "click", function(event) {
-        var attendies_email=$( '#palate_button' ).val();
-       // alert(newval);
-       var receiver='deepak1@test.com';
-        sendMessage(receiver, JSON.stringify({code:"110",data:attendies_email, message:"palate"}));
-
-      });
-
-      $( '#score_button' ).bind( "click", function(event) {
-        var attendies_email=$( '#score_button' ).val();
-       // alert(newval);
-       var receiver='deepak1@test.com';
-        sendMessage(receiver, JSON.stringify({code:"110",data:attendies_email, message:"score"}));
-
-      });
-
-  
-
+   
       $(document).on('click', '#fullscreen', function(){
         GoInFullscreen();
       })
@@ -1227,6 +1576,7 @@ function attendeeScreenHeight(){
         console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ strmId ', strmId);
         sendMessage(strmId, JSON.stringify({code:'101'}));
       });
+    
 
   });
  

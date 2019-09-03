@@ -2,18 +2,26 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import utils from "../../utils/functions";
 import $ from 'jquery';
 import Config from "./Configuration";
 import WineScript from "./WineScript";
 import FitnessScript from "./FitnessScript";
+import moment from 'moment'
 
 class Host extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {sessionScript: 1};
-  }
+    // this.state = {sessionScript: 0};
+    this.state = {
+      sessionScript: 0,
+      timerOn: false,
+      timerStart: 0,
+      timerTime: 0
+    };
 
+  }
 
   onLogoutClick = e => {
     e.preventDefault();
@@ -30,36 +38,100 @@ class Host extends Component {
     $('#logout_button').trigger('click');
   }
 
+  sendMsgAll(){
+    $('#msgToAll_button').trigger('click');
+  }
+
   componentDidMount(){
+
   // console.log(2);    //
     if(localStorage.getItem('load-page') != 1){  
         window.loadPopup();
       localStorage.setItem("load-page", 1);
     }
+    
+    // let sessionId = localStorage.getItem('sessionId');
+    let localstoragedata = JSON.parse(localStorage.getItem('userData'));
+    this.setState({sessionScript: localstoragedata.sessionData.id});
+    let scDate = localstoragedata.sessionData.scheduleDate;
 
-    let sessionId = localStorage.getItem('sessionId');
-    let localstoragedata = JSON.parse(localStorage.getItem('jwtToken'));
+    console.log('scDate= ',scDate, new Date(scDate).getTime(), new Date().getTime())
 
-    fetch('/api/v1/session/'+sessionId, {headers : {'Authorization': localstoragedata.token}})
-    .then(response => { return response.json(); })
-    .then(data => {
-      // console.log('data=================', data);
-      this.setState({sessionScript: data.id});
-      localStorage.setItem('currentSession', JSON.stringify(data));
+    scDate = (new Date(scDate).getTime()) - (new Date().getTime());
+    console.log('scDate- ', scDate)
+    this.state.timerTime = scDate;// 1 sec 1000 = 1sec
+
+    // fetch('/api/v1/session/'+sessionId, {headers : {'Authorization': localstoragedata.token}})
+    // .then(response => { return response.json(); })
+    // .then(data => {
+    //   // console.log('data=================', data);
+    //   this.setState({sessionScript: data.id});
+    //   localStorage.setItem('currentSession', JSON.stringify(data));
         
-    });
+    // });
   }
   componentWillMount(){
+    // const { timerTime, timerOn } = this.state;
+    
+    this.startTimer();
     //console.log(1);
     // window.test();
   }
+
+  startTimer = () => {
+    this.setState({
+      timerOn: true,
+      timerTime: this.state.timerTime,
+      timerStart: this.state.timerTime
+    });
+    this.timer = setInterval(() => {
+      const newTime = this.state.timerTime - 10;
+      if (newTime >= 0) {
+        this.setState({
+          timerTime: newTime
+        });
+      } else {
+        clearInterval(this.timer);
+        this.setState({ timerOn: false });
+        //alert("Countdown ended");
+      }
+    }, 10);
+  };
+
+  // startTimer = () => {
+  //   this.setState({
+  //     timerOn: true,
+  //     timerTime: this.state.timerTime,
+  //     timerStart: Date.now() - this.state.timerTime
+  //   });
+  //   this.timer = setInterval(() => {
+  //     this.setState({
+  //       timerTime: Date.now() - this.state.timerStart
+  //     });
+  //   }, 10);
+  // };
+
+
 render() {
+    const { timerTime, timerStart, timerOn, sessionScript } = this.state;
+
+    let seconds = ("0" + (Math.floor((timerTime / 1000) % 60) % 60)).slice(-2);
+    let minutes = ("0" + Math.floor((timerTime / 60000) % 60)).slice(-2);
+    let hours = ("0" + Math.floor((timerTime / 3600000) % 60)).slice(-2);
+
     const  {user}  = this.props.auth;
 
-   // console.log(user);
+    let localstoragedata = JSON.parse(localStorage.getItem('userData'));
+    let sessionData = localstoragedata.sessionData;
+   
+    let localDate = moment(sessionData.scheduleDate).format('MM/DD/YYYY # h:mm a');
+
+    localDate = localDate.replace('#', 'at');
+    let remTime = '';
+    console.log('scheduleDate ',localDate );
     // console.log('------------------------------', user);
-    let sessionScript = this.state.sessionScript;
     let scriptHtml = '';
+    // sessionScript = sessionScriptt;
     if (sessionScript == 1) {
       scriptHtml = <WineScript />;
     } else if(sessionScript == 2) {
@@ -76,21 +148,24 @@ return (
           </a>
         </div>
         <div className="col col-md-11">
-          <h3 className="main-heading">A long title that can come here <span>by host name</span>
+          <h3 className="main-heading">{sessionData.name} <span>by <span className="welcome-title">{sessionData.hostName.toLowerCase()}</span></span>
           <button className="position-absolute logout-btn" onClick={this.callfunction.bind(this)} tabIndex="1">
                 <i className="fa fa-times" aria-hidden="true"></i>
           </button>
           </h3>
           <div className="row justify-content-between align-items-center mt-0">
             <div className="col-12 col-sm-7">
-              <div className="time py-xs-1">  <span>04/23/2019, at 12:00 PM</span>
-                <span>Time Remaining: 01:10:00</span>
+              <div className="time py-xs-1">  <span>{localDate}</span>
+                <span>Time Remaining: {hours} : {minutes} : {seconds}</span>
+                <div id ="all_attendies_list"></div>
               </div>
             </div>
+            <div id="guestmsg" style={{color:'green'}}></div>
+                       
             <div className="col-12 col-sm-3">
               <div className="col-12 justify-content-end d-flex align-items-center">
-                <a className="btn btn-primary border-right pr-20 mr-1" href="javascript:;" tabIndex="0" id="fullscreen">fullscreen</a>
-                <a className="btn btn-primary border-right pr-20" href="javascript:;" tabIndex="1">details</a>
+                <a className="btn btn-primary border-right pr-20 mr-1" href="#" tabIndex="0" id="fullscreen">fullscreen</a>
+                <a className="btn btn-primary border-right pr-20" href="#" tabIndex="1">details</a>
                 <img src="images/voice-commands.png" className="mic-icon" />
               </div>
             </div>
@@ -101,7 +176,7 @@ return (
     <section className="bg-gray mt-1 px-0 py-1 rounded section attendees">
       <div className="row px-0 px-sm-3 pb-2 pt-0 justify-content-between align-items-center">
         <div className="col-6 col-md-6">
-          <h4 className="title">Wine Testers <span>(24/44)</span></h4>
+          <h4 className="title">Wine Testers (<span id="joined_users">0</span>/<span>44</span>)</h4>
         </div>
         <div className="col-6 col-md-4">
           <button type="button" className="btn btn-outline-secondary float-right mt-1 show-hide-footer-panel">"Show Attendees"</button>

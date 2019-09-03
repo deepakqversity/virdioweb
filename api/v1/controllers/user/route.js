@@ -5,9 +5,10 @@ const UserValidation = require('./UserValidation');
 const route = express.Router();
 
 route
-  .get('/', UserCtrl.index)
   .post('/login', UserValidation.login, UserCtrl.login)
   .post('/register', UserValidation.register, UserCtrl.register)
+  .post('/verify-otp', UserValidation.verifyOtp, UserCtrl.verifyOtp)
+  .post('/client-token', UserCtrl.createClientToken)
   .get('/user-detail', auth.verifyToken, UserCtrl.userDetail)
 
 module.exports = route;

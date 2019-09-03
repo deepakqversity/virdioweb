@@ -1,22 +1,18 @@
 const auth = require('../../auth/Auth');
 const bcrypt = require('bcrypt');
 const isEmpty = require("is-empty");
+const underscore = require("underscore");
 const userModel = require('../../models/User');
 const tokenModel = require('../../models/AuthToken');
+const sessionModel = require('../../models/Session');
+const otpModel = require('../../models/Otp');
+const sessionScriptModel = require('../../models/SessionScript');
+const clientToken = require( process.cwd() + '/util/ClientToken');
+const utils = require(process.cwd() + '/util/Utils');
 
 const saltRounds = 10;
 
 class UserCtrl {
-
-	async index(req, res) {
-		try {
-			let userObj = await userModel.getUsers();
-			res.status(200).send(userObj);
-					
-	    } catch(exception) {
-			res.status(500).send(exception)
-	    }
-	}
 
 	async userDetail(req, res) {
 	    try {
@@ -35,17 +31,58 @@ class UserCtrl {
 	    	let userObj = await userModel.getUserByEmail(email);
 	    	
 			if(!isEmpty(userObj)){
-				// let hashedPassword = await bcrypt.hash(password, saltRounds);
-    
-        		let t = await bcrypt.compare(password, userObj.password);
-				if(t){
-					const token = await auth.createToken(userObj.id);
-					console.log('token-------------',token);
-					let updateUser = tokenModel.updateToken(userObj.id, token);
-					
-					res.status(200).send({token:token, id:userObj.id, name:userObj.name, email:userObj.email, userType:req.body.type});
-				} else {
-					res.status(400).send({password:"Invalid password"})
+
+    			if(userObj.status == 0){
+    				res.status(201).send({message:"user already exists but inactive."})
+    			} else {
+
+	        		let t = await bcrypt.compare(password, userObj.password);
+					if(t){
+						const token = await auth.createToken(userObj.id);
+						// console.log('token-------------',token);
+						let updateUser = await tokenModel.updateToken(userObj.id, token);
+
+						userObj = underscore.extend(userObj, {token:token});
+
+						let currentSession = await sessionModel.getUpcommingSession(userObj.id);
+
+						let sessionData = {};
+						if(!isEmpty(currentSession)){
+							currentSession = currentSession[0];
+
+							underscore.extend(userObj, {userType : currentSession.type});	
+							
+							// get timing remaining
+							let str = utils.dateTimeDiff(currentSession.scheduleDate);
+							underscore.extend(currentSession, {messgae:str});
+
+							let streamToken = '';
+							if(userObj.id == 1){
+								streamToken = '006aec6fd9ab0924971a5b670e522f47c87IACWxFZVNaRLrOVwEJC2XxIOGA4ZMdqftGUpAA+mVO4VqoGTIMMAAAAAEADnmC4nxVZvXQEAAQDEVm9d';
+							} else {
+								// generate streaming token
+								streamToken = clientToken.createToken(currentSession.appId, currentSession.appCertificate, currentSession.channelId, currentSession.userId);
+
+							}
+							underscore.extend(currentSession, {streamToken : streamToken});
+							currentSession = underscore.omit(currentSession, 'appCertificate');
+
+
+							let scriptDetail = await sessionScriptModel.getProductDetail(currentSession.id, currentSession.hostId );
+							underscore.extend(currentSession, {scriptDetail : scriptDetail});
+							
+							underscore.extend(userObj, { sessionData : currentSession });
+
+						} else {
+							underscore.extend(userObj, {sessionData : { message : "There are no sessions available."}});
+						}
+
+						userObj = underscore.omit(userObj, 'password');
+
+						res.status(200).send(userObj);
+					} else {
+						res.status(400).send({password:"Invalid password"})
+					}
 				}
 			} else {
 				res.status(400).send({email:"User doesn\'t exists in system."});
@@ -58,15 +95,107 @@ class UserCtrl {
 
 	async register(req, res) {
 	    try {
-	    	let userObj = await userModel.getUser({name : req.body.name});
-	    	// console.log(userObj)
+	    	let email = req.body.email;
+
+	    	let userObj = await userModel.getExistsUserByEmail(email);
+	    	console.log('===========',userObj)
 			if(isEmpty(userObj)){
-				const token = await auth.createToken(userObj._id);
-				// console.log(token);
-				let updateUser = userModel.updateToken(userObj.id, token);
-				res.status(200).send({token:token, id:userObj.id});
+
+				let password = await bcrypt.hash(req.body.password, saltRounds);
+
+				let userData = {
+					firstName	 : req.body.firstName,
+					lastName : req.body.lastName,
+					email : req.body.email,
+					password : password,
+					phone : req.body.phone
+				};
+				let insertedId = await userModel.add(userData);
+				if(insertedId > 0){
+
+					let otp = utils.generateOtp(4);
+					let otpUpdate = await otpModel.add(insertedId, otp, 1);
+
+					res.status(400).send({message:"Otp sent. Please verify account."});
+				} else {
+
+					res.status(400).send({message:"Something went wrong."})
+				}
 			} else {
-				res.status(400).send({message:"user not found"})
+				if(userObj.status == 0){
+
+					res.status(400).send({message:"Email already exists but inactive."})
+				} else {
+
+					res.status(400).send({message:"user already exists."})
+				}
+			}
+				
+	    } catch(exception) {
+			res.status(500).send(exception)
+	    }
+	}
+
+	async createClientToken(req, res) {
+		try {
+			console.log(req.body)
+			let sessionObj = await sessionModel.findSessionDetail(req.body.sessionId, req.body.userId);
+
+			if(true !== underscore.isEmpty(sessionObj)){
+				let token = clientToken.createToken(sessionObj.appId, sessionObj.appCertificate, sessionObj.channelId, sessionObj.userId);
+				sessionObj = underscore.extend(sessionObj, {token : token})
+				sessionObj = underscore.omit(sessionObj, 'appCertificate');
+			}
+
+			res.status(200).send(sessionObj);
+				
+	    } catch(exception) {
+			res.status(500).send(exception);
+	    }
+	}
+	/**
+	 * verify otp
+	 * @param  {obj} req 
+	 * @param  {obj} res 
+	 * @return {json} 
+	 */
+	async verifyOtp(req, res){
+		try {
+			let email = req.body.email;
+
+	    	let userObj = await userModel.getExistsUserByEmail(email);
+
+			if(!isEmpty(userObj)){
+
+				let otpObj = await otpModel.verify(req.body.otp, userObj.id);
+
+				if(!isEmpty(otpObj)){
+						console.log('otpObj.status = ', otpObj.status);
+					if(otpObj.status == 0){
+
+						let updateOtp = await otpModel.updateOtp(req.body.otp, userObj.id);
+						
+						if(updateOtp){
+							res.status(200).send({message:"Account activated successfully."});
+						} else {
+							res.status(400).send({message:"Something went wrong."});
+						}
+					} else {
+						let errorMsg = 'OTP already Verified';
+						if(otpObj.status == 2)
+							errorMsg = 'OTP Expired';
+						else if(otpObj.status == 3)
+							errorMsg = 'OTP Failed';
+
+						res.status(400).send({message:errorMsg});
+					}
+				} else {
+
+					res.status(400).send({message:"Invalid OTP"});
+				}
+
+			} else {
+				res.status(400).send({email:"User doesn\'t exists in system."});
 			}
 				
 	    } catch(exception) {

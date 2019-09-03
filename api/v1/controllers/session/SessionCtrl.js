@@ -25,8 +25,9 @@ class SessionCtrl {
 			// console.log('sessionObj =============== ',sessionObj);
 			
 			if(true !== underscore.isEmpty(sessionObj)){
-				let token = clientToken.createToken(sessionObj.appId, sessionObj.appCertificate, sessionObj.channel, sessionObj.userId);
-				sessionObj = underscore.extend(sessionObj, {token : token})
+				let token = clientToken.createToken(sessionObj.appId, sessionObj.appCertificate, sessionObj.channelId, sessionObj.userId);
+				sessionObj = underscore.extend(sessionObj, {token : token});
+				sessionObj = underscore.omit(sessionObj, 'appCertificate');
 			}
 
 			res.status(200).send(sessionObj);
@@ -38,7 +39,7 @@ class SessionCtrl {
 	
 	async getSessionUsers(req, res) {
 	    try {
-			let userObj = await sessionModel.findByUserId(req.currentUser.id);
+			let userObj = await sessionModel.findSessionUsers(req.params.sessionId);
 			res.status(200).send(userObj);
 				
 	    } catch(exception) {
@@ -58,7 +59,7 @@ class SessionCtrl {
 
 	async updateUserStream(req, res) {
 	    try {
-			let updateData = await sessionUserModel.updateConferenceUser(req.currentUser.id,  req.params.sessionId, req.body.streamId, req.body.userType);
+			let updateData = await sessionUserModel.updateConferenceUser(req.currentUser.id,  req.params.sessionId, req.body.streamId);
 			res.status(200).send(updateData);
 				
 	    } catch(exception) {
@@ -68,7 +69,8 @@ class SessionCtrl {
 
 	async getStreamUser(req, res) {
 		try {
-			let sessionObj = await sessionUserModel.findByStreamUser(req.params.sessionId, req.params.streamId);
+			// console.log(req.params);
+			let sessionObj = await sessionUserModel.findByStreamUser(req.params.sessionId, req.params.userId);
 			res.status(200).send(sessionObj);
 				
 	    } catch(exception) {

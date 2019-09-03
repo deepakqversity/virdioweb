@@ -171,9 +171,7 @@ return (
             <div className="self-video mt-3">
               
             </div>
-
-           
-           
+          
           </div>
           
           

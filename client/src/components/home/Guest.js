@@ -162,7 +162,7 @@ return (
           <div className="transparent-gray slide-right-left" style={toggleList}>
             
             <div className="joined-attendees ">
-            <h4 className="mb-2 head"><span className="title">Wine Testers</span><span className="count">(<span  id="joined_users_at_client">0</span>/<span>44</span>)</span></h4>
+            <h4 className="mb-2 head"><span className="title d-none">Wine Testers</span><span className="count">(<span  id="joined_users_at_client">0</span>/<span>44</span>)</span></h4>
             <div id="all_joined_member_list">
               {/* <div className="attendee-list">
                 <img src="images/attendee.png" />

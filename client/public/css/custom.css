@@ -111,6 +111,12 @@ body{
 .pad15{
 	padding:15px;
 }
+.top-0{
+	top:0 !important;
+}
+.cursor-pointer{
+	cursor:pointer;
+}
 .btn-primary{
 	background: #9b51e0;
     background-color: #9b51e0 !important;
@@ -125,6 +131,12 @@ body{
 }
 img{
 	max-width:100%;
+}
+.dark-box-shadow{
+	    box-shadow: 0px 0px 66px #000;
+}
+.background-overlay{
+	    background: rgba(0,0,0,0.8);
 }
 a.bg-primary:hover, a.bg-primary:focus, button.bg-primary:hover, button.bg-primary:focus {
     background-color: #9b51e0 !important;
@@ -1185,6 +1197,31 @@ display:none;
     font-size: 16px;
     border-radius: 0px 10px 10px 10px;
 }
+.login-box .form-group input:-webkit-autofill,
+.register-box .form-group input:-webkit-autofill,
+.login-box .form-group input:-webkit-autofill:hover,
+.register-box .form-group input:-webkit-autofill:hover,
+.login-box .form-group input:-webkit-autofill:focus,
+.register-box .form-group input:-webkit-autofill:focus,
+.login-box .form-group input:-webkit-autofill:active,
+.register-box .form-group input:-webkit-autofill:active {
+-webkit-animation: autofill 0s forwards;
+    animation: autofill 0s forwards;
+	-webkit-text-fill-color: #fff !important;
+}
+@keyframes autofill {
+    100% {
+        background: transparent;
+        color: inherit;
+    }
+}
+
+@-webkit-keyframes autofill {
+    100% {
+        background: transparent;
+        color: inherit;
+    }
+}
 .login-box .login-inner, .register-box .register-inner{
     width: 100%;
     margin: auto;
@@ -1555,7 +1592,17 @@ img.user-login{
 		
 	}
 }
-
+@media (max-width:1100px){
+	.prescreen-popup .small-heading{
+		font-size:16px;
+	}
+	.prescreen-popup .popup-heading{
+		font-size:20px;
+	}
+	.prescreen-popup .countdown-timer{
+		font-size:18px;
+	}
+}
 
 
 /* 12. Register Page */
@@ -1566,9 +1613,7 @@ img.user-login{
     flex-direction: column;
     justify-content: center;
 	align-items:center;
-	position:absolute;
-	top: 0;
-    left: 0;
+
 }
 .register-page .select-client, .register-page .select-host{
 	    background: rgba(216,216,216,0.18);
@@ -1637,6 +1682,7 @@ color: #7C7C7C;
     font-size: 18px;
     letter-spacing: 1px;
 	margin-top: 5px;
+	    margin-bottom: 20px;
 }
 .signup-details img{
 	    margin-right: 15px;
@@ -1651,13 +1697,87 @@ color: #7C7C7C;
 	    color: #7C7C7C;
     font-size: 18px;
 }
-
-
-
-
-
-
-
+.sms-email{
+	
+}
+.by-sms img, .by-email img{
+	    width: 70px;
+}
+.by-sms>div{
+	background: rgba(216,216,216,0.18);
+    padding: 20px;
+    border-radius: 10px;
+    width: 160px;
+    display: flex;
+    justify-content: center;
+    height: 160px;
+    align-items: center;
+	margin-right: 10px;
+}
+.by-email>div{
+	background: rgba(216,216,216,0.10);
+	    padding: 20px;
+    border-radius: 10px;
+    width: 160px;
+    display: flex;
+    justify-content: center;
+    height: 160px;
+    align-items: center;
+}
+@media (max-width:1024px){
+	.by-sms>div, .by-email>div{
+		width:140px;
+		height:140px;
+	}
+}
+.font-18{
+	font-size:18px !important;
+}
+.enter-otp input[type=text]{
+	background: transparent;
+    border: 1.4px solid #B002ED;
+       width: 60%;
+    height: 60px;
+    color: #B002ED;
+    font-size: 16px;
+    border-radius: 10px 10px 10px 10px;
+}
+.enter-otp input[type=text]:focus{
+	box-shadow:none;
+}
+.enter-otp p{
+	    width: 130px;
+    margin: 0;
+    line-height: normal;
+}
+.enter-otp p a{
+	    color: #B002ED;
+    font-size: 14px;
+    font-weight: 700;
+	text-decoration:none;
+}
+.register-page .carousel-inner{
+	overflow: inherit;
+}
+.registration{
+	padding: 15px 0;
+    overflow: inherit;
+	    height: 100%;
+}
+.signup-sucess a{
+	text-decoration:none;
+}
+.signup-sucess h3{
+	color: #fff;
+    font-family: Avenir-Black;
+    margin: 20px 0;
+    font-size: 30px;
+}
+.signup-sucess p{
+	    color: #fff;
+    font-family: Avenir-Book;
+    font-size: 18px;
+}
 
 
 .modal-open .modal.attendy-list {

@@ -15,34 +15,25 @@ class AuthToken{
 	async updateToken(userId, token){
 
 	    let table = this.table;
-		try
-	    {
-			return await new Promise( (resolve, reject) => {
-				 db.query('INSERT IGNORE INTO ?? (token, userId) VALUES (?, ?)', [table, token, userId], function (error, results, fields) {
-					if (error) reject(error);
+		return await new Promise( (resolve, reject) => {
+			 db.query('INSERT IGNORE INTO ?? (token, userId) VALUES (?, ?)', [table, token, userId], function (error, results, fields) {
+				if (error) reject(error);
 
-					// console.log('*******************', results)
-					if(results.insertId == 0){
+				// console.log('*******************', results)
+				if(results.insertId == 0){
 
-						 db.query('UPDATE ?? SET token = ? WHERE userId = ?', [table, token, userId], function (error, results, fields) {
-						  if (error) reject(error);
-						  // console.log('================== 123 results ', results)
-						  // db.end();
-						  return resolve(results);
-						});
-					}
-
-				});
+					 db.query('UPDATE ?? SET token = ? WHERE userId = ?', [table, token, userId], function (error, results, fields) {
+					  if (error) reject(error);
+					  // console.log('================== 123 results ', results)
+					  // db.end();
+					  return resolve(results);
+					});
+				}
 
 			});
-		}
-	    catch(err)
-	    {
-	    	console.log('err = ',err)
-	       return err;
-	    }
+
+		});
 	}
 }
 
 module.exports = new AuthToken();
-

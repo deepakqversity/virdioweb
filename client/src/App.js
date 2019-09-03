@@ -21,6 +21,7 @@ import Dashboard from "./components/dashboard/Dashboard";
 import Home from "./components/home/Home";
 import Host from "./components/home/Host";
 import Guest from "./components/home/Guest";
+import Verification from "./components/auth/Verification";
 
 // Check for token to keep user logged in
 if (localStorage.userData) {
@@ -52,11 +53,13 @@ class App extends Component {
         <Route exact path="/" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/verification" component={Verification} />
           <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute exact path="/home" component={Home} />
               <PrivateRoute exact path="/host" component={Host} />
               <PrivateRoute exact path="/guest" component={Guest} />
+              
             </Switch>
       </div>
       </Router>

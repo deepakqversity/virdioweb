@@ -80,11 +80,11 @@ console.log(data)
 		let errors = {};
 
 		// Convert empty fields to an empty string so we can use validator functions
-		let otp = !isEmpty(req.body.otp) ? req.body.otp : "";
+		let code = !isEmpty(req.body.code) ? req.body.code : "";
 
 		// Name checks
-		if (Validator.isEmpty(otp)) {
-			errors.otp = "OTP is required";
+		if (Validator.isEmpty(code)) {
+			errors.code = "Verification code is required";
 		}
 
 		if(true != isEmpty(errors)){

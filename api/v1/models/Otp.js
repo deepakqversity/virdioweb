@@ -23,14 +23,14 @@ class Otp{
 		});
 	}
 
-	async verify(code, userId){
+	async verify(code, userId, channel){
 
 		let table = this.table;
 
 		return await new Promise((resolve, reject) => {
-			db.query('SELECT * FROM ?? WHERE code = ? AND userId = ? limit 1', [table, code, userId], function (error, results, fields) {
+			db.query('SELECT * FROM ?? WHERE code = ? AND userId = ? AND channel = ? limit 1', [table, code, userId, channel], function (error, results, fields) {
 			  if (error) reject(error);
-			  console.log('results = ', results);
+			  // console.log('results = ', results);
 			  return resolve(isEmpty(results) ? '' : results[0]);
 			});
 		});

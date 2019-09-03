@@ -93,7 +93,7 @@ class UserCtrl {
 	    	let email = req.body.email;
 
 	    	let userObj = await userModel.getExistsUserByEmail(email);
-	    	console.log('===========',userObj)
+	    	
 			if(isEmpty(userObj)){
 
 				let password = await bcrypt.hash(req.body.password, saltRounds);
@@ -108,10 +108,19 @@ class UserCtrl {
 				let insertedId = await userModel.add(userData);
 				if(insertedId > 0){
 
-					let otp = utils.generateOtp(4);
-					let otpUpdate = await otpModel.add(insertedId, otp, 1);
+					let msg = 'Please check';
+					let emailUpdate = await otpModel.add(insertedId, utils.encodedString(), 0);
+					if(emailUpdate > 0){
+						msg += ' email for verification link';
+					}
+					if(req.body.phone != ''){
+						let otpUpdate = await otpModel.add(insertedId, utils.generateOtp(4), 1);
+						if(otpUpdate){
+							msg += ' or OTP sent';
+						}
+					} 
 
-					res.status(400).send({message:"Otp sent. Please verify account."});
+					res.status(400).send({message : msg+". Please verify account."});
 				} else {
 
 					res.status(400).send({message:"Something went wrong."})
@@ -127,6 +136,7 @@ class UserCtrl {
 			}
 				
 	    } catch(exception) {
+
 			res.status(500).send(exception)
 	    }
 	}
@@ -156,19 +166,22 @@ class UserCtrl {
 	 */
 	async verifyOtp(req, res){
 		try {
-			let email = req.body.email;
+			let email = req.body.email != undefined ? req.body.email : '';
+			let phone = req.body.phone != undefined ? req.body.phone : '';
 
-	    	let userObj = await userModel.getExistsUserByEmail(email);
+	    	let userObj = await userModel.getExistsUserByEmailOrMobile(email, phone);
 
 			if(!isEmpty(userObj)){
 
-				let otpObj = await otpModel.verify(req.body.otp, userObj.id);
+				let verifyChannel = phone != '' ? 1 : 0;
+
+				let otpObj = await otpModel.verify(req.body.code, userObj.id, verifyChannel);
 
 				if(!isEmpty(otpObj)){
-						console.log('otpObj.status = ', otpObj.status);
+					console.log('otpObj.status = ', otpObj.status);
 					if(otpObj.status == 0){
 
-						let updateOtp = await otpModel.updateOtp(req.body.otp, userObj.id);
+						let updateOtp = await otpModel.updateOtp(req.body.code, userObj.id);
 						
 						if(updateOtp){
 							res.status(200).send({message:"Account activated successfully."});

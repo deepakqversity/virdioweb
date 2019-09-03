@@ -56,14 +56,9 @@ class UserCtrl {
 							let str = utils.dateTimeDiff(currentSession.scheduleDate);
 							underscore.extend(currentSession, {messgae:str});
 
-							let streamToken = '';
-							if(userObj.id == 1){
-								streamToken = '006aec6fd9ab0924971a5b670e522f47c87IACWxFZVNaRLrOVwEJC2XxIOGA4ZMdqftGUpAA+mVO4VqoGTIMMAAAAAEADnmC4nxVZvXQEAAQDEVm9d';
-							} else {
-								// generate streaming token
-								streamToken = clientToken.createToken(currentSession.appId, currentSession.appCertificate, currentSession.channelId, currentSession.userId);
+							// generate streaming token
+							let streamToken = clientToken.createToken(currentSession.appId, currentSession.appCertificate, currentSession.channelId, currentSession.userId);
 
-							}
 							underscore.extend(currentSession, {streamToken : streamToken});
 							currentSession = underscore.omit(currentSession, 'appCertificate');
 

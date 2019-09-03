@@ -11,6 +11,7 @@
 	  10. Attendee Screen
 	  11. Prescreen popup
 	  12. Register Page
+	  13. Verification Page
 ----------------------------------*/
 
 
@@ -1778,6 +1779,20 @@ color: #7C7C7C;
     font-family: Avenir-Book;
     font-size: 18px;
 }
+
+
+
+
+/* 13. Verification Page */
+.verification-page .text-success{
+	color: #6DD400!important;
+    font-size: 24px;
+    text-align: center;
+    font-family: Avenir-Medium;
+}
+
+
+
 
 
 .modal-open .modal.attendy-list {

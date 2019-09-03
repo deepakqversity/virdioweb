@@ -9,23 +9,15 @@ class ScriptAttributes{
 
 	async getAttributesByIds(sessionScriptIds) {
 		let table = this.table;
-		try
-	    {
-	        return await new Promise((resolve, reject) => {
-            	
-            	db.query('SELECT * FROM ?? WHERE sessionScriptId IN (?) AND status = 1', [table, sessionScriptIds], function (error, results, fields) {
-				  if (error) reject(error);
-				  // console.log('================== results ', results)
-				  // db.end();
-				  return resolve(results);
-				});
-	        })
-	    }
-	    catch(err)
-	    {
-	    	console.log(err)
-	       return err;
-	    }
+        return await new Promise((resolve, reject) => {
+        	
+        	db.query('SELECT * FROM ?? WHERE sessionScriptId IN (?) AND status = 1', [table, sessionScriptIds], function (error, results, fields) {
+			  if (error) reject(error);
+			  // console.log('================== results ', results)
+			  // db.end();
+			  return resolve(results);
+			});
+        })
 	}
 	
 }

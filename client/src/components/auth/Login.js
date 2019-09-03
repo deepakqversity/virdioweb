@@ -33,8 +33,10 @@ class Login extends Component {
         
       if(localstoragedata.userType == 1){
         this.props.history.push("/host");
-      }else{
+      }else if(localstoragedata.userType == 2){
         this.props.history.push("/guest");
+      } else {
+        this.props.history.push("/home");
       }
     }
 

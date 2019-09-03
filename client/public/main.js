@@ -640,11 +640,20 @@ if(!AgoraRTC.checkSystemRequirements()) {
   }
 
   function networkBandwidth() {
-    // client.getTransportStats((stats) => {
-    //     console.log(`Current Transport RTT: ${stats.RTT}`);
-    //     console.log(`Current Network Type: ${stats.networkType}`);
-    //     console.log(`Current Transport OutgoingAvailableBandwidth: ${stats.OutgoingAvailableBandwidth}`);
-    // });
+    
+    var storeData = getCurrentUserData();
+
+    client1 = AgoraRTC.createClient({mode: 'live'});
+    client1.init(storeData.sessionData.appId, function () {
+
+    });
+    let ref2 = setInterval(function(){      
+      client1.getTransportStats((stats) => {
+          console.log(`Current Transport RTT: ${stats.RTT}`);
+          console.log(`Current Network Type: ${stats.networkType}`);
+          console.log(`Current Transport OutgoingAvailableBandwidth: ${stats.OutgoingAvailableBandwidth}`);
+      });
+    }, 3000);
   }
 
   function raiseHand(){
@@ -718,10 +727,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
       }
       
-      // console.log('&&&&&&&&&&&&&&&&&&&&&', devices)
-      // $('#audio-media-content').append('<div id="local-audio-media" ></div>');
-
-      
       let device = '';
       let deviceId = '';
       let deviceArray = [];
@@ -729,6 +734,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
         if(!devices[i] || devices[i] == undefined) continue;
 
+        // console.log('devices[i] = ', devices[i])
         device = devices[i];
         deviceId = device.deviceId;
 
@@ -739,7 +745,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         
         if (device.kind === 'audioinput') {
           
-          console.log('deviceId,,,,,,,,,,,, ', deviceId)
+          // console.log('deviceId,,,,,,,,,,,, ', deviceId)
 
           if(microphoneId == null) {
             if(ctr1 == 0)
@@ -749,14 +755,16 @@ if(!AgoraRTC.checkSystemRequirements()) {
                 defaultSetting = 'checked';
             }
           }
-          console.log('---------- microphoneId == deviceId - ', microphoneId, deviceId, ctr1)
+          // console.log('---------- microphoneId == deviceId - ', microphoneId, deviceId, ctr1)
 
-          adoMediaHtml = '<div class="" id="ado-'+deviceId+'"><input class="form-radio" type="radio" name="audio-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'> <i class="fa fa-microphone"></i><label for="lbl-'+deviceId+'"> Microphone-'+ ++ctr1 +'</label> </div>';
+          ++ctr1;
+
+          adoMediaHtml = '<div class="" id="ado-'+deviceId+'"><input class="form-radio" type="radio" name="audio-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'> <i class="fa fa-microphone"></i><label for="lbl-'+deviceId+'"> '+ device.label +'</label> </div>';
 
           $('#audio-media-content').append(adoMediaHtml)
 
           if(defaultSetting == 'checked'){
-            console.log('current =============', deviceId)
+            // console.log('current =============', deviceId)
             checkMic(deviceId);
           }
         } else if (device.kind === 'videoinput') {
@@ -774,7 +782,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
           }
           // console.log('---------- cameraId == deviceId - ', cameraId , deviceId,  defaultSetting)
 
-          vdoMediaHtml = '<div class="col-12 col-md-3" id="vdo-'+deviceId+'"><div id="local-media-'+deviceId+'" ></div><div class="check-camera"><input type="radio" class="form-radio" name="video-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'><label for="lbl-'+deviceId+'">Camera-'+ ++ctr +'</label></div></div>';
+          vdoMediaHtml = '<div class="col-12 col-md-3" id="vdo-'+deviceId+'"><div id="local-media-'+deviceId+'" ></div><div class="check-camera"><input type="radio" class="form-radio" name="video-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'><label for="lbl-'+deviceId+'">'+ device.label +'</label></div></div>';
 
           $('#video-media-content').append(vdoMediaHtml)
 
@@ -1504,7 +1512,7 @@ function signalHandler(uid, signalData, userType) {
     });
 
     if($('#conf-page').length > 0){
-      // networkBandwidth();
+      networkBandwidth();
       if($('#media-config').length > 0){
         
         getDevices();

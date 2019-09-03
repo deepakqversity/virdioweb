@@ -41,23 +41,51 @@ console.log(data)
 		let errors = {};
 
 		// Convert empty fields to an empty string so we can use validator functions
-		data.name = !isEmpty(data.name) ? data.name : "";
+		data.firstName = !isEmpty(data.firstName) ? data.firstName : "";
+		data.lastName = !isEmpty(data.lastName) ? data.lastName : "";
 
 		// Name checks
-		if (Validator.isEmpty(data.name)) {
-			errors.name = "Name field is required";
+		if (Validator.isEmpty(data.firstName)) {
+			errors.firstName = "First name is required";
+		}
+
+		if (Validator.isEmpty(data.lastName)) {
+			errors.lastName = "Last name is required";
 		}
 
 		// Password check
 		if (Validator.isEmpty(data.password)) {
-			errors.password = "Password field is required";
+			errors.password = "Password is required";
 		}
+
+		if (Validator.isEmpty(data.phone)) {
+			errors.phone = "Mobile is required";
+		}
+		
 		// Email checks
-		// if (!data.email || Validator.isEmpty(data.email)) {
-		// 	errors.email = "Email field is required";
-		// } else if (!Validator.isEmail(data.email)) {
-		// 	errors.email = "Email is invalid";
-		// }
+		if (!data.email || Validator.isEmpty(data.email)) {
+			errors.email = "Email is required";
+		} else if (!Validator.isEmail(data.email)) {
+			errors.email = "Email is invalid";
+		}
+
+		if(true != isEmpty(errors)){
+			res.status(400).json(errors);
+		} else {
+			next()
+		}
+	}
+	static verifyOtp(req, res, next) {
+		let data = req.body;
+		let errors = {};
+
+		// Convert empty fields to an empty string so we can use validator functions
+		let code = !isEmpty(req.body.code) ? req.body.code : "";
+
+		// Name checks
+		if (Validator.isEmpty(code)) {
+			errors.code = "Verification code is required";
+		}
 
 		if(true != isEmpty(errors)){
 			res.status(400).json(errors);

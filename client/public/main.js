@@ -58,7 +58,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
    
     console.log('-****', localStorage.getItem("channel"), storeData.userType);
 
-    var channel_key = "006748f9639fa864651bef8419d5870ec50IAB4ETmO/lMo7pM+9fqBMZO/UT6jSVilWJs9p05NvxgvMzvCKVoAAAAAEAA1FJE2AJ9iXQEAAQAAn2Jd";
+    var channel_key = "006748f9639fa864651bef8419d5870ec50IAA1EPKmTqgiQxoNeb2XHmHxCO6t9fg+oZOpTTqYGa1iNTvCKVoAAAAAEAB6i2adEPBlXQEAAQAQ8GVd";
     
     console.log("Init AgoraRTC client with App ID: " + appId);
     

@@ -577,8 +577,35 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   function onclickaudioOn(audienceID)
   {
-    var massages="204~@$MUTEP,Now You Become a Audience"; 
-    sendMessage(audienceID, JSON.stringify({code:"204", message:massages}));
+    // let allVdo = $('#subscribers-list video');   
+    // let allAdo = $('#subscribers-list audio');   
+
+    let vdo = $('#subscribers-list #agora_remote'+ audienceID + ' video' )[0];   
+    let ado = $('#subscribers-list #agora_remote'+ audienceID + ' audio' )[0];   
+
+    // $.each(allVdo, function (index, value) {
+    //   allVdo[index].muted = true;
+    //   allAdo[index].muted = true;
+    // });
+
+    let massages = '';
+    let codes='';
+    if(vdo.muted || ado.muted){
+      console.log('unmute successfully')
+      vdo.muted = false;
+      ado.muted = false;
+      $('#subscribers-list #agora_remote'+ audienceID).find('.microphone-icon').removeClass('microphone-icon-mute');
+      massages="209~@$UNMUTE,Now You Become a Broadcaster"; 
+      codes="209";
+    } else {
+      vdo.muted = true;
+      ado.muted = true;
+      $('#subscribers-list #agora_remote'+ audienceID).find('.microphone-icon').addClass('microphone-icon-mute');
+      massages="204~@$MUTEP,Now You Become a Audience";
+      codes="204";
+    }
+
+    sendMessage(audienceID, JSON.stringify({code:codes, message:massages}));
   }
 
   function onclickhandRaise(receiverId)
@@ -774,7 +801,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
           ++ctr1;
 
-          adoMediaHtml = '<div class="" id="ado-'+deviceId+'"><input class="form-radio" type="radio" name="audio-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'> <i class="fa fa-microphone"></i><label for="lbl-'+deviceId+'"> '+ device.label +'</label> </div>';
+          adoMediaHtml = '<div class="" id="ado-'+deviceId+'"><input class="form-radio" type="radio" name="audio-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'> <label for="lbl-'+deviceId+'"> '+ device.label +'</label> </div>';
 
           $('#audio-media-content').append(adoMediaHtml)
 
@@ -1118,7 +1145,14 @@ function signalHandler(uid, signalData, userType) {
       $('#hostmsg').html(signalData.message);
       setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
 
-    } else if(signalData.code == '203') {
+    }else if(signalData.code == '209'){
+
+      // console.log('********gudu************** signalData ', signalData,uid, userType); 
+       $('#hostmsg').html(signalData.message);
+       setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
+ 
+     }
+     else if(signalData.code == '203') {
       console.log('********gudu************** signalData ', signalData,uid, userType); 
       $('#hostmsg').html(signalData.message);
       setTimeout(function(){ $('#hostmsg').html(''); }, 10000);      

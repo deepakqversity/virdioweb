@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 //import  UserApi from "../../actions/userApi.js";
 import { allUsers } from "../../actions/authActions";
 import $ from 'jquery';
+import moment from 'moment'
 class Configuration extends Component {
   
   constructor(props) {
@@ -14,17 +15,53 @@ class Configuration extends Component {
    this. state = {
       isLoading: true,
       users: [],
-      error: null
+      error: null,
+      sessionScript: 0,
+      timerOn: false,
+      timerStart: 0,
+      timerTime: 0
     }
   }
 
   componentDidMount(){
   this.fetchUsers();
+
+  let localstoragedata = JSON.parse(localStorage.getItem('userData'));
+  this.setState({sessionScript: localstoragedata.sessionData.id});
+  let scDate = localstoragedata.sessionData.scheduleDate;
+
+  //console.log('scDate= ',scDate, new Date(scDate).getTime(), new Date().getTime())
+
+  scDate = (new Date(scDate).getTime()) - (new Date().getTime());
+ // console.log('scDate- ', scDate)
+  this.state.timerTime = scDate;// 1 sec 1000 = 1sec
   }
   componentWillMount(){
     //console.log(1);
     // window.test();
+    this.startTimer();
   }
+
+
+  startTimer = () => {
+    this.setState({
+      timerOn: true,
+      timerTime: this.state.timerTime,
+      timerStart: this.state.timerTime
+    });
+    this.timer = setInterval(() => {
+      const newTime = this.state.timerTime - 10;
+      if (newTime >= 0) {
+        this.setState({
+          timerTime: newTime
+        });
+      } else {
+        clearInterval(this.timer);
+        this.setState({ timerOn: false });
+        //alert("Countdown ended");
+      }
+    }, 10);
+  };
 
 
 
@@ -47,6 +84,25 @@ class Configuration extends Component {
 
 
 render() {
+
+  const { timerTime, timerStart, timerOn, sessionScript } = this.state;
+
+  let seconds = ("0" + (Math.floor((timerTime / 1000) % 60) % 60)).slice(-2);
+  let minutes = ("0" + Math.floor((timerTime / 60000) % 60)).slice(-2);
+  let hours = ("0" + Math.floor((timerTime / 3600000) % 60)).slice(-2);
+
+  //const  {user}  = this.props.auth;
+
+  let localstoragedata = JSON.parse(localStorage.getItem('userData'));
+  let sessionData = localstoragedata.sessionData;
+ 
+  let localDate = moment(sessionData.scheduleDate).format('MM/DD/YYYY # h:mm a');
+
+  localDate = localDate.replace('#', 'at');
+  let remTime = '';
+  //console.log('scheduleDate ',localDate );
+  
+  
   //console.log('------hhhhhhhh----users ', this.state.users)
  let users1 = this.state.users.map(user => {
     const { username, name, email } = user;
@@ -69,7 +125,10 @@ render() {
        
       const newulength=Object.keys(userlength).length;
 
-       console.log('-----------Avishekhllllll-------------------', newulength)
+      // console.log('-----------Avishekhllllll-------------------', newulength)
+
+      // const storeData = JSON.parse(localStorage.getItem("userData"));
+      // console.log('-----------Avishekhllllll-------------------', storeData.sessionData.hostName)
 
 return (
 
@@ -90,13 +149,13 @@ return (
                 <div className="row">
                   <div className="col-lg-9">
                     <h4 className="small-heading">Your Upcoming Session</h4>
-                    <h3 className="popup-heading">An introduction to wine tasting <span>by Arjun Rishi</span><span className="online-status green-online ">ONLINE</span></h3>
+                    <h3 className="popup-heading">{sessionData.name}<span>by {sessionData.hostName.toLowerCase()}</span><span className="green-online" id="online_state">ONLINE</span></h3>
                     <div className="time py-xs-1">  
-                      <span className="no-border">04/23/2019, at 12:00 PM</span>
+                      <span className="no-border">{localDate}</span>
                     </div>
                   </div>
                   <div className="col-lg-3 float-right time-session">
-                    <span className="countdown-timer">00:23:43</span>
+                    <span className="countdown-timer">{hours} : {minutes} : {seconds}</span>
                     <a href="#" className="btn btn-primary float-right">Session details</a>
                   </div>
                 </div>
@@ -207,8 +266,6 @@ return (
                 </div>
               </div>
             
-            
-
         </div>
 
         </div>

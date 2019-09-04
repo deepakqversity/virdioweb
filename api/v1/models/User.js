@@ -74,7 +74,26 @@ class User{
 		let table = this.table;
 	
 		return await new Promise((resolve, reject) => {
-			db.query('SELECT id, name, email, password, status FROM ?? WHERE email = ? LIMIT 1', [table, email], function (error, results, fields) {
+			db.query("SELECT id, name, email, password, status FROM ?? WHERE email = ? LIMIT 1", [table, email], function (error, results, fields) {
+			  if (error) reject(error);
+			  console.log('================== results ', results)
+			  // db.end();
+			  return resolve(isEmpty(results) ? '' : results[0]);
+			});
+		});
+	}
+
+	/**
+	 * Get User by email address
+	 * @param  {string} email
+	 * @return {obj} 
+	 */
+	async getExistsUserByEmailOrMobile(email, phone){
+
+		let table = this.table;
+	
+		return await new Promise((resolve, reject) => {
+			db.query("SELECT id, name, email, password, status FROM ?? WHERE (email = ? OR (phone = ? AND phone != '' )) LIMIT 1", [table, email, phone], function (error, results, fields) {
 			  if (error) reject(error);
 			  console.log('================== results ', results)
 			  // db.end();

@@ -108,7 +108,7 @@ class UserCtrl {
 				let insertedId = await userModel.add(userData);
 				if(insertedId > 0){
 
-					let msg = 'Please check';
+					let msg = 'Your account created successfully, Please check';
 					let emailUpdate = await otpModel.add(insertedId, utils.encodedString(), 0);
 					if(emailUpdate > 0){
 						msg += ' email for verification link';
@@ -120,7 +120,7 @@ class UserCtrl {
 						}
 					} 
 
-					res.status(400).send({message : msg+". Please verify account."});
+					res.status(200).send({message : msg+". Please verify account."});
 				} else {
 
 					res.status(400).send({message:"Something went wrong."})

@@ -59,7 +59,7 @@ render() {
          </div>
       ) : (
       this.props.sessId == 2 ? (
-          <div className="d-flex justify-content-between w-75 arrow-after align-items-center">
+          <div className="d-flex justify-content-between w-75 arrow-after align-items-center footer-fitness-script">
             <div id="countdown">
               <div id="countdown-number"></div>
               <svg>

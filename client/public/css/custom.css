@@ -257,7 +257,7 @@ h3.main-heading span{
 	margin-top:-1px;
 }
 .h53{
-	height:53px;
+	height:51px;
 }
 .display-grid-auto-4{
 	display:grid;
@@ -813,7 +813,7 @@ display:none;
 	
 }
 .host-local{
-	
+	    height: 100%;
 }
 .host-section{
 	margin-right:8px;
@@ -1053,7 +1053,16 @@ display:none;
   animation: countdown 30s linear infinite forwards;
   animation-direction: reverse;
 }
-
+.footer-fitness-script svg circle {
+  stroke-dasharray: 160px;
+  stroke-dashoffset: 0px;
+  stroke-linecap: round;
+  stroke-width: 6px;
+  stroke: #9b51e0;
+  fill: none;
+  animation: countdown 30s linear infinite forwards;
+  animation-direction: reverse;
+}
 .swiper-slide{
 	box-sizing:border-box;
 }
@@ -1357,6 +1366,7 @@ img.user-login{
 }
 .count-box .current-box{
 	zoom:1.4;
+	position: relative;
 }
 .bpm-bar .readings{
 	width: 100%;
@@ -1430,7 +1440,7 @@ img.user-login{
 }
 .prescreen-popup .participant-status{
     width: 290px;
-    padding: 15px;
+    padding: 10px 15px;
 	border-radius: 10px;
 }
 
@@ -1632,12 +1642,12 @@ img.user-login{
 }
 .fill-wifi {
     color: #6DD400;
-    font-size: 80px;
+    font-size: 52px;
     position: absolute;
     right: 10px;
     top: auto;
     margin-top: -40px;
-    bottom: 20px;
+    bottom: 4px;
 }
 .time-session{
 	    display: flex;
@@ -1649,7 +1659,11 @@ img.user-login{
 	align-items: flex-start;
 }
 }
-
+@media screen and (max-width:768px){
+	.prescreen-popup .participant-status{
+		width:100%;
+	}
+}
 
 /* 12. Register Page */
 .register-page{

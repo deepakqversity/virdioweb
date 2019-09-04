@@ -1551,7 +1551,7 @@ function signalHandler(uid, signalData, userType) {
     });
 
     if($('#conf-page').length > 0){
-      networkBandwidth();
+      // networkBandwidth();
       if($('#media-config').length > 0){
 
         $('#media-config').modal({

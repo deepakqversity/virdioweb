@@ -133,7 +133,7 @@ return (
         
         </div>
         <div className="d-flex w-100 justify-content-between">
-          <div className="">
+          <div className="" style={{width: '200px'}}>
             <div className="bg-gray position-relative pad15 rounded">
               <h6 className="small-heading mb-3">Network Reliability</h6>
                 <i class="fa fa-wifi fill-wifi" aria-hidden="true"></i>
@@ -148,7 +148,7 @@ return (
               </div>
             </div>
           </div>
-          <div className="bg-gray flex-grow-1 mx-2 position-relative pad15 rounded">
+          <div className="bg-gray mx-2 position-relative pad15 rounded">
             <h6 className="small-heading mb-3">Select Microphone</h6>
             <div className="col-lg-12">
               <div className="row check-camera justify-content-around" id="audio-media-content"></div>

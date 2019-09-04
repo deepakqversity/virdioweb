@@ -157,6 +157,7 @@ return (
             <div className="col-12 col-sm-7">
               <div className="time py-xs-1">  <span>{localDate}</span>
                 <span>Time Remaining: {hours} : {minutes} : {seconds}</span>
+                <div id="errmsg" style={{color:'green'}}></div>
                 <div id ="all_attendies_list"></div>
               </div>
             </div>

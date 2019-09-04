@@ -162,56 +162,8 @@ return (
           <div className="transparent-gray slide-right-left" style={toggleList}>
             
             <div className="joined-attendees ">
-            <h4 className="mb-2 head"><span className="title d-none">Wine Testers</span><span className="count">(<span  id="joined_users_at_client">0</span>/<span>44</span>)</span></h4>
-            <div id="all_joined_member_list">
-              {/* <div className="attendee-list">
-                <img src="images/attendee.png" />
-                <span>
-                  Edward K
-                  <span><i className="fa fa-map-marker" aria-hidden="true"></i> CO</span>
-                </span>
-                <div className="vid-icons">
-                  <span className="icon1"></span>
-                  <span className="icon2"></span>
-                </div>
-              </div> */}
-              </div>
-              {/* <div className="attendee-list">
-                <img src="images/attendee.png" />
-                <span>
-                  Edward K
-                  <span><i className="fa fa-map-marker" aria-hidden="true"></i> CO</span>
-                </span>
-                <div className="vid-icons">
-                    <span className="icon1"></span>
-                </div>
-                
-              </div>
-              <div className="attendee-list">
-                <img src="images/attendee.png" />
-                <span>
-                  Edward K
-                  <span><i className="fa fa-map-marker" aria-hidden="true"></i> CO</span>
-                </span>
-                
-                <div className="vid-icons">
-                    <span className="icon2"></span>
-                </div>
-              </div>
-              <div className="attendee-list">
-                <img src="images/attendee.png" />
-                <span>
-                  Edward K
-                  <span><i className="fa fa-map-marker" aria-hidden="true"></i> CO</span>
-                </span>
-              </div>
-               <div className="attendee-list">
-                <img src="images/attendee.png" />
-                <span>
-                  Edward K
-                  <span><i className="fa fa-map-marker" aria-hidden="true"></i> CO</span>
-                </span>
-              </div> */}
+            <h4 className="mb-2 head"><span className="title">Wine Testers</span><span className="count">(<span  id="joined_users_at_client">0</span>/<span>44</span>)</span></h4>
+            <div id="all_joined_member_list"></div>
             <button type="button" id="minimize-others" className="mt-2 minimize-others btn btn-outline-secondary mx-auto d-none">"Minimize Others"</button>
         
             </div>
@@ -219,9 +171,7 @@ return (
             <div className="self-video mt-3">
               
             </div>
-
-           
-           
+          
           </div>
           
           

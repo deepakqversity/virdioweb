@@ -514,6 +514,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
   
       }
 
+      function leave_channel() {
+        channel.leave();
+       }
+
 
       function sendMessage(peerId, text)
       {
@@ -1021,7 +1025,7 @@ function attendeeScreenHeight(){
       // GoInFullscreen();
       rtmJoin(); 
     }
-    
+
    // $(".host-script-section").height("305px"); 
    // $(".test-script").addClass("w-866");
    // $(".host-section").css({"min-width": "524px", "max-width": "524px"});    
@@ -1324,20 +1328,11 @@ function signalHandler(uid, signalData, userType) {
 
       }else if(signalData.msgtype=='totalcount') {
         var arr=signalData.totalmember;
-             
+             console.log('---------alllist----------',arr)
         count1=signalData.member;
         count1=parseInt(count1); 
         count1=count1-1;
-       // console.log('********mmmw************** signalData ', count1);
-        /*arr.forEach(function (value, i) {
-          console.log("--------totalvalue--------------", i, value);
-          if(i > 1)
-          {
-            
-            $('#guestmsg').append('<span class="title" onclick="onclickShowAsBroadcaster(\''+value+'\')">'+value+'</span>');
-          }
-        });*/
-       
+      
         $('#totalonline').empty(); 
         $('#totalonline').html(count1);  
      
@@ -1646,6 +1641,7 @@ function signalHandler(uid, signalData, userType) {
 
       $('#logout_button').click(function(){
         leave();
+        leave_channel();
         localStream.stop();
         removeSession();
         location.href  = '/login';

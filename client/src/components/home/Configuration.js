@@ -30,10 +30,10 @@ class Configuration extends Component {
   this.setState({sessionScript: localstoragedata.sessionData.id});
   let scDate = localstoragedata.sessionData.scheduleDate;
 
-  console.log('scDate= ',scDate, new Date(scDate).getTime(), new Date().getTime())
+  //console.log('scDate= ',scDate, new Date(scDate).getTime(), new Date().getTime())
 
   scDate = (new Date(scDate).getTime()) - (new Date().getTime());
-  console.log('scDate- ', scDate)
+ // console.log('scDate- ', scDate)
   this.state.timerTime = scDate;// 1 sec 1000 = 1sec
   }
   componentWillMount(){
@@ -100,7 +100,7 @@ render() {
 
   localDate = localDate.replace('#', 'at');
   let remTime = '';
-  console.log('scheduleDate ',localDate );
+  //console.log('scheduleDate ',localDate );
   
   
   //console.log('------hhhhhhhh----users ', this.state.users)

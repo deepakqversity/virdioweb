@@ -76,8 +76,8 @@ body{
 	background:#000;
 	padding: 0px;
 	position: relative;
-	height:100vh;
-	overflow:hidden;
+height:100vh;
+overflow:hidden;
 }
 #root, .App{
 	height:100%;
@@ -508,6 +508,16 @@ font-size: 18px;
 }
 .microphone-icon {
     background: url(../images/microphone-icon.png);
+    width: 52px;
+    background-size: cover;
+    height: 52px;
+    float: left;
+    top: 6px;
+    left: 2px;
+    cursor: pointer;
+}
+.microphone-icon-mute {
+    background: url(../images/microphone-icon-mute.png);
     width: 52px;
     background-size: cover;
     height: 52px;
@@ -1236,6 +1246,9 @@ display:none;
 .login-box .login-inner .form-group, .register-box .register-inner .form-group{
 	position:relative;
 }
+.login-box .login-inner .text-danger{
+	    top: 87px;
+}
 .login-box .login-inner .form-group label, .register-box .register-inner .form-group label{
     position: absolute;
     left: 12px;
@@ -1405,7 +1418,10 @@ img.user-login{
 .prescreen-popup .session-details{
 	background: #2F2F2F;
     border-radius: 10px;
-    padding: 15px;
+    padding: 10px 15px;
+}
+.prescreen-popup .prescreen-body{
+	padding: 10px 15px;
 }
 .prescreen-popup .session-logo{
 	width:197px;
@@ -1522,8 +1538,8 @@ img.user-login{
     border: 2px solid #BD00FF;
      color: #666;
      top: 10px;
-         height: 25px;
-    width: 25px;
+         height: 23px;
+    width: 23px;
      border-radius: 7px;
      cursor: pointer;     
      margin-right: 2px;
@@ -1538,19 +1554,20 @@ img.user-login{
 .form-radio:checked::before{
     position: absolute;
     font-family: 'FontAwesome';
-        left: 6px;
-    top: 3px;
+	left: 5px;
+    top: 2px;
     font-size: 13px;
     color: #fff;
     content: '\f00c';
 }
 .check-camera label{
     color: #fff;
-    font-family: Avenir-Medium;
-    font-size: 16px;
+    font-family: Avenir-Book;
+    font-size: 14px;
     vertical-align: sub;
     margin: 0;
     cursor: pointer;
+	    display: inline;
 }
 
 .form-radio:checked{
@@ -1569,7 +1586,8 @@ img.user-login{
     font-size: 80px;
     position: absolute;
     right: 10px;
-    top: 30px;
+        top: 50%;
+    margin-top: -40px;
 }
 .btn-join{
 	background: rgba(189,0,255, 0.53) !important;
@@ -1578,7 +1596,8 @@ img.user-login{
     font-family: Avenir-Black;
 }
 .joiners img{
-	margin-right:10px;
+    margin-right: 9px;
+    width: 30px;
 }
 .joiners span{
 	color:#fff;
@@ -1603,6 +1622,30 @@ img.user-login{
 	.prescreen-popup .countdown-timer{
 		font-size:18px;
 	}
+}
+
+@media screen and (max-width:991px){
+	.prescreen-popup .participant-status .border-right-gray{
+	border:0;
+}
+.fill-wifi {
+    color: #6DD400;
+    font-size: 80px;
+    position: absolute;
+    right: 10px;
+    top: auto;
+    margin-top: -40px;
+    bottom: 20px;
+}
+.time-session{
+	    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+.prescreen-popup.show.modal{
+	align-items: flex-start;
+}
 }
 
 

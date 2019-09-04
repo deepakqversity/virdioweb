@@ -135,7 +135,7 @@ return (
     <div>
       <div className="prescreen-popup modal fade" id="media-config" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-      <div className="modal-dialog modal-dialog-lg w-90" role="document">
+      <div className="modal-dialog modal-dialog-lg mw-100" role="document">
 
         <div className="modal-content">
 
@@ -154,7 +154,7 @@ return (
                       <span className="no-border">{localDate}</span>
                     </div>
                   </div>
-                  <div className="col-lg-3 float-right">
+                  <div className="col-lg-3 float-right time-session">
                     <span className="countdown-timer">{hours} : {minutes} : {seconds}</span>
                     <a href="#" className="btn btn-primary float-right">Session details</a>
                   </div>
@@ -182,41 +182,47 @@ return (
 
         </div>
         
-        <div className="modal-body bg-gray rounded my-2" id="media-content">
+        <div className="prescreen-body modal-body bg-gray rounded my-2" id="media-content">
           
           <div className="row">
-            <div className="col-12"><h6 className="small-heading mb-3">Select Video Camera</h6></div>
+            <div className="col-12"><h6 className="small-heading mb-2">Select Video Camera</h6></div>
             <div className="col-12 video-streams select-camera" id="video-media-content"></div>
             
           </div>
         
         </div>
-        <div className="d-flex w-100 justify-content-between">
-          <div className="">
-            <div className="bg-gray position-relative pad15 rounded">
+        <div className="row four-gutters">
+          <div className="col-4">
+            <div className="bg-gray h-100 position-relative pad15 rounded">
               <h6 className="small-heading mb-3">Network Reliability</h6>
                 <i class="fa fa-wifi fill-wifi" aria-hidden="true"></i>
               <div className="row">
-                <div className="col-lg-4">
+                <div className="col-lg-4 col-md-6">
                   <span className="online-total">Online streams on screen</span>
                   
                 </div>
-                <div className="col-lg-4">
+                <div className="col-lg-4 col-md-6">
                   <span className="signup-number" >142</span>
                 </div>
               </div>
             </div>
           </div>
-          <div className="bg-gray flex-grow-1 mx-2 position-relative pad15 rounded">
-            <h6 className="small-heading mb-3">Select Microphone</h6>
-            <div className="col-lg-12">
-              <div className="row check-camera justify-content-around" id="audio-media-content"></div>
+          <div className="col-6">
+            <div className="h-100 bg-gray position-relative pad15 rounded">
+              <h6 className="small-heading mb-0">Select Microphone</h6>
+              <div className="col-lg-12">
+                <div className="row check-camera flex-wrap" id="audio-media-content"></div>
+              </div>
             </div>
           </div>
-          <div className="bg-gray position-relative pad15 rounded max-w-170">
-            <span className="online-total text-left">Heart Rate Monitor detected</span>
-            <span className="signup-number font-20 text-left" >NO</span>
+          <div className="col-2">
+            <div className="h-100 bg-gray position-relative pad15 rounded">
+              <span className="online-total text-left">Heart Rate Monitor detected</span>
+              <span className="signup-number font-20 text-left" >NO</span>
+            </div>
           </div>
+          
+          
         </div>
         
 
@@ -253,10 +259,10 @@ return (
                   </div>
                 </div>
               </div>
-              <div className="">
-                <div className="d-flex justify-content-between flex-wrap">
-                  <button type="submit" class="mr-2 btn-cancel btn btn-large btn-outline-secondary rounded py-2 px-4">Leave</button>
-                  <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-2 px-4 rounded" id="continue-join">join</button>
+              <div className="col-lg-3">
+                <div className="d-flex justify-content-end flex-wrap">
+                  <button type="submit" class="mr-2 btn-cancel btn btn-large btn-outline-secondary rounded py-1 px-3">Leave</button>
+                  <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded" id="continue-join">join</button>
                 </div>
               </div>
             

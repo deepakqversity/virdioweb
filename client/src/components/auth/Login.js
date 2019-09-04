@@ -84,14 +84,14 @@ return (
               </div>
               <form className = "form-horizontal" role = "form"  noValidate onSubmit={this.onSubmit}>
                 <div className="login-inner">
-                <div className = "form-group">
+                <div className = "form-group mb-4 mt-2">
                     <span className="text-danger col-md-12">{errors.email}{errors.emailincorrect}{errors.message}</span>
                     <label>Enter your email id</label>
                     <input type="email"  id="email" onChange={this.onChange} value={this.state.email}  error={errors.email}  className={classnames("", { invalid: errors.email || errors.emailincorrect })} className = "form-control"  />
                   <img src="/images/login-user.png" className="user-login" />
                 </div>
 
-                <div className = "form-group">
+                <div className = "form-group mb-4">
                     <span className="text-danger col-md-12">{errors.password}{errors.passwordincorrect}</span>
                     <label>Password</label>
                     <input type="password"  id="password" onChange={this.onChange} value={this.state.password} error={errors.password} className={classnames("", { invalid: errors.password || errors.passwordincorrect })} className = "form-control"  />
@@ -111,7 +111,7 @@ return (
                     </div>
                   </div>*/}
       
-                <div className = "form-group">
+                <div className = "form-group pt-3 mb-4">
                     <div className = "d-flex flex-wrap justify-content-between align-items-center">
                       <button type = "submit" className="btn-cancel btn btn-large btn-outline-secondary waves-effect waves-light hoverable blue accent-3 rounded p-3 px-4">Cancel</button>
                       <button type = "submit" className="btn-login btn btn-large btn-primary waves-effect waves-light hoverable blue accent-3 p-3 px-4 rounded">Log in</button>

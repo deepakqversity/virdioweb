@@ -636,20 +636,31 @@ if(!AgoraRTC.checkSystemRequirements()) {
   }
 
   function networkBandwidth() {
-    
-    var storeData = getCurrentUserData();
 
-    client1 = AgoraRTC.createClient({mode: 'live'});
-    client1.init(storeData.sessionData.appId, function () {
-
+    // 1. Remote client that pushes streams only.
+    var remoteClient = AgoraRTC.createClient({ mode: 'live', codec: 'h264' });
+    // Initialize the client and join the channel.
+    var remoteStream = AgoraRTC.createStream({
+        streamID: remoteUid,
+        audio: true,
+        video: true,
+        screen: false
     });
-    let ref2 = setInterval(function(){      
-      client1.getTransportStats((stats) => {
-          console.log(`Current Transport RTT: ${stats.RTT}`);
-          console.log(`Current Network Type: ${stats.networkType}`);
-          console.log(`Current Transport OutgoingAvailableBandwidth: ${stats.OutgoingAvailableBandwidth}`);
-      });
-    }, 3000);
+    // Initialize the stream.
+    remoteStream.publish();
+
+    // 2. Local client that subscribes to the remote stream.
+    var localClient = AgoraRTC.createClient({ mode: 'live', codec:'h264' });
+    // Initialize the client and join the channel.
+    // 
+      setInterval(function(){      
+        localClient.getTransportStats((stats) => {
+            console.log(`Current Transport RTT: ${stats.RTT}`);
+            console.log(`Current Network Type: ${stats.networkType}`);
+            console.log(`Current Transport OutgoingAvailableBandwidth: ${stats.OutgoingAvailableBandwidth}`);
+        });
+      }, 3000);
+    
   }
 
   function raiseHand(){
@@ -751,7 +762,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
                 defaultSetting = 'checked';
             }
           }
-          // console.log('---------- microphoneId == deviceId - ', microphoneId, deviceId, ctr1)
+          console.log('---------- microphoneId == deviceId - ', microphoneId, deviceId, ctr1)
 
           ++ctr1;
 
@@ -1002,8 +1013,6 @@ function attendeeScreenHeight(){
     if($('#conf-page').length > 0){
       // networkBandwidth();
       if($('#media-config').length > 0){
-        
-        getDevices();
 
         $('#media-config').modal({
           backdrop : "static",
@@ -1013,6 +1022,7 @@ function attendeeScreenHeight(){
         $('#media-config').on('hidden.bs.modal', function (e) {
           console.log('close event')
         })
+        getDevices();
       }
       // GoInFullscreen();
       rtmJoin(); 
@@ -1442,8 +1452,6 @@ function signalHandler(uid, signalData, userType) {
     if($('#conf-page').length > 0){
       networkBandwidth();
       if($('#media-config').length > 0){
-        
-        getDevices();
 
         $('#media-config').modal({
           backdrop : "static",
@@ -1453,7 +1461,8 @@ function signalHandler(uid, signalData, userType) {
         $('#media-config').on('hidden.bs.modal', function (e) {
           console.log('close event')
         })
-      rtmJoin(); 
+        getDevices();
+        rtmJoin(); 
       }
       // GoInFullscreen();
 

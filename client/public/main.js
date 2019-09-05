@@ -1705,9 +1705,9 @@ function signalHandler(uid, signalData, userType) {
       });
 
       $('#logout_button').click(function(){
+        // localStream.stop();
         leave();
         leave_channel();
-        localStream.stop();
         removeSession();
         location.href  = '/login';
         // location.reload();

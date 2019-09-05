@@ -478,8 +478,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       });
 
      channel.getMembers().then(membersList => {    
-       console.log('*************Total Number Of Userkkkkkkkkkkkkkkkkkk******',membersList.length);
-      
+            
        channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
 
        }).catch(error => {
@@ -487,23 +486,20 @@ if(!AgoraRTC.checkSystemRequirements()) {
        });
 
        channel.on('MemberJoined', memberId => { 
-        console.log('This********lalit',memberId,'has joined channel successfully');
-
+       
          var massages="208~@$"+memberId+"~@$joined~@$";        
          channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
         })
      
        channel.on('MemberLeft', memberId => { 
-        console.log('This*********munmun',memberId,'has left successfully');
-
+    
         var massages="208~@$"+memberId+"~@$left~@$";  
         channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"left"}), storeData.userType);
         })
      
        channel.on('ChannelMessage', (message, senderId) => {         
         var msg=message.text;
-       // msg = JSON.parse(msg);      
-        console.log('*****shivammmm********',msg.message,'********************',storeData.userType)
+       // msg = JSON.parse(msg);             
         channelMsgHandler(msg,senderId,storeData.userType);
         });
  
@@ -539,12 +535,12 @@ if(!AgoraRTC.checkSystemRequirements()) {
       function getMemberList()
       {
           channel.getMembers().then(membersList => {    
-          console.log('*************Total Number Of User******',membersList[1]);
+          
        
         var arr=membersList;             
         counter=membersList.length;
         counter=parseInt(counter); 
-        console.log('********mmmwhello************** signalData ', counter);
+       
         var html = '';
         var optionbox='';
         optionbox +='<option value="select">select</option>';
@@ -1157,7 +1153,7 @@ function signalHandler(uid, signalData, userType) {
 
   let resultant=signalData.split("~@$");
      
-  console.log('*******bbbbbbb************** signalData ', signalData,uid, userType);
+  
   if(userType == 1) { // Host
 
     if(resultant[0] == '201'){
@@ -1276,12 +1272,7 @@ function signalHandler(uid, signalData, userType) {
       
         var count3=$('#totalonline').html();
 
-        console.log('********hhhhhAtt************** signalData ', count3);
-       
-    
-        console.log('********sssssA1111111************** signalData ', signalData, userType);
-  
-
+      
         count3=parseInt(count3);
         
       if(signalData.msgtype=='Joined')
@@ -1299,7 +1290,7 @@ function signalHandler(uid, signalData, userType) {
         }
         count4=count3+1;
       
-          console.log('*********sssssssss************* signalData ', signalData.message);
+         
 
      
       }else if(signalData.msgtype=='left') {
@@ -1314,7 +1305,7 @@ function signalHandler(uid, signalData, userType) {
           $('#online_state').removeClass("online-status");
         }
 
-        console.log('*********hello************* signalData ', count3);
+      
         count4=count3-1;
      
         // $('#newmsg').html(signalData.message);
@@ -1329,7 +1320,7 @@ function signalHandler(uid, signalData, userType) {
         let hostid=storeData.sessionData.hostId;
      
         var arr=signalData.totalmember;
-        console.log('*******totallist111111111111*************** signalData ', arr);
+       
         // if($.inArray(hostid, arr) >= 0)
         // {
         //   $('#online_state').html('ONLINE');
@@ -1381,11 +1372,11 @@ function signalHandler(uid, signalData, userType) {
 
       if(signalData.msgtype=='Joined')
       {     
-        console.log('********guduHost************** signalData ', signalData, userType);
+        //console.log('********guduHost************** signalData ', signalData, userType);
         count1=count+1;
 
        
-          console.log('*********lllllllll************* signalData ', signalData.message);
+         // console.log('*********lllllllll************* signalData ', signalData.message);
           $('#totalonline').empty(); 
           $('#totalonline').html(count1);  
         
@@ -1396,16 +1387,16 @@ function signalHandler(uid, signalData, userType) {
         var peerId=signalData.member;
 
 
-        console.log('********virendra************** signalData ', count1);
+       // console.log('********virendra************** signalData ', count1);
         //  let AllDta = getCurrentUserData();
         //  let hostFirstName=AllDta.sessionData.hostName;
-         console.log('********virendra************** signalData ', signalData.message);
+       //  console.log('********virendra************** signalData ', signalData.message);
         let text ="216~@$Hi, welcome to your first virtual studio session as A";
         if(count1 <= 8)
         {
           text ="216~@$Hi,welcome to your first virtual studio session as B";
         }
-        console.log('-------------text=== ', text)
+       // console.log('-------------text=== ', text)
         sendMessage(peerId, text);
 
       }else if(signalData.msgtype=='left') {
@@ -1427,7 +1418,7 @@ function signalHandler(uid, signalData, userType) {
 
       }else if(signalData.msgtype=='totalcount') {
         var arr=signalData.totalmember;
-             console.log('---------alllist----------',arr)
+           //  console.log('---------alllist----------',arr)
         count1=signalData.member;
         count1=parseInt(count1); 
         count1=count1-1;
@@ -1465,7 +1456,7 @@ function signalHandler(uid, signalData, userType) {
 
       function setEmojiesAtClient(signalData, userType)
       {
-        console.log('********Rammmmmmmmmmmmm************** signalData ', signalData, userType);
+       // console.log('********Rammmmmmmmmmmmm************** signalData ', signalData, userType);
       }
 
       $(document).ready(function(){

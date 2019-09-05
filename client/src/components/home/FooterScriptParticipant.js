@@ -60,28 +60,28 @@ render() {
       ) : (
       this.props.sessId == 2 ? (
           <div className="d-flex justify-content-between w-75 arrow-after align-items-center footer-fitness-script">
-            <div id="countdown">
+            <div id="countdown" className="count-timer">
               <div id="countdown-number"></div>
               <svg>
                 <circle r="26" cx="30" cy="30"></circle>
               </svg>
-              <h4 className="mt-5">Pushups</h4>
+              <h4>Pushups</h4>
             </div>
             <img src="images/arrow-img.png" />
-            <div id="countdown" className="current-box">
+            <div id="countdown" className="count-timer current-box">
               <div id="countdown-number"></div>
               <svg>
                 <circle r="26" cx="30" cy="30"></circle>
               </svg>
-              <h4 className="mt-5 pt-2">Lunges</h4>
+              <h4>Lunges</h4>
             </div>
             <img src="images/arrow-img.png" />
-            <div id="countdown">
+            <div id="countdown" className="count-timer">
               <div id="countdown-number"></div>
               <svg>
                 <circle r="26" cx="30" cy="30"></circle>
               </svg>
-              <h4 className="mt-5">Rest</h4>
+              <h4>Rest</h4>
             </div>
           </div>
         ) : ( <div> </div> )

@@ -374,6 +374,40 @@ if(!AgoraRTC.checkSystemRequirements()) {
     return JSON.parse(localStorage.getItem("userData"));
   }    
 
+  function getTempUsers(){
+    return localStorage.getItem("tempUsers") != undefined ? JSON.parse(localStorage.getItem("tempUsers")) : [];
+  }    
+
+  function convertIdToEmail(id){
+    let userList = getTempUsers();
+    if(userList != ''){
+      
+      for(let i= 0; i < userList.length; i++){
+        if(parseInt(userList[i].id) == parseInt(id)){
+          return userList[i].email;
+        }
+      }
+    } else {
+      console.log('Invalid access ');
+      return false;
+    }
+  }
+
+  function convertEmailToId(email){
+    let userList = getTempUsers();
+    if(userList != ''){
+      
+      for(let i= 0; i < userList.length; i++){
+        if(userList[i].email == email){
+          return userList[i].id;
+        }
+      }
+    } else {
+      console.log('Invalid access ');
+      return false;
+    }
+  }
+
   function switchVideoSize(){
     let len = $('#subscribers-list .newcss').length;
 
@@ -433,23 +467,22 @@ if(!AgoraRTC.checkSystemRequirements()) {
   //var currentSession = getCurrentSession(); 
   var newclient; 
   var channel;
-  var channelName1 = '1441';
-  function rtmJoin()
-  {
    var appId1 = '232f270a5aeb4e0097d8b5ceb8c24ab3';
    var channelName1 = '1441';
+  function rtmJoin()
+  {
 
   var token=null;
     newclient = AgoraRTM.createInstance(appId1);
    var storeData = getCurrentUserData();
-   var peer=storeData.id;
+   var peer=storeData.email;
   // newclient.login({uid: peer.toString(), token});
 
   newclient.on('ConnectionStateChange', (newState, reason) => {
     console.log('on connection state changed to ' + newState + ' reason: ' + reason);
   });
 
-   newclient.login({ token: token, uid: peer.toString() }).then(() => {
+   newclient.login({ token: token, uid: peer }).then(() => {
 
     console.log('****shiv*******AgoraRTM client login success***********');
 
@@ -466,8 +499,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
      console.log('**********shiv*********channel joined successfully**********');
 
      var today = new Date();
-     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+     var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
+     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()+'.'+today.getMilliseconds();
      var dateTime = date+' '+time;
      var text="208~@$"+dateTime;
 
@@ -521,7 +554,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       function sendMessage(peerId, text)
       {
           console.log("sendPeerMessage", text, peerId);
-          newclient.sendMessageToPeer({text}, peerId.toString());
+          newclient.sendMessageToPeer({text}, peerId);
       }
 
       function sendMessageToChannel(channelName1, text)
@@ -570,7 +603,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
   function onclickShowAsBroadcaster() {
         var selectBox = document.getElementById("opt");
         var attendiesID = selectBox.options[selectBox.selectedIndex].value;
-       // alert(selectedValue);
+       // alert('attendiesID', attendiesID);
+        // let attendiesEmail = convertIdToEmail(attendiesID);
        //let message = createString(code)+"B";
        let message = "200~@$B";
         sendMessage(attendiesID, message);
@@ -582,6 +616,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   {
     // let allVdo = $('#subscribers-list video');   
     // let allAdo = $('#subscribers-list audio');   
+    let audienceEmail = convertIdToEmail(audienceID);
 
     let vdo = $('#subscribers-list #agora_remote'+ audienceID + ' video' )[0];   
     let ado = $('#subscribers-list #agora_remote'+ audienceID + ' audio' )[0];   
@@ -610,15 +645,16 @@ if(!AgoraRTC.checkSystemRequirements()) {
       
     }
 
-    sendMessage(audienceID,massages);
+    sendMessage(audienceEmail, massages);
   }
 
   function onclickhandRaise(receiverId)
   {   
+    let receiverEmail = convertIdToEmail(receiverId);
     $('#agora_hand_raise'+receiverId+'').addClass("d-none");
     $('#audion_on'+receiverId+'').removeClass("d-none");
     var massages="203~@$"; 
-    sendMessage(receiverId,massages);
+    sendMessage(receiverEmail, massages);
 
     let allVdo = $('#subscribers-list video');   
     let allAdo = $('#subscribers-list audio');   
@@ -642,14 +678,16 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   function eject_participent(receiverId)
   {
+    let receiverEmail = convertIdToEmail(receiverId);
     var massages="205~@$"; 
-    sendMessage(receiverId,massages);
+    sendMessage(receiverEmail,massages);
   }
 
   function changeParticipentToAudience(receiverId)
   {
+    let receiverEmail = convertIdToEmail(receiverId);
     var massages="209~@$"; 
-    sendMessage(receiverId,massages);
+    sendMessage(receiverEmail,massages);
   }
   // function onclickShowAsBroadcaster(attendiesID)
   // {
@@ -1372,7 +1410,7 @@ function signalHandler(uid, signalData, userType) {
 
       if(signalData.msgtype=='Joined')
       {     
-        //console.log('********guduHost************** signalData ', signalData, userType);
+        console.log('********guduHost************** signalData ', signalData, userType);
         count1=count+1;
 
        
@@ -1386,6 +1424,7 @@ function signalHandler(uid, signalData, userType) {
 
         var peerId=signalData.member;
 
+        // let peerEmail = convertIdToEmail(peerId);
 
        // console.log('********virendra************** signalData ', count1);
         //  let AllDta = getCurrentUserData();
@@ -1721,17 +1760,20 @@ function signalHandler(uid, signalData, userType) {
         var attendieID=storeData.name;
         var hostid=storeData.sessionData.hostId;
         var hostname=storeData.sessionData.hostName;
+        console.log('storeData hostid', storeData, hostid );
        // alert(hostname);return false;      
         //var massages="201~@$"+attendieID+"~@$clientHandRaise~@$"+attendiesName; 
+        let hostEmail = convertIdToEmail(hostid);
+        console.log('hostEmail', hostEmail)
         var massages="201~@$";       
-          sendMessage(hostid, massages);
+          sendMessage(hostEmail, massages);
 
       });
 
       $('#logout_button').click(function(){
         // localStream.stop();
-        leave();
         leave_channel();
+        leave();
         removeSession();
         location.href  = '/login';
         // location.reload();

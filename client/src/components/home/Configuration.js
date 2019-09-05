@@ -29,6 +29,7 @@ class Configuration extends Component {
 
   componentDidMount(){
   this.fetchUsers();
+  
 
   let localstoragedata = JSON.parse(localStorage.getItem('userData'));
   this.setState({sessionScript: localstoragedata.sessionData.id});
@@ -41,6 +42,7 @@ class Configuration extends Component {
   this.state.timerTime = scDate;// 1 sec 1000 = 1sec
   }
   componentWillMount(){
+    // this.fetchUsers();
     //console.log(1);
     // window.test();
     this.startTimer();
@@ -67,7 +69,11 @@ class Configuration extends Component {
     }, 10);
   };
 
-
+  userList(userList) {
+      console.log('tempUsers',localStorage.getItem("tempUsers"))
+      localStorage.setItem("tempUsers", JSON.stringify(userList));
+    // }
+  }
 
   fetchUsers() {
     var userData = JSON.parse(localStorage.getItem("userData"));
@@ -78,11 +84,13 @@ class Configuration extends Component {
     fetch("/api/v1/session/"+sessionId+"/users", {headers : {'Authorization': userData.token}})
     .then(response => response.json())
     // ...then we update the users state
-    .then(data =>
-      this.setState({
-        users: data,
-        isLoading: false,
-      })
+    .then(data => {
+        this.setState({
+              users: data,
+              isLoading: false,
+              });
+      this.userList(data);
+    }
     )
       }
 
@@ -105,7 +113,6 @@ render() {
   localDate = localDate.replace('#', 'at');
   let remTime = '';
   //console.log('scheduleDate ',localDate );
-  
   
   //console.log('------hhhhhhhh----users ', this.state.users)
  let users1 = this.state.users.map((user, idx) => {

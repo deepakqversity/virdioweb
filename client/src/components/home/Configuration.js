@@ -141,11 +141,11 @@ return (
 
         <div className="modal-header">
         
-          <div className="d-flex w-100 justify-content-between align-items-center">
-            <div className="session-logo">
+          <div className="d-flex w-100 justify-content-between align-items-center  flex-md-nowrap flex-wrap">
+            <div className="session-logo mx-md-0 mx-auto">
               <img src="/images/prescreen-logo.png" />
             </div>
-            <div className="session-details bg-gray flex-grow-1 mx-2">
+            <div className="session-details bg-gray flex-grow-1 my-2 my-md-0 mx-md-2">
                 <div className="row">
                   <div className="col-lg-9">
                     <h4 className="small-heading">Your Upcoming Session</h4>
@@ -160,7 +160,7 @@ return (
                   </div>
                 </div>
             </div>
-            <div className="participant-status bg-gray">
+            <div className="participant-status bg-gray session-logo mx-md-0 mx-auto">
               <h4 className="small-heading">Participants <img src="images/list-icon.png"  data-toggle="modal" data-target="#attendy-list" className="open-list" /></h4>
                 <div className="col-lg-12 mt-3">
                   <div className="row">
@@ -192,7 +192,7 @@ return (
         
         </div>
         <div className="row four-gutters">
-          <div className="col-4">
+          <div className="col-12 col-md-3 col-lg-3">
             <div className="bg-gray h-100 position-relative pad15 rounded">
               <h6 className="small-heading mb-3">Network Reliability</h6>
                 <i class="fa fa-wifi fill-wifi" aria-hidden="true"></i>
@@ -207,7 +207,7 @@ return (
               </div>
             </div>
           </div>
-          <div className="col-6">
+          <div className="col-12 col-md-7 col-lg-7 my-2 my-md-0">
             <div className="h-100 bg-gray position-relative pad15 rounded">
               <h6 className="small-heading mb-0">Select Microphone</h6>
               <div className="col-lg-12">
@@ -215,7 +215,7 @@ return (
               </div>
             </div>
           </div>
-          <div className="col-2">
+          <div className="col-12 col-md-2 col-lg-2">
             <div className="h-100 bg-gray position-relative pad15 rounded">
               <span className="online-total text-left">Heart Rate Monitor detected</span>
               <span className="signup-number font-20 text-left" >NO</span>

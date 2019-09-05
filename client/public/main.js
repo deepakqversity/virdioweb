@@ -679,21 +679,53 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   }
 
+  var localClient = '';
   function networkBandwidth() {
-    
-    var storeData = getCurrentUserData();
 
-    client1 = AgoraRTC.createClient({mode: 'live'});
-    client1.init(storeData.sessionData.appId, function () {
+    let storeData = getCurrentUserData();
 
+    localClient = AgoraRTC.createClient({ mode: 'live', codec:'h264' });
+    // Initialize the client and join the channel.
+    console.log('-------------------------------------------ooo')
+    // initialize client
+    localClient.init(storeData.sessionData.appId, function () {
+    console.log('-------------------------------------------HHH')
+          // create and join channel
+      localClient.join(storeData.sessionData.streamToken, storeData.sessionData.channelId.toString(), storeData.id, function(uid) {
+        // localClient.join(null, '900001', storeData.email, function(uid) {
+        console.log('-------------------------------------------uid')
+          // create local stream
+            let localStream1 = AgoraRTC.createStream({streamID: uid, audio: true, video: true, screen: false });
+          
+            localStream1.init(function() {
+
+                          localClient.publish(localStream1, function (err) {
+                            console.log("Publish local stream error: " + err);
+                          });
+
+                          
+
+
+           
+            }, function (err) {
+              console.log("getUserMedia failed", err);
+            });
+      }, function(err) {
+        console.log("Join channel failed", err);
+      });
+
+    }, function (err) {
+      console.log("AgoraRTC client init failed", err);
     });
-    let ref2 = setInterval(function(){      
-      client1.getTransportStats((stats) => {
+
+    setInterval(function(){      
+      localClient.getTransportStats((stats) => {
           console.log(`Current Transport RTT: ${stats.RTT}`);
           console.log(`Current Network Type: ${stats.networkType}`);
           console.log(`Current Transport OutgoingAvailableBandwidth: ${stats.OutgoingAvailableBandwidth}`);
       });
-    }, 3000);
+    }, 3000);   
+    
   }
 
   function raiseHand(){
@@ -795,7 +827,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
                 defaultSetting = 'checked';
             }
           }
-          // console.log('---------- microphoneId == deviceId - ', microphoneId, deviceId, ctr1)
+          console.log('---------- microphoneId == deviceId - ', microphoneId, deviceId, ctr1)
 
           ++ctr1;
 
@@ -889,6 +921,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     stream1.close();
     stream2.close();
     // GoInFullscreen();
+    // localClient.leave();
     join();
     var resp_data = JSON.parse(localStorage.getItem("userData"));
     console.log('-----------hhhhhhhhh-------------------', resp_data.userType);
@@ -1047,11 +1080,9 @@ function attendeeScreenHeight(){
 
   function loadPopup(){
 
-    if($('#conf-page').length > 0){
+    // if($('#conf-page').length > 0){
       // networkBandwidth();
       if($('#media-config').length > 0){
-        
-        getDevices();
 
         $('#media-config').modal({
           backdrop : "static",
@@ -1061,10 +1092,11 @@ function attendeeScreenHeight(){
         $('#media-config').on('hidden.bs.modal', function (e) {
           console.log('close event')
         })
+        getDevices();
       }
       // GoInFullscreen();
       rtmJoin(); 
-    }
+    // }
 
    // $(".host-script-section").height("305px"); 
    // $(".test-script").addClass("w-866");
@@ -1573,12 +1605,10 @@ function signalHandler(uid, signalData, userType) {
       }
     });
 
-    if($('#conf-page').length > 0){
-      networkBandwidth();
+    // if($('#conf-page').length > 0){
       if($('#media-config').length > 0){
-        
-        getDevices();
 
+        // networkBandwidth();
         $('#media-config').modal({
           backdrop : "static",
           keyboard: false
@@ -1587,11 +1617,12 @@ function signalHandler(uid, signalData, userType) {
         $('#media-config').on('hidden.bs.modal', function (e) {
           console.log('close event')
         })
-      rtmJoin(); 
+        getDevices();
+        rtmJoin(); 
       }
       // GoInFullscreen();
 
-    }
+    // }
     
     $(document).on('click', '#join', function(){
       join();
@@ -1707,9 +1738,9 @@ function signalHandler(uid, signalData, userType) {
       });
 
       $('#logout_button').click(function(){
+        // localStream.stop();
         leave();
         leave_channel();
-        localStream.stop();
         removeSession();
         location.href  = '/login';
         // location.reload();

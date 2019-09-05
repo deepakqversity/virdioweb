@@ -64,12 +64,25 @@ class Guest extends Component {
     $('#score_button').trigger('click');
   }
   
+  loadScript = function (src) {
+    var tag = document.createElement('script');
+    tag.async = false;
+    tag.src = src;
+    
+    var body = document.getElementsByTagName('html')[0];
+    body.appendChild(tag);
+  }
+
   componentDidMount(){
     
-    if(localStorage.getItem('load-page') != 1){  
-        window.loadPopup();
-      localStorage.setItem("load-page", 1);
-    }
+    this.loadScript('/AgoraRTCSDK-2.7.1.js');
+    this.loadScript('/agora-rtm-sdk-1.0.0.js');
+    this.loadScript('/main.js');
+
+    // if(localStorage.getItem('load-page') != 1){  
+    //     window.loadPopup();
+    //   localStorage.setItem("load-page", 1);
+    // }
     
     let localstoragedata = JSON.parse(localStorage.getItem('userData'));
 
@@ -183,10 +196,10 @@ return (
       
       <FooterScriptParticipant sessId={userData.sessionData.id} />
 
-      <div className="self-video1 mt-3 w-25">
+      <div className="self-video1 mt-3 w-50">
           <button type="button" id="show-everyone" className="mb-2 minimize-others btn btn-outline-secondary mx-auto">"Show Everyone"</button>
           
-          <div id="agora_local" className="video-streams guest-video"></div>
+          <div id="agora_local" className="video-streams guest-video" style={videoAspect}></div>
           
       </div>
     </footer>
@@ -289,7 +302,6 @@ return (
       </div>
     </div>
     <Config />
-    <input type="hidden" id="conf-page" />
 
   </div>
     );
@@ -299,7 +311,11 @@ const toggleList = {
   width: '72px',
   float: 'right'
 }
-
+const videoAspect = {
+  width: "220px",
+  height: "124px",
+  float: "right"
+}
 Guest.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired

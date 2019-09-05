@@ -17,7 +17,7 @@ render() {
 return (
       <div>
       { this.props.sessId == 1 ? (
-      <div className="col-lg-3 col-md-4 col-sm-5 col-6 max-width-300">
+      <div className="col-lg-6 col-md-6 col-sm-9 col-12 max-width-300">
         <div className="left-section">
           <h2 className="item-name py-3">1/4 Wines</h2>
           <h3 className="second-heading my-3">2014 Bliss Block Pinot Noir</h3>
@@ -43,7 +43,7 @@ return (
       </div>
     ) : (
       this.props.sessId == 2 ? (
-      <div className="col-lg-1 col-md-1 col-sm-1 col-1 max-width-300 d-flex">
+      <div className="h-100 col-lg-1 col-md-1 col-sm-1 col-1 max-width-300 d-flex">
         <div className="left-section mt-3">
           <div className="bpm-bar">
             <span className="pop-text">Your BPM</span>

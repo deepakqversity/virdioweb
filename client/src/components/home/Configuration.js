@@ -104,10 +104,10 @@ render() {
   
   
   //console.log('------hhhhhhhh----users ', this.state.users)
- let users1 = this.state.users.map(user => {
+ let users1 = this.state.users.map((user, idx) => {
     const { username, name, email } = user;
     return (
-      <tr key={username}>
+      <tr key={idx}>
       <th scope="row"><img src="/images/avtar.png" /></th>
       <td>{name}</td>
       <td>{email}</td>

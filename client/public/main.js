@@ -670,31 +670,52 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   }
 
+  var localClient = '';
   function networkBandwidth() {
 
-    // 1. Remote client that pushes streams only.
-    var remoteClient = AgoraRTC.createClient({ mode: 'live', codec: 'h264' });
-    // Initialize the client and join the channel.
-    var remoteStream = AgoraRTC.createStream({
-        streamID: remoteUid,
-        audio: true,
-        video: true,
-        screen: false
-    });
-    // Initialize the stream.
-    remoteStream.publish();
+    let storeData = getCurrentUserData();
 
-    // 2. Local client that subscribes to the remote stream.
-    var localClient = AgoraRTC.createClient({ mode: 'live', codec:'h264' });
+    localClient = AgoraRTC.createClient({ mode: 'live', codec:'h264' });
     // Initialize the client and join the channel.
-    // 
-      setInterval(function(){      
-        localClient.getTransportStats((stats) => {
-            console.log(`Current Transport RTT: ${stats.RTT}`);
-            console.log(`Current Network Type: ${stats.networkType}`);
-            console.log(`Current Transport OutgoingAvailableBandwidth: ${stats.OutgoingAvailableBandwidth}`);
-        });
-      }, 3000);
+    console.log('-------------------------------------------ooo')
+    // initialize client
+    localClient.init(storeData.sessionData.appId, function () {
+    console.log('-------------------------------------------HHH')
+          // create and join channel
+      localClient.join(storeData.sessionData.streamToken, storeData.sessionData.channelId.toString(), storeData.id, function(uid) {
+        // localClient.join(null, '900001', storeData.email, function(uid) {
+        console.log('-------------------------------------------uid')
+          // create local stream
+            let localStream1 = AgoraRTC.createStream({streamID: uid, audio: true, video: true, screen: false });
+          
+            localStream1.init(function() {
+
+                          localClient.publish(localStream1, function (err) {
+                            console.log("Publish local stream error: " + err);
+                          });
+
+                          
+
+
+           
+            }, function (err) {
+              console.log("getUserMedia failed", err);
+            });
+      }, function(err) {
+        console.log("Join channel failed", err);
+      });
+
+    }, function (err) {
+      console.log("AgoraRTC client init failed", err);
+    });
+
+    setInterval(function(){      
+      localClient.getTransportStats((stats) => {
+          console.log(`Current Transport RTT: ${stats.RTT}`);
+          console.log(`Current Network Type: ${stats.networkType}`);
+          console.log(`Current Transport OutgoingAvailableBandwidth: ${stats.OutgoingAvailableBandwidth}`);
+      });
+    }, 3000);   
     
   }
 
@@ -891,6 +912,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     stream1.close();
     stream2.close();
     // GoInFullscreen();
+    // localClient.leave();
     join();
     var resp_data = JSON.parse(localStorage.getItem("userData"));
     console.log('-----------hhhhhhhhh-------------------', resp_data.userType);
@@ -1045,7 +1067,7 @@ function attendeeScreenHeight(){
 
   function loadPopup(){
 
-    if($('#conf-page').length > 0){
+    // if($('#conf-page').length > 0){
       // networkBandwidth();
       if($('#media-config').length > 0){
 
@@ -1061,7 +1083,7 @@ function attendeeScreenHeight(){
       }
       // GoInFullscreen();
       rtmJoin(); 
-    }
+    // }
 
    // $(".host-script-section").height("305px"); 
    // $(".test-script").addClass("w-866");
@@ -1550,10 +1572,10 @@ function signalHandler(uid, signalData, userType) {
       }
     });
 
-    if($('#conf-page').length > 0){
-      // networkBandwidth();
+    // if($('#conf-page').length > 0){
       if($('#media-config').length > 0){
 
+        // networkBandwidth();
         $('#media-config').modal({
           backdrop : "static",
           keyboard: false
@@ -1567,7 +1589,7 @@ function signalHandler(uid, signalData, userType) {
       }
       // GoInFullscreen();
 
-    }
+    // }
     
     $(document).on('click', '#join', function(){
       join();

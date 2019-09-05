@@ -10,8 +10,10 @@ class Register extends Component {
   constructor() {
     super();
     this.state = {
-      name: "",
+      firstName: "",
+      lastName: "",
       email: "",
+      phone: "",
       password: "",
       password2: "",
       errors: {}
@@ -83,8 +85,10 @@ onChange = e => {
 onSubmit = e => {
     e.preventDefault();
 const newUser = {
-      name: this.state.name,
-      email: this.state.email,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      phone: this.state.email,
+      email: this.state.phone,
       password: this.state.password,
       password2: this.state.password2
     };
@@ -273,17 +277,33 @@ return (
               <div className="input-field col s12">
                 <input
                   onChange={this.onChange}
-                  value={this.state.name}
-                  error={errors.name}
-                  id="name"
+                  value={this.state.firstName}
+                  error={errors.firstName}
+                  id="firstName"
                   type="text"
                   className={classnames("", {
-                    invalid: errors.name
+                    invalid: errors.firstName
                   })}
                 />
-                <label htmlFor="name">Name</label>
-                <span className="red-text">{errors.name}</span>
+                <label htmlFor="firstName">First Name</label>
+                <span className="red-text">{errors.firstName}</span>
               </div>
+
+              <div className="input-field col s12">
+                <input
+                  onChange={this.onChange}
+                  value={this.state.lastName}
+                  error={errors.lastName}
+                  id="lastName"
+                  type="text"
+                  className={classnames("", {
+                    invalid: errors.lastName
+                  })}
+                />
+                <label htmlFor="lastName">Last Name</label>
+                <span className="red-text">{errors.lastName}</span>
+              </div>
+
               <div className="input-field col s12">
                 <input
                   onChange={this.onChange}
@@ -297,6 +317,21 @@ return (
                 />
                 <label htmlFor="email">Email</label>
                 <span className="red-text">{errors.email}</span>
+                
+              </div>
+              <div className="input-field col s12">
+                <input
+                  onChange={this.onChange}
+                  value={this.state.phone}
+                  error={errors.phone}
+                  id="phone"
+                  type="number"
+                  className={classnames("", {
+                    invalid: errors.phone
+                  })}
+                />
+                <label htmlFor="phone">Phone</label>
+                <span className="red-text">{errors.phone}</span>
                 
               </div>
               <div className="input-field col s12">

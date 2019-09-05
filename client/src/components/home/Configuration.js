@@ -23,8 +23,13 @@ class Configuration extends Component {
     }
   }
 
+  callfunction(){
+    $('#logout_button').trigger('click');
+  }
+
   componentDidMount(){
   this.fetchUsers();
+  
 
   let localstoragedata = JSON.parse(localStorage.getItem('userData'));
   this.setState({sessionScript: localstoragedata.sessionData.id});
@@ -37,6 +42,7 @@ class Configuration extends Component {
   this.state.timerTime = scDate;// 1 sec 1000 = 1sec
   }
   componentWillMount(){
+    // this.fetchUsers();
     //console.log(1);
     // window.test();
     this.startTimer();
@@ -63,7 +69,11 @@ class Configuration extends Component {
     }, 10);
   };
 
-
+  userList(userList) {
+      console.log('tempUsers',localStorage.getItem("tempUsers"))
+      localStorage.setItem("tempUsers", JSON.stringify(userList));
+    // }
+  }
 
   fetchUsers() {
     var userData = JSON.parse(localStorage.getItem("userData"));
@@ -74,11 +84,13 @@ class Configuration extends Component {
     fetch("/api/v1/session/"+sessionId+"/users", {headers : {'Authorization': userData.token}})
     .then(response => response.json())
     // ...then we update the users state
-    .then(data =>
-      this.setState({
-        users: data,
-        isLoading: false,
-      })
+    .then(data => {
+        this.setState({
+              users: data,
+              isLoading: false,
+              });
+      this.userList(data);
+    }
     )
       }
 
@@ -101,7 +113,6 @@ render() {
   localDate = localDate.replace('#', 'at');
   let remTime = '';
   //console.log('scheduleDate ',localDate );
-  
   
   //console.log('------hhhhhhhh----users ', this.state.users)
  let users1 = this.state.users.map((user, idx) => {
@@ -271,8 +282,22 @@ return (
               </div>
               <div className="col-lg-3">
                 <div className="d-flex justify-content-end flex-wrap">
-                  <button type="submit" class="mr-2 btn-cancel btn btn-large btn-outline-secondary rounded py-1 px-3">Leave</button>
-                  <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded" id="continue-join">join</button>
+
+
+
+                  <button type="submit" class="mr-2 btn-cancel btn btn-large btn-outline-secondary rounded py-1 px-3" onClick={this.callfunction.bind(this)} >Leave</button>
+                  
+                  {(
+                    ()=>{
+                        if(localstoragedata.userType == 1){
+                  return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr="'+localstoragedata.userType+'" id="continue-join">join</button>;
+                        }
+                        else{
+                         return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis"  data-attr="'+localstoragedata.userType+'"  id="continue-join">join</button>;
+                        }
+                    }
+                  )()}
+
                 </div>
               </div>
             

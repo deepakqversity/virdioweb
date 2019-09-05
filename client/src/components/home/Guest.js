@@ -33,8 +33,8 @@ class Guest extends Component {
   
 
   handRaise(){
-    var ID=this.state.getID;
-    console.log(ID);
+    // var ID=this.state.getID;
+    // console.log(ID);
     $('#handRaiseClient_button').trigger('click');
   }
 

@@ -64,12 +64,25 @@ class Guest extends Component {
     $('#score_button').trigger('click');
   }
   
+  loadScript = function (src) {
+    var tag = document.createElement('script');
+    tag.async = false;
+    tag.src = src;
+    
+    var body = document.getElementsByTagName('html')[0];
+    body.appendChild(tag);
+  }
+
   componentDidMount(){
     
-    if(localStorage.getItem('load-page') != 1){  
-        window.loadPopup();
-      localStorage.setItem("load-page", 1);
-    }
+    this.loadScript('/AgoraRTCSDK-2.7.1.js');
+    this.loadScript('/agora-rtm-sdk-1.0.0.js');
+    this.loadScript('/main.js');
+
+    // if(localStorage.getItem('load-page') != 1){  
+    //     window.loadPopup();
+    //   localStorage.setItem("load-page", 1);
+    // }
     
     let localstoragedata = JSON.parse(localStorage.getItem('userData'));
 
@@ -289,7 +302,6 @@ return (
       </div>
     </div>
     <Config />
-    <input type="hidden" id="conf-page" />
 
   </div>
     );

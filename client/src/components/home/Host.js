@@ -41,41 +41,39 @@ class Host extends Component {
   sendMsgAll(){
     $('#msgToAll_button').trigger('click');
   }
+  
+  loadScript = function (src) {
+    var tag = document.createElement('script');
+    tag.async = false;
+    tag.src = src;
+    
+    var body = document.getElementsByTagName('html')[0];
+    body.appendChild(tag);
+  }
 
   componentDidMount(){
 
-  // console.log(2);    //
-    if(localStorage.getItem('load-page') != 1){  
-        window.loadPopup();
-      localStorage.setItem("load-page", 1);
-    }
-    
-    // let sessionId = localStorage.getItem('sessionId');
+    this.loadScript('/AgoraRTCSDK-2.7.1.js');
+    this.loadScript('/agora-rtm-sdk-1.0.0.js');
+    this.loadScript('/main.js');
+
+    // if(localStorage.getItem('load-page') != 1){  
+    //     window.loadPopup();
+    //   localStorage.setItem("load-page", 1);
+    // }
+
     let localstoragedata = JSON.parse(localStorage.getItem('userData'));
     this.setState({sessionScript: localstoragedata.sessionData.id});
     let scDate = localstoragedata.sessionData.scheduleDate;
 
-    console.log('scDate= ',scDate, new Date(scDate).getTime(), new Date().getTime())
+    // console.log('scDate= ',scDate, new Date(scDate).getTime(), new Date().getTime())
 
     scDate = (new Date(scDate).getTime()) - (new Date().getTime());
     console.log('scDate- ', scDate)
     this.state.timerTime = scDate;// 1 sec 1000 = 1sec
-
-    // fetch('/api/v1/session/'+sessionId, {headers : {'Authorization': localstoragedata.token}})
-    // .then(response => { return response.json(); })
-    // .then(data => {
-    //   // console.log('data=================', data);
-    //   this.setState({sessionScript: data.id});
-    //   localStorage.setItem('currentSession', JSON.stringify(data));
-        
-    // });
   }
   componentWillMount(){
-    // const { timerTime, timerOn } = this.state;
-    
     this.startTimer();
-    //console.log(1);
-    // window.test();
   }
 
   startTimer = () => {
@@ -265,7 +263,6 @@ return (
 
       </div>
 
-      <input type="hidden" id="conf-page" />
       <Config />
   </div>
     );

@@ -1067,7 +1067,7 @@ function attendeeScreenHeight(){
 
   function loadPopup(){
 
-    if($('#conf-page').length > 0){
+    // if($('#conf-page').length > 0){
       // networkBandwidth();
       if($('#media-config').length > 0){
 
@@ -1083,7 +1083,7 @@ function attendeeScreenHeight(){
       }
       // GoInFullscreen();
       rtmJoin(); 
-    }
+    // }
 
    // $(".host-script-section").height("305px"); 
    // $(".test-script").addClass("w-866");
@@ -1572,10 +1572,10 @@ function signalHandler(uid, signalData, userType) {
       }
     });
 
-    if($('#conf-page').length > 0){
-      // networkBandwidth();
+    // if($('#conf-page').length > 0){
       if($('#media-config').length > 0){
 
+        // networkBandwidth();
         $('#media-config').modal({
           backdrop : "static",
           keyboard: false
@@ -1589,7 +1589,7 @@ function signalHandler(uid, signalData, userType) {
       }
       // GoInFullscreen();
 
-    }
+    // }
     
     $(document).on('click', '#join', function(){
       join();

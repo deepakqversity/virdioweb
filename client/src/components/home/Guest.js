@@ -183,10 +183,10 @@ return (
       
       <FooterScriptParticipant sessId={userData.sessionData.id} />
 
-      <div className="self-video1 mt-3 w-25">
+      <div className="self-video1 mt-3 w-50">
           <button type="button" id="show-everyone" className="mb-2 minimize-others btn btn-outline-secondary mx-auto">"Show Everyone"</button>
           
-          <div id="agora_local" className="video-streams guest-video"></div>
+          <div id="agora_local" className="video-streams guest-video" style={videoAspect}></div>
           
       </div>
     </footer>
@@ -299,7 +299,11 @@ const toggleList = {
   width: '72px',
   float: 'right'
 }
-
+const videoAspect = {
+  width: "220px",
+  height: "124px",
+  float: "right"
+}
 Guest.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired

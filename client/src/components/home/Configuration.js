@@ -195,7 +195,17 @@ return (
           <div className="col-12 col-md-3 col-lg-3">
             <div className="bg-gray h-100 position-relative pad15 rounded">
               <h6 className="small-heading mb-3">Network Reliability</h6>
-                <i class="fa fa-wifi fill-wifi" aria-hidden="true"></i>
+                
+              <div class="fill-wifi waveStrength-3">
+                <div class="wv4 wave">
+                  <div class="wv3 wave">
+                    <div class="wv2 wave">
+                      <div class="wv1 wave">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div className="row">
                 <div className="col-lg-4 col-md-6">
                   <span className="online-total">Online streams on screen</span>

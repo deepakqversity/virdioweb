@@ -1594,13 +1594,30 @@ img.user-login{
 	font-size:20px !important;
 }
 .fill-wifi{
-    color: #6DD400;
-    font-size: 80px;
-    position: absolute;
-    right: 10px;
-        top: 50%;
-    margin-top: -40px;
+position: absolute;
+    right: -5px;
+    bottom: 10px;
+    height: 62px;
 }
+.wave {
+	display: inline-block;
+	border: 10px solid transparent;
+	border-top-color: #6DD400;
+	border-radius: 50%;
+	border-style: solid;
+	margin: 5px;
+}
+  
+  
+.waveStrength-3 .wv4.wave,
+.waveStrength-2 .wv4.wave,
+.waveStrength-2 .wv3.wave,
+.waveStrength-1 .wv4.wave,
+.waveStrength-1 .wv3.wave,
+.waveStrength-1 .wv2.wave {
+	border-top-color: #eee;
+}  
+
 .btn-join{
 	background: rgba(189,0,255, 0.53) !important;
     border-color: rgba(189,0,255, 0.53) !important;
@@ -1641,13 +1658,10 @@ img.user-login{
 	border:0;
 }
 .fill-wifi {
-    color: #6DD400;
-    font-size: 52px;
     position: absolute;
-    right: 10px;
-    top: auto;
-    margin-top: -40px;
-    bottom: 4px;
+    right: -5px;
+    bottom: 10px;
+    height: 62px;
 }
 .time-session{
 	    display: flex;

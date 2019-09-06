@@ -121,18 +121,18 @@ return (
                     <img src="/images/login-logo.png" className="login-logo" />
                   </div>
                   <div className="select-usertype">
-                    <div className="col-sm-6 op1"  >
+                    <div className="col-sm-6 op1"  onClick={this.nextSlideFunc}>
                       <div className="select-client">
                         <img className="select-icon" src="/images/participate-icon.png" />
-                        <input class="form-radio select-this" ref="abc" value="0" name="select-usertype" type="radio" onClick={this.nextSlideFunc} />
+                        <input class="form-radio select-this" ref="abc" value="0" name="select-usertype" type="radio"  />
                         
                       </div>
                       <p className="text-right d-block float-right w-100">I want to participate in a session</p>
                     </div>
-                    <div className="col-sm-6 op1" >
+                    <div className="col-sm-6 op1" onClick={this.nextSlideFunc}>
                       <div className="select-host">
                         <img className="select-icon" src="/images/host-icon.png" />
-                        <input class="form-radio select-this" ref="abc" value="1"  name="select-usertype" type="radio" onClick={this.nextSlideFunc} />
+                        <input class="form-radio select-this" ref="abc" value="1"  name="select-usertype" type="radio"  />
                         
                       </div>
                       <p className="text-left d-block float-left w-100">I want to host a session</p>

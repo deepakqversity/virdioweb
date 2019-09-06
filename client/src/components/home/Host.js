@@ -140,13 +140,22 @@ return (
     <div className="container justify-content-between d-flex flex-column h-100 position-relative">
     <header className="header bg-gray mt-0 position-fixed">
       <div className="row d-block d-md-flex align-items-center">
-        <div className="col-12 col-md-1">
-          <a href="#" className="logo d-table mx-auto py-xs-1">
-            <img src="images/logo.png" />
-          </a>
+        <div className="col-12 col-md-1 ">
+          <div className="count-box position-relative">
+            <div className="countdown">
+              <svg>
+                <circle r="26" cx="30" cy="30"></circle>
+              </svg>
+              <a href="#" className="host-logo logo">
+                <img src="images/v-logo.png" />
+              </a>
+            </div>
+            
+          </div>
+          
         </div>
         <div className="col col-md-11">
-          <h3 className="main-heading">{sessionData.name} <span>by <span className="welcome-title">{sessionData.hostName.toLowerCase()}</span></span>
+          <h3 className="main-heading">{sessionData.name} <span>by <span className="welcome-title">{sessionData.hostName.toLowerCase()}</span><span class="green-online online-status"><span>ONLINE</span></span></span>
           <button className="position-absolute logout-btn" onClick={this.callfunction.bind(this)} tabIndex="1">
                 <i className="fa fa-times" aria-hidden="true"></i>
           </button>

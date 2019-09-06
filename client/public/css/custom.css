@@ -222,6 +222,15 @@ h3.main-heading span{
     font-family: Avenir-Book;
     font-size: 20px;
     color: #D8D8D8;
+	    position: relative;
+}
+h3.main-heading span span span {
+    font-size: 12px;
+    margin-left: 35px;
+    position: relative;
+}
+.header .online-status span::after{
+	    left: -15px !important;
 }
 .logout-btn{
     right: 18px;
@@ -272,11 +281,17 @@ h3.main-heading span{
     grid-template-columns: auto auto;
 }
 }
+.logo{
+    position: absolute;
+    top: 15px;
+    left: 20px;
+}
+.header .count-box .countdown{
+	    left: 10px;
+}
 
 @media (max-width: 1024px){
-	.logo img{
-		margin-left:10px;
-	}
+
 	h3.main-heading{
 		    font-size: 18px;
 	}
@@ -319,7 +334,7 @@ h3.main-heading span{
 
 /* 3. Header */
 .logo img{
-	width:52px;
+	width:22px;
 }
 /*.header{
     border-radius: 10px;
@@ -1043,7 +1058,9 @@ display:none;
 	padding:10px;
 	border:1.5px solid transparent;
 }
-.swiper-slide-next .count-box svg circle {
+.swiper-slide-next .count-box svg circle, 
+.footer-fitness-script svg circle, 
+.header svg circle{
   stroke-dasharray: 160px;
   stroke-dashoffset: 0px;
   stroke-linecap: round;
@@ -1053,16 +1070,7 @@ display:none;
   animation: countdown 30s linear infinite forwards;
   animation-direction: reverse;
 }
-.footer-fitness-script svg circle {
-  stroke-dasharray: 160px;
-  stroke-dashoffset: 0px;
-  stroke-linecap: round;
-  stroke-width: 6px;
-  stroke: #9b51e0;
-  fill: none;
-  animation: countdown 30s linear infinite forwards;
-  animation-direction: reverse;
-}
+
 .swiper-slide{
 	box-sizing:border-box;
 }
@@ -1539,7 +1547,7 @@ img.user-login{
 	font-size:12px !important;
 	padding-left: 15px;
 }
-.prescreen-popup .online-status::after{
+.prescreen-popup .online-status::after, .header .online-status span::after{
 	content: '';
     width: 10px;
     height: 10px;

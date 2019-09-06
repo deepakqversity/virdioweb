@@ -1220,7 +1220,7 @@ function signalHandler(uid, signalData, userType) {
         // {
         let message="User "+senderId+" has joined on  "+ res1[1];
         $('#newmsg').html(message);
-        setTimeout(function(){ $('#newmsg').html(''); }, 10000); 
+        // setTimeout(function(){ $('#newmsg').html(''); }, 10000); 
      
       //  $('#hostmsg').html(message);
       //   setTimeout(function(){ $('#hostmsg').html(''); }, 10000);

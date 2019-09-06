@@ -24,7 +24,8 @@ class Configuration extends Component {
   }
 
   callfunction(){
-    $('#logout_button').trigger('click');
+    // $('#logout_button').trigger('click');
+    window.leaveLogout();
   }
 
   componentDidMount(){

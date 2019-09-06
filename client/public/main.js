@@ -1458,6 +1458,15 @@ function signalHandler(uid, signalData, userType) {
        // console.log('********Rammmmmmmmmmmmm************** signalData ', signalData, userType);
       }
 
+      function leaveLogout(){
+          // localStream.stop();
+          leave_channel();
+          removeSession();
+          location.href  = '/login';
+      }
+
+
+
       $(document).ready(function(){
         var locaData = getCurrentUserData();
         console.log('----------localData--',locaData.id)
@@ -1744,7 +1753,6 @@ function signalHandler(uid, signalData, userType) {
         location.href  = '/login';
         // location.reload();
       });
-
    
       $(document).on('click', '#fullscreen', function(){
         GoInFullscreen();

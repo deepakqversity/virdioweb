@@ -960,8 +960,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     var resp_data = JSON.parse(localStorage.getItem("userData"));
     console.log('-----------hhhhhhhhh-------------------', resp_data.userType);
       if(resp_data.userType == 1)
-      {
-      $('.dis').removeAttr("disabled");
+      {     
        // $('.dis').attr("disabled", false);
      //  $('.dis[data-attr=\''+signalData.data+'\']').removeClass("d-none");
      var text ="222";
@@ -1155,7 +1154,7 @@ function attendeeScreenHeight(){
 
   function removeSession(){
     localStorage.removeItem("userData");
-    // localStorage.removeItem("sessionId");
+    localStorage.removeItem("tempUsers");
     localStorage.removeItem("load-page");
   }
   var resetCount = '';
@@ -1277,6 +1276,7 @@ function signalHandler(uid, signalData, userType) {
 
       }else if(res1[0] == "222")
       {
+        $('#continue-join').removeAttr("disabled");
         let newmsg="Now U can Join";
         $('#newmsg').html(newmsg);
         setTimeout(function(){ $('#newmsg').html(''); }, 10000);    
@@ -1499,6 +1499,12 @@ function signalHandler(uid, signalData, userType) {
       }
 
       $(document).ready(function(){
+        var locaData = getCurrentUserData();
+        console.log('----------localData--',locaData.id)
+      if(locaData.id == 1){
+        $('#continue-join').removeAttr("disabled");
+      }
+        // $('.dis').attr("disabled", false);
       
         $(document).on("click", ".start span a", function(){
          $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
@@ -1603,7 +1609,7 @@ function signalHandler(uid, signalData, userType) {
 
     
     window.onresize = onPageResize;
-
+   
     $(document).on('click', '#continue-join', function(){
       continueJoin();
     });

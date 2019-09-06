@@ -1560,6 +1560,9 @@ img.user-login{
     padding-top: 2px;
     padding-bottom: 2px;
 }
+.detect-mic>div{
+	margin-right:15px;
+}
 .prescreen-popup .modal-footer{
 	border:none;
 	    justify-content: space-between;

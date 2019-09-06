@@ -207,11 +207,11 @@ return (
             <div className="bg-gray h-100 position-relative pad15 rounded">
               <h6 className="small-heading mb-3">Network Reliability</h6>
                 
-              <div class="fill-wifi waveStrength-3">
-                <div class="wv4 wave">
-                  <div class="wv3 wave">
-                    <div class="wv2 wave">
-                      <div class="wv1 wave">
+              <div className="fill-wifi waveStrength-3">
+                <div className="wv4 wave">
+                  <div className="wv3 wave">
+                    <div className="wv2 wave">
+                      <div className="wv1 wave">
                       </div>
                     </div>
                   </div>
@@ -232,7 +232,7 @@ return (
             <div className="h-100 bg-gray position-relative pad15 rounded">
               <h6 className="small-heading mb-0">Select Microphone</h6>
               <div className="col-lg-12">
-                <div className="row check-camera flex-wrap" id="audio-media-content"></div>
+                <div className="row check-camera detect-mic flex-wrap" id="audio-media-content"></div>
               </div>
             </div>
           </div>
@@ -283,20 +283,17 @@ return (
               <div className="col-lg-3">
                 <div className="d-flex justify-content-end flex-wrap">
 
-
-
-                  <button type="submit" class="mr-2 btn-cancel btn btn-large btn-outline-secondary rounded py-1 px-3" onClick={this.callfunction.bind(this)} >Leave</button>
-                  
-                  {(
+                  <button type="submit" className="mr-2 btn-cancel btn btn-large btn-outline-secondary rounded py-1 px-3" onClick={this.callfunction.bind(this)} >Leave</button>
+                  <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis"  id="continue-join" disabled>join</button>
+                  {/* {(
                     ()=>{
-                        if(localstoragedata.userType == 1){
-                  return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" id="continue-join">join</button>;
-                        }
-                        else{
-                         return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" id="continue-join">join</button>;
+                        if(localstoragedata.userType == 1) {
+                          return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr="'+localstoragedata.userType+'" id="continue-join">join</button>;
+                        } else {
+                          return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr="'+localstoragedata.userType+'" id="continue-join">join</button>;
                         }
                     }
-                  )()}
+                  )()} */}
 
                 </div>
               </div>

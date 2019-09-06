@@ -1461,9 +1461,9 @@ function signalHandler(uid, signalData, userType) {
       $(document).ready(function(){
         var locaData = getCurrentUserData();
         console.log('----------localData--',locaData.id)
-      if(locaData.id == 1){
-        $('#continue-join').removeAttr("disabled");
-      }
+      // if(locaData.id == 1){
+        // $('#continue-join').removeAttr("disabled");
+      // }
         // $('.dis').attr("disabled", false);
       
         $(document).on("click", ".start span a", function(){

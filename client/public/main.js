@@ -1111,6 +1111,7 @@ function attendeeScreenHeight(){
     localStorage.removeItem("userData");
     localStorage.removeItem("tempUsers");
     localStorage.removeItem("load-page");
+    localStorage.removeItem("channel");
   }
   var resetCount = '';
 

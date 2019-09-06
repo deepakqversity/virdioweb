@@ -232,7 +232,7 @@ return (
             <div className="h-100 bg-gray position-relative pad15 rounded">
               <h6 className="small-heading mb-0">Select Microphone</h6>
               <div className="col-lg-12">
-                <div className="row check-camera flex-wrap" id="audio-media-content"></div>
+                <div className="row check-camera detect-mic flex-wrap" id="audio-media-content"></div>
               </div>
             </div>
           </div>

@@ -284,7 +284,7 @@ return (
                 <div className="d-flex justify-content-end flex-wrap">
 
                   <button type="submit" className="mr-2 btn-cancel btn btn-large btn-outline-secondary rounded py-1 px-3" onClick={this.callfunction.bind(this)} >Leave</button>
-                  { {(
+                  {(
                     ()=>{
                         if(localstoragedata.userType == 1) {
                           return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr="'+localstoragedata.userType+'" id="continue-join">join</button>;
@@ -292,7 +292,7 @@ return (
                           return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr="'+localstoragedata.userType+'" id="continue-join" disabled>join</button>;
                         }
                     }
-                  )()} }
+                  )()}
 
                 </div>
               </div>

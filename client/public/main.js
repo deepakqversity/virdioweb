@@ -17,11 +17,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   var client, localStream, camera, microphone;
 
-  //var appId = '748f9639fa864651bef8419d5870ec50';// provided by arjun 
-
-   //var appId = '232f270a5aeb4e0097d8b5ceb8c24ab3';
-  var appId = '';
-
   function join() {
 
     let camera = microphone= null;
@@ -49,7 +44,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
         console.log('Media device not found==')
         return false;
       }
-
     }
 
     console.log('camera, microphone = ', camera, microphone)
@@ -117,46 +111,26 @@ if(!AgoraRTC.checkSystemRequirements()) {
         
             localStream.init(function() {
 
-                if(storeData.userType != 1){
-                  localStream.muteAudio();
-                } 
-          
-                console.log("getUserMedia successfully", storeData.sessionData.id, storeData.id);
-                localStream.play('agora_local');
-                
-                // $.ajax({
-                //     headers: { 
-                //         "Content-Type": "application/json; charset=utf-8",
-                //         "Authorization": storeData.token
-                //     },
-                //     url: '/api/v1/session/'+storeData.sessionData.id+'/stream-id',
-                //     dataType: 'json',
-                //     type: 'PUT',
-                //     contentType: 'application/json',
-                //     data: JSON.stringify({ "streamId": uid, "userType": parseInt(storeData.userType) }),
-                //     success: function( data, textStatus, jQxhr ){
-                        
-                        if(storeData.userType == 1){
+              if(storeData.userType != 1){
+                localStream.muteAudio();
+              } 
+        
+              console.log("getUserMedia successfully", storeData.sessionData.id, storeData.id);
+              localStream.play('agora_local');
+              
+              if(storeData.userType == 1){
 
-                          client.publish(localStream, function (err) {
-                            console.log("Publish local stream error: " + err);
-                          });
+                client.publish(localStream, function (err) {
+                  console.log("Publish local stream error: " + err);
+                });
 
-                          client.on('stream-published', function (evt) {
-                            console.log("Publish local stream successfully");
-                            // console.log('localStream ==========================*******************', localStream)
-                            console.log('client ------------', client)
-                          });
+                client.on('stream-published', function (evt) {
+                  console.log("Publish local stream successfully");
+                });
 
-                        } else {
-                          // publish();
-                        }
-                //     },
-                //     error: function( jqXhr, textStatus, errorThrown ){
-                //         console.log( errorThrown );
-                //     }
-                // });
-           
+              } else {
+                // publish();
+              }
             }, function (err) {
               console.log("getUserMedia failed", err);
             });
@@ -614,37 +588,18 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   function onclickaudioOn(audienceID)
   {
-    // let allVdo = $('#subscribers-list video');   
-    // let allAdo = $('#subscribers-list audio');   
     let audienceEmail = convertIdToEmail(audienceID);
 
     let vdo = $('#subscribers-list #agora_remote'+ audienceID + ' video' )[0];   
     let ado = $('#subscribers-list #agora_remote'+ audienceID + ' audio' )[0];   
 
-    // $.each(allVdo, function (index, value) {
-    //   allVdo[index].muted = true;
-    //   allAdo[index].muted = true;
-    // });
+    vdo.muted = true;
+    ado.muted = true;
 
-    let massages = '';
-    let codes='';
-    if(vdo.muted || ado.muted){
-      console.log('unmute successfully')
-      vdo.muted = false;
-      ado.muted = false;
-      $('#subscribers-list #agora_remote'+ audienceID).find('.microphone-icon').removeClass('microphone-icon-mute');
-    //  massages="209~@$UNMUTE,Now You Become a Broadcaster"; 
-      massages='209~@$A';
-      
-    } else {
-      vdo.muted = true;
-      ado.muted = true;
-      $('#subscribers-list #agora_remote'+ audienceID).find('.microphone-icon').addClass('microphone-icon-mute');
-     // massages="204~@$MUTEP,Now You Become a Audience";
-      massages='204~@$'
-      
-    }
+    $('#subscribers-list #agora_remote'+ audienceID).find('.hand-icon').addClass('d-none');
+    $('#subscribers-list #agora_remote'+ audienceID).find('.microphone-icon').addClass('d-none');
 
+    let massages='204~@$'
     sendMessage(audienceEmail, massages);
   }
 
@@ -1213,6 +1168,11 @@ function signalHandler(uid, signalData, userType) {
      // console.log('********gudu************** signalData ', signalData,uid, userType); 
       $('#hostmsg').html(' MUTEP,Now You Become a Audience');
       setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
+
+      // hand down and mute from channel
+      downHand()
+      $('#mocrophone-off').removeClass('d-none');
+      $('#mocrophone-on').addClass('d-none');
 
     }else if(resultant[0] == '203') {
      // console.log('********gudu************** signalData ', signalData,uid, userType); 

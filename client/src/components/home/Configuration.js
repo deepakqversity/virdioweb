@@ -256,7 +256,7 @@ return (
               <div className="col-lg-9">
               <span id='newmsg' style={{color:'green'}}></span>
                 <h6 className="small-heading mb-3 no-border">Just joined</h6>
-                <div className="">
+                <div className="d-none">
                   <div className="joiners d-flex flex-wrap">
                     <span>
                       <img src="images/avtar.png" />
@@ -280,6 +280,7 @@ return (
                     </span>
                   </div>
                 </div>
+
               </div>
               <div className="col-lg-3">
                 <div className="d-flex justify-content-end flex-wrap">

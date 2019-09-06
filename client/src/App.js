@@ -53,11 +53,11 @@ class App extends Component {
       <div className="App">
         <Navbar />
         <Route exact path="/" component={Login} />
-          <Route exact path="/register" component={Register} />
+          <Route exact path="/session-type" component={Register} />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/verification" component={Verification} />
-          <Route exact path="/registerationform" component={RegisterForm} />
-          <Route exact path="/verifyuser" component={VerifyUserRegister} />
+          <Route exact path="/verify" component={Verification} />
+          <Route exact path="/register" component={RegisterForm} />
+          <Route exact path="/verify-status" component={VerifyUserRegister} />
           <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute exact path="/home" component={Home} />

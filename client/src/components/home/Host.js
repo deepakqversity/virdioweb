@@ -155,7 +155,7 @@ return (
           
         </div>
         <div className="col col-md-11">
-          <h3 className="main-heading">{sessionData.name} <span>by <span className="welcome-title">{sessionData.hostName.toLowerCase()}</span><span class="green-online online-status"><span>ONLINE</span></span></span>
+          <h3 className="main-heading">{sessionData.name} <span>by <span className="welcome-title">{sessionData.hostName.toLowerCase()}</span><span className="green-online online-status"><span>ONLINE</span></span></span>
           <button className="position-absolute logout-btn" onClick={this.callfunction.bind(this)} tabIndex="1">
                 <i className="fa fa-times" aria-hidden="true"></i>
           </button>

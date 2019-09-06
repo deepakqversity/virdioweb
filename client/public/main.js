@@ -1461,10 +1461,12 @@ function signalHandler(uid, signalData, userType) {
       $(document).ready(function(){
       
         $(document).on("click", ".start span a", function(){
+          
          $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
          $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
         $(".swiper-slide.start a").prop('disabled', true);
          countDown();
+         mySwiper.slideNext();
         })
          
          $(document).on("click", ".swiper-btns .swiper-btn-next", function(e){
@@ -1475,7 +1477,7 @@ function signalHandler(uid, signalData, userType) {
            countDown();
          })
 
-    setTimeout(function(){ countDown(); }, 10);
+    //setTimeout(function(){ countDown(); }, 10);
     // leaveRtm();
      // rtmJoin();
     

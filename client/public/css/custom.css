@@ -287,8 +287,8 @@ h3.main-heading span span span {
     left: 20px;
 }
 .header .count-box .countdown{
-	    left: 10px;
-		    margin: 0 !important;
+	left: 10px;
+	margin: 0 !important;
 }
 
 @media (max-width: 1024px){

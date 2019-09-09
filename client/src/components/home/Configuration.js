@@ -24,7 +24,8 @@ class Configuration extends Component {
   }
 
   callfunction(){
-    $('#logout_button').trigger('click');
+    // $('#logout_button').trigger('click');
+    window.leaveLogout();
   }
 
   componentDidMount(){
@@ -255,7 +256,7 @@ return (
               <div className="col-lg-9">
               <span id='newmsg' style={{color:'green'}}></span>
                 <h6 className="small-heading mb-3 no-border">Just joined</h6>
-                <div className="">
+                <div className="d-none">
                   <div className="joiners d-flex flex-wrap">
                     <span>
                       <img src="images/avtar.png" />
@@ -279,20 +280,18 @@ return (
                     </span>
                   </div>
                 </div>
+
               </div>
               <div className="col-lg-3">
                 <div className="d-flex justify-content-end flex-wrap">
 
-
-
                   <button type="submit" className="mr-2 btn-cancel btn btn-large btn-outline-secondary rounded py-1 px-3" onClick={this.callfunction.bind(this)} >Leave</button>
-                  
                   {(
                     ()=>{
                         if(localstoragedata.userType == 1) {
                           return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr="'+localstoragedata.userType+'" id="continue-join">join</button>;
                         } else {
-                          return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr="'+localstoragedata.userType+'" id="continue-join">join</button>;
+                          return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr="'+localstoragedata.userType+'" id="continue-join" disabled>join</button>;
                         }
                     }
                   )()}

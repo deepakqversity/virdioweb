@@ -6,6 +6,23 @@ import { logoutUser, joinConf} from "../../actions/authActions";
 import $ from 'jquery';
 
 class VerifyUserRegister extends Component {
+    componentDidMount(){
+        $("body").addClass("registration");
+        $(".click-sms").click(function(){
+            $(".by-sms>div").css("background", "rgba(216,216,216,0.20)");
+            $(".by-email>div").css("background", "rgba(216,216,216,0.10)");
+            $(".otp-section").show();
+            $(".link-section").hide();
+          });
+          $(".click-link").click(function(){
+            $(".by-email>div").css("background", "rgba(216,216,216,0.20)");
+            $(".by-sms>div").css("background", "rgba(216,216,216,0.10)");
+            $(".otp-section").hide();
+            $(".link-section").show();
+          });
+    }
+
+
     render(){
         return(
     <div className="container h-100" style={container}>

@@ -1465,8 +1465,9 @@ function signalHandler(uid, signalData, userType) {
          $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
          $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
         $(".swiper-slide.start a").prop('disabled', true);
+        $(".swiper-btn-next").css("display", "block")
          countDown();
-         mySwiper.slideNext();
+         
         })
          
          $(document).on("click", ".swiper-btns .swiper-btn-next", function(e){
@@ -1474,6 +1475,7 @@ function signalHandler(uid, signalData, userType) {
            clearInterval(resetCount);
            // Now you can use all slider methods like
            mySwiper.slideNext();
+           $(".swiper-wrapper .swiper-slide:nth-last-child(2)").hasClass("swiper-slide-next") ? $(".swiper-btn-next").css("display", "none") : $(".swiper-btn-next").css("display", "block");
            countDown();
          })
 

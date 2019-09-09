@@ -26,7 +26,7 @@ class Register extends Component {
   nextSlideFunc = (e) => {
     let v1 = $('radio[name=""]:ckecked').val();
     localStorage.setItem("userRegisterType", $('radio[name=""]:ckecked').val());
-      this.props.history.push("/registerationform");
+      this.props.history.push("/register");
     
     
     //this.props.history.push('/registerationform')
@@ -67,18 +67,7 @@ class Register extends Component {
       } 
     });
     
-  $(".click-sms").click(function(){
-    $(".by-sms>div").css("background", "rgba(216,216,216,0.20)");
-    $(".by-email>div").css("background", "rgba(216,216,216,0.10)");
-    $(".otp-section").show();
-    $(".link-section").hide();
-  });
-  $(".click-link").click(function(){
-    $(".by-email>div").css("background", "rgba(216,216,216,0.20)");
-    $(".by-sms>div").css("background", "rgba(216,216,216,0.10)");
-    $(".otp-section").hide();
-    $(".link-section").show();
-  });
+ 
 
   }
 
@@ -111,7 +100,7 @@ render() {
     const { errors } = this.state;
 return (
       <div className="container h-100" style={container}>
-        <div className="h-100">
+        <div className="h-100 d-flex align-items-center">
           <div className="register-page">
           
          

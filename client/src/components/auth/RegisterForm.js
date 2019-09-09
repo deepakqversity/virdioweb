@@ -11,9 +11,8 @@ class RegisterForm extends Component {
     nextSlideFunc = (e) => {
         e.preventDefault();
         
-          this.props.history.push("/verifyuser");
-        
-        
+          this.props.history.push("/verify-status");
+
         //this.props.history.push('/registerationform')
       }
 
@@ -21,9 +20,9 @@ class RegisterForm extends Component {
     render(){
         return (
         <div className="container h-100" style={container}>
-            <div className="h-100">
+            <div className="h-100 d-flex align-items-center">
                 <div className="register-page">
-                <div className="col-12">
+                <div className="">
                   <img src="/images/login-logo.png" className="login-logo" />
                       <p className="login-tagline">Signing up as a Host</p>
                       

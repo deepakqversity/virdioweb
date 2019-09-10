@@ -205,7 +205,9 @@ return (
                         )}
                         <div className="swiper-slide end">
                           <span>
-                            <a href="#">End</a>
+                            <h4>End of Script</h4>
+                            <img src="images/end-script.png" />
+                            <a href="#" className="btn btn-primary mx-auto d-table">End Session</a>
                           </span>
                         </div>
                       </div>

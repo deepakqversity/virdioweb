@@ -250,7 +250,7 @@ return (
           </div>
         </div>
         <div className="col-6 col-lg-3 col-md-4 col-sm-5 attendy-fullscreen attendy-fullscreen">
-          <button type="button" className="btn btn-outline-secondary float-right mt-1 show-hide-footer-panel">"Show Attendees"</button>
+          <button type="button" className="btn btn-outline-secondary float-right mt-1 show-hide-footer-panel mr-3">"Show Attendees"</button>
           <a className="fullscreen" href="#" id="fullscreen"><img src="images/full-screen.png" /></a>
         </div>
       </div>

@@ -1003,7 +1003,7 @@ function attendeeScreenHeight(){
     let hostHeight = $(".host-script-section").height();
     let sectionHeights = winHeight - (hostHeight + headerHeight);
 
-    $("#subscribers-list").height(`${sectionHeights - 111}px`)
+    $("#subscribers-list").height(`${sectionHeights - 116}px`)
     
     let sub_list_y = $("#subscribers-list").height(); 
     let sub_list_x = $("#subscribers-list").width(); 
@@ -1504,6 +1504,7 @@ function signalHandler(uid, signalData, userType) {
 
 
       $(document).ready(function(){
+        onPageResize();
         var locaData = getCurrentUserData();
         console.log('----------localData--',locaData.id)
       // if(locaData.id == 1){
@@ -1581,7 +1582,7 @@ function signalHandler(uid, signalData, userType) {
     $(".show-hide-script").click(function(){
       
       $(this).text($(this).text() == '"Hide Script"' ? '"Show Script"' : '"Hide Script"');
-      showHideScript();
+      //showHideScript();
       //$(".add-remove-flex").removeClass( ? '" "' : '"flex-grow-1"');
       
       $(".script-section").slideToggle();
@@ -1619,6 +1620,7 @@ function signalHandler(uid, signalData, userType) {
 
     
     window.onresize = onPageResize;
+    
    
     $(document).on('click', '#continue-join', function(){
       continueJoin();

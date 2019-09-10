@@ -9,6 +9,7 @@ const otpModel = require('../../models/Otp');
 const sessionScriptModel = require('../../models/SessionScript');
 const clientToken = require( process.cwd() + '/util/ClientToken');
 const utils = require(process.cwd() + '/util/Utils');
+const defaultConfig = require(process.cwd() + '/config/default.config');
 
 const saltRounds = 10;
 
@@ -73,6 +74,8 @@ class UserCtrl {
 						}
 
 						userObj = underscore.omit(userObj, 'password');
+						
+						underscore.extend(userObj, defaultConfig);
 
 						res.status(200).send(userObj);
 					} else {

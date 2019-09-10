@@ -928,30 +928,65 @@ if(!AgoraRTC.checkSystemRequirements()) {
     $(".host-script-section").height("255px");
     $(".host-section").css({"min-width": "380px", "max-width": "380px"});
   }
-
-  function GoInFullscreen() {
-    let element = document.documentElement
-
-    if(element.requestFullscreen)
-      element.requestFullscreen();
-    else if(element.mozRequestFullScreen)
-      element.mozRequestFullScreen();
-    else if(element.webkitRequestFullscreen)
-      element.webkitRequestFullscreen();
-    else if(element.msRequestFullscreen)
-      element.msRequestFullscreen();
+  function toggleFullScreen() {
+    if ((document.fullScreenElement && document.fullScreenElement !== null) ||    
+     (!document.mozFullScreen && !document.webkitIsFullScreen)) {
+      if (document.documentElement.requestFullScreen) {  
+        document.documentElement.requestFullScreen();  
+      } else if (document.documentElement.mozRequestFullScreen) {  
+        document.documentElement.mozRequestFullScreen();  
+      } else if (document.documentElement.webkitRequestFullScreen) {  
+        document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);  
+      } 
+      $("#fullscreen img").attr("src", "images/exit-screen.png"); 
+    } else {  
+      if (document.cancelFullScreen) {  
+        document.cancelFullScreen();  
+      } else if (document.mozCancelFullScreen) {  
+        document.mozCancelFullScreen();  
+      } else if (document.webkitCancelFullScreen) {  
+        document.webkitCancelFullScreen();  
+      }
+      
+      $("#fullscreen img").attr("src", "images/full-screen.png");  
+    }  
+  }
+  if (document.addEventListener) {
+    document.addEventListener('webkitfullscreenchange', exitHandler, false);
+    document.addEventListener('mozfullscreenchange', exitHandler, false);
+    document.addEventListener('fullscreenchange', exitHandler, false);
+    document.addEventListener('MSFullscreenChange', exitHandler, false);
+  }
+  function exitHandler() {
+    if (!document.webkitIsFullScreen && !document.mozFullScreen && !document.msFullscreenElement) {
+      $("#fullscreen img").attr("src", "images/full-screen.png");
+    }
   }
 
-  function GoOutFullscreen() {
-    if(document.exitFullscreen)
-      document.exitFullscreen();
-    else if(document.mozCancelFullScreen)
-      document.mozCancelFullScreen();
-    else if(document.webkitExitFullscreen)
-      document.webkitExitFullscreen();
-    else if(document.msExitFullscreen)
-      document.msExitFullscreen();
-  }
+  
+  // function GoInFullscreen() {
+  //   let element = document.documentElement
+
+  //   if(element.requestFullscreen)
+  //     element.requestFullscreen();
+  //   else if(element.mozRequestFullScreen)
+  //     element.mozRequestFullScreen();
+  //   else if(element.webkitRequestFullscreen)
+  //     element.webkitRequestFullscreen();
+  //   else if(element.msRequestFullscreen)
+  //     element.msRequestFullscreen();
+  // }
+
+  // function GoOutFullscreen() {
+  //   if(document.exitFullscreen)
+  //     document.exitFullscreen();
+  //   else if(document.mozCancelFullScreen)
+  //     document.mozCancelFullScreen();
+  //   else if(document.webkitExitFullscreen)
+  //     document.webkitExitFullscreen();
+  //   else if(document.msExitFullscreen)
+  //     document.msExitFullscreen();
+  // }
 
 
   let agoraLocal = $("#agora_local").find("video").width();
@@ -1761,7 +1796,8 @@ function signalHandler(uid, signalData, userType) {
       });
    
       $(document).on('click', '#fullscreen', function(){
-        GoInFullscreen();
+        //GoInFullscreen();
+        toggleFullScreen();
       })
 
       $(document).on('click', '.eject-session', function(){

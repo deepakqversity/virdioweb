@@ -397,6 +397,153 @@ h3.main-heading span span span {
 
 
 /* 4. Attendees Section */
+.hand-raise-list .dropdown .dropdown-toggle::after{
+	display:none;
+}
+.hand-raise-list{
+	margin-left: 15px;
+}
+.hand-raise-list .dropdown-menu{
+	    background: #9b51e0;
+min-width: 240px;
+    padding: 20px;
+    width: 280px;
+	    margin-top: 14px;
+}
+.hand-raise-list .raised-hands{
+	width: 100%;
+    border-bottom: 1px solid #fff;
+    overflow: hidden;
+    padding-bottom: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.hand-raise-list .raised-hands h4{
+	    color: #fff;
+    font-family: Avenir-Book;
+    font-size: 16px;
+	float: left;
+	margin: 0;
+}
+.hand-raise-list .raised-hands a{
+	float: right;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 100px;
+    width: 25px;
+    height: 25px;
+    line-height: 18px;
+    font-size: 14px;
+    text-align: center;
+}
+.raised-list{
+    margin: 0;
+    padding: 5px 0 0 0;
+    list-style: none;
+	    max-height: 210px;
+    overflow-y: scroll;
+}
+.raised-list::-webkit-scrollbar {
+  width: 10px;
+}
+.raised-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.raised-list::-webkit-scrollbar-thumb {
+  background: rgba(189,0,255, 0.53);
+}
+
+.raised-list::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.raised-list li a{
+	padding: 0;
+    background: transparent;
+    color: #fff;
+    font-family: Avenir-Book;
+	align-items: center;
+}
+.raised-list li a:hover,
+.raised-list li a:focus,
+.raised-list li a:active{
+	background:transparent;
+	color:#fff;
+}
+.raised-list li a img{
+	    margin-right: 10px;
+		width: 40px;
+    height: 40px;
+}
+.raised-list li{
+	    margin: 12px 0;
+}
+.raised-list li a span{
+display: block;
+    line-height: normal;
+    font-family: Avenir-Book;
+    font-size: 14px;
+}
+.hand-raise-list .dropdown-menu::before{
+	content: '';
+    position: absolute;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid #9b51e0;
+    top: -7px;
+}
+.hand-raise-list .dropdown .dropdown-toggle{
+	border: 0 !important;
+    outline: 0 !important;
+	background-color: #B002ED;
+  border-radius: 50%;
+  	border: 0;
+    outline: 0;
+    width: 37px;
+    height: 37px;
+    padding: 0;
+}
+.circle-ripple {
+  -webkit-animation: ripple 1s linear infinite;
+          animation: ripple 1s linear infinite;
+
+}
+@-webkit-keyframes ripple {
+  0% {
+    box-shadow: 0 0 0 0 rgba(155, 81, 224, 0.3), 0 0 0 0em rgba(155, 81, 224, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 0 0em rgba(155, 81, 224, 0.3), 0 0 0 0.5em rgba(155, 81, 224, 0.3);
+  }
+}
+.logout-btn i{
+	float: right;
+    color: #9b51e0;
+    border: 2px solid #9b51e0;
+    border-radius: 100px;
+    width: 25px;
+    height: 25px;
+    line-height: 21px;
+    font-size: 14px;
+    text-align: center;
+}
+.fullscreen img{
+	width: 22px;
+    vertical-align: -webkit-baseline-middle;
+}
+.attendy-fullscreen{
+	align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+
+
+
 #subscribers-list .newcss{
 	margin:1px;
 }
@@ -511,6 +658,7 @@ font-size: 18px;
 	width: 100%;
 	    border-radius: 10px;
 		    outline: 0;
+			    border: 5px solid #9b51e0;
 }
 .video-holder .hand-icon{
     background: url(../images/hand-icon.png);
@@ -559,12 +707,13 @@ font-size: 18px;
 }
 
 .video-holder .att-details{
-	position: absolute;
-    bottom: 0;
+position: absolute;
+    bottom: 15px;
+    left: 15px;
     background: #fff;
-    width: 100%;
+    width: 160px;
     height: 25px !important;
-	border-radius: 0 0 7px 7px;
+    border-radius: 7px 7px;
 }
 .video-holder .att-name{
     font-family: Avenir-Heavy;

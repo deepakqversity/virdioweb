@@ -51,12 +51,19 @@ class Host extends Component {
     body.appendChild(tag);
   }
 
-  componentDidMount(){
+    
 
+  componentDidMount(){
+    
+    $('.dropdown.keep-open').on({
+      "shown.bs.dropdown": function() { this.closable = false; },
+      "click":             function() { this.closable = true; },
+      "hide.bs.dropdown":  function() { return this.closable; }
+  });
     this.loadScript('/AgoraRTCSDK-2.7.1.js');
     this.loadScript('/agora-rtm-sdk-1.0.0.js');
     this.loadScript('/main.js');
-
+    
     // if(localStorage.getItem('load-page') != 1){  
     //     window.loadPopup();
     //   localStorage.setItem("load-page", 1);
@@ -136,6 +143,8 @@ render() {
       scriptHtml = <FitnessScript />;
     }
 
+    
+
 return (
     <div className="container justify-content-between d-flex flex-column h-100 position-relative">
     <header className="header bg-gray mt-0 position-fixed">
@@ -156,9 +165,7 @@ return (
         </div>
         <div className="col col-md-11">
           <h3 className="main-heading">{sessionData.name} <span>by <span className="welcome-title">{sessionData.hostName.toLowerCase()}</span><span className="green-online online-status"><span>ONLINE</span></span></span>
-          <button className="position-absolute logout-btn" onClick={this.callfunction.bind(this)} tabIndex="1">
-                <i className="fa fa-times" aria-hidden="true"></i>
-          </button>
+          
           </h3>
           <div className="row justify-content-between align-items-center mt-0">
             <div className="col-12 col-sm-7">
@@ -172,9 +179,14 @@ return (
                        
             <div className="col-12 col-sm-3">
               <div className="col-12 justify-content-end d-flex align-items-center">
-                <a className="btn btn-primary border-right pr-20 mr-1" href="#" tabIndex="0" id="fullscreen">fullscreen</a>
-                <a className="btn btn-primary border-right pr-20" href="#" tabIndex="1">details</a>
-                <img src="images/voice-commands.png" className="mic-icon" />
+                
+                <div className="border-right pr-3">
+                <a className="btn  btn-primary border-right pr-20" href="#" tabIndex="1">details</a>
+                </div>
+                <button className="logout-btn ml-3" onClick={this.callfunction.bind(this)} tabIndex="1">
+                  <i className="fa fa-times" aria-hidden="true"></i>
+                </button>
+                {/*<img src="images/voice-commands.png" className="mic-icon" />*/}
               </div>
             </div>
           </div>
@@ -182,12 +194,64 @@ return (
       </div>
     </header>
     <section className="bg-gray mt-1 px-0 py-1 rounded section attendees">
-      <div className="row px-0 px-sm-3 pb-2 pt-0 justify-content-between align-items-center">
-        <div className="col-6 col-md-6">
+      <div className="row px-0 px-sm-3 pb-2 pt-1 justify-content-between align-items-center">
+        <div className="col-6 col-md-6 d-flex align-items-center">
           <h4 className="title">Wine Testers (<span id="joined_users">0</span>/<span>44</span>)</h4>
+          <div className="hand-raise-list">
+            <div className="dropdown keep-open">
+              <button className="dropdown-toggle circle-ripple" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="images/hand-raise.png" />
+              </button>
+              <div className="dropdown-menu " aria-labelledby="dropdownMenuButton">
+                <div className="raised-hands">
+                  <h4>Raised Hands (3)</h4>
+                  <a href="#"><i className="fa fa-times"></i></a>
+                </div>
+                <ul className="raised-list">
+                  <li><a className="dropdown-item media" href="#"><img src="images/avtar.png" /> 
+                  <div  className="media-body">
+                    <span>Amanda P, LA</span>
+                    <span>2 min ago</span>
+                  </div>
+                    
+                  </a></li>
+                  <li><a className="dropdown-item media" href="#"><img src="images/avtar.png" /> 
+                  <div  className="media-body">
+                    <span>Amanda P, LA</span>
+                    <span>2 min ago</span>
+                  </div>
+                    
+                  </a></li>
+                  <li><a className="dropdown-item media" href="#"><img src="images/avtar.png" /> 
+                  <div  className="media-body">
+                    <span>Amanda P, LA</span>
+                    <span>2 min ago</span>
+                  </div>
+                    
+                  </a></li>
+                  <li><a className="dropdown-item media" href="#"><img src="images/avtar.png" /> 
+                  <div  className="media-body">
+                    <span>Amanda P, LA</span>
+                    <span>2 min ago</span>
+                  </div>
+                    
+                  </a></li>
+                  <li><a className="dropdown-item media" href="#"><img src="images/avtar.png" /> 
+                  <div  className="media-body">
+                    <span>Amanda P, LA</span>
+                    <span>2 min ago</span>
+                  </div>
+                    
+                  </a></li>
+                </ul>
+                
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="col-6 col-md-4">
+        <div className="col-6 col-lg-3 col-md-4 col-sm-5 attendy-fullscreen attendy-fullscreen">
           <button type="button" className="btn btn-outline-secondary float-right mt-1 show-hide-footer-panel">"Show Attendees"</button>
+          <a className="fullscreen" href="#" id="fullscreen"><img src="images/full-screen.png" /></a>
         </div>
       </div>
       

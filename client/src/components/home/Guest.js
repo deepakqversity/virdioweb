@@ -21,11 +21,11 @@ class Guest extends Component {
   };
   
 
-  joinOnClick = e => {
-    e.preventDefault();
-    let channel = document.getElementById('channel').value;
-    this.props.joinConf(channel);
-  };
+  // joinOnClick = e => {
+  //   e.preventDefault();
+  //   let channel = document.getElementById('channel').value;
+  //   this.props.joinConf(channel);
+  // };
 
   callfunction(){
     $('#logout_button').trigger('click');

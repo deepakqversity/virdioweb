@@ -1168,6 +1168,21 @@ function attendeeScreenHeight(){
         
       }
     }
+    function showHideHost(){
+      if($(".add-remove-round1").hasClass("top-rounded")){
+               
+        setTimeout(function(){
+          $(".add-remove-round1").addClass("rounded").removeClass("top-rounded");
+        }, 400);
+      }
+      else{
+        $(".add-remove-round1").removeClass("rounded").addClass("top-rounded");
+        setTimeout(function(){
+                
+         }, 500)
+        
+      }
+    }
 
   function removeSession(){
     localStorage.removeItem("userData");
@@ -1609,7 +1624,7 @@ function signalHandler(uid, signalData, userType) {
     $(".show-hide-script").click(function(){
       
       $(this).text($(this).text() == '"Hide Script"' ? '"Show Script"' : '"Hide Script"');
-      //showHideScript();
+      showHideScript();
       //$(".add-remove-flex").removeClass( ? '" "' : '"flex-grow-1"');
       
       $(".script-section").slideToggle();
@@ -1628,6 +1643,7 @@ function signalHandler(uid, signalData, userType) {
        
       //$(".host-script-section").css({'max-height:55px'});
       showHideScript();
+      showHideHost();
       setTimeout(function(){
        onPageResize();
       }, 500);

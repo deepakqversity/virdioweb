@@ -3,7 +3,7 @@
 let config = {
 	rootpath : process.cwd(),
 	mongo : {
-		uri : process.env.DEV_MONGODB_URI,
+		// uri : process.env.DEV_MONGODB_URI,
 	},
 	mysql : {
 		host : process.env.MYSQL_HOST,

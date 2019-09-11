@@ -222,6 +222,15 @@ h3.main-heading span{
     font-family: Avenir-Book;
     font-size: 20px;
     color: #D8D8D8;
+	    position: relative;
+}
+h3.main-heading span span span {
+    font-size: 12px;
+    margin-left: 35px;
+    position: relative;
+}
+.header .online-status span::after{
+	    left: -15px !important;
 }
 .logout-btn{
     right: 18px;
@@ -272,11 +281,18 @@ h3.main-heading span{
     grid-template-columns: auto auto;
 }
 }
+.logo{
+    position: absolute;
+    top: 15px;
+    left: 20px;
+}
+.header .count-box .countdown{
+	left: 10px;
+	margin: 0 !important;
+}
 
 @media (max-width: 1024px){
-	.logo img{
-		margin-left:10px;
-	}
+
 	h3.main-heading{
 		    font-size: 18px;
 	}
@@ -319,7 +335,7 @@ h3.main-heading span{
 
 /* 3. Header */
 .logo img{
-	width:52px;
+	width:22px;
 }
 /*.header{
     border-radius: 10px;
@@ -381,6 +397,153 @@ h3.main-heading span{
 
 
 /* 4. Attendees Section */
+.hand-raise-list .dropdown .dropdown-toggle::after{
+	display:none;
+}
+.hand-raise-list{
+	margin-left: 15px;
+}
+.hand-raise-list .dropdown-menu{
+	    background: #9b51e0;
+min-width: 240px;
+    padding: 20px;
+    width: 280px;
+	    margin-top: 14px;
+}
+.hand-raise-list .raised-hands{
+	width: 100%;
+    border-bottom: 1px solid #fff;
+    overflow: hidden;
+    padding-bottom: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.hand-raise-list .raised-hands h4{
+	    color: #fff;
+    font-family: Avenir-Book;
+    font-size: 16px;
+	float: left;
+	margin: 0;
+}
+.hand-raise-list .raised-hands a{
+	float: right;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 100px;
+    width: 25px;
+    height: 25px;
+    line-height: 18px;
+    font-size: 14px;
+    text-align: center;
+}
+.raised-list{
+    margin: 0;
+    padding: 5px 0 0 0;
+    list-style: none;
+	    max-height: 210px;
+    overflow-y: scroll;
+}
+.raised-list::-webkit-scrollbar {
+  width: 10px;
+}
+.raised-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.raised-list::-webkit-scrollbar-thumb {
+  background: rgba(189,0,255, 0.53);
+}
+
+.raised-list::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.raised-list li a{
+	padding: 0;
+    background: transparent;
+    color: #fff;
+    font-family: Avenir-Book;
+	align-items: center;
+}
+.raised-list li a:hover,
+.raised-list li a:focus,
+.raised-list li a:active{
+	background:transparent;
+	color:#fff;
+}
+.raised-list li a img{
+	    margin-right: 10px;
+		width: 40px;
+    height: 40px;
+}
+.raised-list li{
+	    margin: 12px 0;
+}
+.raised-list li a span{
+display: block;
+    line-height: normal;
+    font-family: Avenir-Book;
+    font-size: 14px;
+}
+.hand-raise-list .dropdown-menu::before{
+	content: '';
+    position: absolute;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid #9b51e0;
+    top: -7px;
+}
+.hand-raise-list .dropdown .dropdown-toggle{
+	border: 0 !important;
+    outline: 0 !important;
+	background-color: #B002ED;
+  border-radius: 50%;
+  	border: 0;
+    outline: 0;
+    width: 37px;
+    height: 37px;
+    padding: 0;
+}
+.circle-ripple {
+  -webkit-animation: ripple 1s linear infinite;
+          animation: ripple 1s linear infinite;
+
+}
+@-webkit-keyframes ripple {
+  0% {
+    box-shadow: 0 0 0 0 rgba(155, 81, 224, 0.3), 0 0 0 0em rgba(155, 81, 224, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 0 0em rgba(155, 81, 224, 0.3), 0 0 0 0.5em rgba(155, 81, 224, 0.3);
+  }
+}
+.logout-btn i{
+	float: right;
+    color: #9b51e0;
+    border: 2px solid #9b51e0;
+    border-radius: 100px;
+    width: 25px;
+    height: 25px;
+    line-height: 21px;
+    font-size: 14px;
+    text-align: center;
+}
+.fullscreen img{
+	width: 22px;
+    vertical-align: -webkit-baseline-middle;
+}
+.attendy-fullscreen{
+	align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+
+
+
+
 #subscribers-list .newcss{
 	margin:1px;
 }
@@ -495,6 +658,7 @@ font-size: 18px;
 	width: 100%;
 	    border-radius: 10px;
 		    outline: 0;
+			    border: 5px solid #9b51e0;
 }
 .video-holder .hand-icon{
     background: url(../images/hand-icon.png);
@@ -543,12 +707,13 @@ font-size: 18px;
 }
 
 .video-holder .att-details{
-	position: absolute;
-    bottom: 0;
+position: absolute;
+    bottom: 15px;
+    left: 15px;
     background: #fff;
-    width: 100%;
+    width: 160px;
     height: 25px !important;
-	border-radius: 0 0 7px 7px;
+    border-radius: 7px 7px;
 }
 .video-holder .att-name{
     font-family: Avenir-Heavy;
@@ -1011,12 +1176,12 @@ display:none;
 	z-index:9;
 }
 .swiper-btns .swiper-btn-next{
-	    padding-block-end: 2px;
+	padding-block-end: 2px;
     padding-block-start: 2px;
     padding-inline-start: 12px;
     padding-inline-end: 12px;
 }
-.start span, .end span{
+.start span{
     margin: auto;
     float: left;
     width: 100%;
@@ -1025,17 +1190,28 @@ display:none;
     align-items: center;
     justify-content: center;
 }
-.start span a, .end span a{
+.swiper-slide.end span img{
+	width: 60px;
+    margin: 0 auto;
+    display: table;
+    margin-bottom: 20px;
+}
+.swiper-slide.end span h4{
 	color: #fff;
     text-align: center;
-    width: 60px;
-    height: 60px;
+    font-size: 20px;
+    margin-bottom: 15px;
+    font-family: Avenir-Medium;
+}
+.start span a{
+	color: #fff;
+    text-align: center;
     display: flex;
-    font-size: 12px;
-    font-family: Avenir-Book;
+    font-size: 18px;
+    font-family: Avenir-Medium;
     text-decoration: none !important;
-    border: 2px solid #484848;
-    border-radius: 50%;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     align-items: center;
     justify-content: center;
 }
@@ -1043,7 +1219,9 @@ display:none;
 	padding:10px;
 	border:1.5px solid transparent;
 }
-.swiper-slide-next .count-box svg circle {
+.swiper-slide-next .count-box svg circle, 
+.footer-fitness-script svg circle, 
+.header svg circle{
   stroke-dasharray: 160px;
   stroke-dashoffset: 0px;
   stroke-linecap: round;
@@ -1053,16 +1231,7 @@ display:none;
   animation: countdown 30s linear infinite forwards;
   animation-direction: reverse;
 }
-.footer-fitness-script svg circle {
-  stroke-dasharray: 160px;
-  stroke-dashoffset: 0px;
-  stroke-linecap: round;
-  stroke-width: 6px;
-  stroke: #9b51e0;
-  fill: none;
-  animation: countdown 30s linear infinite forwards;
-  animation-direction: reverse;
-}
+
 .swiper-slide{
 	box-sizing:border-box;
 }
@@ -1074,6 +1243,7 @@ display:none;
 	position: relative;
 	height: auto !important;
 }
+
 .swiper-slide-next .target-info span{
 	color:#fff;
 }
@@ -1263,12 +1433,16 @@ display:none;
 	position:relative;
 }
 .login-box .login-inner .text-danger{
-	    top: 87px;
+	    top: 62px;
+		overflow:auto;
+		position:absolute;
+		width:100%;
+		padding-left:13px;
 }
 .login-box .login-inner .form-group label, .register-box .register-inner .form-group label{
     position: absolute;
     left: 12px;
-    top: 10px;
+    top: -11px;
 	    margin: 0;
 		    color: #fff;
     font-family: Avenir-Medium;
@@ -1294,7 +1468,7 @@ display:none;
 img.user-login{
     position: absolute;
     right: 15px;
-    top: 41px;
+    top: 18px;
     width: 18px;
 }
 .btn-cancel{
@@ -1539,7 +1713,7 @@ img.user-login{
 	font-size:12px !important;
 	padding-left: 15px;
 }
-.prescreen-popup .online-status::after{
+.prescreen-popup .online-status::after, .header .online-status span::after{
 	content: '';
     width: 10px;
     height: 10px;
@@ -1713,7 +1887,6 @@ position: absolute;
 /* 12. Register Page */
 .register-page{
 	width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1867,7 +2040,6 @@ color: #7C7C7C;
 .registration{
 	padding: 15px 0;
     overflow: inherit;
-	    height: 100%;
 }
 .signup-sucess a{
 	text-decoration:none;
@@ -1949,14 +2121,13 @@ color: #7C7C7C;
 	padding-top:0;
 }
 .attendy-list .table thead th{
-	    border-top: 2px solid #bd00ff;
-		    padding: 15px 10px;
+	border-top: 2px solid #bd00ff;
+	padding: 15px 10px;
 }
 .attendy-list .table {
     margin-bottom: 0;
 }
 .attendy-list .modal-dialog{
-    height: 100%;
     max-width: 86%;
     margin: 1.75rem auto;
     display: flex;

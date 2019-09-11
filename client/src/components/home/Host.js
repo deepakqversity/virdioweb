@@ -258,10 +258,10 @@ return (
     <div className="row one-gutters justify-content-center align-items-center" id="subscribers-list"></div>
 
     </section>
-    <div className="row position-fixed host-script-section justify-content-between">
+    <div className="row position-fixed host-script-section align-items-end justify-content-between">
       <div className=" host-section d-flex flex-direction-column h-100">
         <div className="host-local">
-          <div className="add-remove-round add-remove-height height-53 px-3 bg-gray pt-2 pb-2 top-rounded d-flex justify-content-between align-items-center">
+          <div className="add-remove-round1 add-remove-height height-53 px-3 bg-gray pt-2 pb-2 top-rounded d-flex justify-content-between align-items-center">
             <h3 className="main-heading font-size-16 float-left">Streaming</h3>
             <div className="host-header">
               <img src="images/mute-microphone.png" className="unmute-icon" id="mute-unmute-local" />
@@ -271,7 +271,7 @@ return (
               <img src="images/circle.png" className="circle-icon mr-0" id="record-stream" />
             </div>
           </div>
-          <div className="add-remove-round host-show-hide px-3 bg-gray mt--1 pt-2 pb-1 bottom-rounded">
+          <div className="add-remove-round1 host-show-hide px-3 bg-gray mt--1 pt-2 pb-1 bottom-rounded">
             <div id="agora_local" className="video-streams"></div>
           </div>
           

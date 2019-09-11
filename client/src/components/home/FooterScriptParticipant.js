@@ -63,7 +63,7 @@ render() {
             <div id="countdown" className="count-timer">
               <div id="countdown-number"></div>
               <svg>
-                <circle r="26" cx="30" cy="30"></circle>
+                <circle r="27" cx="30" cy="30"></circle>
               </svg>
               <h4>Pushups</h4>
             </div>
@@ -71,7 +71,7 @@ render() {
             <div id="countdown" className="count-timer current-box">
               <div id="countdown-number"></div>
               <svg>
-                <circle r="26" cx="30" cy="30"></circle>
+                <circle r="27" cx="30" cy="30"></circle>
               </svg>
               <h4>Lunges</h4>
             </div>
@@ -79,7 +79,7 @@ render() {
             <div id="countdown" className="count-timer">
               <div id="countdown-number"></div>
               <svg>
-                <circle r="26" cx="30" cy="30"></circle>
+                <circle r="27" cx="30" cy="30"></circle>
               </svg>
               <h4>Rest</h4>
             </div>

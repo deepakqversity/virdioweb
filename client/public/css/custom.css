@@ -195,6 +195,9 @@ a.bg-primary:hover, a.bg-primary:focus, button.bg-primary:hover, button.bg-prima
 .fitness-script .script-info .add-remove-round.rounded .carousel-control-next{
 	    right: 190px;
 }
+.animate-display{
+	transition: display 0.5s ease;
+}
 .one-gutters {
     margin-right: 0;
     margin-left: 0;
@@ -661,24 +664,36 @@ font-size: 18px;
 			    border: 5px solid #9b51e0;
 }
 .video-holder .hand-icon{
-    background: url(../images/hand-icon.png);
+    background:#9b51e0 url(../images/hand-raise.png);
     width: 52px;
     background-size: cover;
     height: 52px;
     float: left;
-    top: 6px;
-    left: 2px;
-	cursor: pointer;
+    top: 0px;
+    left: 0px;
+    cursor: pointer;
+    border-radius: 10px 0 0 0;
+    width: 70px;
+    height: 50px;
+    background-size: 36px;
+    background-position: center 6px;
+    background-repeat: no-repeat;
 }
 .microphone-icon {
-    background: url(../images/microphone-icon.png);
+    background:#9b51e0 url(../images/microphone.png);
     width: 52px;
     background-size: cover;
     height: 52px;
     float: left;
-    top: 6px;
-    left: 2px;
+    top: 0px;
+    left: 0px;
     cursor: pointer;
+    border-radius: 10px 0 0 0;
+    width: 70px;
+    height: 50px;
+    background-size: 36px;
+    background-position: center 8px;
+    background-repeat: no-repeat;
 }
 
 
@@ -978,7 +993,10 @@ display:none;
 	
 }
 .host-local{
-	    height: 100%;
+	    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
 .host-section{
 	margin-right:8px;
@@ -1180,6 +1198,7 @@ display:none;
     padding-block-start: 2px;
     padding-inline-start: 12px;
     padding-inline-end: 12px;
+	display: none !important;
 }
 .start span{
     margin: auto;
@@ -2212,6 +2231,7 @@ color: #7C7C7C;
     color: #fff;
     font-weight: normal;
     margin: 0;
+	display: none;
 }
 .right-sidebar .title span {
     font-family: Avenir-Book;

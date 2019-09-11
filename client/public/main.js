@@ -664,6 +664,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   function publish() {
 
+    console.log('------------lalit------------');
+
     let storeData = getCurrentUserData();
       
     setTimeout(function(){}, 1000);

@@ -6,12 +6,24 @@ import $ from 'jquery';
 import Config from "./Configuration";
 import LeftScriptParticipant from "./LeftScriptParticipant";
 import FooterScriptParticipant from "./FooterScriptParticipant";
+import WineScript from "./WineScript";
+import FitnessScript from "./FitnessScript";
+import moment from 'moment'
 
 class Guest extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {getID : ''}
+    //this.state = {getID : ''}
+
+    this.state = {
+      getID : '',
+      sessionScript: 0,
+      timerOn: false,
+      timerStart: 0,
+      timerTime: 0
+    };
+
   }
 
   onLogoutClick = e => {
@@ -89,16 +101,15 @@ class Guest extends Component {
     var  userID=localstoragedata.id;
     this.setState({getID : userID});
 
-    // var loadScript = function (src) {
-    //   var tag = document.createElement('script');
-    //   tag.async = false;
-    //   tag.src = src;
-      
-    //   var body = document.getElementsByTagName('body')[0];
-    //   body.appendChild(tag);
-    // }
-    // loadScript('/js/swiper.min.js');
-    // loadScript('/js/swiper-modifier.js');
+   // let localstoragedata = JSON.parse(localStorage.getItem('userData'));
+    this.setState({sessionScript: localstoragedata.sessionData.id});
+    let scDate = localstoragedata.sessionData.scheduleDate;
+
+    // console.log('scDate= ',scDate, new Date(scDate).getTime(), new Date().getTime())
+
+    scDate = (new Date(scDate).getTime()) - (new Date().getTime());
+    console.log('scDate- ', scDate)
+    this.state.timerTime = scDate;// 1 sec 1000 = 1sec
 
     
   }
@@ -106,14 +117,63 @@ class Guest extends Component {
   componentWillMount(){
     //console.log(1);
     // window.test();
+    this.startTimer();
   }
+
+  startTimer = () => {
+    this.setState({
+      timerOn: true,
+      timerTime: this.state.timerTime,
+      timerStart: this.state.timerTime
+    });
+    this.timer = setInterval(() => {
+      const newTime = this.state.timerTime - 10;
+      if (newTime >= 0) {
+        this.setState({
+          timerTime: newTime
+        });
+      } else {
+        clearInterval(this.timer);
+        this.setState({ timerOn: false });
+        //alert("Countdown ended");
+      }
+    }, 10);
+  };
+
 render() {
-  const  {user}  = this.props.auth;
 
-  // console.log(user);
 
-  var userData = JSON.parse(localStorage.getItem("userData"));
-  var userID = userData.id;
+  
+  //const  {user}  = this.props.auth;
+
+      const { timerTime, timerStart, timerOn, sessionScript } = this.state;
+
+    let seconds = ("0" + (Math.floor((timerTime / 1000) % 60) % 60)).slice(-2);
+    let minutes = ("0" + Math.floor((timerTime / 60000) % 60)).slice(-2);
+    let hours = ("0" + Math.floor((timerTime / 3600000) % 60)).slice(-2);
+
+    const  {user}  = this.props.auth;
+
+    let localstoragedata = JSON.parse(localStorage.getItem('userData'));
+    let sessionData = localstoragedata.sessionData;
+   
+    let localDate = moment(sessionData.scheduleDate).format('MM/DD/YYYY # h:mm a');
+
+    localDate = localDate.replace('#', 'at');
+    let remTime = '';
+    console.log('scheduleDate ',localDate );
+    // console.log('------------------------------', user);
+    let scriptHtml = '';
+    // sessionScript = sessionScriptt;
+    if (sessionScript == 1) {
+      scriptHtml = <WineScript />;
+    } else if(sessionScript == 2) {
+      scriptHtml = <FitnessScript />;
+    }
+
+
+    //var userData = JSON.parse(localStorage.getItem("userData"));
+    var userID = localstoragedata.id;
 
 return (
     <div className="container d-flex flex-column justify-content-between h-100 overlay position-relative">
@@ -132,8 +192,8 @@ return (
               
                 <div className="row justify-content-between align-items-center">
                   <div className="col-12 col-lg-7 col-md-6 text-center text-md-left col-sm-4">
-                    <div className="time py-xs-1">  <span>04/23/2019, at 12:00 PM</span>
-                      <span>Time Remaining: 01:10:00</span>
+                    <div className="time py-xs-1">  <span>{localDate}</span>
+                    <span>Time Remaining: {hours} : {minutes} : {seconds}</span>
                     </div>
                     <div id="hostmsg" style={{color:'green'}}></div>
                   </div>
@@ -168,7 +228,7 @@ return (
     
     <div className="d-flex justify-content-between zindex-5 position-relative flex-grow-1 attend-mid-section">
     
-    <LeftScriptParticipant sessId={userData.sessionData.id} />
+    <LeftScriptParticipant sessId={sessionData.id} />
     
     <div className="col-lg-3 col-md-4 col-sm-5 col-6 max-width-300 float-right pl-0 mt-3">
         <div className="right-sidebar">
@@ -194,7 +254,7 @@ return (
   </div>
     <footer className="footer position-relative zindex-5 count-box mb-5 mt-4">
       
-      <FooterScriptParticipant sessId={userData.sessionData.id} />
+      <FooterScriptParticipant sessId={sessionData.id} />
 
       <div className="self-video1 mt-3 w-50">
           <button type="button" id="show-everyone" className="mb-2 minimize-others btn btn-outline-secondary mx-auto">"Show Everyone"</button>

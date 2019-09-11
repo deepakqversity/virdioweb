@@ -17,6 +17,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   var client, localStream, camera, microphone;
   var totalBrodcaster = 0;
+  const sep = '~@$';
   function join() {
 
     let camera = microphone= null;
@@ -488,7 +489,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
      var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
      var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()+'.'+today.getMilliseconds();
      var dateTime = date+' '+time;
-     var text="208~@$"+dateTime;
+     var text="208" +sep+ dateTime;
 
      channel.sendMessage({text}).then(() => {  
      console.log('-------join msg llllll--------','mssages send successfully on channel');    
@@ -506,13 +507,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
        channel.on('MemberJoined', memberId => { 
        
-         var massages="208~@$"+memberId+"~@$joined~@$";        
+         var massages="208"+sep+memberId+sep+"joined"+sep;        
          channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
         })
      
        channel.on('MemberLeft', memberId => { 
     
-        var massages="208~@$"+memberId+"~@$left~@$";  
+        var massages="208"+sep+memberId+sep+"left"+sep;  
         channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"left"}), storeData.userType);
         })
      
@@ -583,7 +584,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       }
 
       function createString(code){
-          return code + '~@$';
+          return code + sep;
       }
 
   function onclickShowAsBroadcaster() {
@@ -592,7 +593,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
        // alert('attendiesID', attendiesID);
         // let attendiesEmail = convertIdToEmail(attendiesID);
        //let message = createString(code)+"B";
-       let message = "200~@$B";
+       let message = "200"+sep+"B";
         sendMessage(attendiesID, message);
        }
 
@@ -611,7 +612,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     $('#subscribers-list #agora_remote'+ audienceID).find('.hand-icon').addClass('d-none');
     $('#subscribers-list #agora_remote'+ audienceID).find('.microphone-icon').addClass('d-none');
 
-    let massages='204~@$'
+    let massages='204'+sep
     sendMessage(audienceEmail, massages);
   }
 
@@ -620,7 +621,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     let receiverEmail = convertIdToEmail(receiverId);
     $('#agora_hand_raise'+receiverId+'').addClass("d-none");
     $('#audion_on'+receiverId+'').removeClass("d-none");
-    var massages="203~@$"; 
+    var massages="203"+sep; 
     sendMessage(receiverEmail, massages);
 
     let allVdo = $('#subscribers-list video');   
@@ -646,14 +647,14 @@ if(!AgoraRTC.checkSystemRequirements()) {
   function eject_participent(receiverId)
   {
     let receiverEmail = convertIdToEmail(receiverId);
-    var massages="205~@$"; 
+    var massages="205"+sep; 
     sendMessage(receiverEmail,massages);
   }
 
   function changeParticipentToAudience(receiverId)
   {
     let receiverEmail = convertIdToEmail(receiverId);
-    var massages="209~@$"; 
+    var massages="209"+sep; 
     sendMessage(receiverEmail,massages);
   }
   // function onclickShowAsBroadcaster(attendiesID)
@@ -663,13 +664,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
   
 
   function publish() {
-
+    console.log('client ============111', client);
     let storeData = getCurrentUserData();
       
     setTimeout(function(){}, 1000);
 
     console.log(' @@@@@@@ totalBrodcaster @@@ ', totalBrodcaster);
-    if(storeData.userType == 1  || storeData.userType != 1 && totalBrodcaster < storeData.defaultConfig.maxDisplayUsers){
+    if(storeData.userType == 1  || storeData.userType != 1 && totalBrodcaster < storeData.default.maxDisplayUsers){
         
       client.publish(localStream, function (err) {
         console.log("Publish local stream error: " + err);
@@ -1206,7 +1207,7 @@ function signalHandler(uid, signalData, userType) {
 
   //signalData = JSON.parse(signalData);
 
-  let resultant=signalData.split("~@$");
+  let resultant=signalData.split(sep);
      
   
   if(userType == 1) { // Host
@@ -1270,11 +1271,12 @@ function signalHandler(uid, signalData, userType) {
   }
 
 }
+  var AudienceList = {};
 
     function channelMsgHandler(msg,senderId, userType)
     {
       
-      let res1=msg.split("~@$");
+      let res1=msg.split(sep);
       console.log('********Deepak************** signalData ', senderId);
       if(res1[0] == "208")
       { 
@@ -1303,6 +1305,8 @@ function signalHandler(uid, signalData, userType) {
         let newmsg="Now U can Join";
         $('#newmsg').html(newmsg);
         setTimeout(function(){ $('#newmsg').html(''); }, 10000);    
+      } else if(res1[0] == "1001"){
+
       }
     
      }
@@ -1340,7 +1344,7 @@ function signalHandler(uid, signalData, userType) {
       { 
         
         let str=signalData.message;
-        let res = str.split("~@$");
+        let res = str.split(sep);
         let storeData = getCurrentUserData();
         var hostid=storeData.sessionData.hostId;
       
@@ -1357,7 +1361,7 @@ function signalHandler(uid, signalData, userType) {
       }else if(signalData.msgtype=='left') {
 
         let str=signalData.message;
-        let res = str.split("~@$");
+        let res = str.split(sep);
         let storeData = getCurrentUserData();
         var hostid=storeData.sessionData.hostId;
 
@@ -1453,10 +1457,10 @@ function signalHandler(uid, signalData, userType) {
         //  let AllDta = getCurrentUserData();
         //  let hostFirstName=AllDta.sessionData.hostName;
        //  console.log('********virendra************** signalData ', signalData.message);
-        let text ="216~@$Hi, welcome to your first virtual studio session as A";
+        let text ="216"+sep+"Hi, welcome to your first virtual studio session as A";
         if(count1 <= 8)
         {
-          text ="216~@$Hi,welcome to your first virtual studio session as B";
+          text ="216"+sep+"Hi,welcome to your first virtual studio session as B";
         }
        // console.log('-------------text=== ', text)
         sendMessage(peerId, text);
@@ -1528,7 +1532,32 @@ function signalHandler(uid, signalData, userType) {
           location.href  = '/login';
       }
 
+      function pullFromSession(){
+        unpublish();
+      }
 
+      function pushIntoSession(){
+        publish();
+      }
+
+      function pullFromSessionByHost(){
+      }
+
+      function pushIntoSessionByHost(){
+      }
+
+      function checkUserRole(){
+        console.log('client === ', client.hasPublished)
+        
+        // 0=broadcaster , 1=Audience
+        return client && client.hasPublished ? 1 : 0;
+        // if(client && client.hasPublished){
+        //   return
+        //   console.log(' User is Broadcaster.');
+        // } else {
+        //   console.log(' User is Audience.');
+        // }
+      }
 
       $(document).ready(function(){
         var locaData = getCurrentUserData();
@@ -1796,7 +1825,8 @@ function signalHandler(uid, signalData, userType) {
          
       });
 
-      $('#handRaiseClient_button').click(function(){       
+      $('#handRaiseClient_button').click(function(){
+        let role = checkUserRole();
         var storeData = getCurrentUserData();
         var userType=storeData.userType;
         var attendiesName=storeData.name;
@@ -1808,8 +1838,14 @@ function signalHandler(uid, signalData, userType) {
         //var massages="201~@$"+attendieID+"~@$clientHandRaise~@$"+attendiesName; 
         let hostEmail = convertIdToEmail(hostid);
         console.log('hostEmail', hostEmail)
-        var massages="201~@$";       
-          sendMessage(hostEmail, massages);
+
+        var massages="201" +sep;
+        
+        // 1=audiencs
+        if(role == 0){
+          massages="1001" +sep+ storeData.id +sep+ storeData.name +sep+ storeData.email +sep+ storeData.image;
+        }       
+        sendMessage(hostEmail, massages);
 
       });
 

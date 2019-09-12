@@ -25,13 +25,20 @@ class Login extends Component {
       // this.props.history.push("/home");
       var localstoragedata=JSON.parse(localStorage.getItem('userData'));
 
-      if(localstoragedata.userType == 1 && localstoragedata.sessionData.id != undefined){
-        this.props.history.push("/host");
-      }else if(localstoragedata.userType == 2 && localstoragedata.sessionData.id != undefined){
-        this.props.history.push("/guest");
+      // if(localstoragedata.userType == 1 && localstoragedata.sessionData.id != undefined){
+      //   this.props.history.push("/host");
+      // }else if(localstoragedata.userType == 2 && localstoragedata.sessionData.id != undefined){
+      //   this.props.history.push("/guest");
+      // } else {
+      //   this.props.history.push("/home");
+      // }
+
+      if(localstoragedata && localstoragedata.sessionData.id != undefined){
+        this.props.history.push("/pre-screen");
       } else {
         this.props.history.push("/home");
       }
+      
     } else {
       if (localStorage.chkbx && localStorage.chkbx != '') {
           $('#remember_me').attr('checked', 'checked');
@@ -46,14 +53,20 @@ class Login extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
 
-      var localstoragedata=JSON.parse(localStorage.getItem('userData'));
+      var localstoragedata = JSON.parse(localStorage.getItem('userData'));
 
       // this.props.history.push("/home"); // push user to dashboard when they login
         
-      if(localstoragedata.userType == 1){
-        this.props.history.push("/host");
-      }else if(localstoragedata.userType == 2){
-        this.props.history.push("/guest");
+      // if(localstoragedata.userType == 1){
+      //   this.props.history.push("/host");
+      // }else if(localstoragedata.userType == 2){
+      //   this.props.history.push("/guest");
+      // } else {
+      //   this.props.history.push("/home");
+      // }
+
+      if(localstoragedata && localstoragedata.sessionData.id != undefined){
+        this.props.history.push("/pre-screen");
       } else {
         this.props.history.push("/home");
       }

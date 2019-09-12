@@ -21,6 +21,7 @@ import Dashboard from "./components/dashboard/Dashboard";
 import Home from "./components/home/Home";
 import Host from "./components/home/Host";
 import Guest from "./components/home/Guest";
+import PreConfiguration from "./components/home/PreConfiguration";
 import Verification from "./components/auth/Verification";
 import RegisterForm from './components/auth/RegisterForm';
 import VerifyUserRegister from "./components/auth/VerifyUserRegister"
@@ -61,6 +62,7 @@ class App extends Component {
           <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute exact path="/home" component={Home} />
+              <PrivateRoute exact path="/pre-screen" component={PreConfiguration} />
               <PrivateRoute exact path="/host" component={Host} />
               <PrivateRoute exact path="/guest" component={Guest} />
               

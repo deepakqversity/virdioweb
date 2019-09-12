@@ -1410,7 +1410,7 @@ display:none;
     border-right: 1.4px solid #B002ED;
     border-top: 0px solid transparent;
     height: 60px;
-	color: #B002ED;
+	color: #fff;
     font-size: 16px;
     border-radius: 0px 10px 10px 10px;
 }
@@ -1458,6 +1458,29 @@ display:none;
 		position:absolute;
 		width:100%;
 		padding-left:13px;
+		font-size: 14px;
+    font-family: Avenir-Book;
+}
+.login-box .custom-control-input:checked ~ .custom-control-label::before, 
+.login-box .custom-control-input:not(:disabled):active ~ .custom-control-label::before{
+	box-shadow: none !important;
+}
+.login-box .custom-control-label::after{
+	    background: no-repeat 4px -8px / 11px 33px;
+		left: -9px;
+		top: 3px;
+}
+.login-box .custom-control-label::before{
+	width: 18px;
+    height: 18px;
+	box-shadow: none !important;
+	left: -9px;
+	top: 2px;
+}
+.login-box .custom-control-label{
+	text-indent: 20px;
+    top: 3px !important;
+    cursor: pointer;
 }
 .login-box .login-inner .form-group label, .register-box .register-inner .form-group label{
     position: absolute;
@@ -1519,7 +1542,8 @@ img.user-login{
 	text-align:center;
 	font-size: 16px;
 	font-family: Avenir-Medium;
-	margin:40px 0 20px 0;
+	    margin: 40px auto 20px auto;
+    width: 280px;
 }
 
 /* -------------  10. Attendee Screen ----------- */

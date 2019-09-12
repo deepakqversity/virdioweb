@@ -726,6 +726,14 @@ if(!AgoraRTC.checkSystemRequirements()) {
       })
   };
 
+  function cropDeviceName(str){
+    // if(str.indexOf('(') !== -1){
+      str = str.replace(/\(.*\)/i,'');
+      str = str.replace(/\s+/i,' ')
+    // }
+    return str;
+  }
+ console.log('============', cropDeviceName('hello (world) oooo'))
   var stream1 = stream2 = null;
 
   function getDevices() {
@@ -785,7 +793,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
           ++ctr1;
 
-          adoMediaHtml = '<div class="" id="ado-'+deviceId+'"><input class="form-radio" type="radio" name="audio-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'> <label for="lbl-'+deviceId+'"> '+ device.label +'</label> </div>';
+          adoMediaHtml = '<div class="" id="ado-'+deviceId+'"><input class="form-radio" type="radio" name="audio-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'> <label for="lbl-'+deviceId+'"> '+ cropDeviceName(device.label) +'</label> </div>';
 
           $('#audio-media-content').append(adoMediaHtml)
 
@@ -808,7 +816,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
           }
           // console.log('---------- cameraId == deviceId - ', cameraId , deviceId,  defaultSetting)
 
-          vdoMediaHtml = '<div class="col-12 col-md-3" id="vdo-'+deviceId+'"><div id="local-media-'+deviceId+'" ></div><div class="check-camera"><input type="radio" class="form-radio" name="video-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'><label for="lbl-'+deviceId+'">'+ device.label +'</label></div></div>';
+          vdoMediaHtml = '<div class="col-12 col-md-3 mx-auto" id="vdo-'+deviceId+'"><div id="local-media-'+deviceId+'" ></div><div class="check-camera"><input type="radio" class="form-radio" name="video-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'><label for="lbl-'+deviceId+'">'+ device.label +'</label></div></div>';
 
           $('#video-media-content').append(vdoMediaHtml)
 
@@ -1577,8 +1585,9 @@ function signalHandler(uid, signalData, userType) {
         //   console.log(' User is Audience.');
         // }
       }
-
+      
       $(document).ready(function(){
+        
         var locaData = getCurrentUserData();
         console.log('----------localData--',locaData.id)
 

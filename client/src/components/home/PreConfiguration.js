@@ -168,7 +168,7 @@ render() {
       // const storeData = JSON.parse(localStorage.getItem("userData"));
       // console.log('-----------Avishekhllllll-------------------', storeData.sessionData.hostName)
 
-  
+  $("body").css("overflow-y", "scroll");
   return (
        <div>
       <div className="prescreen-popup" id="media-config">
@@ -229,8 +229,8 @@ render() {
           </div>
         
         </div>
-        <div className="row four-gutters">
-          <div className="col-12 col-md-3 col-lg-3">
+        <div className="d-flex flex-md-nowrap flex-wrap">
+          <div className=" network-wifi mb-2">
             <div className="bg-gray h-100 position-relative pad15 rounded">
               <h6 className="small-heading mb-3">Network Reliability</h6>
                 
@@ -245,17 +245,15 @@ render() {
                 </div>
               </div>
               <div className="row">
-                <div className="col-lg-4 col-md-6">
+                <div className="col-lg-5 col-md-6">
                   <span className="online-total">Online streams on screen</span>
-                  
-                </div>
-                <div className="col-lg-4 col-md-6">
                   <span className="signup-number" >142</span>
                 </div>
+                
               </div>
             </div>
           </div>
-          <div className="col-12 col-md-7 col-lg-7 my-2 my-md-0">
+          <div className="flex-grow-1 my-md-0 mx-md-2">
             <div className="h-100 bg-gray position-relative pad15 rounded">
               <h6 className="small-heading mb-0">Select Microphone</h6>
               <div className="col-lg-12">
@@ -263,7 +261,7 @@ render() {
               </div>
             </div>
           </div>
-          <div className="col-12 col-md-2 col-lg-2">
+          <div className="heart-rate">
             <div className="h-100 bg-gray position-relative pad15 rounded">
               <span className="online-total text-left">Heart Rate Monitor detected</span>
               <span className="signup-number font-20 text-left" >NO</span>
@@ -281,7 +279,7 @@ render() {
              
               <div className="col-lg-9">
               <span id='newmsg' style={{color:'green'}}></span>
-                <h6 className="small-heading mb-3 no-border">Just joined</h6>
+                <h6 className="small-heading mb-3 no-border">Joined</h6>
                 <div className="d-none">
                   <div className="joiners d-flex flex-wrap">
                     <span>

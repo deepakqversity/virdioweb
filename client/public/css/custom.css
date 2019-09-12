@@ -1644,6 +1644,7 @@ img.user-login{
 }
 .prescreen-popup .select-camera div{
 	background:transparent !Important;
+	text-align: center;
 }
 .prescreen-popup .select-camera video{
 	border-radius:10px;
@@ -1657,10 +1658,10 @@ img.user-login{
 	padding: 10px 15px;
 }
 .prescreen-popup .session-logo{
-	width:197px;
+	width:165px;
 }
 .prescreen-popup .participant-status{
-    width: 290px;
+    width: 250px;
     padding: 10px 15px;
 	border-radius: 10px;
 }
@@ -1680,7 +1681,7 @@ img.user-login{
 .prescreen-popup .popup-heading{
     font-family: Avenir-Book;
     color: #fff;
-    font-size: 24px;
+    font-size: 20px;
     margin: 14px 0 14px 10px;
 }
 .w-90{
@@ -1695,9 +1696,8 @@ img.user-login{
 }
 .prescreen-popup .countdown-timer{
 	    color: #fff;
-    font-size: 20px;
+    font-size: 27px;
     font-family: Avenir-Book;
-    margin: 10px 0 20px;
 	    float: right;
 }
 .count-timer{
@@ -1765,20 +1765,21 @@ img.user-login{
 	    top: 2px;
     border-radius: 15px;
 }
+.green-online{
+	font-size: 12px !important;
+}
 .prescreen-popup .small-heading{
     border-left: 4px solid #B002ED;
     color: #fff;
     font-family: Avenir-Medium;
-    font-size: 18px;
+    font-size: 17px;
     padding-left: 18px;
     margin-left: -14px;
     margin-bottom: 0;
     padding-top: 2px;
     padding-bottom: 2px;
 }
-.detect-mic>div{
-	margin-right:15px;
-}
+
 .prescreen-popup .modal-footer{
 	border:none;
 	    justify-content: space-between;
@@ -1809,6 +1810,14 @@ img.user-login{
     vertical-align: sub;
     margin-right: 6px;
     font-size: 20px;
+	
+}
+.check-camera{
+	display:grid;
+	grid-template-columns: 50% 50%;
+}
+.select-camera .check-camera{
+	display:block;
 }
 .form-radio:checked::before{
     position: absolute;
@@ -1839,6 +1848,15 @@ img.user-login{
 }
 .font-20{
 	font-size:20px !important;
+}
+.network-wifi{
+	width: 280px;
+}
+.heart-rate{
+	width:160px;
+}
+.network-wifi .signup-number{
+	font-size: 28px;
 }
 .fill-wifi{
 position: absolute;
@@ -1896,10 +1914,15 @@ position: absolute;
 		font-size:20px;
 	}
 	.prescreen-popup .countdown-timer{
-		font-size:18px;
+		font-size:26px;
 	}
 }
-
+.time-session{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+}
 @media screen and (max-width:991px){
 	.prescreen-popup .participant-status .border-right-gray{
 	border:0;

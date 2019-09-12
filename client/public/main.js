@@ -664,13 +664,12 @@ if(!AgoraRTC.checkSystemRequirements()) {
   
 
   function publish() {
-    console.log('client ============111', client);
     let storeData = getCurrentUserData();
       
     setTimeout(function(){}, 1000);
 
-    console.log(' @@@@@@@ totalBrodcaster @@@ ', totalBrodcaster);
-    if(storeData.userType == 1  || storeData.userType != 1 && totalBrodcaster < storeData.default.maxDisplayUsers){
+    console.log(' @@@@@@@ totalBrodcaster @@@ ', totalBrodcaster, storeData.default.maxDisplayUsers);
+    if(storeData.userType == 1  || storeData.userType != 1 && totalBrodcaster < parseInt(storeData.default.maxDisplayUsers)){
         
       client.publish(localStream, function (err) {
         console.log("Publish local stream error: " + err);
@@ -1031,7 +1030,7 @@ function attendeeScreenHeight(){
     let hostHeight = $(".host-script-section").height();
     let sectionHeights = winHeight - (hostHeight + headerHeight);
 
-    $("#subscribers-list").height(`${sectionHeights - 111}px`)
+    $("#subscribers-list").height(`${sectionHeights - 116}px`)
     
     let sub_list_y = $("#subscribers-list").height(); 
     let sub_list_x = $("#subscribers-list").width(); 
@@ -1169,9 +1168,25 @@ function attendeeScreenHeight(){
         
       }
     }
+    function showHideHost(){
+      if($(".add-remove-round1").hasClass("top-rounded")){
+               
+        setTimeout(function(){
+          $(".add-remove-round1").addClass("rounded").removeClass("top-rounded");
+        }, 400);
+      }
+      else{
+        $(".add-remove-round1").removeClass("rounded").addClass("top-rounded");
+        setTimeout(function(){
+                
+         }, 500)
+        
+      }
+    }
 
   function removeSession(){
     localStorage.removeItem("userData");
+    localStorage.removeItem("audience-list");
     localStorage.removeItem("tempUsers");
     localStorage.removeItem("load-page");
     localStorage.removeItem("channel");
@@ -1222,7 +1237,9 @@ function signalHandler(uid, signalData, userType) {
        setTimeout(function(){ $('#errmsg').html(''); }, 10000);
       $('#agora_hand_raise'+uid+'').removeClass("d-none");
       
-    }
+    } else if(resultant[0] == "1001"){
+        addAudienceInList(resultant);
+      }
 
   } else { // Attendy
 
@@ -1271,7 +1288,7 @@ function signalHandler(uid, signalData, userType) {
   }
 
 }
-  var AudienceList = {};
+  
 
     function channelMsgHandler(msg,senderId, userType)
     {
@@ -1305,10 +1322,54 @@ function signalHandler(uid, signalData, userType) {
         let newmsg="Now U can Join";
         $('#newmsg').html(newmsg);
         setTimeout(function(){ $('#newmsg').html(''); }, 10000);    
-      } else if(res1[0] == "1001"){
-
       }
     
+     }
+
+     function addAudienceInList(strArray) {
+      console.log('-----------------str array ',strArray)
+        let audienceList = [];
+        let f = true;
+
+        if(audienceList.length > 0){
+          for(let i in audienceList){
+            if(audienceList[i].id == strArray[1]){
+              f = false;
+              break;
+            }
+          }
+        }
+        
+        if(f){
+          audienceList.push({
+            id : strArray[1],
+            firstName : strArray[2],
+            email : strArray[3],
+            image : strArray[4]
+          });
+          localStorage.setItem("audience-list", JSON.stringify(audienceList));
+          $('#dropdownMenuButton').removeClass('d-none');
+          showHandAtHost();
+        }
+     }
+     function showHandAtHost(){
+        let audienceList = JSON.parse(localStorage.getItem("audience-list"));
+        console.log('audienceList', audienceList);
+        let list='';
+        for(let i in audienceList){
+          list += '<li><a class="dropdown-item media" href="#"><img src="images/avtar.png" /><div  class="media-body"><span>'+audienceList[i].firstName+', LA</span><span>2 min ago</span></div></a></li>';          
+          /*
+          <li><a class="dropdown-item media" href="#"><img src="images/avtar.png" /> 
+                  <div  class="media-body">
+                    <span>Amanda P, LA</span>
+                    <span>2 min ago</span>
+                  </div>
+                  </a></li>
+           */
+        }
+        $('#total-raised-hands').html(audienceList.length);
+        $('#raised-list').append(list);
+        $('#dropdownMenuButton').removeClass('d-none');
      }
 
     function channelSignalHandler(signalData, userType) {
@@ -1560,6 +1621,11 @@ function signalHandler(uid, signalData, userType) {
       }
 
       $(document).ready(function(){
+        $('#dropdownMenuButton').on('show.bs.modal', function (e) {
+          // alert('===')
+            showHandAtHost();
+        });
+        onPageResize();
         var locaData = getCurrentUserData();
         console.log('----------localData--',locaData.id)
       // if(locaData.id == 1){
@@ -1656,6 +1722,7 @@ function signalHandler(uid, signalData, userType) {
        
       //$(".host-script-section").css({'max-height:55px'});
       showHideScript();
+      showHideHost();
       setTimeout(function(){
        onPageResize();
       }, 500);
@@ -1675,6 +1742,7 @@ function signalHandler(uid, signalData, userType) {
 
     
     window.onresize = onPageResize;
+    
    
     $(document).on('click', '#continue-join', function(){
       continueJoin();
@@ -1843,7 +1911,7 @@ function signalHandler(uid, signalData, userType) {
         
         // 1=audiencs
         if(role == 0){
-          massages="1001" +sep+ storeData.id +sep+ storeData.name +sep+ storeData.email +sep+ storeData.image;
+          massages="1001" +sep+ storeData.id +sep+ storeData.name +sep+ storeData.email;// +sep+ storeData.image;
         }       
         sendMessage(hostEmail, massages);
 

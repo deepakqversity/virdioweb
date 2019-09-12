@@ -199,50 +199,21 @@ return (
           <h4 className="title">Wine Testers (<span id="joined_users">0</span>/<span>44</span>)</h4>
           <div className="hand-raise-list">
             <div className="dropdown keep-open">
-              <button className="dropdown-toggle circle-ripple" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button className="dropdown-toggle circle-ripple d-none" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img src="images/hand-raise.png" />
               </button>
-              <div className="dropdown-menu " aria-labelledby="dropdownMenuButton">
+              <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <div className="raised-hands">
-                  <h4>Raised Hands (3)</h4>
+                  <h4>Raised Hands (<span id="total-raised-hands">3</span>)</h4>
                   <a href="#"><i className="fa fa-times"></i></a>
                 </div>
-                <ul className="raised-list">
-                  <li><a className="dropdown-item media" href="#"><img src="images/avtar.png" /> 
+                <ul className="raised-list" id="raised-list">
+                  {/*<li><a className="dropdown-item media" href="#"><img src="images/avtar.png" /> 
                   <div  className="media-body">
                     <span>Amanda P, LA</span>
                     <span>2 min ago</span>
                   </div>
-                    
-                  </a></li>
-                  <li><a className="dropdown-item media" href="#"><img src="images/avtar.png" /> 
-                  <div  className="media-body">
-                    <span>Amanda P, LA</span>
-                    <span>2 min ago</span>
-                  </div>
-                    
-                  </a></li>
-                  <li><a className="dropdown-item media" href="#"><img src="images/avtar.png" /> 
-                  <div  className="media-body">
-                    <span>Amanda P, LA</span>
-                    <span>2 min ago</span>
-                  </div>
-                    
-                  </a></li>
-                  <li><a className="dropdown-item media" href="#"><img src="images/avtar.png" /> 
-                  <div  className="media-body">
-                    <span>Amanda P, LA</span>
-                    <span>2 min ago</span>
-                  </div>
-                    
-                  </a></li>
-                  <li><a className="dropdown-item media" href="#"><img src="images/avtar.png" /> 
-                  <div  className="media-body">
-                    <span>Amanda P, LA</span>
-                    <span>2 min ago</span>
-                  </div>
-                    
-                  </a></li>
+                  </a></li>*/}
                 </ul>
                 
               </div>
@@ -250,7 +221,7 @@ return (
           </div>
         </div>
         <div className="col-6 col-lg-3 col-md-4 col-sm-5 attendy-fullscreen attendy-fullscreen">
-          <button type="button" className="btn btn-outline-secondary float-right mt-1 show-hide-footer-panel">"Show Attendees"</button>
+          <button type="button" className="btn btn-outline-secondary float-right mt-1 show-hide-footer-panel mr-3">"Show Attendees"</button>
           <a className="fullscreen" href="#" id="fullscreen"><img src="images/full-screen.png" /></a>
         </div>
       </div>
@@ -258,10 +229,10 @@ return (
     <div className="row one-gutters justify-content-center align-items-center" id="subscribers-list"></div>
 
     </section>
-    <div className="row position-fixed host-script-section justify-content-between">
+    <div className="row position-fixed host-script-section align-items-end justify-content-between">
       <div className=" host-section d-flex flex-direction-column h-100">
         <div className="host-local">
-          <div className="add-remove-round add-remove-height height-53 px-3 bg-gray pt-2 pb-2 top-rounded d-flex justify-content-between align-items-center">
+          <div className="add-remove-round1 add-remove-height height-53 px-3 bg-gray pt-2 pb-2 top-rounded d-flex justify-content-between align-items-center">
             <h3 className="main-heading font-size-16 float-left">Streaming</h3>
             <div className="host-header">
               <img src="images/mute-microphone.png" className="unmute-icon" id="mute-unmute-local" />
@@ -271,7 +242,7 @@ return (
               <img src="images/circle.png" className="circle-icon mr-0" id="record-stream" />
             </div>
           </div>
-          <div className="add-remove-round host-show-hide px-3 bg-gray mt--1 pt-2 pb-1 bottom-rounded">
+          <div className="add-remove-round1 host-show-hide px-3 bg-gray mt--1 pt-2 pb-1 bottom-rounded">
             <div id="agora_local" className="video-streams"></div>
           </div>
           

@@ -153,8 +153,8 @@ return (
 
         <div className="modal-header">
         
-          <div className="d-flex w-100 justify-content-between align-items-center  flex-md-nowrap flex-wrap">
-            <div className="session-logo mx-md-0 mx-auto">
+          <div className="d-flex w-100 justify-content-between  flex-md-nowrap flex-wrap">
+            <div className="d-flex align-items-center rounded bg-gray session-logo mx-md-0 mx-auto">
               <img src="/images/prescreen-logo.png" />
             </div>
             <div className="session-details bg-gray flex-grow-1 my-2 my-md-0 mx-md-2">

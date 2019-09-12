@@ -12,6 +12,7 @@
 	  11. Prescreen popup
 	  12. Register Page
 	  13. Verification Page
+	  14. Music List
 ----------------------------------*/
 
 
@@ -1409,7 +1410,7 @@ display:none;
     border-right: 1.4px solid #B002ED;
     border-top: 0px solid transparent;
     height: 60px;
-	color: #B002ED;
+	color: #fff;
     font-size: 16px;
     border-radius: 0px 10px 10px 10px;
 }
@@ -1457,6 +1458,29 @@ display:none;
 		position:absolute;
 		width:100%;
 		padding-left:13px;
+		font-size: 14px;
+    font-family: Avenir-Book;
+}
+.login-box .custom-control-input:checked ~ .custom-control-label::before, 
+.login-box .custom-control-input:not(:disabled):active ~ .custom-control-label::before{
+	box-shadow: none !important;
+}
+.login-box .custom-control-label::after{
+	    background: no-repeat 4px -8px / 11px 33px;
+		left: -9px;
+		top: 3px;
+}
+.login-box .custom-control-label::before{
+	width: 18px;
+    height: 18px;
+	box-shadow: none !important;
+	left: -9px;
+	top: 2px;
+}
+.login-box .custom-control-label{
+	text-indent: 20px;
+    top: 3px !important;
+    cursor: pointer;
 }
 .login-box .login-inner .form-group label, .register-box .register-inner .form-group label{
     position: absolute;
@@ -1518,7 +1542,8 @@ img.user-login{
 	text-align:center;
 	font-size: 16px;
 	font-family: Avenir-Medium;
-	margin:40px 0 20px 0;
+	    margin: 40px auto 20px auto;
+    width: 280px;
 }
 
 /* -------------  10. Attendee Screen ----------- */
@@ -1611,8 +1636,6 @@ img.user-login{
 
 /*------11. Prescreen popup----------*/
 .prescreen-popup.show.modal{
-    display: flex !important;
-    align-items: center;
 	background: rgba(0,0,0,0.8);
 }
 .prescreen-popup .modal-header{
@@ -2084,6 +2107,67 @@ color: #7C7C7C;
     font-size: 24px;
     text-align: center;
     font-family: Avenir-Medium;
+}
+
+
+/* 14. Music List  */
+.modal-open .modal.music-list{
+	background: rgba(0,0,0,0.8);
+	padding-left: 15px;
+}
+.modal-open .modal.music-list .modal-dialog{
+    max-width: 1600px;
+}
+.music-list .modal-header{
+	border: 0;
+}
+.music-list .close {
+    float: left;
+    font-size: 40px;
+    font-weight: 100;
+    line-height: 1;
+    color: #bd00ff;
+    text-shadow: none;
+    opacity: 1;
+	margin-right: auto;
+    margin-left: 0;
+    padding: 10px 0;
+}
+ul.music-playlist{
+	margin: 0;
+    padding: 0;
+}
+ul.music-playlist li{
+	    margin: 0;
+    list-style: none;
+}
+ul.music-playlist li a{
+color: #fff;
+    text-decoration: none !important;
+    width: 100%;
+    position: relative;
+    display: block;
+    padding: 20px 10px;
+    border-top: 2px solid #4B4C55;
+}
+ul.music-playlist li a span:nth-child(1){
+	font-family: Avenir-Heavy;
+    display: block;
+    font-size: 17px;
+}
+ul.music-playlist li a span:nth-child(2){
+	    font-family: Avenir-Book;
+    display: block;
+	    font-size: 13px;
+}
+ul.music-playlist li a span:nth-child(3){
+	float: right;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+.music-list .modal-body{
+	padding: 0 10px;
 }
 
 

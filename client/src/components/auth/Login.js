@@ -114,27 +114,45 @@ return (
                 <img src="/images/login-logo.png" className="login-logo" />
                 <p className="login-tagline">Login and Join a Virtual Studio</p>
               </div>
-              <form className = "form-horizontal pt-1" role = "form"  noValidate onSubmit={this.onSubmit}>
+              <form className = "form-horizontal pt-1" role = "form"  noValidate onSubmit={this.onSubmit} autocomplete="off">
+              
                 <div className="login-inner">
-                <div className = "form-group mb-4 mt-4">
+                <div className = "form-group pb-3 mb-0 mt-4">
                     <span className="text-danger">{errors.email}{errors.emailincorrect}{errors.message}</span>
                     <label>Enter your email address</label>
                     <input type="email"  id="email" onChange={this.onChange} value={this.state.email}  error={errors.email}  className={classnames("", { invalid: errors.email || errors.emailincorrect })} className = "form-control"  />
                   <img src="/images/login-user.png" className="user-login" />
                 </div>
 
-                <div className = "form-group mt-5 mb-4">
+                <div className = "form-group mt-4 mb-0">
                     <span className="text-danger">{errors.password}{errors.passwordincorrect}</span>
                     <label>Password</label>
                     <input type="password"  id="password" onChange={this.onChange} value={this.state.password} error={errors.password} className={classnames("", { invalid: errors.password || errors.passwordincorrect })} className = "form-control"  />
                     <img src="/images/login-user.png" className="user-login" />
                 </div>
                 
+                <div className = "form-group mt-4 mb-0 pl-0">
+                <div className="custom-control custom-checkbox">
+                  <input type="checkbox" className="custom-control-input" value="remember-me" id="remember_me" name="example1" />
+                    <label className="custom-control-label" for="remember_me">Remember me</label>
+                  </div>
+                </div>
+                {/*<div className = "form-group">
+                  <div class = "form-check-inline radio">
+                      <label>
+                          <input type = "radio" name = "type" id = "host" onChange={this.handleChange} value = '1' checked /> Host
+                      </label>
+                    </div>
+                    <div class="form-check-inline radio">
+                      <label>
+                          <input type = "radio" name = "type" id = "client" onChange={this.handleChange} value = '2'  checked={this.state.type === "2"}  /> Client
+                      </label>
+                    </div>
+                  </div>*/}
+      
                 <div className = "form-group pt-3 mb-4">
                     <div className = "d-flex flex-wrap justify-content-between align-items-center">
-                    <div className="remember_me">
-                        <input type="checkbox" tabIndex="3" value="remember-me" id="remember_me" />Remember Me
-                    </div>
+                    
 
                       <button type = "button" className="btn-cancel btn btn-large btn-outline-secondary waves-effect waves-light hoverable blue accent-3 rounded p-3 px-4">Cancel</button>
                       <button type = "submit" className="btn-login btn btn-large btn-primary waves-effect waves-light hoverable blue accent-3 p-3 px-4 rounded">Log in</button>

@@ -1592,7 +1592,25 @@ function signalHandler(uid, signalData, userType) {
           removeSession();
           location.href  = '/login';
       }
-
+      var upDown = function(){ 
+        //var final_state = $("$(".host-show-hide")").is(':hidden') ? 'hidden' : 'visible'; 
+        if($(this).is(':hidden') && $(".host-show-hide").is(':hidden')){
+          $(".script-section").css("display", "block");
+          $(".host-show-hide").css("display", "block");
+        }
+        else if ($(this).is(':visible') && $(".host-show-hide").is(':hidden')){
+          $(".script-section").css("display", "none");
+          $(".host-show-hide").css("display", "none");
+        }
+        else if ($(this).is(':hidden') && $(".host-show-hide").is(':visible')){
+          $(".host-show-hide").css("display", "none");
+          $(".script-section").css("display", "none");
+        }
+        else if ($(this).is(':visible') && $(".host-show-hide").is(':visible')){
+          $(".script-section").css("display", "none");
+          $(".host-show-hide").css("display", "none");
+        }
+      }
       function pullFromSession(){
         unpublish();
       }
@@ -1714,7 +1732,7 @@ function signalHandler(uid, signalData, userType) {
     $(".host-section").css({"min-width": "380px", "max-width": "380px"});
 
     
-
+    
     $(".show-hide-footer-panel").click(function(){
       $(".host-script-section").height() < 255 ? $(".host-script-section").height("255px") : $(".host-script-section").height("auto");
       
@@ -1736,8 +1754,13 @@ function signalHandler(uid, signalData, userType) {
       }
       $(this).text($(this).text() == '"Show Attendees"' ? '"Hide Attendees"' : '"Show Attendees"');
       
-      $(".host-show-hide").slideToggle();
-      $(".script-section").slideToggle();
+
+      $(".host-show-hide").slideToggle(upDown);
+      $(".script-section").slideToggle(upDown);
+      
+
+
+
     });
 
     

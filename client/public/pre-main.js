@@ -862,39 +862,12 @@ if(!AgoraRTC.checkSystemRequirements()) {
       }
   }
 
-   function continueJoin(){
+  function removePreScreenSession(){
 
-    let mediaSetting = {};
-    if($('#set-default').prop('checked')){
-
-      mediaSetting['camera'] = $('input[name="video-type"]').length > 0 ? $('input[name="video-type"]:checked').val():null;
-      mediaSetting['microphone'] = $('input[name="audio-type"]').length > 0 ? $('input[name="audio-type"]:checked').val():null;
-      localStorage.setItem("media-setting", JSON.stringify(mediaSetting));
-    } else {
-      localStorage.removeItem("media-setting");
-    }
-    $('#media-config').modal('hide');
     stream1.close();
     stream2.close();
-    // GoInFullscreen();
-    // localClient.leave();
-    join();
-    var resp_data = JSON.parse(localStorage.getItem("userData"));
-    console.log('-----------hhhhhhhhh-------------------', resp_data.userType);
-      if(resp_data.userType == 1)
-      {     
-       // $('.dis').attr("disabled", false);
-     //  $('.dis[data-attr=\''+signalData.data+'\']').removeClass("d-none");
-     var text ="222";
-        sendMessageToChannel(channelName1, text);
-        getMemberList();
-      }
-     // getOnlineMemberList();
-      
-
-    $(".host-script-section").height("255px");
-    $(".host-section").css({"min-width": "380px", "max-width": "380px"});
   }
+
   function toggleFullScreen() {
     if ((document.fullScreenElement && document.fullScreenElement !== null) ||    
      (!document.mozFullScreen && !document.webkitIsFullScreen)) {

@@ -17,7 +17,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   var client, localStream, camera, microphone;
   var totalBrodcaster = 0;
-  const sep = '~@$';
+  // const sep = '~@$';
   function join() {
 
     let camera = microphone= null;
@@ -39,8 +39,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
     } else {
       if($('input[name="video-type"]').length > 0 && $('input[name="audio-type"]').length > 0){
 
-        camera = $('input[name="video-type"]:checked').val();
-        microphone = $('input[name="audio-type"]:checked').val();
+        camera = $('#current-camera').val();
+        microphone = $('#current-microphone').val();
+        // camera = $('input[name="video-type"]:checked').val();
+        // microphone = $('input[name="audio-type"]:checked').val();
       } else {
         console.log('Media device not found==')
         return false;
@@ -750,7 +752,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       localStream.muteAudio();  
   }
   
-  let checkMic = function(micId){
+  let checkMicStream = function(micId){
 
       stream2 = AgoraRTC.createStream({
           streamID: Math.floor(Math.random()*1000000),
@@ -851,7 +853,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
           if(defaultSetting == 'checked'){
             // console.log('current =============', deviceId)
-            checkMic(deviceId);
+            checkMicStream(deviceId);
           }
         } else if (device.kind === 'videoinput') {
 
@@ -903,7 +905,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
     $(document).on('click', 'input[name="audio-type"]', function(){
         console.log($(this).val());
-        checkMic($(this).val());
+        // checkMicStream($(this).val());
     });
   }
 
@@ -923,6 +925,31 @@ if(!AgoraRTC.checkSystemRequirements()) {
   }
 
    function continueJoin(){
+
+    // $('#media-config').modal('hide');
+    // stream1.close();
+    // stream2.close();
+    // GoInFullscreen();
+    // localClient.leave();
+    join();
+    var resp_data = JSON.parse(localStorage.getItem("userData"));
+    console.log('-----------hhhhhhhhh-------------------', resp_data.userType);
+      if(resp_data.userType == 1)
+      {     
+       // $('.dis').attr("disabled", false);
+     //  $('.dis[data-attr=\''+signalData.data+'\']').removeClass("d-none");
+     var text ="222";
+        sendMessageToChannel(channelName1, text);
+        getMemberList();
+      }
+     // getOnlineMemberList();
+      
+
+    $(".host-script-section").height("255px");
+    $(".host-section").css({"min-width": "380px", "max-width": "380px"});
+  }
+
+  function continueJoinBkup(){
 
     let mediaSetting = {};
     if($('#set-default').prop('checked')){
@@ -955,6 +982,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     $(".host-script-section").height("255px");
     $(".host-section").css({"min-width": "380px", "max-width": "380px"});
   }
+
   function toggleFullScreen() {
     if ((document.fullScreenElement && document.fullScreenElement !== null) ||    
      (!document.mozFullScreen && !document.webkitIsFullScreen)) {
@@ -1016,7 +1044,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   // }
 
 
-  let agoraLocal = $("#agora_local").find("video").width();
+  agoraLocal = $("#agora_local").find("video").width();
     $("#agora_local video").height(`${agoraLocal / 1.778 }px`);
 function attendeeScreenHeight(){
   let attendeeHeight = $(".attend-mid-section").height();
@@ -1142,7 +1170,7 @@ function attendeeScreenHeight(){
         $('#media-config').on('hidden.bs.modal', function (e) {
           console.log('close event')
         })
-        getDevices();
+        // getDevices();
       }
       // GoInFullscreen();
       rtmJoin(); 
@@ -1799,20 +1827,21 @@ function signalHandler(uid, signalData, userType) {
     });
 
     // if($('#conf-page').length > 0){
-      if($('#media-config').length > 0){
+      // if($('#media-config').length > 0){
 
         // networkBandwidth();
-        $('#media-config').modal({
-          backdrop : "static",
-          keyboard: false
-        });
+        // $('#media-config').modal({
+        //   backdrop : "static",
+        //   keyboard: false
+        // });
 
-        $('#media-config').on('hidden.bs.modal', function (e) {
-          console.log('close event')
-        })
-        getDevices();
+        // $('#media-config').on('hidden.bs.modal', function (e) {
+        //   console.log('close event')
+        // })
+        // getDevices();
+        continueJoin()
         rtmJoin(); 
-      }
+      // }
       // GoInFullscreen();
 
     // }

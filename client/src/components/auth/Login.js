@@ -91,12 +91,13 @@ return (
                 <img src="/images/login-logo.png" className="login-logo" />
                 <p className="login-tagline">Login and Join a Virtual Studio</p>
               </div>
-              <form className = "form-horizontal pt-1" role = "form"  noValidate onSubmit={this.onSubmit}>
+              <form className = "form-horizontal pt-1" role = "form"  noValidate onSubmit={this.onSubmit} autocomplete="off">
+              
                 <div className="login-inner">
                 <div className = "form-group mb-4 mt-4">
                     <span className="text-danger">{errors.email}{errors.emailincorrect}{errors.message}</span>
                     <label>Enter your email id</label>
-                    <input type="email"  id="email" onChange={this.onChange} value={this.state.email}  error={errors.email}  className={classnames("", { invalid: errors.email || errors.emailincorrect })} className = "form-control"  />
+                    <input type="email" id="email" onChange={this.onChange} value={this.state.email}  error={errors.email}  className={classnames("", { invalid: errors.email || errors.emailincorrect })} className = "form-control"  />
                   <img src="/images/login-user.png" className="user-login" />
                 </div>
 
@@ -106,7 +107,9 @@ return (
                     <input type="password"  id="password" onChange={this.onChange} value={this.state.password} error={errors.password} className={classnames("", { invalid: errors.password || errors.passwordincorrect })} className = "form-control"  />
                     <img src="/images/login-user.png" className="user-login" />
                 </div>
-                
+                <div className = "form-group mt-5 mb-4">
+                    <label><input type="checkbox" /> Remember me</label> 
+                </div>
                 {/*<div className = "form-group">
                   <div class = "form-check-inline radio">
                       <label>

@@ -55,7 +55,15 @@ export const loginUser = userData => dispatch => {
 
       const  token  = res.data.token;
 
-    //  console.log(res.data);
+       if ($('#remember_me').is(':checked')) {
+          // save username and password
+          localStorage.email = $('#email').val();
+          localStorage.chkbx = $('#remember_me').val();
+      } else {
+
+          localStorage.removeItem('email');
+          localStorage.removeItem('chkbx');
+      }
     
       localStorage.setItem("userData", JSON.stringify(res.data));
 

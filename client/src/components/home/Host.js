@@ -199,50 +199,21 @@ return (
           <h4 className="title">Wine Testers (<span id="joined_users">0</span>/<span>44</span>)</h4>
           <div className="hand-raise-list">
             <div className="dropdown keep-open">
-              <button className="dropdown-toggle circle-ripple" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button className="dropdown-toggle circle-ripple d-none" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img src="images/hand-raise.png" />
               </button>
-              <div className="dropdown-menu " aria-labelledby="dropdownMenuButton">
+              <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <div className="raised-hands">
-                  <h4>Raised Hands (3)</h4>
+                  <h4>Raised Hands (<span id="total-raised-hands">3</span>)</h4>
                   <a href="#"><i className="fa fa-times"></i></a>
                 </div>
-                <ul className="raised-list">
-                  <li><a className="dropdown-item media" href="#"><img src="images/avtar.png" /> 
+                <ul className="raised-list" id="raised-list">
+                  {/*<li><a className="dropdown-item media" href="#"><img src="images/avtar.png" /> 
                   <div  className="media-body">
                     <span>Amanda P, LA</span>
                     <span>2 min ago</span>
                   </div>
-                    
-                  </a></li>
-                  <li><a className="dropdown-item media" href="#"><img src="images/avtar.png" /> 
-                  <div  className="media-body">
-                    <span>Amanda P, LA</span>
-                    <span>2 min ago</span>
-                  </div>
-                    
-                  </a></li>
-                  <li><a className="dropdown-item media" href="#"><img src="images/avtar.png" /> 
-                  <div  className="media-body">
-                    <span>Amanda P, LA</span>
-                    <span>2 min ago</span>
-                  </div>
-                    
-                  </a></li>
-                  <li><a className="dropdown-item media" href="#"><img src="images/avtar.png" /> 
-                  <div  className="media-body">
-                    <span>Amanda P, LA</span>
-                    <span>2 min ago</span>
-                  </div>
-                    
-                  </a></li>
-                  <li><a className="dropdown-item media" href="#"><img src="images/avtar.png" /> 
-                  <div  className="media-body">
-                    <span>Amanda P, LA</span>
-                    <span>2 min ago</span>
-                  </div>
-                    
-                  </a></li>
+                  </a></li>*/}
                 </ul>
                 
               </div>

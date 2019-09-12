@@ -6,6 +6,8 @@ import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
 import classnames from "classnames";
 
+import $ from 'jquery';
+
 class Login extends Component {
   constructor() {
     super();
@@ -29,6 +31,14 @@ class Login extends Component {
         this.props.history.push("/guest");
       } else {
         this.props.history.push("/home");
+      }
+    } else {
+      if (localStorage.chkbx && localStorage.chkbx != '') {
+          $('#remember_me').attr('checked', 'checked');
+          $('#email').val(localStorage.email);
+      } else {
+          $('#remember_me').removeAttr('checked');
+          $('#email').val('');
       }
     }
   }
@@ -96,8 +106,8 @@ return (
                 <div className="login-inner">
                 <div className = "form-group mb-4 mt-4">
                     <span className="text-danger">{errors.email}{errors.emailincorrect}{errors.message}</span>
-                    <label>Enter your email id</label>
-                    <input type="email" id="email" onChange={this.onChange} value={this.state.email}  error={errors.email}  className={classnames("", { invalid: errors.email || errors.emailincorrect })} className = "form-control"  />
+                    <label>Enter your email address</label>
+                    <input type="email"  id="email" onChange={this.onChange} value={this.state.email}  error={errors.email}  className={classnames("", { invalid: errors.email || errors.emailincorrect })} className = "form-control"  />
                   <img src="/images/login-user.png" className="user-login" />
                 </div>
 
@@ -108,7 +118,7 @@ return (
                     <img src="/images/login-user.png" className="user-login" />
                 </div>
                 <div className = "form-group mt-5 mb-4">
-                    <label><input type="checkbox" /> Remember me</label> 
+                    <label><input type="checkbox" value="remember-me" id="remember_me" /> Remember me</label> 
                 </div>
                 {/*<div className = "form-group">
                   <div class = "form-check-inline radio">
@@ -125,7 +135,9 @@ return (
       
                 <div className = "form-group pt-3 mb-4">
                     <div className = "d-flex flex-wrap justify-content-between align-items-center">
-                      <button type = "submit" className="btn-cancel btn btn-large btn-outline-secondary waves-effect waves-light hoverable blue accent-3 rounded p-3 px-4">Cancel</button>
+                    
+
+                      <button type = "button" className="btn-cancel btn btn-large btn-outline-secondary waves-effect waves-light hoverable blue accent-3 rounded p-3 px-4">Cancel</button>
                       <button type = "submit" className="btn-login btn btn-large btn-primary waves-effect waves-light hoverable blue accent-3 p-3 px-4 rounded">Log in</button>
                       <a href="#" className="forgot-password mt-sm-0 mt-3">Forgot password?</a>
                     </div>

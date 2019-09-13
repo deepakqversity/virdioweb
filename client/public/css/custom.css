@@ -107,6 +107,9 @@ overflow:hidden;
 .border-right-gray{
 	border-right:1px solid #D8D8D8;
 }
+.border-right-gray2{
+	border-right:1px solid #707070;
+}
 .pr-20{
 	padding-right:20px;
 }
@@ -727,18 +730,18 @@ font-size: 18px;
 position: absolute;
     bottom: 15px;
     left: 15px;
-    background: #fff;
-    width: 160px;
+    width: 100%;
+    
     height: 25px !important;
-    border-radius: 7px 7px;
+    
 }
 .video-holder .att-name{
     font-family: Avenir-Heavy;
     color: #000;
     font-size: 16px;
-    position: absolute;
-    bottom: 1px;
-    left: 15px;
+    background: #fff;
+    border-radius: 7px 7px;
+    padding: 3px 12px;
 }
 .vid-icons{
 	position: absolute;
@@ -1661,6 +1664,9 @@ img.user-login{
 .prescreen-popup .session-logo{
 	width:165px;
 }
+.prescreen-popup .session-logo img{
+	margin:auto;
+}
 .prescreen-popup .participant-status{
     width: 250px;
     padding: 10px 15px;
@@ -1813,6 +1819,11 @@ img.user-login{
     font-size: 20px;
 	
 }
+@media (max-width:1024px){
+	.participant-status .border-right-gray2{
+	border-right:0 !important;
+}
+}
 .check-camera{
 	display:grid;
 	grid-template-columns: 50% 50%;
@@ -1847,6 +1858,9 @@ img.user-login{
     top: 7px;
 	    margin-right: 9px;
 }
+.video-streams.select-camera{
+	min-height:170px;
+}
 .form-radio:checked{
      background-color: #BD00FF;
 	     border: none;
@@ -1863,6 +1877,7 @@ img.user-login{
 }
 .heart-rate{
 	width:160px;
+	margin-left: 0.5rem !important;
 }
 .network-wifi .signup-number{
 	    font-size: 28px;
@@ -1959,7 +1974,7 @@ display: inline-block;
     margin-left: 17px;
 }
 .select-audio{
-	margin-right: 0.5rem !important;
+	margin-right: 0 !important;
 	margin-left: 0.5rem !important;
 	margin-bottom: 0 !important;
 		    margin-top: 0 !important;
@@ -1970,6 +1985,7 @@ display: inline-block;
 	}
 	.heart-rate {
     width: 100%;
+	margin-left: 0 !important;
 }
 	.select-audio{
 	margin-right: 0 !important;

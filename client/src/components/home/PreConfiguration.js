@@ -210,7 +210,7 @@ render() {
       // const storeData = JSON.parse(localStorage.getItem("userData"));
       // console.log('-----------Avishekhllllll-------------------', storeData.sessionData.hostName)
 
-  
+  $("body").css("overflow-y", "scroll");
   return (
        <div>
       <div className="prescreen-popup" id="media-config">
@@ -227,14 +227,14 @@ render() {
             </div>
             <div className="session-details bg-gray flex-grow-1 my-2 my-md-0 mx-md-2">
                 <div className="row">
-                  <div className="col-lg-9">
+                  <div className="col-lg-8">
                     <h4 className="small-heading">Your Upcoming Session</h4>
                     <h3 className="popup-heading">{sessionData.name}<span>by {sessionData.hostName.toLowerCase()}</span><span className="green-online" id="online_state">ONLINE</span></h3>
                     <div className="time py-xs-1">  
                       <span className="no-border">{localDate}</span>
                     </div>
                   </div>
-                  <div className="col-lg-3 float-right time-session">
+                  <div className="col-lg-4 float-right time-session">
                     <span className="countdown-timer">{hours} : {minutes} : {seconds}</span>
                     <a href="#" className="btn btn-primary float-right">Session details</a>
                   </div>
@@ -270,8 +270,8 @@ render() {
           </div>
         
         </div>
-        <div className="row four-gutters">
-          <div className="col-12 col-md-3 col-lg-3">
+        <div className="d-flex prescreen-footer">
+          <div className=" network-wifi mb-2 mb-md-0">
             <div className="bg-gray h-100 position-relative pad15 rounded">
               <h6 className="small-heading mb-3">Network Reliability</h6>
                 
@@ -286,17 +286,15 @@ render() {
                 </div>
               </div>
               <div className="row">
-                <div className="col-lg-4 col-md-6">
+                <div className="online-streams">
                   <span className="online-total">Online streams on screen</span>
-                  
+                  <span className="signup-number" >8</span>
                 </div>
-                <div className="col-lg-4 col-md-6">
-                  <span className="signup-number" >142</span>
-                </div>
+                
               </div>
             </div>
           </div>
-          <div className={ interest == 101 ? ("col-12 col-md-7 col-lg-7 my-2 my-md-0") : ("col-12 col-md-9 col-lg-9 my-2 my-md-0")}>
+          <div className="flex-grow-1 select-audio">
             <div className="h-100 bg-gray position-relative pad15 rounded">
               <h6 className="small-heading mb-0">Select Microphone</h6>
               <div className="col-lg-12">
@@ -305,12 +303,12 @@ render() {
             </div>
           </div>
           { interest == 101 ? 
-            (<div className="col-12 col-md-2 col-lg-2">
-              <div className="h-100 bg-gray position-relative pad15 rounded">
-                <span className="online-total text-left">Heart Rate Monitor detected</span>
-                <span className="signup-number font-20 text-left" >NO</span>
-              </div>
-            </div>) : ('')
+            (<div className="heart-rate">
+            <div className="h-100 bg-gray position-relative pad15 rounded">
+              <span className="online-total text-left">Heart Rate Monitor detected</span>
+              <span className="signup-number font-20 text-left" >NO</span>
+            </div>
+          </div>) : ('')
           }
           
         </div>
@@ -323,7 +321,7 @@ render() {
              
               <div className="col-lg-9">
               <span id='newmsg' style={{color:'green'}}></span>
-                <h6 className="small-heading mb-3 no-border">Just joined</h6>
+                <h6 className="small-heading mb-3 no-border">Joined</h6>
                 <div className="d-none">
                   <div className="joiners d-flex flex-wrap">
                     <span>
@@ -389,7 +387,7 @@ render() {
                 <tr>
                   <th scope="col">&nbsp;</th>
                   <th scope="col">Name</th>
-                  <th scope="col">Email</th>
+                  
                   <th scope="col">Status</th>
                   <th scope="col">Visible</th>
                   <th scope="col"># of Sessions</th>

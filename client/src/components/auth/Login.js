@@ -19,6 +19,11 @@ class Login extends Component {
   }
 
   componentDidMount() {
+    $('#email').on('focus', function() {
+      //document.body.scrollTop = $(this).offset().top;
+      document.body.scrollTop = 200;
+  
+  });
     // If logged in and user navigates to Login page, should redirect them to dashboard
     if (this.props.auth.isAuthenticated) {
       // this.props.history.push("/home");
@@ -102,8 +107,11 @@ onSubmit = e => {
    console.log(userData);
     this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
   };
+  
 render() {
     const { errors } = this.state;
+
+    
 return (
       <div className="container">
         <div className="row">
@@ -121,7 +129,7 @@ return (
                 <div className = "form-group pb-3 mb-0 mt-4">
                     <span className="text-danger">{errors.email}{errors.emailincorrect}{errors.message}</span>
                     <label>Enter your email address</label>
-                    <input type="email"  id="email" onChange={this.onChange} value={this.state.email}  error={errors.email}  className={classnames("", { invalid: errors.email || errors.emailincorrect })} className = "form-control"  />
+                    <input autoFocus type="email"  id="email" onChange={this.onChange} value={this.state.email}  error={errors.email}  className={classnames("", { invalid: errors.email || errors.emailincorrect })} className = "form-control"  />
                   <img src="/images/login-user.png" className="user-login" />
                 </div>
 

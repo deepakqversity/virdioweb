@@ -136,15 +136,15 @@ export const joinConf = (channel) => dispatch => {
 
 // Log user out
 export const addLogs = (sessionId, userType, type) => dispatch => {
-  
-  let logData = {
-    sessionId:sessionId,
-    userType:userType,
-    type:type
+  console.log("sessionId, userType, type ", sessionId, userType, type);
+  const logData = {
+    sessionId : sessionId,
+    userType : userType,
+    type : type
   };
   var userData = JSON.parse(localStorage.getItem("userData"));
 
-  fetch("/api/v1/session/activity-logs", {
+  fetch("/api/v1/session/activity-log", {
     method: 'POST',
     body: logData,
     headers : {'Authorization': userData.token}

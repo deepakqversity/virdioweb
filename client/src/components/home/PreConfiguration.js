@@ -112,6 +112,7 @@ class PreConfiguration extends Component {
   }
 
   addLog = (sessionId, userType, type) => {
+    console.log("sessionId, userType, type ", sessionId, userType, type);
     this.props.addLogs(sessionId, userType, type);
   };
 

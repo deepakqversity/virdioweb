@@ -506,7 +506,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
        channel.on('MemberJoined', memberId => { 
        
-         var massages="208~@$"+memberId+"~@$joined~@$";        
+         var massages="208~@$"+memberId+"~@$joined~@$"; 
+                
          channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
         })
      
@@ -550,16 +551,31 @@ if(!AgoraRTC.checkSystemRequirements()) {
       }
 
 
-
       function getMemberList()
       {
+        let memberlist='';
+        channel.getMembers().then(membersList => {    
+            
+         // channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
+         memberlist=membersList;
+          }).catch(error => {
+              console.log('*************There is an error******');
+
+          });
+
+          return memberlist;
+      }
+
+   
+
+      function getAudienceList()
+      {
           channel.getMembers().then(membersList => {    
-          
-       
+        
         var arr=membersList;             
         counter=membersList.length;
         counter=parseInt(counter); 
-       
+       console.log('--------counter-------------',counter);
         var html = '';
         var optionbox='';
         optionbox +='<option value="select">select</option>';
@@ -574,7 +590,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
           }
         });
         html += '<select id="opt" onchange="onclickShowAsBroadcaster();">'+optionbox+'</select>';
-        $('#guestmsg').append(html);
+        $('#guestmsg').html(html);
 
       }).catch(error => {
           console.log('*************There is an error******');
@@ -949,7 +965,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
      //  $('.dis[data-attr=\''+signalData.data+'\']').removeClass("d-none");
      var text ="222";
         sendMessageToChannel(channelName1, text);
-        getMemberList();
+        getAudienceList();
+       //getMemberList();
       }
      // getOnlineMemberList();
       
@@ -1326,7 +1343,8 @@ function signalHandler(uid, signalData, userType) {
 
     function channelSignalHandler(signalData, userType) {
 
-      console.log('********guduorigin************** signalData ', signalData, userType);
+    getAudienceList();
+    console.log('********guduorigin************** signalData ', signalData, userType);
     signalData = JSON.parse(signalData);
     if(signalData.code == '208'){
     if(userType =='1'){  
@@ -1352,16 +1370,23 @@ function signalHandler(uid, signalData, userType) {
 
       
         count3=parseInt(count3);
+        var arr;
         
       if(signalData.msgtype=='Joined')
       { 
-        
+        let localstoragedata = JSON.parse(localStorage.getItem('allloginuser'));
+        let newmem=signalData.member;
+        console.log('*******totallist111222*************** signalData ',signalData.member,'----mmm----', localstoragedata); 
+
+        localstoragedata.push(newmem);
+        localStorage.setItem("allloginuser", JSON.stringify(localstoragedata));
         let str=signalData.message;
         let res = str.split("~@$");
         let storeData = getCurrentUserData();
-        var hostid=storeData.sessionData.hostId;
+       //  hostEmail=storeData.sessionData.hostEmail;
+         let hostEmail='deepak@test.com';
       
-        if(res[1]== hostid)
+        if(res[1]== hostEmail)
         { 
           $('#online_state').removeClass("online-status");        
           $('#online_state').addClass("online-status");
@@ -1373,12 +1398,24 @@ function signalHandler(uid, signalData, userType) {
      
       }else if(signalData.msgtype=='left') {
 
+        let localstoragealdata = JSON.parse(localStorage.getItem('allloginuser'));
+        
+        let mememail=signalData.member;
+       
+        let index = localstoragealdata.indexOf(mememail);
+     
+        if (index > -1) {
+          localstoragealdata.splice(index, 1);
+        }
+        localStorage.setItem("allloginuser", JSON.stringify(localstoragealdata));
+
         let str=signalData.message;
         let res = str.split("~@$");
         let storeData = getCurrentUserData();
-        var hostid=storeData.sessionData.hostId;
+        //  hostEmail=storeData.sessionData.hostEmail;
+        let hostEmail='deepak@test.com';
 
-        if(res[1]== hostid)
+        if(res[1]== hostEmail)
         {          
           $('#online_state').removeClass("online-status");
         }
@@ -1386,41 +1423,37 @@ function signalHandler(uid, signalData, userType) {
       
         count4=count3-1;
      
-        // $('#newmsg').html(signalData.message);
-        // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
-     
-        //   $('#hostmsg').html(signalData.message);
-        // setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
-           
+          
       }else if(signalData.msgtype=='totalcount') {
-        
-        let storeData = getCurrentUserData();
-        let hostid=storeData.sessionData.hostId;
-     
-        var arr=signalData.totalmember;
-       
-        // if($.inArray(hostid, arr) >= 0)
-        // {
-        //   $('#online_state').html('ONLINE');
-        //   $('#online_state').addClass("online-status");
-        // }
-        
+            
+         arr=signalData.totalmember;  
+         localStorage.setItem("allloginuser", JSON.stringify(signalData.totalmember));            
+         console.log('*******totallist2222233333*************** signalData ', arr);
+
         count4=signalData.member;
         count4=parseInt(count4);
         count4=count4-1;
        // console.log('*******totallist*************** signalData ', count4);
-       arr.shift();
-        arr.forEach(element => {
-
-          if(element == hostid)
-          {  
-            
-          $('#online_state').removeClass("online-status");        
-            $('#online_state').addClass("online-status");
-          }
-          $('#all_joined_member_list').append('<div className="attendee-list"><img src="images/attendee.png" /><span class="title">'+element+'</span><div className="vid-icons"><span className="icon1"></span><span className="icon2"></span></div></div>');
-        });    
+       //arr.shift();
+   
       }
+
+      let storeData = getCurrentUserData();    
+      //  hostEmail=storeData.sessionData.hostEmail;
+        let hostEmail='deepak@test.com';
+
+      let arrayToDispaly = JSON.parse(localStorage.getItem('allloginuser'));
+      $('#all_joined_member_list').html('');
+      arrayToDispaly.forEach(element => {
+         
+        if(element == hostEmail)
+        {  
+          
+        $('#online_state').removeClass("online-status");        
+          $('#online_state').addClass("online-status");
+        }
+        $('#all_joined_member_list').append('<div className="attendee-list"><img src="images/attendee.png" /><span class="title">'+element+'</span><div className="vid-icons"><span className="icon1"></span><span className="icon2"></span></div></div>');
+      }); 
       
       $('#totalonline').empty(); 
       $('#totalonline').html(count4);

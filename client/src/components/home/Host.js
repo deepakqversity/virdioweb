@@ -18,7 +18,9 @@ class Host extends Component {
       sessionScript: 0,
       timerOn: false,
       timerStart: 0,
-      timerTime: 0
+      timerTime: 0,
+      camera:'',
+      microphone:''
     };
 
   }
@@ -59,10 +61,11 @@ class Host extends Component {
       "shown.bs.dropdown": function() { this.closable = false; },
       "click":             function() { this.closable = true; },
       "hide.bs.dropdown":  function() { return this.closable; }
-  });
+    });
     this.loadScript('/AgoraRTCSDK-2.7.1.js');
     this.loadScript('/agora-rtm-sdk-1.0.0.js');
     this.loadScript('/main.js');
+    
     
     // if(localStorage.getItem('load-page') != 1){  
     //     window.loadPopup();
@@ -77,7 +80,8 @@ class Host extends Component {
 
     scDate = (new Date(scDate).getTime()) - (new Date().getTime());
     console.log('scDate- ', scDate)
-    this.state.timerTime = scDate;// 1 sec 1000 = 1sec
+    // this.state.timerTime = scDate;// 1 sec 1000 = 1sec
+    this.setState({timerTime : scDate});
   }
   componentWillMount(){
     this.startTimer();
@@ -142,8 +146,6 @@ render() {
     } else if(sessionScript == 2) {
       scriptHtml = <FitnessScript />;
     }
-
-    
 
 return (
     <div className="container justify-content-between d-flex flex-column h-100 position-relative">
@@ -370,8 +372,8 @@ return (
 
 
       </div>
-
-      <Config />
+      <input type="hidden" id="current-camera" />
+      <input type="hidden" id="current-microphone" />
   </div>
     );
   }

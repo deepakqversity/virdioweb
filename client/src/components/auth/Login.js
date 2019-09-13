@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
@@ -47,10 +46,12 @@ class Login extends Component {
     } else {
       if (localStorage.chkbx && localStorage.chkbx != '') {
           $('#remember_me').attr('checked', 'checked');
-          $('#email').val(localStorage.email);
+          // $('#email').val(localStorage.email);
+          this.setState({email:localStorage.email})
       } else {
           $('#remember_me').removeAttr('checked');
-          $('#email').val('');
+          // $('#email').val('');
+          this.setState({email:''})
       }
     }
   }

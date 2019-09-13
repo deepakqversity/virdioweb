@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -12,14 +11,15 @@ class PreConfiguration extends Component {
     super(props);
    // this.state = {data : '', allData:''}
 
-   this. state = {
+   this.state = {
       isLoading: true,
       users: [],
       error: null,
       sessionScript: 0,
       timerOn: false,
       timerStart: 0,
-      timerTime: 0
+      timerTime: 0,
+      userType:-1
     }
   }
 
@@ -35,6 +35,18 @@ class PreConfiguration extends Component {
     
     var body = document.getElementsByTagName('html')[0];
     body.appendChild(tag);
+  }
+
+  removeScript = function (src) {
+    console.log('src========', src)
+    // let scpt = $('script');
+    $('script').each(function(i){
+      console.log('_________________',$(this).attr('src'),src);
+      if($(this).attr('src').indexOf(src) !== -1){
+        $(this).remove();
+        return '';
+      }
+    })
   }
 
   componentDidMount(){
@@ -54,23 +66,43 @@ class PreConfiguration extends Component {
 
     scDate = (new Date(scDate).getTime()) - (new Date().getTime());
     // console.log('scDate- ', scDate)
-    this.state.timerTime = scDate;// 1 sec 1000 = 1sec
+    this.setState({timerTime: scDate});// 1 sec 1000 = 1sec
+
   }
   componentWillMount(){
     // this.fetchUsers();
     //console.log(1);
     // window.test();
     this.startTimer();
+    let localstoragedata = JSON.parse(localStorage.getItem('userData'));
+    this.setState({userType : localstoragedata.userType})
+    console.log('$$$$$$$$$$$$$$$',localstoragedata.userType, this.state.userType);
+
   }
 
-  joinSession() {
-      let localstoragedata = JSON.parse(localStorage.getItem('userData'));
+  joinSession = () => {
+      // console.log('#############', this.state.userType);
       
-      if(localstoragedata){
-        if(localstoragedata.userType == 1)
+      window.removePreScreenSession();
+
+      this.removeScript('/AgoraRTCSDK-2.7.1.js');
+      this.removeScript('/agora-rtm-sdk-1.0.0.js');
+      this.removeScript('/pre-main.js');
+
+      if(this.state.userType != -1){
+        let mediaSetting = {};
+        mediaSetting['camera'] = $('input[name="video-type"]').length > 0 ? $('input[name="video-type"]:checked').val():null;
+        mediaSetting['microphone'] = $('input[name="audio-type"]').length > 0 ? $('input[name="audio-type"]:checked').val():null;
+        localStorage.setItem("media-setting", JSON.stringify(mediaSetting));
+
+        // let device = {microphone : $('input[name="audio-type"]:checked').val(), camera : $('input[name="video-type"]:checked').val()}
+        // console.log('device', device, this.state.userType)
+        if(this.state.userType == 1){
           this.props.history.push("/host");
-        else
+        }
+        else{
           this.props.history.push("/guest");
+        }
 
       } else {
         this.props.history.push("/login");
@@ -142,19 +174,28 @@ render() {
   //console.log('scheduleDate ',localDate );
   
   //console.log('------hhhhhhhh----users ', this.state.users)
- let users1 = this.state.users.map((user, idx) => {
-    const { username, name, email } = user;
-    return (
-      <tr key={idx}>
-      <th scope="row"><img src="/images/avtar.png" /></th>
-      <td>{name}</td>
-      <td>{email}</td>
-      <td><img className="mr-2" src="/images/online.png" />online</td>
-      <td>YES</td>
-      <td>5</td>
-    </tr>
-    );
-  })
+  let onlineUsers = '';
+  let participent = '';
+  if(localstoragedata.userType == 1){
+    
+    participent = <img src="images/list-icon.png" data-toggle="modal" data-target="#attendy-list" className="open-list" />;
+
+    onlineUsers = this.state.users.map((user, idx) => {
+      if(user.userType != 1) {
+        const { username, name, email } = user;
+        return (
+          <tr key={idx}>
+          <th scope="row"><img src="/images/avtar.png" /></th>
+          <td>{name}</td>
+          <td>{email}</td>
+          <td><img className="mr-2" src="/images/online.png" />online</td>
+          <td>YES</td>
+          <td>5</td>
+        </tr>
+        );
+      }
+    })
+  }
 
 
        // var allData= this.props.dispatch(allUsers(sessionId));
@@ -199,7 +240,8 @@ render() {
                 </div>
             </div>
             <div className="participant-status bg-gray session-logo mx-md-0 mx-auto">
-              <h4 className="small-heading">Participants <img src="images/list-icon.png"  data-toggle="modal" data-target="#attendy-list" className="open-list" /></h4>
+              
+            <h4 className="small-heading">Participants {participent}</h4>
                 <div className="col-lg-12 mt-3">
                   <div className="row">
                     <div className="col-lg-6 border-right-gray">
@@ -352,7 +394,7 @@ render() {
                 </tr>
               </thead>
               <tbody>
-              { users1 }                
+              { onlineUsers }                
               </tbody>
             </table>
             </div>
@@ -366,6 +408,7 @@ render() {
 }
 PreConfiguration.propTypes = {
   logoutUser: PropTypes.func.isRequired,
+  // joinSession: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({

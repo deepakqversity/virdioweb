@@ -36,11 +36,11 @@ class Host extends Component {
     this.props.joinConf(channel);
   };
 
-  callfunction(){
+  callfunction = e => {
     $('#logout_button').trigger('click');
   }
 
-  sendMsgAll(){
+  sendMsgAll = e => {
     $('#msgToAll_button').trigger('click');
   }
   
@@ -102,6 +102,7 @@ class Host extends Component {
       } else {
         clearInterval(this.timer);
         this.setState({ timerOn: false });
+        $('.countdown-timer').html('Session Started')
         //alert("Countdown ended");
       }
     }, 10);
@@ -172,7 +173,7 @@ return (
           <div className="row justify-content-between align-items-center mt-0">
             <div className="col-12 col-sm-7">
               <div className="time py-xs-1">  <span>{localDate}</span>
-                <span>Time Remaining: {hours} : {minutes} : {seconds}</span>
+                <span className="countdown-timer">Time Remaining: {hours} : {minutes} : {seconds}</span>
                 <div id="errmsg" style={{color:'green'}}></div>
                 <div id ="all_attendies_list"></div>
               </div>

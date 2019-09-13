@@ -3,6 +3,7 @@ const isEmpty = require("is-empty");
 const underscore = require("underscore");
 const sessionModel = require('../../models/Session');
 const sessionUserModel = require('../../models/SessionUser');
+const activityLogsModel = require('../../models/ActivityLogs');
 const clientToken = require( process.cwd() + '/util/ClientToken');
 
 class SessionCtrl {
@@ -76,6 +77,32 @@ class SessionCtrl {
 	    } catch(exception) {
 			res.status(500).send(exception)
 	    }
+	}
+
+	/**
+	 * Log for running session activity
+	 * @param  {obj} req
+	 * @param  {obj} res
+	 * @return {obj}
+	 */
+	async activityLogs(req, res) {
+		try{
+			let insertData = {
+				userId : req.currentUser.id,
+				sessionId : req.body.sessionId,
+				userType : req.body.userType,
+				type : req.body.type
+			};
+			let insertedId = await activityLogsModel.add(insertData);
+
+			if(insertedId > 0){
+				res.status(200).send({logId : insertedId});
+			} else {
+				res.status(400).send({message:"Something went wrong."})
+			}
+		} catch(exception) {
+			res.status(500).send(exception)
+		}
 	}
 }
 

@@ -19,7 +19,8 @@ class PreConfiguration extends Component {
       timerOn: false,
       timerStart: 0,
       timerTime: 0,
-      userType:-1
+      userType:-1,
+      interest:0
     }
   }
 
@@ -67,7 +68,7 @@ class PreConfiguration extends Component {
     scDate = (new Date(scDate).getTime()) - (new Date().getTime());
     // console.log('scDate- ', scDate)
     this.setState({timerTime: scDate});// 1 sec 1000 = 1sec
-
+    this.setState({interest:localstoragedata.sessionData.code});
   }
   componentWillMount(){
     // this.fetchUsers();
@@ -124,6 +125,7 @@ class PreConfiguration extends Component {
       } else {
         clearInterval(this.timer);
         this.setState({ timerOn: false });
+        $('.countdown-timer').html('Session Started')
         //alert("Countdown ended");
       }
     }, 10);
@@ -156,12 +158,12 @@ class PreConfiguration extends Component {
 
 render() {
 
-  const { timerTime, timerStart, timerOn, sessionScript } = this.state;
+  const { timerTime, timerStart, timerOn, sessionScript, interest } = this.state;
 
   let seconds = ("0" + (Math.floor((timerTime / 1000) % 60) % 60)).slice(-2);
   let minutes = ("0" + Math.floor((timerTime / 60000) % 60)).slice(-2);
   let hours = ("0" + Math.floor((timerTime / 3600000) % 60)).slice(-2);
-
+      console.log('interest====== ', interest);
   //const  {user}  = this.props.auth;
 
   let localstoragedata = JSON.parse(localStorage.getItem('userData'));
@@ -198,10 +200,9 @@ render() {
   }
 
 
-       // var allData= this.props.dispatch(allUsers(sessionId));
-       var userlength=this.state.users;
-       
-       
+      // var allData= this.props.dispatch(allUsers(sessionId));
+      var userlength=this.state.users;
+
       const newulength=Object.keys(userlength).length;
 
       // console.log('-----------Avishekhllllll-------------------', newulength)
@@ -257,8 +258,6 @@ render() {
                 </div>
             </div>
           </div>
-          
-          
 
         </div>
         
@@ -297,7 +296,7 @@ render() {
               </div>
             </div>
           </div>
-          <div className="col-12 col-md-7 col-lg-7 my-2 my-md-0">
+          <div className={ interest == 101 ? ("col-12 col-md-7 col-lg-7 my-2 my-md-0") : ("col-12 col-md-9 col-lg-9 my-2 my-md-0")}>
             <div className="h-100 bg-gray position-relative pad15 rounded">
               <h6 className="small-heading mb-0">Select Microphone</h6>
               <div className="col-lg-12">
@@ -305,13 +304,14 @@ render() {
               </div>
             </div>
           </div>
-          <div className="col-12 col-md-2 col-lg-2">
-            <div className="h-100 bg-gray position-relative pad15 rounded">
-              <span className="online-total text-left">Heart Rate Monitor detected</span>
-              <span className="signup-number font-20 text-left" >NO</span>
-            </div>
-          </div>
-          
+          { interest == 101 ? 
+            (<div className="col-12 col-md-2 col-lg-2">
+              <div className="h-100 bg-gray position-relative pad15 rounded">
+                <span className="online-total text-left">Heart Rate Monitor detected</span>
+                <span className="signup-number font-20 text-left" >NO</span>
+              </div>
+            </div>) : ('')
+          }
           
         </div>
         

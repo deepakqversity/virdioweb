@@ -17,7 +17,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   var client, localStream, camera, microphone;
   var totalBrodcaster = 0;
-  // const sep = '~@$';
+  
+  const sep = '~@$';
+
   function join() {
 
     let camera = microphone= null;
@@ -461,30 +463,33 @@ if(!AgoraRTC.checkSystemRequirements()) {
   function rtmJoin()
   {
 
-  var token=null;
+    var token=null;
     newclient = AgoraRTM.createInstance(appId1);
-   var storeData = getCurrentUserData();
-   var peer=storeData.email;
-  // newclient.login({uid: peer.toString(), token});
+    var storeData = getCurrentUserData();
+    var peer=storeData.email;
+    // newclient.login({uid: peer.toString(), token});
 
-  newclient.on('ConnectionStateChange', (newState, reason) => {
-    console.log('on connection state changed to ' + newState + ' reason: ' + reason);
-  });
+    newclient.on('ConnectionStateChange', (newState, reason) => {
+      console.log('on connection state changed to ' + newState + ' reason: ' + reason);
+    });
 
-   newclient.login({ token: token, uid: peer }).then(() => {
+    newclient.login({ token: token, uid: peer }).then(() => {
 
     console.log('****shiv*******AgoraRTM client login success***********');
 
     newclient.on('MessageFromPeer', (message, peerId) => { 
       var msg=message.text;
       console.log('********vvvvvvvvvvvvv********',msg,'********************',peerId);
-     // console.log("message "+ message.text + " peerId" + peerId);
+      // console.log("message "+ message.text + " peerId" + peerId);
 
       signalHandler(peerId, msg, storeData.userType);
-      });
+    });
 
-     channel = newclient.createChannel(channelName1);
+    channel = newclient.createChannel(channelName1);
     channel.join().then(() => {
+
+     joinChannel();
+
      console.log('**********shiv*********channel joined successfully**********');
 
      var today = new Date();
@@ -931,22 +936,23 @@ if(!AgoraRTC.checkSystemRequirements()) {
     // stream2.close();
     // GoInFullscreen();
     // localClient.leave();
+    rtmJoin();
     join();
-    var resp_data = JSON.parse(localStorage.getItem("userData"));
-    console.log('-----------hhhhhhhhh-------------------', resp_data.userType);
-      if(resp_data.userType == 1)
-      {     
-       // $('.dis').attr("disabled", false);
-     //  $('.dis[data-attr=\''+signalData.data+'\']').removeClass("d-none");
-     var text ="222";
-        sendMessageToChannel(channelName1, text);
-        getMemberList();
-      }
-     // getOnlineMemberList();
-      
 
     $(".host-script-section").height("255px");
     $(".host-section").css({"min-width": "380px", "max-width": "380px"});
+  }
+
+  function joinChannel(){
+
+    var resp_data = JSON.parse(localStorage.getItem("userData"));
+    console.log('-----------hhhhhhhhh-------------------', resp_data.userType);
+    if(resp_data.userType == 1)
+    {     
+      var text ="222";
+      sendMessageToChannel(channelName1, text);
+      getMemberList();
+    }
   }
 
   function continueJoinBkup(){
@@ -1173,7 +1179,7 @@ function attendeeScreenHeight(){
         // getDevices();
       }
       // GoInFullscreen();
-      rtmJoin(); 
+      // rtmJoin(); 
     // }
 
    // $(".host-script-section").height("305px"); 
@@ -1840,7 +1846,7 @@ function signalHandler(uid, signalData, userType) {
         // })
         // getDevices();
         continueJoin()
-        rtmJoin(); 
+        // rtmJoin(); 
       // }
       // GoInFullscreen();
 

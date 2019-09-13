@@ -18,7 +18,9 @@ class Host extends Component {
       sessionScript: 0,
       timerOn: false,
       timerStart: 0,
-      timerTime: 0
+      timerTime: 0,
+      camera:'',
+      microphone:''
     };
 
   }
@@ -59,10 +61,11 @@ class Host extends Component {
       "shown.bs.dropdown": function() { this.closable = false; },
       "click":             function() { this.closable = true; },
       "hide.bs.dropdown":  function() { return this.closable; }
-  });
+    });
     this.loadScript('/AgoraRTCSDK-2.7.1.js');
     this.loadScript('/agora-rtm-sdk-1.0.0.js');
     this.loadScript('/main.js');
+    
     
     // if(localStorage.getItem('load-page') != 1){  
     //     window.loadPopup();
@@ -77,7 +80,8 @@ class Host extends Component {
 
     scDate = (new Date(scDate).getTime()) - (new Date().getTime());
     console.log('scDate- ', scDate)
-    this.state.timerTime = scDate;// 1 sec 1000 = 1sec
+    // this.state.timerTime = scDate;// 1 sec 1000 = 1sec
+    this.setState({timerTime : scDate});
   }
   componentWillMount(){
     this.startTimer();
@@ -143,8 +147,6 @@ render() {
       scriptHtml = <FitnessScript />;
     }
 
-    
-
 return (
     <div className="container justify-content-between d-flex flex-column h-100 position-relative">
     <header className="header bg-gray mt-0 position-fixed">
@@ -199,50 +201,21 @@ return (
           <h4 className="title">Wine Testers (<span id="joined_users">0</span>/<span>44</span>)</h4>
           <div className="hand-raise-list">
             <div className="dropdown keep-open">
-              <button className="dropdown-toggle circle-ripple" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button className="dropdown-toggle circle-ripple d-none" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img src="images/hand-raise.png" />
               </button>
-              <div className="dropdown-menu " aria-labelledby="dropdownMenuButton">
+              <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <div className="raised-hands">
-                  <h4>Raised Hands (3)</h4>
+                  <h4>Raised Hands (<span id="total-raised-hands">3</span>)</h4>
                   <a href="#"><i className="fa fa-times"></i></a>
                 </div>
-                <ul className="raised-list">
-                  <li><a className="dropdown-item media" href="#"><img src="images/avtar.png" /> 
+                <ul className="raised-list" id="raised-list">
+                  {/*<li><a className="dropdown-item media" href="#"><img src="images/avtar.png" /> 
                   <div  className="media-body">
                     <span>Amanda P, LA</span>
                     <span>2 min ago</span>
                   </div>
-                    
-                  </a></li>
-                  <li><a className="dropdown-item media" href="#"><img src="images/avtar.png" /> 
-                  <div  className="media-body">
-                    <span>Amanda P, LA</span>
-                    <span>2 min ago</span>
-                  </div>
-                    
-                  </a></li>
-                  <li><a className="dropdown-item media" href="#"><img src="images/avtar.png" /> 
-                  <div  className="media-body">
-                    <span>Amanda P, LA</span>
-                    <span>2 min ago</span>
-                  </div>
-                    
-                  </a></li>
-                  <li><a className="dropdown-item media" href="#"><img src="images/avtar.png" /> 
-                  <div  className="media-body">
-                    <span>Amanda P, LA</span>
-                    <span>2 min ago</span>
-                  </div>
-                    
-                  </a></li>
-                  <li><a className="dropdown-item media" href="#"><img src="images/avtar.png" /> 
-                  <div  className="media-body">
-                    <span>Amanda P, LA</span>
-                    <span>2 min ago</span>
-                  </div>
-                    
-                  </a></li>
+                  </a></li>*/}
                 </ul>
                 
               </div>
@@ -265,7 +238,7 @@ return (
             <h3 className="main-heading font-size-16 float-left">Streaming</h3>
             <div className="host-header">
               <img src="images/mute-microphone.png" className="unmute-icon" id="mute-unmute-local" />
-              <img src="images/music-icon.png" className="music-icon" id="bg-music" />
+              <img src="images/music-icon.png" className="music-icon" data-toggle="modal" data-target="#musicList" id="bg-music" />
               <img src="images/video-icon.png" className="video-icon d-none" id="publish" />
               <img src="images/video-close.png" className="video-icon" id="unpublish" />
               <img src="images/circle.png" className="circle-icon mr-0" id="record-stream" />
@@ -281,6 +254,70 @@ return (
       {scriptHtml}
 
     </div>
+    {/* <!-- Music Player PopUp Start --> */}
+      <div className="modal music-list" id="musicList">
+        <div className="modal-dialog  rounded">
+          <div className="modal-content bg-gray">
+
+            
+            <div className="modal-header">
+              
+              <button type="button" className="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            
+            <div className="modal-body">
+            <ul className="music-playlist">
+              <li><a href="#">
+                <span>If I Can’t Have You</span>
+                <span>Shawn Mendes • If I Can’t Have You</span>
+                <span>3:10</span>
+              </a></li>
+              <li><a href="#">
+                <span>If I Can’t Have You</span>
+                <span>Shawn Mendes • If I Can’t Have You</span>
+                <span>3:10</span>
+              </a></li>
+              <li><a href="#">
+                <span>If I Can’t Have You</span>
+                <span>Shawn Mendes • If I Can’t Have You</span>
+                <span>3:10</span>
+              </a></li>
+              <li><a href="#">
+                <span>If I Can’t Have You</span>
+                <span>Shawn Mendes • If I Can’t Have You</span>
+                <span>3:10</span>
+              </a></li>
+              <li><a href="#">
+                <span>If I Can’t Have You</span>
+                <span>Shawn Mendes • If I Can’t Have You</span>
+                <span>3:10</span>
+              </a></li>
+              <li><a href="#">
+                <span>If I Can’t Have You</span>
+                <span>Shawn Mendes • If I Can’t Have You</span>
+                <span>3:10</span>
+              </a></li>
+              <li><a href="#">
+                <span>If I Can’t Have You</span>
+                <span>Shawn Mendes • If I Can’t Have You</span>
+                <span>3:10</span>
+              </a></li>
+              <li><a href="#">
+                <span>If I Can’t Have You</span>
+                <span>Shawn Mendes • If I Can’t Have You</span>
+                <span>3:10</span>
+              </a></li>
+            </ul>
+            </div>
+
+           
+            
+
+          </div>
+        </div>
+      </div>
+      {/* <!-- Music Player PopUp End --> */}
     <div className="modal fade" id="guest-video" role="dialog">
     <div className="modal-dialog modal-lg bg-black px-4 m-0 mw-100 h-100 d-flex w-100 align-items-center">
       <div className="h-100 modal-content bg-transparent w-100 d-flex justify-content-between flex-direction-column">
@@ -335,8 +372,8 @@ return (
 
 
       </div>
-
-      <Config />
+      <input type="hidden" id="current-camera" />
+      <input type="hidden" id="current-microphone" />
   </div>
     );
   }

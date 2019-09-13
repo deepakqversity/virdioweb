@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 06, 2019 at 12:53 PM
+-- Generation Time: Sep 12, 2019 at 09:22 PM
 -- Server version: 5.7.27-0ubuntu0.18.04.1
 -- PHP Version: 7.2.19-0ubuntu0.18.04.2
 
@@ -297,8 +297,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `interestId`, `name`, `hostId`, `scheduleDate`, `duration`, `createdAt`, `description`, `status`, `configId`, `channelId`, `hostReminder`, `participantReminder`, `cutOffTime`, `level`, `chargeForSession`, `allowParticipantDMOthers`, `participantDisableDM`, `minNotMetNoticeTime`, `image`, `video`, `minAttendee`, `maxAttendee`) VALUES
-(1, 1, 'Winery Testing Session', 11, '2019-09-05 15:07:47', 45, 0, 'this is demo of wine test', 1, 1, 1001, 0, 0, 0, 0, 0, 1, 1, 0, '', '', 0, 0),
-(2, 2, 'Your Health Matters Coaching', 1, '2019-09-07 05:12:28', 30, 0, '', 1, 1, 1001, 0, 0, 0, 0, 0, 1, 1, 0, '', '', 0, 0),
+(1, 1, 'Winery Testing Session', 1, '2019-09-13 07:02:43', 45, 0, 'this is demo of wine test', 1, 1, 1005, 0, 0, 0, 0, 0, 1, 1, 0, '', '', 0, 0),
+(2, 2, 'Your Health Matters Coaching', 1, '2019-09-11 05:12:28', 30, 0, '', 1, 1, 1005, 0, 0, 0, 0, 0, 1, 1, 0, '', '', 0, 0),
 (7, 1, 'Winery Testing Session2', 1, '2019-09-11 14:22:46', 60, 0, NULL, 1, 1, 503, 0, 0, 0, 0, 0, 1, 1, 0, '', '', 0, 0);
 
 -- --------------------------------------------------------
@@ -321,8 +321,8 @@ CREATE TABLE `session_script` (
 --
 
 INSERT INTO `session_script` (`id`, `name`, `description`, `userId`, `interestId`, `status`) VALUES
-(1, 'JBC', 'test', 11, 1, 1),
-(2, 'Red Wine', 'test', 11, 1, 1),
+(1, 'JBC', 'test', 1, 1, 1),
+(2, 'Red Wine', 'test', 1, 1, 1),
 (3, 'Rest', 'test', 1, 2, 1),
 (4, 'Lunges', 'demo', 1, 2, 1),
 (5, 'Pushups', NULL, 1, 2, 1),
@@ -374,7 +374,7 @@ CREATE TABLE `session_users` (
 --
 
 INSERT INTO `session_users` (`id`, `sessionId`, `userId`, `type`, `sessionType`, `status`) VALUES
-(1, 1, 1, 2, 0, 1),
+(1, 1, 1, 1, 0, 1),
 (2, 1, 2, 2, 0, 1),
 (3, 1, 3, 2, NULL, 1),
 (4, 1, 4, 2, NULL, 1),
@@ -384,7 +384,7 @@ INSERT INTO `session_users` (`id`, `sessionId`, `userId`, `type`, `sessionType`,
 (8, 1, 8, 2, NULL, 1),
 (9, 1, 9, 2, NULL, 1),
 (10, 1, 10, 2, NULL, 1),
-(11, 1, 11, 1, NULL, 1),
+(11, 1, 11, 2, NULL, 1),
 (12, 1, 12, 2, NULL, 1),
 (13, 1, 13, 2, NULL, 1),
 (14, 2, 1, 1, NULL, 1),
@@ -421,11 +421,14 @@ CREATE TABLE `token` (
 --
 
 INSERT INTO `token` (`id`, `userId`, `token`) VALUES
-(1, 1, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTY3NzQ5NDQ0LCJleHAiOjE1OTkzMDYzNzB9.778KKIGVQYuttrjdx0Kk78HVZKszqVR0C1Op5FvXY-0'),
-(6, 2, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTY3NzUyNzY4LCJleHAiOjE1OTkzMDk2OTR9.Der4RW85pElzEMp1VYr14kIlYwGZ9p9fDoQoUW8VIlM'),
+(1, 1, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTY4Mjk5NTQ2LCJleHAiOjE1OTk4NTY0NzJ9.ireTsc_GC1I2GFr8fea0B5CHzbAds5YvGl23LX4h5zY'),
+(6, 2, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTY4MjY1NzkxLCJleHAiOjE1OTk4MjI3MTd9.RoGRMV-DLpQm53q1x3SfWt6Kg35hiaSwI-pXFK3dpPM'),
 (24, 12, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImlhdCI6MTU2NjU3MjI4MywiZXhwIjoxNTk4MTI5MjA5fQ.UUbh8nLGYHCvNIeaGgIVPAFeG4IOEmJ5SwY-wtzUUfk'),
-(26, 7, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNTY3NDkxOTA2LCJleHAiOjE1OTkwNDg4MzJ9.fGKoiL9G5bctRBZzCKOlxpP4xrs1zrJVs2blZT8VFq4'),
-(30, 3, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNTY3NzQ5NjkyLCJleHAiOjE1OTkzMDY2MTh9.jo5PyE9u-6xKaBm6g3jVXS7LTxpr9UcuGOtTkUQFlQA');
+(26, 7, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNTY4MjgwMjY0LCJleHAiOjE1OTk4MzcxOTB9.idyA0n5ygLTcQvXVTZG9pzU0ny7jPL7OIJyMopASA7c'),
+(30, 3, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNTY4MDMzNjI5LCJleHAiOjE1OTk1OTA1NTV9.mBkLi5rbE-R8_v8ZT6Kikih2ol2m9y3LvqWUpLvFUtw'),
+(33, 9, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiaWF0IjoxNTY4Mjk5MTE0LCJleHAiOjE1OTk4NTYwNDB9.bOTb98etiPa0-kXHJhqHk-BK5_38ix07PdSq-LPxCu0'),
+(50, 5, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNTY4MTk0MzI0LCJleHAiOjE1OTk3NTEyNTB9.lKMKFOM4pfiEf4N-qy2ZUzQ9sH3jBsYzmwcsc-nRtgM'),
+(105, 4, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTY4MjAxODUxLCJleHAiOjE1OTk3NTg3Nzd9.Vr-Q_2nbOQYCu88akNAOIkA7ISoEECWzzX6f3iX3nao');
 
 -- --------------------------------------------------------
 
@@ -449,6 +452,7 @@ CREATE TABLE `users` (
   `zip` varchar(10) DEFAULT NULL,
   `phone` varchar(15) DEFAULT NULL,
   `image` text,
+  `isBanned` tinyint(1) NOT NULL DEFAULT '0',
   `createAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -456,25 +460,25 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `firstName`, `lastName`, `email`, `password`, `status`, `type`, `address1`, `address2`, `city`, `state`, `zip`, `phone`, `image`, `createAt`) VALUES
-(1, 'deepak', 'deepak', NULL, 'deepak@test.com', '$2b$10$br0jNANIe2DcIKgjYunhr.6doQOURwoH8G4IdyENum7vSWrcyOv7K', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-09-02 08:23:17'),
-(2, 'amit', 'amit', NULL, 'amit@test.com', '$2b$10$br0jNANIe2DcIKgjYunhr.6doQOURwoH8G4IdyENum7vSWrcyOv7K', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-09-02 08:23:17'),
-(3, 'Lalit', 'Lalit', NULL, 'lalit@test.com', '$2b$10$br0jNANIe2DcIKgjYunhr.6doQOURwoH8G4IdyENum7vSWrcyOv7K', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-09-02 08:23:17'),
-(4, 'Atul', 'Atul', NULL, 'atul@test.com', '$2b$10$br0jNANIe2DcIKgjYunhr.6doQOURwoH8G4IdyENum7vSWrcyOv7K', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-09-02 08:23:17'),
-(5, 'Rohit', 'Rohit', NULL, 'rohit@test.com', '$2b$10$br0jNANIe2DcIKgjYunhr.6doQOURwoH8G4IdyENum7vSWrcyOv7K', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-09-02 08:23:17'),
-(6, 'Virendra', 'Virendra', NULL, 'virendra@test.com', '$2b$10$br0jNANIe2DcIKgjYunhr.6doQOURwoH8G4IdyENum7vSWrcyOv7K', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-09-02 08:23:17'),
-(7, 'Dolly', 'Dolly', NULL, 'dolly@test.com', '$2b$10$br0jNANIe2DcIKgjYunhr.6doQOURwoH8G4IdyENum7vSWrcyOv7K', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-09-02 08:23:17'),
-(8, 'Abhishek', 'Abhishek', NULL, 'abhishek@test.com', '$2b$10$br0jNANIe2DcIKgjYunhr.6doQOURwoH8G4IdyENum7vSWrcyOv7K', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-09-02 08:23:17'),
-(9, 'Ram', 'Ram', NULL, 'ram@test.com', '$2b$10$br0jNANIe2DcIKgjYunhr.6doQOURwoH8G4IdyENum7vSWrcyOv7K', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-09-02 08:23:17'),
-(10, 'Soni', 'Soni', NULL, 'soni@test.com', '$2b$10$br0jNANIe2DcIKgjYunhr.6doQOURwoH8G4IdyENum7vSWrcyOv7K', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-09-02 08:23:17'),
-(11, 'Arjun', 'Arjun', NULL, 'arjun@test.com', '$2b$10$br0jNANIe2DcIKgjYunhr.6doQOURwoH8G4IdyENum7vSWrcyOv7K', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-09-02 08:23:17'),
-(12, 'Deepa', 'Deepa', NULL, 'deepa@test.com', '$2b$10$br0jNANIe2DcIKgjYunhr.6doQOURwoH8G4IdyENum7vSWrcyOv7K', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-09-02 08:23:17'),
-(13, 'John', 'John', NULL, 'john@test.com', '$2b$10$br0jNANIe2DcIKgjYunhr.6doQOURwoH8G4IdyENum7vSWrcyOv7K', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-09-02 08:23:17'),
-(24, NULL, 'Jagat', 'prakash', 'jagat@test.com', '$2b$10$7ToOC7CdwLApxmODGAhN3.NujMucQQ6wAQzNOu9301QmXVRza99Qi', 0, 0, NULL, NULL, NULL, NULL, NULL, '9696969696', NULL, '2019-09-02 12:25:36'),
-(31, NULL, 'Radhe', 'prakash', 'radhe@test.com', '$2b$10$RdkDhla5HPjlJQUySp542eaVRy7ggLuFs3Hcpgd85nxT9/oEdWWeG', 0, 0, NULL, NULL, NULL, NULL, NULL, '9696969600', NULL, '2019-09-03 05:30:20'),
-(38, NULL, 'Radhe', 'prakash', 'radhe2@test.com', '$2b$10$dylA91QwNae7/AApd7QdYe2gZmfmhXqA5CqWeePsvSBFy3MSciEmu', 0, 0, NULL, NULL, NULL, NULL, NULL, '9696969111', NULL, '2019-09-03 12:35:04'),
-(39, NULL, 'Radhe', 'prakash', 'radhe1@test.com', '$2b$10$5A7eCUDTnGM6zJEWPW2dkexp0ptgKYt2efs0XRimX/vOD6M797Dhq', 0, 0, NULL, NULL, NULL, NULL, NULL, '9696969101', NULL, '2019-09-03 13:53:42'),
-(40, NULL, 'Amar', 'prakash', 'amar@test.com', '$2b$10$9wBpQ9Jsk.xD4NSWhsn7UukvWHE8fnKYdYD9IY6vU4mn2bUarOBAK', 0, 0, NULL, NULL, NULL, NULL, NULL, '9696969101', NULL, '2019-09-03 13:59:18');
+INSERT INTO `users` (`id`, `name`, `firstName`, `lastName`, `email`, `password`, `status`, `type`, `address1`, `address2`, `city`, `state`, `zip`, `phone`, `image`, `isBanned`, `createAt`) VALUES
+(1, 'deepak', 'deepak', NULL, 'deepak@test.com', '$2b$10$br0jNANIe2DcIKgjYunhr.6doQOURwoH8G4IdyENum7vSWrcyOv7K', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2019-09-02 08:23:17'),
+(2, 'amit', 'amit', NULL, 'amit@test.com', '$2b$10$br0jNANIe2DcIKgjYunhr.6doQOURwoH8G4IdyENum7vSWrcyOv7K', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2019-09-02 08:23:17'),
+(3, 'Lalit', 'Lalit', NULL, 'lalit@test.com', '$2b$10$br0jNANIe2DcIKgjYunhr.6doQOURwoH8G4IdyENum7vSWrcyOv7K', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2019-09-02 08:23:17'),
+(4, 'Atul', 'Atul', NULL, 'atul@test.com', '$2b$10$br0jNANIe2DcIKgjYunhr.6doQOURwoH8G4IdyENum7vSWrcyOv7K', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2019-09-02 08:23:17'),
+(5, 'Rohit', 'Rohit', NULL, 'rohit@test.com', '$2b$10$br0jNANIe2DcIKgjYunhr.6doQOURwoH8G4IdyENum7vSWrcyOv7K', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2019-09-02 08:23:17'),
+(6, 'Virendra', 'Virendra', NULL, 'virendra@test.com', '$2b$10$br0jNANIe2DcIKgjYunhr.6doQOURwoH8G4IdyENum7vSWrcyOv7K', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2019-09-02 08:23:17'),
+(7, 'Dolly', 'Dolly', NULL, 'dolly@test.com', '$2b$10$br0jNANIe2DcIKgjYunhr.6doQOURwoH8G4IdyENum7vSWrcyOv7K', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2019-09-02 08:23:17'),
+(8, 'Abhishek', 'Abhishek', NULL, 'abhishek@test.com', '$2b$10$br0jNANIe2DcIKgjYunhr.6doQOURwoH8G4IdyENum7vSWrcyOv7K', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2019-09-02 08:23:17'),
+(9, 'Ram', 'Ram', NULL, 'ram@test.com', '$2b$10$br0jNANIe2DcIKgjYunhr.6doQOURwoH8G4IdyENum7vSWrcyOv7K', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2019-09-02 08:23:17'),
+(10, 'Soni', 'Soni', NULL, 'soni@test.com', '$2b$10$br0jNANIe2DcIKgjYunhr.6doQOURwoH8G4IdyENum7vSWrcyOv7K', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2019-09-02 08:23:17'),
+(11, 'Arjun', 'Arjun', NULL, 'arjun@test.com', '$2b$10$br0jNANIe2DcIKgjYunhr.6doQOURwoH8G4IdyENum7vSWrcyOv7K', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2019-09-02 08:23:17'),
+(12, 'Deepa', 'Deepa', NULL, 'deepa@test.com', '$2b$10$br0jNANIe2DcIKgjYunhr.6doQOURwoH8G4IdyENum7vSWrcyOv7K', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2019-09-02 08:23:17'),
+(13, 'John', 'John', NULL, 'john@test.com', '$2b$10$br0jNANIe2DcIKgjYunhr.6doQOURwoH8G4IdyENum7vSWrcyOv7K', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2019-09-02 08:23:17'),
+(24, NULL, 'Jagat', 'prakash', 'jagat@test.com', '$2b$10$7ToOC7CdwLApxmODGAhN3.NujMucQQ6wAQzNOu9301QmXVRza99Qi', 0, 0, NULL, NULL, NULL, NULL, NULL, '9696969696', NULL, 0, '2019-09-02 12:25:36'),
+(31, NULL, 'Radhe', 'prakash', 'radhe@test.com', '$2b$10$RdkDhla5HPjlJQUySp542eaVRy7ggLuFs3Hcpgd85nxT9/oEdWWeG', 0, 0, NULL, NULL, NULL, NULL, NULL, '9696969600', NULL, 0, '2019-09-03 05:30:20'),
+(38, NULL, 'Radhe', 'prakash', 'radhe2@test.com', '$2b$10$dylA91QwNae7/AApd7QdYe2gZmfmhXqA5CqWeePsvSBFy3MSciEmu', 0, 0, NULL, NULL, NULL, NULL, NULL, '9696969111', NULL, 0, '2019-09-03 12:35:04'),
+(39, NULL, 'Radhe', 'prakash', 'radhe1@test.com', '$2b$10$5A7eCUDTnGM6zJEWPW2dkexp0ptgKYt2efs0XRimX/vOD6M797Dhq', 0, 0, NULL, NULL, NULL, NULL, NULL, '9696969101', NULL, 0, '2019-09-03 13:53:42'),
+(40, NULL, 'Amar', 'prakash', 'amar@test.com', '$2b$10$9wBpQ9Jsk.xD4NSWhsn7UukvWHE8fnKYdYD9IY6vU4mn2bUarOBAK', 0, 0, NULL, NULL, NULL, NULL, NULL, '9696969101', NULL, 0, '2019-09-03 13:59:18');
 
 -- --------------------------------------------------------
 
@@ -712,7 +716,7 @@ ALTER TABLE `state`
 -- AUTO_INCREMENT for table `token`
 --
 ALTER TABLE `token`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 --
 -- AUTO_INCREMENT for table `users`
 --

@@ -34,50 +34,54 @@ class UserCtrl {
 			if(!isEmpty(userObj)){
 
     			if(userObj.status == 0){
-    				res.status(201).send({message:"user already exists but inactive."})
+    				res.status(400).send({message:"user already exists but inactive."})
     			} else {
 
 	        		let t = await bcrypt.compare(password, userObj.password);
 					if(t){
-						const token = await auth.createToken(userObj.id);
-						// console.log('token-------------',token);
-						let updateUser = await tokenModel.updateToken(userObj.id, token);
+						if(userObj.isBanned == 1){
+		    				res.status(400).send({message:"Sorry! You cannot login."})
+		    			} else {
+							const token = await auth.createToken(userObj.id);
+							// console.log('token-------------',token);
+							let updateUser = await tokenModel.updateToken(userObj.id, token);
 
-						userObj = underscore.extend(userObj, {token:token});
+							userObj = underscore.extend(userObj, {token:token});
 
-						let currentSession = await sessionModel.getUpcommingSession(userObj.id);
+							let currentSession = await sessionModel.getUpcommingSession(userObj.id);
 
-						let sessionData = {};
-						if(!isEmpty(currentSession)){
-							currentSession = currentSession[0];
+							let sessionData = {};
+							if(!isEmpty(currentSession)){
+								currentSession = currentSession[0];
 
-							underscore.extend(userObj, {userType : currentSession.type});	
+								underscore.extend(userObj, {userType : currentSession.type});	
+								
+								// get timing remaining
+								let str = utils.dateTimeDiff(currentSession.scheduleDate);
+								underscore.extend(currentSession, {messgae:str});
+
+								// generate streaming token
+								let streamToken = clientToken.createToken(currentSession.appId, currentSession.appCertificate, currentSession.channelId, currentSession.userId);
+
+								underscore.extend(currentSession, {streamToken : streamToken});
+								currentSession = underscore.omit(currentSession, 'appCertificate');
+
+
+								let scriptDetail = await sessionScriptModel.getProductDetail(currentSession.id, currentSession.hostId );
+								underscore.extend(currentSession, {scriptDetail : scriptDetail});
+								
+								underscore.extend(userObj, { sessionData : currentSession });
+
+							} else {
+								underscore.extend(userObj, {sessionData : { message : "There are no sessions available."}});
+							}
+
+							userObj = underscore.omit(userObj, 'password');
 							
-							// get timing remaining
-							let str = utils.dateTimeDiff(currentSession.scheduleDate);
-							underscore.extend(currentSession, {messgae:str});
+							underscore.extend(userObj, defaultConfig);
 
-							// generate streaming token
-							let streamToken = clientToken.createToken(currentSession.appId, currentSession.appCertificate, currentSession.channelId, currentSession.userId);
-
-							underscore.extend(currentSession, {streamToken : streamToken});
-							currentSession = underscore.omit(currentSession, 'appCertificate');
-
-
-							let scriptDetail = await sessionScriptModel.getProductDetail(currentSession.id, currentSession.hostId );
-							underscore.extend(currentSession, {scriptDetail : scriptDetail});
-							
-							underscore.extend(userObj, { sessionData : currentSession });
-
-						} else {
-							underscore.extend(userObj, {sessionData : { message : "There are no sessions available."}});
+							res.status(200).send(userObj);
 						}
-
-						userObj = underscore.omit(userObj, 'password');
-						
-						underscore.extend(userObj, defaultConfig);
-
-						res.status(200).send(userObj);
 					} else {
 						res.status(400).send({password:"Invalid password"})
 					}

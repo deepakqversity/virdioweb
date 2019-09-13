@@ -10,5 +10,6 @@ route
   // .put('/:sessionId/:userId', auth.verifyToken, SessionCtrl.updateSessionUser)
   .put('/:sessionId/stream-id', auth.verifyToken, SessionCtrl.updateUserStream)
   .get('/:sessionId/:userId/stream-id', auth.verifyToken, SessionCtrl.getStreamUser)
+  .post('/activity-log', auth.verifyToken, SessionCtrl.activityLogs)
 
 module.exports = route;

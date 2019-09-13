@@ -9,7 +9,7 @@ class SessionScript{
 		this.table = 'session_script';
 	}
 
-	async getProductDetail(sessionId, userId) {
+	async getProductDetail(sessionId, userId, interest) {
 		
         return await new Promise((resolve, reject) => {
         	
@@ -30,6 +30,16 @@ class SessionScript{
 			  					for(let j in attributes){
 				  					let attrData = attributes[j];
 				  					if(sessData.id == attrData.sessionScriptId){
+				  						if(interest == 101){
+				  							let position = '';
+				  							if(attrData.attrLabel == 'TARGET ZONE')
+				  								position = 1;
+				  							else if(attrData.attrLabel == 'TARGET BPM')
+				  								position = 2;
+				  							else if(attrData.attrLabel == 'counter')
+				  								position = 0;
+				  							underscore.extend(attrData, {position : position});
+				  						}
 				  						nestedData.push(attrData);
 				  					}
 				  				}

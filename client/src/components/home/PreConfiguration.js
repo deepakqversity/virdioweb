@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser} from "../../actions/authActions";
+import { logoutUser, addLogs} from "../../actions/authActions";
 import $ from 'jquery';
 import moment from 'moment'
  
@@ -19,7 +19,8 @@ class PreConfiguration extends Component {
       timerOn: false,
       timerStart: 0,
       timerTime: 0,
-      userType:-1
+      userType:-1,
+      interest:0
     }
   }
 
@@ -67,7 +68,7 @@ class PreConfiguration extends Component {
     scDate = (new Date(scDate).getTime()) - (new Date().getTime());
     // console.log('scDate- ', scDate)
     this.setState({timerTime: scDate});// 1 sec 1000 = 1sec
-
+    this.setState({interest:localstoragedata.sessionData.code});
   }
   componentWillMount(){
     // this.fetchUsers();
@@ -78,6 +79,7 @@ class PreConfiguration extends Component {
     this.setState({userType : localstoragedata.userType})
     console.log('$$$$$$$$$$$$$$$',localstoragedata.userType, this.state.userType);
 
+    this.addLog(1,22,2);
   }
 
   joinSession = () => {
@@ -109,6 +111,11 @@ class PreConfiguration extends Component {
       }
   }
 
+  addLog = (sessionId, userType, type) => {
+    
+    this.props.addLogs(sessionId, userType, type);
+  };
+
   startTimer = () => {
     this.setState({
       timerOn: true,
@@ -124,6 +131,7 @@ class PreConfiguration extends Component {
       } else {
         clearInterval(this.timer);
         this.setState({ timerOn: false });
+        $('.countdown-timer').html('Session Started')
         //alert("Countdown ended");
       }
     }, 10);
@@ -156,12 +164,12 @@ class PreConfiguration extends Component {
 
 render() {
 
-  const { timerTime, timerStart, timerOn, sessionScript } = this.state;
+  const { timerTime, timerStart, timerOn, sessionScript, interest } = this.state;
 
   let seconds = ("0" + (Math.floor((timerTime / 1000) % 60) % 60)).slice(-2);
   let minutes = ("0" + Math.floor((timerTime / 60000) % 60)).slice(-2);
   let hours = ("0" + Math.floor((timerTime / 3600000) % 60)).slice(-2);
-
+      console.log('interest====== ', interest);
   //const  {user}  = this.props.auth;
 
   let localstoragedata = JSON.parse(localStorage.getItem('userData'));
@@ -171,7 +179,8 @@ render() {
 
   localDate = localDate.replace('#', 'at');
   let remTime = '';
-  //console.log('scheduleDate ',localDate );
+  console.log('sessionData sessionData',sessionData );
+  let logo = sessionData.logo;
   
   //console.log('------hhhhhhhh----users ', this.state.users)
   let onlineUsers = '';
@@ -198,10 +207,9 @@ render() {
   }
 
 
-       // var allData= this.props.dispatch(allUsers(sessionId));
-       var userlength=this.state.users;
-       
-       
+      // var allData= this.props.dispatch(allUsers(sessionId));
+      var userlength=this.state.users;
+
       const newulength=Object.keys(userlength).length;
 
       // console.log('-----------Avishekhllllll-------------------', newulength)
@@ -209,7 +217,7 @@ render() {
       // const storeData = JSON.parse(localStorage.getItem("userData"));
       // console.log('-----------Avishekhllllll-------------------', storeData.sessionData.hostName)
 
-  
+  $("body").css("overflow-y", "scroll");
   return (
        <div>
       <div className="prescreen-popup" id="media-config">
@@ -222,18 +230,18 @@ render() {
         
           <div className="d-flex w-100 justify-content-between  flex-md-nowrap flex-wrap">
             <div className="d-flex align-items-center rounded bg-gray session-logo mx-md-0 mx-auto">
-              <img src="/images/prescreen-logo.png" />
+              <img src={ logo } />
             </div>
             <div className="session-details bg-gray flex-grow-1 my-2 my-md-0 mx-md-2">
                 <div className="row">
-                  <div className="col-lg-9">
+                  <div className="col-lg-8">
                     <h4 className="small-heading">Your Upcoming Session</h4>
-                    <h3 className="popup-heading">{sessionData.name}<span>by {sessionData.hostName.toLowerCase()}</span><span className="green-online" id="online_state">ONLINE</span></h3>
+                    <h3 className="popup-heading">{sessionData.name}<span>by {sessionData.hostFirstName.toLowerCase()}</span><span className="green-online" id="online_state">ONLINE</span></h3>
                     <div className="time py-xs-1">  
                       <span className="no-border">{localDate}</span>
                     </div>
                   </div>
-                  <div className="col-lg-3 float-right time-session">
+                  <div className="col-lg-4 float-right time-session">
                     <span className="countdown-timer">{hours} : {minutes} : {seconds}</span>
                     <a href="#" className="btn btn-primary float-right">Session details</a>
                   </div>
@@ -257,8 +265,6 @@ render() {
                 </div>
             </div>
           </div>
-          
-          
 
         </div>
         
@@ -271,8 +277,8 @@ render() {
           </div>
         
         </div>
-        <div className="row four-gutters">
-          <div className="col-12 col-md-3 col-lg-3">
+        <div className="d-flex prescreen-footer">
+          <div className=" network-wifi mb-2 mb-md-0">
             <div className="bg-gray h-100 position-relative pad15 rounded">
               <h6 className="small-heading mb-3">Network Reliability</h6>
                 
@@ -287,17 +293,15 @@ render() {
                 </div>
               </div>
               <div className="row">
-                <div className="col-lg-4 col-md-6">
+                <div className="online-streams">
                   <span className="online-total">Online streams on screen</span>
-                  
+                  <span className="signup-number" >8</span>
                 </div>
-                <div className="col-lg-4 col-md-6">
-                  <span className="signup-number" >142</span>
-                </div>
+                
               </div>
             </div>
           </div>
-          <div className="col-12 col-md-7 col-lg-7 my-2 my-md-0">
+          <div className="flex-grow-1 select-audio">
             <div className="h-100 bg-gray position-relative pad15 rounded">
               <h6 className="small-heading mb-0">Select Microphone</h6>
               <div className="col-lg-12">
@@ -305,13 +309,14 @@ render() {
               </div>
             </div>
           </div>
-          <div className="col-12 col-md-2 col-lg-2">
+          { interest == 101 ? 
+            (<div className="heart-rate">
             <div className="h-100 bg-gray position-relative pad15 rounded">
               <span className="online-total text-left">Heart Rate Monitor detected</span>
               <span className="signup-number font-20 text-left" >NO</span>
             </div>
-          </div>
-          
+          </div>) : ('')
+          }
           
         </div>
         
@@ -323,7 +328,7 @@ render() {
              
               <div className="col-lg-9">
               <span id='newmsg' style={{color:'green'}}></span>
-                <h6 className="small-heading mb-3 no-border">Just joined</h6>
+                <h6 className="small-heading mb-3 no-border">Joined</h6>
                 <div className="d-none">
                   <div className="joiners d-flex flex-wrap">
                     <span>
@@ -389,7 +394,7 @@ render() {
                 <tr>
                   <th scope="col">&nbsp;</th>
                   <th scope="col">Name</th>
-                  <th scope="col">Email</th>
+                  
                   <th scope="col">Status</th>
                   <th scope="col">Visible</th>
                   <th scope="col"># of Sessions</th>
@@ -410,7 +415,7 @@ render() {
 }
 PreConfiguration.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  // joinSession: PropTypes.func.isRequired,
+  addLogs: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
@@ -418,5 +423,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { logoutUser }
+  { logoutUser,addLogs }
 )(PreConfiguration);

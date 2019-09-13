@@ -53,6 +53,21 @@ class UserCtrl {
 							let sessionData = {};
 							if(!isEmpty(currentSession)){
 								currentSession = currentSession[0];
+								if(currentSession.logo && !isEmpty(currentSession.logo)){
+									currentSession.logo = process.env.LOGOS + currentSession.logo;
+								} else {
+									currentSession.logo = process.env.IMAGES + 'v-logo.png';
+								}
+
+								let scriptInfo = {scriptTitle:'', scriptType:''};
+								if(currentSession.code == 100) {
+									scriptInfo = {scriptTitle:'Wine Script', scriptType:'wine'};
+								} else if(currentSession.code == 101) {
+									scriptInfo = {scriptTitle:'Fitness Script', scriptType:'fitness'};
+								} else if(currentSession.code == 102) {
+									scriptInfo = {scriptTitle:'Cooking Script', scriptType:'cooking'};
+								}
+								underscore.extend(currentSession, scriptInfo);
 
 								underscore.extend(userObj, {userType : currentSession.type});	
 								
@@ -66,8 +81,7 @@ class UserCtrl {
 								underscore.extend(currentSession, {streamToken : streamToken});
 								currentSession = underscore.omit(currentSession, 'appCertificate');
 
-
-								let scriptDetail = await sessionScriptModel.getProductDetail(currentSession.id, currentSession.hostId );
+								let scriptDetail = await sessionScriptModel.getProductDetail(currentSession.id, currentSession.hostId, currentSession.code );
 								underscore.extend(currentSession, {scriptDetail : scriptDetail});
 								
 								underscore.extend(userObj, { sessionData : currentSession });

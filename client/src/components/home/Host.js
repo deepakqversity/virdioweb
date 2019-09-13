@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import utils from "../../utils/functions";
 import $ from 'jquery';
-import Config from "./Configuration";
 import WineScript from "./WineScript";
 import FitnessScript from "./FitnessScript";
 import moment from 'moment'
@@ -36,11 +35,11 @@ class Host extends Component {
     this.props.joinConf(channel);
   };
 
-  callfunction(){
+  callfunction = e => {
     $('#logout_button').trigger('click');
   }
 
-  sendMsgAll(){
+  sendMsgAll = e => {
     $('#msgToAll_button').trigger('click');
   }
   
@@ -102,6 +101,7 @@ class Host extends Component {
       } else {
         clearInterval(this.timer);
         this.setState({ timerOn: false });
+        $('.countdown-timer').html('Session Started')
         //alert("Countdown ended");
       }
     }, 10);
@@ -166,13 +166,13 @@ return (
           
         </div>
         <div className="col col-md-11">
-          <h3 className="main-heading">{sessionData.name} <span>by <span className="welcome-title">{sessionData.hostName.toLowerCase()}</span><span className="green-online online-status"><span>ONLINE</span></span></span>
+          <h3 className="main-heading show-hide-title d-block">{sessionData.name} <span>by <span className="welcome-title">{sessionData.hostFirstName.toLowerCase()}</span><span className="green-online online-status"><span>ONLINE</span></span></span>
           
           </h3>
           <div className="row justify-content-between align-items-center mt-0">
             <div className="col-12 col-sm-7">
               <div className="time py-xs-1">  <span>{localDate}</span>
-                <span>Time Remaining: {hours} : {minutes} : {seconds}</span>
+                <span className="countdown-timer">Time Remaining: {hours} : {minutes} : {seconds}</span>
                 <div id="errmsg" style={{color:'green'}}></div>
                 <div id ="all_attendies_list"></div>
               </div>
@@ -223,7 +223,8 @@ return (
           </div>
         </div>
         <div className="col-6 col-lg-3 col-md-4 col-sm-5 attendy-fullscreen attendy-fullscreen">
-          <button type="button" className="btn btn-outline-secondary float-right mt-1 show-hide-footer-panel mr-3">"Show Attendees"</button>
+          {/* <button type="button" className="btn btn-outline-secondary float-right mt-1 show-hide-footer-panel mr-3">"Show Attendees"</button> */}
+          {/* <a className="fullscreen" href="#" id="fullscreen"><img src="images/full-screen.png" /></a> */}
           <a className="fullscreen" href="#" id="fullscreen"><img src="images/full-screen.png" /></a>
         </div>
       </div>

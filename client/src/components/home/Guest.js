@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import $ from 'jquery';
-import Config from "./Configuration";
 import LeftScriptParticipant from "./LeftScriptParticipant";
 import FooterScriptParticipant from "./FooterScriptParticipant";
 import WineScript from "./WineScript";
@@ -361,7 +360,6 @@ return (
 
       </div>
     </div>
-    <Config />
 
   </div>
     );

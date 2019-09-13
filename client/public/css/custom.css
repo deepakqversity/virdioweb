@@ -361,6 +361,7 @@ h3.main-heading span span span {
     right: 0;
     margin: auto;
 	margin-top: 10px !important;
+	transition: height 0.4s linear;
 }
 
 .time span{
@@ -1644,6 +1645,7 @@ img.user-login{
 }
 .prescreen-popup .select-camera div{
 	background:transparent !Important;
+	text-align: center;
 }
 .prescreen-popup .select-camera video{
 	border-radius:10px;
@@ -1657,10 +1659,10 @@ img.user-login{
 	padding: 10px 15px;
 }
 .prescreen-popup .session-logo{
-	width:197px;
+	width:165px;
 }
 .prescreen-popup .participant-status{
-    width: 290px;
+    width: 250px;
     padding: 10px 15px;
 	border-radius: 10px;
 }
@@ -1680,7 +1682,7 @@ img.user-login{
 .prescreen-popup .popup-heading{
     font-family: Avenir-Book;
     color: #fff;
-    font-size: 24px;
+    font-size: 20px;
     margin: 14px 0 14px 10px;
 }
 .w-90{
@@ -1695,9 +1697,8 @@ img.user-login{
 }
 .prescreen-popup .countdown-timer{
 	    color: #fff;
-    font-size: 20px;
+    font-size: 27px;
     font-family: Avenir-Book;
-    margin: 10px 0 20px;
 	    float: right;
 }
 .count-timer{
@@ -1765,20 +1766,21 @@ img.user-login{
 	    top: 2px;
     border-radius: 15px;
 }
+.green-online{
+	font-size: 12px !important;
+}
 .prescreen-popup .small-heading{
     border-left: 4px solid #B002ED;
     color: #fff;
     font-family: Avenir-Medium;
-    font-size: 18px;
+    font-size: 17px;
     padding-left: 18px;
     margin-left: -14px;
     margin-bottom: 0;
     padding-top: 2px;
     padding-bottom: 2px;
 }
-.detect-mic>div{
-	margin-right:15px;
-}
+
 .prescreen-popup .modal-footer{
 	border:none;
 	    justify-content: space-between;
@@ -1809,6 +1811,14 @@ img.user-login{
     vertical-align: sub;
     margin-right: 6px;
     font-size: 20px;
+	
+}
+.check-camera{
+	display:grid;
+	grid-template-columns: 50% 50%;
+}
+.select-camera .check-camera{
+	display:block;
 }
 .form-radio:checked::before{
     position: absolute;
@@ -1828,7 +1838,15 @@ img.user-login{
     cursor: pointer;
 	    display: inline;
 }
-
+.check-camera>div{
+	display: flex;
+	align-items:baseline;
+}
+.check-camera>div .form-radio{
+	flex: 0 0 23px;
+    top: 7px;
+	    margin-right: 9px;
+}
 .form-radio:checked{
      background-color: #BD00FF;
 	     border: none;
@@ -1840,20 +1858,33 @@ img.user-login{
 .font-20{
 	font-size:20px !important;
 }
+.network-wifi{
+	width: 300px;
+}
+.heart-rate{
+	width:160px;
+}
+.network-wifi .signup-number{
+	    font-size: 28px;
+    float: right;
+    width: 60px;
+    text-align: center;
+}
 .fill-wifi{
-position: absolute;
-    right: -5px;
+    position: absolute;
+    right: -20px;
     bottom: 10px;
-    height: 62px;
+    height: 91px;
 }
 .wave {
-	display: inline-block;
-	border: 10px solid transparent;
-	border-top-color: #6DD400;
-	border-radius: 50%;
-	border-style: solid;
-	margin: 5px;
+display: inline-block;
+    border: 12px solid transparent;
+    border-top-color: #6DD400;
+    border-radius: 50%;
+    border-style: solid;
+    margin: 9px;
 }
+
   
   
 .waveStrength-3 .wv4.wave,
@@ -1862,14 +1893,21 @@ position: absolute;
 .waveStrength-1 .wv4.wave,
 .waveStrength-1 .wv3.wave,
 .waveStrength-1 .wv2.wave {
-	border-top-color: #eee;
+	border-top-color: #565656;
 }  
-
+.wv1{
+	border: 8px solid transparent;
+    background: #6DD400;
+}
 .btn-join{
 	background: rgba(189,0,255, 0.53) !important;
     border-color: rgba(189,0,255, 0.53) !important;
     font-size: 22px;
     font-family: Avenir-Black;
+}
+.btn-join:disabled{
+	opacity:0.6;
+	cursor:default;
 }
 .joiners img{
     margin-right: 9px;
@@ -1896,19 +1934,59 @@ position: absolute;
 		font-size:20px;
 	}
 	.prescreen-popup .countdown-timer{
-		font-size:18px;
+		font-size:26px;
 	}
 }
-
+.time-session{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+@media (max-width:1124px){
+	.time-session{
+		
+	}
+}
+.online-streams{
+    width: 185px;
+    justify-content: space-between;
+    display: flex;
+}
+.online-streams .online-total{
+    width: 145px;
+    float: left;
+    margin-left: 17px;
+}
+.select-audio{
+	margin-right: 0.5rem !important;
+	margin-left: 0.5rem !important;
+	margin-bottom: 0 !important;
+		    margin-top: 0 !important;
+}
+@media (max-width:1024px){
+	.network-wifi{
+		width:100%;
+	}
+	.heart-rate {
+    width: 100%;
+}
+	.select-audio{
+	margin-right: 0 !important;
+	margin-left: 0 !important;
+	    margin-bottom: 0.5rem !important;
+		    margin-top: 0.5rem !important;
+}
+	.prescreen-footer{
+	flex-wrap:wrap;
+}
+}
 @media screen and (max-width:991px){
 	.prescreen-popup .participant-status .border-right-gray{
 	border:0;
 }
 .fill-wifi {
-    position: absolute;
-    right: -5px;
-    bottom: 10px;
-    height: 62px;
+    right: -25px;
 }
 .time-session{
 	    display: flex;

@@ -17,7 +17,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   var client, localStream, camera, microphone;
   var totalBrodcaster = 0;
-   const sep = '~@$';
+  
+  var sep = '~@$';
+
   function join() {
 
     let camera = microphone= null;
@@ -444,6 +446,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   }
 
   function leave() {
+    console.log('===================stream leave ===========')
    // document.getElementById("leave").disabled = true;
     client.leave(function () {
       $('#subscribers-list').html('');
@@ -461,30 +464,33 @@ if(!AgoraRTC.checkSystemRequirements()) {
   function rtmJoin()
   {
 
-  var token=null;
+    var token=null;
     newclient = AgoraRTM.createInstance(appId1);
-   var storeData = getCurrentUserData();
-   var peer=storeData.email;
-  // newclient.login({uid: peer.toString(), token});
+    var storeData = getCurrentUserData();
+    var peer=storeData.email;
+    // newclient.login({uid: peer.toString(), token});
 
-  newclient.on('ConnectionStateChange', (newState, reason) => {
-    console.log('on connection state changed to ' + newState + ' reason: ' + reason);
-  });
+    newclient.on('ConnectionStateChange', (newState, reason) => {
+      console.log('on connection state changed to ' + newState + ' reason: ' + reason);
+    });
 
-   newclient.login({ token: token, uid: peer }).then(() => {
+    newclient.login({ token: token, uid: peer }).then(() => {
 
     console.log('****shiv*******AgoraRTM client login success***********');
 
     newclient.on('MessageFromPeer', (message, peerId) => { 
       var msg=message.text;
       console.log('********vvvvvvvvvvvvv********',msg,'********************',peerId);
-     // console.log("message "+ message.text + " peerId" + peerId);
+      // console.log("message "+ message.text + " peerId" + peerId);
 
       signalHandler(peerId, msg, storeData.userType);
-      });
+    });
 
-     channel = newclient.createChannel(channelName1);
+    channel = newclient.createChannel(channelName1);
     channel.join().then(() => {
+
+     joinChannel();
+
      console.log('**********shiv*********channel joined successfully**********');
 
      var today = new Date();
@@ -536,6 +542,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       }
 
       function leave_channel() {
+        console.log('============= channel leave ============');
         channel.leave();
        }
 
@@ -946,22 +953,23 @@ if(!AgoraRTC.checkSystemRequirements()) {
     // stream2.close();
     // GoInFullscreen();
     // localClient.leave();
+    rtmJoin();
     join();
-    var resp_data = JSON.parse(localStorage.getItem("userData"));
-    console.log('-----------hhhhhhhhh-------------------', resp_data.userType);
-      if(resp_data.userType == 1)
-      {     
-       // $('.dis').attr("disabled", false);
-     //  $('.dis[data-attr=\''+signalData.data+'\']').removeClass("d-none");
-     var text ="222";
-        sendMessageToChannel(channelName1, text);
-        getMemberList();
-      }
-     // getOnlineMemberList();
-      
 
     $(".host-script-section").height("255px");
     $(".host-section").css({"min-width": "380px", "max-width": "380px"});
+  }
+
+  function joinChannel(){
+
+    var resp_data = JSON.parse(localStorage.getItem("userData"));
+    console.log('-----------hhhhhhhhh-------------------', resp_data.userType);
+    if(resp_data.userType == 1)
+    {     
+      var text ="222";
+      sendMessageToChannel(channelName1, text);
+      getMemberList();
+    }
   }
 
   function continueJoinBkup(){
@@ -1189,7 +1197,7 @@ function attendeeScreenHeight(){
         // getDevices();
       }
       // GoInFullscreen();
-      rtmJoin(); 
+      // rtmJoin(); 
     // }
 
    // $(".host-script-section").height("305px"); 
@@ -1704,21 +1712,14 @@ function signalHandler(uid, signalData, userType) {
             showHandAtHost();
         });
         onPageResize();
-        var locaData = getCurrentUserData();
-        console.log('----------localData--',locaData.id)
-      // if(locaData.id == 1){
-        // $('#continue-join').removeAttr("disabled");
-      // }
-        // $('.dis').attr("disabled", false);
       
         $(document).on("click", ".start span a", function(){
           
-         $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
-         $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
-        $(".swiper-slide.start a").prop('disabled', true);
-        $(".swiper-btn-next").css("display", "block")
-         countDown();
-         
+          $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
+          $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
+          $(".swiper-slide.start a").prop('disabled', true);
+          $(".swiper-btn-next").css("display", "block")
+          countDown();
         })
          
          $(document).on("click", ".swiper-btns .swiper-btn-next", function(e){
@@ -1730,26 +1731,6 @@ function signalHandler(uid, signalData, userType) {
            countDown();
          })
 
-    //setTimeout(function(){ countDown(); }, 10);
-    // leaveRtm();
-     // rtmJoin();
-    
-    
-    // recieveMessage();
-    // recieveChannelmassages();
-    // getMemberList();
-
-    // var countdownNumberEl = document.getElementById('countdown-number');
-    // var countdownNumberEl2 = document.getElementById('countdown-number2');
-    // var countdown = 30;
-    
-    // countdownNumberEl.textContent = countdown;
-    // countdownNumberEl2.textContent = countdown;
-    
-    // setInterval(function() {
-    //   countdown = --countdown <= 0 ? 30 : countdown;
-    
-
 
     let agoraLocal = $("#agora_local").find("video").width();
     $("#agora_local video").height(`${agoraLocal / 1.778 }px`);
@@ -1758,21 +1739,6 @@ function signalHandler(uid, signalData, userType) {
     $("body, div").bind('mousewheel', function() {
       return false
     });
-    // $(document).on('click', ".hand-icon", function(){
-
-    //   if($(this).closest(".video-holder").hasClass("popup-added") == false){
-    //     $(this).closest(".video-holder").addClass("popup-added");
-        
-    //     if($(".video-streams").hasClass("popup-overlay")){
-    //       $(".guest-video-footer").show();
-    //     }
-    //   }
-    //   else {
-    //     $(this).closest(".video-holder").removeClass("popup-added");
-    //   }
-      
-      
-    // });
 
     $(document).on('click', ".eject-popup button", function(){
       $(this).closest(".video-holder").removeClass("popup-added");
@@ -1780,7 +1746,7 @@ function signalHandler(uid, signalData, userType) {
 
     $(".show-hide-script").click(function(){
       
-      $(this).text($(this).text() == '"Hide Script"' ? '"Show Script"' : '"Hide Script"');
+      //$(this).text($(this).text() == '"Hide Script"' ? '"Show Script"' : '"Hide Script"');
       showHideScript();
       //$(".add-remove-flex").removeClass( ? '" "' : '"flex-grow-1"');
       
@@ -1790,14 +1756,19 @@ function signalHandler(uid, signalData, userType) {
 
     $(".host-script-section").height("255px");
     $(".host-section").css({"min-width": "380px", "max-width": "380px"});
-
     
-    
-    $(".show-hide-footer-panel").click(function(){
+    $(".fullscreen").click(function(){
       $(".host-script-section").height() < 255 ? $(".host-script-section").height("255px") : $(".host-script-section").height("auto");
       
       
-       
+      if($(".show-hide-title").hasClass("d-block")){
+        $(".show-hide-title").addClass("d-none").removeClass("d-block");
+        $(".header").height("auto");
+      }
+      else{
+        $(".show-hide-title").addClass("d-block").removeClass("d-none");
+        $(".header").height("85px");
+      }
       //$(".host-script-section").css({'max-height:55px'});
       showHideScript();
       showHideHost();
@@ -1812,7 +1783,7 @@ function signalHandler(uid, signalData, userType) {
         $(".add-remove-height").addClass("height-53");
         $(".add-remove-height").removeClass("h53");
       }
-      $(this).text($(this).text() == '"Show Attendees"' ? '"Hide Attendees"' : '"Show Attendees"');
+     // $(this).text($(this).text() == '"Show Attendees"' ? '"Hide Attendees"' : '"Show Attendees"');
       
 
       $(".host-show-hide").slideToggle(upDown);
@@ -1872,7 +1843,7 @@ function signalHandler(uid, signalData, userType) {
         // })
         // getDevices();
         continueJoin()
-        rtmJoin(); 
+        // rtmJoin(); 
       // }
       // GoInFullscreen();
 
@@ -2010,10 +1981,10 @@ function signalHandler(uid, signalData, userType) {
         // location.reload();
       });
    
-      $(document).on('click', '#fullscreen', function(){
+      //$(document).on('click', '#fullscreen', function(){
         //GoInFullscreen();
-        toggleFullScreen();
-      })
+        //toggleFullScreen();
+      //})
 
       $(document).on('click', '.eject-session', function(){
         let strmId = $(this).closest('.video-holder').attr('id');

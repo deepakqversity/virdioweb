@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser} from "../../actions/authActions";
+import { logoutUser, addLogs} from "../../actions/authActions";
 import $ from 'jquery';
 import moment from 'moment'
  
@@ -79,6 +79,7 @@ class PreConfiguration extends Component {
     this.setState({userType : localstoragedata.userType})
     console.log('$$$$$$$$$$$$$$$',localstoragedata.userType, this.state.userType);
 
+    this.addLog(1,22,2);
   }
 
   joinSession = () => {
@@ -109,6 +110,10 @@ class PreConfiguration extends Component {
         this.props.history.push("/login");
       }
   }
+
+  addLog = (sessionId, userType, type) => {
+    this.props.addLogs(sessionId, userType, type);
+  };
 
   startTimer = () => {
     this.setState({
@@ -230,7 +235,7 @@ render() {
                 <div className="row">
                   <div className="col-lg-8">
                     <h4 className="small-heading">Your Upcoming Session</h4>
-                    <h3 className="popup-heading">{sessionData.name}<span>by {sessionData.hostName.toLowerCase()}</span><span className="green-online" id="online_state">ONLINE</span></h3>
+                    <h3 className="popup-heading">{sessionData.name}<span>by {sessionData.hostFirstName.toLowerCase()}</span><span className="green-online" id="online_state">ONLINE</span></h3>
                     <div className="time py-xs-1">  
                       <span className="no-border">{localDate}</span>
                     </div>
@@ -409,7 +414,7 @@ render() {
 }
 PreConfiguration.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  // joinSession: PropTypes.func.isRequired,
+  addLogs: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
@@ -417,5 +422,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { logoutUser }
+  { logoutUser,addLogs }
 )(PreConfiguration);

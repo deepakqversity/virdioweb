@@ -167,7 +167,7 @@ return (
           
         </div>
         <div className="col col-md-11">
-          <h3 className="main-heading">{sessionData.name} <span>by <span className="welcome-title">{sessionData.hostName.toLowerCase()}</span><span className="green-online online-status"><span>ONLINE</span></span></span>
+          <h3 className="main-heading">{sessionData.name} <span>by <span className="welcome-title">{sessionData.hostFirstName.toLowerCase()}</span><span className="green-online online-status"><span>ONLINE</span></span></span>
           
           </h3>
           <div className="row justify-content-between align-items-center mt-0">

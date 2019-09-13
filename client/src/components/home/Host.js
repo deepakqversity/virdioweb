@@ -167,7 +167,7 @@ return (
           
         </div>
         <div className="col col-md-11">
-          <h3 className="main-heading">{sessionData.name} <span>by <span className="welcome-title">{sessionData.hostName.toLowerCase()}</span><span className="green-online online-status"><span>ONLINE</span></span></span>
+          <h3 className="main-heading show-hide-title d-block">{sessionData.name} <span>by <span className="welcome-title">{sessionData.hostName.toLowerCase()}</span><span className="green-online online-status"><span>ONLINE</span></span></span>
           
           </h3>
           <div className="row justify-content-between align-items-center mt-0">
@@ -224,7 +224,8 @@ return (
           </div>
         </div>
         <div className="col-6 col-lg-3 col-md-4 col-sm-5 attendy-fullscreen attendy-fullscreen">
-          <button type="button" className="btn btn-outline-secondary float-right mt-1 show-hide-footer-panel mr-3">"Show Attendees"</button>
+          {/* <button type="button" className="btn btn-outline-secondary float-right mt-1 show-hide-footer-panel mr-3">"Show Attendees"</button> */}
+          {/* <a className="fullscreen" href="#" id="fullscreen"><img src="images/full-screen.png" /></a> */}
           <a className="fullscreen" href="#" id="fullscreen"><img src="images/full-screen.png" /></a>
         </div>
       </div>

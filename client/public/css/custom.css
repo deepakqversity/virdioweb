@@ -361,6 +361,7 @@ h3.main-heading span span span {
     right: 0;
     margin: auto;
 	margin-top: 10px !important;
+	transition: height 0.4s linear;
 }
 
 .time span{
@@ -1903,6 +1904,10 @@ display: inline-block;
     border-color: rgba(189,0,255, 0.53) !important;
     font-size: 22px;
     font-family: Avenir-Black;
+}
+.btn-join:disabled{
+	opacity:0.6;
+	cursor:default;
 }
 .joiners img{
     margin-right: 9px;

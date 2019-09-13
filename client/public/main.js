@@ -1786,7 +1786,7 @@ function signalHandler(uid, signalData, userType) {
 
     $(".show-hide-script").click(function(){
       
-      $(this).text($(this).text() == '"Hide Script"' ? '"Show Script"' : '"Hide Script"');
+      //$(this).text($(this).text() == '"Hide Script"' ? '"Show Script"' : '"Hide Script"');
       showHideScript();
       //$(".add-remove-flex").removeClass( ? '" "' : '"flex-grow-1"');
       
@@ -1799,11 +1799,18 @@ function signalHandler(uid, signalData, userType) {
 
     
     
-    $(".show-hide-footer-panel").click(function(){
+    $(".fullscreen").click(function(){
       $(".host-script-section").height() < 255 ? $(".host-script-section").height("255px") : $(".host-script-section").height("auto");
       
       
-       
+      if($(".show-hide-title").hasClass("d-block")){
+        $(".show-hide-title").addClass("d-none").removeClass("d-block");
+        $(".header").height("auto");
+      }
+      else{
+        $(".show-hide-title").addClass("d-block").removeClass("d-none");
+        $(".header").height("85px");
+      }
       //$(".host-script-section").css({'max-height:55px'});
       showHideScript();
       showHideHost();
@@ -1818,7 +1825,7 @@ function signalHandler(uid, signalData, userType) {
         $(".add-remove-height").addClass("height-53");
         $(".add-remove-height").removeClass("h53");
       }
-      $(this).text($(this).text() == '"Show Attendees"' ? '"Hide Attendees"' : '"Show Attendees"');
+     // $(this).text($(this).text() == '"Show Attendees"' ? '"Hide Attendees"' : '"Show Attendees"');
       
 
       $(".host-show-hide").slideToggle(upDown);
@@ -2016,10 +2023,10 @@ function signalHandler(uid, signalData, userType) {
         // location.reload();
       });
    
-      $(document).on('click', '#fullscreen', function(){
+      //$(document).on('click', '#fullscreen', function(){
         //GoInFullscreen();
-        toggleFullScreen();
-      })
+        //toggleFullScreen();
+      //})
 
       $(document).on('click', '.eject-session', function(){
         let strmId = $(this).closest('.video-holder').attr('id');

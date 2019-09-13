@@ -173,7 +173,8 @@ render() {
 
   localDate = localDate.replace('#', 'at');
   let remTime = '';
-  //console.log('scheduleDate ',localDate );
+  console.log('sessionData sessionData',sessionData );
+  let logo = sessionData.logo;
   
   //console.log('------hhhhhhhh----users ', this.state.users)
   let onlineUsers = '';
@@ -223,7 +224,7 @@ render() {
         
           <div className="d-flex w-100 justify-content-between  flex-md-nowrap flex-wrap">
             <div className="d-flex align-items-center rounded bg-gray session-logo mx-md-0 mx-auto">
-              <img src="/images/prescreen-logo.png" />
+              <img src={ logo } />
             </div>
             <div className="session-details bg-gray flex-grow-1 my-2 my-md-0 mx-md-2">
                 <div className="row">

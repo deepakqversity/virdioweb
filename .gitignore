@@ -1,5 +1,6 @@
 .env
 /node_modules
 client/node_modules/
+client/public/images/logos/
 /package-lock.json
 /client/package-lock.json

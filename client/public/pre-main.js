@@ -17,7 +17,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   var client, localStream, camera, microphone;
   var totalBrodcaster = 0;
-  const sep = '~@$';
+  var sep = '~@$';
   // function join() {
 
   //   let camera = microphone= null;

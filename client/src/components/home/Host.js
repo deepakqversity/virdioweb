@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import utils from "../../utils/functions";
 import $ from 'jquery';
-import Config from "./Configuration";
 import WineScript from "./WineScript";
 import FitnessScript from "./FitnessScript";
 import moment from 'moment'
@@ -167,7 +166,7 @@ return (
           
         </div>
         <div className="col col-md-11">
-          <h3 className="main-heading show-hide-title d-block">{sessionData.name} <span>by <span className="welcome-title">{sessionData.hostName.toLowerCase()}</span><span className="green-online online-status"><span>ONLINE</span></span></span>
+          <h3 className="main-heading show-hide-title d-block">{sessionData.name} <span>by <span className="welcome-title">{sessionData.hostFirstName.toLowerCase()}</span><span className="green-online online-status"><span>ONLINE</span></span></span>
           
           </h3>
           <div className="row justify-content-between align-items-center mt-0">

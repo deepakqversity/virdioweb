@@ -79,7 +79,7 @@ class PreConfiguration extends Component {
     this.setState({userType : localstoragedata.userType})
     console.log('$$$$$$$$$$$$$$$',localstoragedata.userType, this.state.userType);
 
-    this.addLog(1,22,2);
+    // this.addLog(1,22,2);
   }
 
   joinSession = () => {
@@ -169,7 +169,7 @@ render() {
   let seconds = ("0" + (Math.floor((timerTime / 1000) % 60) % 60)).slice(-2);
   let minutes = ("0" + Math.floor((timerTime / 60000) % 60)).slice(-2);
   let hours = ("0" + Math.floor((timerTime / 3600000) % 60)).slice(-2);
-      console.log('interest====== ', interest);
+      // console.log('interest====== ', interest);
   //const  {user}  = this.props.auth;
 
   let localstoragedata = JSON.parse(localStorage.getItem('userData'));
@@ -191,13 +191,13 @@ render() {
 
     onlineUsers = this.state.users.map((user, idx) => {
       if(user.userType != 1) {
-        const { username, name, email } = user;
+        const { id, firstName, email } = user;
         return (
-          <tr key={idx}>
+          <tr id={"online-user-row-"+id} key={idx}>
           <th scope="row"><img src="/images/avtar.png" /></th>
-          <td>{name}</td>
+          <td><span className="welcome-title">{firstName.toLowerCase()}</span></td>
           <td>{email}</td>
-          <td><img className="mr-2" src="/images/online.png" />online</td>
+          <td><img className="mr-2 user-status" src="/images/offline.png" />online</td>
           <td>YES</td>
           <td>5</td>
         </tr>
@@ -236,7 +236,7 @@ render() {
                 <div className="row">
                   <div className="col-lg-8">
                     <h4 className="small-heading">Your Upcoming Session</h4>
-                    <h3 className="popup-heading">{sessionData.name}<span>by {sessionData.hostFirstName.toLowerCase()}</span><span className="green-online" id="online_state">ONLINE</span></h3>
+                    <h3 className="popup-heading">{sessionData.name}<span>by <label className="welcome-title">{sessionData.hostFirstName.toLowerCase()}</label></span><span className="green-online" id="online_state">ONLINE</span></h3>
                     <div className="time py-xs-1">  
                       <span className="no-border">{localDate}</span>
                     </div>
@@ -394,7 +394,6 @@ render() {
                 <tr>
                   <th scope="col">&nbsp;</th>
                   <th scope="col">Name</th>
-                  
                   <th scope="col">Status</th>
                   <th scope="col">Visible</th>
                   <th scope="col"># of Sessions</th>

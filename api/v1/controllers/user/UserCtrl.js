@@ -232,6 +232,33 @@ class UserCtrl {
 	    }
 	}
 
+	async forgotPassword(req, res) {
+		try {
+			
+			res.status(200).send({message:"Account activated successfully."});
+	    } catch(exception) {
+			res.status(500).send(exception)
+	    }
+	}
+
+	async verifyLink(req, res) {
+		try {
+			
+			res.status(200).send({message:"Account activated successfully."});
+	    } catch(exception) {
+			res.status(500).send(exception)
+	    }
+	}
+
+	async updatePassword(req, res) {
+		try {
+			
+			res.status(200).send({message:"Account activated successfully."});
+	    } catch(exception) {
+			res.status(500).send(exception)
+	    }
+	}
+
 }
 
 module.exports = new UserCtrl();

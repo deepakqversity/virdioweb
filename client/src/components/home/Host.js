@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "../../actions/authActions";
+import { logoutUser, addLogs } from "../../actions/authActions";
 import utils from "../../utils/functions";
 import $ from 'jquery';
 import WineScript from "./WineScript";
@@ -23,6 +23,11 @@ class Host extends Component {
     };
 
   }
+
+  addLog = (sessionId, userType, type) => {
+    
+    this.props.addLogs(sessionId, userType, type);
+  };
 
   onLogoutClick = e => {
     e.preventDefault();
@@ -56,6 +61,14 @@ class Host extends Component {
 
   componentDidMount(){
     
+    // if any exception if user has no device on streaming page in any case
+    let mediaIds = localStorage.getItem('media-setting');
+
+    if(mediaIds == undefined){
+      this.props.history.push('pre-screen');
+    }
+
+
     $('.dropdown.keep-open').on({
       "shown.bs.dropdown": function() { this.closable = false; },
       "click":             function() { this.closable = true; },
@@ -380,6 +393,7 @@ return (
 }
 Host.propTypes = {
   logoutUser: PropTypes.func.isRequired,
+  addLogs: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
@@ -387,5 +401,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { logoutUser }
+  { logoutUser, addLogs }
 )(Host);

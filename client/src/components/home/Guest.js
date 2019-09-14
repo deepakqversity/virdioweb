@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "../../actions/authActions";
+import { logoutUser, addLogs } from "../../actions/authActions";
 import $ from 'jquery';
 import LeftScriptParticipant from "./LeftScriptParticipant";
 import FooterScriptParticipant from "./FooterScriptParticipant";
@@ -24,6 +24,11 @@ class Guest extends Component {
     };
 
   }
+
+  addLog = (sessionId, userType, type) => {
+    
+    this.props.addLogs(sessionId, userType, type);
+  };
 
   onLogoutClick = e => {
     e.preventDefault();
@@ -114,6 +119,12 @@ class Guest extends Component {
   }
   
   componentWillMount(){
+    // if any exception if user has no device on streaming page in any case
+    let mediaIds = localStorage.getItem('media-setting');
+
+    if(mediaIds == undefined){
+      this.props.history.push('pre-screen');
+    }
     //console.log(1);
     // window.test();
     this.startTimer();
@@ -376,6 +387,7 @@ const videoAspect = {
 }
 Guest.propTypes = {
   logoutUser: PropTypes.func.isRequired,
+  addLogs: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
@@ -383,5 +395,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { logoutUser }
+  { logoutUser, addLogs }
 )(Guest);

@@ -136,22 +136,31 @@ export const joinConf = (channel) => dispatch => {
 
 // Log user out
 export const addLogs = (sessionId, userType, type) => dispatch => {
-  console.log("sessionId, userType, type ", sessionId, userType, type);
-  const logData = {
+  console.log("sessionId, userType, type === ", sessionId, userType, type);
+  var logData = {
     sessionId : sessionId,
     userType : userType,
     type : type
   };
   var userData = JSON.parse(localStorage.getItem("userData"));
 
-  fetch("/api/v1/session/activity-log", {
-    method: 'POST',
-    body: logData,
-    headers : {'Authorization': userData.token}
+  // fetch("/api/v1/session/activity-log", {
+  //   method: 'POST',
+  //   body: JSON.stringify(logData),
+  //   headers : {'Authorization': userData.token}
+  // })
+  // .then(response => response.json())
+  // // ...then we update the users state
+  // .then(data => {
+  //   console.log('successfully saved', data)
+  // });
+
+  axios.post('/api/v1/session/activity-log', logData)
+  .then(function (response) {
+    console.log('successfully saved')
   })
-  .then(response => response.json())
-  // ...then we update the users state
-  .then(data => {
-    console.log('successfully saved', data)
+  .catch(function (error) {
+    console.log(error);
   });
+
 };

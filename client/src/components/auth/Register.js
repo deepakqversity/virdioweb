@@ -5,8 +5,6 @@ import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
 import classnames from "classnames";
 import $ from "jquery";
-import RegisterForm from "./RegisterForm"
-import VerifyUserRegister from "./VerifyUserRegister"
 
 class Register extends Component {
   constructor() {

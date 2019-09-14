@@ -57,7 +57,6 @@ class PreConfiguration extends Component {
     this.loadScript('/pre-main.js');
 
     this.fetchUsers();
-    
 
     let localstoragedata = JSON.parse(localStorage.getItem('userData'));
     this.setState({sessionScript: localstoragedata.sessionData.id});
@@ -123,8 +122,21 @@ class PreConfiguration extends Component {
       timerStart: this.state.timerTime
     });
     this.timer = setInterval(() => {
-      const newTime = this.state.timerTime - 10;
-      if (newTime >= 0) {
+      const newTime = this.state.timerTime;
+
+      let remSec = Math.floor(newTime / 1000);
+
+      if(remSec > 0 && remSec < 10){
+        this.setState({
+          timerTime: newTime
+        });
+        if(!this.state.alert10Sec){
+          this.setState({
+            alert10Sec: true
+          });
+          window.timerAlert();
+        }
+      }else if (newTime >= 0) {
         this.setState({
           timerTime: newTime
         });
@@ -160,7 +172,11 @@ class PreConfiguration extends Component {
       this.userList(data);
     }
     )
-      }
+  }
+
+  joinAlert = () => {
+    $('#continue-join').trigger('click');
+  };
 
 render() {
 
@@ -179,7 +195,7 @@ render() {
 
   localDate = localDate.replace('#', 'at');
   let remTime = '';
-  console.log('sessionData sessionData',sessionData );
+  // console.log('sessionData sessionData',sessionData );
   let logo = sessionData.logo;
   
   //console.log('------hhhhhhhh----users ', this.state.users)
@@ -205,7 +221,6 @@ render() {
       }
     })
   }
-
 
       // var allData= this.props.dispatch(allUsers(sessionId));
       var userlength=this.state.users;
@@ -379,6 +394,23 @@ render() {
       </div>
 
       </div>
+
+     <div id="timer-alert" className="modal fade">
+        <div className="modal-dialog modal-confirm">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h4 className="modal-title">Are you sure?</h4>  
+                <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div className="modal-body">
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-success" onClick={this.joinAlert}>Join</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="modal attendy-list" id="attendy-list">
         <div className="modal-dialog">
           <div className="modal-content">
@@ -408,6 +440,7 @@ render() {
           </div>
         </div>
       </div>
+      
       </div>
     );
   }

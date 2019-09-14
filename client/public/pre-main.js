@@ -1187,6 +1187,14 @@ function signalHandler(uid, signalData, userType) {
         //   console.log(' User is Audience.');
         // }
       }
+
+      function timerAlert(){
+        console.log('timer-alert============')
+        if($('#timer-alert').length > 0){
+
+          $('#timer-alert').modal('show');
+        }
+      }
       
       $(document).ready(function(){
         

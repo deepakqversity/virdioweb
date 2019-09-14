@@ -458,14 +458,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
           d = deviceId;
 
           stream1.setVideoProfile('720p_3');
-
-          // stream1.setVideoEncoderConfiguration({
-          //   // Video resolution
-          //     resolution: {
-          //         width: 640,
-          //         height: 380
-          //     }
-          // });
             
           // Initialize the stream.
           stream1.init(function(){
@@ -850,7 +842,7 @@ function signalHandler(uid, signalData, userType) {
       
         // if(userType != 1)
         // {
-        let message="User "+senderId+" has joined on  "+ res1[1];
+        let message="User " + getUserDataFromList(senderId, 'firstName') + " has joined on  "+ res1[1];
         $('#newmsg').html(message);
         // setTimeout(function(){ $('#newmsg').html(''); }, 10000); 
      
@@ -965,10 +957,7 @@ function signalHandler(uid, signalData, userType) {
           $('#online_state').addClass("online-status");
         }
         count4=count3+1;
-      
-         
 
-     
       }else if(signalData.msgtype=='left') {
 
         let str=signalData.message;
@@ -997,17 +986,11 @@ function signalHandler(uid, signalData, userType) {
      
         var arr=signalData.totalmember;
        
-        // if($.inArray(hostid, arr) >= 0)
-        // {
-        //   $('#online_state').html('ONLINE');
-        //   $('#online_state').addClass("online-status");
-        // }
-        
-        count4=signalData.member;
-        count4=parseInt(count4);
-        count4=count4-1;
-       // console.log('*******totallist*************** signalData ', count4);
-       arr.shift();
+        count4 = signalData.member;
+        count4 = parseInt(count4);
+        count4 = count4 - 1;
+        // console.log('*******totallist*************** signalData ', count4);
+        arr.shift();
         arr.forEach(element => {
 
           if(element == hostid)
@@ -1023,10 +1006,9 @@ function signalHandler(uid, signalData, userType) {
       $('#totalonline').empty(); 
       $('#totalonline').html(count4);
     
-        $('#joined_users_at_client').empty(); 
-        $('#joined_users_at_client').html(count4); 
-    
-      }
+      $('#joined_users_at_client').empty(); 
+      $('#joined_users_at_client').html(count4); 
+    }
 
 
       function incrementcountAtHost(signalData,userType)
@@ -1189,11 +1171,26 @@ function signalHandler(uid, signalData, userType) {
       }
 
       function timerAlert(){
-        console.log('timer-alert============')
         if($('#timer-alert').length > 0){
 
           $('#timer-alert').modal('show');
         }
+      }
+
+      // Get user specific data
+      function getUserDataFromList(id, key){
+        let userList = getTempUsers();
+        if(userList != ''){
+          
+          for(let i= 0; i < userList.length; i++){
+            if(id == userList[i].id && userList[i].hasOwnProperty(key)){
+              return userList[i][key];
+            } else if(id == userList[i].email && userList[i].hasOwnProperty(key)){
+              return userList[i][key];
+            }
+          }
+        }
+        return '';
       }
       
       $(document).ready(function(){
@@ -1215,7 +1212,6 @@ function signalHandler(uid, signalData, userType) {
 
       $('#logout_button').click(function(){
         leave_channel();
-        leave();
         removeSession();
         location.href  = '/login';
         // location.reload();
@@ -1233,7 +1229,7 @@ function signalHandler(uid, signalData, userType) {
             $('#attendy-list').find('.user-status').attr('src', '/images/offline.png');
             for(let i= 0; i < membersList.length; i++){
               let eleId = convertEmailToId(membersList[i]);
-                $('#online-user-row-'+eleId).find('.user-status').attr('src', '/images/online.png');
+              $('#online-user-row-'+eleId).find('.user-status').attr('src', '/images/online.png');
             }
           }).catch(error => {
             console.log('*************There is an error******');

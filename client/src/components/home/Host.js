@@ -160,6 +160,8 @@ render() {
       scriptHtml = <FitnessScript />;
     }
 
+    const newulength = JSON.parse(localStorage.getItem('tempUsers')).length;
+
 return (
     <div className="container justify-content-between d-flex flex-column h-100 position-relative">
     <header className="header bg-gray mt-0 position-fixed">
@@ -211,7 +213,7 @@ return (
     <section className="bg-gray mt-1 px-0 py-1 rounded section attendees">
       <div className="row px-0 px-sm-3 pb-2 pt-1 justify-content-between align-items-center">
         <div className="col-6 col-md-6 d-flex align-items-center">
-          <h4 className="title">Wine Testers (<span id="joined_users">0</span>/<span>44</span>)</h4>
+          <h4 className="title">Wine Testers (<span id="joined_users">0</span>/<span>{newulength}</span>)</h4>
           <div className="hand-raise-list">
             <div className="dropdown keep-open">
               <button className="dropdown-toggle circle-ripple d-none" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

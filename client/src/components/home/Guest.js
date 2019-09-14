@@ -102,8 +102,7 @@ class Guest extends Component {
     
     let localstoragedata = JSON.parse(localStorage.getItem('userData'));
 
-    var  userID=localstoragedata.id;
-    this.setState({getID : userID});
+    this.setState({getID : localstoragedata.id});
 
    // let localstoragedata = JSON.parse(localStorage.getItem('userData'));
     this.setState({sessionScript: localstoragedata.sessionData.id});
@@ -180,11 +179,8 @@ render() {
     } else if(sessionScript == 2) {
       scriptHtml = <FitnessScript />;
     }
-
-
-    //var userData = JSON.parse(localStorage.getItem("userData"));
-    var userID = localstoragedata.id;
-
+    
+    const newulength = JSON.parse(localStorage.getItem('tempUsers')).length;
 return (
     <div className="container d-flex flex-column justify-content-between h-100 overlay position-relative">
 
@@ -245,7 +241,7 @@ return (
           <div className="transparent-gray slide-right-left" style={toggleList}>
             
             <div className="joined-attendees ">
-            <h4 className="mb-2 head"><span className="title">Wine Testers</span><span className="count">(<span  id="joined_users_at_client">0</span>/<span>44</span>)</span></h4>
+            <h4 className="mb-2 head"><span className="title">Wine Testers</span><span className="count">(<span  id="joined_users_at_client">0</span>/<span>{newulength}</span>)</span></h4>
             <div id="all_joined_member_list"></div>
             <button type="button" id="minimize-others" className="mt-2 minimize-others btn btn-outline-secondary mx-auto d-none">"Minimize Others"</button>
         

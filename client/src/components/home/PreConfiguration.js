@@ -207,11 +207,11 @@ render() {
 
     onlineUsers = this.state.users.map((user, idx) => {
       if(user.userType != 1) {
-        const { id, firstName, email } = user;
+        const { id, firstName, lastName, email, image, city } = user;
         return (
           <tr id={"online-user-row-"+id} key={idx}>
-          <th scope="row"><img src="/images/avtar.png" /></th>
-          <td><span className="welcome-title">{firstName.toLowerCase()}</span></td>
+          <th scope="row"><img src={image} /></th>
+          <td><span className="welcome-title">{firstName.toLowerCase()} {lastName != null ? lastName.toLowerCase() : ''} {city != null ? ', '+city.toLowerCase() : ''}</span></td>
           <td>{email}</td>
           <td><img className="mr-2 user-status" src="/images/offline.png" />online</td>
           <td>YES</td>
@@ -310,7 +310,7 @@ render() {
               <div className="row">
                 <div className="online-streams">
                   <span className="online-total">Online streams on screen</span>
-                  <span className="signup-number" >8</span>
+                  <span className="signup-number" >{localstoragedata.default.maxDisplayUsers}</span>
                 </div>
                 
               </div>
@@ -344,7 +344,7 @@ render() {
               <div className="col-lg-9">
               <span id='newmsg' style={{color:'green'}}></span>
                 <h6 className="small-heading mb-3 no-border">Joined</h6>
-                <div className="d-none">
+                <div className="">
                   <div className="joiners d-flex flex-wrap">
                     <span>
                       <img src="images/avtar.png" />

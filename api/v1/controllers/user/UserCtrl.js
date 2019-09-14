@@ -42,6 +42,13 @@ class UserCtrl {
 						if(userObj.isBanned == 1){
 		    				res.status(400).send({message:"Sorry! You cannot login."})
 		    			} else {
+
+							if(isEmpty(userObj.image)){
+								userObj.image = process.env.IMAGES + 'profile.png';
+							} else {
+								userObj.image = process.env.IMAGES + userObj.image;
+							}
+
 							const token = await auth.createToken(userObj.id);
 							// console.log('token-------------',token);
 							let updateUser = await tokenModel.updateToken(userObj.id, token);
@@ -84,6 +91,12 @@ class UserCtrl {
 								let scriptDetail = await sessionScriptModel.getProductDetail(currentSession.id, currentSession.hostId, currentSession.code );
 								underscore.extend(currentSession, {scriptDetail : scriptDetail});
 								
+								if(isEmpty(currentSession.hostImage)){
+									currentSession.hostImage = process.env.IMAGES + 'profile.png';
+								} else {
+									currentSession.hostImage = process.env.IMAGES + currentSession.hostImage;
+								}
+
 								underscore.extend(userObj, { sessionData : currentSession });
 
 							} else {

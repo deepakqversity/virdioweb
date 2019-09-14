@@ -71,7 +71,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
       console.log("AgoraRTC client initialized");
 
       // Before join channel add user role 
-      client.setClientRole(storeData.userType == 1 ? "host" : "audience", function(err) {
+      // client.setClientRole(storeData.userType == 1 ? "host" : "audience", function(err) {
+      client.setClientRole("host", function(err) {
 
         if(err) {
           console.log("user role failed", e);
@@ -105,7 +106,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
             localStream.init(function() {
               
               if(storeData.userType != 1){
-                localStream.muteAudio();
+                // localStream.muteAudio();
               } 
         
               console.log("GetUserMedia successfully");
@@ -162,6 +163,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     });
 
     var count=1;
+    var totalScreenUsers = 0;
     client.on('stream-subscribed', function (evt) {
 
       var storeData = getCurrentUserData();
@@ -172,8 +174,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
       if(storeData.userType == 1) {
 
         if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
-        
+          if(totalScreenUsers < 8){
+
           $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" data-dismiss="modal">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute   d-none"  id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="att-details"> <span class="att-name welcome-title">'+getNameById(stream.getId())+'</span><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
+          } else {
+            
+          }
+          totalScreenUsers++;
         }
         stream.play('agora_remote_vdo' + stream.getId());
 
@@ -361,7 +368,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     });
 
   }
-
+  
   function getCurrentUserData(){
     return JSON.parse(localStorage.getItem("userData"));
   }    
@@ -1880,8 +1887,8 @@ function signalHandler(uid, signalData, userType) {
         //   console.log('close event')
         // })
         // getDevices();
-        continueJoin()
         // rtmJoin(); 
+        continueJoin()
       // }
       // GoInFullscreen();
 

@@ -113,9 +113,18 @@ if(!AgoraRTC.checkSystemRequirements()) {
       channel.on('MemberJoined', memberId => { 
 
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-status').attr('src', '/images/online.png');
-
+        /*
+        <span class="welcome-title"><img src="images/avtar.png" />Richard, LA</span>
+         */
         var massages="208"+sep+memberId+sep+"joined"+sep;        
         channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
+        if(storeData.userType ==1){
+
+          if( $('#joinee-' + convertEmailToId(memberId)).length == 0 ){
+            $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(memberId)+'"><img src="'+getUserDataFromList(memberId, 'image')+'" />'+getUserDataFromList(memberId, 'firstName')+', '+getUserDataFromList(memberId, 'city')+'</span>');
+          }
+          totalChannelMembers();
+        }
       })
      
        channel.on('MemberLeft', memberId => { 
@@ -124,10 +133,16 @@ if(!AgoraRTC.checkSystemRequirements()) {
         channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"left"}), storeData.userType);
         })
      
-       channel.on('ChannelMessage', (message, senderId) => {         
-        var msg=message.text;
-       // msg = JSON.parse(msg);             
-        channelMsgHandler(msg,senderId,storeData.userType);
+        channel.on('ChannelMessage', (message, senderId) => {         
+          var msg=message.text;
+          // msg = JSON.parse(msg);  
+          channelMsgHandler(msg,senderId,storeData.userType);
+          if(storeData.userType ==1){
+            if( $('#joinee-' + convertEmailToId(senderId)).length == 0 ){
+              $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(senderId)+'"><img src="'+getUserDataFromList(senderId, 'image')+'" />'+getUserDataFromList(senderId, 'firstName')+', '+getUserDataFromList(senderId, 'city')+'</span>');
+            }
+            totalChannelMembers()
+          }
         });
  
       }).catch(error => {
@@ -1168,6 +1183,16 @@ function signalHandler(uid, signalData, userType) {
         // } else {
         //   console.log(' User is Audience.');
         // }
+      }
+
+      function totalChannelMembers(){
+        channel.getMembers().then(membersList => {
+            let totMember = membersList.length -1;
+            $('#total-joinees').html(totMember > 30 ? '+30 more' : totMember);
+            
+          }).catch(error => {
+            console.log('*************There is an error******');
+          });
       }
 
       function timerAlert(){

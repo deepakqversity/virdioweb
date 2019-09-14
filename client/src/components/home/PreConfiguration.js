@@ -346,24 +346,9 @@ render() {
                 <h6 className="small-heading mb-3 no-border">Joined</h6>
                 <div className="">
                   <div className="joiners d-flex flex-wrap">
-                    <span>
-                      <img src="images/avtar.png" />
-                      Richard, LA
-                    </span>
-                    <span>
-                      <img src="images/avtar.png" />
-                      Richard, LA
-                    </span>
-                    <span>
-                      <img src="images/avtar.png" />
-                      Richard, LA
-                    </span>
-                    <span>
-                      <img src="images/avtar.png" />
-                      Richard, LA
-                    </span>
+                    <div id="joiners"></div>  
                     
-                    <span className="color-purple">
+                    <span className="color-purple" id="total-joinees">
                       +34 more
                     </span>
                   </div>

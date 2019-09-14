@@ -120,6 +120,10 @@ class Host extends Component {
     }, 10);
   };
 
+  testButn =() => {
+    window.subscribe()
+  };
+
   // startTimer = () => {
   //   this.setState({
   //     timerOn: true,
@@ -198,7 +202,7 @@ return (
               <div className="col-12 justify-content-end d-flex align-items-center">
                 
                 <div className="border-right pr-3">
-                <a className="btn  btn-primary border-right pr-20" href="#" tabIndex="1">details</a>
+                <a className="btn  btn-primary border-right pr-20" href="#" tabIndex="1" onClick={this.testButn}>Details</a>
                 </div>
                 <button className="logout-btn ml-3" onClick={this.callfunction.bind(this)} tabIndex="1">
                   <i className="fa fa-times" aria-hidden="true"></i>

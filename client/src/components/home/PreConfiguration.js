@@ -261,12 +261,12 @@ render() {
                   </div>
                 </div>
             </div>
-            <div className="participant-status bg-gray session-logo mx-md-0 mx-auto">
+            <div className="participant-status bg-gray mx-md-0 mx-auto">
               
             <h4 className="small-heading">Participants {participent}</h4>
-                <div className="col-lg-12 mt-3">
+                <div className="mt-3">
                   <div className="row">
-                    <div className="col-lg-6 border-right-gray">
+                    <div className="col-lg-6 border-right-gray2">
                       <span className="signup-total">Signed up</span>
                       <span className="signup-number" id="totalsignup">{newulength}</span>
                     </div>

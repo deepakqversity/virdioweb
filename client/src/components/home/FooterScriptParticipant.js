@@ -29,28 +29,31 @@ class FooterScriptParticipant extends Component {
   }
 
   getAppearence(){  
-    var Email=this.state.getEmail;
+    let Email=this.state.getEmail;
     //alert(Email);return false;
     $("#appearence_button").val(Email);
     $('#appearence_button').trigger('click');
   }
 
   getAroma(){
-    var ID=this.state.getID;
-    console.log(ID);
-    $("#aroma_button").val(ID);
+   // var ID=this.state.getID;
+    let Email=this.state.getEmail;
+    //console.log(ID);
+    $("#aroma_button").val(Email);
     $('#aroma_button').trigger('click');
   }
   getPalate(){
-    var ID=this.state.getID;
-    console.log(ID);
-    $("#palate_button").val(ID);
+   // var ID=this.state.getID;
+    let Email=this.state.getEmail;
+   // console.log(ID);
+    $("#palate_button").val(Email);
     $('#palate_button').trigger('click');
   }
   getScore(){
-    var ID=this.state.getID;
-    console.log(ID);
-    $("#score_button").val(ID);
+   // var ID=this.state.getID;
+    let Email=this.state.getEmail;
+  //  console.log(ID);
+    $("#score_button").val(Email);
     $('#score_button').trigger('click');
   }
 

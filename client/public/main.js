@@ -1620,7 +1620,7 @@ function signalHandler(uid, signalData, userType) {
 
       function incrementcountAtHost(signalData,userType)
       {  
-        //console.log('********munmunHost************** signalData ', signalData, userType);
+        console.log('********munmunHost************** signalData ', signalData, userType);
         var count=$('#totalonline').html();
 
       console.log('********munmunHost************** signalData ', signalData);
@@ -1629,14 +1629,14 @@ function signalHandler(uid, signalData, userType) {
         let storeData = getCurrentUserData();
         let hostid=storeData.sessionData.hostId;
         let clientid=storeData.sessionData.id;
-        let userType=storeData.userType;
+        let TypeOfUser=storeData.userType;
         // if(hostid == clientid)
         // {
         //   $('#online_state').removeClass("online-status");        
         //   $('#online_state').addClass("online-status");
         // }
 
-        if(userType == 1)
+        if(TypeOfUser == 1)
         {
           $('#online_state').removeClass("online-status");        
           $('#online_state').addClass("online-status");

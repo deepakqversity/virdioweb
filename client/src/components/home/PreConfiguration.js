@@ -251,7 +251,7 @@ render() {
                 <div className="row">
                   <div className="col-lg-8">
                     <h4 className="small-heading">Your Upcoming Session</h4>
-                    <h3 className="popup-heading">{sessionData.name}<span>by <label className="welcome-title">{sessionData.hostFirstName.toLowerCase()}</label></span><span className="green-online" id="online_state">ONLINE</span></h3>
+                    <h3 className="popup-heading">{sessionData.name}<span>by <label className="welcome-title">{sessionData.hostFirstName.toLowerCase()}</label></span><span className="green-online online-status" id="online_state">ONLINE</span></h3>
                     <div className="time py-xs-1">  
                       <span className="no-border">{localDate}</span>
                     </div>

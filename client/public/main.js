@@ -735,8 +735,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
       
     setTimeout(function(){}, 1000);
 
-    console.log(' @@@@@@@ totalBrodcaster @@@ ', totalBrodcaster, storeData.default.maxDisplayUsers);
-    if(storeData.userType == 1  || storeData.userType != 1 && totalBrodcaster < parseInt(storeData.default.maxDisplayUsers)){
+    console.log(' @@@@@@@ totalBrodcaster @@@ ', totalBrodcaster, storeData.default.maxUserLimit);
+    if(storeData.userType == 1  || storeData.userType != 1 && totalBrodcaster < parseInt(storeData.default.maxUserLimit)){
         
       client.publish(localStream, function (err) {
         console.log("Publish local stream error: " + err);

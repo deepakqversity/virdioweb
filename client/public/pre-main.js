@@ -60,7 +60,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   //var currentSession = getCurrentSession(); 
   var newclient; 
   var channel;
-   var channelName1 = '1440';
+   var channelName1 = '1443';
   function rtmJoin()
   {
    var appId1 = '232f270a5aeb4e0097d8b5ceb8c24ab3';
@@ -123,12 +123,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
          */
         var massages="208"+sep+memberId+sep+"joined"+sep;        
         channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
+        console.log('totMember============', memberId)
         if(storeData.userType ==1){
-
           if( $('#joinee-' + convertEmailToId(memberId)).length == 0 ){
+            removeFromFirst();
             $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(memberId)+'"><img src="'+getUserDataFromList(memberId, 'image')+'" />'+getUserDataFromList(memberId, 'firstName')+', '+getUserDataFromList(memberId, 'city')+'</span>');
+            totalChannelMembers();
           }
-          totalChannelMembers();
         }
       })
      
@@ -136,7 +137,14 @@ if(!AgoraRTC.checkSystemRequirements()) {
     
         var massages="208"+sep+memberId+sep+"left"+sep;  
         channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"left"}), storeData.userType);
-        })
+      
+        if(storeData.userType ==1){
+          if( $('#joinee-' + convertEmailToId(memberId)).length != 0 ){
+            $('#joiners').find("#joinee-"+convertEmailToId(memberId)).remove();
+            totalChannelMembers();
+          }
+        }
+      })
      
         channel.on('ChannelMessage', (message, senderId) => {         
           var msg=message.text;
@@ -144,9 +152,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
           channelMsgHandler(msg,senderId,storeData.userType);
           if(storeData.userType ==1){
             if( $('#joinee-' + convertEmailToId(senderId)).length == 0 ){
+              removeFromFirst();
               $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(senderId)+'"><img src="'+getUserDataFromList(senderId, 'image')+'" />'+getUserDataFromList(senderId, 'firstName')+', '+getUserDataFromList(senderId, 'city')+'</span>');
+              totalChannelMembers()
             }
-            totalChannelMembers()
           }
         });
  
@@ -1190,34 +1199,55 @@ function signalHandler(uid, signalData, userType) {
         // }
       }
 
+
       function totalChannelMembers(){
+        let localData = getCurrentUserData();
         channel.getMembers().then(membersList => {
             let totMember = membersList.length -1;
-            $('#total-joinees').html(totMember > 30 ? '+30 more' : totMember);
+            let maxUserLimit = localData.default.preScreenUserLimit;
+            console.log('totMember-----------', totMember,maxUserLimit)
+            $('#total-joinees').html(totMember > maxUserLimit ? `+${maxUserLimit} more` : '');
             
           }).catch(error => {
             console.log('*************There is an error******');
           });
       }
+
       function recentlyJoinedChannelUser(){
+        let localData = getCurrentUserData();
         channel.getMembers().then(membersList => {
             let totMember = membersList.length;
-            
-            for(let i= 0; i < totMember; i++){
+            console.log('totMember', membersList);
+            let maxUserLimit = localData.default.preScreenUserLimit;
+            console.log('totMember maxUserLimit', totMember, maxUserLimit);
+            let ctr = 1;
+            for(let i= totMember-1; i >= 0 ; i--){
               if(getUserDataFromList(membersList[i], 'userType') != 1){
-
-                if( $('#joinee-' + convertEmailToId(membersList[i])).length == 0 ){
-                  $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(membersList[i])+'"><img src="'+getUserDataFromList(membersList[i], 'image')+'" />'+getUserDataFromList(membersList[i], 'firstName')+', '+getUserDataFromList(membersList[i], 'city')+'</span>');
+                if(ctr++ <= maxUserLimit){
+                  if( $('#joinee-' + convertEmailToId(membersList[i])).length == 0 ){
+                    $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(membersList[i])+'"><img src="'+getUserDataFromList(membersList[i], 'image')+'" />'+getUserDataFromList(membersList[i], 'firstName')+', '+getUserDataFromList(membersList[i], 'city')+'</span>');
+                  }
                 }
               }
             }
+            console.log('totMember maxUserLimit ===', totMember, maxUserLimit);
 
-            $('#total-joinees').html(totMember > 4 ? '+4 more' : '');
+            $('#total-joinees').html(totMember-1 > maxUserLimit ? `+${maxUserLimit} more` : '');
             
           }).catch(error => {
             console.log('*************There is an error******');
           });
       }
+
+      function removeFromFirst() {
+          let localData = getCurrentUserData();
+          let maxUserLimit = localData.default.preScreenUserLimit;
+          if($('#joiners').find('span').length >= maxUserLimit){
+            $( "#joiners").find('span').first().remove();
+
+          }
+      }
+
 
       function timerAlert(){
         if($('#timer-alert').length > 0){

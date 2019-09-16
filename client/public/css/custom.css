@@ -231,6 +231,22 @@ h3.main-heading span{
     color: #D8D8D8;
 	    position: relative;
 }
+h3.main-heading span.online-status{
+	    top: -5px;
+}
+span.online-status{
+	    top: -5px;
+}
+.welcome-title{
+text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 200px;
+    display: inline-block;
+	top: 6px;
+	position: relative;
+	margin: 0;
+}
 h3.main-heading span span span {
     font-size: 12px;
     margin-left: 35px;
@@ -749,7 +765,7 @@ position: absolute;
     bottom: 30px;
 }
 .video-holder .att-details .icon-appearance, 
-.attendee-list .icon-appearance{
+.attendee-list .vid-icons .icon-appearance{
     background: #fff url(../images/icon1.png);
     width: 22px;
     height: 22px;
@@ -2292,7 +2308,9 @@ ul.music-playlist li a span:nth-child(3){
     text-shadow: none;
     opacity: 1;
 }
-
+.attendy-list .table tbody tr th img{
+	width: 35px;
+}
 .attendy-list .table thead th {
     vertical-align: bottom;
     border-bottom: 1px solid #565656;
@@ -2310,6 +2328,7 @@ ul.music-playlist li a span:nth-child(3){
 .attendy-list .table td{
     font-size: 18px;
     letter-spacing: 1px;
+	    text-align: center;
 }
 .attendy-list .modal-header{
 	border-bottom:0;
@@ -2320,6 +2339,7 @@ ul.music-playlist li a span:nth-child(3){
 .attendy-list .table thead th{
 	border-top: 2px solid #bd00ff;
 	padding: 15px 10px;
+	text-align: center;
 }
 .attendy-list .table {
     margin-bottom: 0;
@@ -2509,9 +2529,24 @@ ul.music-playlist li a span:nth-child(3){
 }
 
 
-
-
-
+/* privacy policy */
+.privacy-policy{
+	background:#000;
+}
+.privacy-policy h3{
+	    color: #fff;
+    font-family: Avenir-Medium;
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-align: center;
+    margin: 30px 0;
+}
+.privacy-policy p{
+	    color: #ccc;
+    padding: 0 20px;
+    text-align: justify;
+}
 
 
 

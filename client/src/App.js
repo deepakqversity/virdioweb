@@ -24,7 +24,9 @@ import Guest from "./components/home/Guest";
 import PreConfiguration from "./components/home/PreConfiguration";
 import Verification from "./components/auth/Verification";
 import RegisterForm from './components/auth/RegisterForm';
-import VerifyUserRegister from "./components/auth/VerifyUserRegister"
+import VerifyUserRegister from "./components/auth/VerifyUserRegister";
+import Forgotpassword from "./components/auth/Forgotpassword";
+import ResetPassword from "./components/auth/ResetPassword"
 
 // Check for token to keep user logged in
 if (localStorage.userData) {
@@ -59,6 +61,8 @@ class App extends Component {
           <Route exact path="/verify" component={Verification} />
           <Route exact path="/register" component={RegisterForm} />
           <Route exact path="/verify-status" component={VerifyUserRegister} />
+          <Route exact path="/forgot-password" component={Forgotpassword} />
+          <Route exact path="/reset-password" component={ResetPassword} />           
           <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute exact path="/home" component={Home} />

@@ -7,35 +7,50 @@ class FooterScriptParticipant extends Component {
   
   constructor(props) {
     super(props);
+
+    this.state = {
+      getID : '',
+      getEmail : ''
+    };
   }
  
   componentDidMount(){
 
+    let localstoragedata = JSON.parse(localStorage.getItem('userData'));
+    var userEmail=localstoragedata.email;
+    var  userID=localstoragedata.id;
+    this.setState({getEmail : userEmail});
+
   }
+
   componentWillMount(){
     //console.log(1);
     // window.test();
   }
 
-  getAppearence(){
-   
-    let localstoragedata = JSON.parse(localStorage.getItem('userData'));
-    $("#appearence_button").val(localstoragedata.id);
+  getAppearence(){  
+    var Email=this.state.getEmail;
+    //alert(Email);return false;
+    $("#appearence_button").val(Email);
     $('#appearence_button').trigger('click');
   }
+
   getAroma(){
-    let localstoragedata = JSON.parse(localStorage.getItem('userData'));
-    $("#aroma_button").val(localstoragedata.id);
+    var ID=this.state.getID;
+    console.log(ID);
+    $("#aroma_button").val(ID);
     $('#aroma_button').trigger('click');
   }
   getPalate(){
-    let localstoragedata = JSON.parse(localStorage.getItem('userData'));
-    $("#palate_button").val(localstoragedata.id);
+    var ID=this.state.getID;
+    console.log(ID);
+    $("#palate_button").val(ID);
     $('#palate_button').trigger('click');
   }
   getScore(){
-    let localstoragedata = JSON.parse(localStorage.getItem('userData'));
-    $("#score_button").val(localstoragedata.id);
+    var ID=this.state.getID;
+    console.log(ID);
+    $("#score_button").val(ID);
     $('#score_button').trigger('click');
   }
 

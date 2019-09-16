@@ -11,13 +11,14 @@ class Login extends Component {
   constructor() {
     super();
     this.state = {
-      email:"",
+      email:"",     
       password:"",
       type:"1",
       errors: {}
     };
   }
 
+  
   componentDidMount() {
     $('#email').on('focus', function() {
       //document.body.scrollTop = $(this).offset().top;
@@ -165,7 +166,7 @@ return (
 
                       <button type = "button" className="btn-cancel btn btn-large btn-outline-secondary waves-effect waves-light hoverable blue accent-3 rounded p-3 px-4">Cancel</button>
                       <button type = "submit" className="btn-login btn btn-large btn-primary waves-effect waves-light hoverable blue accent-3 p-3 px-4 rounded">Log in</button>
-                      <a href="#" className="forgot-password mt-sm-0 mt-3">Forgot password?</a>
+                      <a href="/forgot-password"  className="open-list" className="forgot-password mt-sm-0 mt-3">Forgot password?</a>
                     </div>
                 </div>
                 
@@ -180,6 +181,42 @@ return (
           </div>
           
         </div>
+
+        {/* <div className="modal attendy-list" id="attendy-list">
+        <div className="modal-dialog">
+          <div className="modal-content">
+           
+           
+            <div className="modal-header">
+              <h4 className="modal-title">Enter Your Email ID</h4>
+              <button type="button" className="close" data-dismiss="modal">×</button>
+            </div>
+           
+            <div className="modal-body">
+            <table className="table">
+              <thead>
+             
+              </thead>
+              <tbody>
+              <form className = "form-horizontal pt-1" role = "form"  noValidate onSubmit={this.sendEmail} autocomplete="off">
+               <tr>                 
+                 <td>
+                 <input type="email"  id="emailID"  value={this.state.emailID} onChange={this.handleChange(emailID)}  error={errors.email}  className={classnames("", { invalid: errors.email || errors.emailincorrect })} className = "form-control"  />
+                   </td>
+                 </tr> 
+                 <tr>
+                   <td>
+                   <button type = "button" className="btn-login btn btn-large btn-primary waves-effect waves-light hoverable blue accent-3 p-3 px-4 rounded" id="forgot-password" onClick={this.sendMail.bind(this)}>Submit</button>
+                   </td>
+                  </tr> 
+                  </form>         
+              </tbody>
+            </table>
+            </div>
+            
+          </div>
+        </div>
+      </div> */}
       </div>
     );
   }

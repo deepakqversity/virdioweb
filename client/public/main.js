@@ -569,7 +569,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
      
        channel.on('ChannelMessage', (message, senderId) => {         
         var msg=message.text;
-       // msg = JSON.parse(msg);             
+       // msg = JSON.parse(msg);
+       console.log('--------emojies-----------',msg,storeData.userType);             
         channelMsgHandler(msg,senderId,storeData.userType);
         });
  
@@ -1010,7 +1011,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
     console.log('-----------hhhhhhhhh-------------------', resp_data.userType);
     if(resp_data.userType == 1)
     {     
-      var text ="222";
+      
+      var text ="222"+sep;
       sendMessageToChannel(channelName1, text);
       getMemberList();
     }
@@ -1039,7 +1041,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       {     
        // $('.dis').attr("disabled", false);
      //  $('.dis[data-attr=\''+signalData.data+'\']').removeClass("d-none");
-     var text ="222";
+     var text ="222"+sep;
         sendMessageToChannel(channelName1, text);
         getAudienceList();
        //getMemberList();
@@ -1367,7 +1369,7 @@ function signalHandler(uid, signalData, userType) {
       //newres=resultant[0].split("$");
       //console.log('********ggggggggggggg************** signalData ', signalData.message); 
       $('#newmsg').html(resultant[1]);
-      setTimeout(function(){ $('#newmsg').html(''); }, 10000);
+     // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
     }
 
     else if(resultant[0] == '205')
@@ -1391,7 +1393,7 @@ function signalHandler(uid, signalData, userType) {
     {
       
       let res1=msg.split(sep);
-      console.log('********Deepak************** signalData ', senderId);
+    
       if(res1[0] == "208")
       { 
       
@@ -1419,6 +1421,14 @@ function signalHandler(uid, signalData, userType) {
         let newmsg="Now U can Join";
         $('#newmsg').html(newmsg);
         setTimeout(function(){ $('#newmsg').html(''); }, 10000);    
+      }else if(res1[0] == "202")
+      {
+        console.log('********Deepak************** signalData ', msg,senderId, userType);
+        if(userType =='1'){
+          setEmojiesAtHost(res1[1],senderId,userType);
+          }else{
+            setEmojiesAtClient(res1[1],senderId,userType);
+          }
       }
     
      }
@@ -1573,14 +1583,19 @@ function signalHandler(uid, signalData, userType) {
       let arrayToDispaly = JSON.parse(localStorage.getItem('allloginuser'));
       $('#all_joined_member_list').html('');
       arrayToDispaly.forEach(element => {
+
+        memberID=convertEmailToId(element);
          
+       console.log('*******element*************** element ', element,'-----memberID-----',memberID);
+
         if(element == hostEmail)
-        {  
-          
+        { 
+            
         $('#online_state').removeClass("online-status");        
           $('#online_state').addClass("online-status");
         }
-        $('#all_joined_member_list').append('<div className="attendee-list"><img src="images/attendee.png" /><span class="title">'+element+'</span><div className="vid-icons"><span className="icon1"></span><span className="icon2"></span></div></div>');
+       // $('#all_joined_member_list').append('<div className="attendee-list"><img src="images/attendee.png" /><span class="title">'+element+'</span><div className="vid-icons"> <span class="icon-appearance d-none"  id="emojies_app'+memberID+'"  data-attr="emojies'+memberID+'"></span><span class="icon-aroma d-none" id="emojies_ar'+memberID+'" data-attr="emojies'+memberID+'"></span><span class="icon-palate d-none"  id="emojies_pal'+memberID+'"  data-attr="emojies'+memberID+'"></span><span class="icon-score d-none"  id="emojies_sc'+memberID+'"  data-attr="emojies'+memberID+'"></span></div></div>');
+        $('#all_joined_member_list').append('<div className="attendee-list"><img src="images/attendee.png" /><span class="title">'+element+'</span><div className="vid-icons"> <span class="icon-appearance d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-aroma d-none" id="emojies_ar'+memberID+'" data-attr="emojies'+memberID+'"></span><span class="icon-palate d-none"  id="emojies_pal'+memberID+'"  data-attr="emojies'+memberID+'"></span><span class="icon-score d-none"  id="emojies_sc'+memberID+'"  data-attr="emojies'+memberID+'"></span></div></div>');
       }); 
       
       $('#totalonline').empty(); 
@@ -1673,29 +1688,48 @@ function signalHandler(uid, signalData, userType) {
 
 
       }
-
-      function setEmojiesAtHost(signalData, userType)
+     
+      function setEmojiesAtHost(signalData,senderId,userType)
       {
-        //console.log('********guduuuuuuuuu************** signalData ', signalData, userType); 
-        if(signalData.message=="appearence")
+        newSenderID=convertEmailToId(senderId);
+        console.log('********guduuuuuuuuu************** signalData ', signalData,senderId,userType); 
+        if(signalData == "appearence")
         {
-        $('.icon-appearance[data-attr=\''+signalData.data+'\']').removeClass("d-none");
+        $('.icon-appearance[data-attr=\''+newSenderID+'\']').removeClass("d-none");
         }
-        else if(signalData.message=="aroma")
+        else if(signalData == "aroma")
         {
-          $('.icon-aroma[data-attr=\''+signalData.data+'\']').removeClass("d-none");
-        }else if(signalData.message=="palate")
+          $('.icon-aroma[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }else if(signalData == "palate")
         {
-          $('.icon-palate[data-attr=\''+signalData.data+'\']').removeClass("d-none");
-        }else if(signalData.message=="score")
+          $('.icon-palate[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }else if(signalData == "score")
         {
-          $('.icon-score[data-attr=\''+signalData.data+'\']').removeClass("d-none");
+          $('.icon-score[data-attr=\''+newSenderID+'\']').removeClass("d-none");
         }
       
       }
 
-      function setEmojiesAtClient(signalData, userType)
+      function setEmojiesAtClient(signalData,senderId,userType)
       {
+        newSenderID=convertEmailToId(senderId);
+     
+        console.log('*******Emojiesdata************** signalData ',newSenderID, signalData,senderId,userType); 
+        if(signalData == "appearence")
+        {
+        $('#emojies_app'+newSenderID+'').removeClass("d-none");
+        $('.icon-appearance[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }
+        else if(signalData == "aroma")
+        {
+          $('#emojies_ar'+newSenderID+'').removeClass("d-none");
+        }else if(signalData == "palate")
+        {
+          $('#emojies_pal'+newSenderID+'').removeClass("d-none");
+        }else if(signalData == "score")
+        {
+          $('#emojies_sc'+newSenderID+'').removeClass("d-none");
+        }
        // console.log('********Rammmmmmmmmmmmm************** signalData ', signalData, userType);
       }
 
@@ -2028,6 +2062,38 @@ function signalHandler(uid, signalData, userType) {
         removeSession();
         location.href  = '/login';
         // location.reload();
+      });
+
+      $( '#appearence_button' ).bind( "click", function(event) {
+        var attendiesEmail=$( '#appearence_button' ).val();
+        //alert(attendiesEmail);return false;
+
+       messages="202"+sep+"appearence"; 
+     //  sendMessageToChannel(channelName, JSON.stringify({code:"110",data:attendiesEmail, message:"appearence"}));
+       sendMessageToChannel(channelName1,messages);
+      });
+
+      $( '#aroma_button' ).bind( "click", function(event) {
+        var attendiesID=$( '#aroma_button' ).val();
+
+        messages="202"+sep+"aroma"; 
+        //sendMessage(channelName, JSON.stringify({code:"110",data:attendiesID, message:"aroma"}));
+        sendMessageToChannel(channelName1,messages);
+      });
+
+      $( '#palate_button' ).bind( "click", function(event) {
+        var attendiesID=$( '#palate_button' ).val();
+ 
+       messages="202"+sep+"palate";
+        //sendMessage(channelName, JSON.stringify({code:"110",data:attendiesID, message:"palate"}));
+        sendMessageToChannel(channelName1,messages);
+      });
+
+      $( '#score_button' ).bind( "click", function(event) {
+        var attendiesID=$( '#score_button' ).val();             
+        messages="202"+sep+"score";
+        //sendMessage(channelName, JSON.stringify({code:"110",data:attendiesID, message:"score"}));
+        sendMessageToChannel(channelName1,messages);
       });
    
       //$(document).on('click', '#fullscreen', function(){

@@ -17,6 +17,7 @@ class Guest extends Component {
 
     this.state = {
       getID : '',
+      getEmail : '',
       sessionScript: 0,
       timerOn: false,
       timerStart: 0,
@@ -55,9 +56,9 @@ class Guest extends Component {
   }
 
   getAppearence(){
-    var ID=this.state.getID;
-    console.log(ID);
-    $("#appearence_button").val(ID);
+    alert(Email);return false;
+    var Email=this.state.getEmail;
+    $("#appearence_button").val(Email);
     $('#appearence_button').trigger('click');
   }
 
@@ -103,6 +104,7 @@ class Guest extends Component {
     let localstoragedata = JSON.parse(localStorage.getItem('userData'));
 
     this.setState({getID : localstoragedata.id});
+    this.setState({getEmail : localstoragedata.email});
 
    // let localstoragedata = JSON.parse(localStorage.getItem('userData'));
     this.setState({sessionScript: localstoragedata.sessionData.id});
@@ -178,9 +180,9 @@ render() {
       scriptHtml = <WineScript />;
     } else if(sessionScript == 2) {
       scriptHtml = <FitnessScript />;
-    }
-    
+    }    
     const newulength = JSON.parse(localStorage.getItem('tempUsers')).length;
+
 return (
     <div className="container d-flex flex-column justify-content-between h-100 overlay position-relative">
 

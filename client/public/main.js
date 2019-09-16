@@ -1717,18 +1717,21 @@ function signalHandler(uid, signalData, userType) {
         console.log('*******Emojiesdata************** signalData ',newSenderID, signalData,senderId,userType); 
         if(signalData == "appearence")
         {
-        $('#emojies_app'+newSenderID+'').removeClass("d-none");
+       // $('#emojies_app'+newSenderID+'').removeClass("d-none");
         $('.icon-appearance[data-attr=\''+newSenderID+'\']').removeClass("d-none");
         }
         else if(signalData == "aroma")
         {
-          $('#emojies_ar'+newSenderID+'').removeClass("d-none");
+          $('.icon-aroma[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        //  $('#emojies_ar'+newSenderID+'').removeClass("d-none");
         }else if(signalData == "palate")
         {
-          $('#emojies_pal'+newSenderID+'').removeClass("d-none");
+          $('.icon-palate[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+         // $('#emojies_pal'+newSenderID+'').removeClass("d-none");
         }else if(signalData == "score")
         {
-          $('#emojies_sc'+newSenderID+'').removeClass("d-none");
+          $('.icon-score[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+         // $('#emojies_sc'+newSenderID+'').removeClass("d-none");
         }
        // console.log('********Rammmmmmmmmmmmm************** signalData ', signalData, userType);
       }

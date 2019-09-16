@@ -90,6 +90,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
       channel = newclient.createChannel(channelName1);
       channel.join().then(() => {
+
+      if(storeData.userType == 1){
+        recentlyJoinedChannelUser();
+      }
       console.log('**********shiv*********channel joined successfully**********');
 
       var today = new Date();
@@ -112,6 +116,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
       channel.on('MemberJoined', memberId => { 
 
+        console.log('MemberJoined ================MemberJoined ');
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-status').attr('src', '/images/online.png');
         /*
         <span class="welcome-title"><img src="images/avtar.png" />Richard, LA</span>
@@ -1188,6 +1193,22 @@ function signalHandler(uid, signalData, userType) {
       function totalChannelMembers(){
         channel.getMembers().then(membersList => {
             let totMember = membersList.length -1;
+            $('#total-joinees').html(totMember > 30 ? '+30 more' : totMember);
+            
+          }).catch(error => {
+            console.log('*************There is an error******');
+          });
+      }
+      function recentlyJoinedChannelUser(){
+        channel.getMembers().then(membersList => {
+            let totMember = membersList.length -1;
+            
+            for(let i= 0; i < totMember; i++){
+              if( $('#joinee-' + convertEmailToId(membersList[i])).length == 0 ){
+                $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(membersList[i])+'"><img src="'+getUserDataFromList(membersList[i], 'image')+'" />'+getUserDataFromList(membersList[i], 'firstName')+', '+getUserDataFromList(membersList[i], 'city')+'</span>');
+              }
+            }
+
             $('#total-joinees').html(totMember > 30 ? '+30 more' : totMember);
             
           }).catch(error => {

@@ -348,9 +348,7 @@ render() {
                   <div className="joiners d-flex flex-wrap">
                     <div id="joiners"></div>  
                     
-                    <span className="color-purple" id="total-joinees">
-                      +34 more
-                    </span>
+                    <span className="color-purple" id="total-joinees"></span>
                   </div>
                 </div>
 

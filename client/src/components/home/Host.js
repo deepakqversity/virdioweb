@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "../../actions/authActions";
+import { logoutUser, addLogs } from "../../actions/authActions";
 import utils from "../../utils/functions";
 import $ from 'jquery';
 import WineScript from "./WineScript";
@@ -23,6 +23,11 @@ class Host extends Component {
     };
 
   }
+
+  addLog = (sessionId, userType, type) => {
+    
+    this.props.addLogs(sessionId, userType, type);
+  };
 
   onLogoutClick = e => {
     e.preventDefault();
@@ -56,6 +61,14 @@ class Host extends Component {
 
   componentDidMount(){
     
+    // if any exception if user has no device on streaming page in any case
+    let mediaIds = localStorage.getItem('media-setting');
+
+    if(mediaIds == undefined){
+      this.props.history.push('pre-screen');
+    }
+
+
     $('.dropdown.keep-open').on({
       "shown.bs.dropdown": function() { this.closable = false; },
       "click":             function() { this.closable = true; },
@@ -107,6 +120,10 @@ class Host extends Component {
     }, 10);
   };
 
+  testButn =() => {
+    window.subscribe()
+  };
+
   // startTimer = () => {
   //   this.setState({
   //     timerOn: true,
@@ -147,6 +164,8 @@ render() {
       scriptHtml = <FitnessScript />;
     }
 
+    const newulength = JSON.parse(localStorage.getItem('tempUsers')).length;
+
 return (
     <div className="container justify-content-between d-flex flex-column h-100 position-relative">
     <header className="header bg-gray mt-0 position-fixed">
@@ -183,7 +202,7 @@ return (
               <div className="col-12 justify-content-end d-flex align-items-center">
                 
                 <div className="border-right pr-3">
-                <a className="btn  btn-primary border-right pr-20" href="#" tabIndex="1">details</a>
+                <a className="btn  btn-primary border-right pr-20" href="#" tabIndex="1" onClick={this.testButn}>Details</a>
                 </div>
                 <button className="logout-btn ml-3" onClick={this.callfunction.bind(this)} tabIndex="1">
                   <i className="fa fa-times" aria-hidden="true"></i>
@@ -198,7 +217,7 @@ return (
     <section className="bg-gray mt-1 px-0 py-1 rounded section attendees">
       <div className="row px-0 px-sm-3 pb-2 pt-1 justify-content-between align-items-center">
         <div className="col-6 col-md-6 d-flex align-items-center">
-          <h4 className="title">Wine Testers (<span id="joined_users">0</span>/<span>44</span>)</h4>
+          <h4 className="title">Wine Testers (<span id="joined_users">0</span>/<span>{newulength}</span>)</h4>
           <div className="hand-raise-list">
             <div className="dropdown keep-open">
               <button className="dropdown-toggle circle-ripple d-none" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -381,6 +400,7 @@ return (
 }
 Host.propTypes = {
   logoutUser: PropTypes.func.isRequired,
+  addLogs: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
@@ -388,5 +408,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { logoutUser }
+  { logoutUser, addLogs }
 )(Host);

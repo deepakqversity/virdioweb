@@ -57,7 +57,6 @@ class PreConfiguration extends Component {
     this.loadScript('/pre-main.js');
 
     this.fetchUsers();
-    
 
     let localstoragedata = JSON.parse(localStorage.getItem('userData'));
     this.setState({sessionScript: localstoragedata.sessionData.id});
@@ -79,7 +78,7 @@ class PreConfiguration extends Component {
     this.setState({userType : localstoragedata.userType})
     console.log('$$$$$$$$$$$$$$$',localstoragedata.userType, this.state.userType);
 
-    this.addLog(1,22,2);
+    // this.addLog(1,22,2);
   }
 
   joinSession = () => {
@@ -123,8 +122,21 @@ class PreConfiguration extends Component {
       timerStart: this.state.timerTime
     });
     this.timer = setInterval(() => {
-      const newTime = this.state.timerTime - 10;
-      if (newTime >= 0) {
+      const newTime = this.state.timerTime;
+
+      let remSec = Math.floor(newTime / 1000);
+
+      if(remSec > 0 && remSec < 10){
+        this.setState({
+          timerTime: newTime
+        });
+        if(!this.state.alert10Sec){
+          this.setState({
+            alert10Sec: true
+          });
+          window.timerAlert();
+        }
+      }else if (newTime >= 0) {
         this.setState({
           timerTime: newTime
         });
@@ -160,7 +172,11 @@ class PreConfiguration extends Component {
       this.userList(data);
     }
     )
-      }
+  }
+
+  joinAlert = () => {
+    $('#continue-join').trigger('click');
+  };
 
 render() {
 
@@ -169,7 +185,7 @@ render() {
   let seconds = ("0" + (Math.floor((timerTime / 1000) % 60) % 60)).slice(-2);
   let minutes = ("0" + Math.floor((timerTime / 60000) % 60)).slice(-2);
   let hours = ("0" + Math.floor((timerTime / 3600000) % 60)).slice(-2);
-      console.log('interest====== ', interest);
+      // console.log('interest====== ', interest);
   //const  {user}  = this.props.auth;
 
   let localstoragedata = JSON.parse(localStorage.getItem('userData'));
@@ -179,7 +195,7 @@ render() {
 
   localDate = localDate.replace('#', 'at');
   let remTime = '';
-  console.log('sessionData sessionData',sessionData );
+  // console.log('sessionData sessionData',sessionData );
   let logo = sessionData.logo;
   
   //console.log('------hhhhhhhh----users ', this.state.users)
@@ -191,13 +207,13 @@ render() {
 
     onlineUsers = this.state.users.map((user, idx) => {
       if(user.userType != 1) {
-        const { username, name, email } = user;
+        const { id, firstName, lastName, email, image, city } = user;
         return (
-          <tr key={idx}>
-          <th scope="row"><img src="/images/avtar.png" /></th>
-          <td>{name}</td>
+          <tr id={"online-user-row-"+id} key={idx}>
+          <th scope="row"><img src={image} /></th>
+          <td><span className="welcome-title">{firstName.toLowerCase()} {lastName != null ? lastName.toLowerCase() : ''} {city != null ? ', '+city.toLowerCase() : ''}</span></td>
           <td>{email}</td>
-          <td><img className="mr-2" src="/images/online.png" />online</td>
+          <td><img className="mr-2 user-status" src="/images/offline.png" />online</td>
           <td>YES</td>
           <td>5</td>
         </tr>
@@ -205,7 +221,6 @@ render() {
       }
     })
   }
-
 
       // var allData= this.props.dispatch(allUsers(sessionId));
       var userlength=this.state.users;
@@ -236,7 +251,7 @@ render() {
                 <div className="row">
                   <div className="col-lg-8">
                     <h4 className="small-heading">Your Upcoming Session</h4>
-                    <h3 className="popup-heading">{sessionData.name}<span>by {sessionData.hostFirstName.toLowerCase()}</span><span className="green-online" id="online_state">ONLINE</span></h3>
+                    <h3 className="popup-heading">{sessionData.name}<span>by <label className="welcome-title">{sessionData.hostFirstName.toLowerCase()}</label></span><span className="green-online" id="online_state">ONLINE</span></h3>
                     <div className="time py-xs-1">  
                       <span className="no-border">{localDate}</span>
                     </div>
@@ -295,7 +310,7 @@ render() {
               <div className="row">
                 <div className="online-streams">
                   <span className="online-total">Online streams on screen</span>
-                  <span className="signup-number" >8</span>
+                  <span className="signup-number" >{localstoragedata.default.maxDisplayUsers}</span>
                 </div>
                 
               </div>
@@ -329,28 +344,11 @@ render() {
               <div className="col-lg-9">
               <span id='newmsg' style={{color:'green'}}></span>
                 <h6 className="small-heading mb-3 no-border">Joined</h6>
-                <div className="d-none">
+                <div className="">
                   <div className="joiners d-flex flex-wrap">
-                    <span>
-                      <img src="images/avtar.png" />
-                      Richard, LA
-                    </span>
-                    <span>
-                      <img src="images/avtar.png" />
-                      Richard, LA
-                    </span>
-                    <span>
-                      <img src="images/avtar.png" />
-                      Richard, LA
-                    </span>
-                    <span>
-                      <img src="images/avtar.png" />
-                      Richard, LA
-                    </span>
+                    <div id="joiners"></div>  
                     
-                    <span className="color-purple">
-                      +34 more
-                    </span>
+                    <span className="color-purple" id="total-joinees"></span>
                   </div>
                 </div>
 
@@ -379,6 +377,23 @@ render() {
       </div>
 
       </div>
+
+     <div id="timer-alert" className="modal fade">
+        <div className="modal-dialog modal-confirm">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h4 className="modal-title">Are you sure?</h4>  
+                <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div className="modal-body">
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-success" onClick={this.joinAlert}>Join</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="modal attendy-list" id="attendy-list">
         <div className="modal-dialog">
           <div className="modal-content">
@@ -394,7 +409,6 @@ render() {
                 <tr>
                   <th scope="col">&nbsp;</th>
                   <th scope="col">Name</th>
-                  
                   <th scope="col">Status</th>
                   <th scope="col">Visible</th>
                   <th scope="col"># of Sessions</th>
@@ -409,6 +423,7 @@ render() {
           </div>
         </div>
       </div>
+      
       </div>
     );
   }

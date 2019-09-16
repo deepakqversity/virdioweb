@@ -55,7 +55,7 @@ class User{
 		let table = this.table;
 	
 		return await new Promise((resolve, reject) => {
-			db.query('SELECT id, firstName, lastName, name, email, password, status, isBanned FROM ?? WHERE email = ? AND status = 1 limit 1', [table, email], function (error, results, fields) {
+			db.query('SELECT id, firstName, lastName, email, password, image, status, isBanned FROM ?? WHERE email = ? AND status = 1 limit 1', [table, email], function (error, results, fields) {
 			  if (error) reject(error);
 			  console.log('================== results ', results)
 			  // db.end();
@@ -74,7 +74,7 @@ class User{
 		let table = this.table;
 	
 		return await new Promise((resolve, reject) => {
-			db.query("SELECT id, name, email, password, status FROM ?? WHERE email = ? LIMIT 1", [table, email], function (error, results, fields) {
+			db.query("SELECT id, firstName, lastName, email, password, status FROM ?? WHERE email = ? LIMIT 1", [table, email], function (error, results, fields) {
 			  if (error) reject(error);
 			  console.log('================== results ', results)
 			  // db.end();
@@ -93,7 +93,7 @@ class User{
 		let table = this.table;
 	
 		return await new Promise((resolve, reject) => {
-			db.query("SELECT id, name, email, password, status FROM ?? WHERE (email = ? OR (phone = ? AND phone != '' )) LIMIT 1", [table, email, phone], function (error, results, fields) {
+			db.query("SELECT id, firstName, lastName, email, password, status FROM ?? WHERE (email = ? OR (phone = ? AND phone != '' )) LIMIT 1", [table, email, phone], function (error, results, fields) {
 			  if (error) reject(error);
 			  console.log('================== results ', results)
 			  // db.end();

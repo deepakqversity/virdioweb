@@ -41,6 +41,16 @@ class SessionCtrl {
 	async getSessionUsers(req, res) {
 	    try {
 			let userObj = await sessionModel.findSessionUsers(req.params.sessionId);
+
+			if(!isEmpty(userObj)){
+				for(let i in userObj){
+					if(isEmpty(userObj[i].image)){
+						userObj[i].image = process.env.IMAGES + 'profile.png';
+					} else {
+						userObj[i].image = process.env.IMAGES + userObj[i].image;
+					}
+				}
+			}
 			res.status(200).send(userObj);
 				
 	    } catch(exception) {

@@ -13,7 +13,7 @@ class Session{
 	 */
 	async getUpcommingSession(userId) {
         return await new Promise((resolve, reject) => {
-        	db.query('SELECT s.*, i.code, su.sessionId, su.userId, su.type, ac.appId, ac.appCertificate, u.firstName as hostFirstName, u.lastName as hostLastName, u.email as hostEmail FROM sessions s LEFT JOIN session_users su ON su.sessionId = s.id LEFT JOIN agora_config ac ON ac.id = s.configId JOIN users u ON u.id = s.hostId LEFT JOIN interest i ON i.id = s.interestId WHERE su.userId = ? AND su.status = 1 AND s.status = 1 AND s.scheduleDate IS NOT NULL AND s.scheduleDate > ( NOW() - INTERVAL 10 MINUTE ) ORDER BY s.scheduleDate ASC LIMIT 1', [userId], function (error, results, fields) {
+        	db.query('SELECT s.*, i.code, su.sessionId, su.userId, su.type, ac.appId, ac.appCertificate, u.firstName as hostFirstName, u.lastName as hostLastName, u.email as hostEmail, u.image as hostImage FROM sessions s LEFT JOIN session_users su ON su.sessionId = s.id LEFT JOIN agora_config ac ON ac.id = s.configId JOIN users u ON u.id = s.hostId LEFT JOIN interest i ON i.id = s.interestId WHERE su.userId = ? AND su.status = 1 AND s.status = 1 AND s.scheduleDate IS NOT NULL AND s.scheduleDate > ( NOW() - INTERVAL 10 MINUTE ) ORDER BY s.scheduleDate ASC LIMIT 1', [userId], function (error, results, fields) {
 			  if (error) reject(error);
 			  // console.log('================== results ', results)
 			  // db.end();
@@ -77,7 +77,7 @@ class Session{
 	async findSessionUsers(sessionId){
 
         return await new Promise((resolve, reject) => {
-        	db.query('SELECT u.id, u.name, u.email, su.type as userType FROM session_users su LEFT JOIN users u ON u.id = su.userId WHERE su.status = 1 AND su.sessionId = ?', [sessionId], function (error, results, fields) {
+        	db.query('SELECT u.id, u.firstName, u.lastName, u.email, u.image, u.address1, u.address2, u.city, u.state, u.zip, su.type as userType FROM session_users su LEFT JOIN users u ON u.id = su.userId WHERE u.isBanned = 0 AND su.status = 1 AND su.sessionId = ?', [sessionId], function (error, results, fields) {
 			  if (error) reject(error);
 			  // console.log('================== ************ results ', results)
 			  // db.end();

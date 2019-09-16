@@ -60,7 +60,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   //var currentSession = getCurrentSession(); 
   var newclient; 
   var channel;
-   var channelName1 = '1440';
+   var channelName1 = '1443';
   function rtmJoin()
   {
    var appId1 = '232f270a5aeb4e0097d8b5ceb8c24ab3';

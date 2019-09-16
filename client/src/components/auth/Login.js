@@ -177,7 +177,7 @@ return (
 
             </div>
             </div>
-            <a href="#" className="privacy-link">Click to view the virdio privacy policy</a>
+            <a href="/privacy-policy.html" target="_blank" className="privacy-link">Click to view the virdio privacy policy</a>
           </div>
           
         </div>

@@ -30,7 +30,7 @@ render() {
       <div className="container mt-5 valign-wrapper">
         <div className="row">
           <div className="text-white col-md-4 mx-auto d-table">
-            <h4><b>Hey,</b> <span className="welcome-title">{localstoragedata.name.toLowerCase()}</span> <button onClick={this.onLogoutClick}
+            <h4><b>Hey,</b> <span className="welcome-title">{localstoragedata.firstName.toLowerCase()}</span> <button onClick={this.onLogoutClick}
                   className="btn btn-danger float-right">
                   <i className="fa fa-power-off"></i>
                 </button></h4>

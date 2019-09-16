@@ -1201,15 +1201,18 @@ function signalHandler(uid, signalData, userType) {
       }
       function recentlyJoinedChannelUser(){
         channel.getMembers().then(membersList => {
-            let totMember = membersList.length -1;
+            let totMember = membersList.length;
             
             for(let i= 0; i < totMember; i++){
-              if( $('#joinee-' + convertEmailToId(membersList[i])).length == 0 ){
-                $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(membersList[i])+'"><img src="'+getUserDataFromList(membersList[i], 'image')+'" />'+getUserDataFromList(membersList[i], 'firstName')+', '+getUserDataFromList(membersList[i], 'city')+'</span>');
+              if(getUserDataFromList(membersList[i], 'userType') != 1){
+
+                if( $('#joinee-' + convertEmailToId(membersList[i])).length == 0 ){
+                  $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(membersList[i])+'"><img src="'+getUserDataFromList(membersList[i], 'image')+'" />'+getUserDataFromList(membersList[i], 'firstName')+', '+getUserDataFromList(membersList[i], 'city')+'</span>');
+                }
               }
             }
 
-            $('#total-joinees').html(totMember > 30 ? '+30 more' : totMember);
+            $('#total-joinees').html(totMember > 4 ? '+4 more' : '');
             
           }).catch(error => {
             console.log('*************There is an error******');

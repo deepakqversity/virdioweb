@@ -207,12 +207,11 @@ render() {
 
     onlineUsers = this.state.users.map((user, idx) => {
       if(user.userType != 1) {
-        const { id, firstName, lastName, email, image, city } = user;
+        const { id, firstName, lastName, image, city } = user;
         return (
           <tr id={"online-user-row-"+id} key={idx}>
           <th scope="row"><img src={image} /></th>
           <td><span className="welcome-title">{firstName.toLowerCase()} {lastName != null ? lastName.toLowerCase() : ''} {city != null ? ', '+city.toLowerCase() : ''}</span></td>
-          <td>{email}</td>
           <td><img className="mr-2 user-status" src="/images/offline.png" />online</td>
           <td>YES</td>
           <td>5</td>
@@ -262,12 +261,12 @@ render() {
                   </div>
                 </div>
             </div>
-            <div className="participant-status bg-gray session-logo mx-md-0 mx-auto">
+            <div className="participant-status bg-gray mx-md-0 mx-auto">
               
             <h4 className="small-heading">Participants {participent}</h4>
-                <div className="col-lg-12 mt-3">
+                <div className="mt-3">
                   <div className="row">
-                    <div className="col-lg-6 border-right-gray">
+                    <div className="col-lg-6 border-right-gray2">
                       <span className="signup-total">Signed up</span>
                       <span className="signup-number" id="totalsignup">{newulength}</span>
                     </div>
@@ -346,9 +345,11 @@ render() {
                 <h6 className="small-heading mb-3 no-border">Joined</h6>
                 <div className="">
                   <div className="joiners d-flex flex-wrap">
-                    <div id="joiners"></div>  
+                    
+                    <div className="d-flex flex-wrap" id="joiners"></div>  
                     
                     <span className="color-purple" id="total-joinees"></span>
+
                   </div>
                 </div>
 

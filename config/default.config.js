@@ -3,7 +3,8 @@ dotenv.config();
 
 let config = {
 	default : {
-		maxDisplayUsers : process.env.MAX_DISPLAY_ATTENDEE
+		maxUserLimit : process.env.MAX_ATTENDEE_LIMIT,
+		preScreenUserLimit : process.env.PRE_SCREEN_ATTENDEE_LIMIT
 	},
 	rtm : {
 		welcome : { code : 200, 'message' : 'Welcome #USER#'},

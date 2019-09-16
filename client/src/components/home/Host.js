@@ -171,7 +171,7 @@ return (
     <header className="header bg-gray mt-0 position-fixed">
       <div className="row d-block d-md-flex align-items-center">
         <div className="col-12 col-md-1 ">
-          <div className="count-box position-relative">
+          <div className="count-box position-relative countdown-logo">
             <div className="countdown">
               <svg>
                 <circle r="26" cx="30" cy="30"></circle>

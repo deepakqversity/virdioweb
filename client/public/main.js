@@ -1417,7 +1417,7 @@ function signalHandler(uid, signalData, userType) {
 
       }else if(res1[0] == "222")
       {
-       // $('#continue-join').removeAttr("disabled");
+        $('#continue-join').removeAttr("disabled");
         let newmsg="Now U can Join";
         $('#newmsg').html(newmsg);
         setTimeout(function(){ $('#newmsg').html(''); }, 10000);    

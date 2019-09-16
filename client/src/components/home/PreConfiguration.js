@@ -207,12 +207,11 @@ render() {
 
     onlineUsers = this.state.users.map((user, idx) => {
       if(user.userType != 1) {
-        const { id, firstName, lastName, email, image, city } = user;
+        const { id, firstName, lastName, image, city } = user;
         return (
           <tr id={"online-user-row-"+id} key={idx}>
           <th scope="row"><img src={image} /></th>
           <td><span className="welcome-title">{firstName.toLowerCase()} {lastName != null ? lastName.toLowerCase() : ''} {city != null ? ', '+city.toLowerCase() : ''}</span></td>
-          <td>{email}</td>
           <td><img className="mr-2 user-status" src="/images/offline.png" />online</td>
           <td>YES</td>
           <td>5</td>
@@ -346,9 +345,11 @@ render() {
                 <h6 className="small-heading mb-3 no-border">Joined</h6>
                 <div className="">
                   <div className="joiners d-flex flex-wrap">
-                    <div id="joiners"></div>  
+                    
+                    <div className="d-flex flex-wrap" id="joiners"></div>  
                     
                     <span className="color-purple" id="total-joinees"></span>
+
                   </div>
                 </div>
 

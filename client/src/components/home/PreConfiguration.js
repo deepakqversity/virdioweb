@@ -211,7 +211,7 @@ render() {
         return (
           <tr id={"online-user-row-"+id} key={idx}>
           <th scope="row"><img src={image} /></th>
-          <td><span className="welcome-title">{firstName.toLowerCase()} {lastName != null ? lastName.toLowerCase() : ''} {city != null ? ', '+city.toLowerCase() : ''}</span></td>
+          <td className="text-left"><span className="welcome-title">{firstName.toLowerCase()} {lastName != null ? lastName.toLowerCase() : ''} {city != null ? ', '+city.toLowerCase() : ''}</span></td>
           <td><img className="mr-2 user-status" src="/images/offline.png" />online</td>
           <td>YES</td>
           <td>5</td>
@@ -409,7 +409,7 @@ render() {
               <thead>
                 <tr>
                   <th scope="col">&nbsp;</th>
-                  <th scope="col">Name</th>
+                  <th scope="col" className="text-left">Name</th>
                   <th scope="col">Status</th>
                   <th scope="col">Visible</th>
                   <th scope="col"># of Sessions</th>

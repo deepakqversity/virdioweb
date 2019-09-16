@@ -2308,7 +2308,9 @@ ul.music-playlist li a span:nth-child(3){
     text-shadow: none;
     opacity: 1;
 }
-
+.attendy-list .table tbody tr th img{
+	width: 35px;
+}
 .attendy-list .table thead th {
     vertical-align: bottom;
     border-bottom: 1px solid #565656;
@@ -2326,6 +2328,7 @@ ul.music-playlist li a span:nth-child(3){
 .attendy-list .table td{
     font-size: 18px;
     letter-spacing: 1px;
+	    text-align: center;
 }
 .attendy-list .modal-header{
 	border-bottom:0;
@@ -2336,6 +2339,7 @@ ul.music-playlist li a span:nth-child(3){
 .attendy-list .table thead th{
 	border-top: 2px solid #bd00ff;
 	padding: 15px 10px;
+	text-align: center;
 }
 .attendy-list .table {
     margin-bottom: 0;

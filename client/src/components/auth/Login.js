@@ -123,7 +123,7 @@ return (
                 <img src="/images/login-logo.png" className="login-logo" />
                 <p className="login-tagline">Login and Join a Virtual Studio</p>
               </div>
-              <form className = "form-horizontal pt-1" role = "form"  noValidate onSubmit={this.onSubmit} autocomplete="off">
+              <form className = "form-horizontal pt-1" role = "form"  noValidate onSubmit={this.onSubmit} autoComplete="off">
               
                 <div className="login-inner">
                 <div className = "form-group pb-3 mb-0 mt-4">
@@ -143,7 +143,7 @@ return (
                 <div className = "form-group mt-4 mb-0 pl-0">
                 <div className="custom-control custom-checkbox">
                   <input type="checkbox" className="custom-control-input" value="remember-me" id="remember_me" name="example1" />
-                    <label className="custom-control-label" for="remember_me">Remember me</label>
+                    <label className="custom-control-label" htmlFor="remember_me">Remember me</label>
                   </div>
                 </div>
                 {/*<div className = "form-group">

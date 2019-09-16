@@ -15,351 +15,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
   AgoraRTC.Logger.info('this is info');
   AgoraRTC.Logger.debug('this is debug');
 
-  var client, localStream, camera, microphone;
+  // var client, camera, microphone;
   var totalBrodcaster = 0;
   var sep = '~@$';
-  // function join() {
-
-  //   let camera = microphone= null;
-  //   let mediaIds = localStorage.getItem("media-setting");
-      
-  //   if(mediaIds != undefined) {
-      
-  //     mediaIds = JSON.parse(mediaIds);
-      
-  //     if(mediaIds.camera != null && mediaIds.microphone != null) {
-
-  //       camera = mediaIds.camera;
-  //       microphone = mediaIds.microphone;
-  //     } else {
-  //       console.log('something went wrong')
-  //       return false;
-  //     }
-
-  //   } else {
-  //     if($('input[name="video-type"]').length > 0 && $('input[name="audio-type"]').length > 0){
-
-  //       camera = $('input[name="video-type"]:checked').val();
-  //       microphone = $('input[name="audio-type"]:checked').val();
-  //     } else {
-  //       console.log('Media device not found==')
-  //       return false;
-  //     }
-  //   }
-
-  //   console.log('camera, microphone = ', camera, microphone)
-
-  //   let storeData = getCurrentUserData();
-   
-  //   console.log('storeData', storeData);
-
-  //   var channel_key = storeData.sessionData.streamToken != undefined ? storeData.sessionData.streamToken : null;
-     
-  //   console.log("Init AgoraRTC client with App ID and token: " + storeData.sessionData.appId, channel_key);
-    
-  //   // create client first
-  //   client = AgoraRTC.createClient({mode: 'live'});
-    
-  //   // initialize client
-  //   client.init(storeData.sessionData.appId, function () {
-
-  //     console.log("AgoraRTC client initialized");
-
-  //     // Before join channel add user role 
-  //     client.setClientRole(storeData.userType == 1 ? "host" : "audience", function(err) {
-
-  //       if(err) {
-  //         console.log("user role failed", e);
-  //         return;
-  //       } else {
-  //         console.log("user role set success");
-
-  //         var channelName = storeData.sessionData.channelId;
-
-  //         // create and join channel
-  //         client.join(channel_key, channelName.toString(), storeData.id, function(uid) {
-
-  //           console.log("User " + uid + " join channel successfully");
-
-  //           // create local stream
-  //           localStream = AgoraRTC.createStream({streamID: uid, audio: true, cameraId: camera, microphoneId: microphone, video: true, screen: false });
-            
-  //           localStream.setVideoProfile('720p_3');
-
-  //           // The user has granted access to the camera and mic.
-  //           localStream.on("accessAllowed", function() {
-  //             console.log("accessAllowed");
-  //           });
-
-  //           // The user has denied access to the camera and mic.
-  //           localStream.on("accessDenied", function() {
-  //             console.log("accessDenied");
-  //           });
-
-
-  //           localStream.init(function() {
-              
-  //             if(storeData.userType != 1){
-  //               localStream.muteAudio();
-  //             } 
-        
-  //             console.log("GetUserMedia successfully");
-  //             localStream.play('agora_local');
-              
-  //             // if(storeData.userType == 1){
-
-  //             //   client.publish(localStream, function (err) {
-  //             //     console.log("Publish local stream error: " + err);
-  //             //   });
-
-  //             //   client.on('stream-published', function (evt) {
-  //             //     console.log("Publish local stream successfully");
-  //             //   });
-
-  //             // } else {
-  //               publish();
-
-  //             // }
-  //           }, function (err) {
-  //             console.log("getUserMedia failed", err);
-  //           });
-            
-  //         }, function(err) {
-  //           console.log("Join channel failed", err);
-  //         });
-  //       }
-  //     });// client as host/ audience
-
-  //   }, function (err) {
-  //     console.log("AgoraRTC client init failed", err);
-  //   });
-
-  //   channelKey = "";
-  //   client.on('error', function(err) {
-  //     console.log("Got error msg:", err.reason);
-  //     if (err.reason === 'DYNAMIC_KEY_TIMEOUT') {
-  //       client.renewChannelKey(channelKey, function(){
-  //         console.log("Renew channel key successfully");
-  //       }, function(err){
-  //         console.log("Renew channel key failed: ", err);
-  //       });
-  //     }
-  //   });
-
-  //   client.on('stream-added', function (evt) {
-  //     var stream = evt.stream;
-  //     console.log("New stream added " + stream.getId());
-  //     // console.log("Subscribe ", stream);
-      
-  //     client.subscribe(stream, function (err) {
-  //       console.log("Subscribe stream failed", err);
-  //     });
-  //   });
-
-  //   var count=1;
-  //   client.on('stream-subscribed', function (evt) {
-
-  //     var storeData = getCurrentUserData();
-
-  //     var stream = evt.stream;
-  //     console.log("Subscribe remote stream successfully: " , stream.getId() , stream);
-  //     // for host user
-  //     if(storeData.userType == 1) {
-
-  //       if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
-        
-  //         $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" data-dismiss="modal">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute   d-none"  id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><div class="att-details"><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div> <span class="att-name">James K, TX</span><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
-  //       }
-  //       stream.play('agora_remote_vdo' + stream.getId());
-
-  //       switchVideoSize();
-
-  //       checkMuteUnmute(stream.getId());
-
-  //       $('#subscribers-list #agora_remote'+stream.getId()).removeClass('d-none');
-
-  //       // onPageResize();
-
-  //       let ref = setInterval(function(){
-  //         if($('#subscribers-list #agora_remote'+stream.getId()).hasClass('d-none') == false){
-  //           onPageResize();
-  //           clearInterval(ref);
-  //         }
-  //       }, 10);
-
-  //     } else {
-  //     // for attendy user
-  //       console.log(' @@@@@@@@@@@@ ', storeData.sessionData.id, stream.getId());
-  //         $.ajax({
-  //             headers: { 
-  //                 "Content-Type": "application/json; charset=utf-8",
-  //                 "Authorization": storeData.token
-  //             },
-  //             url: '/api/v1/session/'+storeData.sessionData.id+'/'+stream.getId()+'/stream-id',
-  //             dataType: 'json',
-  //             type: 'GET',
-  //             success: function( data, textStatus, jQxhr ){
-                  
-  //                 let respData = data;
-  //                 console.log(' totalBrodcaster data===', data)
-  //                 if(respData.status){
-  //                   if(respData.type == 1){
-
-  //                     if ($('#agora_host #agora_remote'+stream.getId()).length === 0) {
-                        
-  //                       $('#agora_host').append('<div id="agora_remote'+stream.getId()+'"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div></div>');
-  //                     }
-  //                     stream.play('agora_remote_vdo' + stream.getId());
-
-  //                     // checkMuteUnmute(stream.getId());
-  //                   } else {
-  //                     totalBrodcaster++;
-  //                     console.log(' @@@@@@ totalBrodcaster++ ', totalBrodcaster);
-                      
-  //                     if(stream.hasVideo())
-  //                       stream.muteVideo();
-                      
-  //                     if(stream.hasAudio())
-  //                       stream.muteAudio();
-  //                   }
-  //                 }
-                  
-  //             },
-  //             error: function( jqXhr, textStatus, errorThrown ){
-  //                 console.log( errorThrown );
-  //             }
-  //         });
-  //     }
-     
-  //   });
-
-  //   client.on('stream-removed', function (evt) {
-      
-  //     var storeData = getCurrentUserData();
-  //     var stream = evt.stream;
-  //     stream.stop();
-
-  //     if(storeData.userType != 1){
-  //       $.ajax({
-  //             headers: { 
-  //                 "Content-Type": "application/json; charset=utf-8",
-  //                 "Authorization": storeData.token
-  //             },
-  //             url: '/api/v1/session/'+storeData.sessionData.id+'/'+stream.getId()+'/stream-id',
-  //             dataType: 'json',
-  //             type: 'GET',
-  //             success: function( data, textStatus, jQxhr ){
-                  
-  //                 let respData = data;
-
-  //                 if(respData.status){
-  //                   if(respData.type != 1){
-  //                     if(totalBrodcaster > 0){
-  //                       totalBrodcaster--;
-  //                     }
-  //                   }
-  //                 }
-  //             },
-  //             error: function( jqXhr, textStatus, errorThrown ){
-  //                 console.log( errorThrown );
-  //             }
-  //         });
-  //     }
-
-  //     $('#agora_remote' + stream.getId()).remove();
-  //     switchVideoSize();
-  //     console.log("Remote stream is removed " + stream.getId());
-  //   });
-
-  //   client.on('peer-leave', function (evt) {
-  //     console.log('peer-leave = ', evt)
-  //     var stream = evt.stream;
-  //     if (stream) {
-  //       stream.stop();
-  //       $('#agora_remote' + stream.getId()).remove();
-  //       switchVideoSize();
-  //       console.log(evt.uid + " leaved from this channel");
-  //     }
-  //   });
-
-  //   client.on('mute-audio', function (evt) {
-  //     if ($('#subscribers-list #agora_remote'+evt.uid).length > 0){
-  //       $('#subscribers-list #agora_remote'+evt.uid).find('.hand').addClass('d-none')
-  //     }
-  //   });
-
-  //   client.on('unmute-audio', function (evt) {
-
-  //     if ($('#subscribers-list #agora_remote'+evt.uid).length > 0){
-  //       $('#subscribers-list #agora_remote'+evt.uid).find('.hand').removeClass('d-none')
-  //     }
-      
-  //   });
-
-  //   client.on('active-speaker', function(evt) {
-  //      var uid = evt.uid;
-  //      console.log("update active speaker: client " + uid);
-  //   });
-
-  //  /* client.on('peer-online', function(evt) {
-  //     console.log('peer-online', evt.uid);
-  //   });
-    
-  //   client.on("connection-state-change", function(evt) {
-  //     console.log('******lalit****',evt);
-  //     console.log(evt.prevState, evt.curState);
-  //   })*/
-
-  //   // client.on("volume-indicator", function(evt){
-  //   //   evt.attr.forEach(function(volume, index){
-  //   //     console.log(`#{index} UID ${volume.uid} Level ${volume.level}`);
-  //   //   });
-  //   // });
-
-
-  //   // client.enableAudioVolumeIndicator(); // Triggers the "volume-indicator" callback event every two seconds.
-  //   // client.on("volume-indicator", function(evt){
-  //   //     evt.attr.forEach(function(volume, index){
-  //   // console.log(#{index} UID ${volume.uid} Level ${volume.level});
-  //   //             console.log(`#{index} UID= ${volume.uid} Level ${volume.level}`);
-  //   //     });
-  //   // });
-
-  //   client.getRemoteAudioStats((remoteAudioStatsMap) => {
-  //       for(var uid in remoteAudioStatsMap){
-  //            console.log(`Audio CodecType from ${uid}: ${remoteAudioStatsMap[uid].CodecType}`);
-  //            console.log(`Audio End2EndDelay from ${uid}: ${remoteAudioStatsMap[uid].End2EndDelay}`);
-  //            console.log(`Audio MuteState from ${uid}: ${remoteAudioStatsMap[uid].MuteState}`);
-  //            console.log(`Audio PacketLossRate from ${uid}: ${remoteAudioStatsMap[uid].PacketLossRate}`);
-  //            console.log(`Audio RecvBitrate from ${uid}: ${remoteAudioStatsMap[uid].RecvBitrate}`);
-  //            console.log(`Audio RecvLevel from ${uid}: ${remoteAudioStatsMap[uid].RecvLevel}`);
-  //            console.log(`Audio TotalFreezeTime from ${uid}: ${remoteAudioStatsMap[uid].TotalFreezeTime}`);
-  //            console.log(`Audio TotalPlayDuration from ${uid}: ${remoteAudioStatsMap[uid].TotalPlayDuration}`);
-  //            console.log(`Audio TransportDelay from ${uid}: ${remoteAudioStatsMap[uid].TransportDelay}`);
-  //       }
-  //   });
-
-  //   client.on("client-role-changed", function (evt) {
-  //     console.log('client-role-changed = ', evt)
-  //     var stream = evt.stream;
-  //     if (stream) {
-  //       console.log(evt.uid + "===> role changed");
-  //     }
-  //   });
-
-  //   client.on("peer-online", function (evt) {
-  //     console.log('peer-online = ', evt)
-  //     // var stream = evt.stream;
-  //     // if (stream) {
-  //     //   console.log(evt.uid + " ===> peer online");
-  //     // }
-  //   });
-
-  // }
 
   function getCurrentUserData(){
     return JSON.parse(localStorage.getItem("userData"));
-  }    
+  }
 
   function getTempUsers(){
     return localStorage.getItem("tempUsers") != undefined ? JSON.parse(localStorage.getItem("tempUsers")) : [];
@@ -398,13 +60,15 @@ if(!AgoraRTC.checkSystemRequirements()) {
   //var currentSession = getCurrentSession(); 
   var newclient; 
   var channel;
-   var appId1 = '232f270a5aeb4e0097d8b5ceb8c24ab3';
    var channelName1 = '1440';
   function rtmJoin()
   {
+   var appId1 = '232f270a5aeb4e0097d8b5ceb8c24ab3';
     var token=null;
     newclient = AgoraRTM.createInstance(appId1);
     var storeData = getCurrentUserData();
+    // appId1 = storeData.sessionData.appId;
+
     var peer=storeData.email;
     // newclient.login({uid: peer.toString(), token});
 
@@ -426,6 +90,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
       channel = newclient.createChannel(channelName1);
       channel.join().then(() => {
+
+      if(storeData.userType == 1){
+        recentlyJoinedChannelUser();
+      }
       console.log('**********shiv*********channel joined successfully**********');
 
       var today = new Date();
@@ -447,8 +115,21 @@ if(!AgoraRTC.checkSystemRequirements()) {
       });
 
       channel.on('MemberJoined', memberId => { 
+
+        console.log('MemberJoined ================MemberJoined ');
+        $('#online-user-row-'+convertEmailToId(memberId)).find('.user-status').attr('src', '/images/online.png');
+        /*
+        <span class="welcome-title"><img src="images/avtar.png" />Richard, LA</span>
+         */
         var massages="208"+sep+memberId+sep+"joined"+sep;        
         channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
+        if(storeData.userType ==1){
+
+          if( $('#joinee-' + convertEmailToId(memberId)).length == 0 ){
+            $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(memberId)+'"><img src="'+getUserDataFromList(memberId, 'image')+'" />'+getUserDataFromList(memberId, 'firstName')+', '+getUserDataFromList(memberId, 'city')+'</span>');
+          }
+          totalChannelMembers();
+        }
       })
      
        channel.on('MemberLeft', memberId => { 
@@ -457,10 +138,16 @@ if(!AgoraRTC.checkSystemRequirements()) {
         channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"left"}), storeData.userType);
         })
      
-       channel.on('ChannelMessage', (message, senderId) => {         
-        var msg=message.text;
-       // msg = JSON.parse(msg);             
-        channelMsgHandler(msg,senderId,storeData.userType);
+        channel.on('ChannelMessage', (message, senderId) => {         
+          var msg=message.text;
+          // msg = JSON.parse(msg);  
+          channelMsgHandler(msg,senderId,storeData.userType);
+          if(storeData.userType ==1){
+            if( $('#joinee-' + convertEmailToId(senderId)).length == 0 ){
+              $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(senderId)+'"><img src="'+getUserDataFromList(senderId, 'image')+'" />'+getUserDataFromList(senderId, 'firstName')+', '+getUserDataFromList(senderId, 'city')+'</span>');
+            }
+            totalChannelMembers()
+          }
         });
  
       }).catch(error => {
@@ -602,37 +289,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
   //   sendMessage(attendiesID, JSON.stringify({code:"102", message:"Now You can Publish"}));
   // }
   
-
-  function publish() {
-    let storeData = getCurrentUserData();
-      
-    setTimeout(function(){}, 1000);
-
-    console.log(' @@@@@@@ totalBrodcaster @@@ ', totalBrodcaster, storeData.default.maxDisplayUsers);
-    if(storeData.userType == 1  || storeData.userType != 1 && totalBrodcaster < parseInt(storeData.default.maxDisplayUsers)){
-        
-      client.publish(localStream, function (err) {
-        console.log("Publish local stream error: " + err);
-      });
-      client.on('stream-published', function (evt) {
-        console.log('client ============', client);
-        if(storeData.userType != 1){
-          $('#strm-unpublish').removeClass('d-none');
-          $('#strm-publish').addClass('d-none');
-        }
-
-      });
-    }
-  }
-
-  function unpublish() {
-    
-    client.unpublish(localStream, function (err) {
-      console.log("Unpublish local stream failed == " + err);
-    });
-
-  }
-
   var localClient = '';
   function networkBandwidth() {
 
@@ -680,14 +336,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
       });
     }, 3000);   
     
-  }
-
-  function raiseHand(){
-      localStream.unmuteAudio(); 
-  }
-
-  function downHand(){
-      localStream.muteAudio();  
   }
   
   let checkMic = function(micId){
@@ -830,14 +478,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
           d = deviceId;
 
           stream1.setVideoProfile('720p_3');
-
-          // stream1.setVideoEncoderConfiguration({
-          //   // Video resolution
-          //     resolution: {
-          //         width: 640,
-          //         height: 380
-          //     }
-          // });
             
           // Initialize the stream.
           stream1.init(function(){
@@ -1108,6 +748,7 @@ function attendeeScreenHeight(){
   function removeSession(){
     localStorage.removeItem("userData");
     localStorage.removeItem("audience-list");
+    localStorage.removeItem("media-setting");
     localStorage.removeItem("tempUsers");
     localStorage.removeItem("load-page");
     localStorage.removeItem("channel");
@@ -1215,13 +856,13 @@ function signalHandler(uid, signalData, userType) {
     {
       
       let res1=msg.split(sep);
-      console.log('********Deepak************** signalData ', senderId);
+      // console.log('********Deepak************** signalData ', senderId);
       if(res1[0] == "208")
       { 
       
         // if(userType != 1)
         // {
-        let message="User "+senderId+" has joined on  "+ res1[1];
+        let message="User " + getUserDataFromList(senderId, 'firstName') + " has joined on  "+ res1[1];
         $('#newmsg').html(message);
         // setTimeout(function(){ $('#newmsg').html(''); }, 10000); 
      
@@ -1295,7 +936,7 @@ function signalHandler(uid, signalData, userType) {
 
     function channelSignalHandler(signalData, userType) {
 
-      console.log('********guduorigin************** signalData ', signalData, userType);
+      // console.log('********guduorigin************** signalData ', signalData, userType);
     signalData = JSON.parse(signalData);
     if(signalData.code == '208'){
     if(userType =='1'){  
@@ -1336,10 +977,7 @@ function signalHandler(uid, signalData, userType) {
           $('#online_state').addClass("online-status");
         }
         count4=count3+1;
-      
-         
 
-     
       }else if(signalData.msgtype=='left') {
 
         let str=signalData.message;
@@ -1368,17 +1006,11 @@ function signalHandler(uid, signalData, userType) {
      
         var arr=signalData.totalmember;
        
-        // if($.inArray(hostid, arr) >= 0)
-        // {
-        //   $('#online_state').html('ONLINE');
-        //   $('#online_state').addClass("online-status");
-        // }
-        
-        count4=signalData.member;
-        count4=parseInt(count4);
-        count4=count4-1;
-       // console.log('*******totallist*************** signalData ', count4);
-       arr.shift();
+        count4 = signalData.member;
+        count4 = parseInt(count4);
+        count4 = count4 - 1;
+        // console.log('*******totallist*************** signalData ', count4);
+        arr.shift();
         arr.forEach(element => {
 
           if(element == hostid)
@@ -1394,10 +1026,9 @@ function signalHandler(uid, signalData, userType) {
       $('#totalonline').empty(); 
       $('#totalonline').html(count4);
     
-        $('#joined_users_at_client').empty(); 
-        $('#joined_users_at_client').html(count4); 
-    
-      }
+      $('#joined_users_at_client').empty(); 
+      $('#joined_users_at_client').html(count4); 
+    }
 
 
       function incrementcountAtHost(signalData,userType)
@@ -1405,7 +1036,7 @@ function signalHandler(uid, signalData, userType) {
         //console.log('********munmunHost************** signalData ', signalData, userType);
         var count=$('#totalonline').html();
 
-      console.log('********munmunHost************** signalData ', signalData);
+      // console.log('********munmunHost************** signalData ', signalData);
         count=parseInt(count);
 
         let storeData = getCurrentUserData();
@@ -1419,7 +1050,7 @@ function signalHandler(uid, signalData, userType) {
 
       if(signalData.msgtype=='Joined')
       {     
-        console.log('********guduHost************** signalData ', signalData, userType);
+        // console.log('********guduHost************** signalData ', signalData, userType);
         count1=count+1;
 
        
@@ -1508,7 +1139,6 @@ function signalHandler(uid, signalData, userType) {
       }
 
       function leaveLogout(){
-          // localStream.stop();
           leave_channel();
           removeSession();
           location.href  = '/login';
@@ -1547,16 +1177,66 @@ function signalHandler(uid, signalData, userType) {
       }
 
       function checkUserRole(){
-        console.log('client === ', client.hasPublished)
+        // console.log('client === ', client.hasPublished)
         
         // 0=broadcaster , 1=Audience
-        return client && client.hasPublished ? 1 : 0;
+        // return client && client.hasPublished ? 1 : 0;
+       
         // if(client && client.hasPublished){
         //   return
         //   console.log(' User is Broadcaster.');
         // } else {
         //   console.log(' User is Audience.');
         // }
+      }
+
+      function totalChannelMembers(){
+        channel.getMembers().then(membersList => {
+            let totMember = membersList.length -1;
+            $('#total-joinees').html(totMember > 30 ? '+30 more' : totMember);
+            
+          }).catch(error => {
+            console.log('*************There is an error******');
+          });
+      }
+      function recentlyJoinedChannelUser(){
+        channel.getMembers().then(membersList => {
+            let totMember = membersList.length -1;
+            
+            for(let i= 0; i < totMember; i++){
+              if( $('#joinee-' + convertEmailToId(membersList[i])).length == 0 ){
+                $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(membersList[i])+'"><img src="'+getUserDataFromList(membersList[i], 'image')+'" />'+getUserDataFromList(membersList[i], 'firstName')+', '+getUserDataFromList(membersList[i], 'city')+'</span>');
+              }
+            }
+
+            $('#total-joinees').html(totMember > 30 ? '+30 more' : totMember);
+            
+          }).catch(error => {
+            console.log('*************There is an error******');
+          });
+      }
+
+      function timerAlert(){
+        if($('#timer-alert').length > 0){
+
+          $('#timer-alert').modal('show');
+        }
+      }
+
+      // Get user specific data
+      function getUserDataFromList(id, key){
+        let userList = getTempUsers();
+        if(userList != ''){
+          
+          for(let i= 0; i < userList.length; i++){
+            if(id == userList[i].id && userList[i].hasOwnProperty(key)){
+              return userList[i][key];
+            } else if(id == userList[i].email && userList[i].hasOwnProperty(key)){
+              return userList[i][key];
+            }
+          }
+        }
+        return '';
       }
       
       $(document).ready(function(){
@@ -1577,9 +1257,7 @@ function signalHandler(uid, signalData, userType) {
         
 
       $('#logout_button').click(function(){
-        // localStream.stop();
         leave_channel();
-        leave();
         removeSession();
         location.href  = '/login';
         // location.reload();
@@ -1590,5 +1268,18 @@ function signalHandler(uid, signalData, userType) {
         toggleFullScreen();
       })
 
+      $('#attendy-list').on('shown.bs.modal', function () {
+          
+          channel.getMembers().then(membersList => {
+            
+            $('#attendy-list').find('.user-status').attr('src', '/images/offline.png');
+            for(let i= 0; i < membersList.length; i++){
+              let eleId = convertEmailToId(membersList[i]);
+              $('#online-user-row-'+eleId).find('.user-status').attr('src', '/images/online.png');
+            }
+          }).catch(error => {
+            console.log('*************There is an error******');
+          });
+      })
   });
  

@@ -497,7 +497,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   //var currentSession = getCurrentSession(); 
   var newclient; 
   var channel;
-  var channelName1 = '1442';
+  var channelName1 = '1440';
   
   function rtmJoin()
   {
@@ -1429,6 +1429,15 @@ function signalHandler(uid, signalData, userType) {
           }else{
             setEmojiesAtClient(res1[1],senderId,userType);
           }
+      }else if(res1[0] == "301")
+      {
+        alert('fitscript has Started');
+      }else if(res1[0] == "302")
+      {
+        alert('fitscript has Stopped');
+      }else if(res1[0] == "303")
+      {
+        alert('fitscript Next');
       }
     
      }
@@ -1521,8 +1530,8 @@ function signalHandler(uid, signalData, userType) {
         let str=signalData.message;
         let res = str.split(sep);
         let storeData = getCurrentUserData();
-       //  hostEmail=storeData.sessionData.hostEmail;
-         let hostEmail='deepak@test.com';
+         hostEmail=storeData.sessionData.hostEmail;
+         //let hostEmail='deepak@test.com';
       
         if(res[1]== hostEmail)
         { 
@@ -1550,8 +1559,8 @@ function signalHandler(uid, signalData, userType) {
         let str=signalData.message;
         let res = str.split(sep);
         let storeData = getCurrentUserData();
-        //  hostEmail=storeData.sessionData.hostEmail;
-        let hostEmail='deepak@test.com';
+         hostEmail=storeData.sessionData.hostEmail;
+        //let hostEmail='deepak@test.com';
 
         if(res[1]== hostEmail)
         {          
@@ -1577,14 +1586,16 @@ function signalHandler(uid, signalData, userType) {
       }
 
       let storeData = getCurrentUserData();    
-      //  hostEmail=storeData.sessionData.hostEmail;
-        let hostEmail='deepak@test.com';
+        hostEmail=storeData.sessionData.hostEmail;
+      //  let hostEmail='deepak@test.com';
 
       let arrayToDispaly = JSON.parse(localStorage.getItem('allloginuser'));
       $('#all_joined_member_list').html('');
       arrayToDispaly.forEach(element => {
-
+        
         memberID=convertEmailToId(element);
+
+       let userName=getNameByEmail(element);
          
        console.log('*******element*************** element ', element,'-----memberID-----',memberID);
 
@@ -1595,7 +1606,7 @@ function signalHandler(uid, signalData, userType) {
           $('#online_state').addClass("online-status");
         }
        // $('#all_joined_member_list').append('<div className="attendee-list"><img src="images/attendee.png" /><span class="title">'+element+'</span><div className="vid-icons"> <span class="icon-appearance d-none"  id="emojies_app'+memberID+'"  data-attr="emojies'+memberID+'"></span><span class="icon-aroma d-none" id="emojies_ar'+memberID+'" data-attr="emojies'+memberID+'"></span><span class="icon-palate d-none"  id="emojies_pal'+memberID+'"  data-attr="emojies'+memberID+'"></span><span class="icon-score d-none"  id="emojies_sc'+memberID+'"  data-attr="emojies'+memberID+'"></span></div></div>');
-        $('#all_joined_member_list').append('<div className="attendee-list"><img src="images/attendee.png" /><span class="title">'+element+'</span><div className="vid-icons"> <span class="icon-appearance d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-aroma d-none" id="emojies_ar'+memberID+'" data-attr="emojies'+memberID+'"></span><span class="icon-palate d-none"  id="emojies_pal'+memberID+'"  data-attr="emojies'+memberID+'"></span><span class="icon-score d-none"  id="emojies_sc'+memberID+'"  data-attr="emojies'+memberID+'"></span></div></div>');
+        $('#all_joined_member_list').append('<div className="attendee-list"><img src="images/attendee.png" /><span className="title">'+userName+'</span><div className="vid-icons"> <span className="icon-appearance d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span className="icon-aroma d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span className="icon-palate d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span className="icon-score d-none"  id="emojies_sc'+memberID+'"  data-attr="'+memberID+'"></span></div></div>');
       }); 
       
       $('#totalonline').empty(); 
@@ -1609,16 +1620,23 @@ function signalHandler(uid, signalData, userType) {
 
       function incrementcountAtHost(signalData,userType)
       {  
-        //console.log('********munmunHost************** signalData ', signalData, userType);
+        console.log('********munmunHost************** signalData ', signalData, userType);
         var count=$('#totalonline').html();
 
       console.log('********munmunHost************** signalData ', signalData);
         count=parseInt(count);
 
         let storeData = getCurrentUserData();
-        var hostid=storeData.sessionData.hostId;
-        var clientid=storeData.sessionData.id;
-        if(hostid == clientid)
+        let hostid=storeData.sessionData.hostId;
+        let clientid=storeData.sessionData.id;
+        let TypeOfUser=storeData.userType;
+        // if(hostid == clientid)
+        // {
+        //   $('#online_state').removeClass("online-status");        
+        //   $('#online_state').addClass("online-status");
+        // }
+
+        if(TypeOfUser == 1)
         {
           $('#online_state').removeClass("online-status");        
           $('#online_state').addClass("online-status");
@@ -2036,21 +2054,23 @@ function signalHandler(uid, signalData, userType) {
 
       $('#handRaiseClient_button').click(function(){
         let role = checkUserRole();
-        var storeData = getCurrentUserData();
-        var userType=storeData.userType;
-        var attendiesName=storeData.name;
-        var attendieID=storeData.name;
-        var hostid=storeData.sessionData.hostId;
-        var hostname=storeData.sessionData.hostName;
+        let storeData = getCurrentUserData();
+        //alert(storeData.rtm.welcome.code);return false;
+        let userType=storeData.userType;
+        let attendiesName=storeData.name;
+        let attendieID=storeData.name;
+        let hostid=storeData.sessionData.hostId;
+        let hostname=storeData.sessionData.hostName;
         console.log('storeData hostid', storeData, hostid );
        // alert(hostname);return false;      
         //var massages="201~@$"+attendieID+"~@$clientHandRaise~@$"+attendiesName; 
         let hostEmail = convertIdToEmail(hostid);
-        console.log('hostEmail', hostEmail)
-
-        var massages="201" +sep;
+        //console.log('hostEmail', hostEmail)	
+        let handraiseCode=storeData.rtm.handRaise.code;
+        var massages=handraiseCode+sep;
         
         // 1=audiencs
+
         if(role == 0){
           massages="1001" +sep+ storeData.id +sep+ storeData.name +sep+ storeData.email;// +sep+ storeData.image;
         }       
@@ -2096,6 +2116,24 @@ function signalHandler(uid, signalData, userType) {
         var attendiesID=$( '#score_button' ).val();             
         messages="202"+sep+"score";
         //sendMessage(channelName, JSON.stringify({code:"110",data:attendiesID, message:"score"}));
+        sendMessageToChannel(channelName1,messages);
+      });
+
+      $( '#ftnsStart' ).bind( "click", function(event) {
+
+        let storeData = getCurrentUserData();
+     
+        let ftnsStartCode=storeData.rtm.ftnsStart.code;                  
+        messages=ftnsStartCode+sep;        
+        sendMessageToChannel(channelName1,messages);
+      });
+
+      $( '#ftnsStop' ).bind( "click", function(event) {
+
+        let storeData = getCurrentUserData();
+     
+        let ftnsStopCode=storeData.rtm.ftnsStop.code;                  
+        messages=ftnsStopCode+sep;        
         sendMessageToChannel(channelName1,messages);
       });
    

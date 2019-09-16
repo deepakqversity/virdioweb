@@ -8,7 +8,11 @@ let config = {
 	},
 	rtm : {
 		welcome : { code : 200, 'message' : 'Welcome #USER#'},
-		handRaise : { code : 201, 'message' : 'Test hand raise'}
+		handRaise : { code : 201, 'message' : 'Test hand raise'},
+
+		ftnsStart : { code : 301, 'message' : ''},
+		ftnsStop : { code : 302, 'message' : ''},		
+		ftnsNext : { code : 303, 'message' : ''}
 	}
 };
 

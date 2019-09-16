@@ -102,15 +102,9 @@ class Guest extends Component {
     // }
     
     let localstoragedata = JSON.parse(localStorage.getItem('userData'));
-<<<<<<< HEAD
-    var userEmail=localstoragedata.email;
-    var  userID=localstoragedata.id;
-    this.setState({getID : userID});
-    this.setState({getEmail : userEmail});
-=======
 
     this.setState({getID : localstoragedata.id});
->>>>>>> c4293aaad8252b1c9bccff36e47baf3828ffc073
+    this.setState({getEmail : localstoragedata.email});
 
    // let localstoragedata = JSON.parse(localStorage.getItem('userData'));
     this.setState({sessionScript: localstoragedata.sessionData.id});
@@ -186,17 +180,9 @@ render() {
       scriptHtml = <WineScript />;
     } else if(sessionScript == 2) {
       scriptHtml = <FitnessScript />;
-    }
-<<<<<<< HEAD
-
-    
-    //var userData = JSON.parse(localStorage.getItem("userData"));
-    var userID = localstoragedata.id;
-
-=======
-    
+    }    
     const newulength = JSON.parse(localStorage.getItem('tempUsers')).length;
->>>>>>> c4293aaad8252b1c9bccff36e47baf3828ffc073
+
 return (
     <div className="container d-flex flex-column justify-content-between h-100 overlay position-relative">
 

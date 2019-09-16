@@ -212,9 +212,9 @@ render() {
           <tr id={"online-user-row-"+id} key={idx}>
           <th scope="row"><img src={image} /></th>
           <td><span className="welcome-title">{firstName.toLowerCase()} {lastName != null ? lastName.toLowerCase() : ''} {city != null ? ', '+city.toLowerCase() : ''}</span></td>
-          <td><img className="mr-2 user-status" src="/images/offline.png" />online</td>
-          <td>YES</td>
-          <td>5</td>
+          <td className="text-center"><img className="mr-2 user-status" src="/images/offline.png" />online</td>
+          <td className="text-center">YES</td>
+          <td className="text-center">5</td>
         </tr>
         );
       }
@@ -410,9 +410,9 @@ render() {
                 <tr>
                   <th scope="col">&nbsp;</th>
                   <th scope="col">Name</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Visible</th>
-                  <th scope="col"># of Sessions</th>
+                  <th className="text-center" scope="col">Status</th>
+                  <th className="text-center" scope="col">Visible</th>
+                  <th className="text-center" scope="col"># of Sessions</th>
                 </tr>
               </thead>
               <tbody>

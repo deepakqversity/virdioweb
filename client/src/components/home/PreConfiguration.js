@@ -365,7 +365,7 @@ render() {
                           return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession}>Join</button>;
                         } else {
                           return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession} disabled>Join</button>;
-                          //return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession}>Join</button>;
+                         // return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession}>Join</button>;
                         }
                     }
                   )()}

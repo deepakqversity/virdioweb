@@ -71,13 +71,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
     return newDate;
   }
   function addRtmJoinOrder(userId, time){
-    console.log('userId, time ===========', userId, time)
 
     let currentTime = newDateFormat(time);
     let strArray = localStorage.getItem("rtm-join-order");
+    console.log('userId, time =========== strArray', userId, time, strArray)
     let orderList = [];
     let f = 0;
-    if(strArray != ''){
+    if(strArray != null){
       strArray = JSON.parse(strArray);
       for(let i in strArray){
         if(strArray[i].id == userId){

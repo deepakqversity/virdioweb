@@ -102,7 +102,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   //var currentSession = getCurrentSession(); 
   var newclient; 
   var channel;
-   var channelName1 = '1441';
+  var channelName1 = '1440';
 
   function rtmJoin()
   {
@@ -1400,6 +1400,25 @@ function signalHandler(uid, signalData, userType) {
 
     var locaData = getCurrentUserData();
     console.log('----------localData--',locaData.id)
+
+        let output = JSON.parse(localStorage.getItem("userData"));
+        console.log('----------virat------------',output.userType);
+        if(output.userType == 2)
+        {
+          let output_res = JSON.parse(localStorage.getItem("tempUsers"));
+          console.log('----------virat------------',output_res);
+
+          output_res.forEach(element => {
+            if(element.id == 1 && element.sessionStatus == 1 )
+            {
+              console.log('----------viratsigh------------',element.sessionStatus);
+              $('#continue-join').removeAttr("disabled");
+
+              $('#continue-join').prop("disabled", false);
+            }
+            console.log('----------viratkumar------------',element.id);
+          }); 
+        }
 
     $("body, div").bind('mousewheel', function() {
       return false

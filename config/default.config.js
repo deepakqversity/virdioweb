@@ -13,7 +13,8 @@ let config = {
 
 		ftnsStart : { code : 301, 'message' : ''},
 		ftnsStop : { code : 302, 'message' : ''},		
-		ftnsNext : { code : 303, 'message' : ''}
+		ftnsNext : { code : 303, 'message' : ''},
+		WinsNext : { code : 304, 'message' : ''}
 	}
 };
 

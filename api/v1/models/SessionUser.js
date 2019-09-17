@@ -84,6 +84,41 @@ class SessionUser{
 			});
 		});
 	}
+
+		/**
+	 * Update joined session status
+	 * @param  {int} userId
+	 * @param  {int} sessionId
+	 * @return {obj} 
+	 */
+
+	async updateSessionUser(userId, sessionId){
+
+	    let table = this.table;
+		
+		return await new Promise( (resolve, reject) => {
+			db.query('UPDATE ?? SET sessionStatus = 1 WHERE sessionId = ? AND userId = ?', [table, sessionId, userId], function (error, results, fields) {
+			  if (error) reject(error);
+			  // console.log('================== 123 results ', results)
+			  // db.end();
+			  return resolve(results);
+			});
+		});
+	}
+
+	async updatejoinSessionUser(userId, sessionId){
+
+	    let table = this.table;
+		
+		return await new Promise( (resolve, reject) => {
+			db.query('UPDATE ?? SET sessionStatus = 0 WHERE sessionId = ? AND userId = ?', [table, sessionId, userId], function (error, results, fields) {
+			  if (error) reject(error);
+			  // console.log('================== 123 results ', results)
+			  // db.end();
+			  return resolve(results);
+			});
+		});
+	}
 }
 
 module.exports = new SessionUser();

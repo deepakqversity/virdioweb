@@ -497,7 +497,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   //var currentSession = getCurrentSession(); 
   var newclient; 
   var channel;
-  var channelName1 = '1441';
+  var channelName1 = '1440';
   
   function rtmJoin()
   {
@@ -1150,6 +1150,55 @@ console.log('channelchannelchannel newclient', newclient, channel)
 
     $(".host-script-section").height("255px");
     $(".host-section").css({"min-width": "380px", "max-width": "380px"});
+
+    let data_res = JSON.parse(localStorage.getItem("userData"));
+    if(data_res.userType == 1)
+    {
+      $.ajax({
+        headers: { 
+            "Content-Type": "application/json; charset=utf-8",
+            "Authorization": data_res.token
+        },
+        url: '/api/v1/session/'+data_res.sessionData.id+'/joinstatus',       
+        dataType: 'json',
+        type: 'PUT',
+        success: function( data, textStatus, jQxhr ){
+            
+            let respData = data;
+
+        console.log('-------respData----------',respData);
+        },
+        error: function( jqXhr, textStatus, errorThrown ){
+            console.log( errorThrown );
+        }
+    });
+    }
+  }
+
+  function updateJoinSessionStatus()
+  {
+    let data_op = JSON.parse(localStorage.getItem("userData"));
+    if(data_op.userType == 1)
+    {
+      $.ajax({
+        headers: { 
+            "Content-Type": "application/json; charset=utf-8",
+            "Authorization": data_op.token
+        },
+        url: '/api/v1/session/'+data_op.sessionData.id+'/updatestatus',       
+        dataType: 'json',
+        type: 'PUT',
+        success: function( data, textStatus, jQxhr ){
+            
+            let respData = data;
+
+        console.log('-------respData----------',respData);
+        },
+        error: function( jqXhr, textStatus, errorThrown ){
+            console.log( errorThrown );
+        }
+    });
+    }
   }
 
   function joinChannel(){
@@ -1564,7 +1613,7 @@ function signalHandler(uid, signalData, userType) {
 
       }else if(res1[0] == "222")
       {
-        $('#continue-join').removeAttr("disabled");
+      //  $('#continue-join').removeAttr("disabled");
         let newmsg="Now U can Join";
         $('#newmsg').html(newmsg);
         setTimeout(function(){ $('#newmsg').html(''); }, 10000);    
@@ -1585,6 +1634,9 @@ function signalHandler(uid, signalData, userType) {
       }else if(res1[0] == "303")
       {
         alert('fitscript Next');
+      }else if(res1[0] == "304")
+      {
+        alert('winscript Next');
       }
     
      }
@@ -1954,12 +2006,16 @@ function signalHandler(uid, signalData, userType) {
       }
 
       $(document).ready(function(){
+
+
         $('#dropdownMenuButton').on('show.bs.modal', function (e) {
           // alert('===')
             showHandAtHost();
         });
         onPageResize();
       
+
+       
         $(document).on("click", ".start span a", function(){
           
           $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
@@ -2227,9 +2283,10 @@ function signalHandler(uid, signalData, userType) {
 
       $('#logout_button').click(function(){
         // localStream.stop();
+        updateJoinSessionStatus();
         leave_channel();
         leave();
-        removeSession();
+        removeSession();       
         location.href  = '/login';
         // location.reload();
       });
@@ -2266,7 +2323,7 @@ function signalHandler(uid, signalData, userType) {
         sendMessageToChannel(channelName1,messages);
       });
 
-      $( '#ftnsStart' ).bind( "click", function(event) {
+      $('#ftnsStart').bind( "click", function(event) {
 
         let storeData = getCurrentUserData();
      
@@ -2275,12 +2332,21 @@ function signalHandler(uid, signalData, userType) {
         sendMessageToChannel(channelName1,messages);
       });
 
-      $( '#ftnsStop' ).bind( "click", function(event) {
+      $('#ftnsStop').bind( "click", function(event) {
 
         let storeData = getCurrentUserData();
      
         let ftnsStopCode=storeData.rtm.ftnsStop.code;                  
         messages=ftnsStopCode+sep;        
+        sendMessageToChannel(channelName1,messages);
+      });
+
+      $('#wineNext_button').bind( "click", function(event) {
+
+        let storeData = getCurrentUserData();
+     
+        let WinsNextCode=storeData.rtm.WinsNext.code;                  
+        messages=WinsNextCode+sep;        
         sendMessageToChannel(channelName1,messages);
       });
    

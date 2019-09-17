@@ -78,6 +78,26 @@ class SessionCtrl {
 	    }
 	}
 
+	async updateSessionStatus(req, res) {
+	    try {
+			let updateData = await sessionUserModel.updateSessionUser(req.currentUser.id,  req.params.sessionId);
+			res.status(200).send(updateData);
+				
+	    } catch(exception) {
+			res.status(500).send(exception)
+	    }
+	}
+
+	async updateSessionjoinStatus(req, res) {
+	    try {
+			let updateData = await sessionUserModel.updatejoinSessionUser(req.currentUser.id,  req.params.sessionId);
+			res.status(200).send(updateData);
+				
+	    } catch(exception) {
+			res.status(500).send(exception)
+	    }
+	}
+
 	async getStreamUser(req, res) {
 		try {
 			// console.log(req.params);

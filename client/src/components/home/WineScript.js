@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import $ from 'jquery';
 
 class WineScript extends Component {
   
@@ -12,6 +13,11 @@ class WineScript extends Component {
     //console.log(1);
     // window.test();
   }
+
+  getNext(){  
+    $('#wineNext_button').trigger('click');
+  }
+
 render() {
 
 return (
@@ -24,7 +30,7 @@ return (
                 <div className="bg-gray position-relative top-rounded d-md-flex justify-content-between align-items-center px-3 py-3 add-remove-round ">
                   <h3 className="main-heading font-size-16">Testing Script <span className="ml-md-4 font-size-16">1/4 wines</span></h3>
                   <button type="button" className="btn btn-outline-secondary mr-5 show-hide-script">"Hide Script"</button>
-                  <a className="carousel-control-next position-relative" href="#carouselExampleControls" role="button" data-slide="next">
+                  <a className="carousel-control-next position-relative" href="#carouselExampleControls" role="button" data-slide="next"  onClick={this.getNext.bind(this)}>
                     <img src="images/next-icon.png" className="next-btn" />
                   </a>
                 </div>

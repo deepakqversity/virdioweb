@@ -2328,7 +2328,7 @@ ul.music-playlist li a span:nth-child(3){
 .attendy-list .table td{
     font-size: 18px;
     letter-spacing: 1px;
-	    text-align: center;
+	text-align: center;
 }
 .attendy-list .modal-header{
 	border-bottom:0;
@@ -2372,11 +2372,12 @@ ul.music-playlist li a span:nth-child(3){
 .slide-right-left{
 	-webkit-transition: width 600ms; 
   transition: width 600ms;
-  padding: 20px 8px;
+  padding: 20px 8px 10px;
   float: right;
       position: relative;
     z-index: 4;
     overflow: hidden;
+	height: 100%;
 }
 .v-logo img{
 	width: 22px;
@@ -2418,17 +2419,46 @@ ul.music-playlist li a span:nth-child(3){
 
 /* right-sidebar */
 .right-sidebar{
-	
+	height: 100%;
+}
+.show-others{
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6.5px 10px 6.5px 0px;
+    border-color: transparent #9b51e0 transparent transparent;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
+    bottom: 15px;
+    position: absolute;
+    left: -10px;
+    right: 0;
+}
+.minimize-others{
+background: transparent;
+    outline: none;
+    border: 0;
+    width: 34px;
+    margin: auto;
+    display: table;
+	bottom: 15px;
+    position: absolute;
+    left: -10px;
+    right: 0;
+}
+.show-others:focus, .minimize-others:focus{
+outline: none;
 }
 .show-everyone{
 	display:block;
 }
 .right-sidebar .title{
-	font-family: 'Avenir-Black';
+	font-family: 'Avenir-Medium';
     font-size: 16px;
     color: #fff;
     font-weight: normal;
-    margin: 0;
+    margin: 0 0 0 7px;
 	display: none;
 }
 .right-sidebar .title span {

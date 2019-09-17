@@ -243,15 +243,13 @@ return (
           <div className="transparent-gray slide-right-left" style={toggleList}>
             
             <div className="joined-attendees ">
-            <h4 className="mb-2 head"><span className="title">Wine Testers</span><span className="count">(<span  id="joined_users_at_client">0</span>/<span>{newulength}</span>)</span></h4>
-            <div id="all_joined_member_list"></div>
-            <button type="button" id="minimize-others" className="mt-2 minimize-others btn btn-outline-secondary mx-auto d-none">"Minimize Others"</button>
-        
+              <h4 className="mb-2 head"><span className="title">Wine Testers</span><span className="count">(<span  id="joined_users_at_client">0</span>/<span>{newulength}</span>)</span></h4>
+              <div id="all_joined_member_list"></div>
+              <button type="button" id="minimize-others" className="mt-2 minimize-others mx-auto d-none"><img src="images/exit-screen.png" /></button>
+
             </div>
-           
-            <div className="self-video mt-3">
-              
-            </div>
+            <button type="button" id="show-everyone" className="show-others mx-auto"></button>
+          
           
           </div>
           
@@ -265,7 +263,6 @@ return (
       <FooterScriptParticipant sessId={sessionData.id} />
 
       <div className="self-video1 mt-3 w-50">
-          <button type="button" id="show-everyone" className="mb-2 minimize-others btn btn-outline-secondary mx-auto">"Show Everyone"</button>
           
           <div id="agora_local" className="video-streams guest-video" style={videoAspect}></div>
           

@@ -1867,7 +1867,7 @@ function signalHandler(uid, signalData, userType) {
         });
         onPageResize();
       
-
+        $(".script-info .carousel-inner .carousel-item:first").addClass("active");
        
         $(document).on("click", ".start span a", function(){
           
@@ -1877,6 +1877,15 @@ function signalHandler(uid, signalData, userType) {
           $(".swiper-btn-next").css("display", "block")
           countDown();
         })
+
+        // $(document).on("click", "#winscript", function(){
+          
+        //   $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
+        //   $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
+        //   $(".swiper-slide.start a").prop('disabled', true);
+        //   $(".swiper-btn-next").css("display", "block")
+        //   countDown();
+        // })
          
          $(document).on("click", ".swiper-btns .swiper-btn-next", function(e){
            e.preventDefault();
@@ -1886,6 +1895,9 @@ function signalHandler(uid, signalData, userType) {
            $(".swiper-wrapper .swiper-slide:nth-last-child(2)").hasClass("swiper-slide-next") ? $(".swiper-btn-next").css("display", "none") : $(".swiper-btn-next").css("display", "block");
            countDown();
          })
+
+  
+         
 
 
     let agoraLocal = $("#agora_local").find("video").width();

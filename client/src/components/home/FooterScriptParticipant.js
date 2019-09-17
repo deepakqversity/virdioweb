@@ -61,6 +61,9 @@ class FooterScriptParticipant extends Component {
 render() {
   let localstoragedata = JSON.parse(localStorage.getItem('userData'));
 
+let sessionScript = localstoragedata.sessionData.scriptDetail;
+console.log('sessionScript=', sessionScript)
+
   return (
     
        <div>
@@ -78,29 +81,63 @@ render() {
       ) : (
       this.props.sessId == 2 ? (
           <div className="d-flex justify-content-between w-75 arrow-after align-items-center footer-fitness-script">
-            <div id="countdown" className="count-timer">
-              <div id="countdown-number"></div>
+            <div id="countdown" className="count-timer start">
+              <div id="countdown-number">              
+              <span>
+               <a href="#">Start</a>
+                </span>
+                </div>
               <svg>
                 <circle r="27" cx="30" cy="30"></circle>
               </svg>
-              <h4>Pushups</h4>
+              <h4>Start</h4>
             </div>
-            <img src="images/arrow-img.png" />
+            {
+                        sessionScript.map((opt, i) =>
+                                         
+                              <div div id="countdown" className="count-timer current-box" key={i}>
+                                {opt.attribute.map(function(attrb, index){
+                                  if(attrb.attrLabel == 'counter'){
+                                  return <div className="countdown-number" key={index}>{attrb.attrValue} SEC</div>;
+                                  }
+                                })}
+
+                                <svg>
+                                  <circle r="26" cx="30" cy="30"></circle>
+                                </svg>
+                               <h4>{opt.name}</h4>
+                              </div>
+                  
+                        )}
+
+
+
+
+
+
+
+            {/* <img src="images/arrow-img.png" />
             <div id="countdown" className="count-timer current-box">
-              <div id="countdown-number"></div>
+              <div id="countdown-number">88</div>
               <svg>
                 <circle r="27" cx="30" cy="30"></circle>
               </svg>
               <h4>Lunges</h4>
-            </div>
-            <img src="images/arrow-img.png" />
+            </div> */}
+
+
+
+
+
+
+            {/* <img src="images/arrow-img.png" />
             <div id="countdown" className="count-timer">
-              <div id="countdown-number"></div>
+              <div id="countdown-number">45</div>
               <svg>
                 <circle r="27" cx="30" cy="30"></circle>
               </svg>
               <h4>Rest</h4>
-            </div>
+            </div> */}
           </div>
         ) : ( <div> </div> )
       )

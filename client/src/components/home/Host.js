@@ -154,7 +154,7 @@ render() {
 
     localDate = localDate.replace('#', 'at');
     let remTime = '';
-    console.log('scheduleDate ',localDate );
+    // console.log('scheduleDate ',localDate );
     // console.log('------------------------------', user);
     let scriptHtml = '';
     // sessionScript = sessionScriptt;

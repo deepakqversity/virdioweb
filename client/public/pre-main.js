@@ -153,7 +153,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
       if(storeData.userType != 1){
         // when user join
-        // addRtmJoinOrder(peer, dateTime);
+        addRtmJoinOrder(peer, dateTime);
       }
 
       channel.sendMessage({text}).then(() => {  

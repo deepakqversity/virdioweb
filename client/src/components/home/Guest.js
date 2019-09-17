@@ -88,7 +88,7 @@ class Guest extends Component {
     // console.log('scDate= ',scDate, new Date(scDate).getTime(), new Date().getTime())
 
     scDate = (new Date(scDate).getTime()) - (new Date().getTime());
-    console.log('scDate- ', scDate)
+    // console.log('scDate- ', scDate)
     this.state.timerTime = scDate;// 1 sec 1000 = 1sec
 
     
@@ -147,7 +147,7 @@ render() {
 
     localDate = localDate.replace('#', 'at');
     let remTime = '';
-    console.log('scheduleDate ',localDate );
+    // console.log('scheduleDate ',localDate );
     // console.log('------------------------------', user);
     let scriptHtml = '';
     // sessionScript = sessionScriptt;

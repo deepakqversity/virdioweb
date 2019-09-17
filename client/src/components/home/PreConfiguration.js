@@ -58,9 +58,14 @@ class PreConfiguration extends Component {
 
     this.fetchUsers();
 
+
     let localstoragedata = JSON.parse(localStorage.getItem('userData'));
     this.setState({sessionScript: localstoragedata.sessionData.id});
     let scDate = localstoragedata.sessionData.scheduleDate;
+
+    if(localstoragedata.userType != 1){
+      // window.participentTimerAlert();
+    }
 
     //console.log('scDate= ',scDate, new Date(scDate).getTime(), new Date().getTime())
 
@@ -74,9 +79,9 @@ class PreConfiguration extends Component {
     //console.log(1);
     // window.test();
     this.startTimer();
-    let localstoragedata = JSON.parse(localStorage.getItem('userData'));
-    this.setState({userType : localstoragedata.userType})
-    console.log('$$$$$$$$$$$$$$$',localstoragedata.userType, this.state.userType);
+    // let localstoragedata = JSON.parse(localStorage.getItem('userData'));
+    // this.setState({userType : localstoragedata.userType})
+    // console.log('$$$$$$$$$$$$$$$',localstoragedata.userType, this.state.userType);
 
     // this.addLog(1,22,2);
   }
@@ -84,21 +89,38 @@ class PreConfiguration extends Component {
   joinSession = () => {
       // console.log('#############', this.state.userType);
       
+      window.joinChannel();
+
+      setTimeout(function(){ }, 1000);
+      
       window.removePreScreenSession();
 
       this.removeScript('/AgoraRTCSDK-2.7.1.js');
       this.removeScript('/agora-rtm-sdk-1.0.0.js');
       this.removeScript('/pre-main.js');
 
-      if(this.state.userType != -1){
+      let localstoragedata = JSON.parse(localStorage.getItem('userData'));
+    // this.setState({userType : localstoragedata.userType})
+
+      if(localstoragedata.userType != ''){
         let mediaSetting = {};
         mediaSetting['camera'] = $('input[name="video-type"]').length > 0 ? $('input[name="video-type"]:checked').val():null;
         mediaSetting['microphone'] = $('input[name="audio-type"]').length > 0 ? $('input[name="audio-type"]:checked').val():null;
         localStorage.setItem("media-setting", JSON.stringify(mediaSetting));
 
         // let device = {microphone : $('input[name="audio-type"]:checked').val(), camera : $('input[name="video-type"]:checked').val()}
-        // console.log('device', device, this.state.userType)
-        if(this.state.userType == 1){
+        // console.log('device', device, localstoragedata.userType)
+        if(localstoragedata.userType != 1){
+
+          let sessionTime = localStorage.getItem("pre-session-time");
+          if(sessionTime != ''){
+              sessionTime = JSON.parse(sessionTime);
+              sessionTime['joinTime'] = (new Date()).getTime();
+          }
+          localStorage.setItem("pre-session-time", JSON.stringify(sessionTime));
+        }
+
+        if(localstoragedata.userType == 1){
           this.props.history.push("/host");
         }
         else{
@@ -201,6 +223,7 @@ render() {
   //console.log('------hhhhhhhh----users ', this.state.users)
   let onlineUsers = '';
   let participent = '';
+  let participentTimerPopup = '';
   if(localstoragedata.userType == 1){
     
     participent = <img src="images/list-icon.png" data-toggle="modal" data-target="#attendy-list" className="open-list" />;
@@ -220,7 +243,25 @@ render() {
         );
       }
     })
+  } else {
+    participentTimerPopup = (<div id="participent-timer-alert" className="modal fade">
+        <div className="modal-dialog modal-confirm">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h4 className="modal-title">Join Session</h4>  
+                <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div className="modal-body">
+              <div><span id="rem-join-timer">{localstoragedata.default.maxJoinDuration}</span></div>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-success" onClick={this.joinSession}>Join</button>
+            </div>
+          </div>
+        </div>
+      </div>);
   }
+  
 
       // var allData= this.props.dispatch(allUsers(sessionId));
       var userlength=this.state.users;
@@ -365,7 +406,6 @@ render() {
                           return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession}>Join</button>;
                         } else {
                           return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession} disabled>Join</button>;
-                          //return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession}>Join</button>;
                         }
                     }
                   )()}
@@ -396,6 +436,8 @@ render() {
           </div>
         </div>
       </div>
+
+      { participentTimerPopup }
 
       <div className="modal attendy-list" id="attendy-list">
         <div className="modal-dialog">

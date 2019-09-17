@@ -57,13 +57,57 @@ if(!AgoraRTC.checkSystemRequirements()) {
     }
   }
 
+  function newDateFormat(dtTm){
+    if(dtTm == '') return '';
+
+    let tmpDt = dtTm.split(' ');
+    let dt = tmpDt[0].split('/');
+    let tm = tmpDt[1].split(':');
+
+    // console.log('newDate =========', dt, tm);
+    //new Date(2016, 6, 27, 13, 30, 0);
+    let newDate = new Date(dt[2], dt[1]-1, dt[0], tm[0], tm[1], tm[2]).getTime();
+    // console.log('newDate =========', newDate.getTime());
+    return newDate;
+  }
+  function addRtmJoinOrder(userId, time){
+    console.log('userId, time ===========', userId, time)
+
+    let currentTime = newDateFormat(time);
+    let strArray = localStorage.getItem("rtm-join-order");
+    let orderList = [];
+    let f = 0;
+    if(strArray != ''){
+      strArray = JSON.parse(strArray);
+      for(let i in strArray){
+        if(strArray[i].id == userId){
+          f = 1;
+          strArray[i].joinAt = currentTime;
+        }
+      }
+      orderList = strArray;
+    }
+
+    if(f == 0){
+      orderList.push({ id:userId, joinAt:currentTime });  
+    }
+      
+    localStorage.setItem("rtm-join-order", JSON.stringify(orderList));
+  }
+
+  function getRtmJoinOrder(){
+
+  }
+
   //var currentSession = getCurrentSession(); 
   var newclient; 
   var channel;
-   var channelName1 = '1449';
+   var channelName1 = '1441';
+
   function rtmJoin()
   {
    var appId1 = '232f270a5aeb4e0097d8b5ceb8c24ab3';
+   // var appId1 = '86706f65732f4988b39974feb4eed508';
     var token=null;
     newclient = AgoraRTM.createInstance(appId1);
     var storeData = getCurrentUserData();
@@ -88,7 +132,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
      // console.log("message "+ message.text + " peerId" + peerId);
 
       signalHandler(peerId, msg, storeData.userType);
-      });
+
+
+    });
 
       channel = newclient.createChannel(channelName1);
       channel.join().then(() => {
@@ -96,6 +142,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       if(storeData.userType == 1){
         recentlyJoinedChannelUser();
       }
+      setTimeout(function(){}, 1000);
       console.log('**********shiv*********channel joined successfully**********');
 
       var today = new Date();
@@ -103,6 +150,11 @@ if(!AgoraRTC.checkSystemRequirements()) {
       var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()+'.'+today.getMilliseconds();
       var dateTime = date+' '+time;
       var text="208" +sep+ dateTime;
+
+      if(storeData.userType != 1){
+        // when user join
+        // addRtmJoinOrder(peer, dateTime);
+      }
 
       channel.sendMessage({text}).then(() => {  
         console.log('-------join msg llllll--------','mssages send successfully on channel');    
@@ -151,8 +203,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
      
         channel.on('ChannelMessage', (message, senderId) => {         
           var msg=message.text;
+          console.log('msggggggggggggggggggg', msg)
           // msg = JSON.parse(msg);  
-          channelMsgHandler(msg,senderId,storeData.userType);
+          channelMsgHandler(msg, senderId,storeData.userType);
           if(storeData.userType ==1){
             if( $('#joinee-' + convertEmailToId(senderId)).length == 0 ){
               removeFromFirst();
@@ -187,6 +240,19 @@ if(!AgoraRTC.checkSystemRequirements()) {
       {
           channel.sendMessage({text},channelName1);
           console.log('---------------','mssages send successfully on channel');
+      }
+
+      function joinChannel(){
+
+        var resp_data = JSON.parse(localStorage.getItem("userData"));
+        console.log('-----------hhhhhhhhh-------------------', resp_data.userType);
+        if(resp_data.userType == 1)
+        {     
+          
+          var text ="222"+sep;
+          sendMessageToChannel(channelName1, text);
+          // getMemberList();
+        }
       }
 
 
@@ -864,16 +930,19 @@ function signalHandler(uid, signalData, userType) {
 }
   
 
-    function channelMsgHandler(msg,senderId, userType)
+    function channelMsgHandler(msg, senderId, userType)
     {
       
       let res1=msg.split(sep);
-      // console.log('********Deepak************** signalData ', senderId);
+      console.log('********Deepak************** signalData ', senderId);
       if(res1[0] == "208")
       { 
       
         // if(userType != 1)
         // {
+        if(getUserDataFromList(senderId, 'userType') != 1){
+          addRtmJoinOrder(senderId, res1[1]);
+        }
         let message="User " + getUserDataFromList(senderId, 'firstName') + " has joined on  "+ res1[1];
         $('#newmsg').html(message);
         // setTimeout(function(){ $('#newmsg').html(''); }, 10000); 
@@ -892,6 +961,28 @@ function signalHandler(uid, signalData, userType) {
 
       }else if(res1[0] == "222")
       {
+        console.log('2222222222222222222222222')
+        if($('#participent-timer-alert').length > 0){
+
+          $('#participent-timer-alert').modal('show');
+
+          let duration = parseInt($('#rem-join-timer').html());
+
+          let ref2 = setInterval( function() {
+              $('#rem-join-timer').html(duration < 0 ? 0 : duration);
+              if(duration < 0){
+                clearInterval(ref2);
+                $('#continue-join').click();
+              }
+              duration--;
+          }, 1000 );
+        }
+
+        let sessionTime = {};
+        sessionTime['startTime'] = (new Date()).getTime();
+        sessionTime['joinTime'] = ''
+        localStorage.setItem("pre-session-time", JSON.stringify(sessionTime));  
+
         $('#continue-join').removeAttr("disabled");
         let newmsg="Now U can Join";
         $('#newmsg').html(newmsg);
@@ -1245,6 +1336,7 @@ function signalHandler(uid, signalData, userType) {
       }
 
       function addNewAfterRemove(id){
+        setTimeout(()=>{}, 2000);
         let localData = getCurrentUserData();
         channel.getMembers().then(membersList => {
             let totMember = membersList.length;
@@ -1281,6 +1373,13 @@ function signalHandler(uid, signalData, userType) {
         }
       }
 
+      function participentTimerAlert(){
+        if($('#participent-timer-alert').length > 0){
+
+          $('#participent-timer-alert').modal('show');
+        }
+      }
+
       // Get user specific data
       function getUserDataFromList(id, key){
         let userList = getTempUsers();
@@ -1297,10 +1396,10 @@ function signalHandler(uid, signalData, userType) {
         return '';
       }
       
-      $(document).ready(function(){
-        
-        var locaData = getCurrentUserData();
-        console.log('----------localData--',locaData.id)
+  $(document).ready(function(){
+
+    var locaData = getCurrentUserData();
+    console.log('----------localData--',locaData.id)
 
     $("body, div").bind('mousewheel', function() {
       return false

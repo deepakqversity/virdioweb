@@ -55,32 +55,7 @@ class Guest extends Component {
     $('#handRaiseClient_button').trigger('click');
   }
 
-  getAppearence(){
-    alert(Email);return false;
-    var Email=this.state.getEmail;
-    $("#appearence_button").val(Email);
-    $('#appearence_button').trigger('click');
-  }
 
-  getAroma(){
-    var ID=this.state.getID;
-    console.log(ID);
-    $("#aroma_button").val(ID);
-    $('#aroma_button').trigger('click');
-  }
-  getPalate(){
-    var ID=this.state.getID;
-    console.log(ID);
-    $("#palate_button").val(ID);
-    $('#palate_button').trigger('click');
-  }
-  getScore(){
-    var ID=this.state.getID;
-    console.log(ID);
-    $("#score_button").val(ID);
-    $('#score_button').trigger('click');
-  }
-  
   loadScript = function (src) {
     var tag = document.createElement('script');
     tag.async = false;

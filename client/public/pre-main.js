@@ -76,6 +76,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
       console.log('on connection state changed to ' + newState + ' reason: ' + reason);
     });
 
+    console.log('uidpeer', peer)
+
     newclient.login({ token: token, uid: peer }).then(() => {
 
     console.log('****shiv*******AgoraRTM client login success***********');
@@ -118,12 +120,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
         console.log('MemberJoined ================MemberJoined ');
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-status').attr('src', '/images/online.png');
-        /*
-        <span class="welcome-title"><img src="images/avtar.png" />Richard, LA</span>
-         */
-        var massages="208"+sep+memberId+sep+"joined"+sep;        
-        channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
-        console.log('totMember============', memberId)
+        console.log('memberId============', memberId)
         if(storeData.userType ==1){
           if( $('#joinee-' + convertEmailToId(memberId)).length == 0 ){
             removeFromFirst();
@@ -131,6 +128,11 @@ if(!AgoraRTC.checkSystemRequirements()) {
             totalChannelMembers();
           }
         }
+        /*
+        <span class="welcome-title"><img src="images/avtar.png" />Richard, LA</span>
+         */
+        var massages="208"+sep+memberId+sep+"joined"+sep;        
+        channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
       })
      
        channel.on('MemberLeft', memberId => { 
@@ -138,10 +140,11 @@ if(!AgoraRTC.checkSystemRequirements()) {
         var massages="208"+sep+memberId+sep+"left"+sep;  
         channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"left"}), storeData.userType);
       
-        if(storeData.userType ==1){
+        if(storeData.userType == 1){
           if( $('#joinee-' + convertEmailToId(memberId)).length != 0 ){
             $('#joiners').find("#joinee-"+convertEmailToId(memberId)).remove();
-            totalChannelMembers();
+            addNewAfterRemove(memberId);
+            
           }
         }
       })
@@ -1201,9 +1204,11 @@ function signalHandler(uid, signalData, userType) {
 
 
       function totalChannelMembers(){
+        console.log('%%%%%%%%%%%%%%%%%%%%%%',channel.getMembers());
         let localData = getCurrentUserData();
         channel.getMembers().then(membersList => {
             let totMember = membersList.length -1;
+            console.log('totMember-----------', totMember)
             let maxUserLimit = localData.default.preScreenUserLimit;
             console.log('totMember-----------', totMember,maxUserLimit)
             $('#total-joinees').html(totMember > maxUserLimit ? `+${maxUserLimit} more` : '');
@@ -1232,6 +1237,26 @@ function signalHandler(uid, signalData, userType) {
             }
             console.log('totMember maxUserLimit ===', totMember, maxUserLimit);
 
+            $('#total-joinees').html(totMember-1 > maxUserLimit ? `+${maxUserLimit} more=` : '');
+            
+          }).catch(error => {
+            console.log('*************There is an error******');
+          });
+      }
+
+      function addNewAfterRemove(id){
+        let localData = getCurrentUserData();
+        channel.getMembers().then(membersList => {
+            let totMember = membersList.length;
+            for(let i= totMember-1; i >= 0 ; i--){
+              if(getUserDataFromList(membersList[i], 'userType') != 1){
+                if(membersList[i] != id && $('#joinee-' + convertEmailToId(membersList[i])).length == 0 ){
+                  $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(membersList[i])+'"><img src="'+getUserDataFromList(membersList[i], 'image')+'" />'+getUserDataFromList(membersList[i], 'firstName')+', '+getUserDataFromList(membersList[i], 'city')+'</span>');
+                  break;
+                }
+              }
+            }
+            let maxUserLimit = localData.default.preScreenUserLimit;
             $('#total-joinees').html(totMember-1 > maxUserLimit ? `+${maxUserLimit} more` : '');
             
           }).catch(error => {

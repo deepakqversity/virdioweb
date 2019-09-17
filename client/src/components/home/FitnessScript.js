@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import $ from 'jquery';
 
 class FitnessScript extends Component {
   
@@ -21,6 +22,14 @@ class FitnessScript extends Component {
   componentWillMount(){
     //console.log(1);
     // window.test();
+  }
+  
+  fitnessScriptStart(){  
+    $('#ftnsStart').trigger('click');
+  }
+
+  fitnessScriptStop(){  
+    $('#ftnsStop').trigger('click');
   }
 
   createProduct = () => {
@@ -162,7 +171,7 @@ return (
                       <div className="swiper-wrapper">
                         <div className="swiper-slide start">
                           <span>
-                            <a href="#">Start</a>
+                            <a href="#" onClick={this.fitnessScriptStart.bind(this)}>Start</a>
                           </span>
                         </div>
                       {
@@ -207,7 +216,7 @@ return (
                           <span>
                             <h4>End of Script</h4>
                             <img src="images/end-script.png" />
-                            <a href="#" className="btn btn-primary mx-auto d-table">End Session</a>
+                            <a href="#" className="btn btn-primary mx-auto d-table" onClick={this.fitnessScriptStop.bind(this)}>End Session</a>
                           </span>
                         </div>
                       </div>

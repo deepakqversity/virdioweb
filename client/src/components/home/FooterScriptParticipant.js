@@ -20,7 +20,16 @@ class FooterScriptParticipant extends Component {
     var userEmail=localstoragedata.email;
     var  userID=localstoragedata.id;
     this.setState({getEmail : userEmail});
-
+    var loadScript = function (src) {
+      var tag = document.createElement('script');
+      tag.async = false;
+      tag.src = src;
+      
+      var body = document.getElementsByTagName('body')[0];
+      body.appendChild(tag);
+    }
+    loadScript('/js/swiper.min.js');
+    loadScript('/js/swiper-modifier.js');
   }
 
   componentWillMount(){
@@ -80,64 +89,44 @@ console.log('sessionScript=', sessionScript)
          </div>
       ) : (
       this.props.sessId == 2 ? (
-          <div className="d-flex justify-content-between w-75 arrow-after align-items-center footer-fitness-script">
-            <div id="countdown" className="count-timer start">
-              <div id="countdown-number">              
-              <span>
-               <a href="#">Start</a>
-                </span>
+        <div className="w-75 swiper-fitness-container float-left">
+          <div className="d-flex justify-content-between arrow-after align-items-center footer-fitness-script">
+           <div className="swiper-container">
+              <div className="swiper-wrapper align-items-center fitness-guest">
+                <div className="swiper-guest swiper-slide start">              
+                  <span>
+                    <a href="#">Start</a>
+                  </span>
                 </div>
-              <svg>
-                <circle r="27" cx="30" cy="30"></circle>
-              </svg>
-              <h4>Start</h4>
-            </div>
-            {
+              
+              
+            
+           {
                         sessionScript.map((opt, i) =>
-                                         
-                              <div div id="countdown" className="count-timer current-box" key={i}>
-                                {opt.attribute.map(function(attrb, index){
-                                  if(attrb.attrLabel == 'counter'){
-                                  return <div className="countdown-number" key={index}>{attrb.attrValue} SEC</div>;
-                                  }
-                                })}
+                        
+                         
+                              <div className="swiper-slide">
+                                
+                                  <div id="countdown" className="count-timer" key={i}>
+                                  {opt.attribute.map(function(attrb, index){
+                                    if(attrb.attrLabel == 'counter'){
+                                    return <div className="countdown-number" key={index}>{attrb.attrValue} SEC</div>;
+                                    }
+                                  })}
 
-                                <svg>
-                                  <circle r="26" cx="30" cy="30"></circle>
-                                </svg>
-                               <h4>{opt.name}</h4>
-                              </div>
+                                  <svg>
+                                    <circle r="27" cx="30" cy="30"></circle>
+                                  </svg>
+                                <h4>{opt.name}</h4>
+                                </div>
+                                <img src="images/arrow-img.png" />   
+                              </div> 
+                                 
                   
                         )}
-
-
-
-
-
-
-
-            {/* <img src="images/arrow-img.png" />
-            <div id="countdown" className="count-timer current-box">
-              <div id="countdown-number">88</div>
-              <svg>
-                <circle r="27" cx="30" cy="30"></circle>
-              </svg>
-              <h4>Lunges</h4>
-            </div> */}
-
-
-
-
-
-
-            {/* <img src="images/arrow-img.png" />
-            <div id="countdown" className="count-timer">
-              <div id="countdown-number">45</div>
-              <svg>
-                <circle r="27" cx="30" cy="30"></circle>
-              </svg>
-              <h4>Rest</h4>
-            </div> */}
+              </div>
+            </div>
+          </div>
           </div>
         ) : ( <div> </div> )
       )

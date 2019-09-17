@@ -77,7 +77,7 @@ class Session{
 	async findSessionUsers(sessionId){
 
         return await new Promise((resolve, reject) => {
-        	db.query('SELECT u.id, u.firstName, u.lastName, u.email, u.image, u.address1, u.address2, u.city, u.state, u.zip, su.type as userType FROM session_users su LEFT JOIN users u ON u.id = su.userId WHERE u.isBanned = 0 AND su.status = 1 AND su.sessionId = ?', [sessionId], function (error, results, fields) {
+        	db.query('SELECT u.id, u.firstName, u.lastName, u.email, u.image, u.address1, u.address2, u.city, u.state, u.zip, su.type as userType, su.sessionStatus FROM session_users su LEFT JOIN users u ON u.id = su.userId WHERE u.isBanned = 0 AND su.status = 1 AND su.sessionId = ?', [sessionId], function (error, results, fields) {
 			  if (error) reject(error);
 			  // console.log('================== ************ results ', results)
 			  // db.end();

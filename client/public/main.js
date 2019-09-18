@@ -2102,12 +2102,15 @@ function signalHandler(uid, signalData, userType) {
         $(".header").height("auto");
         $(".countdown-logo").hide();
         $(".section.attendees").css("margin-top", "77px !important" );
+        $("#fullscreen img").attr("src", "images/exit-screen.png"); 
       }
       else{
         $(".show-hide-title").addClass("d-block").removeClass("d-none");
         $(".header").height("85px");
         $(".countdown-logo").show();
         $(".section.attendees").css("margin-top", "105px !important" );
+        $("#fullscreen img").attr("src", "images/full-screen.png"); 
+        
       }
       //$(".host-script-section").css({'max-height:55px'});
       showHideScript();
@@ -2126,8 +2129,8 @@ function signalHandler(uid, signalData, userType) {
      // $(this).text($(this).text() == '"Show Attendees"' ? '"Hide Attendees"' : '"Show Attendees"');
       
 
-      $(".host-show-hide").slideToggle(upDown);
-      $(".script-section").slideToggle(upDown);
+      $(".host-show-hide").slideToggle();
+      $(".script-section").slideToggle();
       
 
 

@@ -182,10 +182,6 @@ return (
             </div>
             
           </div>
-          <div className="show-hide-v d-none">
-            <a href="#"><i className="fa fa-chevron-left" aria-hidden="true"></i></a>
-            <img src="images/v-logo.png" />
-          </div>
           
         </div>
         <div className="col col-md-11">
@@ -194,7 +190,7 @@ return (
           </h3>
           <div className="row justify-content-between align-items-center mt-0">
             <div className="col-12 col-sm-7">
-              <div className="">  <span>{localDate}</span>
+              <div className="time">  <span>{localDate}</span>
                 <span className="countdown-timer">Time Remaining: {hours} : {minutes} : {seconds}</span>
                 <div id="errmsg" style={{color:'green'}}></div>
                 <div id ="all_attendies_list"></div>

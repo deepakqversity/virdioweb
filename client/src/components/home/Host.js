@@ -182,7 +182,12 @@ return (
             </div>
             
           </div>
-          
+          <div className="show-hide-v d-none">
+            <div>
+              <a href="#" className="back-btn"><i className="fa fa-chevron-left" aria-hidden="true"></i></a>
+              <img src="images/v-logo.png" />
+            </div>
+          </div>
         </div>
         <div className="col col-md-11">
           <h3 className="main-heading show-hide-title d-block">{sessionData.name} <span>by <span className="welcome-title">{sessionData.hostFirstName.toLowerCase()}</span><span className="green-online online-status"><span>ONLINE</span></span></span>
@@ -190,7 +195,7 @@ return (
           </h3>
           <div className="row justify-content-between align-items-center mt-0">
             <div className="col-12 col-sm-7">
-              <div className="time py-xs-1">  <span>{localDate}</span>
+              <div className="time">  <span>{localDate}</span>
                 <span className="countdown-timer">Time Remaining: {hours} : {minutes} : {seconds}</span>
                 <div id="errmsg" style={{color:'green'}}></div>
                 <div id ="all_attendies_list"></div>
@@ -392,6 +397,7 @@ return (
 
 
       </div>
+      <input type="hidden" id="to-broadcast" />
       <input type="hidden" id="current-camera" />
       <input type="hidden" id="current-microphone" />
   </div>

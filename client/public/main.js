@@ -271,36 +271,43 @@ if(!AgoraRTC.checkSystemRequirements()) {
       var storeData = getCurrentUserData();
       var stream = evt.stream;
       stream.stop();
-
       if(storeData.userType != 1){
-        $.ajax({
-              headers: { 
-                  "Content-Type": "application/json; charset=utf-8",
-                  "Authorization": storeData.token
-              },
-              url: '/api/v1/session/'+storeData.sessionData.id+'/'+stream.getId()+'/stream-id',
-              dataType: 'json',
-              type: 'GET',
-              success: function( data, textStatus, jQxhr ){
-                  
-                  let respData = data;
-
-                  if(respData.status){
-                    if(respData.type != 1){
-                      if(totalBrodcaster > 0){
-                        totalBrodcaster--;
-                      }
-                    }
-                  }
-              },
-              error: function( jqXhr, textStatus, errorThrown ){
-                  console.log( errorThrown );
-              }
-          });
+        if(totalBrodcaster > 0){
+          totalBrodcaster--;
+        }
       }
+
+
+      // if(storeData.userType != 1){
+        // $.ajax({
+        //       headers: { 
+        //           "Content-Type": "application/json; charset=utf-8",
+        //           "Authorization": storeData.token
+        //       },
+        //       url: '/api/v1/session/'+storeData.sessionData.id+'/'+stream.getId()+'/stream-id',
+        //       dataType: 'json',
+        //       type: 'GET',
+        //       success: function( data, textStatus, jQxhr ){
+                  
+        //           let respData = data;
+
+        //           if(respData.status){
+        //             if(respData.type != 1){
+        //               if(totalBrodcaster > 0){
+        //                 totalBrodcaster--;
+        //               }
+        //             }
+        //           }
+        //       },
+        //       error: function( jqXhr, textStatus, errorThrown ){
+        //           console.log( errorThrown );
+        //       }
+        //   });
+      // }
 
       $('#agora_remote' + stream.getId()).remove();
       switchVideoSize();
+      pushIntoSessionByHost();
       console.log("Remote stream is removed " + stream.getId());
     });
 
@@ -934,16 +941,10 @@ console.log('channelchannelchannel newclient', newclient, channel)
 
   function checkUserInOrder(userId){
 
-    let userList = localStorage.getItem("rtm-join-order");
-
-    if(userList == null) return false;
-
-    userList = JSON.parse(userList);
-
-    console.log('userListuserList',userList, typeof userList);
-
-    userList.sort(function(a, b) { return parseInt(a.joinAt) - parseInt(b.joinAt); });
+    let userList = getOrderUser();
     
+    if(userList == '' || userList == null) return false;
+
     let counter = userList.length >= 8 ? 8 : userList.length;
     for(let i=0; i < counter; i++){
       if(convertEmailToId(userList[i].id) == userId){
@@ -953,7 +954,17 @@ console.log('channelchannelchannel newclient', newclient, channel)
     return false;
   }
 
-  checkUserInOrder(1)
+  function getOrderUser(){
+    let userList = localStorage.getItem("rtm-join-order");
+
+    if(userList == null) return '';
+
+    userList = JSON.parse(userList);
+    console.log('userListuserList',userList, typeof userList);
+    userList.sort(function(a, b) { return parseInt(a.joinAt) - parseInt(b.joinAt); });
+
+    return userList; 
+  }
 
   var localClient = '';
   function networkBandwidth() {
@@ -1191,6 +1202,7 @@ console.log('channelchannelchannel newclient', newclient, channel)
     // stream2.close();
     // GoInFullscreen();
     // localClient.leave();
+    totalBrodcaster = 0;
     rtmJoin();
     console.log('continueJoin =continueJoin =continueJoin 111')
     join();
@@ -1367,7 +1379,14 @@ console.log('channelchannelchannel newclient', newclient, channel)
 function attendeeScreenHeight(){
   let attendeeHeight = $(".attend-mid-section").height();
 }
-
+function changeImage(){
+  if ($(window).width() < 1024){
+    $(".fitness-guest .swiper-slide img").attr("src", "images/arrow-right.png").addClass("mobile-arrow");
+  }
+  else {
+    $(".fitness-guest .swiper-slide img").attr("src", "images/arrow-img.png").removeClass("mobile-arrow");
+  }
+}
 
   function onPageResize(){
       
@@ -1376,13 +1395,20 @@ function attendeeScreenHeight(){
     let hostHeight = $(".host-script-section").height();
     let sectionHeights = winHeight - (hostHeight + headerHeight);
 
-    $("#subscribers-list").height(`${sectionHeights - 116}px`)
+    $("#subscribers-list").height(`${sectionHeights - 107}px`)
     
     let sub_list_y = $("#subscribers-list").height(); 
     let sub_list_x = $("#subscribers-list").width(); 
     let len_subs = $('#subscribers-list').find('video').length;
     // console.log('demo== sub_list_y, sub_list_x, len_subs = ', sub_list_y, sub_list_x, len_subs)
-
+    if($(".show-hide-title").hasClass("d-none")){
+      $(".section.attendees").addClass("mt-76");
+    
+    }else {
+      $(".section.attendees").removeClass("mt-76");
+      
+    }
+    
     if(sub_list_x <= 992){
       if(len_subs>2) {
         $("#subscribers-list")
@@ -1632,6 +1658,22 @@ function signalHandler(uid, signalData, userType) {
      // console.log('********ggggggggggggg************** signalData ', signalData.message); 
       $('#hostmsg').html('UnMute');
       setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
+    } else if(resultant[0] == '1002') {
+      
+      console.log('********ggggggggggggg************** signalData ', signalData.message); 
+      $('#hostmsg').html('Now you are became a audience.');
+      unpublish();
+      $('#mocrophone-on').removeClass('d-none');
+      $('#mocrophone-off').addClass('d-none');
+      setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
+    } else if(resultant[0] == '1003') {
+
+      console.log('********ggggggggggggg************** signalData ', signalData.message); 
+      $('#hostmsg').html('Now you are became a broadcaster.');
+      publish();
+      $('#mocrophone-on').addClass('d-none');
+      $('#mocrophone-off').removeClass('d-none');
+      setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
     }
 
   }
@@ -1721,6 +1763,24 @@ function signalHandler(uid, signalData, userType) {
           showHandAtHost();
         }
      }
+
+     function removeAudienceInList(id) {
+      let audienceList = JSON.parse(localStorage.getItem("audience-list"));
+
+      let newAudienceList = [];
+
+      if(audienceList.length > 0){
+        for(let i in audienceList){
+          if(audienceList[i].id != id){
+            newAudienceList.push(audienceList[i]);
+          }
+        }
+      }
+      
+      if(f){         
+        localStorage.setItem("audience-list", JSON.stringify(newAudienceList));
+      }
+    }
      
 
      function showHandAtHost(){
@@ -1742,13 +1802,65 @@ function signalHandler(uid, signalData, userType) {
 
 
     function changeUserToBroadcaster(uId){
-        
+        $('#to-broadcast').val(uId);
+        console.log('##################', $('#to-broadcast').val())
+        pullFromSessionByHost();
+    }
+
+    function checkKickRule(id){
+      return true;
+    }
+
+    function kickUser(id){
+      let text = "1002"+sep+"kicked by host";
+      console.log('############### text', text)
+      sendMessage(id, text);
+      removeAudienceInList(convertEmailToId(id));
     }
 
     function pullFromSessionByHost(){
+      let storeData = getCurrentUserData();
+      
+      console.log(' @@@@@@@ maxUserLimit @@@ ', storeData.default.maxUserLimit);
+
+      let userList = getOrderUser();
+      console.log('userList userList =', userList)
+      
+      if(userList == '') return false;
+
+      // let counter = userList.length >= storeData.default.maxUserLimit ? storeData.default.maxUserLimit : userList.length;
+      let kickedUserId = '';
+      for(let i=0; i < userList.length; i++){
+        console.log('length ===========', convertEmailToId(userList[i].id), $('#agora_remote'+convertEmailToId(userList[i].id)).length )
+        if( $('#agora_remote'+convertEmailToId(userList[i].id)).length > 0 ){
+          if(checkKickRule(userList[i].id)){
+            kickedUserId = userList[i].id;
+            break;
+          }
+        }
+      }
+      if(kickedUserId != '')
+        kickUser(kickedUserId);
     }
 
     function pushIntoSessionByHost(){
+      let uid = '';
+
+      setTimeout(function(){}, 3000);
+
+      if($('#to-broadcast').length > 0){
+
+        uid = $('#to-broadcast').val();
+        let text = "1003"+sep+" in session";
+        sendMessage(convertIdToEmail(uid), text);
+        $('#audience-'+uid).remove();
+        $('#to-broadcast').val('');
+        let len = parseInt($('#total-raised-hands').html());
+        $('#total-raised-hands').html(len > 0 ? (len-1) : 0);
+        $('#dropdownMenuButton').addClass('d-none');
+      } else {
+
+      }
     }
 
 
@@ -2081,14 +2193,19 @@ function signalHandler(uid, signalData, userType) {
         return '';
       }
 
+
       $(document).ready(function(){
-
-
+        
+        
         $('#dropdownMenuButton').on('show.bs.modal', function (e) {
           // alert('===')
             showHandAtHost();
         });
         onPageResize();
+        changeImage();
+
+      
+        $(".script-info .carousel-inner .carousel-item:first").addClass("active");
        
         $(document).on("click", ".start span a", function(){
           
@@ -2098,6 +2215,15 @@ function signalHandler(uid, signalData, userType) {
           $(".swiper-btn-next").css("display", "block")
           countDown();
         })
+
+        // $(document).on("click", "#winscript", function(){
+          
+        //   $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
+        //   $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
+        //   $(".swiper-slide.start a").prop('disabled', true);
+        //   $(".swiper-btn-next").css("display", "block")
+        //   countDown();
+        // })
          
          $(document).on("click", ".swiper-btns .swiper-btn-next", function(e){
            e.preventDefault();
@@ -2107,6 +2233,9 @@ function signalHandler(uid, signalData, userType) {
            $(".swiper-wrapper .swiper-slide:nth-last-child(2)").hasClass("swiper-slide-next") ? $(".swiper-btn-next").css("display", "none") : $(".swiper-btn-next").css("display", "block");
            countDown();
          })
+
+  
+         
 
 
     let agoraLocal = $("#agora_local").find("video").width();
@@ -2134,21 +2263,25 @@ function signalHandler(uid, signalData, userType) {
     $(".host-script-section").height("255px");
     $(".host-section").css({"min-width": "380px", "max-width": "380px"});
     
-    $(".fullscreen").click(function(){
+    $(".fullscreen, .back-btn").click(function(){
       $(".host-script-section").height() < 255 ? $(".host-script-section").height("255px") : $(".host-script-section").height("auto");
       
+      $(".show-hide-v").hasClass("d-none") ? $(".show-hide-v").removeClass("d-none").addClass("d-block") : $(".show-hide-v").addClass("d-none").removeClass("d-block");
       
       if($(".show-hide-title").hasClass("d-block")){
         $(".show-hide-title").addClass("d-none").removeClass("d-block");
         $(".header").height("auto");
         $(".countdown-logo").hide();
         $(".section.attendees").css("margin-top", "77px !important" );
+        $("#fullscreen img").attr("src", "images/exit-screen.png"); 
       }
       else{
         $(".show-hide-title").addClass("d-block").removeClass("d-none");
         $(".header").height("85px");
         $(".countdown-logo").show();
         $(".section.attendees").css("margin-top", "105px !important" );
+        $("#fullscreen img").attr("src", "images/full-screen.png"); 
+        
       }
       //$(".host-script-section").css({'max-height:55px'});
       showHideScript();
@@ -2167,8 +2300,8 @@ function signalHandler(uid, signalData, userType) {
      // $(this).text($(this).text() == '"Show Attendees"' ? '"Hide Attendees"' : '"Show Attendees"');
       
 
-      $(".host-show-hide").slideToggle(upDown);
-      $(".script-section").slideToggle(upDown);
+      $(".host-show-hide").slideToggle();
+      $(".script-section").slideToggle();
       
 
 
@@ -2177,7 +2310,8 @@ function signalHandler(uid, signalData, userType) {
 
     
     window.onresize = onPageResize;
-    
+    //window.onload = changeImage;
+    window.onresize = changeImage;
    
     $(document).on('click', '#continue-join', function(){
       continueJoin();

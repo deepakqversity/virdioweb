@@ -15,6 +15,8 @@ class FooterScriptParticipant extends Component {
   }
  
   componentDidMount(){
+    
+    
 
     let localstoragedata = JSON.parse(localStorage.getItem('userData'));
     var userEmail=localstoragedata.email;
@@ -101,7 +103,7 @@ console.log('sessionScript=', sessionScript)
               
               
             
-           {
+                     {
                         sessionScript.map((opt, i) =>
                         
                          

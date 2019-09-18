@@ -98,7 +98,7 @@ class UserCtrl {
 								}
 
 								// we have to remove this after db configuration
-								underscore.extend(currentSession, {rtmAppId : '232f270a5aeb4e0097d8b5ceb8c24ab3', rtmChannelId : '1440'});
+								underscore.extend(currentSession, {rtmAppId : process.env.RTM_API, rtmChannelId : process.env.RTM_CHANNEL});
 
 								underscore.extend(userObj, { sessionData : currentSession });
 

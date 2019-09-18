@@ -102,7 +102,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   //var currentSession = getCurrentSession(); 
   var newclient; 
   var channel;
-  var channelName1 = '1420';
+  var channelName1 = '1440';
 
   function rtmJoin()
   {
@@ -827,7 +827,9 @@ function attendeeScreenHeight(){
     localStorage.removeItem("userData");
     localStorage.removeItem("audience-list");
     localStorage.removeItem("media-setting");
-    localStorage.removeItem("tempUsers");
+    localStorage.removeItem("tempUsers"); 
+    localStorage.removeItem("rtm-join-order");
+    localStorage.removeItem("pre-session-time");
     localStorage.removeItem("load-page");
     localStorage.removeItem("channel");
   }
@@ -1311,19 +1313,23 @@ function signalHandler(uid, signalData, userType) {
 
       function recentlyJoinedChannelUser(){
         let localData = getCurrentUserData();
+        let strArray = localStorage.getItem("rtm-join-order");
         channel.getMembers().then(membersList => {
             let totMember = membersList.length;
             console.log('totMember', membersList);
             let maxUserLimit = localData.default.preScreenUserLimit;
             console.log('totMember maxUserLimit', totMember, maxUserLimit);
             let ctr = 1;
-            for(let i= totMember-1; i >= 0 ; i--){
-              if(getUserDataFromList(membersList[i], 'userType') != 1){
-                if(ctr++ <= maxUserLimit){
-                  if( $('#joinee-' + convertEmailToId(membersList[i])).length == 0 ){
-                    $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(membersList[i])+'"><img src="'+getUserDataFromList(membersList[i], 'image')+'" />'+getUserDataFromList(membersList[i], 'firstName')+', '+getUserDataFromList(membersList[i], 'city')+'</span>');
+
+            for(let j=0; j < strArray.length; j++){
+              for(let i= totMember-1; i >= 0 ; i--){
+                if(membersList[i].id == strArray[j].id && getUserDataFromList(membersList[i], 'userType') != 1){
+                  if(ctr++ <= maxUserLimit){
+                    if( $('#joinee-' + convertEmailToId(membersList[i])).length == 0 ){
+                      $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(membersList[i])+'"><img src="'+getUserDataFromList(membersList[i], 'image')+'" />'+getUserDataFromList(membersList[i], 'firstName')+', '+getUserDataFromList(membersList[i], 'city')+'</span>');
+                    }
                   }
-                }
+                }                
               }
             }
             console.log('totMember maxUserLimit ===', totMember, maxUserLimit);
@@ -1377,6 +1383,13 @@ function signalHandler(uid, signalData, userType) {
         if($('#participent-timer-alert').length > 0){
 
           $('#participent-timer-alert').modal('show');
+        }
+      }
+
+      function participentTimerAlertClose(){
+        if($('#participent-timer-alert').length > 0){
+
+          $('#participent-timer-alert').modal('hide');
         }
       }
 

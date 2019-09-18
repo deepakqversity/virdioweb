@@ -17,29 +17,95 @@ render() {
 return (
       <div>
       { this.props.sessId == 1 ? (
+
+        
       <div className="col-lg-6 col-md-6 col-sm-9 col-12 max-width-300">
-        <div className="left-section">
-          <h2 className="item-name py-3">1/4 Wines</h2>
-          <h3 className="second-heading my-3">2014 Bliss Block Pinot Noir</h3>
-          <div className="video-holder">
-            <img src="images/Rectangle.png" />
-          </div>
-          
-          <div className="item-description py-4">
-            <div className="row">
-              <ul className="col-12 col-md-12 list-info my-0">
-                <li><span>Varietal</span><span>100% Pinot Noir</span></li>
-                <li><span>Year</span><span>2014​</span></li>
-                <li><span>Country</span><span>United States​</span></li>
-                <li><span>Appellation</span><span>Sonoma</span></li>
-               
-              </ul>
-            
-              
+        <div id="demo" data-interval="false" className="carousel slide" data-ride="carousel">
+
+          <div className="carousel-inner">
+            <div className="carousel-item active">
+            <div className="left-section">
+                <h2 className="item-name py-3">1/4 Wines</h2>
+                <h3 className="second-heading my-3">2014 Bliss Block Pinot Noir</h3>
+                <div className="video-holder">
+                  <img src="images/Rectangle.png" />
+                </div>
+                
+                <div className="item-description py-4">
+                  <div className="row">
+                    <ul className="col-12 col-md-12 list-info my-0">
+                      <li><span>Varietal</span><span>100% Pinot Noir</span></li>
+                      <li><span>Year</span><span>2014​</span></li>
+                      <li><span>Country</span><span>United States​</span></li>
+                      <li><span>Appellation</span><span>Sonoma</span></li>
+                    
+                    </ul>
+                  
+                    
+                  </div>
+                </div>
+                <button type="button" data-toggle="modal" data-target="#show-details" className="btn btn-outline-secondary show-details-btn">"Show Details"</button>
+              </div>
+            </div>
+            <div className="carousel-item">
+            <div className="left-section">
+                <h2 className="item-name py-3">1/4 Wines</h2>
+                <h3 className="second-heading my-3">2014 Bliss Block Pinot Noir</h3>
+                <div className="video-holder">
+                  <img src="images/Rectangle.png" />
+                </div>
+                
+                <div className="item-description py-4">
+                  <div className="row">
+                    <ul className="col-12 col-md-12 list-info my-0">
+                      <li><span>Varietal</span><span>100% Pinot Noir</span></li>
+                      <li><span>Year</span><span>2014​</span></li>
+                      <li><span>Country</span><span>United States​</span></li>
+                      <li><span>Appellation</span><span>Sonoma</span></li>
+                    
+                    </ul>
+                  
+                    
+                  </div>
+                </div>
+                <button type="button" data-toggle="modal" data-target="#show-details" className="btn btn-outline-secondary show-details-btn">"Show Details"</button>
+              </div>
+            </div>
+            <div className="carousel-item">
+            <div className="left-section">
+                <h2 className="item-name py-3">1/4 Wines</h2>
+                <h3 className="second-heading my-3">2014 Bliss Block Pinot Noir</h3>
+                <div className="video-holder">
+                  <img src="images/Rectangle.png" />
+                </div>
+                
+                <div className="item-description py-4">
+                  <div className="row">
+                    <ul className="col-12 col-md-12 list-info my-0">
+                      <li><span>Varietal</span><span>100% Pinot Noir</span></li>
+                      <li><span>Year</span><span>2014​</span></li>
+                      <li><span>Country</span><span>United States​</span></li>
+                      <li><span>Appellation</span><span>Sonoma</span></li>
+                    
+                    </ul>
+                  
+                    
+                  </div>
+                </div>
+                <button type="button" data-toggle="modal" data-target="#show-details" className="btn btn-outline-secondary show-details-btn">"Show Details"</button>
+              </div>
             </div>
           </div>
-          <button type="button" data-toggle="modal" data-target="#show-details" className="btn btn-outline-secondary show-details-btn">"Show Details"</button>
-        </div>
+
+          <a className="carousel-control-prev d-none" href="#demo" data-slide="prev">
+            <span className="carousel-control-prev-icon"></span>
+          </a>
+          <a className="carousel-control-next d-none" href="#demo" data-slide="next">
+            <span className="carousel-control-next-icon"></span>
+          </a>
+          </div>
+        
+        
       </div>
     ) : (
       this.props.sessId == 2 ? (

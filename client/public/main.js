@@ -1654,7 +1654,9 @@ function signalHandler(uid, signalData, userType) {
         $(".start span a").trigger('click');
       }else if(res1[0] == "302")
       {
-        alert('fitscript has Stopped');
+       // alert('fitscript has Stopped');
+        console.log('-------------------fitscript has Stopped-------------');
+        $(".end span a").trigger('click');
       }else if(res1[0] == "303")
       {
         //alert('fitscript Next');

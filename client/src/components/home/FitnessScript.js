@@ -75,7 +75,7 @@ return (
                       <div className="swiper-wrapper">
                         <div className="swiper-slide start">
                           <span>
-                            <a href="#" onClick={this.fitnessScriptStart.bind(this)}>Start</a>
+                            <a href="#" id="hostFtnsScript" onClick={this.fitnessScriptStart.bind(this)}>Start</a>
                           </span>
                         </div>
                       {

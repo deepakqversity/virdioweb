@@ -102,7 +102,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   //var currentSession = getCurrentSession(); 
   var newclient; 
   var channel;
-  var channelName1 = '1111';
+  var channelName1 = '1440';
 
   function rtmJoin()
   {
@@ -912,7 +912,7 @@ function signalHandler(uid, signalData, userType) {
       //newres=resultant[0].split("$");
       //console.log('********ggggggggggggg************** signalData ', signalData.message); 
       $('#newmsg').html(resultant[1]);
-      setTimeout(function(){ $('#newmsg').html(''); }, 10000);
+     // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
     }
 
     else if(resultant[0] == '205')
@@ -1124,7 +1124,7 @@ function signalHandler(uid, signalData, userType) {
           $('#online_state').removeClass("online-status");        
             $('#online_state').addClass("online-status");
           }
-          $('#all_joined_member_list').append('<div className="attendee-list"><img src="images/attendee.png" /><span class="title">'+element+'</span><div className="vid-icons"><span className="icon1"></span><span className="icon2"></span></div></div>');
+        //  $('#all_joined_member_list').append('<div className="attendee-list"><img src="images/attendee.png" /><span class="title">'+element+'</span><div className="vid-icons"><span className="icon1"></span><span className="icon2"></span></div></div>');
         });    
       }
       
@@ -1411,27 +1411,27 @@ function signalHandler(uid, signalData, userType) {
       
   $(document).ready(function(){
 
-    var locaData = getCurrentUserData();
-    console.log('----------localData--',locaData.id)
+    // var locaData = getCurrentUserData();
+    // console.log('----------localData--',locaData.id)
 
-        let output = JSON.parse(localStorage.getItem("userData"));
-        console.log('----------virat------------',output.userType);
-        if(output.userType == 2)
-        {
-          let output_res = JSON.parse(localStorage.getItem("tempUsers"));
-          console.log('----------virat------------',output_res);
+    //     let output = JSON.parse(localStorage.getItem("userData"));
+    //     console.log('----------virat------------',output.userType);
+    //     if(output.userType == 2)
+    //     {
+    //       let output_res = JSON.parse(localStorage.getItem("tempUsers"));
+    //       console.log('----------virat------------',output_res);
 
-          output_res.forEach(element => {
-            if(element.id == 1 && element.sessionStatus == 1 )
-            {
-              console.log('----------viratsigh------------',element.sessionStatus);
-              $('#continue-join').removeAttr("disabled");
+    //       output_res.forEach(element => {
+    //         if(element.id == 1 && element.sessionStatus == 1 )
+    //         {
+    //           console.log('----------viratsigh------------',element.sessionStatus);
+    //           $('#continue-join').removeAttr("disabled");
 
-              $('#continue-join').prop("disabled", false);
-            }
-            console.log('----------viratkumar------------',element.id);
-          }); 
-        }
+    //           $('#continue-join').prop("disabled", false);
+    //         }
+    //         console.log('----------viratkumar------------',element.id);
+    //       }); 
+    //     }
 
     $("body, div").bind('mousewheel', function() {
       return false

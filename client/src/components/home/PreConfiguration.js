@@ -13,6 +13,7 @@ class PreConfiguration extends Component {
 
    this.state = {
       isLoading: true,
+      isHostJoined: false,
       users: [],
       error: null,
       sessionScript: 0,
@@ -86,8 +87,14 @@ class PreConfiguration extends Component {
     // this.addLog(1,22,2);
   }
 
+  joinAttendies(){
+    alert('hi');
+  }
+
   joinSession = () => {
-      // console.log('#############', this.state.userType);
+     // console.log('#############');
+
+      //alert('hello');
       
       window.joinChannel();
 
@@ -194,6 +201,29 @@ class PreConfiguration extends Component {
               isLoading: false,
               });
       this.userList(data);
+
+      if(userData.userType == 2)
+      {
+        data.forEach(element => {
+
+          if(element.id == 1 && element.sessionStatus == 1 )
+          {
+            console.log('----------viratsigh------------',element.sessionStatus);
+          //  $('#continue-join').removeAttr("disabled");
+
+          let sessionTime = {};
+          sessionTime['startTime'] = (new Date()).getTime();
+          sessionTime['joinTime'] = ''
+          localStorage.setItem("pre-session-time", JSON.stringify(sessionTime));  
+      
+          this.setState({
+            isHostJoined: true,
+            });
+          //  $('#continue-join').prop("disabled", false);
+          }
+
+        });
+      }
     }
     )
   }
@@ -201,6 +231,8 @@ class PreConfiguration extends Component {
   joinAlert = () => {
     $('#continue-join').trigger('click');
   };
+
+
 
 render() {
 
@@ -213,6 +245,7 @@ render() {
   //const  {user}  = this.props.auth;
 
   let localstoragedata = JSON.parse(localStorage.getItem('userData'));
+
   let sessionData = localstoragedata.sessionData;
  
   let localDate = moment(sessionData.scheduleDate).format('MM/DD/YYYY # h:mm a');
@@ -264,17 +297,12 @@ render() {
       </div>);
   }
   
-
       // var allData= this.props.dispatch(allUsers(sessionId));
       var userlength=this.state.users;
 
       const newulength=Object.keys(userlength).length;
 
-      // console.log('-----------Avishekhllllll-------------------', newulength)
-
-      // const storeData = JSON.parse(localStorage.getItem("userData"));
-      // console.log('-----------Avishekhllllll-------------------', storeData.sessionData.hostName)
-
+    
   $("body").css("overflow-y", "scroll");
   return (
        <div>
@@ -405,9 +433,40 @@ render() {
                   {(
                     ()=>{
                         if(localstoragedata.userType == 1) {
-                          return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession}>Join</button>;
+                          return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
                         } else {
-                          return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession} disabled>Join</button>;
+
+//console.log('----------lalit----------',JSON.stringify(userList))
+                         // var locaData = getCurrentUserData();
+                          //console.log('----------localData--',locaData.id)
+                         // JSON.parse(localStorage.getItem('userData'));
+                              // let output = JSON.parse(localStorage.getItem("userData"));
+                              // console.log('----------virat------------',output.userType);
+                              // if(output.userType == 2)
+                              // {
+                                 
+                                //  console.log('----------virat------------',output_res.length);
+                    
+                                // output_res.forEach(element => {
+                                //   if(element.id == 1 && element.sessionStatus == 1 )
+                                //   {
+                                //     console.log('----------viratsigh------------',element.sessionStatus);
+                                //     $('#continue-join').removeAttr("disabled");
+                      
+                                //     $('#continue-join').prop("disabled", false);
+                                //   }
+                                //   console.log('----------viratkumar------------',element.id);
+                                // }); 
+                             // }
+                            // this.state.isHostJoined
+
+                          if(this.state.isHostJoined == false)
+                          {
+                          return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)} disabled>Join</button>;
+                          }else
+                          {
+                            return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
+                          }
                         }
                     }
                   )()}

@@ -525,7 +525,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   //var currentSession = getCurrentSession(); 
   var newclient; 
   var channel;
-  var channelName1 = '1111';
+  var channelName1 = '1440';
   
   function rtmJoin()
   {
@@ -571,24 +571,25 @@ console.log('channelchannelchannel newclient', newclient, channel)
                //    console.log('-------There is error in joining a channel------')
                //  });
 
-               //  channel.getMembers().then(membersList => {    
+                channel.getMembers().then(membersList => {    
+                  console.log('membersList', membersList)
                     
-               //    channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
+                  channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
 
-               //  }).catch(error => {
-               //     console.log('*************There is an error******');
-               //  });
+                }).catch(error => {
+                   console.log('*************There is an error******');
+                });
          
               }).catch(error => {
                 console.log('**********shiv*********There Is a problem to join a channel**********');
               });
 
               // channel log
-              // channel.on('MemberJoined', memberId => { 
+              channel.on('MemberJoined', memberId => { 
                
-              //   var massages="208"+sep+memberId+sep+"joined"+sep;        
-              //   channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
-              // })
+                var massages="208"+sep+memberId+sep+"joined"+sep;        
+                channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
+              })
            
               channel.on('MemberLeft', memberId => { 
           
@@ -622,12 +623,19 @@ console.log('channelchannelchannel newclient', newclient, channel)
           console.log('---------------bbbbbbbb-----client is not logedin-----');
         });
       } else {
+        channel.getMembers().then(membersList => {    
+                    
+          channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
+
+        }).catch(error => {
+           console.log('*************There is an error******');
+        });
           // channel log
-          // channel.on('MemberJoined', memberId => { 
+          channel.on('MemberJoined', memberId => { 
            
-          //   var massages="208"+sep+memberId+sep+"joined"+sep;        
-          //   channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
-          // })
+            var massages="208"+sep+memberId+sep+"joined"+sep;        
+            channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
+          })
        
           channel.on('MemberLeft', memberId => { 
       
@@ -1723,16 +1731,17 @@ function signalHandler(uid, signalData, userType) {
           }
       }else if(res1[0] == "301")
       {
-        alert('fitscript has Started');
+        console.log('-------------------fitscript has Started-------------');
+       // $('#hostFtnsScript').trigger('click');
+        $(".start span a").trigger('click');
       }else if(res1[0] == "302")
       {
         alert('fitscript has Stopped');
       }else if(res1[0] == "303")
       {
-        alert('fitscript Next');
+        //alert('fitscript Next');
       }else if(res1[0] == "304")
       {
-        // alert('winscript Next');
       }
     
      }
@@ -1871,9 +1880,9 @@ function signalHandler(uid, signalData, userType) {
     console.log('********guduorigin************** signalData ', signalData, userType);
     signalData = JSON.parse(signalData);
     if(signalData.code == '208'){
-    if(userType =='1'){  
+      if(userType =='1'){  
 
-      incrementcountAtHost(signalData,userType);        
+          incrementcountAtHost(signalData,userType);        
       }else{
           incrementcountAtAttendies(signalData,userType);    
       }
@@ -1967,23 +1976,24 @@ function signalHandler(uid, signalData, userType) {
       //  let hostEmail='deepak@test.com';
 
       let arrayToDispaly = JSON.parse(localStorage.getItem('allloginuser'));
+      console.log('arrayToDispaly', arrayToDispaly)
       $('#all_joined_member_list').html('');
       arrayToDispaly.forEach(element => {
-        
+        console.log('arrayToDispaly', element)
         memberID=convertEmailToId(element);
 
-       let userName=getNameByEmail(element);
+       let userName = getUserDataFromList(element, 'firstName');
          
        console.log('*******element*************** element ', element,'-----memberID-----',memberID);
 
-        if(element == hostEmail)
-        { 
+        // if(element == hostEmail)
+        // { 
             
-        $('#online_state').removeClass("online-status");        
-          $('#online_state').addClass("online-status");
-        }
+        //   $('#online_state').removeClass("online-status");        
+        //   $('#online_state').addClass("online-status");
+        // }
        // $('#all_joined_member_list').append('<div className="attendee-list"><img src="images/attendee.png" /><span class="title">'+element+'</span><div className="vid-icons"> <span class="icon-appearance d-none"  id="emojies_app'+memberID+'"  data-attr="emojies'+memberID+'"></span><span class="icon-aroma d-none" id="emojies_ar'+memberID+'" data-attr="emojies'+memberID+'"></span><span class="icon-palate d-none"  id="emojies_pal'+memberID+'"  data-attr="emojies'+memberID+'"></span><span class="icon-score d-none"  id="emojies_sc'+memberID+'"  data-attr="emojies'+memberID+'"></span></div></div>');
-        $('#all_joined_member_list').append('<div className="attendee-list"><img src="images/attendee.png" /><span className="title">'+userName+'</span><div className="vid-icons"> <span className="icon-appearance d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span className="icon-aroma d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span className="icon-palate d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span className="icon-score d-none"  id="emojies_sc'+memberID+'"  data-attr="'+memberID+'"></span></div></div>');
+        $('#all_joined_member_list').append('<div class="attendee-list"><img src="images/attendee.png" /><span class="title">'+userName+'</span><div class="vid-icons"> <span class="icon-appearance d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-aroma d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-palate d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-score d-none"  id="emojies_sc'+memberID+'"  data-attr="'+memberID+'"></span></div></div>');
       }); 
       
       $('#totalonline').empty(); 
@@ -2112,8 +2122,10 @@ function signalHandler(uid, signalData, userType) {
         console.log('*******Emojiesdata************** signalData ',newSenderID, signalData,senderId,userType); 
         if(signalData == "appearence")
         {
-       // $('#emojies_app'+newSenderID+'').removeClass("d-none");
-        $('.icon-appearance[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+          console.log('*******Emojiesnewdata************** signalData ',newSenderID, signalData,senderId,userType);
+        $('#emojies_app'+newSenderID+'').removeClass("d-none");
+       console.log('-------',$('.icon-appearance[data-attr=\''+newSenderID+'\']').length)
+       // $('.icon-appearance[data-attr=\''+newSenderID+'\']').removeClass("d-none");
         }
         else if(signalData == "aroma")
         {
@@ -2414,7 +2426,7 @@ function signalHandler(uid, signalData, userType) {
       $(".slide-right-left").css({"width": "72px", "float": "right"});
       $("#minimize-others, .right-sidebar .title").addClass('d-none');
       $("#show-everyone").removeClass('d-none');
-      $(".attendee-list").css("background", "transparent");
+      //$(".attendee-list").css("background", "transparent");
       $(".slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").hide();
         
         

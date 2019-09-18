@@ -99,9 +99,11 @@ class PreConfiguration extends Component {
       this.removeScript('/agora-rtm-sdk-1.0.0.js');
       this.removeScript('/pre-main.js');
 
+      window.participentTimerAlertClose();
+
       let localstoragedata = JSON.parse(localStorage.getItem('userData'));
     // this.setState({userType : localstoragedata.userType})
-
+      
       if(localstoragedata.userType != ''){
         let mediaSetting = {};
         mediaSetting['camera'] = $('input[name="video-type"]').length > 0 ? $('input[name="video-type"]:checked').val():null;

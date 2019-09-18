@@ -669,7 +669,7 @@ function attendeeScreenHeight(){
     let hostHeight = $(".host-script-section").height();
     let sectionHeights = winHeight - (hostHeight + headerHeight);
 
-    $("#subscribers-list").height(`${sectionHeights - 116}px`)
+    $("#subscribers-list").height(`${sectionHeights - 107}px`)
     
     let sub_list_y = $("#subscribers-list").height(); 
     let sub_list_x = $("#subscribers-list").width(); 
@@ -1423,7 +1423,7 @@ function signalHandler(uid, signalData, userType) {
     $("body, div").bind('mousewheel', function() {
       return false
     });
-    
+    onPageResize();
     window.onresize = onPageResize;
 
     // check devices
@@ -1441,7 +1441,7 @@ function signalHandler(uid, signalData, userType) {
    
       $(document).on('click', '#fullscreen', function(){
         //GoInFullscreen();
-        toggleFullScreen();
+        //toggleFullScreen();
       })
 
       $('#attendy-list').on('shown.bs.modal', function () {

@@ -15,6 +15,8 @@ class FooterScriptParticipant extends Component {
   }
  
   componentDidMount(){
+    
+    
 
     let localstoragedata = JSON.parse(localStorage.getItem('userData'));
     var userEmail=localstoragedata.email;
@@ -78,7 +80,7 @@ console.log('sessionScript=', sessionScript)
        <div>
        { this.props.sessId == 1 ? (
        
-          <div>
+          <div className="participent-emoji">
             <ul className="bottom-links flex-wrap list-group list-group-horizontal mx-auto d-md-flex justify-content-center py-xs-1">
    
              <li className="list-group-item bg-transparent border-0"><a href="#"  onClick={this.getAppearence.bind(this)}>APPEARANCE</a></li>

@@ -1649,16 +1649,18 @@ function signalHandler(uid, signalData, userType) {
           }
       }else if(res1[0] == "301")
       {
-        alert('fitscript has Started');
+        console.log('-------------------fitscript has Started-------------');
+       // $('#hostFtnsScript').trigger('click');
+        $(".start span a").trigger('click');
       }else if(res1[0] == "302")
       {
         alert('fitscript has Stopped');
       }else if(res1[0] == "303")
       {
-        alert('fitscript Next');
+        //alert('fitscript Next');
       }else if(res1[0] == "304")
       {
-        alert('winscript Next');
+       // alert('winscript Next');
       }
     
      }

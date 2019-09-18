@@ -910,7 +910,7 @@ function signalHandler(uid, signalData, userType) {
       //newres=resultant[0].split("$");
       //console.log('********ggggggggggggg************** signalData ', signalData.message); 
       $('#newmsg').html(resultant[1]);
-      setTimeout(function(){ $('#newmsg').html(''); }, 10000);
+     // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
     }
 
     else if(resultant[0] == '205')

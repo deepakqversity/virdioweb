@@ -1168,7 +1168,14 @@ if(!AgoraRTC.checkSystemRequirements()) {
 function attendeeScreenHeight(){
   let attendeeHeight = $(".attend-mid-section").height();
 }
-
+function changeImage(){
+  if ($(window).width() < 1024){
+    $(".fitness-guest .swiper-slide img").attr("src", "images/arrow-right.png").addClass("mobile-arrow");
+  }
+  else {
+    $(".fitness-guest .swiper-slide img").attr("src", "images/arrow-img.png").removeClass("mobile-arrow");
+  }
+}
 
   function onPageResize(){
       
@@ -1177,13 +1184,20 @@ function attendeeScreenHeight(){
     let hostHeight = $(".host-script-section").height();
     let sectionHeights = winHeight - (hostHeight + headerHeight);
 
-    $("#subscribers-list").height(`${sectionHeights - 116}px`)
+    $("#subscribers-list").height(`${sectionHeights - 107}px`)
     
     let sub_list_y = $("#subscribers-list").height(); 
     let sub_list_x = $("#subscribers-list").width(); 
     let len_subs = $('#subscribers-list').find('video').length;
     // console.log('demo== sub_list_y, sub_list_x, len_subs = ', sub_list_y, sub_list_x, len_subs)
-
+    if($(".show-hide-title").hasClass("d-none")){
+      $(".section.attendees").addClass("mt-76");
+    
+    }else {
+      $(".section.attendees").removeClass("mt-76");
+      
+    }
+    
     if(sub_list_x <= 992){
       if(len_subs>2) {
         $("#subscribers-list")
@@ -1858,15 +1872,19 @@ function signalHandler(uid, signalData, userType) {
         // }
       }
 
+    
+  
+       
+
       $(document).ready(function(){
-
-
+        
+        
         $('#dropdownMenuButton').on('show.bs.modal', function (e) {
           // alert('===')
             showHandAtHost();
         });
         onPageResize();
-      
+        changeImage();
 
        
         $(document).on("click", ".start span a", function(){
@@ -1916,6 +1934,7 @@ function signalHandler(uid, signalData, userType) {
     $(".fullscreen").click(function(){
       $(".host-script-section").height() < 255 ? $(".host-script-section").height("255px") : $(".host-script-section").height("auto");
       
+      $(".show-hide-v").hasClass("d-none") ? $(".show-hide-v").removeClass("d-none").addClass("d-block") : $(".show-hide-v").addClass("d-none").removeClass("d-block");
       
       if($(".show-hide-title").hasClass("d-block")){
         $(".show-hide-title").addClass("d-none").removeClass("d-block");
@@ -1956,7 +1975,8 @@ function signalHandler(uid, signalData, userType) {
 
     
     window.onresize = onPageResize;
-    
+    //window.onload = changeImage;
+    window.onresize = changeImage;
    
     $(document).on('click', '#continue-join', function(){
       continueJoin();

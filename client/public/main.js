@@ -2269,7 +2269,7 @@ function signalHandler(uid, signalData, userType) {
       $(".slide-right-left").css({"width": "72px", "float": "right"});
       $("#minimize-others, .right-sidebar .title").addClass('d-none');
       $("#show-everyone").removeClass('d-none');
-      $(".attendee-list").css("background", "transparent");
+      //$(".attendee-list").css("background", "transparent");
       $(".slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").hide();
         
         

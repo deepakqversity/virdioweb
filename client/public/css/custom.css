@@ -2045,6 +2045,9 @@ display: inline-block;
 .joiners img{
     margin-right: 9px;
     width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    object-fit: cover;
 }
 .joiners span{
 	color:#fff;
@@ -2585,6 +2588,20 @@ outline: none;
     width: 100%;
     
 }
+.joined-member-list{
+	overflow-y:scroll;
+	    padding-right: 10px;
+    overflow-x: hidden;
+}
+.joined-member-list::-webkit-scrollbar{
+	width:6px;
+	
+}
+.joined-member-list::-webkit-scrollbar-thumb{
+	width:6px;
+	background:#000;
+}
+
 .attendee-list{
 	background: #000;
     border-radius: 10px;

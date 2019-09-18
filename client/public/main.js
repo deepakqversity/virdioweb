@@ -2092,7 +2092,7 @@ function signalHandler(uid, signalData, userType) {
     $(".host-script-section").height("255px");
     $(".host-section").css({"min-width": "380px", "max-width": "380px"});
     
-    $(".fullscreen").click(function(){
+    $(".fullscreen, .back-btn").click(function(){
       $(".host-script-section").height() < 255 ? $(".host-script-section").height("255px") : $(".host-script-section").height("auto");
       
       $(".show-hide-v").hasClass("d-none") ? $(".show-hide-v").removeClass("d-none").addClass("d-block") : $(".show-hide-v").addClass("d-none").removeClass("d-block");

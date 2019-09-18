@@ -182,7 +182,12 @@ return (
             </div>
             
           </div>
-          
+          <div className="show-hide-v d-none">
+            <div>
+              <a href="#" className="back-btn"><i className="fa fa-chevron-left" aria-hidden="true"></i></a>
+              <img src="images/v-logo.png" />
+            </div>
+          </div>
         </div>
         <div className="col col-md-11">
           <h3 className="main-heading show-hide-title d-block">{sessionData.name} <span>by <span className="welcome-title">{sessionData.hostFirstName.toLowerCase()}</span><span className="green-online online-status"><span>ONLINE</span></span></span>

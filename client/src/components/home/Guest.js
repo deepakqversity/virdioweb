@@ -168,20 +168,20 @@ return (
         <div className="col-lg-12 col-md-12">
           <div className="transparent-gray">
             <div className="row">
-              <a href="" className="col-12 py-xs-1 col-lg-1 col-md-1 col-sm-1 d-flex v-logo align-items-center">
+              <a href="" className="col-12 py-xs-1 col-lg-1 col-md-1 col-sm-12 d-flex v-logo align-items-center">
                 <img src="images/v-logo.png" />
               </a>
-              <div className="col-12 col-lg-11 col-md-11 col-sm-11">
+              <div className="col-12 col-lg-11 col-md-11 col-sm-12">
               
                 <div className="row justify-content-between align-items-center">
-                  <div className="col-12 col-lg-7 col-md-6 text-center text-md-left col-sm-4">
+                  <div className="col-12 col-lg-7 col-md-6 text-center text-md-left col-sm-12">
                     <div className="time py-xs-1">  <span>{localDate}</span>
                     <span>Time Remaining: {hours} : {minutes} : {seconds}</span>
                     </div>
                     <div id="hostmsg" style={{color:'green'}}></div>
                   </div>
                   
-                  <div className="col-12 center-mob col-sm-7 col-md-6 col-lg-3 d-flex justify-content-end">
+                  <div className="col-12 center-mob col-sm-12 col-md-6 col-lg-3 d-flex justify-content-end">
                   
                     <a className="col-2 justify-content-end d-flex align-items-center" href="#" className="btn btn-primary " tabIndex="1">Details</a>
                     <div className="default-btns mr-2">

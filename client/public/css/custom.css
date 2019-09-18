@@ -295,7 +295,7 @@ h3.main-heading span span span {
 	margin-top:-1px;
 }
 .h53{
-	height:51px;
+	height:53px;
 }
 .display-grid-auto-4{
 	display:grid;
@@ -411,7 +411,7 @@ h3.main-heading span span span {
 .time span:nth-child(2){
 	padding-left: 20px;
 }
-/* @media (max-width:900px){
+@media (max-width:768px){
 .time span{
     width: 100%;
     display: block;
@@ -423,7 +423,7 @@ h3.main-heading span span span {
 .time span:nth-child(2){
 	padding-left: 0px;
 }
-} */
+} 
 .mic-icon{
 	width:24px;
 	    margin-left: 20px;
@@ -1663,6 +1663,12 @@ img.user-login{
 }
 
 /* -------------  10. Attendee Screen ----------- */
+.participent-emoji{
+	    height: 125px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
 .bpm-bar{
     width: 60px;
     height: 100%;
@@ -2513,7 +2519,7 @@ ul.music-playlist li a span:nth-child(3){
 	width:20px;
 }
 
-@media (max-width:576px){
+@media (max-width:767px){
 	.v-logo, .center-mob{
 		justify-content:center !important;
 	}

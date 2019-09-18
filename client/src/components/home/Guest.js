@@ -66,7 +66,8 @@ class Guest extends Component {
   }
 
   componentDidMount(){
-    
+    let leftHeight = $(".left-section").height();
+    $("#all_joined_member_list").height(leftHeight);
     this.loadScript('/AgoraRTCSDK-2.7.1.js');
     this.loadScript('/agora-rtm-sdk-1.0.0.js');
     this.loadScript('/main.js');
@@ -172,7 +173,9 @@ return (
                 <img src="images/v-logo.png" />
               </a>
               <div className="col-12 col-lg-11 col-md-11 col-sm-12">
-              
+              <h3 className="main-heading show-hide-title d-block">{sessionData.name} <span>by <span className="welcome-title">{sessionData.hostFirstName.toLowerCase()}</span><span className="green-online online-status"><span>ONLINE</span></span></span>
+          
+          </h3>
                 <div className="row justify-content-between align-items-center">
                   <div className="col-12 col-lg-7 col-md-6 text-center text-md-left col-sm-12">
                     <div className="time py-xs-1">  <span>{localDate}</span>
@@ -219,7 +222,7 @@ return (
             
             <div className="joined-attendees ">
               <h4 className="mb-2 head"><span className="title">Wine Testers</span><span className="count">(<span  id="joined_users_at_client">0</span>/<span>{newulength}</span>)</span></h4>
-              <div id="all_joined_member_list"></div>
+              <div className="joined-member-list" id="all_joined_member_list"></div>
               <button type="button" id="minimize-others" className="mt-2 minimize-others mx-auto d-none"><img src="images/exit-screen.png" /></button>
 
             </div>

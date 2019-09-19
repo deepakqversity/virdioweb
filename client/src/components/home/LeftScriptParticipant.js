@@ -33,7 +33,7 @@ return (
 
 {
   sessionScript.map((opt, i) =>
-            <div className="carousel-item">
+            <div className="carousel-item" key={i}>
             <div className="left-section">
                 <h2 className="item-name py-3">{sessionData.scriptTitle}  {sessionData.scriptType}</h2>
                 <h3 className="second-heading my-3">{opt.name}</h3>
@@ -44,8 +44,8 @@ return (
                 <div className="item-description py-4">
                   <div className="row">
                     <ul className="col-12 col-md-12 list-info my-0">
-                            {opt.attribute.map(function(attrb, index){
-                             return <li><span>{attrb.attrLabel}</span><span>{attrb.attrValue}</span></li>   
+                            {opt.attribute.map(function(attrb, inf){
+                             return <li key={inf}><span>{attrb.attrLabel}</span><span>{attrb.attrValue}</span></li>   
                             })}
                                       
                     </ul>

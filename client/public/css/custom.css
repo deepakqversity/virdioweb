@@ -2664,6 +2664,39 @@ outline: none;
     font-family: Avenir-Heavy;
     font-size: 14px;
 }
+.bottom-links .dropup .dropdown-menu{
+	border-radius: 30px;
+    background: rgba(255,255,255,0.7);
+    padding: 7px 11px;
+	    min-width: 12rem;
+		left: -37px !important;
+}
+.bottom-links .dropup li{
+	position:relative;
+}
+.bottom-links .dropup .dropdown-menu::after{
+content: "\f0d7";
+    font-family: FontAwesome;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: -14px;
+    display: table;
+    width: 100%;
+    text-align: center;
+    color: rgba(255,255,255,0.7);
+    font-size: 16px !important;
+}
+.bottom-links .dropup .dropdown-menu a{
+	float: left;
+}
+.bottom-links .dropup .dropdown-menu a img{
+	width: 26px;
+}
+.bottom-links .dropup .dropdown-toggle::after{
+	display:none;
+}
 .self-video{
     max-width: 100%;
 }

@@ -210,16 +210,9 @@ class PreConfiguration extends Component {
       {
         data.forEach(element => {
 
-          if(element.id == 1 && element.sessionStatus == 1 )
+          if(element.userType == 1 && element.sessionStatus == 1 )
           {
-            console.log('----------viratsigh------------',element.sessionStatus);
-          //  $('#continue-join').removeAttr("disabled");
-
-          // let sessionTime = {};
-          // sessionTime['startTime'] = (new Date()).getTime();
-          // sessionTime['joinTime'] = ''
-          // localStorage.setItem("pre-session-time", JSON.stringify(sessionTime));  
-      
+            
           this.setState({
             isHostJoined: true,
             });

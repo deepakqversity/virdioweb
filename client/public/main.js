@@ -525,7 +525,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   //var currentSession = getCurrentSession(); 
   var newclient; 
   var channel;
-  var channelName1 = '';
+  var channelName1;
   
   function rtmJoin()
   {
@@ -1760,9 +1760,9 @@ function signalHandler(uid, signalData, userType) {
         // }
 
 
-
         console.log('********Deepak************** signalData ', senderId);
         let rtmJoinOrder = JSON.parse(localStorage.getItem("rtm-join-order"));
+        console.log('********Deepak************** signalData ', rtmJoinOrder);
         let localUserDta= JSON.parse(localStorage.getItem("userData"));
 
         rtmJoinOrder.forEach(ele => {

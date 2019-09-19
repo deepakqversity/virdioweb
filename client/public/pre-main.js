@@ -82,7 +82,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       for(let i in strArray){
         if(strArray[i].id == userId){
           f = 1;
-          strArray[i].joinAt = currentTime;
+          // strArray[i].joinAt = currentTime;
         }
       }
       orderList = strArray;
@@ -102,15 +102,16 @@ if(!AgoraRTC.checkSystemRequirements()) {
   //var currentSession = getCurrentSession(); 
   var newclient; 
   var channel;
-  var channelName1 = '1440';
+  var channelName1 = '';
 
   function rtmJoin()
   {
-   var appId1 = '232f270a5aeb4e0097d8b5ceb8c24ab3';
-   // var appId1 = '86706f65732f4988b39974feb4eed508';
+    // var appId1 = '232f270a5aeb4e0097d8b5ceb8c24ab3';
+    var storeData = getCurrentUserData();
+    var appId1 = storeData.sessionData.rtmAppId;
+    channelName1 = storeData.sessionData.rtmChannelId;
     var token=null;
     newclient = AgoraRTM.createInstance(appId1);
-    var storeData = getCurrentUserData();
     // appId1 = storeData.sessionData.appId;
 
     var peer=storeData.email;
@@ -934,6 +935,7 @@ function signalHandler(uid, signalData, userType) {
 
     function channelMsgHandler(msg, senderId, userType)
     {
+      let storeData = getCurrentUserData();
       
       let res1=msg.split(sep);
       console.log('********Deepak************** signalData ', senderId);
@@ -964,26 +966,36 @@ function signalHandler(uid, signalData, userType) {
       }else if(res1[0] == "222")
       {
         console.log('2222222222222222222222222')
-        if($('#participent-timer-alert').length > 0){
+        let userList = getOrderUser();
+        console.log('22222222222 ----------',userList)
+        if(userList != ''){
+          for(let i=0; i< storeData.default.maxUserLimit; i++){
+            if(storeData.id == convertEmailToId(userList[i].id) ){
 
-          $('#participent-timer-alert').modal('show');
+              if($('#participent-timer-alert').length > 0){
 
-          let duration = parseInt($('#rem-join-timer').html());
+                $('#participent-timer-alert').modal('show');
 
-          let ref2 = setInterval( function() {
-              $('#rem-join-timer').html(duration < 0 ? 0 : duration);
-              if(duration < 0){
-                clearInterval(ref2);
-                $('#continue-join').click();
+                let duration = parseInt($('#rem-join-timer').html());
+
+                let ref2 = setInterval( function() {
+                    $('#rem-join-timer').html(duration < 0 ? 0 : duration);
+                    if(duration < 0){
+                      clearInterval(ref2);
+                      $('#continue-join').click();
+                    }
+                    duration--;
+                }, 1000 );
               }
-              duration--;
-          }, 1000 );
+
+              let sessionTime = {};
+              sessionTime['startTime'] = (new Date()).getTime();
+              sessionTime['joinTime'] = ''
+              localStorage.setItem("pre-session-time", JSON.stringify(sessionTime));
+            }
+          }
         }
 
-        let sessionTime = {};
-        sessionTime['startTime'] = (new Date()).getTime();
-        sessionTime['joinTime'] = ''
-        localStorage.setItem("pre-session-time", JSON.stringify(sessionTime));  
 
         $('#continue-join').removeAttr("disabled");
         let newmsg="Now U can Join";
@@ -1408,6 +1420,18 @@ function signalHandler(uid, signalData, userType) {
         }
         return '';
       }
+
+    function getOrderUser(){
+      let userList = localStorage.getItem("rtm-join-order");
+
+      if(userList == null) return '';
+
+      userList = JSON.parse(userList);
+      console.log('userListuserList',userList, typeof userList);
+      userList.sort(function(a, b) { return parseInt(a.joinAt) - parseInt(b.joinAt); });
+
+      return userList; 
+    }
       
   $(document).ready(function(){
 

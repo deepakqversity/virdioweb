@@ -119,15 +119,6 @@ class PreConfiguration extends Component {
 
         // let device = {microphone : $('input[name="audio-type"]:checked').val(), camera : $('input[name="video-type"]:checked').val()}
         // console.log('device', device, localstoragedata.userType)
-        if(localstoragedata.userType != 1){
-
-          let sessionTime = localStorage.getItem("pre-session-time");
-          if(sessionTime != ''){
-              sessionTime = JSON.parse(sessionTime);
-              sessionTime['joinTime'] = (new Date()).getTime();
-          }
-          localStorage.setItem("pre-session-time", JSON.stringify(sessionTime));
-        }
 
         if(localstoragedata.userType == 1){
           this.props.history.push("/host");
@@ -140,6 +131,19 @@ class PreConfiguration extends Component {
         this.props.history.push("/login");
       }
   }
+
+  joinSessionByFirst = () => {
+    if(JSON.parse(localStorage.getItem('userData')).userType != 1){
+
+      let sessionTime = localStorage.getItem("pre-session-time");
+      if(sessionTime != ''){
+          sessionTime = JSON.parse(sessionTime);
+          sessionTime['joinTime'] = (new Date()).getTime();
+      }
+      localStorage.setItem("pre-session-time", JSON.stringify(sessionTime));
+    }
+    this.joinSession();
+  };
 
   addLog = (sessionId, userType, type) => {
     
@@ -211,10 +215,10 @@ class PreConfiguration extends Component {
             console.log('----------viratsigh------------',element.sessionStatus);
           //  $('#continue-join').removeAttr("disabled");
 
-          let sessionTime = {};
-          sessionTime['startTime'] = (new Date()).getTime();
-          sessionTime['joinTime'] = ''
-          localStorage.setItem("pre-session-time", JSON.stringify(sessionTime));  
+          // let sessionTime = {};
+          // sessionTime['startTime'] = (new Date()).getTime();
+          // sessionTime['joinTime'] = ''
+          // localStorage.setItem("pre-session-time", JSON.stringify(sessionTime));  
       
           this.setState({
             isHostJoined: true,
@@ -273,8 +277,7 @@ render() {
           <td><img className="mr-2 user-status" src="/images/offline.png" />online</td>
           <td>YES</td>
           <td>5</td>
-
-        </tr>
+          </tr>
         );
       }
     })
@@ -290,7 +293,7 @@ render() {
               <div><span id="rem-join-timer">{localstoragedata.default.maxJoinDuration}</span></div>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-success" onClick={this.joinSession}>Join</button>
+              <button type="button" className="btn btn-success" onClick={this.joinSessionByFirst}>Join</button>
             </div>
           </div>
         </div>
@@ -498,17 +501,15 @@ render() {
         </div>
       </div>
 
-      { participentTimerPopup }
+      {participentTimerPopup}
 
       <div className="modal attendy-list" id="attendy-list">
         <div className="modal-dialog">
           <div className="modal-content">
-            {/* Modal Header */}
             <div className="modal-header">
               <h4 className="modal-title">Participants List</h4>
               <button type="button" className="close" data-dismiss="modal">×</button>
             </div>
-            {/* Modal body */}
             <div className="modal-body">
             <table className="table">
               <thead>
@@ -521,7 +522,7 @@ render() {
                 </tr>
               </thead>
               <tbody>
-              { onlineUsers }                
+              {onlineUsers}                
               </tbody>
             </table>
             </div>

@@ -283,13 +283,10 @@ return (
       <div className="modal music-list" id="musicList">
         <div className="modal-dialog  rounded">
           <div className="modal-content bg-gray">
-
             
             <div className="modal-header">
-              
               <button type="button" className="close" data-dismiss="modal">&times;</button>
             </div>
-
             
             <div className="modal-body">
             <ul className="music-playlist">
@@ -397,6 +394,7 @@ return (
 
 
       </div>
+      <input type="hidden" id="selected-participent-id" />
       <input type="hidden" id="to-broadcast" />
       <input type="hidden" id="current-camera" />
       <input type="hidden" id="current-microphone" />

@@ -1796,23 +1796,27 @@ function signalHandler(uid, signalData, userType) {
           }else{
             setEmojiesAtClient(res1[1],senderId,userType);
           }
-      }else if(res1[0] == "301")
+      }else if(res1[0] == "211")
       {
         console.log('-------------------fitscript has Started-------------');
        // $('#hostFtnsScript').trigger('click');
         $(".start span a").trigger('click');
-      }else if(res1[0] == "302")
+      }else if(res1[0] == "212")
       {
        // alert('fitscript has Stopped');
         console.log('-------------------fitscript has Stopped-------------');
         $(".end span a").trigger('click');
-      }else if(res1[0] == "303")
+      }else if(res1[0] == "213")
       {
-        //alert('fitscript Next');
-      }else if(res1[0] == "304")
+        //alert('fitscript pause');
+      }else if(res1[0] == "214")
       {
         $(".carousel-control-next").trigger('click');
           //alert('Winsscript Next');
+      }else if(res1[0] == "215")
+      {
+        $(".carousel-control-prev").trigger('click');
+          //alert('Winsscript previous');
       }
     
      }
@@ -2004,8 +2008,9 @@ function signalHandler(uid, signalData, userType) {
       function incrementcountAtAttendies(signalData,userType)
       {
       
-        var count3=$('#totalonline').html();
+        let count3=$('#joined_users_at_client').html();
 
+        console.log('*******totallist111222*************** signalData ',signalData.member,'----mmm----', localstoragedata);
       
         count3=parseInt(count3);
         var arr;
@@ -2014,7 +2019,7 @@ function signalHandler(uid, signalData, userType) {
       { 
         let localstoragedata = JSON.parse(localStorage.getItem('allloginuser'));
         let newmem=signalData.member;
-        console.log('*******totallist111222*************** signalData ',signalData.member,'----mmm----', localstoragedata); 
+       // console.log('*******totallist5555555*************** signalData ',count3); 
 
         localstoragedata.push(newmem);
         localStorage.setItem("allloginuser", JSON.stringify(localstoragedata));
@@ -2029,9 +2034,10 @@ function signalHandler(uid, signalData, userType) {
           $('#online_state').removeClass("online-status");        
           $('#online_state').addClass("online-status");
         }
+        console.log('*******totallist5555555*************** signalData ',count3); 
         count4=count3+1;
       
-         
+        console.log('*******totallist666666*************** signalData ',count4); 
 
      
       }else if(signalData.msgtype=='left') {
@@ -2058,9 +2064,9 @@ function signalHandler(uid, signalData, userType) {
           $('#online_state').removeClass("online-status");
         }
 
-      
+        console.log('*******totallist333333333*************** signalData ',count3); 
         count4=count3-1;
-     
+        console.log('*******totallist77777777*************** signalData ',count4); 
           
       }else if(signalData.msgtype=='totalcount') {
             
@@ -2071,7 +2077,7 @@ function signalHandler(uid, signalData, userType) {
         count4=signalData.member;
         count4=parseInt(count4);
         count4=count4-1;
-       // console.log('*******totallist*************** signalData ', count4);
+       console.log('*******totallist*************** signalData ', count4);
        //arr.shift();
    
       }
@@ -2081,10 +2087,10 @@ function signalHandler(uid, signalData, userType) {
       //  let hostEmail='deepak@test.com';
 
       let arrayToDispaly = JSON.parse(localStorage.getItem('allloginuser'));
-      console.log('arrayToDispaly', arrayToDispaly)
+      console.log('----------------------arrayToDispaly', arrayToDispaly,count4)
       $('#all_joined_member_list').html('');
       arrayToDispaly.forEach(element => {
-        console.log('arrayToDispaly', element)
+        console.log('---------------arrayToDispaly', element)
         memberID=convertEmailToId(element);
 
        let userName = getUserDataFromList(element, 'firstName');
@@ -2101,8 +2107,8 @@ function signalHandler(uid, signalData, userType) {
         $('#all_joined_member_list').append('<div class="attendee-list"><img src="images/attendee.png" /><span class="title">'+userName+'</span><div class="vid-icons"> <span class="icon-appearance d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-aroma d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-palate d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-score d-none"  id="emojies_sc'+memberID+'"  data-attr="'+memberID+'"></span></div></div>');
       }); 
       
-      $('#totalonline').empty(); 
-      $('#totalonline').html(count4);
+      // $('#totalonline').empty(); 
+      // $('#totalonline').html(count4);
     
         $('#joined_users_at_client').empty(); 
         $('#joined_users_at_client').html(count4); 
@@ -2112,10 +2118,10 @@ function signalHandler(uid, signalData, userType) {
 
       function incrementcountAtHost(signalData,userType)
       {  
-        console.log('********munmunHost************** signalData ', signalData, userType);
-        var count=$('#totalonline').html();
+        console.log('********munmunHost222222222************** signalData ', signalData, userType);
+        let count=$('#joined_users').html();
 
-      console.log('********munmunHost************** signalData ', signalData);
+      console.log('********munmunHost************** signalData ', signalData,count);
         count=parseInt(count);
 
         let storeData = getCurrentUserData();
@@ -2136,13 +2142,13 @@ function signalHandler(uid, signalData, userType) {
 
       if(signalData.msgtype=='Joined')
       {     
-        console.log('********guduHost************** signalData ', signalData, userType);
+       
         count1=count+1;
-
+        console.log('********guduHost111111111************** signalData ', signalData, userType,count1);
        
          // console.log('*********lllllllll************* signalData ', signalData.message);
-          $('#totalonline').empty(); 
-          $('#totalonline').html(count1);  
+          // $('#totalonline').empty(); 
+          // $('#totalonline').html(count1);  
         
             $('#joined_users').empty(); 
             $('#joined_users').html(count1);
@@ -2164,9 +2170,11 @@ function signalHandler(uid, signalData, userType) {
         
         count1=count-1; 
 
+        console.log('********virenHost111111111************** signalData ', signalData, userType,count1);
+
        
-          $('#totalonline').empty(); 
-          $('#totalonline').html(count1);  
+          // $('#totalonline').empty(); 
+          // $('#totalonline').html(count1);  
           // $('#newmsg').html(signalData.message);
           // setTimeout(function(){ $('#newmsg').html(''); }, 10000); 
         
@@ -2182,9 +2190,9 @@ function signalHandler(uid, signalData, userType) {
         count1=signalData.member;
         count1=parseInt(count1); 
         count1=count1-1;
-      
-        $('#totalonline').empty(); 
-        $('#totalonline').html(count1);  
+        console.log('********atulHost111111111************** signalData ', signalData, userType,count1);
+        // $('#totalonline').empty(); 
+        // $('#totalonline').html(count1);  
      
           $('#joined_users').empty(); 
           $('#joined_users').html(count1);
@@ -2245,6 +2253,7 @@ function signalHandler(uid, signalData, userType) {
 
       function leaveLogout(){
           // localStream.stop();
+          updateJoinSessionStatus();
           leave_channel();
           removeSession();
           location.href  = '/login';

@@ -11,10 +11,11 @@ let config = {
 		welcome : { code : 200, 'message' : 'Welcome #USER#'},
 		handRaise : { code : 201, 'message' : 'Test hand raise'},
 
-		ftnsStart : { code : 301, 'message' : ''},
-		ftnsStop : { code : 302, 'message' : ''},		
-		ftnsNext : { code : 303, 'message' : ''},
-		WinsNext : { code : 304, 'message' : ''}
+		ftnsStart : { code : 211, 'message' : ''},
+		ftnsStop : { code : 212, 'message' : ''},		
+		ftnsPause : { code : 213, 'message' : ''},
+		WinsNext : { code : 214, 'message' : ''},
+		WinsPrev : { code : 215, 'message' : ''}
 	}
 };
 

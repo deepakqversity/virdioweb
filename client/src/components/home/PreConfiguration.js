@@ -439,30 +439,6 @@ render() {
                           return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
                         } else {
 
-//console.log('----------lalit----------',JSON.stringify(userList))
-                         // var locaData = getCurrentUserData();
-                          //console.log('----------localData--',locaData.id)
-                         // JSON.parse(localStorage.getItem('userData'));
-                              // let output = JSON.parse(localStorage.getItem("userData"));
-                              // console.log('----------virat------------',output.userType);
-                              // if(output.userType == 2)
-                              // {
-                                 
-                                //  console.log('----------virat------------',output_res.length);
-                    
-                                // output_res.forEach(element => {
-                                //   if(element.id == 1 && element.sessionStatus == 1 )
-                                //   {
-                                //     console.log('----------viratsigh------------',element.sessionStatus);
-                                //     $('#continue-join').removeAttr("disabled");
-                      
-                                //     $('#continue-join').prop("disabled", false);
-                                //   }
-                                //   console.log('----------viratkumar------------',element.id);
-                                // }); 
-                             // }
-                            // this.state.isHostJoined
-
                           if(this.state.isHostJoined == false)
                           {
                           return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)} disabled>Join</button>;

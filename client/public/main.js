@@ -1886,19 +1886,20 @@ function signalHandler(uid, signalData, userType) {
      }
 
      function showHandAtHost(){
+      console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
         let audienceList = JSON.parse(localStorage.getItem("audience-list"));
-        // console.log('audienceList', audienceList, audienceList.length)
+        console.log('audienceList', audienceList, audienceList.length)
         if(audienceList.length > 0){
           
           let list='';
           for(let i in audienceList){
-            if($('#audience-'+audienceList[i].id).length == 0){
-
+            if($('#audience-'+audienceList[i].id).length != 0){
+              $('#audience-'+audienceList[i].id).remove();
+            }
               let timeDur = (new Date()).getTime() - audienceList[i].handRaisedAt;
 
 
               list += '<li id="audience-'+audienceList[i].id+'"><a class="dropdown-item media" href="javascript:;" onClick="changeUserToBroadcaster(\''+audienceList[i].id+'\')"><img src="images/avtar.png" /><div class="media-body"><span class="welcome-title">'+audienceList[i].firstName+', '+getUserDataFromList(audienceList[i].id, 'city')+'</span><span>'+checkTime(timeDur)+' ago</span></div></a></li>';          
-            }
           }
           $('#total-raised-hands').html(audienceList.length);
           $('#raised-list').append(list);
@@ -2343,9 +2344,11 @@ function signalHandler(uid, signalData, userType) {
       $(document).ready(function(){
         
         
-        $('#dropdownMenuButton').on('shown.bs.dropdown', function (e) {
-          alert('===')
-            showHandAtHost();
+        $('#dropdownMenuButton').on('click', function (e) {
+          // alert($('.hand-raise-list .dropdown-menu').hasClass('show'))
+            if($('.hand-raise-list .dropdown-menu').hasClass('show') != true){
+              showHandAtHost();
+            }
         });
         onPageResize();
         changeImage();

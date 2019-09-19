@@ -225,7 +225,7 @@ return (
           <h4 className="title">{sessionData.scriptTitle} (<span id="joined_users">0</span>/<span>{newulength}</span>)</h4>
           <div className="hand-raise-list">
             <div className="dropdown keep-open">
-              <button className="dropdown-toggle circle-ripple d-none" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button className="dropdown-toggle circle-ripple d-none" type="button" id="dropdownMenuButton" data-toggle="dropdown">
                 <img src="images/hand-raise.png" />
               </button>
               <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">

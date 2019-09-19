@@ -2388,6 +2388,17 @@ function signalHandler(uid, signalData, userType) {
 
       $(document).ready(function(){
         
+        let heightScript = $(".host-script-section").height();
+            
+        $(".item-description.script-section").height(`${heightScript - 37 }px`);
+        //$(".host-local").height(`${heightScript}px`);
+        $(".host-show-hide").height(`${heightScript - 30 }px`);
+        $(".host-show-hide .video-streams").height("100%");
+
+
+        $('#dropdownMenuButton').on('show.bs.modal', function (e) {
+          // alert('===')
+            showHandAtHost();
         
         $('#dropdownMenuButton').on('click', function (e) {
           // alert($('.hand-raise-list .dropdown-menu').hasClass('show'))

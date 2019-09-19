@@ -543,7 +543,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
     // appId1 = storeData.sessionData.channelId;
     var peer=storeData.email;
     // newclient.login({uid: peer.toString(), token});
-
+console.log('------------newclientlalit-------',newclient);
+console.log('------------channellalit-------',channel);
     if(newclient == undefined){
 
       newclient = AgoraRTM.createInstance(appId1);
@@ -627,12 +628,14 @@ if(!AgoraRTC.checkSystemRequirements()) {
           console.log('---------------bbbbbbbb-----client is not logedin-----');
         });
       } else {
+        console.log('------------newclient-------',newclient);
+          console.log('------------channel11111111111-------',channel);
         channel.getMembers().then(membersList => {    
-                    
+          console.log('------------membersListlalit-------',membersList);       
           channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
-
+          console.log('------------membersListlalit-------',membersList.length); 
         }).catch(error => {
-           console.log('*************There is an error******');
+           console.log('*************There is an errorkkkkkkkkkk******');
         });
           // channel log
           channel.on('MemberJoined', memberId => { 
@@ -2028,13 +2031,14 @@ function signalHandler(uid, signalData, userType) {
     function channelSignalHandler(signalData, userType) {
 
     getAudienceList();
-    console.log('********guduorigin************** signalData ', signalData, userType);
+    console.log('********guduorigin11111111111************** signalData ', signalData, userType);
     signalData = JSON.parse(signalData);
     if(signalData.code == '208'){
       if(userType =='1'){  
-
+        console.log('********guduorigin2222222222222************** signalData ', signalData, userType);
           incrementcountAtHost(signalData,userType);        
       }else{
+        console.log('********guduorigin333333333333************** signalData ', signalData, userType);
           incrementcountAtAttendies(signalData,userType);    
       }
     }else if(signalData.code == '110')
@@ -2049,16 +2053,16 @@ function signalHandler(uid, signalData, userType) {
 
       function incrementcountAtAttendies(signalData,userType)
       {
-      
+        console.log('*******totallist111*************** signalData ',signalData);
         let count3=$('#joined_users_at_client').html();
 
-        console.log('*******totallist111222*************** signalData ',signalData.member,'----mmm----', localstoragedata);
+        console.log('*******totallist222*************** signalData ',signalData.member,'----mmm----', count3);
       
         count3=parseInt(count3);
         var arr;
         
       if(signalData.msgtype=='Joined')
-      { 
+      { console.log('*******totallist333333*************** signalData ',signalData.member,'----mmm----', count3);
         let localstoragedata = JSON.parse(localStorage.getItem('allloginuser'));
         let newmem=signalData.member;
        // console.log('*******totallist5555555*************** signalData ',count3); 
@@ -2084,6 +2088,8 @@ function signalHandler(uid, signalData, userType) {
      
       }else if(signalData.msgtype=='left') {
 
+        console.log('*******totallist444444*************** signalData ',signalData.member,'----mmm----', count3);
+
         let localstoragealdata = JSON.parse(localStorage.getItem('allloginuser'));
         
         let mememail=signalData.member;
@@ -2106,11 +2112,15 @@ function signalHandler(uid, signalData, userType) {
           $('#online_state').removeClass("online-status");
         }
 
-        console.log('*******totallist333333333*************** signalData ',count3); 
+       // console.log('*******totallist333333333*************** signalData ',count3); 
         count4=count3-1;
-        console.log('*******totallist77777777*************** signalData ',count4); 
+        //console.log('*******totallist77777777*************** signalData ',count4); 
           
       }else if(signalData.msgtype=='totalcount') {
+
+        console.log('*******totallist555555*************** signalData ', count3);
+
+        console.log('*******totallistaaaaaaa*************** signalData ', signalData);
             
          arr=signalData.totalmember;  
          localStorage.setItem("allloginuser", JSON.stringify(signalData.totalmember));            

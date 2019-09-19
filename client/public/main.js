@@ -155,6 +155,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
     client.on('stream-added', function (evt) {
       var stream = evt.stream;
       console.log("New stream added " + stream.getId());
+      if(1 != getUserDataFromList(stream.getId(), 'userType')){
+        totalBrodcaster++;
+        console.log(' @@@@@@ totalBrodcaster++ ', totalBrodcaster);
+      }
       // console.log("Subscribe ", stream);
       
       client.subscribe(stream, function (err) {
@@ -211,8 +215,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
             // checkMuteUnmute(stream.getId());
           } else {
-            totalBrodcaster++;
-            console.log(' @@@@@@ totalBrodcaster++ ', totalBrodcaster);
+            // totalBrodcaster++;
+            // console.log(' @@@@@@ totalBrodcaster++ ', totalBrodcaster);
             
             if(stream.hasVideo())
               stream.muteVideo();
@@ -928,7 +932,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       console.log('sessionTime sessionTime', sessionTime);
       if(sessionTime != null){
           sessionTime = JSON.parse(sessionTime);
-          // console.log('sessionTime sessionTime ====', (sessionTime.joinTime - sessionTime.startTime));
+          console.log('sessionTime sessionTime ====', (sessionTime.joinTime - sessionTime.startTime));
           if((sessionTime.joinTime - sessionTime.startTime)/1000 <= storeData.default.maxJoinDuration ){
             checkUser = true;
           }
@@ -1662,6 +1666,7 @@ function signalHandler(uid, signalData, userType) {
         
         $('#newmsg').html(message);
        // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
+       addRtmJoinOrder(uid, resultant[1]);
       }
 
   } else { // Attendy
@@ -1697,6 +1702,7 @@ function signalHandler(uid, signalData, userType) {
       
       $('#newmsg').html(message);
      // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
+      addRtmJoinOrder(uid, resultant[1]);
     }
 
     else if(resultant[0] == '205')
@@ -1743,6 +1749,7 @@ function signalHandler(uid, signalData, userType) {
       
         // if(userType != 1)
         // {
+        addRtmJoinOrder(senderId, newDateFormat(res1[1]));
         let message="User "+senderId+" has joined on  "+ res1[1];
         $('#newmsg').html(message);
         // setTimeout(function(){ $('#newmsg').html(''); }, 10000); 
@@ -1926,10 +1933,10 @@ function signalHandler(uid, signalData, userType) {
     function checkKickRule(dataObj){
       
       let rule = false
-      let id = dataObj.id;
-
+      console.log('=========== dataObj', dataObj)
+      let id = convertEmailToId(dataObj.id);
       let vdo = $('#subscribers-list #agora_remote'+ id + ' video' )[0];  
-      console.log('subscribers-list video = ', vdo.muted)
+      console.log('subscribers-list video = ', vdo.muted);
 
       // check current user unmute state
       if(vdo.muted){
@@ -1963,7 +1970,7 @@ function signalHandler(uid, signalData, userType) {
       for(let i=0; i < userList.length; i++){
         
         let id = convertEmailToId(userList[i].id);
-        if( $('#agora_remote'+id).length > 0 ){
+        if( $('#subscribers-list #agora_remote'+id).length > 0 ){
 
           if(ctr < limit && checkKickRule(userList[i])){
             kickUser(id);
@@ -2339,6 +2346,44 @@ function signalHandler(uid, signalData, userType) {
         }
         return '';
       }
+
+  function newDateFormat(dtTm){
+    if(dtTm == '') return '';
+
+    let tmpDt = dtTm.split(' ');
+    let dt = tmpDt[0].split('/');
+    let tm = tmpDt[1].split(':');
+
+    // console.log('newDate =========', dt, tm);
+    //new Date(2016, 6, 27, 13, 30, 0);
+    let newDate = new Date(dt[2], dt[1]-1, dt[0], tm[0], tm[1], tm[2]).getTime();
+    // console.log('newDate =========', newDate.getTime());
+    return newDate;
+  }
+  function addRtmJoinOrder(userId, time){
+
+    let currentTime = time;
+    let strArray = localStorage.getItem("rtm-join-order");
+    console.log('userId, time =========== strArray', userId, time, strArray)
+    let orderList = [];
+    let f = 0;
+    if(strArray != null){
+      strArray = JSON.parse(strArray);
+      for(let i in strArray){
+        if(strArray[i].id == userId){
+          f = 1;
+          // strArray[i].joinAt = currentTime;
+        }
+      }
+      orderList = strArray;
+    }
+
+    if(f == 0){
+      orderList.push({ id:userId, joinAt:currentTime });  
+    }
+      
+    localStorage.setItem("rtm-join-order", JSON.stringify(orderList));
+  }
 
 
       $(document).ready(function(){

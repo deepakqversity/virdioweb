@@ -152,10 +152,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
       var dateTime = date+' '+time;
       var text="208" +sep+ dateTime;
 
-      if(storeData.userType != 1){
+      // if(storeData.userType != 1){
         // when user join
         addRtmJoinOrder(peer, newDateFormat(dateTime));
-      }
+      // }
 
       channel.sendMessage({text}).then(() => {  
         console.log('-------join msg llllll--------','mssages send successfully on channel');    
@@ -902,6 +902,7 @@ function signalHandler(uid, signalData, userType) {
         
         $('#newmsg').html(message);
        // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
+       addRtmJoinOrder(uid, resultant[1]);
       }
 
   } else { // Attendy
@@ -970,9 +971,9 @@ function signalHandler(uid, signalData, userType) {
       
         // if(userType != 1)
         // {
-        if(getUserDataFromList(senderId, 'userType') != 1){
+        // if(getUserDataFromList(senderId, 'userType') != 1){
           addRtmJoinOrder(senderId, newDateFormat(res1[1]));
-        }
+        // }
         let message="User " + getUserDataFromList(senderId, 'firstName') + " has joined on  "+ res1[1];
         $('#newmsg').html(message);
         // setTimeout(function(){ $('#newmsg').html(''); }, 10000); 

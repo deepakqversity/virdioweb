@@ -329,12 +329,7 @@ h3.main-heading span span span {
 	left: 10px;
 	margin: 0 !important;
 }
-@media (max-width: 1024px){
 
-	h3.main-heading{
-		    text-align:center;
-	}
-}
 @media (max-width: 1024px){
 
 	h3.main-heading{
@@ -1038,7 +1033,7 @@ display:none;
 	
 }
 .host-local{
-	    height: auto;
+	    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;

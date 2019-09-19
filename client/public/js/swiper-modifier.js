@@ -45,8 +45,4 @@ $(document).ready(function(){
 });
 
 
-let heightScript = $(".height-script").height();    
-    $(".item-description.script-section").height(`${heightScript - 37 }px`);
-	//$(".host-local").height(`${heightScript}px`);
-  $(".host-show-hide").height(`${heightScript - 30 }px`);
-  $(".host-show-hide .video-streams").height("100%");
+

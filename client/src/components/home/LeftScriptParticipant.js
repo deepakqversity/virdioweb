@@ -14,43 +14,29 @@ class LeftScriptParticipant extends Component {
   }
 render() {
 
+  let localstoragedata = JSON.parse(localStorage.getItem('userData'));
+
+  let sessionData = localstoragedata.sessionData;
+
+  let sessionScript = localstoragedata.sessionData.scriptDetail;
+  console.log('sessionScript=', sessionScript)
+
 return (
       <div>
       { this.props.sessId == 1 ? (
 
         
       <div className="col-lg-6 col-md-6 col-sm-9 col-12 max-width-300">
-        <div id="demo" data-interval="false" className="carousel slide" data-ride="carousel">
+        <div id="demo" data-interval="false" className="carousel slide script-info" data-ride="carousel">
 
           <div className="carousel-inner">
-            <div className="carousel-item active">
-            <div className="left-section">
-                <h2 className="item-name py-3">1/4 Wines</h2>
-                <h3 className="second-heading my-3">2014 Bliss Block Pinot Noir</h3>
-                <div className="video-holder">
-                  <img src="images/Rectangle.png" />
-                </div>
-                
-                <div className="item-description py-4">
-                  <div className="row">
-                    <ul className="col-12 col-md-12 list-info my-0">
-                      <li><span>Varietal</span><span>100% Pinot Noir</span></li>
-                      <li><span>Year</span><span>2014​</span></li>
-                      <li><span>Country</span><span>United States​</span></li>
-                      <li><span>Appellation</span><span>Sonoma</span></li>
-                    
-                    </ul>
-                  
-                    
-                  </div>
-                </div>
-                <button type="button" data-toggle="modal" data-target="#show-details" className="btn btn-outline-secondary show-details-btn">"Show Details"</button>
-              </div>
-            </div>
+
+{
+  sessionScript.map((opt, i) =>
             <div className="carousel-item">
             <div className="left-section">
-                <h2 className="item-name py-3">1/4 Wines</h2>
-                <h3 className="second-heading my-3">2014 Bliss Block Pinot Noir</h3>
+                <h2 className="item-name py-3">{sessionData.scriptTitle}  {sessionData.scriptType}</h2>
+                <h3 className="second-heading my-3">{opt.name}</h3>
                 <div className="video-holder">
                   <img src="images/Rectangle.png" />
                 </div>
@@ -58,11 +44,10 @@ return (
                 <div className="item-description py-4">
                   <div className="row">
                     <ul className="col-12 col-md-12 list-info my-0">
-                      <li><span>Varietal</span><span>100% Pinot Noir</span></li>
-                      <li><span>Year</span><span>2014​</span></li>
-                      <li><span>Country</span><span>United States​</span></li>
-                      <li><span>Appellation</span><span>Sonoma</span></li>
-                    
+                            {opt.attribute.map(function(attrb, index){
+                             return <li><span>{attrb.attrLabel}</span><span>{attrb.attrValue}</span></li>   
+                            })}
+                                      
                     </ul>
                   
                     
@@ -71,30 +56,9 @@ return (
                 <button type="button" data-toggle="modal" data-target="#show-details" className="btn btn-outline-secondary show-details-btn">"Show Details"</button>
               </div>
             </div>
-            <div className="carousel-item">
-            <div className="left-section">
-                <h2 className="item-name py-3">1/4 Wines</h2>
-                <h3 className="second-heading my-3">2014 Bliss Block Pinot Noir</h3>
-                <div className="video-holder">
-                  <img src="images/Rectangle.png" />
-                </div>
-                
-                <div className="item-description py-4">
-                  <div className="row">
-                    <ul className="col-12 col-md-12 list-info my-0">
-                      <li><span>Varietal</span><span>100% Pinot Noir</span></li>
-                      <li><span>Year</span><span>2014​</span></li>
-                      <li><span>Country</span><span>United States​</span></li>
-                      <li><span>Appellation</span><span>Sonoma</span></li>
+
+          )}
                     
-                    </ul>
-                  
-                    
-                  </div>
-                </div>
-                <button type="button" data-toggle="modal" data-target="#show-details" className="btn btn-outline-secondary show-details-btn">"Show Details"</button>
-              </div>
-            </div>
           </div>
 
           <a className="carousel-control-prev d-none" href="#demo" data-slide="prev">

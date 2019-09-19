@@ -525,7 +525,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   //var currentSession = getCurrentSession(); 
   var newclient; 
   var channel;
-  var channelName1 = '1440';
+  var channelName1 = '1550';
   
   function rtmJoin()
   {
@@ -1601,6 +1601,15 @@ function changeImage(){
     }, 1000);
   }
 
+  function convertUnixTimestamp(t)
+  {
+  var dt = new Date(t*1000);
+  let date = dt.getDate()+'/'+(dt.getMonth()+1)+'/'+dt.getFullYear();
+  let time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds()+'.'+dt.getMilliseconds();
+  let dateTime = date+' '+time;
+  return dateTime;  
+  }
+
 function signalHandler(uid, signalData, userType) {
 
   //signalData = JSON.parse(signalData);
@@ -1622,6 +1631,19 @@ function signalHandler(uid, signalData, userType) {
       
     } else if(resultant[0] == "1001"){
         addAudienceInList(resultant);
+      }
+
+      else if(resultant[0] == '216')
+      {
+        console.log('********gggg************ resultant', resultant);
+
+        let joinDateTime = convertUnixTimestamp(resultant[1]);
+
+        console.log('********ppppp************ resultant', joinDateTime,uid);
+        let message="Welcome  Host, " + getUserDataFromList(uid, 'firstName') + " has already joined   ";
+        
+        $('#newmsg').html(message);
+       // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
       }
 
   } else { // Attendy
@@ -1647,12 +1669,15 @@ function signalHandler(uid, signalData, userType) {
       $('#hostmsg').html('Now You can Publish');
       setTimeout(function(){ $('#hostmsg').html(''); }, 10000);   
     }
-     else if(resultant[0] == '216')
+    else if(resultant[0] == '216')
     {
-      console.log('********gggg************ resultant', resultant);
-      //newres=resultant[0].split("$");
-      //console.log('********ggggggggggggg************** signalData ', signalData.message); 
-      $('#newmsg').html(resultant[1]);
+      console.log('********gggg************ resultant', resultant[1]);
+      let joinDateTimeattendies = convertUnixTimestamp(resultant[1]);
+      console.log('********ssssss************ resultant', joinDateTimeattendies);
+   
+      let message="Welcome  User, " + getUserDataFromList(uid, 'firstName') + " has already joined ";
+      
+      $('#newmsg').html(message);
      // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
     }
 
@@ -1715,6 +1740,29 @@ function signalHandler(uid, signalData, userType) {
         //   setTimeout(function(){ $('#errmsg').html(''); }, 10000);
         // }
 
+
+
+        console.log('********Deepak************** signalData ', senderId);
+        let rtmJoinOrder = JSON.parse(localStorage.getItem("rtm-join-order"));
+        let localUserDta= JSON.parse(localStorage.getItem("userData"));
+
+        rtmJoinOrder.forEach(ele => {
+
+          if(ele.id == localUserDta.email )
+          {
+            
+            if(ele.joinAt == '' && empty(ele.joinAt))
+            {
+              let ts = (new Date()).getTime();
+              let text ="216"+sep+ts;
+            }
+            let text ="216"+sep+ele.joinAt;
+            // console.log('-------------text=== ', text)
+             sendMessage(senderId, text);
+          }
+
+        });
+
       }else if(res1[0] == "222")
       {
       //  $('#continue-join').removeAttr("disabled");
@@ -1744,6 +1792,8 @@ function signalHandler(uid, signalData, userType) {
         //alert('fitscript Next');
       }else if(res1[0] == "304")
       {
+        $(".carousel-control-next").trigger('click');
+          //alert('Winsscript Next');
       }
     
      }
@@ -2045,21 +2095,16 @@ function signalHandler(uid, signalData, userType) {
             $('#joined_users').html(count1);
        
 
-        var peerId=signalData.member;
+      //   var peerId=signalData.member;
 
-        // let peerEmail = convertIdToEmail(peerId);
-
-       // console.log('********virendra************** signalData ', count1);
-        //  let AllDta = getCurrentUserData();
-        //  let hostFirstName=AllDta.sessionData.hostName;
-       //  console.log('********virendra************** signalData ', signalData.message);
-        let text ="216"+sep+"Hi, welcome to your first virtual studio session as A";
-        if(count1 <= 8)
-        {
-          text ="216"+sep+"Hi,welcome to your first virtual studio session as B";
-        }
-       // console.log('-------------text=== ', text)
-        sendMessage(peerId, text);
+       
+      //   let text ="216"+sep+"Hi, welcome to your first virtual studio session as A";
+      //   if(count1 <= 8)
+      //   {
+      //     text ="216"+sep+"Hi,welcome to your first virtual studio session as B";
+      //   }
+      //  // console.log('-------------text=== ', text)
+      //   sendMessage(peerId, text);
 
       }else if(signalData.msgtype=='left') {
 

@@ -99,10 +99,11 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   }
 
+
   //var currentSession = getCurrentSession(); 
   var newclient; 
   var channel;
-  var channelName1 = '1440';
+  var channelName1 = '1550';
 
   function rtmJoin()
   {
@@ -860,6 +861,15 @@ function attendeeScreenHeight(){
     }, 1000);
   }
 
+  function convertUnixTimestamp(t)
+  {
+  var dt = new Date(t*1000);
+  let date = dt.getDate()+'/'+(dt.getMonth()+1)+'/'+dt.getFullYear();
+  let time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds()+'.'+dt.getMilliseconds();
+  let dateTime = date+' '+time;
+  return dateTime;  
+  }
+
 function signalHandler(uid, signalData, userType) {
 
   //signalData = JSON.parse(signalData);
@@ -881,6 +891,17 @@ function signalHandler(uid, signalData, userType) {
       
     } else if(resultant[0] == "1001"){
         addAudienceInList(resultant);
+      }else if(resultant[0] == '216')
+      {
+        console.log('********gggg************ resultant', resultant);
+
+        let joinDateTime = convertUnixTimestamp(resultant[1]);
+
+        console.log('********ppppp************ resultant', joinDateTime,uid);
+        let message="Welcome  Host, " + getUserDataFromList(uid, 'firstName') + " has already joined   ";
+        
+        $('#newmsg').html(message);
+       // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
       }
 
   } else { // Attendy
@@ -908,10 +929,13 @@ function signalHandler(uid, signalData, userType) {
     }
      else if(resultant[0] == '216')
     {
-      console.log('********gggg************ resultant', resultant);
-      //newres=resultant[0].split("$");
-      //console.log('********ggggggggggggg************** signalData ', signalData.message); 
-      $('#newmsg').html(resultant[1]);
+      console.log('********gggg************ resultant', resultant[1]);
+      let joinDateTimeattendies = convertUnixTimestamp(resultant[1]);
+      console.log('********ssssss************ resultant', joinDateTimeattendies);
+   
+      let message="Welcome  User, " + getUserDataFromList(uid, 'firstName') + " has already joined ";
+      
+      $('#newmsg').html(message);
      // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
     }
 
@@ -936,7 +960,7 @@ function signalHandler(uid, signalData, userType) {
     {
       
       let res1=msg.split(sep);
-      console.log('********Deepak************** signalData ', senderId);
+   
       if(res1[0] == "208")
       { 
       
@@ -960,6 +984,32 @@ function signalHandler(uid, signalData, userType) {
         //  $('#errmsg').html(message);
         //   setTimeout(function(){ $('#errmsg').html(''); }, 10000);
         // }
+
+        //let peerId=senderId;
+
+        console.log('********Deepak************** signalData ', senderId);
+        let rtmJoinOrder = JSON.parse(localStorage.getItem("rtm-join-order"));
+        let localUserDta= JSON.parse(localStorage.getItem("userData"));
+
+        rtmJoinOrder.forEach(ele => {
+
+          if(ele.id == localUserDta.email )
+          {
+            
+            if(ele.joinAt == '' && empty(ele.joinAt))
+            {
+              let ts = (new Date()).getTime();
+              let text ="216"+sep+ts;
+            }
+            let text ="216"+sep+ele.joinAt;
+            // console.log('-------------text=== ', text)
+             sendMessage(senderId, text);
+          }
+
+        });
+
+
+
 
       }else if(res1[0] == "222")
       {
@@ -1041,7 +1091,7 @@ function signalHandler(uid, signalData, userType) {
 
     function channelSignalHandler(signalData, userType) {
 
-      // console.log('********guduorigin************** signalData ', signalData, userType);
+       console.log('********atulorigin************** signalData ', signalData, userType);
     signalData = JSON.parse(signalData);
     if(signalData.code == '208'){
     if(userType =='1'){  
@@ -1050,14 +1100,15 @@ function signalHandler(uid, signalData, userType) {
       }else{
           incrementcountAtAttendies(signalData,userType);    
       }
-    }else if(signalData.code == '110')
-    {
-      if(userType =='1'){
-      setEmojiesAtHost(signalData, userType);
-      }else{
-        setEmojiesAtClient(signalData, userType);
-      }
-      }
+    }
+    // else if(signalData.code == '110')
+    // {
+    //   if(userType =='1'){
+    //   setEmojiesAtHost(signalData, userType);
+    //   }else{
+    //     setEmojiesAtClient(signalData, userType);
+    //   }
+    //   }
     }
 
       function incrementcountAtAttendies(signalData,userType)
@@ -1078,10 +1129,14 @@ function signalHandler(uid, signalData, userType) {
       
         if(res[1]== hostid)
         { 
+          //console.log('---------atulsir----------------',hostid)
           $('#online_state').removeClass("online-status");        
           $('#online_state').addClass("online-status");
+
         }
         count4=count3+1;
+
+     
 
       }else if(signalData.msgtype=='left') {
 
@@ -1167,21 +1222,15 @@ function signalHandler(uid, signalData, userType) {
             $('#joined_users').html(count1);
        
 
-        var peerId=signalData.member;
+       // let peerId=signalData.member;
 
-        // let peerEmail = convertIdToEmail(peerId);
-
-       // console.log('********virendra************** signalData ', count1);
-        //  let AllDta = getCurrentUserData();
-        //  let hostFirstName=AllDta.sessionData.hostName;
-       //  console.log('********virendra************** signalData ', signalData.message);
-        let text ="216"+sep+"Hi, welcome to your first virtual studio session as A";
-        if(count1 <= 8)
-        {
-          text ="216"+sep+"Hi,welcome to your first virtual studio session as B";
-        }
-       // console.log('-------------text=== ', text)
-        sendMessage(peerId, text);
+      //   let text ="216"+sep+"Hi, welcome to your first virtual studio session as A";
+      //   if(count1 <= 8)
+      //   {
+      //     text ="216"+sep+"Hi,welcome to your first virtual studio session as B";
+      //   }
+      //  // console.log('-------------text=== ', text)
+      //   sendMessage(peerId, text);
 
       }else if(signalData.msgtype=='left') {
 

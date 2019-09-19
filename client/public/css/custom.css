@@ -698,7 +698,10 @@ font-size: 18px;
 	width: 100%;
 	    border-radius: 10px;
 		    outline: 0;
-			    border: 5px solid #9b51e0;
+			    
+}
+video.video-selected{
+    border: 5px solid #9b51e0;
 }
 .video-holder .hand-icon{
     background:#9b51e0 url(../images/hand-raise.png);

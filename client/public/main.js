@@ -276,7 +276,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
           totalBrodcaster--;
         }
       }
-
+      removeAudienceInList(stream.getId())
 
       // if(storeData.userType != 1){
         // $.ajax({
@@ -525,27 +525,27 @@ if(!AgoraRTC.checkSystemRequirements()) {
   //var currentSession = getCurrentSession(); 
   var newclient; 
   var channel;
-  var channelName1 = '1550';
+  var channelName1 = '';
   
   function rtmJoin()
   {
-    var appId1 = '232f270a5aeb4e0097d8b5ceb8c24ab3';
+    // var appId1 = '232f270a5aeb4e0097d8b5ceb8c24ab3';
     // var appId1 = '86706f65732f4988b39974feb4eed508';
+    var storeData = getCurrentUserData();
+    var appId1 = storeData.sessionData.rtmAppId;
+    channelName1 = storeData.sessionData.rtmChannelId;
 
     var token=null;
-    var storeData = getCurrentUserData();
     // appId1 = storeData.sessionData.channelId;
     var peer=storeData.email;
     // newclient.login({uid: peer.toString(), token});
 
-        console.log('channelchannelchannel newclient', newclient)
     if(newclient == undefined){
-      newclient = AgoraRTM.createInstance(appId1);
 
+      newclient = AgoraRTM.createInstance(appId1);
       newclient.login({ token: token, uid: peer }).then(() => {
-console.log('channelchannelchannel newclient', newclient, channel)
+
         console.log('***********AgoraRTM client login success***********');
-        console.log('channelchannelchannel', channel)
 
         if(channel == undefined){
 
@@ -898,6 +898,21 @@ console.log('channelchannelchannel newclient', newclient, channel)
   //   sendMessage(attendiesID, JSON.stringify({code:"102", message:"Now You can Publish"}));
   // }
   
+  function publishAfterKick(){
+    let storeData = getCurrentUserData();
+    if(storeData.userType != 1){
+
+      client.publish(localStream, function (err) {
+        console.log("Publish local stream error: " + err);
+      });
+      client.on('stream-published', function (evt) {
+        console.log('client ============', client);
+        $('#strm-unpublish').removeClass('d-none');
+        $('#strm-publish').addClass('d-none');
+
+      });
+    }
+  }
 
   function publish() {
     let storeData = getCurrentUserData();
@@ -911,7 +926,7 @@ console.log('channelchannelchannel newclient', newclient, channel)
 
       let sessionTime = localStorage.getItem("pre-session-time");
       console.log('sessionTime sessionTime', sessionTime);
-      if(sessionTime != ''){
+      if(sessionTime != null){
           sessionTime = JSON.parse(sessionTime);
           // console.log('sessionTime sessionTime ====', (sessionTime.joinTime - sessionTime.startTime));
           if((sessionTime.joinTime - sessionTime.startTime)/1000 <= storeData.default.maxJoinDuration ){
@@ -1211,6 +1226,9 @@ console.log('channelchannelchannel newclient', newclient, channel)
     // GoInFullscreen();
     // localClient.leave();
     totalBrodcaster = 0;
+    if(channel == undefined){
+      var channel;
+    }
     rtmJoin();
     console.log('continueJoin =continueJoin =continueJoin 111')
     join();
@@ -1693,7 +1711,7 @@ function signalHandler(uid, signalData, userType) {
       setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
     } else if(resultant[0] == '1002') {
       
-      console.log('********ggggggggggggg************** signalData ', signalData.message); 
+      // console.log('********ggggggggggggg************** signalData ', signalData.message); 
       $('#hostmsg').html('Now you are became a audience.');
       unpublish();
       $('#mocrophone-on').removeClass('d-none');
@@ -1701,9 +1719,10 @@ function signalHandler(uid, signalData, userType) {
       setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
     } else if(resultant[0] == '1003') {
 
-      console.log('********ggggggggggggg************** signalData ', signalData.message); 
+      // console.log('********ggggggggggggg************** signalData ', signalData.message); 
       $('#hostmsg').html('Now you are became a broadcaster.');
-      publish();
+      // publish();
+      publishAfterKick();
       $('#mocrophone-on').addClass('d-none');
       $('#mocrophone-off').removeClass('d-none');
       setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
@@ -1817,7 +1836,7 @@ function signalHandler(uid, signalData, userType) {
             id : strArray[1],
             firstName : strArray[2],
             email : strArray[3],
-            image : strArray[4]
+            handRaisedAt : strArray[4]
           });
           localStorage.setItem("audience-list", JSON.stringify(audienceList));
           $('#dropdownMenuButton').removeClass('d-none');
@@ -1826,99 +1845,133 @@ function signalHandler(uid, signalData, userType) {
      }
 
      function removeAudienceInList(id) {
+      
+      if(localStorage.getItem("audience-list") == null) return false;
+
       let audienceList = JSON.parse(localStorage.getItem("audience-list"));
 
       let newAudienceList = [];
 
       if(audienceList.length > 0){
         for(let i in audienceList){
+          console.log('removeAudienceInList = ', audienceList[i].id, id);
           if(audienceList[i].id != id){
-            newAudienceList.push(audienceList[i]);
+            newAudienceList[i] = audienceList[i];
           }
         }
       }
-      
-      if(f){         
-        localStorage.setItem("audience-list", JSON.stringify(newAudienceList));
+
+      if(newAudienceList.length == 0){
+        $('#dropdownMenuButton').addClass('d-none');
       }
+      
+      localStorage.setItem("audience-list", JSON.stringify(newAudienceList));
     }
      
 
      function showHandAtHost(){
-        
         let audienceList = JSON.parse(localStorage.getItem("audience-list"));
-        console.log('audienceList', audienceList);
-        
-        let list='';
-        for(let i in audienceList){
-          if($('#audience-'+audienceList[i].id).length == 0){
+        // console.log('audienceList', audienceList, audienceList.length)
+        if(audienceList.length > 0){
+          
+          let list='';
+          for(let i in audienceList){
+            if($('#audience-'+audienceList[i].id).length == 0){
 
-            list += '<li id="audience-'+audienceList[i].id+'"><a class="dropdown-item media" href="javascript:;" onClick="changeUserToBroadcaster(\''+audienceList[i].id+'\')"><img src="images/avtar.png" /><div class="media-body"><span class="welcome-title">'+audienceList[i].firstName+', '+getUserDataFromList(audienceList[i].id, 'city')+'</span><span>2 min ago</span></div></a></li>';          
+              list += '<li id="audience-'+audienceList[i].id+'"><a class="dropdown-item media" href="javascript:;" onClick="changeUserToBroadcaster(\''+audienceList[i].id+'\')"><img src="images/avtar.png" /><div class="media-body"><span class="welcome-title">'+audienceList[i].firstName+', '+getUserDataFromList(audienceList[i].id, 'city')+'</span><span>2 min ago</span></div></a></li>';          
+            }
           }
+          $('#total-raised-hands').html(audienceList.length);
+          $('#raised-list').append(list);
+          $('#dropdownMenuButton').removeClass('d-none');
+        } else {
+          $('#dropdownMenuButton').addClass('d-none');
+          $('#raised-list').html('');
+          $('#total-raised-hands').html(0);
         }
-        $('#total-raised-hands').html(audienceList.length);
-        $('#raised-list').append(list);
-        $('#dropdownMenuButton').removeClass('d-none');
     }
 
 
     function changeUserToBroadcaster(uId){
         $('#to-broadcast').val(uId);
-        console.log('##################', $('#to-broadcast').val())
-        pullFromSessionByHost();
+
+        if($('#subscribers-list .video-holder').length > 0) {
+          pullFromSessionByHost(1);
+        } else {
+          pushIntoSessionByHost();
+          removeAudienceInList(uId);
+        }
     }
 
-    function checkKickRule(id){
-      return true;
+    function checkKickRule(dataObj){
+      
+      let rule = false
+      let id = dataObj.id;
+
+      let vdo = $('#subscribers-list #agora_remote'+ id + ' video' )[0];  
+      console.log('subscribers-list video = ', vdo.muted)
+
+      // check current user unmute state
+      if(vdo.muted){
+
+        let selectedParticipentId = $('#selected-participent-id').val();
+        if(id != selectedParticipentId){
+          rule = true;
+        }
+      }
+
+      return rule;
     }
 
     function kickUser(id){
       let text = "1002"+sep+"kicked by host";
       console.log('############### text', text)
-      sendMessage(id, text);
-      removeAudienceInList(convertEmailToId(id));
+      sendMessage( convertIdToEmail(id), text);
+      removeAudienceInList(id);
     }
 
-    function pullFromSessionByHost(){
+    function pullFromSessionByHost(limit){
       let storeData = getCurrentUserData();
       
-      console.log(' @@@@@@@ maxUserLimit @@@ ', storeData.default.maxUserLimit);
-
       let userList = getOrderUser();
-      console.log('userList userList =', userList)
+
+      console.log(' @@@@@@@ userList @@@ ', userList);
       
       if(userList == '') return false;
 
-      // let counter = userList.length >= storeData.default.maxUserLimit ? storeData.default.maxUserLimit : userList.length;
-      let kickedUserId = '';
+      let ctr = 0;
       for(let i=0; i < userList.length; i++){
-        console.log('length ===========', convertEmailToId(userList[i].id), $('#agora_remote'+convertEmailToId(userList[i].id)).length )
-        if( $('#agora_remote'+convertEmailToId(userList[i].id)).length > 0 ){
-          if(checkKickRule(userList[i].id)){
-            kickedUserId = userList[i].id;
-            break;
+        
+        let id = convertEmailToId(userList[i].id);
+        if( $('#agora_remote'+id).length > 0 ){
+
+          if(ctr < limit && checkKickRule(userList[i])){
+            kickUser(id);
           }
+          ctr++;
         }
       }
-      if(kickedUserId != '')
-        kickUser(kickedUserId);
     }
 
     function pushIntoSessionByHost(){
       let uid = '';
 
-      setTimeout(function(){}, 3000);
+      setTimeout(function(){}, 1000);
 
       if($('#to-broadcast').length > 0){
 
         uid = $('#to-broadcast').val();
         let text = "1003"+sep+" in session";
         sendMessage(convertIdToEmail(uid), text);
+
         $('#audience-'+uid).remove();
         $('#to-broadcast').val('');
+        
         let len = parseInt($('#total-raised-hands').html());
         $('#total-raised-hands').html(len > 0 ? (len-1) : 0);
-        $('#dropdownMenuButton').addClass('d-none');
+        if(len <= 0){
+          $('#dropdownMenuButton').addClass('d-none');
+        }
       } else {
 
       }
@@ -2542,7 +2595,7 @@ function signalHandler(uid, signalData, userType) {
         // 1=audiencs
 
         if(role == 0){
-          massages="1001" +sep+ storeData.id +sep+ storeData.firstName +sep+ storeData.email;// +sep+ storeData.image;
+          massages="1001" +sep+ storeData.id +sep+ storeData.firstName +sep+ storeData.email +sep+ (new Date()).getTime();// +sep+ storeData.image;
         }       
         sendMessage(hostEmail, massages);
 
@@ -2628,7 +2681,18 @@ function signalHandler(uid, signalData, userType) {
         sendMessage(strmId, JSON.stringify({code:'101'}));
       });
     
+    //
+    $(document).on('click', '#subscribers-list .video-holder', function(){
 
+      let id = $(this).attr('id');
+      if($(this).find('video').hasClass('video-selected')){
+        $('#selected-participent-id').val('');
+        $(this).find('video').removeClass('video-selected');
+      } else {
+        $('#selected-participent-id').val( id );
+        $(this).find('video').addClass('video-selected');
+      }
+    })
   });
  
     

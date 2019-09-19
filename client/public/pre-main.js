@@ -72,7 +72,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   }
   function addRtmJoinOrder(userId, time){
 
-    let currentTime = newDateFormat(time);
+    let currentTime = time;
     let strArray = localStorage.getItem("rtm-join-order");
     console.log('userId, time =========== strArray', userId, time, strArray)
     let orderList = [];
@@ -103,7 +103,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
   //var currentSession = getCurrentSession(); 
   var newclient; 
   var channel;
-  var channelName1 ;
+  var channelName1;
+  
   function rtmJoin()
   {
     // var appId1 = '232f270a5aeb4e0097d8b5ceb8c24ab3';
@@ -152,10 +153,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
       var dateTime = date+' '+time;
       var text="208" +sep+ dateTime;
 
-      if(storeData.userType != 1){
+      // if(storeData.userType != 1){
         // when user join
-        addRtmJoinOrder(peer, dateTime);
-      }
+        addRtmJoinOrder(peer, newDateFormat(dateTime));
+      // }
 
       channel.sendMessage({text}).then(() => {  
         console.log('-------join msg llllll--------','mssages send successfully on channel');    
@@ -902,6 +903,7 @@ function signalHandler(uid, signalData, userType) {
         
         $('#newmsg').html(message);
        // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
+       addRtmJoinOrder(uid, resultant[1]);
       }
 
   } else { // Attendy
@@ -936,6 +938,9 @@ function signalHandler(uid, signalData, userType) {
       let message="Welcome  User, " + getUserDataFromList(uid, 'firstName') + " has already joined ";
       
       $('#newmsg').html(message);
+      console.log(' uid =================== time', uid, resultant);
+
+      addRtmJoinOrder(uid, resultant[1]);
      // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
     }
 
@@ -967,9 +972,9 @@ function signalHandler(uid, signalData, userType) {
       
         // if(userType != 1)
         // {
-        if(getUserDataFromList(senderId, 'userType') != 1){
-          addRtmJoinOrder(senderId, res1[1]);
-        }
+        // if(getUserDataFromList(senderId, 'userType') != 1){
+          addRtmJoinOrder(senderId, newDateFormat(res1[1]));
+        // }
         let message="User " + getUserDataFromList(senderId, 'firstName') + " has joined on  "+ res1[1];
         $('#newmsg').html(message);
         // setTimeout(function(){ $('#newmsg').html(''); }, 10000); 

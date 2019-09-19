@@ -155,6 +155,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
     client.on('stream-added', function (evt) {
       var stream = evt.stream;
       console.log("New stream added " + stream.getId());
+      if(1 != getUserDataFromList(stream.getId(), 'userType')){
+        totalBrodcaster++;
+        console.log(' @@@@@@ totalBrodcaster++ ', totalBrodcaster);
+      }
       // console.log("Subscribe ", stream);
       
       client.subscribe(stream, function (err) {
@@ -211,8 +215,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
             // checkMuteUnmute(stream.getId());
           } else {
-            totalBrodcaster++;
-            console.log(' @@@@@@ totalBrodcaster++ ', totalBrodcaster);
+            // totalBrodcaster++;
+            // console.log(' @@@@@@ totalBrodcaster++ ', totalBrodcaster);
             
             if(stream.hasVideo())
               stream.muteVideo();
@@ -928,7 +932,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       console.log('sessionTime sessionTime', sessionTime);
       if(sessionTime != null){
           sessionTime = JSON.parse(sessionTime);
-          // console.log('sessionTime sessionTime ====', (sessionTime.joinTime - sessionTime.startTime));
+          console.log('sessionTime sessionTime ====', (sessionTime.joinTime - sessionTime.startTime));
           if((sessionTime.joinTime - sessionTime.startTime)/1000 <= storeData.default.maxJoinDuration ){
             checkUser = true;
           }
@@ -1662,6 +1666,7 @@ function signalHandler(uid, signalData, userType) {
         
         $('#newmsg').html(message);
        // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
+       addRtmJoinOrder(uid, resultant[1]);
       }
 
   } else { // Attendy
@@ -1697,6 +1702,7 @@ function signalHandler(uid, signalData, userType) {
       
       $('#newmsg').html(message);
      // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
+      addRtmJoinOrder(uid, resultant[1]);
     }
 
     else if(resultant[0] == '205')
@@ -1743,6 +1749,7 @@ function signalHandler(uid, signalData, userType) {
       
         // if(userType != 1)
         // {
+        addRtmJoinOrder(senderId, newDateFormat(res1[1]));
         let message="User "+senderId+" has joined on  "+ res1[1];
         $('#newmsg').html(message);
         // setTimeout(function(){ $('#newmsg').html(''); }, 10000); 
@@ -1872,18 +1879,38 @@ function signalHandler(uid, signalData, userType) {
       localStorage.setItem("audience-list", JSON.stringify(newAudienceList));
     }
      
+     function checkTime(timeDur){
+        let tm = 0;
+        let sec = Math.floor(timeDur / 1000);
+        if(sec > 60){
+          let min = Math.floor(sec / 60);
+          if(min > 60){
+            let hrs =  Math.floor(min / 60);
+            tm = hrs + ' hrs '
+          } else {
+            tm = min + ' min '
+          }
+        } else {
+          tm = sec + ' sec '
+        }
+        return tm;
+     }
 
      function showHandAtHost(){
+      console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
         let audienceList = JSON.parse(localStorage.getItem("audience-list"));
-        // console.log('audienceList', audienceList, audienceList.length)
+        console.log('audienceList', audienceList, audienceList.length)
         if(audienceList.length > 0){
           
           let list='';
           for(let i in audienceList){
-            if($('#audience-'+audienceList[i].id).length == 0){
-
-              list += '<li id="audience-'+audienceList[i].id+'"><a class="dropdown-item media" href="javascript:;" onClick="changeUserToBroadcaster(\''+audienceList[i].id+'\')"><img src="images/avtar.png" /><div class="media-body"><span class="welcome-title">'+audienceList[i].firstName+', '+getUserDataFromList(audienceList[i].id, 'city')+'</span><span>2 min ago</span></div></a></li>';          
+            if($('#audience-'+audienceList[i].id).length != 0){
+              $('#audience-'+audienceList[i].id).remove();
             }
+              let timeDur = (new Date()).getTime() - audienceList[i].handRaisedAt;
+
+
+              list += '<li id="audience-'+audienceList[i].id+'"><a class="dropdown-item media" href="javascript:;" onClick="changeUserToBroadcaster(\''+audienceList[i].id+'\')"><img src="images/avtar.png" /><div class="media-body"><span class="welcome-title">'+audienceList[i].firstName+', '+getUserDataFromList(audienceList[i].id, 'city')+'</span><span>'+checkTime(timeDur)+' ago</span></div></a></li>';          
           }
           $('#total-raised-hands').html(audienceList.length);
           $('#raised-list').append(list);
@@ -1910,10 +1937,10 @@ function signalHandler(uid, signalData, userType) {
     function checkKickRule(dataObj){
       
       let rule = false
-      let id = dataObj.id;
-
+      console.log('=========== dataObj', dataObj)
+      let id = convertEmailToId(dataObj.id);
       let vdo = $('#subscribers-list #agora_remote'+ id + ' video' )[0];  
-      console.log('subscribers-list video = ', vdo.muted)
+      console.log('subscribers-list video = ', vdo.muted);
 
       // check current user unmute state
       if(vdo.muted){
@@ -1947,7 +1974,7 @@ function signalHandler(uid, signalData, userType) {
       for(let i=0; i < userList.length; i++){
         
         let id = convertEmailToId(userList[i].id);
-        if( $('#agora_remote'+id).length > 0 ){
+        if( $('#subscribers-list #agora_remote'+id).length > 0 ){
 
           if(ctr < limit && checkKickRule(userList[i])){
             kickUser(id);
@@ -1956,17 +1983,34 @@ function signalHandler(uid, signalData, userType) {
         }
       }
     }
+    function sendPushIntoSessionMessage(uid){
+        let text = "1003"+sep+" in session";
+        sendMessage(convertIdToEmail(uid), text);
+    }
+
+    // switch maxlimit==============
+    function switchMultipleUsersByHost(){
+      // $('#switch-counter').val(1);
+      let storeData = getCurrentUserData();
+
+      let switchCounter = localStorage.getItem("switch-counter");
+
+      switchCounter = switchCounter == null ? 0 : parseInt(switchCounter);
+      for(let i = switchCounter * storeData.default.maxUserLimit; i < (switchCounter + 1) * storeData.default.maxUserLimit; i++){
+
+      }
+      localStorage.setItem("switch-counter",++switchCounter);
+    }
 
     function pushIntoSessionByHost(){
       let uid = '';
 
       setTimeout(function(){}, 1000);
 
-      if($('#to-broadcast').length > 0){
+      if($('#to-broadcast').length > 0 && $('#to-broadcast').val().trim() != ''){
 
         uid = $('#to-broadcast').val();
-        let text = "1003"+sep+" in session";
-        sendMessage(convertIdToEmail(uid), text);
+        sendPushIntoSessionMessage(uid);        
 
         $('#audience-'+uid).remove();
         $('#to-broadcast').val('');
@@ -1976,8 +2020,6 @@ function signalHandler(uid, signalData, userType) {
         if(len <= 0){
           $('#dropdownMenuButton').addClass('d-none');
         }
-      } else {
-
       }
     }
 
@@ -2314,13 +2356,59 @@ function signalHandler(uid, signalData, userType) {
         return '';
       }
 
+  function newDateFormat(dtTm){
+    if(dtTm == '') return '';
+
+    let tmpDt = dtTm.split(' ');
+    let dt = tmpDt[0].split('/');
+    let tm = tmpDt[1].split(':');
+
+    // console.log('newDate =========', dt, tm);
+    //new Date(2016, 6, 27, 13, 30, 0);
+    let newDate = new Date(dt[2], dt[1]-1, dt[0], tm[0], tm[1], tm[2]).getTime();
+    // console.log('newDate =========', newDate.getTime());
+    return newDate;
+  }
+  function addRtmJoinOrder(userId, time){
+
+    let currentTime = time;
+    let strArray = localStorage.getItem("rtm-join-order");
+    console.log('userId, time =========== strArray', userId, time, strArray)
+    let orderList = [];
+    let f = 0;
+    if(strArray != null){
+      strArray = JSON.parse(strArray);
+      for(let i in strArray){
+        if(strArray[i].id == userId){
+          f = 1;
+          // strArray[i].joinAt = currentTime;
+        }
+      }
+      orderList = strArray;
+    }
+
+    if(f == 0){
+      orderList.push({ id:userId, joinAt:currentTime });  
+    }
+      
+    localStorage.setItem("rtm-join-order", JSON.stringify(orderList));
+  }
+
 
       $(document).ready(function(){
         
+        let heightScript = $(".host-script-section").height();
+            
+        $(".item-description.script-section").height(`${heightScript - 37 }px`);
+        //$(".host-local").height(`${heightScript}px`);
+        $(".host-show-hide").height(`${heightScript - 30 }px`);
+        $(".host-show-hide .video-streams").height("100%");
         
-        $('#dropdownMenuButton').on('show.bs.modal', function (e) {
-          // alert('===')
-            showHandAtHost();
+        $('#dropdownMenuButton').on('click', function (e) {
+          // alert($('.hand-raise-list .dropdown-menu').hasClass('show'))
+            if($('.hand-raise-list .dropdown-menu').hasClass('show') != true){
+              showHandAtHost();
+            }
         });
         onPageResize();
         changeImage();

@@ -29,10 +29,11 @@ render() {
 
 return (
     
-      <div className="test-script h-100">
+      <div className="test-script  h-100">
         <div className="overflow-hidden h-100">
           <div id="carouselExampleControls" data-interval="false" className="carousel slide carousel-fade script-info h-100" data-ride="carousel">
             <div className="carousel-inner h-100">
+              <div className="height-script h-100">
 {
   sessionScript.map((opt, i) =>
             <div className="carousel-item  h-100 d-flex justify-content-end flex-direction-column" key={i}>
@@ -69,7 +70,7 @@ return (
             </div>
             )}
             
-
+            </div>
             </div>
           </div>
           

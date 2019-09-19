@@ -394,6 +394,7 @@ return (
 
 
       </div>
+      <input type="hidden" id="switch-counter" />
       <input type="hidden" id="selected-participent-id" />
       <input type="hidden" id="to-broadcast" />
       <input type="hidden" id="current-camera" />

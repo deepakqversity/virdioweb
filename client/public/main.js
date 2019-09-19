@@ -1816,6 +1816,22 @@ function signalHandler(uid, signalData, userType) {
       localStorage.setItem("audience-list", JSON.stringify(newAudienceList));
     }
      
+     function checkTime(timeDur){
+        let tm = 0;
+        let sec = Math.floor(timeDur / 1000);
+        if(sec > 60){
+          let min = Math.floor(sec / 60);
+          if(min > 60){
+            let hrs =  Math.floor(min / 60);
+            tm = hrs + ' hrs '
+          } else {
+            tm = min + ' min '
+          }
+        } else {
+          tm = sec + ' sec '
+        }
+        return tm;
+     }
 
      function showHandAtHost(){
         let audienceList = JSON.parse(localStorage.getItem("audience-list"));
@@ -1826,7 +1842,10 @@ function signalHandler(uid, signalData, userType) {
           for(let i in audienceList){
             if($('#audience-'+audienceList[i].id).length == 0){
 
-              list += '<li id="audience-'+audienceList[i].id+'"><a class="dropdown-item media" href="javascript:;" onClick="changeUserToBroadcaster(\''+audienceList[i].id+'\')"><img src="images/avtar.png" /><div class="media-body"><span class="welcome-title">'+audienceList[i].firstName+', '+getUserDataFromList(audienceList[i].id, 'city')+'</span><span>2 min ago</span></div></a></li>';          
+              let timeDur = (new Date()).getTime() - audienceList[i].handRaisedAt;
+
+
+              list += '<li id="audience-'+audienceList[i].id+'"><a class="dropdown-item media" href="javascript:;" onClick="changeUserToBroadcaster(\''+audienceList[i].id+'\')"><img src="images/avtar.png" /><div class="media-body"><span class="welcome-title">'+audienceList[i].firstName+', '+getUserDataFromList(audienceList[i].id, 'city')+'</span><span>'+checkTime(timeDur)+' ago</span></div></a></li>';          
             }
           }
           $('#total-raised-hands').html(audienceList.length);
@@ -1900,17 +1919,34 @@ function signalHandler(uid, signalData, userType) {
         }
       }
     }
+    function sendPushIntoSessionMessage(uid){
+        let text = "1003"+sep+" in session";
+        sendMessage(convertIdToEmail(uid), text);
+    }
+
+    // switch maxlimit==============
+    function switchMultipleUsersByHost(){
+      // $('#switch-counter').val(1);
+      let storeData = getCurrentUserData();
+
+      let switchCounter = localStorage.getItem("switch-counter");
+
+      switchCounter = switchCounter == null ? 0 : parseInt(switchCounter);
+      for(let i = switchCounter * storeData.default.maxUserLimit; i < (switchCounter + 1) * storeData.default.maxUserLimit; i++){
+
+      }
+      localStorage.setItem("switch-counter",++switchCounter);
+    }
 
     function pushIntoSessionByHost(){
       let uid = '';
 
       setTimeout(function(){}, 1000);
 
-      if($('#to-broadcast').length > 0){
+      if($('#to-broadcast').length > 0 && $('#to-broadcast').val().trim() != ''){
 
         uid = $('#to-broadcast').val();
-        let text = "1003"+sep+" in session";
-        sendMessage(convertIdToEmail(uid), text);
+        sendPushIntoSessionMessage(uid);        
 
         $('#audience-'+uid).remove();
         $('#to-broadcast').val('');
@@ -1920,8 +1956,6 @@ function signalHandler(uid, signalData, userType) {
         if(len <= 0){
           $('#dropdownMenuButton').addClass('d-none');
         }
-      } else {
-
       }
     }
 
@@ -2262,8 +2296,8 @@ function signalHandler(uid, signalData, userType) {
       $(document).ready(function(){
         
         
-        $('#dropdownMenuButton').on('show.bs.modal', function (e) {
-          // alert('===')
+        $('#dropdownMenuButton').on('shown.bs.dropdown', function (e) {
+          alert('===')
             showHandAtHost();
         });
         onPageResize();

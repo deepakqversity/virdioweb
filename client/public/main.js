@@ -2394,11 +2394,6 @@ function signalHandler(uid, signalData, userType) {
         //$(".host-local").height(`${heightScript}px`);
         $(".host-show-hide").height(`${heightScript - 30 }px`);
         $(".host-show-hide .video-streams").height("100%");
-
-
-        $('#dropdownMenuButton').on('show.bs.modal', function (e) {
-          // alert('===')
-            showHandAtHost();
         
         $('#dropdownMenuButton').on('click', function (e) {
           // alert($('.hand-raise-list .dropdown-menu').hasClass('show'))

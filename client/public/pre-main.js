@@ -72,7 +72,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   }
   function addRtmJoinOrder(userId, time){
 
-    let currentTime = newDateFormat(time);
+    let currentTime = time;
     let strArray = localStorage.getItem("rtm-join-order");
     console.log('userId, time =========== strArray', userId, time, strArray)
     let orderList = [];
@@ -154,7 +154,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
       if(storeData.userType != 1){
         // when user join
-        addRtmJoinOrder(peer, dateTime);
+        addRtmJoinOrder(peer, newDateFormat(dateTime));
       }
 
       channel.sendMessage({text}).then(() => {  
@@ -936,6 +936,9 @@ function signalHandler(uid, signalData, userType) {
       let message="Welcome  User, " + getUserDataFromList(uid, 'firstName') + " has already joined ";
       
       $('#newmsg').html(message);
+      console.log(' uid =================== time', uid, resultant);
+
+      addRtmJoinOrder(uid, resultant[1]);
      // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
     }
 
@@ -968,7 +971,7 @@ function signalHandler(uid, signalData, userType) {
         // if(userType != 1)
         // {
         if(getUserDataFromList(senderId, 'userType') != 1){
-          addRtmJoinOrder(senderId, res1[1]);
+          addRtmJoinOrder(senderId, newDateFormat(res1[1]));
         }
         let message="User " + getUserDataFromList(senderId, 'firstName') + " has joined on  "+ res1[1];
         $('#newmsg').html(message);

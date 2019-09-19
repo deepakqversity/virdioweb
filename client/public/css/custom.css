@@ -329,7 +329,12 @@ h3.main-heading span span span {
 	left: 10px;
 	margin: 0 !important;
 }
+@media (max-width: 1024px){
 
+	h3.main-heading{
+		    text-align:center;
+	}
+}
 @media (max-width: 1024px){
 
 	h3.main-heading{
@@ -2496,6 +2501,7 @@ ul.music-playlist li a span:nth-child(3){
 }
 .v-logo img{
 	width: 22px;
+	margin: auto;
 }
 .fix-host{
 	position:absolute !important;

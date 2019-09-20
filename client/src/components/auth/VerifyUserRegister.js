@@ -28,7 +28,7 @@ class VerifyUserRegister extends Component {
         <div className="h-100">
           <div className="">
             <div className="col-12">
-              <img src="/images/login-logo.png" className="login-logo" />
+              <img src="/images/host-icon.png" width="70" className="login-logo" />
               <p className="login-tagline">Signing up as a Host</p>
             </div>
             <div className="row justify-content-center">
@@ -45,19 +45,19 @@ class VerifyUserRegister extends Component {
                     </div>
                     <div className="col-md-12">
                       <span>Email</span>
-                      <p><img src="/images/login-user.png" />arjun.rishi@gmail.com</p>
+                      <p><img src="/images/form-email.png" />arjun.rishi@gmail.com</p>
                     </div>
                     <div className="col-md-12">
                       <span>Mobile Number</span>
-                      <p><img src="/images/login-user.png" />555 333 556</p>
+                      <p><img src="/images/phone.png" />555 333 556</p>
                     </div>
                     <div className="col-md-12">
                       <span>Create a Password</span>
-                      <p><img src="/images/login-user.png" />*******</p>
+                      <p><img src="/images/password.png" />*******</p>
                     </div>
                     <div className="col-md-12">
                       <span>Retype Password</span>
-                      <p><img src="/images/login-user.png" />*******</p>
+                      <p><img src="/images/password.png" />*******</p>
                     </div>
                   </div>
                 </div>

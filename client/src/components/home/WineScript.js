@@ -39,7 +39,7 @@ return (
             <div className="carousel-item  h-100 d-flex justify-content-end flex-direction-column" key={i}>
                 <div className="bg-gray position-relative top-rounded d-md-flex justify-content-between align-items-center px-3 py-3 add-remove-round ">
                   <h3 className="main-heading font-size-16">{sessionData.scriptTitle} <span className="ml-md-4 font-size-16">{sessionData.scriptType}</span></h3>
-                  <button type="button" className="btn btn-outline-secondary mr-5 show-hide-script">"Hide Script"</button>
+                  <a href="#" className=" mr-5 show-hide-script"><img src="images/showscript.png" /></a>
                   <a className="carousel-control-next position-relative" href="#carouselExampleControls" role="button" data-slide="next" id="winscript"  onClick={this.getNext.bind(this)}>
                     <img src="images/next-icon.png" className="next-btn" />
                   </a>

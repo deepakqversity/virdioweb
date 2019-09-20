@@ -223,6 +223,8 @@ return (
       <div className="row px-0 px-sm-3 pb-2 pt-1 justify-content-between align-items-center">
         <div className="col-6 col-md-6 d-flex align-items-center">
           <h4 className="title">{sessionData.scriptTitle} (<span id="joined_users">0</span>/<span>{newulength}</span>)</h4>
+          <a href="" className="move-list"><img src="images/move-list.png" /></a>
+          <a href="" className="move-list"><img src="images/swipe-list.png" /></a>
           <div className="hand-raise-list">
             <div className="dropdown keep-open">
               <button className="dropdown-toggle circle-ripple d-none" type="button" id="dropdownMenuButton" data-toggle="dropdown">
@@ -245,6 +247,7 @@ return (
               </div>
             </div>
           </div>
+          
         </div>
         <div className="col-6 col-lg-3 col-md-4 col-sm-5 attendy-fullscreen attendy-fullscreen">
           {/* <button type="button" className="btn btn-outline-secondary float-right mt-1 show-hide-footer-panel mr-3">"Show Attendees"</button> */}

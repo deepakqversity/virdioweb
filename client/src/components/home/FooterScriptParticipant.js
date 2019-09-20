@@ -223,7 +223,7 @@ console.log('sessionScript=', sessionScript)
            <div className="swiper-container">
               <div className="swiper-wrapper align-items-center fitness-guest">
                 <div className="swiper-guest swiper-slide start">              
-                  <span>
+                  <span id="swip_slide">
                     <a href="#">Start</a>
                   </span>
                 </div>

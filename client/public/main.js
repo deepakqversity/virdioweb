@@ -1703,8 +1703,47 @@ function signalHandler(uid, signalData, userType) {
         $('#newmsg').html(message);
        // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
        addRtmJoinOrder(uid, resultant[1]);
-      }
+      } else if(resultant[0] == '211') {        
+        $(".start span a").trigger('click');
 
+        let storeData1 = getCurrentUserData();
+     
+        let ftnsStartCode=storeData1.rtm.ftnsStart.code;                  
+        messages=ftnsStartCode+sep;        
+        sendMessageToChannel(channelName1,messages);
+
+      }
+      else if(resultant[0] == '212') {        
+        $(".end span a").trigger('click');
+
+        let storeData2 = getCurrentUserData();
+     
+        let ftnsStopCode=storeData2.rtm.ftnsStop.code;                  
+        messages=ftnsStopCode+sep;        
+        sendMessageToChannel(channelName1,messages);
+
+      }else if(resultant[0] == "214")
+      {
+        $(".carousel-control-next").trigger('click');
+
+        let storeData3 = getCurrentUserData();
+     
+        let WinsNextCode=storeData3.rtm.WinsNext.code;                  
+        messages=WinsNextCode+sep;        
+        sendMessageToChannel(channelName1,messages);
+        
+      }else if(resultant[0] == "215")
+      {
+        $(".carousel-control-prev").trigger('click');
+
+        let storeData4 = getCurrentUserData();
+     
+        let WinsPrevCode=storeData4.rtm.WinsPrev.code;                  
+        messages=WinsPrevCode+sep;        
+        sendMessageToChannel(channelName1,messages);
+                
+      }
+      
   } else { // Attendy
 
     
@@ -3010,6 +3049,15 @@ function signalHandler(uid, signalData, userType) {
      
         let WinsNextCode=storeData.rtm.WinsNext.code;                  
         messages=WinsNextCode+sep;        
+        sendMessageToChannel(channelName1,messages);
+      });
+
+      $('#winePrev_button').bind( "click", function(event) {
+
+        let storeData7 = getCurrentUserData();
+     
+        let WinsPrevCode=storeData7.rtm.WinsPrev.code;                  
+        messages=WinsPrevCode+sep;        
         sendMessageToChannel(channelName1,messages);
       });
    

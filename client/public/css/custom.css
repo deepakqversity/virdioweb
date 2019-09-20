@@ -2637,9 +2637,10 @@ outline: none;
   transition: all 500ms ease;
 }
 .attendee-list>img{
-	float: left;
-    width: 46px;
+float: left;
+    width: 40px;
     margin-right: 10px;
+    border-radius: 10px;
 }
 .attendee-list>span{
 	color: #fff;

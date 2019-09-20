@@ -66,8 +66,8 @@ class Guest extends Component {
   }
 
   componentDidMount(){
-    let leftHeight = $(".left-section").height();
-    $("#all_joined_member_list").height(leftHeight);
+    
+    
     this.loadScript('/AgoraRTCSDK-2.7.1.js');
     this.loadScript('/agora-rtm-sdk-1.0.0.js');
     this.loadScript('/main.js');

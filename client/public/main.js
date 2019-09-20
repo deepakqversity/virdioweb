@@ -1630,6 +1630,7 @@ function changeImage(){
     localStorage.removeItem("pre-session-time");
     localStorage.removeItem("load-page");
     localStorage.removeItem("channel");
+    localStorage.removeItem("allloginuser");
   }
   var resetCount = '';
   var countdown = 0;

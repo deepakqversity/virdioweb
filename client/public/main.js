@@ -2609,6 +2609,13 @@ function signalHandler(uid, signalData, userType) {
   $(window).resize(function(){
     onPageResize();
   });
+  function  startSlider(){
+    $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
+    $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
+    $(".swiper-slide.start a").prop('disabled', true);
+    $(".swiper-btn-next").css("display", "block")
+    countDown();
+  }
   
       $(document).ready(function(){
 
@@ -2635,11 +2642,12 @@ function signalHandler(uid, signalData, userType) {
        
         $(document).on("click", ".swiper-container-host .start span a", function(){
           
-          $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
-          $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
-          $(".swiper-slide.start a").prop('disabled', true);
-          $(".swiper-btn-next").css("display", "block")
-          countDown();
+          // $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
+          // $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
+          // $(".swiper-slide.start a").prop('disabled', true);
+          // $(".swiper-btn-next").css("display", "block")
+          // countDown();
+          startSlider()
         })
 
         // $(document).on("click", "#winscript", function(){

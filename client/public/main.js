@@ -20,7 +20,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   
   var sep = '~@$';
   var currentPublishedUser = [];
-
+  var changedRole = 'audience';
   function join() {
 
     let camera = microphone= null;
@@ -390,10 +390,12 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
     client.on("client-role-changed", function (evt) {
       console.log('client-role-changed = ', evt)
-      var stream = evt.stream;
-      if (stream) {
-        console.log(evt.uid + "===> role changed");
-      }
+      changedRole = evt.role;
+      // var stream = evt.stream;
+      // if (stream) {
+
+      //   console.log(evt.uid + "===> role changed");
+      // }
     });
 
     client.on("peer-online", function (evt) {
@@ -772,8 +774,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
       function sendMessageToChannel(channelName1, text)
       {
+          console.log('---------------','mssages send successfully on channel', channelName1, text);
           channel.sendMessage({text},channelName1);
-          console.log('---------------','mssages send successfully on channel');
       }
 
 
@@ -960,11 +962,14 @@ if(!AgoraRTC.checkSystemRequirements()) {
   }
 
   function unpublish() {
-    
-    client.unpublish(localStream, function (err) {
-      console.log("Unpublish local stream failed == " + err);
-    });
+    console.log('============unpublish stream=====', localStream)
+    if(localStream != undefined){
 
+      client.unpublish(localStream, function (err) {
+          console.log("Unpublish local stream failed == " + err);
+      });
+
+    }
   }
 
   function checkUserInOrder(userId){
@@ -1644,13 +1649,14 @@ function signalHandler(uid, signalData, userType) {
 
     if(resultant[0] == '201'){
 
+      $('#agora_remote'+ convertEmailToId(uid) + ' .hand-icon').removeClass("d-none");
       $('#errmsg').html('Client HandRaise');
       setTimeout(function(){ $('#errmsg').html(''); }, 10000);
 
     } else if(signalData.code == '100') {
        $('#errmsg').html(signalData.message);
        setTimeout(function(){ $('#errmsg').html(''); }, 10000);
-      $('#agora_hand_raise'+uid+'').removeClass("d-none");
+      // $('#agora_hand_raise'+uid).removeClass("d-none");
       
     } else if(resultant[0] == "1001"){
         addAudienceInList(resultant);
@@ -1719,8 +1725,8 @@ function signalHandler(uid, signalData, userType) {
     } else if(resultant[0] == '1002') {
       
       // console.log('********ggggggggggggg************** signalData ', signalData.message); 
-      $('#hostmsg').html('Now you are became a audience.');
       unpublish();
+      $('#hostmsg').html('Now you are became a audience.');
       $('#mocrophone-on').removeClass('d-none');
       $('#mocrophone-off').addClass('d-none');
       setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
@@ -2344,10 +2350,11 @@ function signalHandler(uid, signalData, userType) {
       }
 
       function checkUserRole(){
-        console.log('client === ', client.hasPublished)
+        setTimeout(function(){ }, 500);
+        console.log('client changedRole === ', changedRole, client.hasPublished)
         
         // 0=broadcaster , 1=Audience
-        return client && client.hasPublished ? 1 : 0;
+        return changedRole == 'host' ? 0 : 1;
         // if(client && client.hasPublished){
         //   return
         //   console.log(' User is Broadcaster.');
@@ -2707,7 +2714,7 @@ function signalHandler(uid, signalData, userType) {
         
         // 1=audiencs
 
-        if(role == 0){
+        if(role == 1){
           massages="1001" +sep+ storeData.id +sep+ storeData.firstName +sep+ storeData.email +sep+ (new Date()).getTime();// +sep+ storeData.image;
         }       
         sendMessage(hostEmail, massages);

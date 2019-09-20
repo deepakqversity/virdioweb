@@ -1745,8 +1745,10 @@ function signalHandler(uid, signalData, userType) {
 
         let storeData3 = getCurrentUserData();
      
-        let WinsNextCode=storeData3.rtm.WinsNext.code;                  
-        messages=WinsNextCode+sep;        
+        let WinsNextCode=storeData3.rtm.WinsNext.code; 
+        let WinsNextCounter=$('.carousel-item.active .fitness-counter1').text();  
+        console.log('---------WinsNextCounter---------',WinsNextCounter,WinsNextCode);               
+        messages=WinsNextCode+sep+WinsNextCounter;                         
         sendMessageToChannel(channelName1,messages);
         
       }else if(resultant[0] == "215")
@@ -3088,8 +3090,11 @@ function signalHandler(uid, signalData, userType) {
 
         let storeData = getCurrentUserData();
      
-        let WinsNextCode=storeData.rtm.WinsNext.code;                  
-        messages=WinsNextCode+sep;        
+        let WinsNextCode=storeData.rtm.WinsNext.code;
+       
+        let WinsNextCounter=$('.carousel-item.active .fitness-counter1').text();  
+        console.log('---------WinsNextCounter---------',WinsNextCounter,WinsNextCode);               
+        messages=WinsNextCode+sep+WinsNextCounter;        
         sendMessageToChannel(channelName1,messages);
       });
 

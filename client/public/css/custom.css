@@ -1166,20 +1166,21 @@ display:none;
     z-index: 5;
     right: 3px;
 }
-.script-info .carousel-inner	{
-	height: 400px;
-    overflow-y: scroll;
+.script-info .carousel-inner.guest-left-wine	{
+	max-height: 440px;
+    overflow-y: auto;
 	margin-top: 29px;
+	margin-right: 20px;
+    padding-right: 20px;
 }
-.script-info .carousel-inner::-webkit-scrollbar{
+.script-info .carousel-inner.guest-left-wine::-webkit-scrollbar{
 	width:6px;
-	
 }
-.script-info .carousel-inner::-webkit-scrollbar-track{
+.script-info .carousel-inner.guest-left-wine::-webkit-scrollbar-track{
 	width:6px;
 	background:#ccc;
 }
-.script-info .carousel-inner::-webkit-scrollbar-thumb{
+.script-info .carousel-inner.guest-left-wine::-webkit-scrollbar-thumb{
 	width:6px;
 	background:#000;
 }
@@ -2690,7 +2691,7 @@ outline: none;
 	position:relative;
 }
 .bottom-links .dropup .dropdown-menu::after{
-content: "\f0d7";
+	content: "\f0d7";
     font-family: FontAwesome;
     position: absolute;
     left: 0;

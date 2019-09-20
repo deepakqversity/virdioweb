@@ -98,7 +98,7 @@ class PreConfiguration extends Component {
       
       window.joinChannel();
 
-      setTimeout(function(){ }, 1000);
+      // setTimeout(function(){ }, 1000);
       
       window.removePreScreenSession();
 
@@ -434,7 +434,7 @@ render() {
 
                           if(this.state.isHostJoined == false)
                           {
-                          return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)} disabled>Join</button>;
+                          return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
                           }else
                           {
                             return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;

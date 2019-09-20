@@ -1241,16 +1241,26 @@ position: absolute;
 }
 
 /*----7. Testing Script section-----*/
-.script-info .carousel-control-next{
+.script-info .carousel-control-next, 
+.script-info .carousel-control-prev{
 	width: 22px;
 	height:21px;
     background: none;
     background-color: none;
     opacity: 1;
-    top: 0px;
+}
+.script-info .carousel-control-next{
+	top: 0px;
     z-index: 5;
     right: 3px;
 }
+.script-info .carousel-control-prev{
+	top: 17px;
+    z-index: 5;
+    right: 105px;
+    left: auto;
+}
+
 .script-info .carousel-inner.guest-left-wine	{
     overflow-y: auto;
 	margin-top: 29px;

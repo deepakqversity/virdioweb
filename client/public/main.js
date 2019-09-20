@@ -1899,12 +1899,13 @@ function signalHandler(uid, signalData, userType) {
       {
         console.log('-------------------fitscript has Started-------------');
        // $('#hostFtnsScript').trigger('click');
-        // $(".start span a").trigger('click');
-        $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
-        $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
-        $(".swiper-slide.start a").prop('disabled', true);
-        $(".swiper-btn-next").css("display", "block")
-        countDown();
+        $(".swiper-guest.start span a").trigger('click');
+        // $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
+        // $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
+        // $(".swiper-slide.start a").prop('disabled', true);
+        // $(".swiper-btn-next").css("display", "block")
+        // countDown();
+        // startSlider();
 
       }else if(res1[0] == "212")
       {
@@ -2642,6 +2643,15 @@ function signalHandler(uid, signalData, userType) {
         $(".script-info .carousel-inner .carousel-item:first").addClass("active");
        
         $(document).on("click", ".swiper-container-host .start span a", function(){
+          
+          // $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
+          // $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
+          // $(".swiper-slide.start a").prop('disabled', true);
+          // $(".swiper-btn-next").css("display", "block")
+          // countDown();
+          startSlider()
+        })
+        $(document).on("click", ".swiper-guest.start span a", function(){
           
           // $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
           // $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");

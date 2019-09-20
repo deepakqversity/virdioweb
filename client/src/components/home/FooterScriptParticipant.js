@@ -222,10 +222,11 @@ console.log('sessionScript=', sessionScript)
           <div className="d-flex justify-content-between arrow-after align-items-center footer-fitness-script">
            <div className="swiper-container">
               <div className="swiper-wrapper align-items-center fitness-guest">
-                <div className="swiper-guest swiper-slide start">              
-                  <span id="swip_slide">
+                <div className="swiper-guest swiper-slide start position-relative">              
+                  <span className="position-relative" id="swip_slide">
                     <a href="#">Start</a>
                   </span>
+                  <div className="prevent-click"></div>
                 </div>
               
               

@@ -80,6 +80,12 @@ body{
 height:100vh;
 overflow:hidden;
 }
+@media (max-width:767px){
+	body{
+		overflow: inherit;
+		overflow-x:hidden;
+	}
+}
 #root, .App{
 	height:100%;
 }
@@ -335,6 +341,7 @@ h3.main-heading span span span {
 	h3.main-heading{
 		    font-size: 18px;
 	}
+	
 	h3.main-heading span{
 		    font-size: 14px;
 	}
@@ -348,6 +355,11 @@ h3.main-heading span span span {
 	.py-xs-1{
 		padding-top:10px !important;
 		padding-bottom:10px !important;
+	}
+}
+@media (max-width:767px){
+	.guest-screen h3.main-heading{
+		text-align:center;
 	}
 }
 @media (min-width:1920px){
@@ -765,7 +777,7 @@ video.video-selected{
 position: absolute;
     bottom: 15px;
     left: 15px;
-    width: 100%;
+    width: 96%;
     
     height: 25px !important;
     
@@ -778,16 +790,29 @@ position: absolute;
     border-radius: 7px 7px;
     padding: 3px 12px;
 }
+.video-holder .vid-icons{
+	bottom: -3px;
+}
 .vid-icons{
 	position: absolute;
     right: 10px;
-    bottom: 30px;
+    bottom: 14px;
 }
 .video-holder .att-details .icon-appearance, 
-.attendee-list .vid-icons .icon-appearance{
-    background: #fff url(../images/icon1.png);
-    width: 22px;
-    height: 22px;
+.attendee-list .vid-icons .icon-appearance,
+.video-holder .att-details .icon-appearance1, 
+.attendee-list .vid-icons .icon-appearance1, 
+.video-holder .att-details .icon-aroma, 
+.attendee-list .icon-aroma, 
+.video-holder .att-details .icon-aroma1, 
+.attendee-list .icon-aroma1, 
+.video-holder .att-details .icon-palate, 
+.attendee-list .icon-palate, 
+.video-holder .att-details .icon-palate1, 
+.attendee-list .icon-palate1{
+    background: #fff url(../images/mushroom.png);
+    width: 18px;
+    height: 18px;
     background-size: 13px;
     background-repeat: no-repeat;
     background-position: center;
@@ -796,11 +821,63 @@ position: absolute;
     float: left;
 	cursor:pointer;
 }
-.video-holder .att-details .icon-aroma, 
+
+.video-holder .att-details .icon-appearance2, 
+.attendee-list .vid-icons .icon-appearance2, 
+.video-holder .att-details .icon-aroma2, 
+.attendee-list .icon-aroma2, 
+.video-holder .att-details .icon-palate2, 
+.attendee-list .icon-palate2{
+    background: #fff url(../images/emoji2.png);
+    width: 18px;
+    height: 18px;
+    background-size: 13px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 20px;
+    padding: 2px;
+    float: left;
+	cursor:pointer;
+}
+.video-holder .att-details .icon-appearance3, 
+.attendee-list .vid-icons .icon-appearance3, 
+.video-holder .att-details .icon-aroma3, 
+.attendee-list .icon-aroma3, 
+.video-holder .att-details .icon-palate3, 
+.attendee-list .icon-palate3{
+    background: #fff url(../images/emoji3.png);
+    width: 18px;
+    height: 18px;
+    background-size: 13px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 20px;
+    padding: 2px;
+    float: left;
+	cursor:pointer;
+}
+.video-holder .att-details .icon-appearance4, 
+.attendee-list .vid-icons .icon-appearance4, 
+.video-holder .att-details .icon-aroma4, 
+.attendee-list .icon-aroma4, 
+.video-holder .att-details .icon-palate4, 
+.attendee-list .icon-palate4{
+    background: #fff url(../images/emoji4.png);
+    width: 18px;
+    height: 18px;
+    background-size: 13px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 20px;
+    padding: 2px;
+    float: left;
+	cursor:pointer;
+}
+/* .video-holder .att-details .icon-aroma, 
 .attendee-list .icon-aroma{
 	background: #fff url(../images/icon2.png);
-    width: 22px;
-    height: 22px;
+    width: 18px;
+    height: 18px;
     background-size: 13px;
     background-repeat: no-repeat;
     background-position: center;
@@ -813,8 +890,8 @@ position: absolute;
 .video-holder .att-details .icon-palate, 
 .attendee-list .icon-palate{
 	background: #fff url(../images/icon3.png);
-    width: 22px;
-    height: 22px;
+    width: 18px;
+    height: 18px;
     background-size: 13px;
     background-repeat: no-repeat;
     background-position: center;
@@ -827,8 +904,8 @@ position: absolute;
 .video-holder .att-details .icon-score, 
 .attendee-list .icon-score{
 	background: #fff url(../images/icon4.png);
-    width: 22px;
-    height: 22px;
+    width: 18px;
+    height: 18px;
     background-size: 13px;
     background-repeat: no-repeat;
     background-position: center;
@@ -837,7 +914,7 @@ position: absolute;
     float: left;
 	margin-left: 5px;
 	cursor:pointer;
-}
+} */
 
 
 .close-model-btn{
@@ -1167,7 +1244,6 @@ display:none;
     right: 3px;
 }
 .script-info .carousel-inner.guest-left-wine	{
-	max-height: 440px;
     overflow-y: auto;
 	margin-top: 29px;
 	margin-right: 20px;
@@ -2063,9 +2139,9 @@ display: inline-block;
 }
 .joiners img{
     margin-right: 9px;
-    width: 30px;
-    height: 30px;
-    border-radius: 5px;
+    width: 42px;
+    height: 35px;
+    border-radius: 7px;
     object-fit: cover;
 }
 .joiners span{
@@ -2440,7 +2516,10 @@ ul.music-playlist li a span:nth-child(3){
     opacity: 1;
 }
 .attendy-list .table tbody tr th img{
-	width: 35px;
+	width: 42px;
+    object-fit: cover;
+    border-radius: 6px;
+    height: 35px;
 }
 .attendy-list .table thead th {
     vertical-align: bottom;
@@ -2503,7 +2582,7 @@ ul.music-playlist li a span:nth-child(3){
 .slide-right-left{
 	-webkit-transition: width 600ms; 
   transition: width 600ms;
-  padding: 20px 8px 10px;
+  padding: 20px 5px 10px;
   float: right;
       position: relative;
     z-index: 4;
@@ -2552,6 +2631,8 @@ ul.music-playlist li a span:nth-child(3){
 /* right-sidebar */
 .right-sidebar{
 	height: 100%;
+    width: 235px;
+    float: right;
 }
 .show-others{
     width: 0;
@@ -2597,11 +2678,11 @@ outline: none;
     font-family: Avenir-Book;
 }
 .right-sidebar .head span.count {
-    font-family: 'Avenir-Black';
+	font-family: 'Avenir-Book';
     font-size: 16px;
     color: #fff;
     font-weight: normal;
-    margin: 0;
+    margin-left: 7px !important;
 }
 .joined-attendees{
 	    float: left;
@@ -2610,7 +2691,7 @@ outline: none;
 }
 .joined-member-list{
 	overflow-y:scroll;
-	    padding-right: 10px;
+	    padding-right: 6px;
     overflow-x: hidden;
 }
 .joined-member-list::-webkit-scrollbar{
@@ -2638,7 +2719,9 @@ outline: none;
 }
 .attendee-list>img{
 float: left;
-    width: 40px;
+    width: 42px;
+    height: 35px;
+    object-fit: cover;
     margin-right: 10px;
     border-radius: 10px;
 }

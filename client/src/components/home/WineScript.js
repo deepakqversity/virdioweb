@@ -47,7 +47,6 @@ return (
                     <img src="images/next-icon.png" className="next-btn" />
                   </a>
                 </div>
-
                        
                         <div className="bg-gray bottom-rounded px-3 pb-2 item-description script-section mt--1 flex-grow-1">
                         <div className="max-h200">

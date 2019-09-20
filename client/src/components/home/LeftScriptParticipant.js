@@ -35,7 +35,8 @@ return (
   sessionScript.map((opt, i) =>
             <div className="carousel-item" key={i}>
             <div className="left-section">
-                <h2 className="item-name py-3">{sessionData.scriptTitle}  {sessionData.scriptType}</h2>
+            <h2 className="item-name py-3">{sessionData.scriptTitle} <span className="ml-md-4 font-size-16 "><span className="fitness-counter1">{i+1}</span>/{sessionScript.length} {sessionData.scriptType}</span></h2>
+                {/* <h2 className="item-name py-3">{sessionData.scriptTitle}  {sessionData.scriptType}</h2> */}
                 <h3 className="second-heading my-3">{opt.name}</h3>
                 <div className="video-holder">
                   <img src="images/Rectangle.png" />

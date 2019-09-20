@@ -2229,9 +2229,10 @@ function signalHandler(uid, signalData, userType) {
                    
          arr=signalData.totalmember;  
          localStorage.setItem("allloginuser", JSON.stringify(signalData.totalmember));            
-        console.log('*******totallist2222233333*************** signalData ', signalData);
+        //console.log('*******totallist2222233333*************** signalData ', signalData);
         count4=signalData.member;
-        signalData.forEach(ele => {
+        if(signalData.totalmember !=''){
+          signalData.totalmember.forEach(ele => {
 
           memID=convertEmailToId(ele);
 
@@ -2246,6 +2247,7 @@ function signalHandler(uid, signalData, userType) {
           }
 
         }); 
+      }
         count4=count4;
         // count4=signalData.member;
         // count4=parseInt(count4);

@@ -19,6 +19,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   var totalBrodcaster = 0;
   
   var sep = '~@$';
+  var currentPublishedUser = [];
 
   function join() {
 
@@ -157,6 +158,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
       console.log("New stream added " + stream.getId());
       if(1 != getUserDataFromList(stream.getId(), 'userType')){
         totalBrodcaster++;
+        // remove id when unpublished
+        currentPublishedUser.push(stream.getId());
         console.log(' @@@@@@ totalBrodcaster++ ', totalBrodcaster);
       }
       // console.log("Subscribe ", stream);
@@ -278,6 +281,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
       if(storeData.userType != 1){
         if(totalBrodcaster > 0){
           totalBrodcaster--;
+          // remove id when unpublished
+          currentPublishedUser.splice(currentPublishedUser.indexOf(stream.getId()), 1); 
         }
       }
       removeAudienceInList(stream.getId())

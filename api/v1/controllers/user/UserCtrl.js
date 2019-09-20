@@ -103,7 +103,9 @@ class UserCtrl {
 								underscore.extend(userObj, { sessionData : currentSession });
 
 							} else {
-								underscore.extend(userObj, {sessionData : { message : "There are no sessions available."}});
+
+								underscore.extend(userObj, { message : "There are no sessions available."});
+								underscore.extend(userObj, { sessionData : []});
 							}
 
 							userObj = underscore.omit(userObj, 'password');

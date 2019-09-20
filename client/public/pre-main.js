@@ -141,6 +141,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
       channel = newclient.createChannel(channelName1);
       channel.join().then(() => {
 
+      addUserAttribute(convertEmailToId(peer), 'currentStatus', 1);
+
       if(storeData.userType == 1){
         recentlyJoinedChannelUser();
       }
@@ -161,16 +163,20 @@ if(!AgoraRTC.checkSystemRequirements()) {
       channel.sendMessage({text}).then(() => {  
         console.log('-------join msg llllll--------','mssages send successfully on channel');    
       }).catch(error => {
+        displayError(error);
         console.log('-------There is error in joining a channel------')
       });
 
       channel.getMembers().then(membersList => {    
         channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
       }).catch(error => {
+        displayError(error);
         console.log('*************There is an error******');
       });
 
       channel.on('MemberJoined', memberId => { 
+
+        addUserAttribute(convertEmailToId(memberId), 'currentStatus', 1);
 
         console.log('MemberJoined ================MemberJoined ');
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-status').attr('src', '/images/online.png');
@@ -190,7 +196,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
       })
      
        channel.on('MemberLeft', memberId => { 
-    
+        
+        addUserAttribute(convertEmailToId(memberId), 'currentStatus', 0);
+
         var massages="208"+sep+memberId+sep+"left"+sep;  
         channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"left"}), storeData.userType);
       
@@ -218,10 +226,12 @@ if(!AgoraRTC.checkSystemRequirements()) {
         });
  
       }).catch(error => {
+        displayError(error);
         console.log('**********shiv*********There Is a problem to join a channel**********');
       });
 
         }).catch(err => {
+          displayError(err);
           console.log('---------------bbbbbbbb-----client is not logedin-----');
         });
   
@@ -285,6 +295,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         $('#guestmsg').append(html);
 
       }).catch(error => {
+        displayError(error);
           console.log('*************There is an error******');
       });
 
@@ -905,6 +916,7 @@ function signalHandler(uid, signalData, userType) {
         $('#newmsg').html(message);
        // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
        addRtmJoinOrder(uid, resultant[1]);
+       addUserAttribute(convertEmailToId(uid), 'currentStatus', 1);
       }
      
 
@@ -1514,6 +1526,45 @@ function signalHandler(uid, signalData, userType) {
 
       return userList; 
     }
+
+    function addUserAttribute(id, key, value){
+      
+    let tempUsers = localStorage.getItem("tempUsers");
+    console.log('tempUsers =========== tempUsers', tempUsers, id, key, value)
+
+    if(tempUsers != null){
+      tempUsers = JSON.parse(tempUsers);
+      for(let i in tempUsers){
+        //tempUsers[i].hasOwnProperty(key)
+        if(tempUsers[i].id == id){
+          tempUsers[i][key] = value;
+        }
+      }
+    }
+      
+    localStorage.setItem("tempUsers", JSON.stringify(tempUsers));
+  }
+  
+  function removeUserAttribute(id, key){
+      let tempUsers = localStorage.getItem("tempUsers");
+      console.log('tempUsers =========== tempUsers', tempUsers)
+      let newTempUsers = {};
+      if(tempUsers != null){
+        tempUsers = JSON.parse(tempUsers);
+        for(let i in tempUsers){
+          //tempUsers[i].hasOwnProperty(key)
+          if(tempUsers[i].id != id){
+            newTempUsers[i] = tempUsers[i];
+          }
+        }
+      }
+        
+      localStorage.setItem("tempUsers", JSON.stringify(newTempUsers));
+  }
+
+  function displayError(err){
+    $('#exptn-errors').html('<pre>'+err+'</pre>');
+  }
       
   $(document).ready(function(){
 

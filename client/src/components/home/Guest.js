@@ -202,7 +202,8 @@ return (
                       <button className="ml-2 logout-btn" onClick={this.callfunction.bind(this)} tabIndex="1">
                         <i className="fa fa-times" aria-hidden="true"></i>
                       </button>
-                    </div>
+                  </div>
+                  <div className="text-danger" id="exptn-errors"></div>
                 </div>
               </div>
             </div>

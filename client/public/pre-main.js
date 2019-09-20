@@ -834,6 +834,7 @@ function attendeeScreenHeight(){
     localStorage.removeItem("pre-session-time");
     localStorage.removeItem("load-page");
     localStorage.removeItem("channel");
+    localStorage.removeItem("allloginuser");
   }
   var resetCount = '';
 
@@ -905,6 +906,7 @@ function signalHandler(uid, signalData, userType) {
        // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
        addRtmJoinOrder(uid, resultant[1]);
       }
+     
 
   } else { // Attendy
 

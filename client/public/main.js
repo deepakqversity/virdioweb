@@ -183,7 +183,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
           if(totalScreenUsers < 8){
 
-          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" data-dismiss="modal">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute   d-none"  id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
+          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" data-dismiss="modal">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute   d-none"  id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
           } else {
             
           }
@@ -2205,7 +2205,7 @@ function signalHandler(uid, signalData, userType) {
      
       if(getUserDataFromList(memberID, 'userType') != 1){
         count4++;
-        $('#all_joined_member_list').append('<div class="attendee-list"><img src="images/attendee.png" /><span class="title">'+userName+'</span><div class="vid-icons"> <span class="icon-appearance d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-aroma d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-palate d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-score d-none"  id="emojies_sc'+memberID+'"  data-attr="'+memberID+'"></span></div></div>');
+        $('#all_joined_member_list').append('<div class="attendee-list"><img src="images/attendee.png" /><span class="title">'+userName+'</span><div class="vid-icons"> <span class="icon-appearance d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-appearance1 d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-appearance2 d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-appearance3 d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-appearance4 d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-aroma d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma1 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma2 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma3 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma4 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-palate d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate1 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate2 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate3 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate4 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-score d-none"  id="emojies_sc'+memberID+'"  data-attr="'+memberID+'"></span></div></div>');
         }
       }); 
       console.log('*******finalcountatattendies*************** element ', count4);
@@ -2309,12 +2309,49 @@ function signalHandler(uid, signalData, userType) {
         {
         $('.icon-appearance[data-attr=\''+newSenderID+'\']').removeClass("d-none");
         }
+       else if(signalData == "appearence1")
+        {
+        $('.icon-appearance1[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }else if(signalData == "appearence2")
+        {
+        $('.icon-appearance2[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }  else if(signalData == "appearence3")
+        {
+        $('.icon-appearance3[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }else if(signalData == "appearence4")
+        {
+        $('.icon-appearance4[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }
         else if(signalData == "aroma")
         {
           $('.icon-aroma[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }else if(signalData == "aroma1")
+        {
+          $('.icon-aroma1[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }else if(signalData == "aroma2")
+        {
+          $('.icon-aroma2[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }else if(signalData == "aroma3")
+        {
+          $('.icon-aroma3[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }else if(signalData == "aroma4")
+        {
+          $('.icon-aroma4[data-attr=\''+newSenderID+'\']').removeClass("d-none");
         }else if(signalData == "palate")
         {
           $('.icon-palate[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }else if(signalData == "palate1")
+        {
+          $('.icon-palate1[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }else if(signalData == "palate2")
+        {
+          $('.icon-palate2[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }else if(signalData == "palate3")
+        {
+          $('.icon-palate3[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }else if(signalData == "palate4")
+        {
+          $('.icon-palate4[data-attr=\''+newSenderID+'\']').removeClass("d-none");
         }else if(signalData == "score")
         {
           $('.icon-score[data-attr=\''+newSenderID+'\']').removeClass("d-none");
@@ -2334,15 +2371,69 @@ function signalHandler(uid, signalData, userType) {
        console.log('-------',$('.icon-appearance[data-attr=\''+newSenderID+'\']').length)
        // $('.icon-appearance[data-attr=\''+newSenderID+'\']').removeClass("d-none");
         }
+        else if(signalData == "appearence1")
+        {          
+        $('#emojies_app1'+newSenderID+'').removeClass("d-none");      
+       // $('.icon-appearance1[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }
+        else if(signalData == "appearence2")
+        {          
+        $('#emojies_app2'+newSenderID+'').removeClass("d-none");      
+       // $('.icon-appearance2[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }
+        else if(signalData == "appearence3")
+        {          
+        $('#emojies_app3'+newSenderID+'').removeClass("d-none");      
+       // $('.icon-appearance3[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }
+        else if(signalData == "appearence4")
+        {          
+        $('#emojies_app4'+newSenderID+'').removeClass("d-none");      
+       // $('.icon-appearance4[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }
         else if(signalData == "aroma")
         {
           $('.icon-aroma[data-attr=\''+newSenderID+'\']').removeClass("d-none");
         //  $('#emojies_ar'+newSenderID+'').removeClass("d-none");
-        }else if(signalData == "palate")
+        }else if(signalData == "aroma1")
+        {
+          $('.icon-aroma1[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        //  $('#emojies_ar'+newSenderID+'').removeClass("d-none");
+        } else if(signalData == "aroma2")
+        {
+          $('.icon-aroma2[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        //  $('#emojies_ar'+newSenderID+'').removeClass("d-none");
+        } else if(signalData == "aroma3")
+        {
+          $('.icon-aroma3[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        //  $('#emojies_ar'+newSenderID+'').removeClass("d-none");
+        } else if(signalData == "aroma4")
+        {
+          $('.icon-aroma4[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        //  $('#emojies_ar'+newSenderID+'').removeClass("d-none");
+        } 
+        else if(signalData == "palate")
         {
           $('.icon-palate[data-attr=\''+newSenderID+'\']').removeClass("d-none");
          // $('#emojies_pal'+newSenderID+'').removeClass("d-none");
-        }else if(signalData == "score")
+        }else if(signalData == "palate1")
+        {
+          $('.icon-palate1[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+         // $('#emojies_pal'+newSenderID+'').removeClass("d-none");
+        } else if(signalData == "palate2")
+        {
+          $('.icon-palate2[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+         // $('#emojies_pal'+newSenderID+'').removeClass("d-none");
+        }else if(signalData == "palate3")
+        {
+          $('.icon-palate3[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+         // $('#emojies_pal'+newSenderID+'').removeClass("d-none");
+        }else if(signalData == "palate4")
+        {
+          $('.icon-palate4[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+         // $('#emojies_pal'+newSenderID+'').removeClass("d-none");
+        }
+        else if(signalData == "score")
         {
           $('.icon-score[data-attr=\''+newSenderID+'\']').removeClass("d-none");
          // $('#emojies_sc'+newSenderID+'').removeClass("d-none");
@@ -2775,6 +2866,42 @@ function signalHandler(uid, signalData, userType) {
        sendMessageToChannel(channelName1,messages);
       });
 
+      $( '#appearence_button1' ).bind( "click", function(event) {
+        var attendiesEmail=$( '#appearence_button1' ).val();
+        //alert(attendiesEmail);return false;
+
+       messages="202"+sep+"appearence1"; 
+     //  sendMessageToChannel(channelName, JSON.stringify({code:"110",data:attendiesEmail, message:"appearence"}));
+       sendMessageToChannel(channelName1,messages);
+      });
+
+      $( '#appearence_button2' ).bind( "click", function(event) {
+        var attendiesEmail=$( '#appearence_button2' ).val();
+        //alert(attendiesEmail);return false;
+
+       messages="202"+sep+"appearence2"; 
+     //  sendMessageToChannel(channelName, JSON.stringify({code:"110",data:attendiesEmail, message:"appearence"}));
+       sendMessageToChannel(channelName1,messages);
+      });
+
+      $( '#appearence_button3' ).bind( "click", function(event) {
+        var attendiesEmail=$( '#appearence_button3' ).val();
+        //alert(attendiesEmail);return false;
+
+       messages="202"+sep+"appearence3"; 
+     //  sendMessageToChannel(channelName, JSON.stringify({code:"110",data:attendiesEmail, message:"appearence"}));
+       sendMessageToChannel(channelName1,messages);
+      });
+
+      $( '#appearence_button4' ).bind( "click", function(event) {
+        var attendiesEmail=$( '#appearence_button4' ).val();
+        //alert(attendiesEmail);return false;
+
+       messages="202"+sep+"appearence4"; 
+     //  sendMessageToChannel(channelName, JSON.stringify({code:"110",data:attendiesEmail, message:"appearence"}));
+       sendMessageToChannel(channelName1,messages);
+      });
+
       $( '#aroma_button' ).bind( "click", function(event) {
         var attendiesID=$( '#aroma_button' ).val();
 
@@ -2783,11 +2910,65 @@ function signalHandler(uid, signalData, userType) {
         sendMessageToChannel(channelName1,messages);
       });
 
+      $( '#aroma_button1' ).bind( "click", function(event) {
+        var attendiesID=$( '#aroma_button1' ).val();
+
+        messages="202"+sep+"aroma1"; 
+        //sendMessage(channelName, JSON.stringify({code:"110",data:attendiesID, message:"aroma"}));
+        sendMessageToChannel(channelName1,messages);
+      });
+
+      $( '#aroma_button2' ).bind( "click", function(event) {
+        var attendiesID=$( '#aroma_button2' ).val();
+
+        messages="202"+sep+"aroma2"; 
+        //sendMessage(channelName, JSON.stringify({code:"110",data:attendiesID, message:"aroma"}));
+        sendMessageToChannel(channelName1,messages);
+      });
+
+      $( '#aroma_button3' ).bind( "click", function(event) {
+        var attendiesID=$( '#aroma_button3' ).val();
+
+        messages="202"+sep+"aroma3"; 
+       
+        sendMessageToChannel(channelName1,messages);
+      });
+
+      $( '#aroma_button4' ).bind( "click", function(event) {
+        var attendiesID=$( '#aroma_button4' ).val();
+
+        messages="202"+sep+"aroma4"; 
+       
+        sendMessageToChannel(channelName1,messages);
+      });
+
       $( '#palate_button' ).bind( "click", function(event) {
-        var attendiesID=$( '#palate_button' ).val();
- 
+        var attendiesID=$( '#palate_button' ).val(); 
        messages="202"+sep+"palate";
-        //sendMessage(channelName, JSON.stringify({code:"110",data:attendiesID, message:"palate"}));
+        sendMessageToChannel(channelName1,messages);
+      });
+
+      $( '#palate_button1' ).bind( "click", function(event) {
+        var attendiesID=$( '#palate_button1' ).val(); 
+       messages="202"+sep+"palate1";
+        sendMessageToChannel(channelName1,messages);
+      });
+
+      $( '#palate_button2' ).bind( "click", function(event) {
+        var attendiesID=$( '#palate_button2' ).val(); 
+       messages="202"+sep+"palate2";
+        sendMessageToChannel(channelName1,messages);
+      });
+
+      $( '#palate_button3' ).bind( "click", function(event) {
+        var attendiesID=$( '#palate_button3' ).val(); 
+       messages="202"+sep+"palate3";
+        sendMessageToChannel(channelName1,messages);
+      });
+
+      $( '#palate_button4' ).bind( "click", function(event) {
+        var attendiesID=$( '#palate_button4' ).val(); 
+       messages="202"+sep+"palate4";
         sendMessageToChannel(channelName1,messages);
       });
 

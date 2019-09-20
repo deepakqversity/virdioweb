@@ -72,7 +72,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
       // Before join channel add user role 
       // client.setClientRole(storeData.userType == 1 ? "host" : "audience", function(err) {
-      client.setClientRole("host", function(err) {
+      client.setClientRole("audience", function(err) {
 
         if(err) {
           console.log("user role failed", e);
@@ -543,15 +543,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
     // appId1 = storeData.sessionData.channelId;
     var peer=storeData.email;
     // newclient.login({uid: peer.toString(), token});
-
-    if(newclient == undefined){
+console.log('newclient , channel =========== ', newclient , channel)
+    if(newclient == undefined || channel == undefined){
 
       newclient = AgoraRTM.createInstance(appId1);
       newclient.login({ token: token, uid: peer }).then(() => {
 
         console.log('***********AgoraRTM client login success***********');
-
-        if(channel == undefined){
 
             // Create channel
             channel = newclient.createChannel(channelName1);
@@ -574,10 +572,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
                //  }).catch(error => {
                //    console.log('-------There is error in joining a channel------')
                //  });
-
+console.log('channel-----------------------', channel)
                 channel.getMembers().then(membersList => {    
                   console.log('membersList', membersList)
-                    
+                      
                   channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
 
                 }).catch(error => {
@@ -619,14 +617,11 @@ if(!AgoraRTC.checkSystemRequirements()) {
                 signalHandler(peerId, message.text, storeData.userType);
               });
 
-            } else {
-              // joinChannel();
-            }
-
         }).catch(err => {
           console.log('---------------bbbbbbbb-----client is not logedin-----');
         });
       } else {
+        console.log('******************else ************', channel)
         channel.getMembers().then(membersList => {    
                     
           channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
@@ -1868,7 +1863,9 @@ function signalHandler(uid, signalData, userType) {
         }
       }
 
-      if(newAudienceList.length == 0){
+      if(newAudienceList.length <= 0){
+
+        $('#dropdownMenuButton').click();
         $('#dropdownMenuButton').addClass('d-none');
       }
       
@@ -1894,7 +1891,11 @@ function signalHandler(uid, signalData, userType) {
 
      function showHandAtHost(){
       console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-        let audienceList = JSON.parse(localStorage.getItem("audience-list"));
+        let audienceList = localStorage.getItem("audience-list");
+        
+        if(audienceList == null) return '';
+
+        audienceList = JSON.parse(audienceList);
         console.log('audienceList', audienceList, audienceList.length)
         if(audienceList.length > 0){
           
@@ -1954,7 +1955,8 @@ function signalHandler(uid, signalData, userType) {
       let text = "1002"+sep+"kicked by host";
       console.log('############### text', text)
       sendMessage( convertIdToEmail(id), text);
-      removeAudienceInList(id);
+
+      removeAudienceInList($('#to-broadcast').val());
     }
 
     function pullFromSessionByHost(limit){
@@ -2023,7 +2025,7 @@ function signalHandler(uid, signalData, userType) {
 
     function channelSignalHandler(signalData, userType) {
 
-    getAudienceList();
+    // getAudienceList();
     console.log('********guduorigin************** signalData ', signalData, userType);
     signalData = JSON.parse(signalData);
     if(signalData.code == '208'){

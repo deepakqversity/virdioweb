@@ -22,11 +22,11 @@ render() {
   console.log('sessionScript=', sessionScript)
 
 return (
-      <div>
+      <div className="col-lg-4 col-md-6 col-sm-6 col-6 max-width-300">
       { this.props.sessId == 1 ? (
 
         
-      <div className="col-lg-6 col-md-6 col-sm-9 col-12 max-width-300">
+      <div className="">
         <div id="demo" data-interval="false" className="carousel slide script-info" data-ride="carousel">
 
           <div className="carousel-inner guest-left-wine">

@@ -122,6 +122,7 @@ class Guest extends Component {
       } else {
         clearInterval(this.timer);
         this.setState({ timerOn: false });
+        $('.countdown-timer').html('Session Started')
         //alert("Countdown ended");
       }
     }, 10);
@@ -157,7 +158,8 @@ render() {
     } else if(sessionScript == 2) {
       scriptHtml = <FitnessScript />;
     }    
-    const newulength = JSON.parse(localStorage.getItem('tempUsers')).length;
+    let newulength = JSON.parse(localStorage.getItem('tempUsers')).length;
+    newulength = newulength < 1 ? 0 : --newulength ;
 
 return (
     <div className="container d-flex flex-column justify-content-between h-100 overlay position-relative">
@@ -179,7 +181,7 @@ return (
                 <div className="row justify-content-between align-items-center">
                   <div className="col-12 col-lg-7 col-md-6 text-center text-md-left col-sm-12">
                     <div className="time py-xs-1">  <span>{localDate}</span>
-                    <span>Time Remaining: {hours} : {minutes} : {seconds}</span>
+                    <span className="countdown-timer">Time Remaining: {hours} : {minutes} : {seconds}</span>
                     </div>
                     <div id="hostmsg" style={{color:'green'}}></div>
                   </div>

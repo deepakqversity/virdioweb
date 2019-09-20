@@ -98,7 +98,7 @@ class PreConfiguration extends Component {
       
       window.joinChannel();
 
-      setTimeout(function(){ }, 1000);
+      // setTimeout(function(){ }, 1000);
       
       window.removePreScreenSession();
 

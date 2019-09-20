@@ -1630,29 +1630,46 @@ function changeImage(){
     localStorage.removeItem("pre-session-time");
     localStorage.removeItem("load-page");
     localStorage.removeItem("channel");
+    localStorage.removeItem("allloginuser");
   }
   var resetCount = '';
+  var countdown = 0;
 
   function countDown(){
+    
+    // let disCtr = 0;
+    // if($('#fitness-counter').length > 0){
+
+    //   disCtr = $('#fitness-counter').html();
+    //   disCtr = disCtr == '' ? 0 : parseInt(disCtr);
+    //   disCtr++;
+    //   $('#fitness-counter').html(disCtr);
+    // }
+
     let activeEle = $('.swiper-slide.swiper-slide-next');
     var countdownNumberEl = activeEle.find('.countdown-number');
     
     // var countdown = 30;
-    var countdown = parseInt(countdownNumberEl.html());
-    activeEle.find('.count-box svg circle').attr("style","animation-duration:"+countdown+"s !important");
-
+    countdown = parseInt(countdownNumberEl.html());
+    activeEle.find('svg circle').attr("style","animation-duration:"+countdown+"s !important");
     countdownNumberEl.html(countdown + '\ SEC') ;
     
-    resetCount = setInterval(function() {
-      countdown = --countdown < 0 ? countdown : countdown;
+    console.log('countdown ======= countdown start ----', countdown)
     
+    var resetCount = setInterval(function() {
+    console.log('countdown ======= countdown----', countdown)
+      countdown--;
+      countdown = countdown < 0 ? 0 : countdown;
+
       countdownNumberEl.html(countdown + '\ SEC') ;
       if(countdown <= 0){
-        
-        activeEle.find('.count-box svg circle').removeAttr("style");
-        clearInterval(resetCount);
-        // Now you can use all slider methods like
+        console.log('=========== **********', countdown)
+        activeEle.find('svg circle').removeAttr("style");
         mySwiper.slideNext();
+
+        clearInterval(resetCount);
+
+        // Now you can use all slider methods like
         countDown();
       }
     }, 1000);
@@ -1703,8 +1720,47 @@ function signalHandler(uid, signalData, userType) {
         $('#newmsg').html(message);
        // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
        addRtmJoinOrder(uid, resultant[1]);
-      }
+      } else if(resultant[0] == '211') {        
+        $(".start span a").trigger('click');
 
+        let storeData1 = getCurrentUserData();
+     
+        let ftnsStartCode=storeData1.rtm.ftnsStart.code;                  
+        messages=ftnsStartCode+sep;        
+        sendMessageToChannel(channelName1,messages);
+
+      }
+      else if(resultant[0] == '212') {        
+        $(".end span a").trigger('click');
+
+        let storeData2 = getCurrentUserData();
+     
+        let ftnsStopCode=storeData2.rtm.ftnsStop.code;                  
+        messages=ftnsStopCode+sep;        
+        sendMessageToChannel(channelName1,messages);
+
+      }else if(resultant[0] == "214")
+      {
+        $(".carousel-control-next").trigger('click');
+
+        let storeData3 = getCurrentUserData();
+     
+        let WinsNextCode=storeData3.rtm.WinsNext.code;                  
+        messages=WinsNextCode+sep;        
+        sendMessageToChannel(channelName1,messages);
+        
+      }else if(resultant[0] == "215")
+      {
+        $(".carousel-control-prev").trigger('click');
+
+        let storeData4 = getCurrentUserData();
+     
+        let WinsPrevCode=storeData4.rtm.WinsPrev.code;                  
+        messages=WinsPrevCode+sep;        
+        sendMessageToChannel(channelName1,messages);
+                
+      }
+      
   } else { // Attendy
 
     
@@ -1843,7 +1899,14 @@ function signalHandler(uid, signalData, userType) {
       {
         console.log('-------------------fitscript has Started-------------');
        // $('#hostFtnsScript').trigger('click');
-        $(".start span a").trigger('click');
+        $(".swiper-guest.start span a").trigger('click');
+        // $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
+        // $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
+        // $(".swiper-slide.start a").prop('disabled', true);
+        // $(".swiper-btn-next").css("display", "block")
+        // countDown();
+        // startSlider();
+
       }else if(res1[0] == "212")
       {
        // alert('fitscript has Stopped');
@@ -2212,12 +2275,12 @@ function signalHandler(uid, signalData, userType) {
         }
       }); 
       console.log('*******finalcountatattendies*************** element ', count4);
-      if(count4 == NaN && count4 < 0)
+      if(count4 <= 0)
       {
-        count4 =0;
+        count4 = 0;
       }
       console.log('*******finalcountatattendies11*************** element ', count4);
-        $('#joined_users_at_client').empty(); 
+        // $('#joined_users_at_client').empty(); 
         $('#joined_users_at_client').html(count4); 
     
       }
@@ -2270,7 +2333,7 @@ function signalHandler(uid, signalData, userType) {
 
        
       
-            if(count1 == 0 && count1 < 0)
+            if(count1 <= 0)
             {
               count1 = 0;
             }       
@@ -2291,7 +2354,7 @@ function signalHandler(uid, signalData, userType) {
         // $('#totalonline').empty(); 
         // $('#totalonline').html(count1);  
 
-        if(count1 == 0 && count1 < 0)
+        if(count1 <= 0)
         {
           count1 = 0;
         }
@@ -2548,6 +2611,13 @@ function signalHandler(uid, signalData, userType) {
   $(window).resize(function(){
     onPageResize();
   });
+  function  startSlider(){
+    $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
+    $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
+    $(".swiper-slide.start a").prop('disabled', true);
+    $(".swiper-btn-next").css("display", "block")
+    countDown();
+  }
   
       $(document).ready(function(){
 
@@ -2572,13 +2642,23 @@ function signalHandler(uid, signalData, userType) {
       
         $(".script-info .carousel-inner .carousel-item:first").addClass("active");
        
-        $(document).on("click", ".start span a", function(){
+        $(document).on("click", ".swiper-container-host .start span a", function(){
           
-          $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
-          $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
-          $(".swiper-slide.start a").prop('disabled', true);
-          $(".swiper-btn-next").css("display", "block")
-          countDown();
+          // $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
+          // $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
+          // $(".swiper-slide.start a").prop('disabled', true);
+          // $(".swiper-btn-next").css("display", "block")
+          // countDown();
+          startSlider()
+        })
+        $(document).on("click", ".swiper-guest.start span a", function(){
+          
+          // $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
+          // $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
+          // $(".swiper-slide.start a").prop('disabled', true);
+          // $(".swiper-btn-next").css("display", "block")
+          // countDown();
+          startSlider()
         })
 
         // $(document).on("click", "#winscript", function(){
@@ -3010,6 +3090,15 @@ function signalHandler(uid, signalData, userType) {
      
         let WinsNextCode=storeData.rtm.WinsNext.code;                  
         messages=WinsNextCode+sep;        
+        sendMessageToChannel(channelName1,messages);
+      });
+
+      $('#winePrev_button').bind( "click", function(event) {
+
+        let storeData7 = getCurrentUserData();
+     
+        let WinsPrevCode=storeData7.rtm.WinsPrev.code;                  
+        messages=WinsPrevCode+sep;        
         sendMessageToChannel(channelName1,messages);
       });
    

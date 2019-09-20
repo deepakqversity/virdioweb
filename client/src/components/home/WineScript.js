@@ -38,7 +38,7 @@ return (
   sessionScript.map((opt, i) =>
             <div className="carousel-item  h-100 d-flex justify-content-end flex-direction-column" key={i}>
                 <div className="bg-gray position-relative top-rounded d-md-flex justify-content-between align-items-center px-3 py-3 add-remove-round ">
-                  <h3 className="main-heading font-size-16">{sessionData.scriptTitle} <span className="ml-md-4 font-size-16">{sessionData.scriptType}</span></h3>
+                  <h3 className="main-heading font-size-16">{sessionData.scriptTitle} <span className="ml-md-4 font-size-16"><span id="fitness-counter">{i+1}</span>/{sessionScript.length} {sessionData.scriptType}</span></h3>
                   <a className="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev" id="winscript" >
                     <img src="images/prev-icon.png" className="next-btn" />
                   </a>

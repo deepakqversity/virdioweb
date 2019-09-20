@@ -194,8 +194,8 @@ return (
                       <a href="#" className="btn btn-primary ml-2 d-none" id="mocrophone-on" alt="Microphone" title="Microphone On"><i className="fa fa-microphone"></i></a>
                     </div>
 
-                      <a className="col-2 justify-content-end d-flex align-items-center" href="#" className="btn btn-primary " tabIndex="1">Details</a>
-                      {/*<a href="#" className="btn btn-primary ml-2" id="strm-publish" alt="Broadcaster" title="Broadcaster"><i className="fa fa-user-plus"></i></a>
+                      {/*<a className="col-2 justify-content-end d-flex align-items-center" href="#" className="btn btn-primary " tabIndex="1">Details</a>
+                        <a href="#" className="btn btn-primary ml-2" id="strm-publish" alt="Broadcaster" title="Broadcaster"><i className="fa fa-user-plus"></i></a>
                          <a href="#" className="btn btn-primary ml-2 d-none" id="strm-unpublish" alt="Audience" title="Audience"><i className="fa fa-user-times"></i></a>*/}
 
                       {/* <button className="btn btn-primary ml-2" onClick={this.onLogoutClick} tabIndex="1"><i className="fa fa-power-off"></i></button> */}
@@ -223,7 +223,7 @@ return (
           <div className="transparent-gray slide-right-left" style={toggleList}>
             
             <div className="joined-attendees ">
-              <h4 className="mb-2 head"><span className="title">Wine Testers</span><span className="count">(<span  id="joined_users_at_client"></span>/<span>{newulength}</span>)</span></h4>
+              <h4 className="mb-2 head"><span className="title">Wine Testers</span><span className="count">(<span  id="joined_users_at_client">0</span>/<span>{newulength}</span>)</span></h4>
               <div className="joined-member-list" id="all_joined_member_list"></div>
               <button type="button" id="minimize-others" className="mt-2 minimize-others mx-auto d-none"><img src="images/exit-screen.png" /></button>
 

@@ -53,6 +53,7 @@ render() {
 let localstoragedata = JSON.parse(localStorage.getItem('userData'));
 let sessionScript = localstoragedata.sessionData.scriptDetail;
 console.log('sessionScript=', sessionScript)
+
 return (
     
       <div className="test-script fitness-script h-100 ">
@@ -63,7 +64,7 @@ return (
               
             <div className="d-flex height-script h-100 justify-content-end flex-direction-column position-relative">
                 <div className="animate-display bg-gray position-relative top-rounded d-md-flex justify-content-between align-items-center px-3 py-3 add-remove-round ">
-                  <h3 className="main-heading font-size-16">Fitness Script <span className="ml-md-4 font-size-16">6/22 activities</span></h3>
+                  <h3 className="main-heading font-size-16">Fitness Script <span className="ml-md-4 font-size-16"><span id="fitness-counter">0</span>/{sessionScript.length} {localstoragedata.sessionData.scriptType}</span></h3>
                   <button type="button" className="btn btn-outline-secondary mr-3 show-hide-script">"Hide Script"</button>
                   
                 </div>
@@ -71,7 +72,7 @@ return (
               <div className="bg-gray bottom-rounded px-3 pb-2 item-description script-section mt--1 flex-grow-1">
                 <div className="h-100">
                   <div className="row">
-                  <div className="swiper-container">
+                  <div className="swiper-container swiper-container-host">
                       <div className="swiper-wrapper">
                         <div className="swiper-slide start">
                           <span>

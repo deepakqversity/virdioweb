@@ -144,7 +144,7 @@ console.log('sessionScript=', sessionScript)
                         sessionScript.map((opt, i) =>
                         
                          
-                              <div className="swiper-slide">
+                              <div className="swiper-slide" key={i}>
                                 
                                   <div id="countdown" className="count-timer" key={i}>
                                   {opt.attribute.map(function(attrb, index){
@@ -163,6 +163,11 @@ console.log('sessionScript=', sessionScript)
                                  
                   
                         )}
+                    <div className="swiper-guest swiper-slide end">              
+                      <span>
+                        <a href="#">End</a>
+                      </span>
+                    </div>
               </div>
             </div>
           </div>

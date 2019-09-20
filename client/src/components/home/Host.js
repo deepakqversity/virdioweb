@@ -164,8 +164,8 @@ render() {
       scriptHtml = <FitnessScript />;
     }
 
-    const newulength = JSON.parse(localStorage.getItem('tempUsers')).length;
-
+    var newulength = JSON.parse(localStorage.getItem('tempUsers')).length;
+    newulength = newulength < 1 ? 0 : --newulength ;
 return (
     <div className="container justify-content-between d-flex flex-column h-100 position-relative">
     <header className="header bg-gray mt-0 position-fixed">

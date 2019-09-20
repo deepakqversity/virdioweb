@@ -1629,27 +1629,43 @@ function changeImage(){
     localStorage.removeItem("channel");
   }
   var resetCount = '';
+  var countdown = 0;
 
   function countDown(){
+    
+    // let disCtr = 0;
+    // if($('#fitness-counter').length > 0){
+
+    //   disCtr = $('#fitness-counter').html();
+    //   disCtr = disCtr == '' ? 0 : parseInt(disCtr);
+    //   disCtr++;
+    //   $('#fitness-counter').html(disCtr);
+    // }
+
     let activeEle = $('.swiper-slide.swiper-slide-next');
     var countdownNumberEl = activeEle.find('.countdown-number');
     
     // var countdown = 30;
-    var countdown = parseInt(countdownNumberEl.html());
-    activeEle.find('.count-box svg circle').attr("style","animation-duration:"+countdown+"s !important");
-
+    countdown = parseInt(countdownNumberEl.html());
+    activeEle.find('svg circle').attr("style","animation-duration:"+countdown+"s !important");
     countdownNumberEl.html(countdown + '\ SEC') ;
     
-    resetCount = setInterval(function() {
-      countdown = --countdown < 0 ? countdown : countdown;
+    console.log('countdown ======= countdown start ----', countdown)
     
+    var resetCount = setInterval(function() {
+    console.log('countdown ======= countdown----', countdown)
+      countdown--;
+      countdown = countdown < 0 ? 0 : countdown;
+
       countdownNumberEl.html(countdown + '\ SEC') ;
       if(countdown <= 0){
-        
-        activeEle.find('.count-box svg circle').removeAttr("style");
-        clearInterval(resetCount);
-        // Now you can use all slider methods like
+        console.log('=========== **********', countdown)
+        activeEle.find('svg circle').removeAttr("style");
         mySwiper.slideNext();
+
+        clearInterval(resetCount);
+
+        // Now you can use all slider methods like
         countDown();
       }
     }, 1000);
@@ -1840,7 +1856,13 @@ function signalHandler(uid, signalData, userType) {
       {
         console.log('-------------------fitscript has Started-------------');
        // $('#hostFtnsScript').trigger('click');
-        $(".start span a").trigger('click');
+        // $(".start span a").trigger('click');
+        $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
+        $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
+        $(".swiper-slide.start a").prop('disabled', true);
+        $(".swiper-btn-next").css("display", "block")
+        countDown();
+
       }else if(res1[0] == "212")
       {
        // alert('fitscript has Stopped');
@@ -2209,12 +2231,12 @@ function signalHandler(uid, signalData, userType) {
         }
       }); 
       console.log('*******finalcountatattendies*************** element ', count4);
-      if(count4 == NaN && count4 < 0)
+      if(count4 <= 0)
       {
-        count4 =0;
+        count4 = 0;
       }
       console.log('*******finalcountatattendies11*************** element ', count4);
-        $('#joined_users_at_client').empty(); 
+        // $('#joined_users_at_client').empty(); 
         $('#joined_users_at_client').html(count4); 
     
       }
@@ -2267,7 +2289,7 @@ function signalHandler(uid, signalData, userType) {
 
        
       
-            if(count1 == 0 && count1 < 0)
+            if(count1 <= 0)
             {
               count1 = 0;
             }       
@@ -2288,7 +2310,7 @@ function signalHandler(uid, signalData, userType) {
         // $('#totalonline').empty(); 
         // $('#totalonline').html(count1);  
 
-        if(count1 == 0 && count1 < 0)
+        if(count1 <= 0)
         {
           count1 = 0;
         }
@@ -2474,7 +2496,7 @@ function signalHandler(uid, signalData, userType) {
       
         $(".script-info .carousel-inner .carousel-item:first").addClass("active");
        
-        $(document).on("click", ".start span a", function(){
+        $(document).on("click", ".swiper-container-host .start span a", function(){
           
           $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
           $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");

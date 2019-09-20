@@ -591,9 +591,13 @@ console.log('------------channellalit-------',channel);
 
               // channel log
               channel.on('MemberJoined', memberId => { 
+
+                console.log('------------memberjoineddeepak-------',memberId);
                
                 var massages="208"+sep+memberId+sep+"joined"+sep;        
                 channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
+
+                console.log('------------memberafterjoineddeepak-------',memberId);
               })
            
               channel.on('MemberLeft', memberId => { 
@@ -628,21 +632,23 @@ console.log('------------channellalit-------',channel);
           console.log('---------------bbbbbbbb-----client is not logedin-----');
         });
       } else {
-        console.log('------------newclient-------',newclient);
-          console.log('------------channel11111111111-------',channel);
+       
         channel.getMembers().then(membersList => {    
           console.log('------------membersListlalit-------',membersList);       
           channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
-          console.log('------------membersListlalit-------',membersList.length); 
+        
         }).catch(error => {
            console.log('*************There is an errorkkkkkkkkkk******');
         });
           // channel log
-          channel.on('MemberJoined', memberId => { 
-           
-            var massages="208"+sep+memberId+sep+"joined"+sep;        
-            channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
-          })
+          // channel.on('MemberJoined', memberId => { 
+          //   console.log('------------memberjoinedlalit-------',memberId);
+
+          //   var massages="208"+sep+memberId+sep+"joined"+sep;        
+          //   channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
+
+          //   console.log('------------memberafterjoinedlalit-------',memberId);
+          // })
        
           channel.on('MemberLeft', memberId => { 
       
@@ -2030,12 +2036,12 @@ function signalHandler(uid, signalData, userType) {
 
     function channelSignalHandler(signalData, userType) {
 
-    getAudienceList();
-    console.log('********guduorigin11111111111************** signalData ', signalData, userType);
+   // getAudienceList();
+   // console.log('********guduorigin11111111111************** signalData ', signalData, userType);
     signalData = JSON.parse(signalData);
     if(signalData.code == '208'){
       if(userType =='1'){  
-        console.log('********guduorigin2222222222222************** signalData ', signalData, userType);
+        console.log('********guduorigin99999999999999************** signalData ', signalData, userType);
           incrementcountAtHost(signalData,userType);        
       }else{
         console.log('********guduorigin333333333333************** signalData ', signalData, userType);
@@ -2053,16 +2059,17 @@ function signalHandler(uid, signalData, userType) {
 
       function incrementcountAtAttendies(signalData,userType)
       {
-        console.log('*******totallist111*************** signalData ',signalData);
+       // console.log('*******totallist111*************** signalData ',signalData);
         let count3=$('#joined_users_at_client').html();
 
-        console.log('*******totallist222*************** signalData ',signalData.member,'----mmm----', count3);
+       // console.log('*******totallist222*************** signalData ',signalData.member,'----mmm----', count3);
       
         count3=parseInt(count3);
         var arr;
         
       if(signalData.msgtype=='Joined')
-      { console.log('*******totallist333333*************** signalData ',signalData.member,'----mmm----', count3);
+      { 
+      //  console.log('*******totallist333333*************** signalData ',signalData.member,'----mmm----', count3);
         let localstoragedata = JSON.parse(localStorage.getItem('allloginuser'));
         let newmem=signalData.member;
        // console.log('*******totallist5555555*************** signalData ',count3); 
@@ -2080,15 +2087,15 @@ function signalHandler(uid, signalData, userType) {
           $('#online_state').removeClass("online-status");        
           $('#online_state').addClass("online-status");
         }
-        console.log('*******totallist5555555*************** signalData ',count3); 
+        //console.log('*******totallist5555555*************** signalData ',count3); 
         count4=count3+1;
       
-        console.log('*******totallist666666*************** signalData ',count4); 
+        //console.log('*******totallist666666*************** signalData ',count4); 
 
      
       }else if(signalData.msgtype=='left') {
 
-        console.log('*******totallist444444*************** signalData ',signalData.member,'----mmm----', count3);
+        console.log('*******totallist444444*************** signalData ',signalData,'----mmm----', count3);
 
         let localstoragealdata = JSON.parse(localStorage.getItem('allloginuser'));
         
@@ -2114,21 +2121,36 @@ function signalHandler(uid, signalData, userType) {
 
        // console.log('*******totallist333333333*************** signalData ',count3); 
         count4=count3-1;
-        //console.log('*******totallist77777777*************** signalData ',count4); 
+        
           
       }else if(signalData.msgtype=='totalcount') {
 
-        console.log('*******totallist555555*************** signalData ', count3);
+        //console.log('*******totallist555555*************** signalData ', count3);
 
-        console.log('*******totallistaaaaaaa*************** signalData ', signalData);
-            
+                   
          arr=signalData.totalmember;  
          localStorage.setItem("allloginuser", JSON.stringify(signalData.totalmember));            
-         console.log('*******totallist2222233333*************** signalData ', arr);
-
+        console.log('*******totallist2222233333*************** signalData ', signalData);
         count4=signalData.member;
-        count4=parseInt(count4);
-        count4=count4-1;
+        signalData.forEach(ele => {
+
+          memID=convertEmailToId(ele);
+
+          if(getUserDataFromList(memID, 'userType') == 1)
+          {
+            
+            count4=parseInt(count4);
+            count4=count4-1;
+          }else{
+           
+            count4=parseInt(count4);
+          }
+
+        }); 
+        count4=count4;
+        // count4=signalData.member;
+        // count4=parseInt(count4);
+        // count4=count4-1;
        console.log('*******totallist*************** signalData ', count4);
        //arr.shift();
    
@@ -2149,19 +2171,16 @@ function signalHandler(uid, signalData, userType) {
          
        console.log('*******element*************** element ', element,'-----memberID-----',memberID);
 
-        // if(element == hostEmail)
-        // { 
-            
-        //   $('#online_state').removeClass("online-status");        
-        //   $('#online_state').addClass("online-status");
-        // }
+      
        // $('#all_joined_member_list').append('<div className="attendee-list"><img src="images/attendee.png" /><span class="title">'+element+'</span><div className="vid-icons"> <span class="icon-appearance d-none"  id="emojies_app'+memberID+'"  data-attr="emojies'+memberID+'"></span><span class="icon-aroma d-none" id="emojies_ar'+memberID+'" data-attr="emojies'+memberID+'"></span><span class="icon-palate d-none"  id="emojies_pal'+memberID+'"  data-attr="emojies'+memberID+'"></span><span class="icon-score d-none"  id="emojies_sc'+memberID+'"  data-attr="emojies'+memberID+'"></span></div></div>');
         $('#all_joined_member_list').append('<div class="attendee-list"><img src="images/attendee.png" /><span class="title">'+userName+'</span><div class="vid-icons"> <span class="icon-appearance d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-aroma d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-palate d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-score d-none"  id="emojies_sc'+memberID+'"  data-attr="'+memberID+'"></span></div></div>');
       }); 
-      
-      // $('#totalonline').empty(); 
-      // $('#totalonline').html(count4);
-    
+      console.log('*******finalcountatattendies*************** element ', count4);
+      if(count4 == NaN && count4 < 0)
+      {
+        count4 =0;
+      }
+      console.log('*******finalcountatattendies11*************** element ', count4);
         $('#joined_users_at_client').empty(); 
         $('#joined_users_at_client').html(count4); 
     
@@ -2196,7 +2215,7 @@ function signalHandler(uid, signalData, userType) {
       {     
        
         count1=count+1;
-        console.log('********guduHost111111111************** signalData ', signalData, userType,count1);
+        console.log('********guduHost111111111************** signalData ', signalData, count,count1);
        
          // console.log('*********lllllllll************* signalData ', signalData.message);
           // $('#totalonline').empty(); 
@@ -2206,30 +2225,19 @@ function signalHandler(uid, signalData, userType) {
             $('#joined_users').html(count1);
        
 
-      //   var peerId=signalData.member;
-
-       
-      //   let text ="216"+sep+"Hi, welcome to your first virtual studio session as A";
-      //   if(count1 <= 8)
-      //   {
-      //     text ="216"+sep+"Hi,welcome to your first virtual studio session as B";
-      //   }
-      //  // console.log('-------------text=== ', text)
-      //   sendMessage(peerId, text);
-
       }else if(signalData.msgtype=='left') {
 
         
         count1=count-1; 
 
-        console.log('********virenHost111111111************** signalData ', signalData, userType,count1);
+        console.log('********virenHost111111111************** signalData ', signalData, count,count1);
 
        
-          // $('#totalonline').empty(); 
-          // $('#totalonline').html(count1);  
-          // $('#newmsg').html(signalData.message);
-          // setTimeout(function(){ $('#newmsg').html(''); }, 10000); 
-        
+      
+            if(count1 == 0 && count1 < 0)
+            {
+              count1 = 0;
+            }       
             $('#joined_users').empty(); 
             $('#joined_users').html(count1);
         
@@ -2241,15 +2249,21 @@ function signalHandler(uid, signalData, userType) {
            //  console.log('---------alllist----------',arr)
         count1=signalData.member;
         count1=parseInt(count1); 
+        console.log('********atulHost1122222222************** signalData ', signalData, userType,count1);
         count1=count1-1;
         console.log('********atulHost111111111************** signalData ', signalData, userType,count1);
         // $('#totalonline').empty(); 
         // $('#totalonline').html(count1);  
+
+        if(count1 == 0 && count1 < 0)
+        {
+          count1 = 0;
+        }
      
           $('#joined_users').empty(); 
           $('#joined_users').html(count1);
        
-      }
+       }
 
 
       }

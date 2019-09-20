@@ -207,7 +207,7 @@ return (
               <div className="col-12 justify-content-end d-flex align-items-center">
                 
                 <div className="border-right pr-3">
-                <a className="btn  btn-primary border-right pr-20" href="#" tabIndex="1" onClick={this.testButn}>Details</a>
+                <a className="btn  btn-primary border-right pr-20" href="#" data-toggle="modal" data-target="#show-details" tabIndex="1">Details</a>
                 </div>
                 <button className="logout-btn ml-3" onClick={this.callfunction.bind(this)} tabIndex="1">
                   <i className="fa fa-times" aria-hidden="true"></i>
@@ -397,6 +397,101 @@ return (
 
 
       </div>
+      <div id="show-details" className="modal fade " role="dialog">
+      <div className="w-100 d-flex align-items-center bg-black flex-direction-column h-100 mw-100 justify-content-center">
+        <div className="modal-content">
+        
+           <div className="row no-gutters">
+            <div className="col-12 col-sm-6">
+              
+            <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
+              <ol className="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+              </ol>
+              <div className="carousel-inner">
+                <div className="carousel-item active">
+                  <img className="d-block mx-auto" src="images/product.png" alt="First slide" />
+                </div>
+                <div className="carousel-item">
+                  <img className="d-block mx-auto" src="images/product.png" alt="Second slide" />
+                </div>
+                <div className="carousel-item">
+                  <img className="d-block mx-auto" src="images/product.png" alt="Third slide" />
+                </div>
+              </div>
+              
+            </div>
+            </div>
+            <div className="col-12 col-sm-6 detail-model item-description">
+              
+              <div className="">
+              <button type="button" className="close close-model-btn m-0" data-dismiss="modal">&times;</button>
+                <div className="details-content">
+                  <h3 className="second-heading my-3">2014 Bliss Block Pinot Noir</h3>
+                  <div className="content-scroll">
+                    <div className=" row w-100">
+                      <ul className="col-12 col-md-12 col-lg-6 list-info">
+                        <li><span>Varietal</span><span>100% Pinot Noir</span></li>
+                        <li><span>Year</span><span>2014&#8203;</span></li>
+                        <li><span>Country</span><span>United States&#8203;</span></li>
+                        <li><span>Appellation</span><span>Sonoma</span></li>
+                        <li><span>Alcohol</span><span>14.3%</span></li>
+                      </ul>
+                      <ul className="col-12 col-md-12 col-lg-6 list-info">
+                        <li><span>pH</span><span>3.69</span></li>
+                        <li><span>Aging</span><span>15 months in French Oak Barrels, 82%</span></li>
+                        <li><span>Price</span><span>$80&#8203;</span></li>
+                        <li><span>Case Production</span><span>250</span></li>
+                      </ul>
+                      <div className="col col-md-12">
+                        <p className="item-text">The Bliss Block Pinot Noir beautifully captures the rich spice qualities that are characteristic of this cool pocket of our Quail Hill Estate vineyard. A bright garnet hue </p>
+                        
+                      </div>
+                      <div className="col-md-12 mt-3">
+                        <strong className="sub-heading">Varietal Composition</strong>
+                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                      </div>
+                      <div className="col-md-12 mt-3">
+                        <strong className="sub-heading">Varietal Composition</strong>
+                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                      </div>
+                      <div className="col-md-12 mt-3">
+                        <strong className="sub-heading">Varietal Composition</strong>
+                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                      </div>
+                      <div className="col-md-12 mt-3">
+                        <strong className="sub-heading">Varietal Composition</strong>
+                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                      </div>
+                      <div className="col-md-12 mt-3">
+                        <strong className="sub-heading">Varietal Composition</strong>
+                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                      </div>
+                      <div className="col-md-12 mt-3">
+                        <strong className="sub-heading">Varietal Composition</strong>
+                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                      </div>
+                      <div className="col-md-12 mt-3">
+                        <strong className="sub-heading">Varietal Composition</strong>
+                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                      </div>
+                      <div className="col-md-12 mt-3">
+                        <strong className="sub-heading">Varietal Composition</strong>
+                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+           </div>
+          
+        </div>
+
+      </div>
+    </div>
       <input type="hidden" id="switch-counter" />
       <input type="hidden" id="selected-participent-id" />
       <input type="hidden" id="to-broadcast" />

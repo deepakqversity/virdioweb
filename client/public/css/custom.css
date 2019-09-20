@@ -1140,8 +1140,15 @@ display:none;
 }
 }
 .next-btn{
-	width:20px;
+	width:22px;
 	float: right;
+}
+.move-list img{
+	width: 25px;
+    
+}
+.move-list{
+	margin: 0 14px 0 20px;
 }
 
 
@@ -1187,7 +1194,7 @@ display:none;
 }
 .max-h200{
 	max-height:200px;
-	overflow-y:scroll;
+	overflow-y:auto;
 	overflow-x:hidden;
 }
 .max-h200::-webkit-scrollbar {
@@ -1217,10 +1224,11 @@ display:none;
     font-size: 14px;
 }
 .show-hide-script{
-	position: absolute;
-    right: 0;
+position: absolute;
+    right: 10px;
     z-index: 6;
-	top:9px;
+    top: 13px;
+    width: 24px;
 }
 
 @media (max-width:480px){
@@ -1233,16 +1241,26 @@ display:none;
 }
 
 /*----7. Testing Script section-----*/
-.script-info .carousel-control-next{
-	width: 20px;
+.script-info .carousel-control-next, 
+.script-info .carousel-control-prev{
+	width: 22px;
 	height:21px;
     background: none;
     background-color: none;
     opacity: 1;
-    top: 0px;
+}
+.script-info .carousel-control-next{
+	top: 0px;
     z-index: 5;
     right: 3px;
 }
+.script-info .carousel-control-prev{
+	top: 17px;
+    z-index: 5;
+    right: 105px;
+    left: auto;
+}
+
 .script-info .carousel-inner.guest-left-wine	{
     overflow-y: auto;
 	margin-top: 29px;

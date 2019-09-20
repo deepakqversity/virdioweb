@@ -22,7 +22,7 @@ class RegisterForm extends Component {
             <div className="h-100 d-flex align-items-center">
                 <div className="register-page">
                 <div className="">
-                  <img src="/images/login-logo.png" className="login-logo" />
+                  <img src="/images/host-icon.png" width="70" className="login-logo" />
                       <p className="login-tagline">Signing up as a Host</p>
                       
                 </div>
@@ -45,25 +45,25 @@ class RegisterForm extends Component {
                       <span className="text-danger invisible col-md-12">Password field is required</span>
                       <label>Email Address</label>
                       <input type="email" className="form-control" />
-                      <img src="/images/login-user.png" className="user-login" />
+                      <img src="/images/form-email.png" className="user-login" />
                     </div>
                     <div className="form-group">
                       <span className="text-danger invisible col-md-12">Password field is required</span>
                       <label>Mobile Number</label>
                       <input type="text" className="form-control" />
-                      <img src="/images/login-user.png" className="user-login" />
+                      <img src="/images/phone.png" className="user-login" />
                     </div>
                     <div className="form-group">
                       <span className="text-danger invisible col-md-12">Password field is required</span>
                       <label>Create a Password</label>
                       <input type="password" className="form-control" />
-                      <img src="/images/login-user.png" className="user-login" />
+                      <img src="/images/password.png" className="user-login" />
                     </div>
                     <div className="form-group">
                       <span className="text-danger invisible col-md-12">Password field is required</span>
                       <label>Retype Password</label>
                       <input type="password" className="form-control" />
-                      <img src="/images/login-user.png" className="user-login" />
+                      <img src="/images/password.png" className="user-login" />
                     </div>
                     <div className="form-group">
                       

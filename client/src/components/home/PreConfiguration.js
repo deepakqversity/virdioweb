@@ -57,7 +57,7 @@ class PreConfiguration extends Component {
     this.loadScript('/agora-rtm-sdk-1.0.0.js');
     this.loadScript('/pre-main.js');
 
-    this.fetchUsers();
+    // this.fetchUsers();
 
 
     let localstoragedata = JSON.parse(localStorage.getItem('userData'));
@@ -76,7 +76,7 @@ class PreConfiguration extends Component {
     this.setState({interest:localstoragedata.sessionData.code});
   }
   componentWillMount(){
-    // this.fetchUsers();
+    this.fetchUsers();
     //console.log(1);
     // window.test();
     this.startTimer();
@@ -327,6 +327,7 @@ render() {
                     <span className="countdown-timer">{hours} : {minutes} : {seconds}</span>
                     <a href="#" className="btn btn-primary float-right">Session details</a>
                   </div>
+                  <div className="text-danger" id="exptn-errors"></div>
                 </div>
             </div>
             <div className="participant-status bg-gray mx-md-0 mx-auto">

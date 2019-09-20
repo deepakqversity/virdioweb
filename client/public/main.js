@@ -586,6 +586,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
                 channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
 
               }).catch(error => {
+                displayError(error);
                 console.log('**********shiv*********There Is a problem to join a channel**********');
               });
 
@@ -614,6 +615,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
               });
        
             }).catch(error => {
+              displayError(error);
               console.log('**********shiv*********There Is a problem to join a channel**********');
             });
 
@@ -649,6 +651,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
             });
 
         }).catch(err => {
+          displayError(err);
           console.log('---------------bbbbbbbb-----client is not logedin-----');
         });
       } else {
@@ -658,6 +661,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
           channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
         
         }).catch(error => {
+          displayError(error);
            console.log('*************There is an errorkkkkkkkkkk******');
         });
           // channel log
@@ -693,11 +697,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
             signalHandler(peerId, message.text, storeData.userType);
           });
-      }
-
-
-         
-
+        }
   
       }
 
@@ -2613,12 +2613,53 @@ function signalHandler(uid, signalData, userType) {
   $(window).resize(function(){
     onPageResize();
   });
+
   function  startSlider(){
     $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
     $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
     $(".swiper-slide.start a").prop('disabled', true);
     $(".swiper-btn-next").css("display", "block")
     countDown();
+  }
+
+  function addUserAttribute(id, key, value){
+      
+    let tempUsers = localStorage.getItem("tempUsers");
+    console.log('tempUsers =========== tempUsers', tempUsers)
+
+    if(tempUsers != null){
+      tempUsers = JSON.parse(tempUsers);
+      for(let i in tempUsers){
+        //tempUsers[i].hasOwnProperty(key)
+        if(tempUsers[i].id == id){
+          tempUsers[key] = value;
+        }
+      }
+    }
+      
+    localStorage.setItem("tempUsers", JSON.stringify(tempUsers));
+  }
+  
+  function removeUserAttribute(id, key){
+      let tempUsers = localStorage.getItem("tempUsers");
+      console.log('tempUsers =========== tempUsers', tempUsers)
+      let newTempUsers = {};
+      if(tempUsers != null){
+        tempUsers = JSON.parse(tempUsers);
+        for(let i in tempUsers){
+          //tempUsers[i].hasOwnProperty(key)
+          if(tempUsers[i].id != id){
+            newTempUsers[i] = tempUsers[i];
+          }
+        }
+      }
+        
+      localStorage.setItem("tempUsers", JSON.stringify(newTempUsers));
+  }
+
+  function displayError(err){
+
+    $('#exptn-errors').html('<pre>'+err+'</pre>');
   }
   
       $(document).ready(function(){

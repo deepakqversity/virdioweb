@@ -29,7 +29,7 @@ return (
       <div className="col-lg-6 col-md-6 col-sm-9 col-12 max-width-300">
         <div id="demo" data-interval="false" className="carousel slide script-info" data-ride="carousel">
 
-          <div className="carousel-inner">
+          <div className="carousel-inner guest-left-wine">
 
 {
   sessionScript.map((opt, i) =>

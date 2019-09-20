@@ -66,8 +66,8 @@ class Guest extends Component {
   }
 
   componentDidMount(){
-    let leftHeight = $(".left-section").height();
-    $("#all_joined_member_list").height(leftHeight);
+    
+    
     this.loadScript('/AgoraRTCSDK-2.7.1.js');
     this.loadScript('/agora-rtm-sdk-1.0.0.js');
     this.loadScript('/main.js');
@@ -169,7 +169,7 @@ return (
   <header className="header w-100 p-0">
       <div className="row">
         <div className="col-lg-12 col-md-12">
-          <div className="transparent-gray">
+          <div className="transparent-gray guest-screen">
             <div className="row">
               <a href="" className="col-12 py-xs-1 col-lg-1 col-md-1 col-sm-12 d-flex v-logo align-items-center">
                 <img src="images/v-logo.png" />
@@ -218,7 +218,7 @@ return (
     
     <LeftScriptParticipant sessId={sessionData.id} />
     
-    <div className="col-lg-3 col-md-4 col-sm-5 col-6 max-width-300 float-right pl-0 mt-3">
+    <div className="col-lg-3 col-md-4 col-sm-5 col-6 max-width-300 float-right pl-0 mt-4">
         <div className="right-sidebar">
           <div className="transparent-gray slide-right-left" style={toggleList}>
             
@@ -356,9 +356,10 @@ const toggleList = {
   float: 'right'
 }
 const videoAspect = {
-  width: "220px",
-  height: "124px",
-  float: "right"
+  width: "235px",
+  height: "132px",
+  float: "right",
+  "margin-right": "5px"
 }
 Guest.propTypes = {
   logoutUser: PropTypes.func.isRequired,

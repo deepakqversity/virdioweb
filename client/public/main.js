@@ -1451,7 +1451,10 @@ function changeImage(){
 }
 
   function onPageResize(){
-      
+    let leftHeight = $(".right-sidebar").height();
+    $(".joined-member-list").height(`${leftHeight -100 }px`);
+    $(".guest-left-wine").height(`${leftHeight}px`);
+
     let winHeight = window.innerHeight;
     let headerHeight = $(".header.bg-gray").height();
     let hostHeight = $(".host-script-section").height();
@@ -2542,9 +2545,13 @@ function signalHandler(uid, signalData, userType) {
       
     localStorage.setItem("rtm-join-order", JSON.stringify(orderList));
   }
-
-
+  $(window).resize(function(){
+    onPageResize();
+  });
+  
       $(document).ready(function(){
+
+
         
         let heightScript = $(".host-script-section").height();
             

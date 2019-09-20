@@ -203,7 +203,7 @@ return (
                         <i className="fa fa-times" aria-hidden="true"></i>
                       </button>
                   </div>
-                  <div className="text-danger" id="exptn-errors"></div>
+                  <div className="text-danger" style={{color:'#fff'}} id="exptn-errors"></div>
                 </div>
               </div>
             </div>

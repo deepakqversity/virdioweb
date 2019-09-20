@@ -42,13 +42,24 @@ class PreConfiguration extends Component {
   removeScript = function (src) {
     console.log('src========', src)
     // let scpt = $('script');
-    $('script').each(function(i){
-      console.log('_________________',$(this).attr('src'),src);
-      if($(this).attr('src').indexOf(src) !== -1){
-        $(this).remove();
-        return '';
-      }
-    })
+    // $('script').each(function(i){
+    //   console.log('_________________',$(this).attr('src'),src);
+    //   if($(this).attr('src').indexOf(src) !== -1){
+    //     $(this).remove();
+    //     return '';
+    //   }
+    // })
+
+    // function removejscssfile(filename, filetype){
+    var targetelement="script" //determine element type to create nodelist from
+    var targetattr="src" //determine corresponding attribute to test for
+    var allsuspects=document.getElementsByTagName(targetelement)
+    for (var i=allsuspects.length; i>=0; i--){ //search backwards within nodelist for matching elements to remove
+    if (allsuspects[i] && allsuspects[i].getAttribute(targetattr)!=null && allsuspects[i].getAttribute(targetattr).indexOf(src)!=-1)
+        allsuspects[i].parentNode.removeChild(allsuspects[i]) //remove element by calling parentNode.removeChild()
+    }
+    // }
+
   }
 
   componentDidMount(){
@@ -283,7 +294,7 @@ render() {
                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div className="modal-body">
-              <div><span id="rem-join-timer">{localstoragedata.default.maxJoinDuration}</span></div>
+              <div>Please join in next <span id="rem-join-timer">{localstoragedata.default.maxJoinDuration}</span> sec else you will become an audience.</div>
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-success" onClick={this.joinSessionByFirst}>Join</button>
@@ -327,7 +338,7 @@ render() {
                     <span className="countdown-timer">{hours} : {minutes} : {seconds}</span>
                     <a href="#" className="btn btn-primary float-right">Session details</a>
                   </div>
-                  <div className="text-danger" id="exptn-errors"></div>
+                  <div className="text-danger" style={{color:'#fff'}} id="exptn-errors"></div>
                 </div>
             </div>
             <div className="participant-status bg-gray mx-md-0 mx-auto">

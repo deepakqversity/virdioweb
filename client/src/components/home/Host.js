@@ -215,7 +215,7 @@ return (
                 {/*<img src="images/voice-commands.png" className="mic-icon" />*/}
               </div>
             </div>
-            <div className="text-danger" id="exptn-errors"></div>
+            <div className="text-danger" style={{color:'#fff'}} id="exptn-errors"></div>
           </div>
         </div>
       </div>

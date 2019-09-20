@@ -2138,9 +2138,9 @@ function signalHandler(uid, signalData, userType) {
          localStorage.setItem("allloginuser", JSON.stringify(signalData.totalmember));            
          console.log('*******totallist2222233333*************** signalData ', arr);
 
-        count4=signalData.member;
-        count4=parseInt(count4);
-        count4=count4-1;
+        // count4=signalData.member;
+        // count4=parseInt(count4);
+        // count4=count4-1;
        console.log('*******totallist*************** signalData ', count4);
        //arr.shift();
    
@@ -2153,28 +2153,21 @@ function signalHandler(uid, signalData, userType) {
       let arrayToDispaly = JSON.parse(localStorage.getItem('allloginuser'));
       console.log('----------------------arrayToDispaly', arrayToDispaly,count4)
       $('#all_joined_member_list').html('');
+      count4=0;
       arrayToDispaly.forEach(element => {
-        console.log('---------------arrayToDispaly', element)
-        memberID=convertEmailToId(element);
+      console.log('---------------arrayToDispaly', element)
+      memberID=convertEmailToId(element);
 
-       let userName = getUserDataFromList(element, 'firstName');
+      let userName = getUserDataFromList(element, 'firstName');
          
-       console.log('*******element*************** element ', element,'-----memberID-----',memberID);
-
-        // if(element == hostEmail)
-        // { 
-            
-        //   $('#online_state').removeClass("online-status");        
-        //   $('#online_state').addClass("online-status");
-        // }
-       // $('#all_joined_member_list').append('<div className="attendee-list"><img src="images/attendee.png" /><span class="title">'+element+'</span><div className="vid-icons"> <span class="icon-appearance d-none"  id="emojies_app'+memberID+'"  data-attr="emojies'+memberID+'"></span><span class="icon-aroma d-none" id="emojies_ar'+memberID+'" data-attr="emojies'+memberID+'"></span><span class="icon-palate d-none"  id="emojies_pal'+memberID+'"  data-attr="emojies'+memberID+'"></span><span class="icon-score d-none"  id="emojies_sc'+memberID+'"  data-attr="emojies'+memberID+'"></span></div></div>');
+      console.log('*******element*************** element ', element,'-----memberID-----',memberID);
+     
+      if(getUserDataFromList(memberID, 'userType') != 1){
+        count4++;
         $('#all_joined_member_list').append('<div class="attendee-list"><img src="images/attendee.png" /><span class="title">'+userName+'</span><div class="vid-icons"> <span class="icon-appearance d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-aroma d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-palate d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-score d-none"  id="emojies_sc'+memberID+'"  data-attr="'+memberID+'"></span></div></div>');
+        }
       }); 
-      
-      // $('#totalonline').empty(); 
-      // $('#totalonline').html(count4);
-    
-        $('#joined_users_at_client').empty(); 
+          
         $('#joined_users_at_client').html(count4); 
     
       }

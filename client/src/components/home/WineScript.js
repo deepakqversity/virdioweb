@@ -36,7 +36,7 @@ return (
               <div className="height-script h-100">
 {
   sessionScript.map((opt, i) =>
-            <div className="carousel-item  h-100 d-flex justify-content-end flex-direction-column">
+            <div className="carousel-item  h-100 d-flex justify-content-end flex-direction-column" key={i}>
                 <div className="bg-gray position-relative top-rounded d-md-flex justify-content-between align-items-center px-3 py-3 add-remove-round ">
                   <h3 className="main-heading font-size-16">{sessionData.scriptTitle} <span className="ml-md-4 font-size-16">{sessionData.scriptType}</span></h3>
                   <button type="button" className="btn btn-outline-secondary mr-5 show-hide-script">"Hide Script"</button>
@@ -53,7 +53,7 @@ return (
                          
                             <ul className="col-12 col-md-12 col-lg-5 list-info">
                             {opt.attribute.map(function(attrb, index){
-                             return <li><span>{attrb.attrLabel}</span><span>{attrb.attrValue}</span></li>   
+                             return <li key={index}><span>{attrb.attrLabel}</span><span>{attrb.attrValue}</span></li>   
                             })}
                             </ul>
                          

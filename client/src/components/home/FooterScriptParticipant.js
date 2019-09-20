@@ -82,11 +82,48 @@ console.log('sessionScript=', sessionScript)
        
           <div className="participent-emoji">
             <ul className="bottom-links flex-wrap list-group list-group-horizontal mx-auto d-md-flex justify-content-center py-xs-1">
-   
-             <li className="list-group-item bg-transparent border-0"><a href="#"  onClick={this.getAppearence.bind(this)}>APPEARANCE</a></li>
-             <li className="list-group-item bg-transparent border-0"><a href="#" onClick={this.getAroma.bind(this)}>AROMA</a></li>
-             <li className="list-group-item bg-transparent border-0"><a href="#" onClick={this.getPalate.bind(this)}>PALATE</a></li>
-             <li className="list-group-item bg-transparent border-0"><a href="#" onClick={this.getScore.bind(this)}>SCORE</a></li>
+            <div className="dropup">
+              <li className="list-group-item bg-transparent border-0 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a href="#"  onClick={this.getAppearence.bind(this)}>APPEARANCE</a>
+              
+              <div className="dropdown-menu">
+                <div className="d-flex justify-content-between">
+                  <a href="#"><img src="images/mushroom.png" /></a>
+                  <a href="#"><img src="images/emoji2.png" /></a>
+                  <a href="#"><img src="images/emoji3.png" /></a>
+                  <a href="#"><img src="images/emoji4.png" /></a>
+                </div>
+              </div></li>
+            </div>
+            <div className="dropup">
+              <li className="list-group-item bg-transparent border-0 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a href="#" onClick={this.getAroma.bind(this)}>AROMA</a>
+              
+              <div className="dropdown-menu">
+                <div className="d-flex justify-content-between">
+                  <a href="#"><img src="images/mushroom.png" /></a>
+                  <a href="#"><img src="images/emoji2.png" /></a>
+                  <a href="#"><img src="images/emoji3.png" /></a>
+                  <a href="#"><img src="images/emoji4.png" /></a>
+                </div>
+              </div></li>
+            </div>
+            <div className="dropup">
+              <li className="list-group-item bg-transparent border-0 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a href="#" onClick={this.getPalate.bind(this)}>PALATE</a>
+              
+              <div className="dropdown-menu">
+                <div className="d-flex justify-content-between">
+                  <a href="#"><img src="images/mushroom.png" /></a>
+                  <a href="#"><img src="images/emoji2.png" /></a>
+                  <a href="#"><img src="images/emoji3.png" /></a>
+                  <a href="#"><img src="images/emoji4.png" /></a>
+                </div>
+              </div></li>
+            </div>
+            
+             
+             {/* <li className="list-group-item bg-transparent border-0"><a href="#" onClick={this.getScore.bind(this)}>SCORE</a></li> */}
            </ul>
          </div>
       ) : (

@@ -543,7 +543,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     // appId1 = storeData.sessionData.channelId;
     var peer=storeData.email;
     // newclient.login({uid: peer.toString(), token});
-console.log('newclient , channel =========== ', newclient , channel)
+    console.log('newclient , channel =========== ', newclient , channel)
     if(newclient == undefined || channel == undefined){
 
       newclient = AgoraRTM.createInstance(appId1);
@@ -556,79 +556,80 @@ console.log('newclient , channel =========== ', newclient , channel)
 
             channel.join().then(() => {
 
-              // after join channel send join channel message to host
-                joinChannel();
+            // after join channel send join channel message to host
+            joinChannel();
 
-              console.log('************channel joined successfully**********');
+            console.log('************channel joined successfully**********');
 
-               // var today = new Date();
-               // var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
-               // var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()+'.'+today.getMilliseconds();
-               // var dateTime = date+' '+time;
-               // var text="208" +sep+ dateTime;
+             // var today = new Date();
+             // var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
+             // var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()+'.'+today.getMilliseconds();
+             // var dateTime = date+' '+time;
+             // var text="208" +sep+ dateTime;
 
-               //  channel.sendMessage({text}).then(() => {  
-               //    console.log('-------join msg llllll--------','mssages send successfully on channel');    
-               //  }).catch(error => {
-               //    console.log('-------There is error in joining a channel------')
-               //  });
-console.log('channel-----------------------', channel)
-                channel.getMembers().then(membersList => {    
-                  console.log('membersList', membersList)
-                      
-                  channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
+             //  channel.sendMessage({text}).then(() => {  
+             //    console.log('-------join msg llllll--------','mssages send successfully on channel');    
+             //  }).catch(error => {
+             //    console.log('-------There is error in joining a channel------')
+             //  });
 
-                }).catch(error => {
-                   console.log('*************There is an error******');
-                });
-         
+              channel.getMembers().then(membersList => {    
+                console.log('membersList', membersList)
+                    
+                channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
+
               }).catch(error => {
-                console.log('**********shiv*********There Is a problem to join a channel**********');
+                 console.log('*************There is an error******');
               });
+       
+            }).catch(error => {
+              console.log('**********shiv*********There Is a problem to join a channel**********');
+            });
 
-              // channel log
-              channel.on('MemberJoined', memberId => { 
-               
-                var massages="208"+sep+memberId+sep+"joined"+sep;        
-                channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
-              })
-           
-              channel.on('MemberLeft', memberId => { 
-          
-                var massages="208"+sep+memberId+sep+"left"+sep;  
-                channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"left"}), storeData.userType);
-              })
-           
-              channel.on('ChannelMessage', (message, senderId) => {         
-                var msg=message.text;
-                // msg = JSON.parse(msg);
-                console.log('--------emojies-----------',msg,storeData.userType);             
-                channelMsgHandler(msg,senderId,storeData.userType);
-              });
+            // channel log
+            channel.on('MemberJoined', memberId => { 
+             
+              var massages="208"+sep+memberId+sep+"joined"+sep;        
+              channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
+            })
+         
+            channel.on('MemberLeft', memberId => { 
+        
+              var massages="208"+sep+memberId+sep+"left"+sep;  
+              channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"left"}), storeData.userType);
+            })
+         
+            channel.on('ChannelMessage', (message, senderId) => {         
+              var msg=message.text;
+              // msg = JSON.parse(msg);
+              console.log('--------emojies-----------',msg,storeData.userType);             
+              channelMsgHandler(msg,senderId,storeData.userType);
+            });
 
-              newclient.on('ConnectionStateChange', (newState, reason) => {
-                console.log('on connection state changed to ' + newState + ' reason: ' + reason);
-              });
+            newclient.on('ConnectionStateChange', (newState, reason) => {
+              console.log('on connection state changed to ' + newState + ' reason: ' + reason);
+            });
 
-              newclient.on('MessageFromPeer', (message, peerId) => { 
-                console.log('********vvvvvvvvvvvvv********',message.text,'********************',peerId);
-                // console.log("message "+ message.text + " peerId" + peerId);
+            newclient.on('MessageFromPeer', (message, peerId) => { 
+              console.log('********vvvvvvvvvvvvv********',message.text,'********************',peerId);
+              // console.log("message "+ message.text + " peerId" + peerId);
 
-                signalHandler(peerId, message.text, storeData.userType);
-              });
+              signalHandler(peerId, message.text, storeData.userType);
+            });
 
         }).catch(err => {
           console.log('---------------bbbbbbbb-----client is not logedin-----');
         });
       } else {
-        console.log('******************else ************', channel)
-        channel.getMembers().then(membersList => {    
-                    
-          channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
+          console.log('------------newclient-------',newclient);
 
-        }).catch(error => {
-           console.log('*************There is an error******');
-        });
+          channel.getMembers().then(membersList => {    
+            console.log('------------membersListlalit-------',membersList);       
+            channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
+            console.log('------------membersListlalit-------',membersList.length); 
+          }).catch(error => {
+             console.log('*************There is an errorkkkkkkkkkk******');
+          });
           // channel log
           channel.on('MemberJoined', memberId => { 
            
@@ -1798,23 +1799,27 @@ function signalHandler(uid, signalData, userType) {
           }else{
             setEmojiesAtClient(res1[1],senderId,userType);
           }
-      }else if(res1[0] == "301")
+      }else if(res1[0] == "211")
       {
         console.log('-------------------fitscript has Started-------------');
        // $('#hostFtnsScript').trigger('click');
         $(".start span a").trigger('click');
-      }else if(res1[0] == "302")
+      }else if(res1[0] == "212")
       {
        // alert('fitscript has Stopped');
         console.log('-------------------fitscript has Stopped-------------');
         $(".end span a").trigger('click');
-      }else if(res1[0] == "303")
+      }else if(res1[0] == "213")
       {
-        //alert('fitscript Next');
-      }else if(res1[0] == "304")
+        //alert('fitscript pause');
+      }else if(res1[0] == "214")
       {
         $(".carousel-control-next").trigger('click');
           //alert('Winsscript Next');
+      }else if(res1[0] == "215")
+      {
+        $(".carousel-control-prev").trigger('click');
+          //alert('Winsscript previous');
       }
     
      }
@@ -2025,14 +2030,16 @@ function signalHandler(uid, signalData, userType) {
 
     function channelSignalHandler(signalData, userType) {
 
-    // getAudienceList();
-    console.log('********guduorigin************** signalData ', signalData, userType);
+    getAudienceList();
+    console.log('********guduorigin11111111111************** signalData ', signalData, userType);
+
     signalData = JSON.parse(signalData);
     if(signalData.code == '208'){
       if(userType =='1'){  
-
+        console.log('********guduorigin2222222222222************** signalData ', signalData, userType);
           incrementcountAtHost(signalData,userType);        
       }else{
+        console.log('********guduorigin333333333333************** signalData ', signalData, userType);
           incrementcountAtAttendies(signalData,userType);    
       }
     }else if(signalData.code == '110')
@@ -2047,18 +2054,19 @@ function signalHandler(uid, signalData, userType) {
 
       function incrementcountAtAttendies(signalData,userType)
       {
-      
-        var count3=$('#totalonline').html();
+        console.log('*******totallist111*************** signalData ',signalData);
+        let count3=$('#joined_users_at_client').html();
 
+        console.log('*******totallist222*************** signalData ',signalData.member,'----mmm----', count3);
       
         count3=parseInt(count3);
         var arr;
         
       if(signalData.msgtype=='Joined')
-      { 
+      { console.log('*******totallist333333*************** signalData ',signalData.member,'----mmm----', count3);
         let localstoragedata = JSON.parse(localStorage.getItem('allloginuser'));
         let newmem=signalData.member;
-        console.log('*******totallist111222*************** signalData ',signalData.member,'----mmm----', localstoragedata); 
+       // console.log('*******totallist5555555*************** signalData ',count3); 
 
         localstoragedata.push(newmem);
         localStorage.setItem("allloginuser", JSON.stringify(localstoragedata));
@@ -2073,12 +2081,15 @@ function signalHandler(uid, signalData, userType) {
           $('#online_state').removeClass("online-status");        
           $('#online_state').addClass("online-status");
         }
+        console.log('*******totallist5555555*************** signalData ',count3); 
         count4=count3+1;
       
-         
+        console.log('*******totallist666666*************** signalData ',count4); 
 
      
       }else if(signalData.msgtype=='left') {
+
+        console.log('*******totallist444444*************** signalData ',signalData.member,'----mmm----', count3);
 
         let localstoragealdata = JSON.parse(localStorage.getItem('allloginuser'));
         
@@ -2102,11 +2113,15 @@ function signalHandler(uid, signalData, userType) {
           $('#online_state').removeClass("online-status");
         }
 
-      
+       // console.log('*******totallist333333333*************** signalData ',count3); 
         count4=count3-1;
-     
+        //console.log('*******totallist77777777*************** signalData ',count4); 
           
       }else if(signalData.msgtype=='totalcount') {
+
+        console.log('*******totallist555555*************** signalData ', count3);
+
+        console.log('*******totallistaaaaaaa*************** signalData ', signalData);
             
          arr=signalData.totalmember;  
          localStorage.setItem("allloginuser", JSON.stringify(signalData.totalmember));            
@@ -2115,7 +2130,7 @@ function signalHandler(uid, signalData, userType) {
         count4=signalData.member;
         count4=parseInt(count4);
         count4=count4-1;
-       // console.log('*******totallist*************** signalData ', count4);
+       console.log('*******totallist*************** signalData ', count4);
        //arr.shift();
    
       }
@@ -2125,10 +2140,10 @@ function signalHandler(uid, signalData, userType) {
       //  let hostEmail='deepak@test.com';
 
       let arrayToDispaly = JSON.parse(localStorage.getItem('allloginuser'));
-      console.log('arrayToDispaly', arrayToDispaly)
+      console.log('----------------------arrayToDispaly', arrayToDispaly,count4)
       $('#all_joined_member_list').html('');
       arrayToDispaly.forEach(element => {
-        console.log('arrayToDispaly', element)
+        console.log('---------------arrayToDispaly', element)
         memberID=convertEmailToId(element);
 
        let userName = getUserDataFromList(element, 'firstName');
@@ -2145,8 +2160,8 @@ function signalHandler(uid, signalData, userType) {
         $('#all_joined_member_list').append('<div class="attendee-list"><img src="images/attendee.png" /><span class="title">'+userName+'</span><div class="vid-icons"> <span class="icon-appearance d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-aroma d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-palate d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-score d-none"  id="emojies_sc'+memberID+'"  data-attr="'+memberID+'"></span></div></div>');
       }); 
       
-      $('#totalonline').empty(); 
-      $('#totalonline').html(count4);
+      // $('#totalonline').empty(); 
+      // $('#totalonline').html(count4);
     
         $('#joined_users_at_client').empty(); 
         $('#joined_users_at_client').html(count4); 
@@ -2156,10 +2171,10 @@ function signalHandler(uid, signalData, userType) {
 
       function incrementcountAtHost(signalData,userType)
       {  
-        console.log('********munmunHost************** signalData ', signalData, userType);
-        var count=$('#totalonline').html();
+        console.log('********munmunHost222222222************** signalData ', signalData, userType);
+        let count=$('#joined_users').html();
 
-      console.log('********munmunHost************** signalData ', signalData);
+      console.log('********munmunHost************** signalData ', signalData,count);
         count=parseInt(count);
 
         let storeData = getCurrentUserData();
@@ -2180,13 +2195,13 @@ function signalHandler(uid, signalData, userType) {
 
       if(signalData.msgtype=='Joined')
       {     
-        console.log('********guduHost************** signalData ', signalData, userType);
+       
         count1=count+1;
-
+        console.log('********guduHost111111111************** signalData ', signalData, userType,count1);
        
          // console.log('*********lllllllll************* signalData ', signalData.message);
-          $('#totalonline').empty(); 
-          $('#totalonline').html(count1);  
+          // $('#totalonline').empty(); 
+          // $('#totalonline').html(count1);  
         
             $('#joined_users').empty(); 
             $('#joined_users').html(count1);
@@ -2208,9 +2223,11 @@ function signalHandler(uid, signalData, userType) {
         
         count1=count-1; 
 
+        console.log('********virenHost111111111************** signalData ', signalData, userType,count1);
+
        
-          $('#totalonline').empty(); 
-          $('#totalonline').html(count1);  
+          // $('#totalonline').empty(); 
+          // $('#totalonline').html(count1);  
           // $('#newmsg').html(signalData.message);
           // setTimeout(function(){ $('#newmsg').html(''); }, 10000); 
         
@@ -2226,9 +2243,9 @@ function signalHandler(uid, signalData, userType) {
         count1=signalData.member;
         count1=parseInt(count1); 
         count1=count1-1;
-      
-        $('#totalonline').empty(); 
-        $('#totalonline').html(count1);  
+        console.log('********atulHost111111111************** signalData ', signalData, userType,count1);
+        // $('#totalonline').empty(); 
+        // $('#totalonline').html(count1);  
      
           $('#joined_users').empty(); 
           $('#joined_users').html(count1);
@@ -2289,6 +2306,7 @@ function signalHandler(uid, signalData, userType) {
 
       function leaveLogout(){
           // localStream.stop();
+          updateJoinSessionStatus();
           leave_channel();
           removeSession();
           location.href  = '/login';

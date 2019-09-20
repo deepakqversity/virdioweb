@@ -1167,8 +1167,23 @@ display:none;
     right: 3px;
 }
 .script-info .carousel-inner	{
-	height: 100%;
+	height: 400px;
+    overflow-y: scroll;
+	margin-top: 29px;
 }
+.script-info .carousel-inner::-webkit-scrollbar{
+	width:6px;
+	
+}
+.script-info .carousel-inner::-webkit-scrollbar-track{
+	width:6px;
+	background:#ccc;
+}
+.script-info .carousel-inner::-webkit-scrollbar-thumb{
+	width:6px;
+	background:#000;
+}
+
 
 /*------ 8. Fitness Script Section ------ */
 
@@ -2663,6 +2678,39 @@ outline: none;
     text-decoration: none;
     font-family: Avenir-Heavy;
     font-size: 14px;
+}
+.bottom-links .dropup .dropdown-menu{
+	border-radius: 30px;
+    background: rgba(255,255,255,0.7);
+    padding: 7px 11px;
+	    min-width: 12rem;
+		left: -37px !important;
+}
+.bottom-links .dropup li{
+	position:relative;
+}
+.bottom-links .dropup .dropdown-menu::after{
+content: "\f0d7";
+    font-family: FontAwesome;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: -14px;
+    display: table;
+    width: 100%;
+    text-align: center;
+    color: rgba(255,255,255,0.7);
+    font-size: 16px !important;
+}
+.bottom-links .dropup .dropdown-menu a{
+	float: left;
+}
+.bottom-links .dropup .dropdown-menu a img{
+	width: 26px;
+}
+.bottom-links .dropup .dropdown-toggle::after{
+	display:none;
 }
 .self-video{
     max-width: 100%;

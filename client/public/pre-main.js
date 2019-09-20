@@ -1234,8 +1234,8 @@ function signalHandler(uid, signalData, userType) {
           $('#totalonline').empty(); 
           $('#totalonline').html(count1);  
         
-            $('#joined_users').empty(); 
-            $('#joined_users').html(count1);
+            // $('#joined_users').empty(); 
+            // $('#joined_users').html(count1);
        
 
        // let peerId=signalData.member;
@@ -1259,8 +1259,8 @@ function signalHandler(uid, signalData, userType) {
           // $('#newmsg').html(signalData.message);
           // setTimeout(function(){ $('#newmsg').html(''); }, 10000); 
         
-            $('#joined_users').empty(); 
-            $('#joined_users').html(count1);
+            // $('#joined_users').empty(); 
+            // $('#joined_users').html(count1);
         
 
  
@@ -1275,8 +1275,8 @@ function signalHandler(uid, signalData, userType) {
         $('#totalonline').empty(); 
         $('#totalonline').html(count1);  
      
-          $('#joined_users').empty(); 
-          $('#joined_users').html(count1);
+          // $('#joined_users').empty(); 
+          // $('#joined_users').html(count1);
        
       }
 
@@ -1308,7 +1308,34 @@ function signalHandler(uid, signalData, userType) {
        // console.log('********Rammmmmmmmmmmmm************** signalData ', signalData, userType);
       }
 
+      function updateJoinSessionStatus()
+      {
+        let data_op = JSON.parse(localStorage.getItem("userData"));
+        if(data_op.userType == 1)
+        {
+          $.ajax({
+            headers: { 
+                "Content-Type": "application/json; charset=utf-8",
+                "Authorization": data_op.token
+            },
+            url: '/api/v1/session/'+data_op.sessionData.id+'/updatestatus',       
+            dataType: 'json',
+            type: 'PUT',
+            success: function( data, textStatus, jQxhr ){
+                
+                let respData = data;
+    
+            console.log('-------respData----------',respData);
+            },
+            error: function( jqXhr, textStatus, errorThrown ){
+                console.log( errorThrown );
+            }
+        });
+        }
+      }
+
       function leaveLogout(){
+        updateJoinSessionStatus();
           leave_channel();
           removeSession();
           location.href  = '/login';
@@ -1523,6 +1550,7 @@ function signalHandler(uid, signalData, userType) {
         
 
       $('#logout_button').click(function(){
+        updateJoinSessionStatus();
         leave_channel();
         removeSession();
         location.href  = '/login';

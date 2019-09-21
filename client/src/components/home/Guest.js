@@ -122,6 +122,7 @@ class Guest extends Component {
       } else {
         clearInterval(this.timer);
         this.setState({ timerOn: false });
+        window.sessionTimer();
         $('.countdown-timer').html('Session Started')
         //alert("Countdown ended");
       }

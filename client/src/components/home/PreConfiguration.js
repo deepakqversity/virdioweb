@@ -275,7 +275,7 @@ render() {
       if(user.userType != 1) {
         const { id, firstName, lastName, image, city } = user;
         return (
-          <tr id={"online-user-row-"+id} key={idx}>
+          <tr data-position="100000000000000" id={"online-user-row-"+id} key={idx}>
           <th scope="row"><img src={image} /></th>
           <td className="text-left"><span className="welcome-title">{firstName.toLowerCase()} {lastName != null ? lastName.toLowerCase() : ''} {city != null ? ', '+city.toLowerCase() : ''}</span></td>
           <td><img className="mr-2 user-status" src="/images/offline.png" />online</td>
@@ -386,13 +386,13 @@ render() {
                   </div>
                 </div>
               </div>
-              <div className="row">
-                <div className="online-streams">
-                  <span className="online-total">Online streams on screen</span>
-                  <span className="signup-number" >{localstoragedata.default.maxDisplayUsers}</span>
-                </div>
-                
-              </div>
+              {localstoragedata.userType == 1 ? (<div className="row">
+                  <div className="online-streams">
+                    <span className="online-total">Online streams on screen</span>
+                    <span className="signup-number" >{localstoragedata.default.maxUserLimit}</span>
+                  </div>
+                  
+                </div>) : (<div></div>)}
             </div>
           </div>
           <div className="flex-grow-1 select-audio">
@@ -502,7 +502,7 @@ render() {
                   <th scope="col"># of Sessions</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="online-user-list">
               {onlineUsers}                
               </tbody>
             </table>

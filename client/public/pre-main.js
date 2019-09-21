@@ -180,8 +180,20 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
         console.log('MemberJoined ================MemberJoined ');
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-status').attr('src', '/images/online.png');
+
+        if(userList != ''){
+          for(let j in userList){
+            if(userList[j].id == memberId){
+
+                $('#online-user-row-'+convertEmailToId(memberId)).attr('data-position', userList[j].joinAt );
+                break;
+            }
+          }
+        }
+        $('#online-user-list tr').sort(sort_li).appendTo('#online-user-list');
+
         console.log('memberId============', memberId)
-        if(storeData.userType ==1){
+        if(storeData.userType == 1){
           if( $('#joinee-' + convertEmailToId(memberId)).length == 0 ){
             removeFromFirst();
             $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(memberId)+'"><img src="'+getUserDataFromList(memberId, 'image')+'" />'+getUserDataFromList(memberId, 'firstName')+', '+getUserDataFromList(memberId, 'city')+'</span>');
@@ -436,7 +448,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
           // Set audio to true if testing the microphone.
           video: false,
           audio: true,
-          microphoneId: micId,
+          microphoneId: micId
       });
       // console.log('----------', micId)
 
@@ -517,7 +529,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
         deviceArray.push(deviceId);
         
         if (device.kind === 'audioinput') {
-          
+          if(device.label.indexOf('Built-in') !== -1 || (device.label.indexOf('Internal') !== -1 && device.label.indexOf('Default') === -1)){
+            continue;
+          }
           // console.log('deviceId,,,,,,,,,,,, ', deviceId)
 
           if(microphoneId == null) {
@@ -1145,7 +1159,6 @@ function signalHandler(uid, signalData, userType) {
       {
       
         var count3=$('#totalonline').html();
-
       
         count3=parseInt(count3);
         
@@ -1181,7 +1194,7 @@ function signalHandler(uid, signalData, userType) {
         }
 
       
-        count4=count3-1;
+        count4= count3 > 0 ? count3-1 : 0;
      
         // $('#newmsg').html(signalData.message);
         // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
@@ -1198,7 +1211,7 @@ function signalHandler(uid, signalData, userType) {
        
         count4 = signalData.member;
         count4 = parseInt(count4);
-        count4 = count4 - 1;
+        count4 = count4 > 0 ? count4 - 1 : 0;
         // console.log('*******totallist*************** signalData ', count4);
         arr.shift();
         arr.forEach(element => {
@@ -1265,7 +1278,7 @@ function signalHandler(uid, signalData, userType) {
       }else if(signalData.msgtype=='left') {
 
         
-        count1=count-1; 
+        count1= count > 0 ? count-1 : 0; 
 
        
           $('#totalonline').empty(); 
@@ -1284,7 +1297,7 @@ function signalHandler(uid, signalData, userType) {
            //  console.log('---------alllist----------',arr)
         count1=signalData.member;
         count1=parseInt(count1); 
-        count1=count1-1;
+        count1= count1 > 0 ? count1-1 : 0;
       
         $('#totalonline').empty(); 
         $('#totalonline').html(count1);  
@@ -1527,13 +1540,13 @@ function signalHandler(uid, signalData, userType) {
       return userList; 
     }
 
-    function addUserAttribute(id, key, value){
+  function addUserAttribute(id, key, value){
       
-    let tempUsers = localStorage.getItem("tempUsers");
+    let tempUsers = getTempUsers();
     console.log('tempUsers =========== tempUsers', tempUsers, id, key, value)
 
     if(tempUsers != null){
-      tempUsers = JSON.parse(tempUsers);
+      // tempUsers = JSON.parse(tempUsers);
       for(let i in tempUsers){
         //tempUsers[i].hasOwnProperty(key)
         if(tempUsers[i].id == id){
@@ -1544,51 +1557,70 @@ function signalHandler(uid, signalData, userType) {
       
     localStorage.setItem("tempUsers", JSON.stringify(tempUsers));
   }
-  
-  function removeUserAttribute(id, key){
-      let tempUsers = localStorage.getItem("tempUsers");
-      console.log('tempUsers =========== tempUsers', tempUsers)
-      let newTempUsers = {};
-      if(tempUsers != null){
-        tempUsers = JSON.parse(tempUsers);
-        for(let i in tempUsers){
-          //tempUsers[i].hasOwnProperty(key)
-          if(tempUsers[i].id != id){
-            newTempUsers[i] = tempUsers[i];
-          }
+
+  function getAllAudience(){
+    let tempUsers = getTempUsers();
+    // console.log('tempUsers =========== tempUsers ======', tempUsers);
+    let audience = [];
+    if(tempUsers != null){
+      
+      for(let i in tempUsers){
+        if(tempUsers[i].hasOwnProperty('isSubscribe') && tempUsers[i].isSubscribe != 1){
+          audience.push(tempUsers[i]);          
         }
       }
-        
-      localStorage.setItem("tempUsers", JSON.stringify(newTempUsers));
+      audience.sort(function(a, b) { return parseInt(a.subscribeTime) - parseInt(b.subscribeTime); });
+    }
+    console.log('audience =========== audience ======', audience);
+    return audience;      
   }
+
+  function getAllBroadcster(){
+    let tempUsers = getTempUsers();
+    // console.log('tempUsers =========== tempUsers ======', tempUsers);
+    let broadcasters = [];
+    if(tempUsers != null){
+      
+      for(let i in tempUsers){
+        if(tempUsers[i].hasOwnProperty('isSubscribe') && tempUsers[i].isSubscribe == 1){
+          broadcasters.push(tempUsers[i]);          
+        }
+      }
+      broadcasters.sort(function(a, b) { return parseInt(a.subscribeTime) - parseInt(b.subscribeTime); });
+    }
+    console.log('broadcasters =========== broadcasters ======', broadcasters);
+    return broadcasters;      
+  }
+  
+  // function removeUserAttribute(id, key){
+  //     let tempUsers = getTempUsers();
+  //     console.log('tempUsers =========== tempUsers', tempUsers)
+  //     let newTempUsers = {};
+  //     if(tempUsers != null){
+  //       // tempUsers = JSON.parse(tempUsers);
+  //       for(let i in tempUsers){
+  //         //tempUsers[i].hasOwnProperty(key)
+  //         if(tempUsers[i].id != id){
+  //           newTempUsers[i] = tempUsers[i];
+  //         }
+  //       }
+  //     }
+        
+  //     localStorage.setItem("tempUsers", JSON.stringify(newTempUsers));
+  // }
 
   function displayError(err){
     $('#exptn-errors').html('<pre>'+err+'</pre>');
   }
+
+  
       
   $(document).ready(function(){
 
-    // var locaData = getCurrentUserData();
-    // console.log('----------localData--',locaData.id)
-
-    //     let output = JSON.parse(localStorage.getItem("userData"));
-    //     console.log('----------virat------------',output.userType);
-    //     if(output.userType == 2)
-    //     {
-    //       let output_res = JSON.parse(localStorage.getItem("tempUsers"));
-    //       console.log('----------virat------------',output_res);
-
-    //       output_res.forEach(element => {
-    //         if(element.id == 1 && element.sessionStatus == 1 )
-    //         {
-    //           console.log('----------viratsigh------------',element.sessionStatus);
-    //           $('#continue-join').removeAttr("disabled");
-
-    //           $('#continue-join').prop("disabled", false);
-    //         }
-    //         console.log('----------viratkumar------------',element.id);
-    //       }); 
-    //     }
+    function sort_li(a, b) {
+      return ($(b).attr('data-position')) > ($(a).attr('data-position')) ? 1 : -1;
+    }
+    $('#online-user-list tr').sort(sort_li).appendTo('#online-user-list');
 
     $("body, div").bind('mousewheel', function() {
       return false
@@ -1599,8 +1631,7 @@ function signalHandler(uid, signalData, userType) {
     // check devices
     getDevices();
     rtmJoin(); 
-    
-        
+
 
       $('#logout_button').click(function(){
         updateJoinSessionStatus();
@@ -1618,11 +1649,22 @@ function signalHandler(uid, signalData, userType) {
       $('#attendy-list').on('shown.bs.modal', function () {
           
           channel.getMembers().then(membersList => {
-            
+            let userList = getOrderUser()
             $('#attendy-list').find('.user-status').attr('src', '/images/offline.png');
             for(let i= 0; i < membersList.length; i++){
               let eleId = convertEmailToId(membersList[i]);
               $('#online-user-row-'+eleId).find('.user-status').attr('src', '/images/online.png');
+              if(userList != ''){
+                for(let j in userList){
+                  if(userList[j].id == membersList[i]){
+
+                      $('#online-user-row-'+eleId).attr('data-position', userList[j].joinAt );
+                      break;
+                  }
+                }
+              }
+              $('#online-user-list tr').sort(sort_li).appendTo('#online-user-list');
+              
             }
           }).catch(error => {
             console.log('*************There is an error******');

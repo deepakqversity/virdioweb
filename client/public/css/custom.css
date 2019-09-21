@@ -1391,7 +1391,16 @@ position: absolute;
 	border:1.5px solid transparent;
 }
 .swiper-slide-next .count-box svg circle, 
-.footer-fitness-script .fitness-guest .swiper-slide-next svg circle, 
+.footer-fitness-script .fitness-guest .swiper-slide-next svg circle{
+  stroke-dasharray: 160px;
+  stroke-dashoffset: 0px;
+  stroke-linecap: round;
+  stroke-width: 6px;
+  stroke: #9b51e0;
+  fill: none;
+  animation: countdown 30s linear infinite forwards;
+  animation-direction: reverse;
+}
 .header svg circle{
   stroke-dasharray: 160px;
   stroke-dashoffset: 0px;
@@ -1402,6 +1411,7 @@ position: absolute;
   animation: countdown 30s linear infinite forwards;
   animation-direction: reverse;
 }
+
 .footer-fitness-script .fitness-guest .swiper-slide-next svg circle{
 	stroke-width: 7px;
 }

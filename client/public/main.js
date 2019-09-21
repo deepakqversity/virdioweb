@@ -161,7 +161,12 @@ if(!AgoraRTC.checkSystemRequirements()) {
         // remove id when unpublished
         currentPublishedUser.push(stream.getId());
         console.log(' @@@@@@ totalBrodcaster++ ', totalBrodcaster);
+        
       }
+      // add as a audience
+      addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
+      addUserAttribute(stream.getId(), 'isSubscribe', 0);
+      
       // console.log("Subscribe ", stream);
       
       client.subscribe(stream, function (err) {
@@ -181,11 +186,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
       if(storeData.userType == 1) {
 
         if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
-          if(totalScreenUsers < 8){
+          if(totalScreenUsers < totalBrodcaster, storeData.default.maxUserLimit){
 
           $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" data-dismiss="modal">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute   d-none"  id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
-          } else {
-            
           }
           totalScreenUsers++;
         }
@@ -194,6 +197,11 @@ if(!AgoraRTC.checkSystemRequirements()) {
         switchVideoSize();
 
         checkMuteUnmute(stream.getId());
+
+        addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
+        addUserAttribute(stream.getId(), 'isSubscribe', 1);
+
+        removeAudienceInList(stream.getId())
 
         $('#subscribers-list #agora_remote'+stream.getId()).removeClass('d-none');
 
@@ -286,37 +294,14 @@ if(!AgoraRTC.checkSystemRequirements()) {
         }
       }
       removeAudienceInList(stream.getId())
-
-      // if(storeData.userType != 1){
-        // $.ajax({
-        //       headers: { 
-        //           "Content-Type": "application/json; charset=utf-8",
-        //           "Authorization": storeData.token
-        //       },
-        //       url: '/api/v1/session/'+storeData.sessionData.id+'/'+stream.getId()+'/stream-id',
-        //       dataType: 'json',
-        //       type: 'GET',
-        //       success: function( data, textStatus, jQxhr ){
-                  
-        //           let respData = data;
-
-        //           if(respData.status){
-        //             if(respData.type != 1){
-        //               if(totalBrodcaster > 0){
-        //                 totalBrodcaster--;
-        //               }
-        //             }
-        //           }
-        //       },
-        //       error: function( jqXhr, textStatus, errorThrown ){
-        //           console.log( errorThrown );
-        //       }
-        //   });
-      // }
+      
+      addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
+      addUserAttribute(stream.getId(), 'isSubscribe', 0);
 
       $('#agora_remote' + stream.getId()).remove();
       switchVideoSize();
       pushIntoSessionByHost();
+      switchAudienceToBroadcaster();
       console.log("Remote stream is removed " + stream.getId());
     });
 
@@ -325,6 +310,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
       var stream = evt.stream;
       if (stream) {
         stream.stop();
+        addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
+        addUserAttribute(stream.getId(), 'isSubscribe', 0);
         $('#agora_remote' + stream.getId()).remove();
         switchVideoSize();
         console.log(evt.uid + " leaved from this channel");
@@ -1675,6 +1662,27 @@ function changeImage(){
     }, 1000);
   }
 
+
+  function sessionTimer(){
+    
+    let storeData = getCurrentUserData();
+    
+    let countdown = storeData.sessionData.duration * 60;
+
+    $('.header svg circle').attr("style","animation-duration:"+countdown+"s !important");
+    console.log('countdown ======= countdown start ----', countdown)
+    
+    var resetCount1 = setInterval(function() {
+      if(countdown <= 0){
+        console.log('=========== **********', countdown)
+        $('.header svg circle').removeAttr("style");
+        clearInterval(resetCount1);
+      }
+      countdown--;
+    }, 1000);
+  }
+  
+
   function convertUnixTimestamp(t)
   {
   var dt = new Date(t*1000);
@@ -1952,6 +1960,7 @@ function signalHandler(uid, signalData, userType) {
           });
           localStorage.setItem("audience-list", JSON.stringify(audienceList));
           $('#dropdownMenuButton').removeClass('d-none');
+          $('.hand-raise-list .dropdown-menu').addClass('show');
           showHandAtHost();
         }
      }
@@ -1975,8 +1984,9 @@ function signalHandler(uid, signalData, userType) {
 
       if(newAudienceList.length <= 0){
 
-        $('#dropdownMenuButton').click();
+        // $('#dropdownMenuButton').click();
         $('#dropdownMenuButton').addClass('d-none');
+        $('.hand-raise-list .dropdown-menu').removeClass('show')
       }
       
       localStorage.setItem("audience-list", JSON.stringify(newAudienceList));
@@ -2022,10 +2032,12 @@ function signalHandler(uid, signalData, userType) {
           $('#total-raised-hands').html(audienceList.length);
           $('#raised-list').append(list);
           $('#dropdownMenuButton').removeClass('d-none');
+          $('.hand-raise-list .dropdown-menu').addClass('show');
         } else {
           $('#dropdownMenuButton').addClass('d-none');
           $('#raised-list').html('');
           $('#total-raised-hands').html(0);
+          $('.hand-raise-list .dropdown-menu').removeClass('show');
         }
     }
 
@@ -2047,10 +2059,10 @@ function signalHandler(uid, signalData, userType) {
       console.log('=========== dataObj', dataObj)
       let id = convertEmailToId(dataObj.id);
       let vdo = $('#subscribers-list #agora_remote'+ id + ' video' )[0];  
-      console.log('subscribers-list video = ', vdo.muted);
+      console.log('subscribers-list video = ', vdo);
 
       // check current user unmute state
-      if(vdo.muted){
+      if(vdo != undefined && vdo.muted){
 
         let selectedParticipentId = $('#selected-participent-id').val();
         if(id != selectedParticipentId){
@@ -2065,8 +2077,6 @@ function signalHandler(uid, signalData, userType) {
       let text = "1002"+sep+"kicked by host";
       console.log('############### text', text)
       sendMessage( convertIdToEmail(id), text);
-
-      removeAudienceInList($('#to-broadcast').val());
     }
 
     function pullFromSessionByHost(limit){
@@ -2086,6 +2096,9 @@ function signalHandler(uid, signalData, userType) {
 
           if(ctr < limit && checkKickRule(userList[i])){
             kickUser(id);
+            if($('#to-broadcast').val().trim() != ''){
+              removeAudienceInList($('#to-broadcast').val());
+            }
           }
           ctr++;
         }
@@ -2110,6 +2123,52 @@ function signalHandler(uid, signalData, userType) {
       localStorage.setItem("switch-counter",++switchCounter);
     }
 
+    // switch users
+    
+    function swictUssers(){
+      let storeData = getCurrentUserData();
+      if(storeData.userType == 1){
+
+        console.log('swictUssers ***************');
+        var switchRef = setInterval( function(){
+          switchBroadcasterToAudience();
+        } , 1000 * 30); 
+      }
+    }
+
+    function switchBroadcasterToAudience(){
+        let audience = getAllAudience();
+        let broadcster = getAllBroadcster();
+
+        console.log('switchBroadcasterToAudience ***************', broadcster, audience);
+        if(broadcster.length > 0 && audience.length > 0){
+          
+          for(let i in broadcster){
+            if(checkKickRule({id : broadcster[i].email})){
+              console.log('checkKickRule ***************');
+              kickUser(broadcster[i].id);
+              // removeAudienceInList(broadcster[i].id);
+              break;
+            }
+          }
+        }
+    }
+
+    function switchAudienceToBroadcaster(){
+      console.log('switchAudienceToBroadcaster ***************');
+        let audience = getAllAudience();
+        if(audience != null) {
+            for(let i in audience){
+              // if user already select from audience dropdown then not need to initialize
+              if(audience[i].id != $('#to-broadcast').val().trim()){
+                console.log('switchAudienceToBroadcaster ***************', audience);
+                sendPushIntoSessionMessage(audience[i].id)
+                break;
+              }
+            }
+        }
+    }
+
     function pushIntoSessionByHost(){
       let uid = '';
 
@@ -2127,6 +2186,7 @@ function signalHandler(uid, signalData, userType) {
         $('#total-raised-hands').html(len > 0 ? (len-1) : 0);
         if(len <= 0){
           $('#dropdownMenuButton').addClass('d-none');
+          $('.hand-raise-list .dropdown-menu').removeClass('show');
         }
       }
     }
@@ -2626,38 +2686,78 @@ function signalHandler(uid, signalData, userType) {
 
   function addUserAttribute(id, key, value){
       
-    let tempUsers = localStorage.getItem("tempUsers");
-    console.log('tempUsers =========== tempUsers', tempUsers)
+    let tempUsers = getTempUsers();
+    console.log('tempUsers =========== tempUsers', tempUsers, id, key, value)
 
     if(tempUsers != null){
-      tempUsers = JSON.parse(tempUsers);
+      // tempUsers = JSON.parse(tempUsers);
       for(let i in tempUsers){
-        //tempUsers[i].hasOwnProperty(key)
-        if(tempUsers[i].id == id){
-          tempUsers[key] = value;
+        if(tempUsers[i].hasOwnProperty(key)){
+          if(tempUsers[i].id == id){
+            tempUsers[i][key] = value;
+          }
+        } else {
+
+          if(tempUsers[i].id == id){
+            tempUsers[i][key] = value;
+          }
         }
       }
     }
       
     localStorage.setItem("tempUsers", JSON.stringify(tempUsers));
   }
-  
-  function removeUserAttribute(id, key){
-      let tempUsers = localStorage.getItem("tempUsers");
-      console.log('tempUsers =========== tempUsers', tempUsers)
-      let newTempUsers = {};
-      if(tempUsers != null){
-        tempUsers = JSON.parse(tempUsers);
-        for(let i in tempUsers){
-          //tempUsers[i].hasOwnProperty(key)
-          if(tempUsers[i].id != id){
-            newTempUsers[i] = tempUsers[i];
-          }
+
+  function getAllAudience(){
+    let tempUsers = getTempUsers();
+    console.log('tempUsers =========== tempUsers ======', tempUsers);
+    let audience = [];
+    if(tempUsers != null){
+      
+      for(let i in tempUsers){
+        if(tempUsers[i].hasOwnProperty('isSubscribe') && tempUsers[i].isSubscribe != 1){
+          audience.push(tempUsers[i]);          
         }
       }
-        
-      localStorage.setItem("tempUsers", JSON.stringify(newTempUsers));
+      audience.sort(function(a, b) { return parseInt(a.subscribeTime) - parseInt(b.subscribeTime); });
+    }
+    console.log('audience =========== audience ======', audience);
+    return audience;      
   }
+
+  function getAllBroadcster(){
+    let tempUsers = getTempUsers();
+    console.log('tempUsers =========== tempUsers ======', tempUsers);
+    let broadcasters = [];
+    if(tempUsers != null){
+      
+      for(let i in tempUsers){
+        if(tempUsers[i].hasOwnProperty('isSubscribe') && tempUsers[i].isSubscribe == 1){
+          broadcasters.push(tempUsers[i]);          
+        }
+      }
+      broadcasters.sort(function(a, b) { return parseInt(a.subscribeTime) - parseInt(b.subscribeTime); });
+    }
+    console.log('broadcasters =========== broadcasters ======', broadcasters);
+    return broadcasters;      
+  }
+  
+  // function removeUserAttribute(id, key){
+  //     let tempUsers = getTempUsers();
+  //     console.log('tempUsers =========== tempUsers', tempUsers)
+  //     let newTempUsers = {};
+  //     if(tempUsers != null){
+  //       // tempUsers = JSON.parse(tempUsers);
+  //       for(let i in tempUsers){
+  //         //tempUsers[i].hasOwnProperty(key)
+  //         if(tempUsers[i].id != id){
+  //           newTempUsers[i] = tempUsers[i];
+  //         }
+  //       }
+  //     }
+        
+  //     localStorage.setItem("tempUsers", JSON.stringify(newTempUsers));
+  // }
 
   function displayError(err){
 
@@ -2667,7 +2767,8 @@ function signalHandler(uid, signalData, userType) {
       $(document).ready(function(){
 
 
-        
+        swictUssers();
+
         let heightScript = $(".host-script-section").height();
             
         $(".item-description.script-section").height(`${heightScript - 37 }px`);

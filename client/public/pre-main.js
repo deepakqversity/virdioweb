@@ -616,9 +616,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
   }
 
   function removePreScreenSession(){
-
-    stream1.close();
-    stream2.close();
+    if(stream1 != undefined && stream1 != null)
+      stream1.close();
+    if(stream2 != undefined && stream2 != null)
+      stream2.close();
   }
 
   function toggleFullScreen() {

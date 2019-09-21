@@ -115,7 +115,6 @@ class Host extends Component {
         clearInterval(this.timer);
         this.setState({ timerOn: false });
         $('.countdown-timer').html('Session Started')
-        window.sessionTimer();
         //alert("Countdown ended");
       }
     }, 10);

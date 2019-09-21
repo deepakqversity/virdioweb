@@ -21,7 +21,8 @@ class PreConfiguration extends Component {
       timerStart: 0,
       timerTime: 0,
       userType:-1,
-      interest:0
+      interest:0,
+      alert10Sec:false
     }
   }
 
@@ -68,18 +69,14 @@ class PreConfiguration extends Component {
     this.loadScript('/agora-rtm-sdk-1.0.0.js');
     this.loadScript('/pre-main.js');
 
-    // this.fetchUsers();
+    this.fetchUsers();
 
 
     let localstoragedata = JSON.parse(localStorage.getItem('userData'));
     this.setState({sessionScript: localstoragedata.sessionData.id});
     let scDate = localstoragedata.sessionData.scheduleDate;
 
-    if(localstoragedata.userType != 1){
-      // window.participentTimerAlert();
-    }
-
-    //console.log('scDate= ',scDate, new Date(scDate).getTime(), new Date().getTime())
+    // console.log('scDate= ',scDate, new Date(scDate).getTime(), new Date().getTime())
 
     scDate = (new Date(scDate).getTime()) - (new Date().getTime());
     // console.log('scDate- ', scDate)
@@ -87,15 +84,7 @@ class PreConfiguration extends Component {
     this.setState({interest:localstoragedata.sessionData.code});
   }
   componentWillMount(){
-    this.fetchUsers();
-    //console.log(1);
-    // window.test();
     this.startTimer();
-    // let localstoragedata = JSON.parse(localStorage.getItem('userData'));
-    // this.setState({userType : localstoragedata.userType})
-    // console.log('$$$$$$$$$$$$$$$',localstoragedata.userType, this.state.userType);
-
-    // this.addLog(1,22,2);
   }
 
   joinAttendies(){
@@ -168,10 +157,10 @@ class PreConfiguration extends Component {
       timerStart: this.state.timerTime
     });
     this.timer = setInterval(() => {
-      const newTime = this.state.timerTime;
+      const newTime = this.state.timerTime - 10;
 
       let remSec = Math.floor(newTime / 1000);
-
+      console.log('remSec *********** ', remSec)
       if(remSec > 0 && remSec < 10){
         this.setState({
           timerTime: newTime
@@ -249,7 +238,7 @@ render() {
   let seconds = ("0" + (Math.floor((timerTime / 1000) % 60) % 60)).slice(-2);
   let minutes = ("0" + Math.floor((timerTime / 60000) % 60)).slice(-2);
   let hours = ("0" + Math.floor((timerTime / 3600000) % 60)).slice(-2);
-      // console.log('interest====== ', interest);
+      // console.log('seconds, minutes, hours====== ', seconds, minutes, hours);
   //const  {user}  = this.props.auth;
 
   let localstoragedata = JSON.parse(localStorage.getItem('userData'));

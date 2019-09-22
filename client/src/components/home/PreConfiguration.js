@@ -160,7 +160,7 @@ class PreConfiguration extends Component {
       const newTime = this.state.timerTime - 10;
 
       let remSec = Math.floor(newTime / 1000);
-      console.log('remSec *********** ', remSec)
+      // console.log('remSec *********** ', remSec)
       if(remSec > 0 && remSec < 10){
         this.setState({
           timerTime: newTime

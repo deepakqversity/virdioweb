@@ -180,7 +180,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
         console.log('MemberJoined ================MemberJoined ');
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-status').attr('src', '/images/online.png');
-
+        let userList = getOrderUser()
+        
         if(userList != ''){
           for(let j in userList){
             if(userList[j].id == memberId){
@@ -1651,7 +1652,7 @@ function signalHandler(uid, signalData, userType) {
       $('#attendy-list').on('shown.bs.modal', function () {
           
           channel.getMembers().then(membersList => {
-            let userList = getOrderUser()
+            let userList = getOrderUser();
             $('#attendy-list').find('.user-status').attr('src', '/images/offline.png');
             for(let i= 0; i < membersList.length; i++){
               let eleId = convertEmailToId(membersList[i]);

@@ -181,7 +181,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         console.log('MemberJoined ================MemberJoined ');
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-status').attr('src', '/images/online.png');
         let userList = getOrderUser()
-        
+
         if(userList != ''){
           for(let j in userList){
             if(userList[j].id == memberId){
@@ -190,6 +190,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
                 break;
             }
           }
+        }
+        function sort_li(a, b) {
+          return parseInt($(b).attr('data-position')) < parseInt($(a).attr('data-position')) ? 1 : -1;
         }
         $('#online-user-list tr').sort(sort_li).appendTo('#online-user-list');
 

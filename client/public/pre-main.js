@@ -1060,7 +1060,7 @@ function signalHandler(uid, signalData, userType) {
           console.log('22222222222  77777777777 ----------',userList)
           let ct = 0;
           for(let i=0; i < userList.length; i++){
-            console.log('22222222222 000000000000----------',storeData.id , convertEmailToId(userList[i].id))
+            console.log('22222222222 000000000000----------',storeData.id , convertEmailToId(userList[i].id), getUserDataFromList(userList[i].id, 'userType'), ctr, storeData.default.maxUserLimit)
             if(storeData.id == convertEmailToId(userList[i].id) && getUserDataFromList(userList[i].id, 'userType') != 1 && ct < parseInt(storeData.default.maxUserLimit)) {
               
                 ct++;

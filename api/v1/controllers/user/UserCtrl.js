@@ -66,6 +66,18 @@ class UserCtrl {
 									currentSession.logo = process.env.IMAGES + 'v-logo.png';
 								}
 
+								let agoraConfig = await sessionModel.getSessionAgoraConfig(currentSession.id);
+
+								if(!isEmpty(agoraConfig)){
+									for(let i in agoraConfig){
+										if(agoraConfig[i].type == 1){
+											underscore.extend(currentSession, {appId: agoraConfig[i].appId});
+										} else if(agoraConfig[i].type == 2){
+											underscore.extend(currentSession, {rtmAppId: agoraConfig[i].appId});
+										}
+									}
+								}
+
 								let scriptInfo = {scriptTitle:'', scriptType:''};
 								if(currentSession.code == 100) {
 									scriptInfo = {scriptTitle:'Wine Script', scriptType:'wine'};
@@ -86,7 +98,7 @@ class UserCtrl {
 								let streamToken = clientToken.createToken(currentSession.appId, currentSession.appCertificate, currentSession.channelId, currentSession.userId);
 
 								underscore.extend(currentSession, {streamToken : streamToken});
-								currentSession = underscore.omit(currentSession, 'appCertificate');
+								// currentSession = underscore.omit(currentSession, 'appCertificate');
 
 								let scriptDetail = await sessionScriptModel.getProductDetail(currentSession.id, currentSession.hostId, currentSession.code );
 								underscore.extend(currentSession, {scriptDetail : scriptDetail});
@@ -96,9 +108,6 @@ class UserCtrl {
 								} else {
 									currentSession.hostImage = process.env.IMAGES + currentSession.hostImage;
 								}
-
-								// we have to remove this after db configuration
-								underscore.extend(currentSession, {rtmAppId : process.env.RTM_API, rtmChannelId : process.env.RTM_CHANNEL});
 
 								underscore.extend(userObj, { sessionData : currentSession });
 

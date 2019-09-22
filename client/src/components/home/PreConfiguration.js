@@ -137,10 +137,10 @@ class PreConfiguration extends Component {
 
       let sessionTime = localStorage.getItem("pre-session-time");
       if(sessionTime != ''){
-          sessionTime = JSON.parse(sessionTime);
-          sessionTime['joinTime'] = (new Date()).getTime();
+        sessionTime = JSON.parse(sessionTime);
+        sessionTime['joinTime'] = (new Date()).getTime();
+        localStorage.setItem("pre-session-time", JSON.stringify(sessionTime));
       }
-      localStorage.setItem("pre-session-time", JSON.stringify(sessionTime));
     }
     this.joinSession();
   };

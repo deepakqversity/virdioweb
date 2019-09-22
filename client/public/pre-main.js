@@ -1057,14 +1057,21 @@ function signalHandler(uid, signalData, userType) {
         let userList = getOrderUser();
         console.log('22222222222 ----------',userList)
         if(userList != ''){
-          for(let i=0; i< storeData.default.maxUserLimit; i++){
+          console.log('22222222222  77777777777 ----------',userList)
+          for(let i=0; i< parseInt(storeData.default.maxUserLimit); i++){
+            console.log('22222222222 000000000000----------',storeData.id , convertEmailToId(userList[i].id))
             if(storeData.id == convertEmailToId(userList[i].id) ){
+
+              let sessionTime = {};
+              sessionTime['startTime'] = (new Date()).getTime();
+              sessionTime['joinTime'] = ''
+              localStorage.setItem("pre-session-time", JSON.stringify(sessionTime));
 
               if($('#participent-timer-alert').length > 0){
 
                 $('#participent-timer-alert').modal('show');
 
-                let duration = parseInt($('#rem-join-timer').html());
+                let duration = parseInt(storeData.default.maxJoinDuration);
 
                 let ref2 = setInterval( function() {
                     $('#rem-join-timer').html(duration < 0 ? 0 : duration);
@@ -1075,11 +1082,6 @@ function signalHandler(uid, signalData, userType) {
                     duration--;
                 }, 1000 );
               }
-
-              let sessionTime = {};
-              sessionTime['startTime'] = (new Date()).getTime();
-              sessionTime['joinTime'] = ''
-              localStorage.setItem("pre-session-time", JSON.stringify(sessionTime));
             }
           }
         }

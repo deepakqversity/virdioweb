@@ -66,17 +66,7 @@ class UserCtrl {
 									currentSession.logo = process.env.IMAGES + 'v-logo.png';
 								}
 
-								let agoraConfig = await sessionModel.getSessionAgoraConfig(currentSession.id);
-
-								if(!isEmpty(agoraConfig)){
-									for(let i in agoraConfig){
-										if(agoraConfig[i].type == 1){
-											underscore.extend(currentSession, {appId: agoraConfig[i].appId});
-										} else if(agoraConfig[i].type == 2){
-											underscore.extend(currentSession, {rtmAppId: agoraConfig[i].appId});
-										}
-									}
-								}
+								
 
 								let scriptInfo = {scriptTitle:'', scriptType:''};
 								if(currentSession.code == 100) {
@@ -94,11 +84,23 @@ class UserCtrl {
 								let str = utils.dateTimeDiff(currentSession.scheduleDate);
 								underscore.extend(currentSession, {messgae:str});
 
-								// generate streaming token
-								let streamToken = clientToken.createToken(currentSession.appId, currentSession.appCertificate, currentSession.channelId, currentSession.userId);
+								let agoraConfig = await sessionModel.getSessionAgoraConfig(currentSession.id);
 
-								underscore.extend(currentSession, {streamToken : streamToken});
-								// currentSession = underscore.omit(currentSession, 'appCertificate');
+								if(!isEmpty(agoraConfig)){
+									for(let i in agoraConfig){
+										if(agoraConfig[i].type == 1){
+											underscore.extend(currentSession, {appId: agoraConfig[i].appId});
+											// generate streaming token
+											let streamToken = clientToken.createToken(agoraConfig[i].appId, agoraConfig[i].appCertificate, currentSession.channelId, currentSession.userId);
+
+											underscore.extend(currentSession, {streamToken : streamToken});
+											// currentSession = underscore.omit(currentSession, 'appCertificate');
+										} else if(agoraConfig[i].type == 2){
+											underscore.extend(currentSession, {rtmAppId: agoraConfig[i].appId});
+										}
+									}
+								}
+								
 
 								let scriptDetail = await sessionScriptModel.getProductDetail(currentSession.id, currentSession.hostId, currentSession.code );
 								underscore.extend(currentSession, {scriptDetail : scriptDetail});

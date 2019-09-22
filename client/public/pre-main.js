@@ -1058,30 +1058,33 @@ function signalHandler(uid, signalData, userType) {
         console.log('22222222222 ----------',userList)
         if(userList != ''){
           console.log('22222222222  77777777777 ----------',userList)
-          for(let i=0; i< parseInt(storeData.default.maxUserLimit); i++){
+          let ct = 0;
+          for(let i=0; i < userList.length; i++){
             console.log('22222222222 000000000000----------',storeData.id , convertEmailToId(userList[i].id))
-            if(storeData.id == convertEmailToId(userList[i].id) ){
+            if(storeData.id == convertEmailToId(userList[i].id) && getUserDataFromList(userList[i].id, 'userType') != 1 && ct < parseInt(storeData.default.maxUserLimit)) {
+              
+                ct++;
+                let sessionTime = {};
+                sessionTime['startTime'] = (new Date()).getTime();
+                sessionTime['joinTime'] = ''
+                localStorage.setItem("pre-session-time", JSON.stringify(sessionTime));
 
-              let sessionTime = {};
-              sessionTime['startTime'] = (new Date()).getTime();
-              sessionTime['joinTime'] = ''
-              localStorage.setItem("pre-session-time", JSON.stringify(sessionTime));
+                if($('#participent-timer-alert').length > 0){
 
-              if($('#participent-timer-alert').length > 0){
+                  $('#participent-timer-alert').modal('show');
 
-                $('#participent-timer-alert').modal('show');
+                  let duration = parseInt(storeData.default.maxJoinDuration);
 
-                let duration = parseInt(storeData.default.maxJoinDuration);
-
-                let ref2 = setInterval( function() {
-                    $('#rem-join-timer').html(duration < 0 ? 0 : duration);
-                    if(duration < 0){
-                      clearInterval(ref2);
-                      $('#continue-join').click();
-                    }
-                    duration--;
-                }, 1000 );
-              }
+                  let ref2 = setInterval( function() {
+                      $('#rem-join-timer').html(duration < 0 ? 0 : duration);
+                      if(duration < 0){
+                        clearInterval(ref2);
+                        $('#continue-join').click();
+                      }
+                      duration--;
+                  }, 1000 );
+                }
+              
             }
           }
         }

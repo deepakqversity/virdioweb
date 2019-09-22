@@ -1620,7 +1620,7 @@ function signalHandler(uid, signalData, userType) {
   $(document).ready(function(){
 
     function sort_li(a, b) {
-      return ($(b).attr('data-position')) > ($(a).attr('data-position')) ? 1 : -1;
+      return parseInt($(b).attr('data-position')) < parseInt($(a).attr('data-position')) ? 1 : -1;
     }
     $('#online-user-list tr').sort(sort_li).appendTo('#online-user-list');
 

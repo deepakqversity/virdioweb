@@ -1061,30 +1061,33 @@ function signalHandler(uid, signalData, userType) {
           let ct = 0;
           for(let i=0; i < userList.length; i++){
             console.log('22222222222 000000000000----------',storeData.id , convertEmailToId(userList[i].id), getUserDataFromList(userList[i].id, 'userType'), ct, storeData.default.maxUserLimit)
-            if(storeData.id == convertEmailToId(userList[i].id) && getUserDataFromList(userList[i].id, 'userType') != 1 && ct < parseInt(storeData.default.maxUserLimit)) {
-              
-                ct++;
-                let sessionTime = {};
-                sessionTime['startTime'] = (new Date()).getTime();
-                sessionTime['joinTime'] = ''
-                localStorage.setItem("pre-session-time", JSON.stringify(sessionTime));
+            if(getUserDataFromList(userList[i].id, 'userType') != 1){
 
-                if($('#participent-timer-alert').length > 0){
+              if(ct < parseInt(storeData.default.maxUserLimit) && storeData.id == convertEmailToId(userList[i].id)) {
+                
+                  let sessionTime = {};
+                  sessionTime['startTime'] = (new Date()).getTime();
+                  sessionTime['joinTime'] = ''
+                  localStorage.setItem("pre-session-time", JSON.stringify(sessionTime));
 
-                  $('#participent-timer-alert').modal('show');
+                  if($('#participent-timer-alert').length > 0){
 
-                  let duration = parseInt(storeData.default.maxJoinDuration);
+                    $('#participent-timer-alert').modal('show');
 
-                  let ref2 = setInterval( function() {
-                      $('#rem-join-timer').html(duration < 0 ? 0 : duration);
-                      if(duration < 0){
-                        clearInterval(ref2);
-                        $('#continue-join').click();
-                      }
-                      duration--;
-                  }, 1000 );
-                }
-              
+                    let duration = parseInt(storeData.default.maxJoinDuration);
+
+                    let ref2 = setInterval( function() {
+                        $('#rem-join-timer').html(duration < 0 ? 0 : duration);
+                        if(duration < 0){
+                          clearInterval(ref2);
+                          $('#continue-join').click();
+                        }
+                        duration--;
+                    }, 1000 );
+                  }
+                  break;
+              }
+              ct++;
             }
           }
         }

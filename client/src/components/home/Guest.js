@@ -361,7 +361,7 @@ const videoAspect = {
   width: "235px",
   height: "132px",
   float: "right",
-  "margin-right": "5px"
+  marginRight: "5px"
 }
 Guest.propTypes = {
   logoutUser: PropTypes.func.isRequired,

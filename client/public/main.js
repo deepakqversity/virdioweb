@@ -166,7 +166,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       }
       // add as a audience
       addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
-      addUserAttribute(stream.getId(), 'isSubscribe', 0);
+      addUserAttribute(stream.getId(), 'isSubscribe', 1);
       
       // console.log("Subscribe ", stream);
       
@@ -267,7 +267,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     });
 
     client.on('peer-leave', function (evt) {
-      console.log('peer-leave = ', evt)
+      console.log('Peer leave = ', evt)
       var stream = evt.stream;
       if (stream) {
         stream.stop();
@@ -275,7 +275,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
         removeUserAttribute(stream.getId(), 'isSubscribe');
         $('#agora_remote' + stream.getId()).remove();
         switchVideoSize();
-        // removeUserAttribute(stream.getId(), )
         console.log(evt.uid + " leaved from this channel");
       }
     });
@@ -1691,6 +1690,7 @@ function signalHandler(uid, signalData, userType) {
     } else if(resultant[0] == "1000"){
         // update participent stream join channel
         // add as a audience
+        console.log('uid============1000', uid)
         addUserAttribute(convertEmailToId(uid), 'subscribeTime', (new Date()).getTime());
         addUserAttribute(convertEmailToId(uid), 'isSubscribe', 0);
       
@@ -2063,12 +2063,27 @@ function signalHandler(uid, signalData, userType) {
       let vdo = $('#subscribers-list #agora_remote'+ id + ' video' )[0];  
       console.log('subscribers-list video = ', vdo);
 
-      // check current user unmute state
+      // check current user in mute state
       if(vdo != undefined && vdo.muted){
 
         let selectedParticipentId = $('#selected-participent-id').val();
         if(id != selectedParticipentId){
           rule = true;
+        }
+
+        if(!rule){
+          let broadcster = getAllBroadcster();
+          if(broadcster.length > 0){
+            
+            for(let i in broadcster){
+              if(broadcster[i].email == dataObj.id){
+                let tm =  (new Date()).getTime() - parseInt(broadcster[i].subscribeTime);
+                if((tm / 1000) > 30){
+                  rule = true
+                }
+              }
+            }
+          }
         }
       }
 
@@ -2127,11 +2142,11 @@ function signalHandler(uid, signalData, userType) {
 
     // switch users
     
-    function swictUsers(){
+    function switchUsers(){
       let storeData = getCurrentUserData();
       if(storeData.userType == 1){
 
-        console.log('swictUsers ***************');
+        console.log('switchUsers ***************');
         var switchRef = setInterval( function(){
           switchBroadcasterToAudience();
         } , 1000 * 30); 
@@ -2797,7 +2812,8 @@ function signalHandler(uid, signalData, userType) {
     if(tempUsers != null){
       
       for(let i in tempUsers){
-        if(tempUsers[i].hasOwnProperty('isSubscribe') && tempUsers[i].isSubscribe == 2){
+        console.log('&&&&&&& 11111111', tempUsers[i], tempUsers[i].isSubscribe);
+        if(tempUsers[i].hasOwnProperty('isSubscribe') && parseInt(tempUsers[i].isSubscribe) == 0){
           audience.push(tempUsers[i]);          
         }
       }
@@ -2814,7 +2830,8 @@ function signalHandler(uid, signalData, userType) {
     if(tempUsers != null){
       
       for(let i in tempUsers){
-        if(tempUsers[i].hasOwnProperty('isSubscribe') && tempUsers[i].isSubscribe == 1){
+        console.log('&&&&&&& 22222222', tempUsers[i], tempUsers[i].isSubscribe);
+        if(tempUsers[i].hasOwnProperty('isSubscribe') && parseInt(tempUsers[i].isSubscribe) == 1){
           broadcasters.push(tempUsers[i]);          
         }
       }
@@ -2835,7 +2852,7 @@ function signalHandler(uid, signalData, userType) {
           broadcasters.push(tempUsers[i]);
         }
       }
-      broadcasters.sort(function(a, b) { return parseInt(a.subscribeTime) - parseInt(b.subscribeTime); });
+      // broadcasters.sort(function(a, b) { return parseInt(a.subscribeTime) - parseInt(b.subscribeTime); });
     }
     console.log('broadcasters =========== broadcasters ======', broadcasters);
     return broadcasters;      
@@ -2866,7 +2883,7 @@ function signalHandler(uid, signalData, userType) {
       $(document).ready(function(){
 
 
-        swictUsers();
+        switchUsers();
 
         let heightScript = $(".host-script-section").height();
             

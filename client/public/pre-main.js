@@ -1182,16 +1182,31 @@ function signalHandler(uid, signalData, userType) {
         let str=signalData.message;
         let res = str.split(sep);
         let storeData = getCurrentUserData();
-        var hostid=storeData.sessionData.hostId;
-      
-        if(res[1]== hostid)
+        let hostEmail=storeData.sessionData.hostEmail;
+
+         console.log('----------res[1]---------------',res[1])
+
+              
+        if(res[1]== hostEmail)
         { 
-          //console.log('---------atulsir----------------',hostid)
+         
           $('#online_state').removeClass("online-status");        
           $('#online_state').addClass("online-status");
 
         }
+
+        let n = res[1].includes("RM-");
+ 
+        if(n != true )
+       {
         count4=count3+1;
+       }
+      else{
+
+        count4=count3;
+        
+      }
+       
 
      
 
@@ -1200,15 +1215,27 @@ function signalHandler(uid, signalData, userType) {
         let str=signalData.message;
         let res = str.split(sep);
         let storeData = getCurrentUserData();
-        var hostid=storeData.sessionData.hostId;
+        let hostEmail=storeData.sessionData.hostEmail;
 
-        if(res[1]== hostid)
+        if(res[1]== hostEmail)
         {          
           $('#online_state').removeClass("online-status");
         }
 
+        let n = res[1].includes("RM-");
+ 
+        if(n != true )
+       {
+        afterleftcount=count3-1;
+       }
+      else{
+
+        afterleftcount=count3;
+        
+      }
+
       
-        count4= count3 > 0 ? count3-1 : 0;
+        count4= count3 > 0 ? afterleftcount : 0;
      
         // $('#newmsg').html(signalData.message);
         // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
@@ -1219,25 +1246,38 @@ function signalHandler(uid, signalData, userType) {
       }else if(signalData.msgtype=='totalcount') {
         
         let storeData = getCurrentUserData();
-        let hostid=storeData.sessionData.hostId;
+        let hostEmail=storeData.sessionData.hostEmail;
      
         var arr=signalData.totalmember;
        
         count4 = signalData.member;
         count4 = parseInt(count4);
-        count4 = count4 > 0 ? count4 - 1 : 0;
+       
         // console.log('*******totallist*************** signalData ', count4);
         arr.shift();
         arr.forEach(element => {
 
-          if(element == hostid)
+          let n = element.includes("RM-");
+
+          if(element == hostEmail)
           {  
             
           $('#online_state').removeClass("online-status");        
             $('#online_state').addClass("online-status");
           }
-        //  $('#all_joined_member_list').append('<div className="attendee-list"><img src="images/attendee.png" /><span class="title">'+element+'</span><div className="vid-icons"><span className="icon1"></span><span className="icon2"></span></div></div>');
-        });    
+
+          
+          if(n != true)
+          {  
+            updatedcount=count4;
+
+          }else{
+            updatedcount=count4-1;
+          }
+     
+        });  
+        
+        count4 = updatedcount > 0 ? updatedcount - 1 : 0;
       }
       
       $('#totalonline').empty(); 
@@ -1257,19 +1297,36 @@ function signalHandler(uid, signalData, userType) {
         count=parseInt(count);
 
         let storeData = getCurrentUserData();
-        var hostid=storeData.sessionData.hostId;
+        let hostEmail=storeData.sessionData.hostEmail;
         var clientid=storeData.sessionData.id;
-        if(hostid == clientid)
+        if(storeData.userType == 1)
         {
           $('#online_state').removeClass("online-status");        
           $('#online_state').addClass("online-status");
         }
 
-      if(signalData.msgtype=='Joined')
-      {     
-        // console.log('********guduHost************** signalData ', signalData, userType);
-        count1=count+1;
+       
 
+      if(signalData.msgtype=='Joined')
+      {    
+        
+
+        console.log('********guduHost************** signalData ', signalData, userType);
+       
+        let str=signalData.message;
+        let res2 = str.split(sep);
+        
+        let n = res2[1].includes("RM-");
+
+        if(n != true )
+       {
+        count1=count+1;
+       }
+      else{
+
+        count1=count;
+        
+      }
        
          // console.log('*********lllllllll************* signalData ', signalData.message);
           $('#totalonline').empty(); 
@@ -1291,8 +1348,25 @@ function signalHandler(uid, signalData, userType) {
 
       }else if(signalData.msgtype=='left') {
 
+        let str=signalData.message;
+        let res2 = str.split(sep);
         
-        count1= count > 0 ? count-1 : 0; 
+        let n = res2[1].includes("RM-");
+
+          if(n != true )
+        {
+          ncount=count-1;
+        }
+        else{
+
+          ncount=count;
+          
+        }
+
+
+          count1= ncount > 0 ? ncount : 0; 
+     
+        
 
        
           $('#totalonline').empty(); 
@@ -1303,15 +1377,29 @@ function signalHandler(uid, signalData, userType) {
             // $('#joined_users').empty(); 
             // $('#joined_users').html(count1);
         
-
- 
-
       }else if(signalData.msgtype=='totalcount') {
         var arr=signalData.totalmember;
            //  console.log('---------alllist----------',arr)
-        count1=signalData.member;
-        count1=parseInt(count1); 
-        count1= count1 > 0 ? count1-1 : 0;
+
+ 
+           count1=signalData.member;
+           count1=parseInt(count1); 
+
+           arr.forEach(element => {
+
+            let n = element.includes("RM-");
+
+            if(n != true)
+            {  
+              totalcount12=count1;
+ 
+            }else{
+              totalcount12=count1-1;
+            }
+       
+          }); 
+    
+        count1= totalcount12 > 0 ? totalcount12-1 : 0;
       
         $('#totalonline').empty(); 
         $('#totalonline').html(count1);  

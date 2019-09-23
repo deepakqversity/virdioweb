@@ -2249,9 +2249,21 @@ function signalHandler(uid, signalData, userType) {
           $('#online_state').removeClass("online-status");        
           $('#online_state').addClass("online-status");
         }
-        //console.log('*******totallist5555555*************** signalData ',count3); 
+        //console.log('*******totallist5555555*************** signalData ',count3);
+        
+        let n = res[1].includes("RM-");
+ 
+        if(n != true )
+       {
         count4=count3+1;
-      
+       }
+      else{
+
+        count4=count3;
+        
+      }
+        
+             
         //console.log('*******totallist666666*************** signalData ',count4); 
 
      
@@ -2282,7 +2294,20 @@ function signalHandler(uid, signalData, userType) {
         }
 
        // console.log('*******totallist333333333*************** signalData ',count3); 
+
+       let n = res[1].includes("RM-");
+ 
+       if(n != true )
+      {
         count4=count3-1;
+      }
+     else{
+
+      count4=count3;
+       
+     }
+
+        
         
           
       }else if(signalData.msgtype=='totalcount') {
@@ -2297,6 +2322,8 @@ function signalHandler(uid, signalData, userType) {
         if(signalData.totalmember !=''){
           signalData.totalmember.forEach(ele => {
 
+            let n = ele.includes("RM-");
+
           memID=convertEmailToId(ele);
 
           if(getUserDataFromList(memID, 'userType') == 1)
@@ -2307,6 +2334,16 @@ function signalHandler(uid, signalData, userType) {
           }else{
            
             count4=parseInt(count4);
+          }
+
+          if(n != true)
+          {  
+            count4=parseInt(count4);
+            count4=count4;
+
+          }else{
+            count4=parseInt(count4);
+            count4=count4-1;
           }
 
         }); 
@@ -2380,7 +2417,23 @@ function signalHandler(uid, signalData, userType) {
       if(signalData.msgtype=='Joined')
       {     
        
-        count1=count+1;
+
+        let str=signalData.message;
+        let res2 = str.split(sep);
+        
+        let n = res2[1].includes("RM-");
+
+          if(n != true )
+        {
+          count1=count+1;
+        }
+        else{
+
+          count1=count;
+          
+        }
+
+       
         console.log('********guduHost111111111************** signalData ', signalData, count,count1);
        
          // console.log('*********lllllllll************* signalData ', signalData.message);
@@ -2394,7 +2447,23 @@ function signalHandler(uid, signalData, userType) {
       }else if(signalData.msgtype=='left') {
 
         
-        count1=count-1; 
+
+        let str=signalData.message;
+        let res2 = str.split(sep);
+        
+        let n = res2[1].includes("RM-");
+
+            if(n != true )
+          {
+            count1=count-1; 
+          }
+          else{
+
+            count1=count; 
+            
+          }
+
+        
 
         console.log('********virenHost111111111************** signalData ', signalData, count,count1);
 
@@ -2415,9 +2484,23 @@ function signalHandler(uid, signalData, userType) {
            //  console.log('---------alllist----------',arr)
         count1=signalData.member;
         count1=parseInt(count1); 
-        console.log('********atulHost1122222222************** signalData ', signalData, userType,count1);
+
+        arr.forEach(element => {
+
+          let n = element.includes("RM-");
+
+          if(n != true)
+          {  
+            count1=count1;
+
+          }else{
+            count1=count1-1;
+          }
+     
+        }); 
+       
         count1=count1-1;
-        console.log('********atulHost111111111************** signalData ', signalData, userType,count1);
+        
         // $('#totalonline').empty(); 
         // $('#totalonline').html(count1);  
 

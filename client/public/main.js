@@ -253,11 +253,11 @@ if(!AgoraRTC.checkSystemRequirements()) {
           // remove id when unpublished
           currentPublishedUser.splice(currentPublishedUser.indexOf(stream.getId()), 1); 
         }
+        addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
+        addUserAttribute(stream.getId(), 'isSubscribe', 0);
+        removeAudienceInList(stream.getId())
       }
-      removeAudienceInList(stream.getId())
       
-      addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
-      addUserAttribute(stream.getId(), 'isSubscribe', 0);
 
       $('#agora_remote' + stream.getId()).remove();
       switchVideoSize();
@@ -2111,11 +2111,11 @@ function signalHandler(uid, signalData, userType) {
 
     // switch users
     
-    function swictUssers(){
+    function swictUsers(){
       let storeData = getCurrentUserData();
       if(storeData.userType == 1){
 
-        console.log('swictUssers ***************');
+        console.log('swictUsers ***************');
         var switchRef = setInterval( function(){
           switchBroadcasterToAudience();
         } , 1000 * 30); 
@@ -2850,7 +2850,7 @@ function signalHandler(uid, signalData, userType) {
       $(document).ready(function(){
 
 
-        swictUssers();
+        swictUsers();
 
         let heightScript = $(".host-script-section").height();
             

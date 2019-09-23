@@ -21,6 +21,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   var sep = '~@$';
   var currentPublishedUser = [];
   var changedRole = 'audience';
+
   function join() {
 
     let camera = microphone= null;
@@ -235,48 +236,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
             if(stream.hasAudio())
               stream.muteAudio();
           }
-        
-      // for attendy user
+        // for attendy user
         console.log(' @@@@@@@@@@@@ ', storeData.sessionData.id, stream.getId());
-          // $.ajax({
-          //     headers: { 
-          //         "Content-Type": "application/json; charset=utf-8",
-          //         "Authorization": storeData.token
-          //     },
-          //     url: '/api/v1/session/'+storeData.sessionData.id+'/'+stream.getId()+'/stream-id',
-          //     dataType: 'json',
-          //     type: 'GET',
-          //     success: function( data, textStatus, jQxhr ){
-                  
-          //         let respData = data;
-          //         console.log(' totalBrodcaster data===', data)
-          //         if(respData.status){
-          //           if(respData.type == 1){
-
-          //             if ($('#agora_host #agora_remote'+stream.getId()).length === 0) {
-                        
-          //               $('#agora_host').append('<div id="agora_remote'+stream.getId()+'"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div></div>');
-          //             }
-          //             stream.play('agora_remote_vdo' + stream.getId());
-
-          //             // checkMuteUnmute(stream.getId());
-          //           } else {
-          //             totalBrodcaster++;
-          //             console.log(' @@@@@@ totalBrodcaster++ ', totalBrodcaster);
-                      
-          //             if(stream.hasVideo())
-          //               stream.muteVideo();
-                      
-          //             if(stream.hasAudio())
-          //               stream.muteAudio();
-          //           }
-          //         }
-                  
-          //     },
-          //     error: function( jqXhr, textStatus, errorThrown ){
-          //         console.log( errorThrown );
-          //     }
-          // });
       }
      
     });
@@ -310,10 +271,11 @@ if(!AgoraRTC.checkSystemRequirements()) {
       var stream = evt.stream;
       if (stream) {
         stream.stop();
-        addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
-        addUserAttribute(stream.getId(), 'isSubscribe', 0);
+        removeUserAttribute(stream.getId(), 'subscribeTime');
+        removeUserAttribute(stream.getId(), 'isSubscribe');
         $('#agora_remote' + stream.getId()).remove();
         switchVideoSize();
+        // removeUserAttribute(stream.getId(), )
         console.log(evt.uid + " leaved from this channel");
       }
     });
@@ -642,6 +604,11 @@ if(!AgoraRTC.checkSystemRequirements()) {
           console.log('---------------bbbbbbbb-----client is not logedin-----');
         });
       } else {
+        // user join streaming channel
+        if(storeData.userType != 1){
+          massages="1000" + sep + storeData.id;
+          sendMessage(storeData.sessionData.hostEmail, massages);
+        }
        
         channel.getMembers().then(membersList => {    
           console.log('------------membersListlalit-------',membersList);       
@@ -690,90 +657,90 @@ if(!AgoraRTC.checkSystemRequirements()) {
   
       }
 
-      function rtmJoinBackup(){
+      // function rtmJoinBackup(){
 
-          var appId1 = '232f270a5aeb4e0097d8b5ceb8c24ab3';
+      //     var appId1 = '232f270a5aeb4e0097d8b5ceb8c24ab3';
 
-          var token=null;
-          newclient = AgoraRTM.createInstance(appId1);
-          var storeData = getCurrentUserData();
-          // appId1 = storeData.sessionData.channelId;
-          var peer=storeData.email;
-          // newclient.login({uid: peer.toString(), token});
+      //     var token=null;
+      //     newclient = AgoraRTM.createInstance(appId1);
+      //     var storeData = getCurrentUserData();
+      //     // appId1 = storeData.sessionData.channelId;
+      //     var peer=storeData.email;
+      //     // newclient.login({uid: peer.toString(), token});
 
-          newclient.on('ConnectionStateChange', (newState, reason) => {
-            console.log('on connection state changed to ' + newState + ' reason: ' + reason);
-          });
+      //     newclient.on('ConnectionStateChange', (newState, reason) => {
+      //       console.log('on connection state changed to ' + newState + ' reason: ' + reason);
+      //     });
 
-          newclient.login({ token: token, uid: peer }).then(() => {
+      //     newclient.login({ token: token, uid: peer }).then(() => {
 
-          console.log('***********AgoraRTM client login success***********');
+      //     console.log('***********AgoraRTM client login success***********');
 
-          newclient.on('MessageFromPeer', (message, peerId) => { 
-            console.log('********vvvvvvvvvvvvv********',message.text,'********************',peerId);
-            // console.log("message "+ message.text + " peerId" + peerId);
+      //     newclient.on('MessageFromPeer', (message, peerId) => { 
+      //       console.log('********vvvvvvvvvvvvv********',message.text,'********************',peerId);
+      //       // console.log("message "+ message.text + " peerId" + peerId);
 
-            signalHandler(peerId, message.text, storeData.userType);
-          });
+      //       signalHandler(peerId, message.text, storeData.userType);
+      //     });
 
-          // Create channel
-          channel = newclient.createChannel(channelName1);
+      //     // Create channel
+      //     channel = newclient.createChannel(channelName1);
 
-          channel.join().then(() => {
+      //     channel.join().then(() => {
 
-            // after join channel send join channel message to host
-            joinChannel();
+      //       // after join channel send join channel message to host
+      //       joinChannel();
 
-           console.log('************channel joined successfully**********');
+      //      console.log('************channel joined successfully**********');
 
-           var today = new Date();
-           var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
-           var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()+'.'+today.getMilliseconds();
-           var dateTime = date+' '+time;
-           var text="208" +sep+ dateTime;
+      //      var today = new Date();
+      //      var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
+      //      var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()+'.'+today.getMilliseconds();
+      //      var dateTime = date+' '+time;
+      //      var text="208" +sep+ dateTime;
 
-           channel.sendMessage({text}).then(() => {  
-           console.log('-------join msg llllll--------','mssages send successfully on channel');    
-            }).catch(error => {
-           console.log('-------There is error in joining a channel------')
-            });
+      //      channel.sendMessage({text}).then(() => {  
+      //      console.log('-------join msg llllll--------','mssages send successfully on channel');    
+      //       }).catch(error => {
+      //      console.log('-------There is error in joining a channel------')
+      //       });
 
-           channel.getMembers().then(membersList => {    
+      //      channel.getMembers().then(membersList => {    
                   
-             channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
+      //        channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
 
-             }).catch(error => {
-                 console.log('*************There is an error******');
-             });
+      //        }).catch(error => {
+      //            console.log('*************There is an error******');
+      //        });
 
-             channel.on('MemberJoined', memberId => { 
+      //        channel.on('MemberJoined', memberId => { 
              
-               var massages="208"+sep+memberId+sep+"joined"+sep;        
-               channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
-              })
+      //          var massages="208"+sep+memberId+sep+"joined"+sep;        
+      //          channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
+      //         })
            
-             channel.on('MemberLeft', memberId => { 
+      //        channel.on('MemberLeft', memberId => { 
           
-              var massages="208"+sep+memberId+sep+"left"+sep;  
-              channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"left"}), storeData.userType);
-              })
+      //         var massages="208"+sep+memberId+sep+"left"+sep;  
+      //         channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"left"}), storeData.userType);
+      //         })
            
-             channel.on('ChannelMessage', (message, senderId) => {         
-              var msg=message.text;
-             // msg = JSON.parse(msg);
-             console.log('--------emojies-----------',msg,storeData.userType);             
-              channelMsgHandler(msg,senderId,storeData.userType);
-              });
+      //        channel.on('ChannelMessage', (message, senderId) => {         
+      //         var msg=message.text;
+      //        // msg = JSON.parse(msg);
+      //        console.log('--------emojies-----------',msg,storeData.userType);             
+      //         channelMsgHandler(msg,senderId,storeData.userType);
+      //         });
        
-            }).catch(error => {
-              console.log('**********shiv*********There Is a problem to join a channel**********');
-            });
+      //       }).catch(error => {
+      //         console.log('**********shiv*********There Is a problem to join a channel**********');
+      //       });
 
-              }).catch(err => {
-                console.log('---------------bbbbbbbb-----client is not logedin-----');
-              });
+      //         }).catch(err => {
+      //           console.log('---------------bbbbbbbb-----client is not logedin-----');
+      //         });
   
-      }
+      // }
 
       function leave_channel() {
         console.log('============= channel leave ============');
@@ -939,9 +906,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
   function publish() {
     let storeData = getCurrentUserData();
       
-    setTimeout(function(){}, 3000);
+    setTimeout(function(){ console.log('%%%%%%%%%%%%%%%%%%%%');}, 1000);
 
-    console.log(' @@@@@@@ totalBrodcaster @@@ ', totalBrodcaster, storeData.default.maxUserLimit);
+    console.log(' @@@@@@@ totalBrodcaster @@@@@@@ ', totalBrodcaster, storeData.default.maxUserLimit);
     let checkUser = false;
     let isExists = false;
     if(storeData.userType != 1){
@@ -955,10 +922,11 @@ if(!AgoraRTC.checkSystemRequirements()) {
             checkUser = true;
           }
       }
-      isExists = checkUserInOrder(storeData.id);
+      isExists = checkUserInOrder(storeData);
     }
     
     console.log('checkUser , isExists', checkUser , isExists)
+    
 
     if(storeData.userType == 1  || (storeData.userType != 1 && checkUser && isExists && totalBrodcaster < parseInt(storeData.default.maxUserLimit)) ) {
         
@@ -987,16 +955,19 @@ if(!AgoraRTC.checkSystemRequirements()) {
     }
   }
 
-  function checkUserInOrder(userId){
+  function checkUserInOrder(storeData){
 
     let userList = getOrderUser();
     
     if(userList == '' || userList == null) return false;
 
-    let counter = userList.length >= 8 ? 8 : userList.length;
-    for(let i=0; i < counter; i++){
-      if(convertEmailToId(userList[i].id) == userId){
-        return true;
+    // let counter = userList.length >= storeData.default.maxUserLimit ? storeData.default.maxUserLimit : userList.length;
+    for(let i=0; i < userList.length; i++){
+      if(totalBrodcaster < storeData.default.maxUserLimit && getUserDataFromList(userList[i].id, 'userType') != 1){
+
+        if(convertEmailToId(userList[i].id) == storeData.id){
+          return true;
+        }
       }
     }
     return false;
@@ -1071,7 +1042,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       localStream.muteAudio();  
   }
   
-  let checkMicStream = function(micId){
+  var checkMicStream = function(micId){
 
       stream2 = AgoraRTC.createStream({
           streamID: Math.floor(Math.random()*1000000),
@@ -1714,7 +1685,14 @@ function signalHandler(uid, signalData, userType) {
        setTimeout(function(){ $('#errmsg').html(''); }, 10000);
       // $('#agora_hand_raise'+uid).removeClass("d-none");
       
-    } else if(resultant[0] == "1001"){
+    } else if(resultant[0] == "1000"){
+        // update participent stream join channel
+        // add as a audience
+        addUserAttribute(convertEmailToId(uid), 'subscribeTime', (new Date()).getTime());
+        addUserAttribute(convertEmailToId(uid), 'isSubscribe', 0);
+      
+      } else if(resultant[0] == "1001"){
+        // audience only raise hand by participant
         addAudienceInList(resultant);
       }
 
@@ -2142,11 +2120,13 @@ function signalHandler(uid, signalData, userType) {
     }
 
     function switchBroadcasterToAudience(){
-        let audience = getAllAudience();
+
+        // let audience = getAllAudience();
+        let allUsers = getAllParticipent();
         let broadcster = getAllBroadcster();
 
-        console.log('switchBroadcasterToAudience ***************', broadcster, audience);
-        if(broadcster.length > 0 && audience.length > 0){
+        console.log('switchBroadcasterToAudience ***************', broadcster, allUsers);
+        if(broadcster.length > 0 && allUsers.length > broadcster.length){
           
           for(let i in broadcster){
             if(checkKickRule({id : broadcster[i].email})){
@@ -2610,18 +2590,13 @@ function signalHandler(uid, signalData, userType) {
         publish();
       }
 
+      // check user role after publish/unpublish stream
       function checkUserRole(){
-        setTimeout(function(){ }, 500);
-        console.log('client changedRole === ', changedRole, client.hasPublished)
+
+        console.log('client changedRole === ', changedRole)
         
         // 0=broadcaster , 1=Audience
         return changedRole == 'host' ? 0 : 1;
-        // if(client && client.hasPublished){
-        //   return
-        //   console.log(' User is Broadcaster.');
-        // } else {
-        //   console.log(' User is Audience.');
-        // }
       }
 
       // Get user specific data
@@ -2746,23 +2721,40 @@ function signalHandler(uid, signalData, userType) {
     console.log('broadcasters =========== broadcasters ======', broadcasters);
     return broadcasters;      
   }
+
+  function getAllParticipent(){
+    let tempUsers = getTempUsers();
+    console.log('tempUsers =========== tempUsers ======', tempUsers);
+    let broadcasters = [];
+    if(tempUsers != null){
+      
+      for(let i in tempUsers){
+        if(tempUsers[i].hasOwnProperty('isSubscribe')){
+          broadcasters.push(tempUsers[i]);
+        }
+      }
+      broadcasters.sort(function(a, b) { return parseInt(a.subscribeTime) - parseInt(b.subscribeTime); });
+    }
+    console.log('broadcasters =========== broadcasters ======', broadcasters);
+    return broadcasters;      
+  }
+
   
-  // function removeUserAttribute(id, key){
-  //     let tempUsers = getTempUsers();
-  //     console.log('tempUsers =========== tempUsers', tempUsers)
-  //     let newTempUsers = {};
-  //     if(tempUsers != null){
-  //       // tempUsers = JSON.parse(tempUsers);
-  //       for(let i in tempUsers){
-  //         //tempUsers[i].hasOwnProperty(key)
-  //         if(tempUsers[i].id != id){
-  //           newTempUsers[i] = tempUsers[i];
-  //         }
-  //       }
-  //     }
+  
+  function removeUserAttribute(id, key){
+      let tempUsers = getTempUsers();
+      console.log('tempUsers =========== tempUsers', tempUsers)
+      let newTempUsers = {};
+      if(tempUsers != null){
+        for(let i in tempUsers){
+          if(tempUsers[i].hasOwnProperty(key) && tempUsers[i].id != id){
+            delete tempUsers[i].key;
+          }
+        }
+      }
         
-  //     localStorage.setItem("tempUsers", JSON.stringify(newTempUsers));
-  // }
+      localStorage.setItem("tempUsers", JSON.stringify(tempUsers));
+  }
 
   function displayError(err){
 

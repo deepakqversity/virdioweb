@@ -5,6 +5,7 @@ const underscore = require("underscore");
 const userModel = require('../../models/User');
 const tokenModel = require('../../models/AuthToken');
 const sessionModel = require('../../models/Session');
+const settingModel = require('../../models/Settings');
 const otpModel = require('../../models/Otp');
 const sessionScriptModel = require('../../models/SessionScript');
 const clientToken = require( process.cwd() + '/util/ClientToken');
@@ -120,8 +121,14 @@ class UserCtrl {
 							}
 
 							userObj = underscore.omit(userObj, 'password');
+							userObj = underscore.omit(userObj, 'status');
+							userObj = underscore.omit(userObj, 'isBanned');
 							
 							underscore.extend(userObj, defaultConfig);
+
+							let settings = await settingModel.getSettings();
+
+							underscore.extend(userObj, {default: settings});
 
 							res.status(200).send(userObj);
 						}

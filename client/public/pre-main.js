@@ -1063,9 +1063,9 @@ function signalHandler(uid, signalData, userType) {
           for(let i=0; i < userList.length; i++){
             let uTyp = getUserDataFromList(userList[i].id, 'userType');
             console.log('22222222222 000000000000----------',storeData.id , uTyp, ct, storeData.default.maxUserLimit)
-            if(uTyp == 2){
+            if(ct < parseInt(storeData.default.maxUserLimit) && uTyp == 2){
 console.log('22222222222 111111111----------',storeData.id , convertEmailToId(userList[i].id))
-              if(ct < parseInt(storeData.default.maxUserLimit) && storeData.id == convertEmailToId(userList[i].id)) {
+              if(storeData.id == convertEmailToId(userList[i].id)) {
                 console.log('22222222222 ======', userList[i]);
                   let sessionTime = {};
                   sessionTime['startTime'] = (new Date()).getTime();

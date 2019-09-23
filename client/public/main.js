@@ -107,7 +107,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
             localStream.init(function() {
               
-              if(storeData.userType != 1){
+              if(storeData.userType == 2){
                 // localStream.muteAudio();
               } 
         
@@ -247,7 +247,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       var storeData = getCurrentUserData();
       var stream = evt.stream;
       stream.stop();
-      if(storeData.userType != 1){
+      if(storeData.userType == 2){
         if(totalBrodcaster > 0){
           totalBrodcaster--;
           // remove id when unpublished
@@ -605,7 +605,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         });
       } else {
         // user join streaming channel
-        if(storeData.userType != 1){
+        if(storeData.userType == 2){
           massages="1000" + sep + storeData.id;
           sendMessage(storeData.sessionData.hostEmail, massages);
         }
@@ -789,7 +789,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         optionbox +='<option value="select">select</option>';
         arr.forEach(function (value, i) {
           console.log("--------totalvalueold--------------", i, value);
-          if(i >= 0 && value != 1)
+          if(i >= 0 && value == 2)
           {   
             console.log("--------totalvaluenew--------------", i, value);     
                                   
@@ -887,7 +887,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   
   function publishAfterKick(){
     let storeData = getCurrentUserData();
-    if(storeData.userType != 1){
+    if(storeData.userType == 2){
 
       client.publish(localStream, function (err) {
         console.log("Publish local stream error: " + err);
@@ -909,7 +909,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     console.log(' @@@@@@@ totalBrodcaster @@@@@@@ ', totalBrodcaster, storeData.default.maxUserLimit);
     let checkUser = false;
     let isExists = false;
-    if(storeData.userType != 1){
+    if(storeData.userType == 2){
 
       let sessionTime = localStorage.getItem("pre-session-time");
       console.log('sessionTime sessionTime', sessionTime);
@@ -926,14 +926,14 @@ if(!AgoraRTC.checkSystemRequirements()) {
     console.log('checkUser , isExists', checkUser , isExists)
     
 
-    if(storeData.userType == 1  || (storeData.userType != 1 && checkUser && isExists && totalBrodcaster < parseInt(storeData.default.maxUserLimit)) ) {
+    if(storeData.userType == 1  || (storeData.userType == 2 && checkUser && isExists && totalBrodcaster < parseInt(storeData.default.maxUserLimit)) ) {
         
       client.publish(localStream, function (err) {
         console.log("Publish local stream error: " + err);
       });
       client.on('stream-published', function (evt) {
         console.log('client ============', client);
-        if(storeData.userType != 1){
+        if(storeData.userType == 2){
           $('#strm-unpublish').removeClass('d-none');
           $('#strm-publish').addClass('d-none');
         }
@@ -961,7 +961,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
     // let counter = userList.length >= storeData.default.maxUserLimit ? storeData.default.maxUserLimit : userList.length;
     for(let i=0; i < userList.length; i++){
-      if(totalBrodcaster < storeData.default.maxUserLimit && getUserDataFromList(userList[i].id, 'userType') != 1){
+      if(totalBrodcaster < storeData.default.maxUserLimit && getUserDataFromList(userList[i].id, 'userType') == 2){
 
         if(convertEmailToId(userList[i].id) == storeData.id){
           return true;
@@ -1830,7 +1830,7 @@ function signalHandler(uid, signalData, userType) {
       if(res1[0] == "208")
       { 
       
-        // if(userType != 1)
+        // if(userType == 2)
         // {
         addRtmJoinOrder(senderId, newDateFormat(res1[1]));
         let message="User "+senderId+" has joined on  "+ res1[1];
@@ -2316,7 +2316,7 @@ function signalHandler(uid, signalData, userType) {
          
       console.log('*******element*************** element ', element,'-----memberID-----',memberID);
      
-      if(getUserDataFromList(memberID, 'userType') != 1){
+      if(getUserDataFromList(memberID, 'userType') == 2){
         count4++;
         $('#all_joined_member_list').append('<div class="attendee-list"><img src="images/attendee.png" /><span class="title">'+userName+'</span><div class="vid-icons"> <span class="icon-appearance d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-appearance1 d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-appearance2 d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-appearance3 d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-appearance4 d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-aroma d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma1 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma2 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma3 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma4 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-palate d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate1 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate2 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate3 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate4 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-score d-none"  id="emojies_sc'+memberID+'"  data-attr="'+memberID+'"></span></div></div>');
         }
@@ -2694,7 +2694,7 @@ function signalHandler(uid, signalData, userType) {
     if(tempUsers != null){
       
       for(let i in tempUsers){
-        if(tempUsers[i].hasOwnProperty('isSubscribe') && tempUsers[i].isSubscribe != 1){
+        if(tempUsers[i].hasOwnProperty('isSubscribe') && tempUsers[i].isSubscribe == 2){
           audience.push(tempUsers[i]);          
         }
       }

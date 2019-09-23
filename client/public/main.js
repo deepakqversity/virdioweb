@@ -1727,7 +1727,7 @@ function signalHandler(uid, signalData, userType) {
 
       }else if(resultant[0] == "214")
       {
-        $(".carousel-item.active .carousel-control-next").trigger('click');
+        $(".carousel-control-next").trigger('click');
 
         let storeData3 = getCurrentUserData();
      
@@ -1740,7 +1740,7 @@ function signalHandler(uid, signalData, userType) {
         
       }else if(resultant[0] == "215")
       {
-        $(".carousel-item.active .carousel-control-prev").trigger('click');
+        $(".carousel-control-prev").trigger('click');
 
         let storeData4 = getCurrentUserData();
      
@@ -1908,11 +1908,11 @@ function signalHandler(uid, signalData, userType) {
         //alert('fitscript pause');
       }else if(res1[0] == "214")
       {
-        $(".carousel-item.active .carousel-control-next").trigger('click');
+        $(".carousel-control-next").trigger('click');
           //alert('Winsscript Next');
       }else if(res1[0] == "215")
       {
-        $(".carousel-item.active .carousel-control-prev").trigger('click');
+        $(".carousel-control-prev").trigger('click');
           //alert('Winsscript previous');
       }
     

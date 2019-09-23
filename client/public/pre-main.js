@@ -445,7 +445,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     
   }
   
-  let checkMic = function(micId){
+  var checkMic = function(micId){
 
       stream2 = AgoraRTC.createStream({
           streamID: Math.floor(Math.random()*1000000),

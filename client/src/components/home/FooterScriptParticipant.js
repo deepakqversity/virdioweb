@@ -7,13 +7,15 @@ class FooterScriptParticipant extends Component {
   
   constructor(props) {
     super(props);
-
+  
     this.state = {
       getID : '',
       getEmail : ''
     };
   }
  
+
+
   componentDidMount(){
     
     
@@ -40,34 +42,11 @@ class FooterScriptParticipant extends Component {
   }
 
   getAppearence(){  
+
     let Email=this.state.getEmail;
     //alert(Email);return false;
     $("#appearence_button").val(Email);
     $('#appearence_button').trigger('click');
-  }
-  getAppearence1(){  
-    let Email=this.state.getEmail;
-    //alert(Email);return false;
-    $("#appearence_button1").val(Email);
-    $('#appearence_button1').trigger('click');
-  }
-  getAppearence2(){  
-    let Email=this.state.getEmail;
-    //alert(Email);return false;
-    $("#appearence_button2").val(Email);
-    $('#appearence_button2').trigger('click');
-  }
-  getAppearence3(){  
-    let Email=this.state.getEmail;
-    //alert(Email);return false;
-    $("#appearence_button3").val(Email);
-    $('#appearence_button3').trigger('click');
-  }
-  getAppearence4(){  
-    let Email=this.state.getEmail;
-    //alert(Email);return false;
-    $("#appearence_button4").val(Email);
-    $('#appearence_button4').trigger('click');
   }
 
   getAroma(){
@@ -78,37 +57,7 @@ class FooterScriptParticipant extends Component {
     $('#aroma_button').trigger('click');
   }
 
-  getAroma1(){
-    // var ID=this.state.getID;
-     let Email=this.state.getEmail;
-     //console.log(ID);
-     $("#aroma_button1").val(Email);
-     $('#aroma_button1').trigger('click');
-   }
-
-   getAroma2(){
-    // var ID=this.state.getID;
-     let Email=this.state.getEmail;
-     //console.log(ID);
-     $("#aroma_button2").val(Email);
-     $('#aroma_button2').trigger('click');
-   }
-
-   getAroma3(){
-    // var ID=this.state.getID;
-     let Email=this.state.getEmail;
-     //console.log(ID);
-     $("#aroma_button3").val(Email);
-     $('#aroma_button3').trigger('click');
-   }
-
-   getAroma4(){
-    // var ID=this.state.getID;
-     let Email=this.state.getEmail;
-     //console.log(ID);
-     $("#aroma_button4").val(Email);
-     $('#aroma_button4').trigger('click');
-   }
+ 
 
   getPalate(){
    // var ID=this.state.getID;
@@ -118,38 +67,7 @@ class FooterScriptParticipant extends Component {
     $('#palate_button').trigger('click');
   }
 
-  getPalate1(){
-    // var ID=this.state.getID;
-     let Email=this.state.getEmail;
-    // console.log(ID);
-     $("#palate_button1").val(Email);
-     $('#palate_button1').trigger('click');
-   }
-
-   getPalate2(){
-    // var ID=this.state.getID;
-     let Email=this.state.getEmail;
-    // console.log(ID);
-     $("#palate_button2").val(Email);
-     $('#palate_button2').trigger('click');
-   }
-
-   getPalate3(){
-    // var ID=this.state.getID;
-     let Email=this.state.getEmail;
-    // console.log(ID);
-     $("#palate_button3").val(Email);
-     $('#palate_button3').trigger('click');
-   }
-
-   getPalate4(){
-    // var ID=this.state.getID;
-     let Email=this.state.getEmail;
-    // console.log(ID);
-     $("#palate_button4").val(Email);
-     $('#palate_button4').trigger('click');
-   }
-
+ 
   getScore(){
    // var ID=this.state.getID;
     let Email=this.state.getEmail;
@@ -174,40 +92,41 @@ console.log('sessionScript=', sessionScript)
             <ul className="bottom-links flex-wrap list-group list-group-horizontal mx-auto d-md-flex justify-content-center py-xs-1">
             <div className="dropup">
               <li className="list-group-item bg-transparent border-0 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <a href="#"  onClick={this.getAppearence.bind(this)}>APPEARANCE</a>
+                <a href="#">APPEARANCE</a>
               
               <div className="dropdown-menu">
-                <div className="d-flex justify-content-between">
-                  <a href="#" onClick={this.getAppearence1.bind(this)}><img src="images/mushroom.png" /></a>
-                  <a href="#" onClick={this.getAppearence2.bind(this)}><img src="images/emoji2.png" /></a>
-                  <a href="#" onClick={this.getAppearence3.bind(this)}><img src="images/emoji3.png" /></a>
-                  <a href="#" onClick={this.getAppearence4.bind(this)}><img src="images/emoji4.png" /></a>
+                <div className="d-flex justify-content-between a1">
+                  <a href="#" id="appear1"><img src="images/mushroom.png" /></a>
+                  <a href="#" id="appear2"><img src="images/emoji2.png" /></a>
+                  <a href="#" id="appear3"><img src="images/emoji3.png" /></a>
+                  <a href="#" id="appear4"><img src="images/emoji4.png" /></a>
                 </div>
               </div></li>
             </div>
             <div className="dropup">
               <li className="list-group-item bg-transparent border-0 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <a href="#" onClick={this.getAroma.bind(this)}>AROMA</a>
+                <a href="#">AROMA</a>
               
               <div className="dropdown-menu">
-                <div className="d-flex justify-content-between">
-                  <a href="#" onClick={this.getAroma1.bind(this)}><img src="images/mushroom.png" /></a>
-                  <a href="#" onClick={this.getAroma2.bind(this)}><img src="images/emoji2.png" /></a>
-                  <a href="#" onClick={this.getAroma3.bind(this)}><img src="images/emoji3.png" /></a>
-                  <a href="#" onClick={this.getAroma4.bind(this)}><img src="images/emoji4.png" /></a>
+                <div className="d-flex justify-content-between a2">
+                  <a href="#" id="aroma1" ><img src="images/mushroom.png" /></a>
+                  <a href="#" id="aroma2"><img src="images/emoji2.png" /></a>
+                  <a href="#" id="aroma3"><img src="images/emoji3.png" /></a>
+                  <a href="#" id="aroma4"><img src="images/emoji4.png" /></a>
                 </div>
               </div></li>
             </div>
             <div className="dropup">
               <li className="list-group-item bg-transparent border-0 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <a href="#" onClick={this.getPalate.bind(this)}>PALATE</a>
+                <a href="#">PALATE</a>
+                {/* <span>PALATE</span> */}
               
               <div className="dropdown-menu">
-                <div className="d-flex justify-content-between">
-                  <a href="#" onClick={this.getPalate1.bind(this)}><img src="images/mushroom.png" /></a>
-                  <a href="#" onClick={this.getPalate2.bind(this)}><img src="images/emoji2.png" /></a>
-                  <a href="#" onClick={this.getPalate3.bind(this)}><img src="images/emoji3.png" /></a>
-                  <a href="#" onClick={this.getPalate4.bind(this)}><img src="images/emoji4.png" /></a>
+                <div className="d-flex justify-content-between a3">
+                  <a href="#" id="palate1"><img src="images/mushroom.png" /></a>
+                  <a href="#" id="palate2"><img src="images/emoji2.png" /></a>
+                  <a href="#" id="palate3"><img src="images/emoji3.png" /></a>
+                  <a href="#" id="palate4"><img src="images/emoji4.png" /></a>
                 </div>
               </div></li>
             </div>

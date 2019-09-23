@@ -1749,24 +1749,27 @@ function signalHandler(uid, signalData, userType) {
 
       }else if(resultant[0] == "214")
       {
-        $(".carousel-control-next").trigger('click');
+        $(".carousel-item.active .carousel-control-next").trigger('click');
 
         let storeData3 = getCurrentUserData();
      
         let WinsNextCode=storeData3.rtm.WinsNext.code; 
-        let WinsNextCounter=$('.carousel-item.active .fitness-counter1').text();  
+        let WinsNextCounter=$('.carousel-item.active .fitness-counter1').text();
+        WinsNextCounte=WinsNextCounter+1;
         console.log('---------WinsNextCounter---------',WinsNextCounter,WinsNextCode);               
         messages=WinsNextCode+sep+WinsNextCounter;                         
         sendMessageToChannel(channelName1,messages);
         
       }else if(resultant[0] == "215")
       {
-        $(".carousel-control-prev").trigger('click');
+        $(".carousel-item.active .carousel-control-prev").trigger('click');
 
         let storeData4 = getCurrentUserData();
      
-        let WinsPrevCode=storeData4.rtm.WinsPrev.code;                  
-        messages=WinsPrevCode+sep;        
+        let WinsPrevCode=storeData4.rtm.WinsPrev.code; 
+        let WinsPrevCounter=$('.carousel-item.active .fitness-counter1').text();
+        WinsPrevCounter=WinsPrevCounter-1;                 
+        messages=WinsPrevCode+sep+WinsPrevCounter;        
         sendMessageToChannel(channelName1,messages);
                 
       }
@@ -1927,11 +1930,11 @@ function signalHandler(uid, signalData, userType) {
         //alert('fitscript pause');
       }else if(res1[0] == "214")
       {
-        $(".carousel-control-next").trigger('click');
+        $(".carousel-item.active .carousel-control-next").trigger('click');
           //alert('Winsscript Next');
       }else if(res1[0] == "215")
       {
-        $(".carousel-control-prev").trigger('click');
+        $(".carousel-item.active .carousel-control-prev").trigger('click');
           //alert('Winsscript previous');
       }
     
@@ -2493,7 +2496,7 @@ function signalHandler(uid, signalData, userType) {
       {
         newSenderID=convertEmailToId(senderId);
      
-        console.log('*******Emojiesdata************** signalData ',newSenderID, signalData,senderId,userType); 
+        console.log('*******Emojiesdata22222************** signalData ',newSenderID, signalData,senderId,userType); 
         if(signalData == "appearence")
         {
           console.log('*******Emojiesnewdata************** signalData ',newSenderID, signalData,senderId,userType);
@@ -2502,9 +2505,10 @@ function signalHandler(uid, signalData, userType) {
        // $('.icon-appearance[data-attr=\''+newSenderID+'\']').removeClass("d-none");
         }
         else if(signalData == "appearence1")
-        {          
-        $('#emojies_app1'+newSenderID+'').removeClass("d-none");      
-       // $('.icon-appearance1[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        {   
+          console.log('*******Emojiesdata111111************** signalData ',newSenderID, signalData,senderId,userType);        
+       // $('#emojies_app1'+newSenderID+'').removeClass("d-none");      
+        $('.icon-appearance1[data-attr=\''+newSenderID+'\']').removeClass("d-none");
         }
         else if(signalData == "appearence2")
         {          
@@ -3099,41 +3103,6 @@ function signalHandler(uid, signalData, userType) {
        sendMessageToChannel(channelName1,messages);
       });
 
-      $( '#appearence_button1' ).bind( "click", function(event) {
-        var attendiesEmail=$( '#appearence_button1' ).val();
-        //alert(attendiesEmail);return false;
-
-       messages="202"+sep+"appearence1"; 
-     //  sendMessageToChannel(channelName, JSON.stringify({code:"110",data:attendiesEmail, message:"appearence"}));
-       sendMessageToChannel(channelName1,messages);
-      });
-
-      $( '#appearence_button2' ).bind( "click", function(event) {
-        var attendiesEmail=$( '#appearence_button2' ).val();
-        //alert(attendiesEmail);return false;
-
-       messages="202"+sep+"appearence2"; 
-     //  sendMessageToChannel(channelName, JSON.stringify({code:"110",data:attendiesEmail, message:"appearence"}));
-       sendMessageToChannel(channelName1,messages);
-      });
-
-      $( '#appearence_button3' ).bind( "click", function(event) {
-        var attendiesEmail=$( '#appearence_button3' ).val();
-        //alert(attendiesEmail);return false;
-
-       messages="202"+sep+"appearence3"; 
-     //  sendMessageToChannel(channelName, JSON.stringify({code:"110",data:attendiesEmail, message:"appearence"}));
-       sendMessageToChannel(channelName1,messages);
-      });
-
-      $( '#appearence_button4' ).bind( "click", function(event) {
-        var attendiesEmail=$( '#appearence_button4' ).val();
-        //alert(attendiesEmail);return false;
-
-       messages="202"+sep+"appearence4"; 
-     //  sendMessageToChannel(channelName, JSON.stringify({code:"110",data:attendiesEmail, message:"appearence"}));
-       sendMessageToChannel(channelName1,messages);
-      });
 
       $( '#aroma_button' ).bind( "click", function(event) {
         var attendiesID=$( '#aroma_button' ).val();
@@ -3143,67 +3112,95 @@ function signalHandler(uid, signalData, userType) {
         sendMessageToChannel(channelName1,messages);
       });
 
-      $( '#aroma_button1' ).bind( "click", function(event) {
-        var attendiesID=$( '#aroma_button1' ).val();
-
-        messages="202"+sep+"aroma1"; 
-        //sendMessage(channelName, JSON.stringify({code:"110",data:attendiesID, message:"aroma"}));
-        sendMessageToChannel(channelName1,messages);
-      });
-
-      $( '#aroma_button2' ).bind( "click", function(event) {
-        var attendiesID=$( '#aroma_button2' ).val();
-
-        messages="202"+sep+"aroma2"; 
-        //sendMessage(channelName, JSON.stringify({code:"110",data:attendiesID, message:"aroma"}));
-        sendMessageToChannel(channelName1,messages);
-      });
-
-      $( '#aroma_button3' ).bind( "click", function(event) {
-        var attendiesID=$( '#aroma_button3' ).val();
-
-        messages="202"+sep+"aroma3"; 
-       
-        sendMessageToChannel(channelName1,messages);
-      });
-
-      $( '#aroma_button4' ).bind( "click", function(event) {
-        var attendiesID=$( '#aroma_button4' ).val();
-
-        messages="202"+sep+"aroma4"; 
-       
-        sendMessageToChannel(channelName1,messages);
-      });
-
       $( '#palate_button' ).bind( "click", function(event) {
         var attendiesID=$( '#palate_button' ).val(); 
        messages="202"+sep+"palate";
         sendMessageToChannel(channelName1,messages);
       });
 
-      $( '#palate_button1' ).bind( "click", function(event) {
-        var attendiesID=$( '#palate_button1' ).val(); 
-       messages="202"+sep+"palate1";
-        sendMessageToChannel(channelName1,messages);
-      });
+      $( '#appear1' ).bind( "click", function(event) {
+        console.log('hello');
 
-      $( '#palate_button2' ).bind( "click", function(event) {
-        var attendiesID=$( '#palate_button2' ).val(); 
-       messages="202"+sep+"palate2";
-        sendMessageToChannel(channelName1,messages);
-      });
+        messages="202"+sep+"appearence1"; 
+          sendMessageToChannel(channelName1,messages);
+         });
 
-      $( '#palate_button3' ).bind( "click", function(event) {
-        var attendiesID=$( '#palate_button3' ).val(); 
-       messages="202"+sep+"palate3";
-        sendMessageToChannel(channelName1,messages);
-      });
+         $( '#appear2' ).bind( "click", function(event) {
+          console.log('hello');
+          messages="202"+sep+"appearence2"; 
+            sendMessageToChannel(channelName1,messages);
+           });
+           $( '#appear3' ).bind( "click", function(event) {
+            console.log('hello');
 
-      $( '#palate_button4' ).bind( "click", function(event) {
-        var attendiesID=$( '#palate_button4' ).val(); 
-       messages="202"+sep+"palate4";
-        sendMessageToChannel(channelName1,messages);
-      });
+            messages="202"+sep+"appearence3"; 
+              sendMessageToChannel(channelName1,messages);
+             });
+
+             $( '#appear4' ).bind( "click", function(event) {
+              console.log('hello');
+              messages="202"+sep+"appearence4"; 
+                sendMessageToChannel(channelName1,messages);
+               });
+
+               $( '#aroma1' ).bind( "click", function(event) {
+                console.log('hello');
+        
+                messages="202"+sep+"aroma1";                
+                sendMessageToChannel(channelName1,messages);
+                 });
+
+                 $( '#aroma2' ).bind( "click", function(event) {
+                  console.log('hello');
+          
+                  messages="202"+sep+"aroma2"; 
+                    sendMessageToChannel(channelName1,messages);
+                   });
+                 
+                   
+                   $( '#aroma3' ).bind( "click", function(event) {
+                    console.log('hello');
+            
+                    messages="202"+sep+"aroma3"; 
+                      sendMessageToChannel(channelName1,messages);
+                     });
+                 
+                     
+                     $( '#aroma4' ).bind( "click", function(event) {
+                      console.log('hello');
+              
+                      messages="202"+sep+"aroma4"; 
+                        sendMessageToChannel(channelName1,messages);
+                       });
+
+                    $( '#palate1' ).bind( "click", function(event) {
+                      console.log('hello');
+              
+                      messages="202"+sep+"palate1";
+                      sendMessageToChannel(channelName1,messages);
+                        });
+                       
+                      $( '#palate2' ).bind( "click", function(event) {
+                        console.log('hello');
+                
+                        messages="202"+sep+"palate2";
+                        sendMessageToChannel(channelName1,messages);
+                          });
+
+                        $( '#palate3' ).bind( "click", function(event) {
+                          console.log('hello');
+                  
+                          messages="202"+sep+"palate3";
+                          sendMessageToChannel(channelName1,messages);
+                            });
+
+                        $( '#palate4' ).bind( "click", function(event) {
+                          console.log('hello');
+                  
+                          messages="202"+sep+"palate4";
+                          sendMessageToChannel(channelName1,messages);
+                            });
+
 
       $( '#score_button' ).bind( "click", function(event) {
         var attendiesID=$( '#score_button' ).val();             
@@ -3246,8 +3243,11 @@ function signalHandler(uid, signalData, userType) {
 
         let storeData7 = getCurrentUserData();
      
-        let WinsPrevCode=storeData7.rtm.WinsPrev.code;                  
-        messages=WinsPrevCode+sep;        
+        let WinsPrevCode=storeData7.rtm.WinsPrev.code; 
+         
+        let WinsPrevCounter=$('.carousel-item.active .fitness-counter1').text();  
+        console.log('---------WinsPrevCode---------',WinsPrevCounter,WinsPrevCode);                 
+        messages=WinsPrevCode+sep+WinsPrevCounter;        
         sendMessageToChannel(channelName1,messages);
       });
    

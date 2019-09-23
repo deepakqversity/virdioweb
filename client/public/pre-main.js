@@ -1063,8 +1063,8 @@ function signalHandler(uid, signalData, userType) {
           for(let i=0; i < userList.length; i++){
             let uTyp = getUserDataFromList(userList[i].id, 'userType');
             console.log('22222222222 000000000000----------',storeData.id , uTyp, ct, storeData.default.maxUserLimit)
-            if(uTyp != undefined && uTyp == 2){
-
+            if(uTyp == 2){
+console.log('22222222222 111111111----------',storeData.id , convertEmailToId(userList[i].id))
               if(ct < parseInt(storeData.default.maxUserLimit) && storeData.id == convertEmailToId(userList[i].id)) {
                 console.log('22222222222 ======', userList[i]);
                   let sessionTime = {};
@@ -1534,9 +1534,9 @@ function signalHandler(uid, signalData, userType) {
         if(userList != ''){
           
           for(let i= 0; i < userList.length; i++){
-            if(id == userList[i].id && userList[i].hasOwnProperty(key)){
+            if(userList[i].hasOwnProperty(key) && id == userList[i].id){
               return userList[i][key];
-            } else if(id == userList[i].email && userList[i].hasOwnProperty(key)){
+            } else if(userList[i].hasOwnProperty(key) && id == userList[i].email){
               return userList[i][key];
             }
           }

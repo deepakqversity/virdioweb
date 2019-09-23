@@ -107,7 +107,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
             localStream.init(function() {
               
-              if(storeData.userType != 1){
+              if(storeData.userType == 2){
                 // localStream.muteAudio();
               } 
         
@@ -157,7 +157,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     client.on('stream-added', function (evt) {
       var stream = evt.stream;
       console.log("New stream added " + stream.getId());
-      if(1 != getUserDataFromList(stream.getId(), 'userType')){
+      if(getUserDataFromList(stream.getId(), 'userType') == 2){
         totalBrodcaster++;
         // remove id when unpublished
         currentPublishedUser.push(stream.getId());
@@ -176,7 +176,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     });
 
     var count=1;
-    var totalScreenUsers = 0;
+    // var totalScreenUsers = 0;
     client.on('stream-subscribed', function (evt) {
 
       var storeData = getCurrentUserData();
@@ -187,11 +187,11 @@ if(!AgoraRTC.checkSystemRequirements()) {
       if(storeData.userType == 1) {
 
         if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
-          if(totalScreenUsers < totalBrodcaster, storeData.default.maxUserLimit){
+          // if(totalScreenUsers < totalBrodcaster, storeData.default.maxUserLimit){
 
           $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" data-dismiss="modal">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute   d-none"  id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
-          }
-          totalScreenUsers++;
+          // }
+          // totalScreenUsers++;
         }
         stream.play('agora_remote_vdo' + stream.getId());
 
@@ -247,7 +247,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       var storeData = getCurrentUserData();
       var stream = evt.stream;
       stream.stop();
-      if(storeData.userType != 1){
+      if(getUserDataFromList(stream.getId(), 'userType') == 2){
         if(totalBrodcaster > 0){
           totalBrodcaster--;
           // remove id when unpublished
@@ -605,7 +605,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         });
       } else {
         // user join streaming channel
-        if(storeData.userType != 1){
+        if(storeData.userType == 2){
           massages="1000" + sep + storeData.id;
           sendMessage(storeData.sessionData.hostEmail, massages);
         }
@@ -791,7 +791,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         optionbox +='<option value="select">select</option>';
         arr.forEach(function (value, i) {
           console.log("--------totalvalueold--------------", i, value);
-          if(i >= 0 && value != 1)
+          if(i >= 0 && value == 2)
           {   
             console.log("--------totalvaluenew--------------", i, value);     
                                   
@@ -889,7 +889,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   
   function publishAfterKick(){
     let storeData = getCurrentUserData();
-    if(storeData.userType != 1){
+    if(storeData.userType == 2){
 
       client.publish(localStream, function (err) {
         console.log("Publish local stream error: " + err);
@@ -911,7 +911,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     console.log(' @@@@@@@ totalBrodcaster @@@@@@@ ', totalBrodcaster, storeData.default.maxUserLimit);
     let checkUser = false;
     let isExists = false;
-    if(storeData.userType != 1){
+    if(storeData.userType == 2){
 
       let sessionTime = localStorage.getItem("pre-session-time");
       console.log('sessionTime sessionTime', sessionTime);
@@ -928,14 +928,14 @@ if(!AgoraRTC.checkSystemRequirements()) {
     console.log('checkUser , isExists', checkUser , isExists)
     
 
-    if(storeData.userType == 1  || (storeData.userType != 1 && checkUser && isExists && totalBrodcaster < parseInt(storeData.default.maxUserLimit)) ) {
+    if(storeData.userType == 1  || (storeData.userType == 2 && checkUser && isExists && totalBrodcaster < parseInt(storeData.default.maxUserLimit)) ) {
         
       client.publish(localStream, function (err) {
         console.log("Publish local stream error: " + err);
       });
       client.on('stream-published', function (evt) {
         console.log('client ============', client);
-        if(storeData.userType != 1){
+        if(storeData.userType == 2){
           $('#strm-unpublish').removeClass('d-none');
           $('#strm-publish').addClass('d-none');
         }
@@ -962,12 +962,15 @@ if(!AgoraRTC.checkSystemRequirements()) {
     if(userList == '' || userList == null) return false;
 
     // let counter = userList.length >= storeData.default.maxUserLimit ? storeData.default.maxUserLimit : userList.length;
+    let ctr = 0;
     for(let i=0; i < userList.length; i++){
-      if(totalBrodcaster < storeData.default.maxUserLimit && getUserDataFromList(userList[i].id, 'userType') != 1){
 
-        if(convertEmailToId(userList[i].id) == storeData.id){
+      if(getUserDataFromList(userList[i].id, 'userType') == 2){
+
+        if(ctr < storeData.default.maxUserLimit && convertEmailToId(userList[i].id) == storeData.id){
           return true;
         }
+        ctr++;
       }
     }
     return false;
@@ -1832,7 +1835,7 @@ function signalHandler(uid, signalData, userType) {
       if(res1[0] == "208")
       { 
       
-        // if(userType != 1)
+        // if(userType == 2)
         // {
         addRtmJoinOrder(senderId, newDateFormat(res1[1]));
         let message="User "+senderId+" has joined on  "+ res1[1];
@@ -2355,7 +2358,7 @@ function signalHandler(uid, signalData, userType) {
          
       console.log('*******element*************** element ', element,'-----memberID-----',memberID);
      
-      if(getUserDataFromList(memberID, 'userType') != 1){
+      if(getUserDataFromList(memberID, 'userType') == 2){
         count4++;
         $('#all_joined_member_list').append('<div class="attendee-list"><img src="images/attendee.png" /><span class="title">'+userName+'</span><div class="vid-icons"> <span class="icon-appearance d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-appearance1 d-none"   data-attr="'+memberID+'"></span><span class="icon-appearance2 d-none"  data-attr="'+memberID+'"></span><span class="icon-appearance3 d-none"  data-attr="'+memberID+'"></span><span class="icon-appearance4 d-none"  data-attr="'+memberID+'"></span><span class="icon-aroma d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma1 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma2 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma3 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma4 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-palate d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate1 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate2 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate3 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate4 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-score d-none"  id="emojies_sc'+memberID+'"  data-attr="'+memberID+'"></span></div></div>');
         }
@@ -2778,7 +2781,7 @@ function signalHandler(uid, signalData, userType) {
     if(tempUsers != null){
       
       for(let i in tempUsers){
-        if(tempUsers[i].hasOwnProperty('isSubscribe') && tempUsers[i].isSubscribe != 1){
+        if(tempUsers[i].hasOwnProperty('isSubscribe') && tempUsers[i].isSubscribe == 2){
           audience.push(tempUsers[i]);          
         }
       }

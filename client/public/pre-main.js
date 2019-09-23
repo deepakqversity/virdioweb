@@ -51,9 +51,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
           return userList[i].id;
         }
       }
+      return 0;
     } else {
       console.log('Invalid access ');
-      return false;
+      return 0;
     }
   }
 
@@ -299,7 +300,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         optionbox +='<option value="select">select</option>';
         arr.forEach(function (value, i) {
           console.log("--------totalvalueold--------------", i, value);
-          if(i >= 0 && value != 1)
+          if(i >= 0 && value == 2)
           {   
             console.log("--------totalvaluenew--------------", i, value);     
                                   
@@ -1055,16 +1056,17 @@ function signalHandler(uid, signalData, userType) {
       {
         console.log('2222222222222222222222222')
         let userList = getOrderUser();
-        console.log('22222222222 ----------',userList)
         if(userList != ''){
           console.log('22222222222  77777777777 ----------',userList)
           let ct = 0;
           for(let i=0; i < userList.length; i++){
-            console.log('22222222222 000000000000----------',storeData.id , convertEmailToId(userList[i].id), getUserDataFromList(userList[i].id, 'userType'), ct, storeData.default.maxUserLimit)
-            if(getUserDataFromList(userList[i].id, 'userType') != 1){
-
-              if(ct < parseInt(storeData.default.maxUserLimit) && storeData.id == convertEmailToId(userList[i].id)) {
-                
+            let uTyp = getUserDataFromList(userList[i].id, 'userType');
+            console.log('22222222222 000000000000----------',storeData.id, userList[i].id, uTyp, ct)
+            if(ct < parseInt(storeData.default.maxUserLimit) && uTyp == 2){
+              let currentUId = convertEmailToId(userList[i].id);
+console.log('22222222222 111111111----------',storeData.id , userList[i])
+              if(storeData.id == currentUId) {
+                console.log('22222222222 ======', userList[i]);
                   let sessionTime = {};
                   sessionTime['startTime'] = (new Date()).getTime();
                   sessionTime['joinTime'] = ''
@@ -1078,7 +1080,7 @@ function signalHandler(uid, signalData, userType) {
 
                     let ref2 = setInterval( function() {
                         $('#rem-join-timer').html(duration < 0 ? 0 : duration);
-                        if(duration < 0){
+                        if(duration <= 0){
                           clearInterval(ref2);
                           $('#continue-join').click();
                         }
@@ -1544,7 +1546,7 @@ function signalHandler(uid, signalData, userType) {
 
             for(let j=0; j < strArray.length; j++){
               for(let i= totMember-1; i >= 0 ; i--){
-                if(membersList[i].id == strArray[j].id && getUserDataFromList(membersList[i], 'userType') != 1){
+                if(membersList[i].id == strArray[j].id && getUserDataFromList(membersList[i], 'userType') == 2){
                   if(ctr++ <= maxUserLimit){
                     if( $('#joinee-' + convertEmailToId(membersList[i])).length == 0 ){
                       $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(membersList[i])+'"><img src="'+getUserDataFromList(membersList[i], 'image')+'" />'+getUserDataFromList(membersList[i], 'firstName')+', '+getUserDataFromList(membersList[i], 'city')+'</span>');
@@ -1568,7 +1570,7 @@ function signalHandler(uid, signalData, userType) {
         channel.getMembers().then(membersList => {
             let totMember = membersList.length;
             for(let i= totMember-1; i >= 0 ; i--){
-              if(getUserDataFromList(membersList[i], 'userType') != 1){
+              if(getUserDataFromList(membersList[i], 'userType') == 2){
                 if(membersList[i] != id && $('#joinee-' + convertEmailToId(membersList[i])).length == 0 ){
                   $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(membersList[i])+'"><img src="'+getUserDataFromList(membersList[i], 'image')+'" />'+getUserDataFromList(membersList[i], 'firstName')+', '+getUserDataFromList(membersList[i], 'city')+'</span>');
                   break;
@@ -1620,9 +1622,9 @@ function signalHandler(uid, signalData, userType) {
         if(userList != ''){
           
           for(let i= 0; i < userList.length; i++){
-            if(id == userList[i].id && userList[i].hasOwnProperty(key)){
+            if(userList[i].hasOwnProperty(key) && id == userList[i].id){
               return userList[i][key];
-            } else if(id == userList[i].email && userList[i].hasOwnProperty(key)){
+            } else if(userList[i].hasOwnProperty(key) && id == userList[i].email){
               return userList[i][key];
             }
           }
@@ -1667,7 +1669,7 @@ function signalHandler(uid, signalData, userType) {
     if(tempUsers != null){
       
       for(let i in tempUsers){
-        if(tempUsers[i].hasOwnProperty('isSubscribe') && tempUsers[i].isSubscribe != 1){
+        if(tempUsers[i].hasOwnProperty('isSubscribe') && tempUsers[i].isSubscribe == 2){
           audience.push(tempUsers[i]);          
         }
       }

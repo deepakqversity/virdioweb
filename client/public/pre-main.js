@@ -1063,8 +1063,8 @@ function signalHandler(uid, signalData, userType) {
             let uTyp = getUserDataFromList(userList[i].id, 'userType');
             console.log('22222222222 000000000000----------',storeData.id, userList[i].id, uTyp, ct)
             if(ct < parseInt(storeData.default.maxUserLimit) && uTyp == 2){
-console.log('22222222222 111111111----------',storeData.id , userList[i])
               let currentUId = convertEmailToId(userList[i].id);
+console.log('22222222222 111111111----------',storeData.id , userList[i])
               if(storeData.id == currentUId) {
                 console.log('22222222222 ======', userList[i]);
                   let sessionTime = {};

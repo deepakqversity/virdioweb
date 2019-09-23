@@ -157,7 +157,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     client.on('stream-added', function (evt) {
       var stream = evt.stream;
       console.log("New stream added " + stream.getId());
-      if(1 != getUserDataFromList(stream.getId(), 'userType')){
+      if(getUserDataFromList(stream.getId(), 'userType') == 2){
         totalBrodcaster++;
         // remove id when unpublished
         currentPublishedUser.push(stream.getId());
@@ -176,7 +176,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     });
 
     var count=1;
-    var totalScreenUsers = 0;
+    // var totalScreenUsers = 0;
     client.on('stream-subscribed', function (evt) {
 
       var storeData = getCurrentUserData();
@@ -187,11 +187,11 @@ if(!AgoraRTC.checkSystemRequirements()) {
       if(storeData.userType == 1) {
 
         if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
-          if(totalScreenUsers < totalBrodcaster, storeData.default.maxUserLimit){
+          // if(totalScreenUsers < totalBrodcaster, storeData.default.maxUserLimit){
 
           $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" data-dismiss="modal">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute   d-none"  id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
-          }
-          totalScreenUsers++;
+          // }
+          // totalScreenUsers++;
         }
         stream.play('agora_remote_vdo' + stream.getId());
 
@@ -247,7 +247,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       var storeData = getCurrentUserData();
       var stream = evt.stream;
       stream.stop();
-      if(storeData.userType == 2){
+      if(getUserDataFromList(stream.getId(), 'userType') == 2){
         if(totalBrodcaster > 0){
           totalBrodcaster--;
           // remove id when unpublished
@@ -962,12 +962,15 @@ if(!AgoraRTC.checkSystemRequirements()) {
     if(userList == '' || userList == null) return false;
 
     // let counter = userList.length >= storeData.default.maxUserLimit ? storeData.default.maxUserLimit : userList.length;
+    let ctr = 0;
     for(let i=0; i < userList.length; i++){
-      if(totalBrodcaster < storeData.default.maxUserLimit && getUserDataFromList(userList[i].id, 'userType') == 2){
 
-        if(convertEmailToId(userList[i].id) == storeData.id){
+      if(getUserDataFromList(userList[i].id, 'userType') == 2){
+
+        if(ctr < storeData.default.maxUserLimit && convertEmailToId(userList[i].id) == storeData.id){
           return true;
         }
+        ctr++;
       }
     }
     return false;

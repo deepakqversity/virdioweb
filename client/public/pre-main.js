@@ -1066,7 +1066,7 @@ function signalHandler(uid, signalData, userType) {
             if(uTyp != undefined && uTyp == 2){
 
               if(ct < parseInt(storeData.default.maxUserLimit) && storeData.id == convertEmailToId(userList[i].id)) {
-                
+                console.log('22222222222 ======', userList[i]);
                   let sessionTime = {};
                   sessionTime['startTime'] = (new Date()).getTime();
                   sessionTime['joinTime'] = ''

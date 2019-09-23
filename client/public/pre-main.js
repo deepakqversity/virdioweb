@@ -1056,16 +1056,16 @@ function signalHandler(uid, signalData, userType) {
       {
         console.log('2222222222222222222222222')
         let userList = getOrderUser();
-        console.log('22222222222 ----------',userList)
         if(userList != ''){
           console.log('22222222222  77777777777 ----------',userList)
           let ct = 0;
           for(let i=0; i < userList.length; i++){
             let uTyp = getUserDataFromList(userList[i].id, 'userType');
-            console.log('22222222222 000000000000----------',storeData.id , uTyp, ct, storeData.default.maxUserLimit)
+            console.log('22222222222 000000000000----------',storeData.id, userList[i].id, uTyp, ct)
             if(ct < parseInt(storeData.default.maxUserLimit) && uTyp == 2){
-console.log('22222222222 111111111----------',storeData.id , convertEmailToId(userList[i].id))
-              if(storeData.id == convertEmailToId(userList[i].id)) {
+console.log('22222222222 111111111----------',storeData.id , userList[i])
+              let currentUId = convertEmailToId(userList[i].id);
+              if(storeData.id == currentUId) {
                 console.log('22222222222 ======', userList[i]);
                   let sessionTime = {};
                   sessionTime['startTime'] = (new Date()).getTime();

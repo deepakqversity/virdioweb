@@ -559,7 +559,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
               channel.on('ChannelMessage', (message, senderId) => {         
                 var msg=message.text;
                 // msg = JSON.parse(msg);
-                console.log('--------emojies-----------',msg,storeData.userType);             
+                             
                 channelMsgHandler(msg,senderId,storeData.userType);
               });
        
@@ -569,24 +569,24 @@ if(!AgoraRTC.checkSystemRequirements()) {
             });
 
             // channel log
-            channel.on('MemberJoined', memberId => { 
+            // channel.on('MemberJoined', memberId => { 
              
-              var massages="208"+sep+memberId+sep+"joined"+sep;        
-              channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
-            })
+            //   var massages="208"+sep+memberId+sep+"joined"+sep;        
+            //   channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
+            // })
          
-            channel.on('MemberLeft', memberId => { 
+            // channel.on('MemberLeft', memberId => { 
         
-              var massages="208"+sep+memberId+sep+"left"+sep;  
-              channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"left"}), storeData.userType);
-            })
+            //   var massages="208"+sep+memberId+sep+"left"+sep;  
+            //   channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"left"}), storeData.userType);
+            // })
          
-            channel.on('ChannelMessage', (message, senderId) => {         
-              var msg=message.text;
-              // msg = JSON.parse(msg);
-              console.log('--------emojies-----------',msg,storeData.userType);             
-              channelMsgHandler(msg,senderId,storeData.userType);
-            });
+            // channel.on('ChannelMessage', (message, senderId) => {         
+            //   var msg=message.text;
+            //   // msg = JSON.parse(msg);
+            //   console.log('--------emojies-----------',msg,storeData.userType);             
+            //   channelMsgHandler(msg,senderId,storeData.userType);
+            // });
 
             newclient.on('ConnectionStateChange', (newState, reason) => {
               console.log('on connection state changed to ' + newState + ' reason: ' + reason);
@@ -628,29 +628,31 @@ if(!AgoraRTC.checkSystemRequirements()) {
           //   console.log('------------memberafterjoinedlalit-------',memberId);
           // })
        
-          channel.on('MemberLeft', memberId => { 
+          // channel.on('MemberLeft', memberId => { 
+
+          //   console.log('----------lalitmemmberleft--------------------',memberId)
       
-            var massages="208"+sep+memberId+sep+"left"+sep;  
-            channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"left"}), storeData.userType);
-          })
+          //   var massages="208"+sep+memberId+sep+"left"+sep;  
+          //   channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"left"}), storeData.userType);
+          // })
        
-          channel.on('ChannelMessage', (message, senderId) => {         
-            var msg=message.text;
-            // msg = JSON.parse(msg);
-            console.log('--------emojies-----------',msg,storeData.userType);             
-            channelMsgHandler(msg,senderId,storeData.userType);
-          });
+          // channel.on('ChannelMessage', (message, senderId) => {         
+          //   var msg=message.text;
+          //   // msg = JSON.parse(msg);
+          //   console.log('--------ChannelMessage-----------',msg,storeData.userType);             
+          //   channelMsgHandler(msg,senderId,storeData.userType);
+          // });
 
-          newclient.on('ConnectionStateChange', (newState, reason) => {
-            console.log('on connection state changed to ' + newState + ' reason: ' + reason);
-          });
+          // newclient.on('ConnectionStateChange', (newState, reason) => {
+          //   console.log('on connection state changed to ' + newState + ' reason: ' + reason);
+          // });
 
-          newclient.on('MessageFromPeer', (message, peerId) => { 
-            console.log('********vvvvvvvvvvvvv********',message.text,'********************',peerId);
-            // console.log("message "+ message.text + " peerId" + peerId);
+          // newclient.on('MessageFromPeer', (message, peerId) => { 
+          //   console.log('********vvvvvvvvvvvvv********',message.text,'********************',peerId);
+          //   // console.log("message "+ message.text + " peerId" + peerId);
 
-            signalHandler(peerId, message.text, storeData.userType);
-          });
+          //   signalHandler(peerId, message.text, storeData.userType);
+          // });
         }
   
       }
@@ -2318,7 +2320,7 @@ function signalHandler(uid, signalData, userType) {
      
       if(getUserDataFromList(memberID, 'userType') == 2){
         count4++;
-        $('#all_joined_member_list').append('<div class="attendee-list"><img src="images/attendee.png" /><span class="title">'+userName+'</span><div class="vid-icons"> <span class="icon-appearance d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-appearance1 d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-appearance2 d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-appearance3 d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-appearance4 d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-aroma d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma1 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma2 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma3 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma4 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-palate d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate1 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate2 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate3 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate4 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-score d-none"  id="emojies_sc'+memberID+'"  data-attr="'+memberID+'"></span></div></div>');
+        $('#all_joined_member_list').append('<div class="attendee-list"><img src="images/attendee.png" /><span class="title">'+userName+'</span><div class="vid-icons"> <span class="icon-appearance d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-appearance1 d-none"   data-attr="'+memberID+'"></span><span class="icon-appearance2 d-none"  data-attr="'+memberID+'"></span><span class="icon-appearance3 d-none"  data-attr="'+memberID+'"></span><span class="icon-appearance4 d-none"  data-attr="'+memberID+'"></span><span class="icon-aroma d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma1 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma2 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma3 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma4 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-palate d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate1 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate2 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate3 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate4 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-score d-none"  id="emojies_sc'+memberID+'"  data-attr="'+memberID+'"></span></div></div>');
         }
       }); 
       console.log('*******finalcountatattendies*************** element ', count4);
@@ -2486,24 +2488,23 @@ function signalHandler(uid, signalData, userType) {
         }
         else if(signalData == "appearence1")
         {   
-          console.log('*******Emojiesdata111111************** signalData ',newSenderID, signalData,senderId,userType);        
+                  
        // $('#emojies_app1'+newSenderID+'').removeClass("d-none");      
         $('.icon-appearance1[data-attr=\''+newSenderID+'\']').removeClass("d-none");
         }
         else if(signalData == "appearence2")
-        {          
-        $('#emojies_app2'+newSenderID+'').removeClass("d-none");      
-       // $('.icon-appearance2[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        {  
+          console.log('*******Emojiesdata33************** signalData ',newSenderID, signalData,senderId,userType);                   
+        $('icon-appearance2[data-attr=\''+newSenderID+'\']').removeClass("d-none");
         }
         else if(signalData == "appearence3")
-        {          
-        $('#emojies_app3'+newSenderID+'').removeClass("d-none");      
-       // $('.icon-appearance3[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        {                  
+        $('.icon-appearance3[data-attr=\''+newSenderID+'\']').removeClass("d-none");
         }
         else if(signalData == "appearence4")
         {          
-        $('#emojies_app4'+newSenderID+'').removeClass("d-none");      
-       // $('.icon-appearance4[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+      
+        $('.icon-appearance4[data-attr=\''+newSenderID+'\']').removeClass("d-none");
         }
         else if(signalData == "aroma")
         {

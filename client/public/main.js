@@ -1336,7 +1336,7 @@ function changeImage(){
     $(".joined-member-list").height(`${leftHeight -100 }px`);
     $(".guest-left-wine").height(`${leftHeight}px`);
 
-    let winHeight = window.innerHeight;
+    let winHeight = $( window ).height();
     let headerHeight = $(".header.bg-gray").height();
     let hostHeight = $(".host-script-section").height();
     let sectionHeights = winHeight - (hostHeight + headerHeight);
@@ -2977,7 +2977,7 @@ function signalHandler(uid, signalData, userType) {
 
     
     window.onresize = onPageResize;
-    //window.onload = changeImage;
+    window.onload = onPageResize;
     window.onresize = changeImage;
    
     $(document).on('click', '#continue-join', function(){

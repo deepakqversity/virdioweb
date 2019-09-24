@@ -1324,17 +1324,17 @@ function attendeeScreenHeight(){
 }
 function changeImage(){
   if ($(window).width() < 1024){
-    $(".fitness-guest .swiper-slide img").attr("src", "images/arrow-right.png").addClass("mobile-arrow");
+    $(".fitness-guest .swiper-slide img.arrow-image").attr("src", "images/arrow-right.png").addClass("mobile-arrow");
   }
   else {
-    $(".fitness-guest .swiper-slide img").attr("src", "images/arrow-img.png").removeClass("mobile-arrow");
+    $(".fitness-guest .swiper-slide img.arrow-image").attr("src", "images/arrow-img.png").removeClass("mobile-arrow");
   }
 }
 
   function onPageResize(){
     let leftHeight = $(".right-sidebar").height();
     $(".joined-member-list").height(`${leftHeight -100 }px`);
-    $(".guest-left-wine").height(`${leftHeight}px`);
+    $(".guest-left-wine").css("max-height", "leftHeight");
 
     let winHeight = $( window ).height();
     let headerHeight = $(".header.bg-gray").height();

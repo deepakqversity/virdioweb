@@ -548,6 +548,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
               })
            
               channel.on('MemberLeft', memberId => { 
+
+                removeFromRtmOrder(memberId);
           
                 var massages="208"+sep+memberId+sep+"left"+sep;  
                 channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"left"}), storeData.userType);
@@ -653,91 +655,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
         }
   
       }
-
-      // function rtmJoinBackup(){
-
-      //     var appId1 = '232f270a5aeb4e0097d8b5ceb8c24ab3';
-
-      //     var token=null;
-      //     newclient = AgoraRTM.createInstance(appId1);
-      //     var storeData = getCurrentUserData();
-      //     // appId1 = storeData.sessionData.channelId;
-      //     var peer=storeData.email;
-      //     // newclient.login({uid: peer.toString(), token});
-
-      //     newclient.on('ConnectionStateChange', (newState, reason) => {
-      //       console.log('on connection state changed to ' + newState + ' reason: ' + reason);
-      //     });
-
-      //     newclient.login({ token: token, uid: peer }).then(() => {
-
-      //     console.log('***********AgoraRTM client login success***********');
-
-      //     newclient.on('MessageFromPeer', (message, peerId) => { 
-      //       console.log('********vvvvvvvvvvvvv********',message.text,'********************',peerId);
-      //       // console.log("message "+ message.text + " peerId" + peerId);
-
-      //       signalHandler(peerId, message.text, storeData.userType);
-      //     });
-
-      //     // Create channel
-      //     channel = newclient.createChannel(channelName1);
-
-      //     channel.join().then(() => {
-
-      //       // after join channel send join channel message to host
-      //       joinChannel();
-
-      //      console.log('************channel joined successfully**********');
-
-      //      var today = new Date();
-      //      var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
-      //      var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()+'.'+today.getMilliseconds();
-      //      var dateTime = date+' '+time;
-      //      var text="208" +sep+ dateTime;
-
-      //      channel.sendMessage({text}).then(() => {  
-      //      console.log('-------join msg llllll--------','mssages send successfully on channel');    
-      //       }).catch(error => {
-      //      console.log('-------There is error in joining a channel------')
-      //       });
-
-      //      channel.getMembers().then(membersList => {    
-                  
-      //        channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
-
-      //        }).catch(error => {
-      //            console.log('*************There is an error******');
-      //        });
-
-      //        channel.on('MemberJoined', memberId => { 
-             
-      //          var massages="208"+sep+memberId+sep+"joined"+sep;        
-      //          channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
-      //         })
-           
-      //        channel.on('MemberLeft', memberId => { 
-          
-      //         var massages="208"+sep+memberId+sep+"left"+sep;  
-      //         channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"left"}), storeData.userType);
-      //         })
-           
-      //        channel.on('ChannelMessage', (message, senderId) => {         
-      //         var msg=message.text;
-      //        // msg = JSON.parse(msg);
-      //        console.log('--------emojies-----------',msg,storeData.userType);             
-      //         channelMsgHandler(msg,senderId,storeData.userType);
-      //         });
-       
-      //       }).catch(error => {
-      //         console.log('**********shiv*********There Is a problem to join a channel**********');
-      //       });
-
-      //         }).catch(err => {
-      //           console.log('---------------bbbbbbbb-----client is not logedin-----');
-      //         });
-  
-      // }
 
       function leave_channel() {
         console.log('============= channel leave ============');
@@ -1858,20 +1775,6 @@ function signalHandler(uid, signalData, userType) {
         addRtmJoinOrder(senderId, newDateFormat(res1[1]));
         let message="User "+senderId+" has joined on  "+ res1[1];
         $('#newmsg').html(message);
-        // setTimeout(function(){ $('#newmsg').html(''); }, 10000); 
-     
-      //  $('#hostmsg').html(message);
-      //   setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
-
-        // }else{
-        //   let message="Host has joined on   "+ res1[1];
-        //   $('#newmsg').html(message);
-        //   setTimeout(function(){ $('#newmsg').html(''); }, 10000); 
-       
-        //  $('#errmsg').html(message);
-        //   setTimeout(function(){ $('#errmsg').html(''); }, 10000);
-        // }
-
 
         console.log('********Deepak************** signalData ', senderId);
         let rtmJoinOrder = JSON.parse(localStorage.getItem("rtm-join-order"));
@@ -2774,6 +2677,23 @@ function signalHandler(uid, signalData, userType) {
       
     localStorage.setItem("rtm-join-order", JSON.stringify(orderList));
   }
+
+  function removeFromRtmOrder(memberId){
+
+      let strArray = localStorage.getItem("rtm-join-order");
+      let orderList = [];
+      if(strArray != null){
+        strArray = JSON.parse(strArray);
+        for(let i in strArray){
+          if(strArray[i].id != memberId){
+            orderList[] = strArray[i];
+          }
+        }
+      }
+
+      localStorage.setItem("rtm-join-order", JSON.stringify(orderList));
+  }
+
   $(window).resize(function(){
     onPageResize();
   });

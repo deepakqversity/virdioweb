@@ -242,14 +242,16 @@ if(!AgoraRTC.checkSystemRequirements()) {
         if(totalBrodcaster > 0){
           totalBrodcaster--;
           // remove id when unpublished
-          currentPublishedUser.splice(currentPublishedUser.indexOf(stream.getId()), 1); 
+          // currentPublishedUser.splice(currentPublishedUser.indexOf(stream.getId()), 1); 
         }
         addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
         addUserAttribute(stream.getId(), 'isSubscribe', 0);
         
         // remove from audience list
         removeAudienceInList(stream.getId())
-      } else {
+      }
+
+      if(storeData.userType == 1){
         // add stream after leaving current stream on hand raise event
         pushIntoSessionByHost();
         // switch user every specific time duration
@@ -1986,7 +1988,7 @@ function signalHandler(uid, signalData, userType) {
 
                 let tm =  (new Date()).getTime() - parseInt(broadcster[i].subscribeTime);
                 if((tm / 1000) >= 30){
-                  rule = true
+                  rule = true;
                 }
               }
             }
@@ -2805,7 +2807,6 @@ function signalHandler(uid, signalData, userType) {
   }
   
       $(document).ready(function(){
-
 
         // switchUsers();
 

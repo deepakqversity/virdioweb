@@ -104,7 +104,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         strArray = JSON.parse(strArray);
         for(let i in strArray){
           if(strArray[i].id != memberId){
-            orderList[] = strArray[i];
+            orderList.push(strArray[i]);
           }
         }
       }

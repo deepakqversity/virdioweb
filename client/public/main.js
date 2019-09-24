@@ -3349,6 +3349,7 @@ console.log('----------param1-------------',param);
 
     if(param == 227)
     {
+      console.log('----------param3-------------',param);
       let id = $(this).attr('id');
       if($(this).find('video:first').hasClass('video-selected')){
         $('#selected-participent-id').val('');
@@ -3431,6 +3432,7 @@ console.log('----------param1-------------',param);
     }
     else
     {
+      console.log('----------param2-------------',param);
       let id = $(this).attr('id');
       if($(this).find('video').hasClass('video-selected')){
         $('#selected-participent-id').val('');

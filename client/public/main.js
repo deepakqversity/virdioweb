@@ -2807,7 +2807,7 @@ function signalHandler(uid, signalData, userType) {
       $(document).ready(function(){
 
 
-        switchUsers();
+        // switchUsers();
 
         let heightScript = $(".host-script-section").height();
             

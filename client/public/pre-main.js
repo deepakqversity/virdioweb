@@ -1197,19 +1197,19 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
 
         }
 
-        let n = res[1].includes("RM-");
+      //   let n = res[1].includes("RM-");
  
-        if(n != true )
-       {
-        count4=count3+1;
-       }
-      else{
+      //   if(n != true )
+      //  {
+      //   count4=count3+1;
+      //  }
+      // else{
 
-        count4=count3;
+      //   count4=count3;
         
-      }
+      // }
        
-
+      count4=count3+1;
      
 
       }else if(signalData.msgtype=='left') {
@@ -1224,26 +1224,22 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
           $('#online_state').removeClass("online-status");
         }
 
-        let n = res[1].includes("RM-");
+      //   let n = res[1].includes("RM-");
  
-        if(n != true )
-       {
-        afterleftcount=count3-1;
-       }
-      else{
+      //   if(n != true )
+      //  {
+      //   afterleftcount=count3-1;
+      //  }
+      // else{
 
-        afterleftcount=count3;
+      //   afterleftcount=count3;
         
-      }
+      // }
 
       
-        count4= count3 > 0 ? afterleftcount : 0;
+        count4= count3 > 0 ? count3-1 : 0;
      
-        // $('#newmsg').html(signalData.message);
-        // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
-     
-        //   $('#hostmsg').html(signalData.message);
-        // setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
+
            
       }else if(signalData.msgtype=='totalcount') {
         
@@ -1259,7 +1255,7 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
         arr.shift();
         arr.forEach(element => {
 
-          let n = element.includes("RM-");
+          //let n = element.includes("RM-");
 
           if(element == hostEmail)
           {  
@@ -1269,17 +1265,17 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
           }
 
           
-          if(n != true)
-          {  
-            updatedcount=count4;
+          // if(n != true)
+          // {  
+          //   updatedcount=count4;
 
-          }else{
-            updatedcount=count4-1;
-          }
+          // }else{
+          //   updatedcount=count4-1;
+          // }
      
         });  
         
-        count4 = updatedcount > 0 ? updatedcount - 1 : 0;
+        count4 = count4 > 0 ? count4 - 1 : 0;
       }
       
       $('#totalonline').empty(); 
@@ -1318,55 +1314,44 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
         let str=signalData.message;
         let res2 = str.split(sep);
         
-        let n = res2[1].includes("RM-");
+      //   let n = res2[1].includes("RM-");
 
-        if(n != true )
-       {
-        count1=count+1;
-       }
-      else{
+      //   if(n != true )
+      //  {
+      //   count1=count+1;
+      //  }
+      // else{
 
-        count1=count;
+      //   count1=count;
         
-      }
+      // }
+
+      count1=count+1;
        
          // console.log('*********lllllllll************* signalData ', signalData.message);
           $('#totalonline').empty(); 
           $('#totalonline').html(count1);  
         
-            // $('#joined_users').empty(); 
-            // $('#joined_users').html(count1);
-       
-
-       // let peerId=signalData.member;
-
-      //   let text ="216"+sep+"Hi, welcome to your first virtual studio session as A";
-      //   if(count1 <= 8)
-      //   {
-      //     text ="216"+sep+"Hi,welcome to your first virtual studio session as B";
-      //   }
-      //  // console.log('-------------text=== ', text)
-      //   sendMessage(peerId, text);
 
       }else if(signalData.msgtype=='left') {
 
         let str=signalData.message;
         let res2 = str.split(sep);
         
-        let n = res2[1].includes("RM-");
+        // let n = res2[1].includes("RM-");
 
-          if(n != true )
-        {
-          ncount=count-1;
-        }
-        else{
+        //   if(n != true )
+        // {
+        //   ncount=count-1;
+        // }
+        // else{
 
-          ncount=count;
+        //   ncount=count;
           
-        }
+        // }
 
 
-          count1= ncount > 0 ? ncount : 0; 
+          count1= count > 0 ? count-1 : 0; 
      
         
 
@@ -1386,22 +1371,8 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
  
            count1=signalData.member;
            count1=parseInt(count1); 
-
-           arr.forEach(element => {
-
-            let n = element.includes("RM-");
-
-            if(n != true)
-            {  
-              totalcount12=count1;
- 
-            }else{
-              totalcount12=count1-1;
-            }
-       
-          }); 
-    
-        count1= totalcount12 > 0 ? totalcount12-1 : 0;
+   
+        count1= count1 > 0 ? count1-1 : 0;
       
         $('#totalonline').empty(); 
         $('#totalonline').html(count1);  

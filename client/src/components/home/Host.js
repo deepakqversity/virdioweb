@@ -166,6 +166,27 @@ render() {
 
     var newulength = JSON.parse(localStorage.getItem('tempUsers')).length;
     newulength = newulength < 1 ? 0 : --newulength ;
+
+    let onlineUsers = '';
+    let participent = '';
+    let participentTimerPopup = '';
+
+    let tempUsersdata = JSON.parse(localStorage.getItem('tempUsers'));
+
+    onlineUsers = tempUsersdata.map((user, idx) => {
+      if(user.userType != 1) {
+        const { id, firstName, lastName, image, city } = user;
+        return (
+          <tr data-position="100000000000000" id={"online-user-row-"+id} key={idx}>
+          <th scope="row"><img src={image} /></th>
+          <td className="text-left"><span className="welcome-title">{firstName.toLowerCase()} {lastName != null ? lastName.toLowerCase() : ''} {city != null ? ', '+city.toLowerCase() : ''}</span></td>
+          <td><img className="mr-2 user-status" src="/images/offline.png" />online</td>
+          <td>YES</td>
+          <td>5</td>
+          </tr>
+        );
+      }
+    })
 return (
     <div className="container justify-content-between d-flex flex-column h-100 position-relative">
     <header className="header bg-gray mt-0 position-fixed">
@@ -224,7 +245,7 @@ return (
       <div className="row px-0 px-sm-3 pb-2 pt-1 justify-content-between align-items-center">
         <div className="col-6 col-md-6 d-flex align-items-center">
           <h4 className="title">Participant View (<span id="joined_users">0</span>/<span>{newulength}</span>)</h4>
-          <a href="" className="move-list"><img src="images/move-list.png" /></a>
+          <a href="" className="move-list"  data-toggle="modal" data-target="#attendy-list" className="open-list"><img src="images/move-list.png" /></a>
           <a href="" className="move-list"><img src="images/swipe-list.png" /></a>
           <div className="hand-raise-list">
             <div className="dropdown keep-open">
@@ -498,6 +519,35 @@ return (
       <input type="hidden" id="to-broadcast" />
       <input type="hidden" id="current-camera" />
       <input type="hidden" id="current-microphone" />
+
+      <div className="modal attendy-list" id="attendy-list">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h4 className="modal-title">Participants List</h4>
+              <button type="button" className="close" data-dismiss="modal">×</button>
+            </div>
+            <div className="modal-body">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th scope="col">&nbsp;</th>
+                  <th scope="col" className="text-left">Name</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Visible</th>
+                  <th scope="col"># of Sessions</th>
+                </tr>
+              </thead>
+              <tbody id="online-user-list">
+              {onlineUsers}                
+              </tbody>
+            </table>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+
   </div>
     );
   }

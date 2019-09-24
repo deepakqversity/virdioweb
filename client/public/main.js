@@ -1756,6 +1756,22 @@ function signalHandler(uid, signalData, userType) {
         messages=WinsPrevCode+sep+WinsPrevCounter;        
         sendMessageToChannel(channelName1,messages);
                 
+      }else if(resultant[0] == "227")
+      {
+        attendiesId=convertEmailToId(resultant[1]);
+        
+      }
+      else if(resultant[0] == "241")
+      {
+        
+      }
+      else if(resultant[0] == "242")
+      {
+        
+      }
+      else if(resultant[0] == "243")
+      {
+        
       }
       
   } else { // Attendy
@@ -2254,19 +2270,8 @@ function signalHandler(uid, signalData, userType) {
           $('#online_state').addClass("online-status");
         }
         //console.log('*******totallist5555555*************** signalData ',count3);
-        
-        let n = res[1].includes("RM-");
- 
-        if(n != true )
-       {
-        count4=count3+1;
-       }
-      else{
 
-        count4=count3;
-        
-      }
-        
+      count4=count3+1;
              
         //console.log('*******totallist666666*************** signalData ',count4); 
 
@@ -2299,19 +2304,8 @@ function signalHandler(uid, signalData, userType) {
 
        // console.log('*******totallist333333333*************** signalData ',count3); 
 
-       let n = res[1].includes("RM-");
- 
-       if(n != true )
-      {
-        count4=count3-1;
-      }
-     else{
 
-      count4=count3;
-       
-     }
-
-        
+     count4=count3-1;
         
           
       }else if(signalData.msgtype=='totalcount') {
@@ -2326,8 +2320,6 @@ function signalHandler(uid, signalData, userType) {
         if(signalData.totalmember !=''){
           signalData.totalmember.forEach(ele => {
 
-            let n = ele.includes("RM-");
-
           memID=convertEmailToId(ele);
 
           if(getUserDataFromList(memID, 'userType') == 1)
@@ -2338,16 +2330,6 @@ function signalHandler(uid, signalData, userType) {
           }else{
            
             count4=parseInt(count4);
-          }
-
-          if(n != true)
-          {  
-            count4=parseInt(count4);
-            count4=count4;
-
-          }else{
-            count4=parseInt(count4);
-            count4=count4-1;
           }
 
         }); 
@@ -2396,6 +2378,38 @@ function signalHandler(uid, signalData, userType) {
 
       function incrementcountAtHost(signalData,userType)
       {  
+
+      //  addUserAttribute(convertEmailToId(memberId), 'currentStatus', 1);
+
+        console.log('MemberJoined ================MemberJoined ');
+        $('#online-user-row-'+convertEmailToId(signalData.member)).find('.user-status').attr('src', '/images/online.png');
+        let userList = getOrderUser()
+
+        if(userList != ''){
+          for(let j in userList){
+            if(userList[j].id == signalData.member){
+
+                $('#online-user-row-'+convertEmailToId(signalData.member)).attr('data-position', userList[j].joinAt );
+                break;
+            }
+          }
+        }
+        function sort_li(a, b) {
+          return parseInt($(b).attr('data-position')) < parseInt($(a).attr('data-position')) ? 1 : -1;
+        }
+        $('#online-user-list tr').sort(sort_li).appendTo('#online-user-list');
+
+        console.log('memberId============', signalData.member)
+        if(storeData.userType == 1){
+          if( $('#joinee-' + convertEmailToId(signalData.member)).length == 0 ){
+            removeFromFirst();
+            $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(signalData.member)+'"><img src="'+getUserDataFromList(signalData.member, 'image')+'" />'+getUserDataFromList(signalData.member, 'firstName')+', '+getUserDataFromList(signalData.member, 'city')+'</span>');
+            totalChannelMembers();
+          }
+        }
+
+        
+
         console.log('********munmunHost222222222************** signalData ', signalData, userType);
         let count=$('#joined_users').html();
 
@@ -2422,20 +2436,22 @@ function signalHandler(uid, signalData, userType) {
       {     
        
 
-        let str=signalData.message;
-        let res2 = str.split(sep);
+        // let str=signalData.message;
+        // let res2 = str.split(sep);
         
-        let n = res2[1].includes("RM-");
+        // let n = res2[1].includes("RM-");
 
-          if(n != true )
-        {
-          count1=count+1;
-        }
-        else{
+        //   if(n != true )
+        // {
+        //   count1=count+1;
+        // }
+        // else{
 
-          count1=count;
+        //   count1=count;
           
-        }
+        // }
+
+        count1=count+1;
 
        
         console.log('********guduHost111111111************** signalData ', signalData, count,count1);
@@ -2452,22 +2468,22 @@ function signalHandler(uid, signalData, userType) {
 
         
 
-        let str=signalData.message;
-        let res2 = str.split(sep);
+        // let str=signalData.message;
+        // let res2 = str.split(sep);
         
-        let n = res2[1].includes("RM-");
+        // let n = res2[1].includes("RM-");
 
-            if(n != true )
-          {
-            count1=count-1; 
-          }
-          else{
+        //     if(n != true )
+        //   {
+        //     count1=count-1; 
+        //   }
+        //   else{
 
-            count1=count; 
+        //     count1=count; 
             
-          }
+        //   }
 
-        
+          count1=count-1; 
 
         console.log('********virenHost111111111************** signalData ', signalData, count,count1);
 
@@ -2489,19 +2505,19 @@ function signalHandler(uid, signalData, userType) {
         count1=signalData.member;
         count1=parseInt(count1); 
 
-        arr.forEach(element => {
+        // arr.forEach(element => {
 
-          let n = element.includes("RM-");
+        //   let n = element.includes("RM-");
 
-          if(n != true)
-          {  
-            count1=count1;
+        //   if(n != true)
+        //   {  
+        //     count1=count1;
 
-          }else{
-            count1=count1-1;
-          }
+        //   }else{
+        //     count1=count1-1;
+        //   }
      
-        }); 
+        // }); 
        
         count1=count1-1;
         
@@ -3374,6 +3390,39 @@ function signalHandler(uid, signalData, userType) {
         $(this).find('video').addClass('video-selected');
       }
     })
+
+    function sort_li(a, b) {
+      return parseInt($(b).attr('data-position')) < parseInt($(a).attr('data-position')) ? 1 : -1;
+    }
+    $('#online-user-list tr').sort(sort_li).appendTo('#online-user-list');
+
+
+    $('#attendy-list').on('shown.bs.modal', function () {
+          
+      channel.getMembers().then(membersList => {
+        let userList = getOrderUser();
+        $('#attendy-list').find('.user-status').attr('src', '/images/offline.png');
+        for(let i= 0; i < membersList.length; i++){
+          let eleId = convertEmailToId(membersList[i]);
+          $('#online-user-row-'+eleId).find('.user-status').attr('src', '/images/online.png');
+          if(userList != ''){
+            for(let j in userList){
+              if(userList[j].id == membersList[i]){
+
+                  $('#online-user-row-'+eleId).attr('data-position', userList[j].joinAt );
+                  break;
+              }
+            }
+          }
+          $('#online-user-list tr').sort(sort_li).appendTo('#online-user-list');
+          
+        }
+      }).catch(error => {
+        console.log('*************There is an error******');
+      });
+  })
+
+
   });
  
     

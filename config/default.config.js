@@ -10,7 +10,9 @@ let config = {
 		ftnsStop : { code : 212, 'message' : ''},		
 		ftnsPause : { code : 213, 'message' : ''},
 		WinsNext : { code : 214, 'message' : ''},
-		WinsPrev : { code : 215, 'message' : ''}
+		WinsPrev : { code : 215, 'message' : ''},
+		AttSelect : { code : 227, 'message' : ''}
+	
 	}
 };
 

@@ -114,20 +114,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
               console.log("GetUserMedia successfully");
               localStream.play('agora_local');
               
-              // if(storeData.userType == 1){
+              // call publish
+              publish();
 
-              //   client.publish(localStream, function (err) {
-              //     console.log("Publish local stream error: " + err);
-              //   });
-
-              //   client.on('stream-published', function (evt) {
-              //     console.log("Publish local stream successfully");
-              //   });
-
-              // } else {
-                publish();
-
-              // }
+              
             }, function (err) {
               console.log("getUserMedia failed", err);
             });
@@ -216,8 +206,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
         }, 10);
 
       } else {
-        
-          if(1 == getUserDataFromList(stream.getId(), 'userType')){
+          let subscribeUserId = getUserDataFromList(stream.getId(), 'userType');
+          if(1 == subscribeUserId){
 
             if ($('#agora_host #agora_remote'+stream.getId()).length === 0) {
               
@@ -247,6 +237,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       var storeData = getCurrentUserData();
       var stream = evt.stream;
       stream.stop();
+      // check user role and decrease number
       if(getUserDataFromList(stream.getId(), 'userType') == 2){
         if(totalBrodcaster > 0){
           totalBrodcaster--;
@@ -255,14 +246,21 @@ if(!AgoraRTC.checkSystemRequirements()) {
         }
         addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
         addUserAttribute(stream.getId(), 'isSubscribe', 0);
+        
+        // remove from audience list
         removeAudienceInList(stream.getId())
       }
-      
 
       $('#agora_remote' + stream.getId()).remove();
-      switchVideoSize();
+
+      // add stream after leaving current stream on hand raise event
       pushIntoSessionByHost();
+
+      // switch user every specific time duration
       switchAudienceToBroadcaster();
+
+      switchVideoSize();
+      
       console.log("Remote stream is removed " + stream.getId());
     });
 
@@ -743,7 +741,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
       function leave_channel() {
         console.log('============= channel leave ============');
-        channel.leave();
+        if(channel)
+          channel.leave();
        }
 
 
@@ -908,26 +907,28 @@ if(!AgoraRTC.checkSystemRequirements()) {
     setTimeout(function(){ console.log('%%%%%%%%%%%%%%%%%%%%');}, 1000);
 
     console.log(' @@@@@@@ totalBrodcaster @@@@@@@ ', totalBrodcaster, storeData.default.maxUserLimit);
-    let checkUser = false;
-    let isExists = false;
+    let checkUserTime = false;
+    let isUserExists = false;
+
     if(storeData.userType == 2){
 
+      // check time duration to be first screen users 
       let sessionTime = localStorage.getItem("pre-session-time");
       console.log('sessionTime sessionTime', sessionTime);
       if(sessionTime != null){
-          sessionTime = JSON.parse(sessionTime);
-          console.log('sessionTime sessionTime ====', (sessionTime.joinTime - sessionTime.startTime));
-          if((sessionTime.joinTime - sessionTime.startTime)/1000 <= storeData.default.maxJoinDuration ){
-            checkUser = true;
-          }
+        sessionTime = JSON.parse(sessionTime);
+        // console.log('sessionTime sessionTime ====', (sessionTime.joinTime - sessionTime.startTime));
+        if((sessionTime.joinTime - sessionTime.startTime)/1000 <= storeData.default.maxJoinDuration ){
+          checkUserTime = true;
+        }
       }
-      isExists = checkUserInOrder(storeData);
+      // check user exists in list of first order
+      isUserExists = checkUserInOrder(storeData);
     }
-    
-    console.log('checkUser , isExists', checkUser , isExists)
-    
+    console.log('checkUserTime , isUserExists', checkUserTime , isUserExists)    
 
-    if(storeData.userType == 1  || (storeData.userType == 2 && checkUser && isExists && totalBrodcaster < parseInt(storeData.default.maxUserLimit)) ) {
+    // host publish their stream always. check for particiepant
+    if(storeData.userType == 1  || (storeData.userType == 2 && checkUserTime && isUserExists && totalBrodcaster < parseInt(storeData.default.maxUserLimit)) ) {
         
       client.publish(localStream, function (err) {
         console.log("Publish local stream error: " + err);
@@ -2060,9 +2061,12 @@ function signalHandler(uid, signalData, userType) {
           if(broadcster.length > 0){
             
             for(let i in broadcster){
+              console.log('========== check 30 sec', broadcster[i])
               if(broadcster[i].email == dataObj.id){
+                console.log('========== check 30 sec in side', broadcster[i])
+
                 let tm =  (new Date()).getTime() - parseInt(broadcster[i].subscribeTime);
-                if((tm / 1000) > 30){
+                if((tm / 1000) >= 30){
                   rule = true
                 }
               }
@@ -2846,7 +2850,7 @@ function signalHandler(uid, signalData, userType) {
   
   function removeUserAttribute(id, key){
       let tempUsers = getTempUsers();
-      console.log('tempUsers =========== tempUsers', tempUsers)
+      console.log('remove =========== tempUsers', tempUsers)
       let newTempUsers = {};
       if(tempUsers != null){
         for(let i in tempUsers){

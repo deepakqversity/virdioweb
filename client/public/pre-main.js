@@ -274,7 +274,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       function joinChannel(){
 
         var resp_data = JSON.parse(localStorage.getItem("userData"));
-        console.log('-----------hhhhhhhhh-------------------', resp_data.userType);
+        console.log('-----------hhhhhhhhh-------------------', channelName1, resp_data.userType);
         if(resp_data.userType == 1)
         {     
           

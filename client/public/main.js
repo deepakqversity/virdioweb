@@ -249,15 +249,14 @@ if(!AgoraRTC.checkSystemRequirements()) {
         
         // remove from audience list
         removeAudienceInList(stream.getId())
+      } else {
+        // add stream after leaving current stream on hand raise event
+        pushIntoSessionByHost();
+        // switch user every specific time duration
+        switchAudienceToBroadcaster();
       }
 
       $('#agora_remote' + stream.getId()).remove();
-
-      // add stream after leaving current stream on hand raise event
-      pushIntoSessionByHost();
-
-      // switch user every specific time duration
-      switchAudienceToBroadcaster();
 
       switchVideoSize();
       
@@ -2737,7 +2736,7 @@ function signalHandler(uid, signalData, userType) {
     if(tempUsers != null){
       
       for(let i in tempUsers){
-        console.log('&&&&&&& 11111111', tempUsers[i], tempUsers[i].isSubscribe);
+        console.log('&&&&&&& 11111111', tempUsers[i]);
         if(tempUsers[i].hasOwnProperty('isSubscribe') && parseInt(tempUsers[i].isSubscribe) == 0){
           audience.push(tempUsers[i]);          
         }
@@ -2755,7 +2754,7 @@ function signalHandler(uid, signalData, userType) {
     if(tempUsers != null){
       
       for(let i in tempUsers){
-        console.log('&&&&&&& 22222222', tempUsers[i], tempUsers[i].isSubscribe);
+        console.log('&&&&&&& 22222222', tempUsers[i]);
         if(tempUsers[i].hasOwnProperty('isSubscribe') && parseInt(tempUsers[i].isSubscribe) == 1){
           broadcasters.push(tempUsers[i]);          
         }

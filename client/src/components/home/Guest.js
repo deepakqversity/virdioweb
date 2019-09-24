@@ -21,7 +21,7 @@ class Guest extends Component {
       sessionScript: 0,
       timerOn: false,
       timerStart: 0,
-      timerTime: 0
+      timerTime: 0,
     };
 
   }
@@ -112,7 +112,34 @@ class Guest extends Component {
     this.startTimer();
   }
 
+  
+  sessionTimer = () => {
+    
+    let storeData = JSON.parse(localStorage.getItem('userData'));
+    
+    
+    let countdown = storeData.sessionData.duration * 60;
+    console.log("cn------------"+countdown);
+    //console.log('attribute '+ $('.header svg circle').attr("style"));
+    $('.header svg circle').attr("style","animation-duration:"+countdown+"s !important");
+    console.log('attribute '+$('.header svg circle').attr("style"));
+    $('.header svg circle').css("stroke", "#9b51e0");
+    console.log('countdown ======= countdown start ----', countdown)
+    
+    
+    var resetCount1 = setInterval(function() {
+      if(countdown <= 0){
+        console.log('=========== **********', countdown)
+        $('.header svg circle').removeAttr("style");
+        clearInterval(resetCount1);
+      }
+      countdown--;
+    }, 1000);
+  };
+
   startTimer = () => {
+    console.log("hiiiiii")
+    console.log("hiiiiii" + this.state.timerTime);
     this.setState({
       timerOn: true,
       timerTime: this.state.timerTime,
@@ -120,6 +147,7 @@ class Guest extends Component {
     });
     this.timer = setInterval(() => {
       const newTime = this.state.timerTime - 10;
+      //console.log("hiiiiii" + this.state.timerTime)
       if (newTime >= 0) {
         this.setState({
           timerTime: newTime
@@ -127,9 +155,9 @@ class Guest extends Component {
       } else {
         clearInterval(this.timer);
         this.setState({ timerOn: false });
-        $('.countdown-timer').html('Session Started')
-        // window.sessionTimer();
-        //alert("Countdown ended");
+        $('.countdown-timer').html('Session Started');
+        alert("Countdown ended");
+        this.sessionTimer();
       }
     }, 10);
   };
@@ -177,9 +205,25 @@ return (
         <div className="col-lg-12 col-md-12">
           <div className="transparent-gray guest-screen">
             <div className="row">
-              <a href="" className="col-12 py-xs-1 col-lg-1 col-md-1 col-sm-12 d-flex v-logo align-items-center">
-                <img src="images/v-logo.png" />
-              </a>
+            <div className="col-12 col-md-1 ">
+              <div className="count-box position-relative countdown-logo">
+                <div className="countdown">
+                  <svg>
+                    <circle r="26" cx="30" cy="30"></circle>
+                  </svg>
+                  <a href="#" className="host-logo logo">
+                    <img src="images/v-logo.png" />
+                  </a>
+                </div>
+                
+              </div>
+              <div className="show-hide-v d-none">
+                <div>
+                  <a href="#" className="back-btn"><i className="fa fa-chevron-left" aria-hidden="true"></i></a>
+                  <img src="images/v-logo.png" />
+                </div>
+              </div>
+            </div>
               <div className="col-12 col-lg-11 col-md-11 col-sm-12">
               <h3 className="main-heading show-hide-title d-block">{sessionData.name} <span>by <span className="welcome-title">{sessionData.hostFirstName.toLowerCase()}</span><span className="green-online online-status"><span>ONLINE</span></span></span>
           
@@ -363,6 +407,7 @@ const toggleList = {
   width: '72px',
   float: 'right'
 }
+
 const videoAspect = {
   width: "235px",
   height: "132px",

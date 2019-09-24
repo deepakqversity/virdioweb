@@ -137,9 +137,17 @@ return (
                 </div> 
               </div>
               
-            </div>):( <div className="bg-gray position-relative top-rounded d-md-flex justify-content-between align-items-center px-3 py-3 add-remove-round">
+            </div>):( 
+            <div>
+<div className="animate-display bg-gray position-relative top-rounded d-md-flex justify-content-between align-items-center px-3 py-3 add-remove-round ">
+                  <h3 className="main-heading font-size-16">Fitness Script <span className="ml-md-4 font-size-16"><span id="fitness-counter">0</span>/{sessionScript.length} {localstoragedata.sessionData.scriptType}</span></h3>
+                  <a href="#" className=" mr-5 show-hide-script"><img src="images/showscript.png" /></a>
+                  
+                </div>
+            <div className="bg-gray bottom-rounded px-3 pb-2 item-description script-section mt--1 flex-grow-1">
                         <div className="h-100"></div>
                       </div> 
+              </div>
                     )}
 
             </div>

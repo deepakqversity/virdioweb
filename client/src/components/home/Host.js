@@ -98,6 +98,25 @@ class Host extends Component {
   componentWillMount(){
     this.startTimer();
   }
+  sessionTimer = () => {
+    
+    let storeData = JSON.parse(localStorage.getItem('userData'));
+    
+    
+    let countdown = storeData.sessionData.duration * 60;
+    $('.header svg circle').attr("style","animation-duration:"+countdown+"s !important");
+    $('.header svg circle').css("stroke", "#9b51e0");
+    console.log('countdown ======= countdown start ----', countdown)
+    
+    var resetCount1 = setInterval(function() {
+      if(countdown <= 0){
+        console.log('=========== **********', countdown)
+        $('.header svg circle').removeAttr("style");
+        clearInterval(resetCount1);
+      }
+      countdown--;
+    }, 1000);
+  };
 
   startTimer = () => {
     this.setState({
@@ -116,6 +135,7 @@ class Host extends Component {
         this.setState({ timerOn: false });
         $('.countdown-timer').html('Session Started');
         //alert("Countdown ended");
+        this.sessionTimer();
       }
     }, 10);
   };

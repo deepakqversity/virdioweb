@@ -1560,7 +1560,7 @@ function changeImage(){
     let storeData = getCurrentUserData();
     
     let countdown = storeData.sessionData.duration * 60;
-
+    //let countdown = 1 * 60;
     $('.header svg circle').attr("style","animation-duration:"+countdown+"s !important");
     console.log('countdown ======= countdown start ----', countdown)
     

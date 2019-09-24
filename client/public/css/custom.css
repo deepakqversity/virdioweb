@@ -1428,7 +1428,7 @@ position: absolute;
   stroke-dashoffset: 0px;
   stroke-linecap: round;
   stroke-width: 6px;
-  stroke: #9b51e0;
+  stroke: none;
   fill: none;
   animation: countdown 30s linear infinite forwards;
   animation-direction: reverse;

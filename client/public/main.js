@@ -242,14 +242,16 @@ if(!AgoraRTC.checkSystemRequirements()) {
         if(totalBrodcaster > 0){
           totalBrodcaster--;
           // remove id when unpublished
-          currentPublishedUser.splice(currentPublishedUser.indexOf(stream.getId()), 1); 
+          // currentPublishedUser.splice(currentPublishedUser.indexOf(stream.getId()), 1); 
         }
         addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
         addUserAttribute(stream.getId(), 'isSubscribe', 0);
         
         // remove from audience list
         removeAudienceInList(stream.getId())
-      } else {
+      }
+
+      if(storeData.userType == 1){
         // add stream after leaving current stream on hand raise event
         pushIntoSessionByHost();
         // switch user every specific time duration
@@ -1672,25 +1674,61 @@ function signalHandler(uid, signalData, userType) {
         messages=WinsPrevCode+sep+WinsPrevCounter;        
         sendMessageToChannel(channelName1,messages);
                 
-      }else if(resultant[0] == "227")
-      {
-        attendiesId=convertEmailToId(resultant[1]);
-        
-      }
+      } 
       else if(resultant[0] == "224")
       {
-        console.log('hi');
+
         $("#partlist").trigger('click');
+
       }
-      else if(resultant[0] == "242")
+      else if(resultant[0] == "227")
       {
-        
+
+        $("#subscribers-list .video-holder").trigger('click',"227");
+            
       }
-      else if(resultant[0] == "243")
+      else if(resultant[0] == "228")
       {
-        
+
+        $("#subscribers-list .video-holder").trigger('click',"228");
+            
+      }else if(resultant[0] == "229")
+      {
+
+        $("#subscribers-list .video-holder").trigger('click',"229");
+            
       }
-      
+      else if(resultant[0] == "230")
+      {
+
+        $("#subscribers-list .video-holder").trigger('click',"230");
+            
+      }
+      else if(resultant[0] == "231")
+      {
+
+        $("#subscribers-list .video-holder").trigger('click',"231");
+            
+      }
+      else if(resultant[0] == "232")
+      {
+
+        $("#subscribers-list .video-holder").trigger('click',"232");
+            
+      }
+      else if(resultant[0] == "233")
+      {
+ 
+        $("#subscribers-list .video-holder").trigger('click',"233");
+            
+      }
+      else if(resultant[0] == "234")
+      {
+       
+        $("#subscribers-list .video-holder").trigger('click',"234");
+            
+      }
+          
   } else { // Attendy
 
     
@@ -1986,7 +2024,7 @@ function signalHandler(uid, signalData, userType) {
 
                 let tm =  (new Date()).getTime() - parseInt(broadcster[i].subscribeTime);
                 if((tm / 1000) >= 30){
-                  rule = true
+                  rule = true;
                 }
               }
             }
@@ -2282,37 +2320,6 @@ function signalHandler(uid, signalData, userType) {
       function incrementcountAtHost(signalData,userType)
       {  
 
-      //  addUserAttribute(convertEmailToId(memberId), 'currentStatus', 1);
-
-        console.log('MemberJoined ================MemberJoined ');
-        $('#online-user-row-'+convertEmailToId(signalData.member)).find('.user-status').attr('src', '/images/online.png');
-        let userList = getOrderUser()
-
-        if(userList != ''){
-          for(let j in userList){
-            if(userList[j].id == signalData.member){
-
-                $('#online-user-row-'+convertEmailToId(signalData.member)).attr('data-position', userList[j].joinAt );
-                break;
-            }
-          }
-        }
-        function sort_li(a, b) {
-          return parseInt($(b).attr('data-position')) < parseInt($(a).attr('data-position')) ? 1 : -1;
-        }
-        $('#online-user-list tr').sort(sort_li).appendTo('#online-user-list');
-
-        console.log('memberId============', signalData.member)
-        if(storeData.userType == 1){
-          if( $('#joinee-' + convertEmailToId(signalData.member)).length == 0 ){
-            removeFromFirst();
-            $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(signalData.member)+'"><img src="'+getUserDataFromList(signalData.member, 'image')+'" />'+getUserDataFromList(signalData.member, 'firstName')+', '+getUserDataFromList(signalData.member, 'city')+'</span>');
-            totalChannelMembers();
-          }
-        }
-
-        
-
         console.log('********munmunHost222222222************** signalData ', signalData, userType);
         let count=$('#joined_users').html();
 
@@ -2435,6 +2442,35 @@ function signalHandler(uid, signalData, userType) {
           $('#joined_users').empty(); 
           $('#joined_users').html(count1);
        
+       }
+
+
+      // addUserAttribute(convertEmailToId(memberId), 'currentStatus', 1);
+
+       $('#online-user-row-'+convertEmailToId(signalData.member)).find('.user-status').attr('src', '/images/online.png');
+       let userList = getOrderUser()
+
+       if(userList != ''){
+         for(let j in userList){
+           if(userList[j].id == signalData.member){
+
+               $('#online-user-row-'+convertEmailToId(signalData.member)).attr('data-position', userList[j].joinAt );
+               break;
+           }
+         }
+       }
+       function sort_li(a, b) {
+         return parseInt($(b).attr('data-position')) < parseInt($(a).attr('data-position')) ? 1 : -1;
+       }
+       $('#online-user-list tr').sort(sort_li).appendTo('#online-user-list');
+
+       console.log('memberId============', signalData.member)
+       if(storeData.userType == 1){
+         if( $('#joinee-' + convertEmailToId(signalData.member)).length == 0 ){
+           removeFromFirst();
+           $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(signalData.member)+'"><img src="'+getUserDataFromList(signalData.member, 'image')+'" />'+getUserDataFromList(signalData.member, 'firstName')+', '+getUserDataFromList(signalData.member, 'city')+'</span>');
+           totalChannelMembers();
+         }
        }
 
 
@@ -2805,7 +2841,6 @@ function signalHandler(uid, signalData, userType) {
   }
   
       $(document).ready(function(){
-
 
         // switchUsers();
 
@@ -3240,7 +3275,7 @@ function signalHandler(uid, signalData, userType) {
 
 
                   $( '#newhtt').bind( "click", function(event) {
-                    let message = "224"+sep;
+                    let message = "227"+sep;
                     let attendiesID='arjun.rishi@virdio.com'
                     sendMessage(attendiesID, message);
                       });     
@@ -3307,8 +3342,93 @@ function signalHandler(uid, signalData, userType) {
       });
     
     //
-    $(document).on('click', '#subscribers-list .video-holder', function(){
+    $(document).on('click', '#subscribers-list .video-holder ', function(event,param){
+console.log('----------param1-------------',param);
 
+    if(param == 227)
+    {
+      let id = $(this).attr('id');
+      if($(this).find('video:first').hasClass('video-selected')){
+        $('#selected-participent-id').val('');
+        $(this).find('video:first').removeClass('video-selected');
+      } else {
+        $('#selected-participent-id').val( id );
+        $(this).find('video:first').addClass('video-selected');
+      }
+    }
+    else if(param == 228)
+    {
+      let id = $(this).attr('id');
+      if($(this).find('video:nth-child(2)').hasClass('video-selected')){
+        $('#selected-participent-id').val('');
+        $(this).find('video:nth-child(2)').removeClass('video-selected');
+      } else {
+        $('#selected-participent-id').val( id );
+        $(this).find('video:nth-child(2)').addClass('video-selected');
+      }
+    } else if(param == 229)
+    {
+      let id = $(this).attr('id');
+      if($(this).find('video:nth-child(3)').hasClass('video-selected')){
+        $('#selected-participent-id').val('');
+        $(this).find('video:nth-child(3)').removeClass('video-selected');
+      } else {
+        $('#selected-participent-id').val( id );
+        $(this).find('video:nth-child(3)').addClass('video-selected');
+      }
+    }else if(param == 230)
+    {
+      let id = $(this).attr('id');
+      if($(this).find('video:nth-child(4)').hasClass('video-selected')){
+        $('#selected-participent-id').val('');
+        $(this).find('video:nth-child(4)').removeClass('video-selected');
+      } else {
+        $('#selected-participent-id').val( id );
+        $(this).find('video:nth-child(4)').addClass('video-selected');
+      }
+    }else if(param == 231)
+    {
+      let id = $(this).attr('id');
+      if($(this).find('video:nth-child(5)').hasClass('video-selected')){
+        $('#selected-participent-id').val('');
+        $(this).find('video:nth-child(5)').removeClass('video-selected');
+      } else {
+        $('#selected-participent-id').val( id );
+        $(this).find('video:nth-child(5)').addClass('video-selected');
+      }
+    }else if(param == 232)
+    {
+      let id = $(this).attr('id');
+      if($(this).find('video:nth-child(6)').hasClass('video-selected')){
+        $('#selected-participent-id').val('');
+        $(this).find('video:nth-child(6)').removeClass('video-selected');
+      } else {
+        $('#selected-participent-id').val( id );
+        $(this).find('video:nth-child(6)').addClass('video-selected');
+      }
+    }else if(param == 233)
+    {
+      let id = $(this).attr('id');
+      if($(this).find('video:nth-child(7)').hasClass('video-selected')){
+        $('#selected-participent-id').val('');
+        $(this).find('video:nth-child(7)').removeClass('video-selected');
+      } else {
+        $('#selected-participent-id').val( id );
+        $(this).find('video:nth-child(7)').addClass('video-selected');
+      }
+    }else if(param == 234)
+    {
+      let id = $(this).attr('id');
+      if($(this).find('video:nth-child(7)').hasClass('video-selected')){
+        $('#selected-participent-id').val('');
+        $(this).find('video:nth-child(7)').removeClass('video-selected');
+      } else {
+        $('#selected-participent-id').val( id );
+        $(this).find('video:nth-child(7)').addClass('video-selected');
+      }
+    }
+    else
+    {
       let id = $(this).attr('id');
       if($(this).find('video').hasClass('video-selected')){
         $('#selected-participent-id').val('');
@@ -3317,6 +3437,7 @@ function signalHandler(uid, signalData, userType) {
         $('#selected-participent-id').val( id );
         $(this).find('video').addClass('video-selected');
       }
+    }
     })
 
     function sort_li(a, b) {

@@ -1761,9 +1761,10 @@ function signalHandler(uid, signalData, userType) {
         attendiesId=convertEmailToId(resultant[1]);
         
       }
-      else if(resultant[0] == "241")
+      else if(resultant[0] == "224")
       {
-        
+        console.log('hi');
+        $("#partlist").trigger('click');
       }
       else if(resultant[0] == "242")
       {
@@ -3316,6 +3317,13 @@ function signalHandler(uid, signalData, userType) {
                           messages="202"+sep+"palate4";
                           sendMessageToChannel(channelName1,messages);
                             });
+
+
+                  $( '#newhtt').bind( "click", function(event) {
+                    let message = "224"+sep;
+                    let attendiesID='arjun.rishi@virdio.com'
+                    sendMessage(attendiesID, message);
+                      });     
 
 
       $( '#score_button' ).bind( "click", function(event) {

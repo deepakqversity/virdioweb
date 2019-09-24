@@ -96,6 +96,22 @@ if(!AgoraRTC.checkSystemRequirements()) {
     localStorage.setItem("rtm-join-order", JSON.stringify(orderList));
   }
 
+  function removeFromRtmOrder(memberId){
+
+      let strArray = localStorage.getItem("rtm-join-order");
+      let orderList = [];
+      if(strArray != null){
+        strArray = JSON.parse(strArray);
+        for(let i in strArray){
+          if(strArray[i].id != memberId){
+            orderList.push(strArray[i]);
+          }
+        }
+      }
+
+      localStorage.setItem("rtm-join-order", JSON.stringify(orderList));
+  }
+
   function getRtmJoinOrder(){
 
   }
@@ -215,6 +231,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
        channel.on('MemberLeft', memberId => { 
         
         addUserAttribute(convertEmailToId(memberId), 'currentStatus', 0);
+        removeFromRtmOrder(memberId);
 
         var massages="208"+sep+memberId+sep+"left"+sep;  
         channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"left"}), storeData.userType);
@@ -274,7 +291,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       function joinChannel(){
 
         var resp_data = JSON.parse(localStorage.getItem("userData"));
-        console.log('-----------hhhhhhhhh-------------------', resp_data.userType);
+        console.log('-----------hhhhhhhhh-------------------', channelName1, resp_data.userType);
         if(resp_data.userType == 1)
         {     
           

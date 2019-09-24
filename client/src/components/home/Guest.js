@@ -180,7 +180,7 @@ return (
           
           </h3>
                 <div className="row justify-content-between align-items-center">
-                  <div className="col-12 col-lg-7 col-md-6 text-center text-md-left col-sm-12">
+                  <div className="col-12 col-lg-9 col-md-6 text-center text-md-left col-sm-12">
                     <div className="time py-xs-1">  <span>{localDate}</span>
                     <span className="countdown-timer">Time Remaining: {hours} : {minutes} : {seconds}</span>
                     </div>

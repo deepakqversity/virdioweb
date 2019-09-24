@@ -2949,9 +2949,10 @@ function signalHandler(uid, signalData, userType) {
     $("#agora_local video").height(`${agoraLocal / 1.778 }px`);
 
 
-    $("body, div").bind('mousewheel', function() {
-      return false
-    });
+    //$("body, div").bind('mousewheel', function() {
+      //return false
+    //});
+    
 
     $(document).on('click', ".eject-popup button", function(){
       $(this).closest(".video-holder").removeClass("popup-added");

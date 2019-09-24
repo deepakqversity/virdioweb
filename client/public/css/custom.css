@@ -158,6 +158,12 @@ img{
 a.bg-primary:hover, a.bg-primary:focus, button.bg-primary:hover, button.bg-primary:focus {
     background-color: #9b51e0 !important;
 }
+.text-red{
+	color:red;
+}
+.text-green{
+	color:#6DD400;
+}
 .btn-primary:hover {
     color: #fff;
     background-color: #9b51e0;
@@ -246,6 +252,9 @@ h3.main-heading span{
 h3.main-heading span.online-status{
 	    top: -5px;
 }
+.popup-heading .online-status{
+	top:-5px;
+}
 span.online-status{
 	    top: -5px;
 }
@@ -261,7 +270,7 @@ text-overflow: ellipsis;
 }
 h3.main-heading span span span {
     font-size: 12px;
-    margin-left: 35px;
+    margin-left: 21px;
     position: relative;
 }
 .header .online-status span::after{
@@ -373,6 +382,9 @@ h3.main-heading span span span {
 	}
 }
 .font-size-16{
+	font-size:16px !important;
+}
+.font-size-16 span{
 	font-size:16px !important;
 }
 .flex-direction-column{
@@ -1084,12 +1096,12 @@ display:none;
 
 
 .content-scroll::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  background: #f1f1f1; width: 10px;
 }
  
 
 .content-scroll::-webkit-scrollbar-thumb {
-  background: #888; 
+  background: #888; width: 10px;
 }
 
 .content-scroll::-webkit-scrollbar-thumb:hover {
@@ -1147,7 +1159,11 @@ display:none;
 	width: 25px;
     
 }
-.move-list{
+.open-list img{
+	width: 25px;
+    
+}
+.move-list, .open-list{
 	margin: 0 14px 0 20px;
 }
 
@@ -1305,6 +1321,12 @@ position: absolute;
 }
 .target-read{
 	color:#fff;
+}
+.target-label{
+	position: absolute;
+    left: -52px;
+    z-index: 9;
+    color: #9B51E0;
 }
 .target-read:before{
 	content: "\f0d9";
@@ -1798,7 +1820,8 @@ img.user-login{
     background-color: #2c1344;
     border-radius: 10px;
 	position: relative;
-	    overflow: hidden;
+	    margin-left: 8px;
+    margin-top: 10px;
 		font-family:Avenir-Medium;
 }
 .bpm-bar .skills{
@@ -1859,6 +1882,8 @@ img.user-login{
     z-index: 3;
     color: rgba(255,255,255,0.8);
 	font-family:Avenir-Medium;
+	text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 
@@ -1907,6 +1932,7 @@ img.user-login{
 }
 .prescreen-popup .session-logo img{
 	margin:auto;
+	    padding: 0 10px;
 }
 .prescreen-popup .participant-status{
     width: 250px;
@@ -1936,12 +1962,13 @@ img.user-login{
 	width:90%;
 	max-width:90%;
 }
-.prescreen-popup .popup-heading span{
+.prescreen-popup .popup-heading>span{
 	    color: #D8D8D8;
     font-size: 16px;
     margin-left: 20px;
 	    position: relative;
 }
+
 .prescreen-popup .countdown-timer{
 	    color: #fff;
     font-size: 27px;
@@ -2002,8 +2029,10 @@ img.user-login{
 .prescreen-popup .online-status{
 	font-size:12px !important;
 	padding-left: 15px;
+	margin-left: 6px !important;
 }
-.prescreen-popup .online-status::after, .header .online-status span::after{
+.prescreen-popup .online-status::after, 
+.header .online-status span::after{
 	content: '';
     width: 10px;
     height: 10px;
@@ -2160,6 +2189,17 @@ display: inline-block;
     border-color: rgba(189,0,255, 0.53) !important;
     font-size: 22px;
     font-family: Avenir-Black;
+	padding-bottom: 0.4rem !important;
+    padding-top: 0.4rem !important
+}
+.w110{
+	width:110px !important;
+	
+}
+.btn-leave{
+	font-size: 20px;
+	padding-bottom: 0.4rem !important;
+    padding-top: 0.4rem !important
 }
 .btn-join:disabled{
 	opacity:0.6;
@@ -2891,7 +2931,9 @@ float: left;
 
 .prevent-click{position: absolute; height: 100%; width: 100%; left: 0; top:0; z-index: 9;}
 
-
+#exptn-errors{
+	display:none !important;
+}
 
 
 

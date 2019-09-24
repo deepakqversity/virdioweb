@@ -268,7 +268,7 @@ render() {
           <th scope="row"><img src={image} /></th>
           <td className="text-left"><span className="welcome-title">{firstName.toLowerCase()} {lastName != null ? lastName.toLowerCase() : ''} {city != null ? ', '+city.toLowerCase() : ''}</span></td>
           <td><img className="mr-2 user-status" src="/images/offline.png" />online</td>
-          <td>YES</td>
+          <td><i className="fa fa-check text-green"></i><i className="fa fa-times text-red d-none"></i></td>
           <td>5</td>
           </tr>
         );
@@ -318,7 +318,7 @@ render() {
                 <div className="row">
                   <div className="col-lg-8">
                     <h4 className="small-heading">Your Upcoming Session</h4>
-                    <h3 className="popup-heading">{sessionData.name}<span>by <label className="welcome-title">{sessionData.hostFirstName.toLowerCase()}</label></span><span className="green-online online-status" id="online_state">ONLINE</span></h3>
+                    <h3 className="popup-heading">{sessionData.name}<span>by <label className="welcome-title">{sessionData.hostFirstName.toLowerCase()}</label></span><span className="green-online online-status" id="online_state"><span>ONLINE</span></span></h3>
                     <div className="time py-xs-1">  
                       <span className="no-border">{localDate}</span>
                     </div>
@@ -409,7 +409,7 @@ render() {
             <input type="checkbox" id="set-default" /><label htmlFor="set-default">Save as Default Setting</label>
             </div> */}
              
-              <div className="col-lg-9">
+              <div className="col-lg-8">
               <span id='newmsg' style={{color:'green'}}></span>
                 <h6 className="small-heading mb-3 no-border">Joined</h6>
                 <div className="">
@@ -423,22 +423,22 @@ render() {
                 </div>
 
               </div>
-              <div className="col-lg-3">
+              <div className="col-lg-4">
                 <div className="d-flex justify-content-end flex-wrap">
 
-                  <button type="submit" className="mr-2 btn-cancel btn btn-large btn-outline-secondary rounded py-1 px-3" onClick={this.callfunction.bind(this)} >Leave</button>
+                  <button type="submit" className="w110 mr-4 btn-cancel btn btn-large btn-leave btn-outline-secondary rounded py-1 px-4" onClick={this.callfunction.bind(this)} >Leave</button>
                   {(
                     ()=>{
                         if(localstoragedata.userType == 1) {
-                          return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
+                          return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-4 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
                         } else {
 
                           if(this.state.isHostJoined == false)
                           {
-                            return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)} disabled>Join</button>;
+                            return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)} disabled>Join</button>;
                           }else
                           {
-                            return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
+                            return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
                           }
                         }
                     }

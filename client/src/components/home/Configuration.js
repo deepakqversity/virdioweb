@@ -124,7 +124,7 @@ render() {
       <td>{name}</td>
       <td>{email}</td>
       <td><img className="mr-2" src="/images/online.png" />online</td>
-      <td>YES</td>
+      <td><i className="fa fa-check text-green"></i><i className="fa fa-times text-red d-none"></i></td>
       <td>5</td>
     </tr>
     );

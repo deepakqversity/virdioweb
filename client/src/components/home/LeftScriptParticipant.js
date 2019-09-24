@@ -35,9 +35,9 @@ return (
   sessionScript.map((opt, i) =>
             <div className="carousel-item" key={i}>
             <div className="left-section">
-            <h2 className="item-name py-3"><span className="ml-md-4 font-size-16 "><span className="fitness-counter1">{i+1}</span>/{sessionScript.length} {sessionData.scriptType}</span></h2>
+            <h2 className="item-name text-right"><span className="ml-md-4 font-size-16 "><span className="fitness-counter1">{i+1}</span>/{sessionScript.length} {sessionData.scriptType}</span></h2>
                 {/* <h2 className="item-name py-3">{sessionData.scriptTitle}  {sessionData.scriptType}</h2> */}
-                <h3 className="second-heading my-3">{opt.name}</h3>
+                <h3 className="second-heading my-2">{opt.name}</h3>
                 <div className="video-holder">
                   <img src="images/Rectangle.png" />
                 </div>
@@ -75,12 +75,12 @@ return (
     ) : (
       this.props.sessId == 2 ? (
       <div className="h-100 col-lg-1 col-md-1 col-sm-1 col-1 max-width-300 d-flex">
-        <div className="left-section mt-3">
+        <div className="left-section mt-3 ml-4">
           <div className="bpm-bar">
             <span className="pop-text">Your BPM</span>
             <div className="readings">
               <span>20</span><span>40</span><span>60</span><span>80</span><span>100</span><span>120</span><span>140</span>
-              <span>160</span><span className="target-read">180</span><span>200</span><span>220</span>
+              <span>160</span><span className="target-read"><span className="target-label">TARGET</span>180</span><span>200</span><span>220</span>
             </div>
             <div className="skills bpm">153</div>
           </div>

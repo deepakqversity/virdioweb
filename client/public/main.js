@@ -2840,6 +2840,8 @@ function signalHandler(uid, signalData, userType) {
     $('#exptn-errors').html('<pre>'+err+'</pre>');
   }
   
+
+
       $(document).ready(function(){
 
         // switchUsers();
@@ -2857,7 +2859,7 @@ function signalHandler(uid, signalData, userType) {
               showHandAtHost();
             }
         });
-        onPageResize();
+        
         changeImage();
 
       
@@ -3535,3 +3537,7 @@ console.log('----------param1-------------',param);
       $('#agora_remote'+id).find('.mute-unmute .fa').addClass('fa-volume-off');
 
   }
+
+  $(document).ready(function() {
+    onPageResize();
+});

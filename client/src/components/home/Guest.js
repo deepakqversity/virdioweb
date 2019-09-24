@@ -138,8 +138,6 @@ class Guest extends Component {
   };
 
   startTimer = () => {
-    console.log("hiiiiii")
-    console.log("hiiiiii" + this.state.timerTime);
     this.setState({
       timerOn: true,
       timerTime: this.state.timerTime,
@@ -147,7 +145,6 @@ class Guest extends Component {
     });
     this.timer = setInterval(() => {
       const newTime = this.state.timerTime - 10;
-      //console.log("hiiiiii" + this.state.timerTime)
       if (newTime >= 0) {
         this.setState({
           timerTime: newTime
@@ -156,7 +153,7 @@ class Guest extends Component {
         clearInterval(this.timer);
         this.setState({ timerOn: false });
         $('.countdown-timer').html('Session Started');
-        alert("Countdown ended");
+        // console.log("Countdown ended");
         this.sessionTimer();
       }
     }, 10);

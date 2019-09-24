@@ -56,6 +56,11 @@ class Guest extends Component {
   }
 
 
+  showpart = e => {
+    $('#newhtt').trigger('click');
+  }
+
+
   loadScript = function (src) {
     var tag = document.createElement('script');
     tag.async = false;
@@ -189,7 +194,8 @@ return (
                   
                   <div className="col-12 center-mob col-sm-12 col-md-6 col-lg-3 d-flex justify-content-end">
                   
-                    <a className="col-2 justify-content-end d-flex align-items-center" href="#" className="btn btn-primary " tabIndex="1">Details</a>
+                    {/* <a className="col-2 justify-content-end d-flex align-items-center" href="#" className="btn btn-primary "  onClick={this.showpart.bind(this)} tabIndex="1">Details</a> */}
+                    <a className="col-2 justify-content-end d-flex align-items-center" href="#" className="btn btn-primary "   tabIndex="1">Details</a>
                     <div className="default-btns mr-2">
                       <a href="#" className="btn btn-primary ml-2" id="mocrophone-off" onClick={this.handRaise.bind(this)} alt="Microphone" title="Microphone Off"><img src="images/hand.png" /></a>
                       <a href="#" className="btn btn-primary ml-2 d-none" id="mocrophone-on" alt="Microphone" title="Microphone On"><i className="fa fa-microphone"></i></a>

@@ -2008,13 +2008,13 @@ function signalHandler(uid, signalData, userType) {
 
       // check current user in mute state
       if(vdo != undefined && vdo.muted){
-
         let selectedParticipentId = $('#selected-participent-id').val();
+        console.log('selectedParticipentId , id', id, selectedParticipentId)
         if(id != selectedParticipentId){
           rule = true;
         }
 
-        if(!rule){
+        if(rule == false){
           let broadcster = getAllBroadcster();
           if(broadcster.length > 0){
             
@@ -2791,7 +2791,7 @@ function signalHandler(uid, signalData, userType) {
     if(tempUsers != null){
       
       for(let i in tempUsers){
-        console.log('&&&&&&& 22222222', tempUsers[i]);
+        // console.log('&&&&&&& 22222222', tempUsers[i]);
         if(tempUsers[i].hasOwnProperty('isSubscribe') && parseInt(tempUsers[i].isSubscribe) == 1){
           broadcasters.push(tempUsers[i]);          
         }

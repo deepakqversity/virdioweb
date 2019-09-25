@@ -254,7 +254,7 @@ return (
             </div> */}
              
               <div className="col-lg-9">
-              <span id='newmsg' style={{color:'green'}}></span>
+              {/* <span id='newmsg' style={{color:'green'}}></span> */}
                 <h6 className="small-heading mb-3 no-border">Just joined</h6>
                 <div className="d-none">
                   <div className="joiners d-flex flex-wrap">

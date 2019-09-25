@@ -1118,7 +1118,7 @@ display:none;
     margin: auto;
     right: 0;
 	    display: flex;
-    
+    z-index:9;
 	
 }
 .host-local{
@@ -1225,11 +1225,7 @@ display:none;
   background: #9b51e0; 
 }
 @media (min-width:1110px){
-.max-h200::-webkit-scrollbar-track, 
-.max-h200::-webkit-scrollbar, .max-h200::-webkit-scrollbar-thumb {
-	display:none !important;
-	width: 0 !important
-}
+
 }
 .sub-heading{
     font-family: Avenir-Heavy;
@@ -1400,7 +1396,7 @@ position: absolute;
     margin-bottom: 15px;
     font-family: Avenir-Medium;
 }
-.start span a{
+.start span a, .end span a{
 	color: #fff;
     text-align: center;
     display: flex;
@@ -1450,7 +1446,7 @@ position: absolute;
     
 }
 .swiper-fitness-container{
-	    height: 150px;
+	    height: 175px;
     overflow: hidden;
 }
 .footer-fitness-script .fitness-guest .swiper-slide-next .count-timer{
@@ -1565,15 +1561,15 @@ position: absolute;
 	}
 }
 
-.swiper-guest.start{
-	    background: transparent;
+.swiper-guest.start, .swiper-guest.end{
+	background: transparent;
     border: 0 !important;
 	
 }
 .swiper-guest.start{
 	
 }
-.swiper-guest.start span a{
+.swiper-guest.start span a, .swiper-guest.end span a{
 	width: 60px;
     height: 60px;
     border: 6px solid #484848 !important;
@@ -1581,7 +1577,10 @@ position: absolute;
     font-family: Avenir-Medium;
     font-size: 9px;
 }
-.swiper-guest.start.swiper-slide-next span a{
+.swiper-guest.end span a{
+	margin: auto;
+}
+.swiper-guest.start.swiper-slide-next span a, .swiper-guest.end.swiper-slide-next span a{
 	width: 100px;
     height: 100px;
     border: 6px solid #9B51E0 !important;
@@ -1589,8 +1588,11 @@ position: absolute;
     font-family: Avenir-Medium;
     font-size: 18px;
 }
-.swiper-guest.start span{
+.swiper-guest.start span, .swiper-guest.end span{
 	width:110px !important;
+}
+.swiper-guest.end span{
+	    margin: auto;
 }
 .fitness-guest .swiper-slide{
 	display: flex;
@@ -1602,17 +1604,32 @@ position: absolute;
 }
 .fitness-guest .swiper-slide img.arrow-image{
 	position: absolute;
-    left: -56px;
-	width:125px;
+    left: -87px;
+    width: 169px;
 }
-.fitness-guest .swiper-slide:nth-child(4) img.arrow-image, 
-.fitness-guest .swiper-slide.swiper-slide-active img.arrow-image{
+.play-pause-btn{
+	position: absolute;
+    right: 90px;
+	top:13px;
+}
+.play-pause-btn img, .stop-btn img{
+	width:24px;
+}
+.stop-btn{
+	position: absolute;
+    right: 10px;
+	top:13px;
+}
+
+.fitness-guest .swiper-slide img.arrow-image{
 	display:none;
 }
+
 .fitness-guest .count-timer{
 	box-shadow: inset 0 0px 0px 6px #484848;
 }
-.swiper-slide.swiper-slide-next + .swiper-slide img.arrow-image, 
+.swiper-slide.swiper-slide-next + .swiper-slide img.arrow-image,
+.swiper-slide:nth-child(3) img.arrow-image, 
 .fitness-guest .swiper-slide.swiper-slide-next img.arrow-image{
 	display:block;
 }
@@ -2028,7 +2045,7 @@ img.user-login{
 	    float: right;
 }
 .count-timer{
-	    position: relative;
+	position: relative;
     margin: auto;
     margin-top: 10px;
     margin-bottom: 20px;
@@ -2041,14 +2058,18 @@ img.user-login{
     box-shadow: inset 0 0px 0px 4px #484848;
 }
 .count-timer h4{
-	    font-family: Avenir-Book;
+	font-family: Avenir-Book;
     color: rgba(255,255,255,0.5);
     font-weight: normal;
     font-size: 18px;
     text-align: center;
+    margin-top: 10px;
+	width: 100px;
     position: absolute;
-    bottom: -38px;
-    width: 100%;
+    left: -20px;
+}
+.footer-fitness-script .swiper-slide.swiper-slide-next .count-timer h4{
+	font-size:15px;
 }
 .prescreen-popup .signup-total, .prescreen-popup .online-total{
     color: #fff;

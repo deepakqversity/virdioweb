@@ -1633,7 +1633,7 @@ function signalHandler(uid, signalData, userType) {
         console.log('********ppppp************ resultant', joinDateTime,uid);
         let message="Welcome  Host, " + getUserDataFromList(uid, 'firstName') + " has already joined   ";
         
-        $('#newmsg').html(message);
+        //$('#newmsg').html(message);
        // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
        addRtmJoinOrder(uid, resultant[1]);
       } else if(resultant[0] == '211') {        
@@ -1766,7 +1766,7 @@ function signalHandler(uid, signalData, userType) {
    
       let message="Welcome  User, " + getUserDataFromList(uid, 'firstName') + " has already joined ";
       
-      $('#newmsg').html(message);
+      //$('#newmsg').html(message);
      // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
       addRtmJoinOrder(uid, resultant[1]);
     }
@@ -1817,7 +1817,7 @@ function signalHandler(uid, signalData, userType) {
         // {
         addRtmJoinOrder(senderId, newDateFormat(res1[1]));
         let message="User "+senderId+" has joined on  "+ res1[1];
-        $('#newmsg').html(message);
+        //$('#newmsg').html(message);
 
         console.log('********Deepak************** signalData ', senderId);
         let rtmJoinOrder = JSON.parse(localStorage.getItem("rtm-join-order"));
@@ -1845,7 +1845,7 @@ function signalHandler(uid, signalData, userType) {
       {
       //  $('#continue-join').removeAttr("disabled");
         let newmsg="Now U can Join";
-        $('#newmsg').html(newmsg);
+        //$('#newmsg').html(newmsg);
         setTimeout(function(){ $('#newmsg').html(''); }, 10000);    
       }else if(res1[0] == "202")
       {
@@ -2855,6 +2855,22 @@ function signalHandler(uid, signalData, userType) {
           }
       }
 
+
+      function totalChannelMembers(){
+        console.log('%%%%%%%%%%%%%%%%%%%%%%',channel.getMembers());
+        let localData = getCurrentUserData();
+        channel.getMembers().then(membersList => {
+            let totMember = membersList.length -1;
+            console.log('totMember-----------', totMember)
+            let maxUserLimit = localData.default.preScreenUserLimit;
+            console.log('totMember-----------', totMember,maxUserLimit)
+            $('#total-joinees').html(totMember > maxUserLimit ? `+${maxUserLimit} more` : '');
+            
+          }).catch(error => {
+            console.log('*************There is an error******');
+          });
+      }
+
       $(document).ready(function(){
 
         switchUsers();
@@ -2933,7 +2949,10 @@ function signalHandler(uid, signalData, userType) {
     });
 
     $(".show-hide-script").click(function(){
-      
+      //var scriptHeight = $(".script-section").height();
+      //if(scriptHeight < 210){
+        //$(".script-section").height("500px");
+      //}
       //$(this).text($(this).text() == '"Hide Script"' ? '"Show Script"' : '"Hide Script"');
       showHideScript();
       //$(".add-remove-flex").removeClass( ? '" "' : '"flex-grow-1"');
@@ -2941,6 +2960,8 @@ function signalHandler(uid, signalData, userType) {
       $(".script-section").slideToggle();
       
     });
+
+
 
     $(".host-script-section").height("255px");
     $(".host-section").css({"min-width": "380px", "max-width": "380px"});

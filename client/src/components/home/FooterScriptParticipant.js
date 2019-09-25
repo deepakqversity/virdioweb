@@ -203,6 +203,7 @@ console.log('sessionScript=', sessionScript)
                       <span>
                         <a href="#">End</a>
                       </span>
+                      <img src="images/arrow-img.png" className="arrow-image" />
                     </div>
               </div>
             </div>

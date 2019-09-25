@@ -2850,6 +2850,22 @@ function signalHandler(uid, signalData, userType) {
           }
       }
 
+
+      function totalChannelMembers(){
+        console.log('%%%%%%%%%%%%%%%%%%%%%%',channel.getMembers());
+        let localData = getCurrentUserData();
+        channel.getMembers().then(membersList => {
+            let totMember = membersList.length -1;
+            console.log('totMember-----------', totMember)
+            let maxUserLimit = localData.default.preScreenUserLimit;
+            console.log('totMember-----------', totMember,maxUserLimit)
+            $('#total-joinees').html(totMember > maxUserLimit ? `+${maxUserLimit} more` : '');
+            
+          }).catch(error => {
+            console.log('*************There is an error******');
+          });
+      }
+
       $(document).ready(function(){
 
         switchUsers();

@@ -1118,7 +1118,7 @@ display:none;
     margin: auto;
     right: 0;
 	    display: flex;
-    
+    z-index:9;
 	
 }
 .host-local{

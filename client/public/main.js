@@ -1513,50 +1513,55 @@ function changeImage(){
     localStorage.removeItem("channel");
     localStorage.removeItem("allloginuser");
   }
-  var resetCount = '';
+  // var resetCount = '';
   var countdown = 0;
 
   function countDown(){
     
-    // let disCtr = 0;
-    // if($('#fitness-counter').length > 0){
+    let disCtr = 0;
+    if($('#fitness-counter').length > 0){
 
-    //   disCtr = $('#fitness-counter').html();
-    //   disCtr = disCtr == '' ? 0 : parseInt(disCtr);
-    //   disCtr++;
-    //   $('#fitness-counter').html(disCtr);
-    // }
+      disCtr = $('#fitness-counter').html();
+      disCtr = disCtr == '' ? 0 : parseInt(disCtr);
+      disCtr++;
+      $('#fitness-counter').html(disCtr);
+    }
 
     let activeEle = $('.swiper-slide.swiper-slide-next');
     var countdownNumberEl = activeEle.find('.countdown-number');
     
+    var indexNum = parseInt(activeEle.find('.data-slide').attr('data-index'));
+
     // var countdown = 30;
     countdown = parseInt(countdownNumberEl.html());
     activeEle.find('svg circle').attr("style","animation-duration:"+countdown+"s !important");
     // countdownNumberEl.html(countdown + '\ SEC') ;
     
-    console.log('countdown ======= countdown start ----', countdown)
-    
-    var resetCount = setInterval(function() {
+    // console.log('countdown ======= countdown start ----', countdown)
+    var ctrflag = 0;
+    let resetCount = setInterval(function() {
       // countdown = countdown;
       countdown--;
-
-      console.log('countdown ======= countdown----', countdown)
+      // console.log('countdown ======= countdown----', countdown, $('.swiper-slide .data-slide').length , indexNum)
       countdownNumberEl.html((countdown > 0 ? countdown : 0) + '\ SEC') ;
 
       if(countdown < 1){
-        console.log('=========== **********', countdown)
+
+        console.log('=========== **********', $('.swiper-slide .data-slide').length, indexNum)
+
         activeEle.find('svg circle').removeAttr("style");
-        mySwiper.slideNext();
-
         clearInterval(resetCount);
-
-        // Now you can use all slider methods like
-        countDown();
+        if( $('.swiper-slide .data-slide').length != indexNum ) {
+          // Now you can use all slider methods like
+          mySwiper.slideNext();
+          countDown();
+        } else {
+          activeEle.find('svg circle').css('animation', 'none')
+        }
+        
       }
     }, 1000);
   }
-
 
   function sessionTimer(){
     
@@ -1565,11 +1570,11 @@ function changeImage(){
     let countdown = storeData.sessionData.duration * 60;
     //let countdown = 1 * 60;
     $('.header svg circle').attr("style","animation-duration:"+countdown+"s !important");
-    console.log('countdown ======= countdown start ----', countdown)
+    // console.log('countdown ======= countdown start ----', countdown)
     
     var resetCount1 = setInterval(function() {
       if(countdown <= 0){
-        console.log('=========== **********', countdown)
+        // console.log('=========== **********', countdown)
         $('.header svg circle').removeAttr("style");
         clearInterval(resetCount1);
       }

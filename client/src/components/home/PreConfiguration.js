@@ -396,7 +396,7 @@ render() {
             (<div className="heart-rate">
             <div className="h-100 bg-gray position-relative pad15 rounded">
               <span className="online-total text-left">Heart Rate Monitor detected</span>
-              <span className="signup-number font-20 text-left" >NO</span>
+              <span className="signup-number font-20 text-left" id="heartrate" >NO</span>
             </div>
           </div>) : ('')
           }

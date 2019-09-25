@@ -94,7 +94,7 @@ return (
                       {
                         sessionScript.map((opt, i) =>
                           <div className="swiper-slide" key={i}>
-                          <div>
+                          <div className="data-slide" data-index={i+1}>
                             <div className="count-box">
                               <h4>{opt.name}</h4>
   
@@ -114,7 +114,8 @@ return (
                                 
                                 {opt.attribute.map(function(attrb, index){
                                   if(attrb.attrLabel != 'counter'){
-                                  return <div className=" " key={index}>
+
+                                  return <div className={opt.attribute.length != 3 ? 'no-border-right' : ''} key={index}>
                                     <div className="target-info">
                                       <span>{attrb.attrLabel}</span>
                                       <span>{attrb.attrValue}</span>

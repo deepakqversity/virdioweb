@@ -1391,6 +1391,9 @@ position: absolute;
 .fitness-info>div:nth-child(1){
 	border-right:1px solid #9b51e0 !important;
 }
+.fitness-info>div.no-border-right:nth-child(1) {
+    border-right: 0px !important;
+}
 .swiper-btns{
 	    position: absolute;
     right: 25px;

@@ -1738,6 +1738,14 @@ function signalHandler(uid, signalData, userType) {
         $("#subscribers-list .video-holder:eq(7)").trigger('click');
             
       }
+      else if(resultant[0] == "235")
+      {
+        let newlocalstorageDta = getCurrentUserData();
+
+        console.log('-------newlocalstorageDta-------------',newlocalstorageDta,newlocalstorageDta.id)
+
+        checkMuteUnmute(newlocalstorageDta.id);           
+      }
           
   } else { // Attendy
 
@@ -3466,7 +3474,16 @@ function signalHandler(uid, signalData, userType) {
     $(document).on('click', ' #subscribers-list .video-holder:eq(0)', function(){
    
       let id = $(this).attr('id');
-      if($(this).find('video').hasClass('video-selected')){
+      // if(!$(this).find('.microphone-icon').hasClass('d-none')){
+
+      // }
+      if (!$('.microphone-icon').hasClass("d-none")) {
+        $(".microphone-icon").trigger('click');
+      }else if(!$('.hand-icon').hasClass("d-none"))
+      {
+        $(".hand-icon").trigger('click');
+      }
+      else if($(this).find('video').hasClass('video-selected')){
         $('#selected-participent-id').val('');
         $(this).find('video').removeClass('video-selected');
       } else {
@@ -3479,7 +3496,14 @@ function signalHandler(uid, signalData, userType) {
     $(document).on('click', ' #subscribers-list .video-holder:eq(1)', function(){
      
       let id = $(this).attr('id');
-      if($(this).find('video').hasClass('video-selected')){
+      if (!$('.microphone-icon').hasClass("d-none")) {
+        $(".microphone-icon").trigger('click');
+      }else if(!$('.hand-icon').hasClass("d-none"))
+      {
+        $(".hand-icon").trigger('click');
+      }
+      else if
+      ($(this).find('video').hasClass('video-selected')){
         $('#selected-participent-id').val('');
         $(this).find('video').removeClass('video-selected');
       } else {
@@ -3492,7 +3516,13 @@ function signalHandler(uid, signalData, userType) {
     $(document).on('click', ' #subscribers-list .video-holder:eq(2)', function(){
     
       let id = $(this).attr('id');
-      if($(this).find('video').hasClass('video-selected')){
+      if (!$('.microphone-icon').hasClass("d-none")) {
+        $(".microphone-icon").trigger('click');
+      }else if(!$('.hand-icon').hasClass("d-none"))
+      {
+        $(".hand-icon").trigger('click');
+      }
+      else if($(this).find('video').hasClass('video-selected')){
         $('#selected-participent-id').val('');
         $(this).find('video').removeClass('video-selected');
       } else {
@@ -3505,7 +3535,13 @@ function signalHandler(uid, signalData, userType) {
     $(document).on('click', ' #subscribers-list .video-holder:eq(3)', function(){
       
       let id = $(this).attr('id');
-      if($(this).find('video').hasClass('video-selected')){
+      if (!$('.microphone-icon').hasClass("d-none")) {
+        $(".microphone-icon").trigger('click');
+      }else if(!$('.hand-icon').hasClass("d-none"))
+      {
+        $(".hand-icon").trigger('click');
+      }
+     else  if($(this).find('video').hasClass('video-selected')){
         $('#selected-participent-id').val('');
         $(this).find('video').removeClass('video-selected');
       } else {
@@ -3518,7 +3554,13 @@ function signalHandler(uid, signalData, userType) {
     $(document).on('click', ' #subscribers-list .video-holder:eq(4)', function(){
       
       let id = $(this).attr('id');
-      if($(this).find('video').hasClass('video-selected')){
+      if (!$('.microphone-icon').hasClass("d-none")) {
+        $(".microphone-icon").trigger('click');
+      }else if(!$('.hand-icon').hasClass("d-none"))
+      {
+        $(".hand-icon").trigger('click');
+      }
+     else if($(this).find('video').hasClass('video-selected')){
         $('#selected-participent-id').val('');
         $(this).find('video').removeClass('video-selected');
       } else {
@@ -3531,7 +3573,13 @@ function signalHandler(uid, signalData, userType) {
     $(document).on('click', ' #subscribers-list .video-holder:eq(5)', function(){
       
       let id = $(this).attr('id');
-      if($(this).find('video').hasClass('video-selected')){
+      if (!$('.microphone-icon').hasClass("d-none")) {
+        $(".microphone-icon").trigger('click');
+      }else if(!$('.hand-icon').hasClass("d-none"))
+      {
+        $(".hand-icon").trigger('click');
+      }
+     else if($(this).find('video').hasClass('video-selected')){
         $('#selected-participent-id').val('');
         $(this).find('video').removeClass('video-selected');
       } else {
@@ -3544,7 +3592,13 @@ function signalHandler(uid, signalData, userType) {
     $(document).on('click', ' #subscribers-list .video-holder:eq(6)', function(){
       
       let id = $(this).attr('id');
-      if($(this).find('video').hasClass('video-selected')){
+      if (!$('.microphone-icon').hasClass("d-none")) {
+        $(".microphone-icon").trigger('click');
+      }else if(!$('.hand-icon').hasClass("d-none"))
+      {
+        $(".hand-icon").trigger('click');
+      }
+     else if($(this).find('video').hasClass('video-selected')){
         $('#selected-participent-id').val('');
         $(this).find('video').removeClass('video-selected');
       } else {
@@ -3557,7 +3611,13 @@ function signalHandler(uid, signalData, userType) {
     $(document).on('click', ' #subscribers-list .video-holder:eq(7)', function(){
       
       let id = $(this).attr('id');
-      if($(this).find('video').hasClass('video-selected')){
+      if (!$('.microphone-icon').hasClass("d-none")) {
+        $(".microphone-icon").trigger('click');
+      }else if(!$('.hand-icon').hasClass("d-none"))
+      {
+        $(".hand-icon").trigger('click');
+      }
+     else if($(this).find('video').hasClass('video-selected')){
         $('#selected-participent-id').val('');
         $(this).find('video').removeClass('video-selected');
       } else {
@@ -3671,6 +3731,8 @@ function signalHandler(uid, signalData, userType) {
 
   function checkMuteUnmute(id) {
 
+    console.log('----------checkMuteUnmute-------------',id)
+
       let vdo = $('#video'+ id )[0];   
       let ado = $('#audio'+ id )[0];   
 
@@ -3678,7 +3740,7 @@ function signalHandler(uid, signalData, userType) {
       ado.muted = true;
 
       // $('#agora_remote'+id).find('.mute-unmute').addClass('mute');
-      $('#agora_remote'+id).find('.mute-unmute .fa').addClass('fa-volume-off');
+     // $('#agora_remote'+id).find('.mute-unmute .fa').addClass('fa-volume-off');
 
   }
 

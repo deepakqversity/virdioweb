@@ -268,6 +268,11 @@ text-overflow: ellipsis;
 	position: relative;
 	margin: 0;
 }
+@media (max-width:1024px){
+	.welcome-title{
+		top: 0px;
+	}
+}
 h3.main-heading span span span {
     font-size: 12px;
     margin-left: 21px;
@@ -344,7 +349,9 @@ h3.main-heading span span span {
 	left: 10px;
 	margin: 0 !important;
 }
-
+.header .guest-screen .count-box .countdown{
+	left: -2px;
+}
 @media (max-width: 1024px){
 
 	h3.main-heading{
@@ -1481,7 +1488,7 @@ position: absolute;
     
 }
 .swiper-fitness-container{
-	    height: 160px;
+	    height: 150px;
     overflow: hidden;
 }
 .footer-fitness-script .fitness-guest .swiper-slide-next .count-timer{
@@ -1689,6 +1696,12 @@ position: absolute;
 		left: 19%;
 	}
 }
+@media (max-width: 768px){
+.fitness-emoji {
+    left: 26%;
+}
+}
+
 .fitness-emoji::after{
 	content: "\f0d7";
     font-family: FontAwesome;
@@ -2827,16 +2840,23 @@ ul.music-playlist li a span:nth-child(3){
 }
 .minimize-others{
 background: transparent;
+background:url(../images/exit-screen.png);
+	background-size: 22px;
+    background-repeat: no-repeat;
+	background-position: center;
     outline: none;
     border: 0;
-    width: 34px;
+    width: 26px;
+    height: 26px;
     margin: auto;
     display: table;
 	bottom: 15px;
     position: absolute;
     left: -10px;
     right: 0;
+	
 }
+
 .show-others:focus, .minimize-others:focus{
 outline: none;
 }

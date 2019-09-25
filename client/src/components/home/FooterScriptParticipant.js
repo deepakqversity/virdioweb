@@ -141,22 +141,22 @@ console.log('sessionScript=', sessionScript)
           <div className="fitness-emoji">
             <h3>How are you feeling?</h3>
               <div className="d-flex justify-content-between a3">
-                <a href="#" id=""><img src="images/like.png" />
+                <a href="#" id="like"><img src="images/like.png" />
                   <span>like</span>
                 </a>
-                <a href="#" id=""><img src="images/dislike.png" />
+                <a href="#" id="dislike"><img src="images/dislike.png" />
                 <span>dislike</span>
                 </a>
-                <a href="#" id=""><img src="images/easy.png" />
+                <a href="#" id="easy"><img src="images/easy.png" />
                   <span>easy</span>
                 </a>
-                <a href="#" id=""><img src="images/too-hard.png" />
-                  <span>easy</span>
+                <a href="#" id="too-hard"><img src="images/too-hard.png" />
+                  <span>TooHard</span>
                 </a>
-                <a href="#" id=""><img src="images/perfect.png" />
-                  <span>too-hard</span>
+                <a href="#" id="perfect"><img src="images/perfect.png" />
+                  <span>perfect</span>
                 </a>
-                <a href="#" id=""><img src="images/awesome.png" />
+                <a href="#" id="awesome"><img src="images/awesome.png" />
                   <span>awesome</span>
                 </a>
               </div>

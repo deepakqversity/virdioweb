@@ -925,6 +925,7 @@ function attendeeScreenHeight(){
 function signalHandler(uid, signalData, userType) {
 
   //signalData = JSON.parse(signalData);
+  let localDta= JSON.parse(localStorage.getItem("userData"));
 
   let resultant=signalData.split(sep);
      
@@ -948,9 +949,9 @@ function signalHandler(uid, signalData, userType) {
         console.log('********gggg************ resultant', resultant);
 
         let joinDateTime = convertUnixTimestamp(resultant[1]);
-
+        
         console.log('********ppppp************ resultant', joinDateTime,uid);
-        let message="Welcome  Host, " + getUserDataFromList(uid, 'firstName') + " has already joined   ";
+        let message="Hi " +localDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your first virtual session with us  ";
         
         //$('#newmsg').html(message);
        // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
@@ -987,8 +988,10 @@ function signalHandler(uid, signalData, userType) {
       console.log('********gggg************ resultant', resultant[1]);
       let joinDateTimeattendies = convertUnixTimestamp(resultant[1]);
       console.log('********ssssss************ resultant', joinDateTimeattendies);
+
+      let message="Hi " +localDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your first virtual session with us  ";
    
-      let message="Welcome  User, " + getUserDataFromList(uid, 'firstName') + " has already joined ";
+     // let message="Welcome  User, " + getUserDataFromList(uid, 'firstName') + " has already joined ";
       
       //$('#newmsg').html(message);
       console.log(' uid =================== time', uid, resultant);

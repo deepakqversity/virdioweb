@@ -300,7 +300,7 @@ return (
         </div>
       </div>
       
-    <div className="row one-gutters justify-content-center align-items-center" id="subscribers-list"></div>
+    <div className="row one-gutters justify-content-center align-items-center subsc" id="subscribers-list"></div>
 
     </section>
     <div className="row position-fixed host-script-section align-items-end justify-content-between">

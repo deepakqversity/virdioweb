@@ -221,7 +221,7 @@ return (
                 </div>
               </div>
             </div>
-              <div className="col-12 col-lg-11 col-md-11 col-sm-12">
+              <div className="col-12 col-lg-11 col-md-11 col-sm-12 pl-4">
               <h3 className="main-heading show-hide-title d-block">{sessionData.name} <span>by <span className="welcome-title trim-text">{sessionData.hostFirstName.toLowerCase()} {sessionData.hostLastName.toLowerCase()}</span><span className="green-online online-status"><span>ONLINE</span></span></span>
           
           </h3>
@@ -276,7 +276,7 @@ return (
             <div className="joined-attendees ">
               <h4 className="mb-2 head"><span className="title">Wine Testers</span><span className="count">(<span  id="joined_users_at_client">0</span>/<span>{newulength}</span>)</span></h4>
               <div className="joined-member-list" id="all_joined_member_list"></div>
-              <button type="button" id="minimize-others" className="mt-2 minimize-others mx-auto d-none"><img src="images/exit-screen.png" /></button>
+              <button type="button" id="minimize-others" className="mt-2 minimize-others mx-auto d-none"></button>
 
             </div>
             <button type="button" id="show-everyone" className="show-others mx-auto"></button>
@@ -289,7 +289,7 @@ return (
       
     </div>
   </div>
-    <footer className="footer position-relative zindex-5 count-box mb-4 mt-4">
+    <footer className="footer position-relative zindex-5 count-box mb-5 mt-4">
       
       <FooterScriptParticipant sessId={sessionData.id} />
 

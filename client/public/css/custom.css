@@ -272,6 +272,13 @@ span.online-status{
     text-overflow: ellipsis;
     overflow: hidden;
 }
+
+@media (max-width:1024px){
+	.welcome-title{
+		top: 0px;
+	}
+}
+
 h3.main-heading span span span {
     font-size: 12px;
     margin-left: 21px;
@@ -348,7 +355,9 @@ h3.main-heading span span span {
 	left: 10px;
 	margin: 0 !important;
 }
-
+.header .guest-screen .count-box .countdown{
+	left: -2px;
+}
 @media (max-width: 1024px){
 
 	h3.main-heading{
@@ -380,10 +389,11 @@ h3.main-heading span span span {
 		height:100%;
 	}
 }
-@media (min-width:1200px){
-	.max-width-300{
+.max-width-300{
 		max-width:300px;
 	}
+@media (min-width:1200px){
+	
 }
 .font-size-16{
 	font-size:16px !important;
@@ -889,6 +899,40 @@ position: absolute;
     float: left;
 	cursor:pointer;
 }
+.icon-like, 
+.icon-dislike, 
+.icon-easy, 
+.icon-too-hard, 
+.icon-perfect, 
+.icon-awesome{
+	width: 18px;
+    height: 18px;
+    background-size: 13px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 20px;
+    padding: 2px;
+    float: left;
+	cursor:pointer;
+}
+.icon-like{
+	background: #fff url(../images/like.png);
+}
+.icon-dislike{
+	background: #fff url(../images/dislike.png);
+}
+.icon-easy{
+	background: #fff url(../images/easy.png);
+}
+.icon-too-hard{
+	background: #fff url(../images/too-hard.png);
+}
+.icon-perfect{
+	background: #fff url(../images/perfect.png);
+}
+.icon-awesome{
+	background: #fff url(../images/awesome.png);
+}
 /* .video-holder .att-details .icon-aroma, 
 .attendee-list .icon-aroma{
 	background: #fff url(../images/icon2.png);
@@ -1213,7 +1257,7 @@ display:none;
 	margin-bottom: 0;
 }
 .max-h200{
-	max-height:200px;
+	max-height:190px;
 	overflow-y:auto;
 	overflow-x:hidden;
 }
@@ -1450,7 +1494,7 @@ position: absolute;
     
 }
 .swiper-fitness-container{
-	    height: 175px;
+	    height: 150px;
     overflow: hidden;
 }
 .footer-fitness-script .fitness-guest .swiper-slide-next .count-timer{
@@ -1658,6 +1702,12 @@ position: absolute;
 		left: 19%;
 	}
 }
+@media (max-width: 768px){
+.fitness-emoji {
+    left: 26%;
+}
+}
+
 .fitness-emoji::after{
 	content: "\f0d7";
     font-family: FontAwesome;
@@ -1909,6 +1959,7 @@ img.user-login{
 	    width: 100%;
     top: auto;	
 	font-family:Avenir-Medium;
+	border-radius: 0 0 10px 10px;
 }
 .bpm-bar .skills.bpm{
 	height: 64%;
@@ -2795,16 +2846,23 @@ ul.music-playlist li a span:nth-child(3){
 }
 .minimize-others{
 background: transparent;
+background:url(../images/exit-screen.png);
+	background-size: 22px;
+    background-repeat: no-repeat;
+	background-position: center;
     outline: none;
     border: 0;
-    width: 34px;
+    width: 26px;
+    height: 26px;
     margin: auto;
     display: table;
 	bottom: 15px;
     position: absolute;
     left: -10px;
     right: 0;
+	
 }
+
 .show-others:focus, .minimize-others:focus{
 outline: none;
 }

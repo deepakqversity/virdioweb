@@ -2060,13 +2060,12 @@ function signalHandler(uid, signalData, userType) {
 
       // check current user in mute state
       if(vdo != undefined && vdo.muted){
+
         let selectedParticipentId = $('#selected-participent-id').val();
         console.log('selectedParticipentId , id', id, selectedParticipentId)
         if(id != selectedParticipentId){
-          rule = true;
-        }
-
-        if(rule == false){
+          // rule = true;
+        
           let broadcster = getAllBroadcster();
           if(broadcster.length > 0){
             

@@ -259,20 +259,26 @@ span.online-status{
 	    top: -5px;
 }
 .welcome-title{
-text-overflow: ellipsis;
+/*text-overflow: ellipsis;*/
     white-space: nowrap;
-    overflow: hidden;
+    /*overflow: hidden;*/
     max-width: 200px;
     display: inline-block;
 	top: 6px;
 	position: relative;
 	margin: 0;
 }
+.trim-text{
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
 @media (max-width:1024px){
 	.welcome-title{
 		top: 0px;
 	}
 }
+
 h3.main-heading span span span {
     font-size: 12px;
     margin-left: 21px;
@@ -812,6 +818,7 @@ position: absolute;
     background: #fff;
     border-radius: 7px 7px;
     padding: 3px 12px;
+    overflow: hidden;
 }
 .video-holder .vid-icons{
 	bottom: -3px;

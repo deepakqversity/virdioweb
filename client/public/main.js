@@ -1531,7 +1531,11 @@ function changeImage(){
     var countdownNumberEl = activeEle.find('.countdown-number');
     
     var indexNum = parseInt(activeEle.find('.data-slide').attr('data-index'));
-
+    if(activeEle.find('h4').html().toLowerCase() == 'rest'){
+      $('.fitness-emoji').removeClass('d-none');
+    } else {
+      $('.fitness-emoji').addClass('d-none');
+    }
     // var countdown = 30;
     countdown = parseInt(countdownNumberEl.html());
     activeEle.find('svg circle').attr("style","animation-duration:"+countdown+"s !important");
@@ -2454,6 +2458,7 @@ function signalHandler(uid, signalData, userType) {
       // addUserAttribute(convertEmailToId(memberId), 'currentStatus', 1);
 
        $('#online-user-row-'+convertEmailToId(signalData.member)).find('.user-status').attr('src', '/images/online.png');
+       $('#online-user-row-'+convertEmailToId(signalData.member)).find('.user-online-status').html('online');
        let userList = getOrderUser()
 
        if(userList != ''){
@@ -2977,7 +2982,7 @@ function signalHandler(uid, signalData, userType) {
          
 
 
-    let agoraLocal = $("#agora_local").find("video").width();
+    agoraLocal = $("#agora_local").find("video").width();
     $("#agora_local video").height(`${agoraLocal / 1.778 }px`);
 
 
@@ -3573,9 +3578,11 @@ function signalHandler(uid, signalData, userType) {
       channel.getMembers().then(membersList => {
         let userList = getOrderUser();
         $('#attendy-list').find('.user-status').attr('src', '/images/offline.png');
+        $('#attendy-list').find('.user-online-status').text('offline');
         for(let i= 0; i < membersList.length; i++){
           let eleId = convertEmailToId(membersList[i]);
           $('#online-user-row-'+eleId).find('.user-status').attr('src', '/images/online.png');
+          $('#online-user-row-'+eleId).find('.user-online-status').html('online');
           if(userList != ''){
             for(let j in userList){
               if(userList[j].id == membersList[i]){
@@ -3592,6 +3599,23 @@ function signalHandler(uid, signalData, userType) {
         console.log('*************There is an error******');
       });
   })
+
+    $('#mute-unmute').on('click', function(){
+      
+      let vdo = $('#agora_host video')[0];
+      let ado = $('#agora_host audio')[0]; 
+      console.log('vdo vdo vdo ', vdo, ado, vdo.muted, ado.muted)
+
+      if( vdo.muted || ado.muted ){
+        vdo.muted = false;
+        ado.muted = false;
+        $(this).find('.fa').addClass('fa-volume-up').removeClass('fa-volume-down');
+      } else {
+        vdo.muted = true;
+        ado.muted = true;
+        $(this).find('.fa').addClass('fa-volume-down').removeClass('fa-volume-up');
+      }
+    });
 
 
   });

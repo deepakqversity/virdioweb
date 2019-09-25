@@ -376,10 +376,11 @@ h3.main-heading span span span {
 		height:100%;
 	}
 }
-@media (min-width:1200px){
-	.max-width-300{
+.max-width-300{
 		max-width:300px;
 	}
+@media (min-width:1200px){
+	
 }
 .font-size-16{
 	font-size:16px !important;
@@ -885,6 +886,40 @@ position: absolute;
     float: left;
 	cursor:pointer;
 }
+.icon-like, 
+.icon-dislike, 
+.icon-easy, 
+.icon-too-hard, 
+.icon-perfect, 
+.icon-awesome{
+	width: 18px;
+    height: 18px;
+    background-size: 13px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 20px;
+    padding: 2px;
+    float: left;
+	cursor:pointer;
+}
+.icon-like{
+	background: #fff url(../images/like.png);
+}
+.icon-dislike{
+	background: #fff url(../images/dislike.png);
+}
+.icon-easy{
+	background: #fff url(../images/easy.png);
+}
+.icon-too-hard{
+	background: #fff url(../images/too-hard.png);
+}
+.icon-perfect{
+	background: #fff url(../images/perfect.png);
+}
+.icon-awesome{
+	background: #fff url(../images/awesome.png);
+}
 /* .video-holder .att-details .icon-aroma, 
 .attendee-list .icon-aroma{
 	background: #fff url(../images/icon2.png);
@@ -1118,7 +1153,7 @@ display:none;
     margin: auto;
     right: 0;
 	    display: flex;
-    
+    z-index:9;
 	
 }
 .host-local{
@@ -1209,7 +1244,7 @@ display:none;
 	margin-bottom: 0;
 }
 .max-h200{
-	max-height:200px;
+	max-height:190px;
 	overflow-y:auto;
 	overflow-x:hidden;
 }
@@ -1356,6 +1391,9 @@ position: absolute;
 .fitness-info>div:nth-child(1){
 	border-right:1px solid #9b51e0 !important;
 }
+.fitness-info>div.no-border-right:nth-child(1) {
+    border-right: 0px !important;
+}
 .swiper-btns{
 	    position: absolute;
     right: 25px;
@@ -1443,7 +1481,7 @@ position: absolute;
     
 }
 .swiper-fitness-container{
-	    height: 175px;
+	    height: 160px;
     overflow: hidden;
 }
 .footer-fitness-script .fitness-guest .swiper-slide-next .count-timer{
@@ -1603,6 +1641,19 @@ position: absolute;
 	position: absolute;
     left: -87px;
     width: 169px;
+}
+.play-pause-btn{
+	position: absolute;
+    right: 90px;
+	top:13px;
+}
+.play-pause-btn img, .stop-btn img{
+	width:24px;
+}
+.stop-btn{
+	position: absolute;
+    right: 10px;
+	top:13px;
 }
 
 .fitness-guest .swiper-slide img.arrow-image{
@@ -1889,6 +1940,7 @@ img.user-login{
 	    width: 100%;
     top: auto;	
 	font-family:Avenir-Medium;
+	border-radius: 0 0 10px 10px;
 }
 .bpm-bar .skills.bpm{
 	height: 64%;

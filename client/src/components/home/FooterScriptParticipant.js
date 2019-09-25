@@ -178,9 +178,9 @@ console.log('sessionScript=', sessionScript)
                         sessionScript.map((opt, i) =>
                         
                          
-                              <div className="swiper-slide" key={i}>
+                              <div className="swiper-slide" data-index={i+1} key={i}>
                                   
-                                  <div id="countdown" className="count-timer" key={i}>
+                                  <div id="countdown" className="count-timer data-slide" data-index={i+1}>
                                   {opt.attribute.map(function(attrb, index){
                                     if(attrb.attrLabel == 'counter'){
                                     return <div className="countdown-number" key={index}>{attrb.attrValue} SEC</div>;

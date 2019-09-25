@@ -1604,6 +1604,19 @@ position: absolute;
     left: -87px;
     width: 169px;
 }
+.play-pause-btn{
+	position: absolute;
+    right: 90px;
+	top:13px;
+}
+.play-pause-btn img, .stop-btn img{
+	width:24px;
+}
+.stop-btn{
+	position: absolute;
+    right: 10px;
+	top:13px;
+}
 
 .fitness-guest .swiper-slide img.arrow-image{
 	display:none;

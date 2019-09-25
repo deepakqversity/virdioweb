@@ -951,7 +951,7 @@ function signalHandler(uid, signalData, userType) {
         console.log('********ppppp************ resultant', joinDateTime,uid);
         let message="Welcome  Host, " + getUserDataFromList(uid, 'firstName') + " has already joined   ";
         
-        $('#newmsg').html(message);
+        //$('#newmsg').html(message);
        // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
        addRtmJoinOrder(uid, resultant[1]);
        addUserAttribute(convertEmailToId(uid), 'currentStatus', 1);
@@ -989,7 +989,7 @@ function signalHandler(uid, signalData, userType) {
    
       let message="Welcome  User, " + getUserDataFromList(uid, 'firstName') + " has already joined ";
       
-      $('#newmsg').html(message);
+      //$('#newmsg').html(message);
       console.log(' uid =================== time', uid, resultant);
 
       addRtmJoinOrder(uid, resultant[1]);
@@ -1028,7 +1028,7 @@ function signalHandler(uid, signalData, userType) {
           addRtmJoinOrder(senderId, newDateFormat(res1[1]));
         // }
         let message="User " + getUserDataFromList(senderId, 'firstName') + " has joined on  "+ res1[1];
-        $('#newmsg').html(message);
+        //$('#newmsg').html(message);
         // setTimeout(function(){ $('#newmsg').html(''); }, 10000); 
      
       //  $('#hostmsg').html(message);
@@ -1114,7 +1114,7 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
 
         $('#continue-join').removeAttr("disabled");
         let newmsg="Now U can Join";
-        $('#newmsg').html(newmsg);
+        //$('#newmsg').html(newmsg);
         setTimeout(function(){ $('#newmsg').html(''); }, 10000);    
       }
     

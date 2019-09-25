@@ -60,6 +60,8 @@ class Host extends Component {
     
 
   componentDidMount(){
+
+
     
     // if any exception if user has no device on streaming page in any case
     let mediaIds = localStorage.getItem('media-setting');

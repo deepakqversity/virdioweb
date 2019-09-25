@@ -1628,7 +1628,7 @@ function signalHandler(uid, signalData, userType) {
         console.log('********ppppp************ resultant', joinDateTime,uid);
         let message="Welcome  Host, " + getUserDataFromList(uid, 'firstName') + " has already joined   ";
         
-        $('#newmsg').html(message);
+        //$('#newmsg').html(message);
        // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
        addRtmJoinOrder(uid, resultant[1]);
       } else if(resultant[0] == '211') {        
@@ -1761,7 +1761,7 @@ function signalHandler(uid, signalData, userType) {
    
       let message="Welcome  User, " + getUserDataFromList(uid, 'firstName') + " has already joined ";
       
-      $('#newmsg').html(message);
+      //$('#newmsg').html(message);
      // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
       addRtmJoinOrder(uid, resultant[1]);
     }
@@ -1812,7 +1812,7 @@ function signalHandler(uid, signalData, userType) {
         // {
         addRtmJoinOrder(senderId, newDateFormat(res1[1]));
         let message="User "+senderId+" has joined on  "+ res1[1];
-        $('#newmsg').html(message);
+        //$('#newmsg').html(message);
 
         console.log('********Deepak************** signalData ', senderId);
         let rtmJoinOrder = JSON.parse(localStorage.getItem("rtm-join-order"));
@@ -1840,7 +1840,7 @@ function signalHandler(uid, signalData, userType) {
       {
       //  $('#continue-join').removeAttr("disabled");
         let newmsg="Now U can Join";
-        $('#newmsg').html(newmsg);
+        //$('#newmsg').html(newmsg);
         setTimeout(function(){ $('#newmsg').html(''); }, 10000);    
       }else if(res1[0] == "202")
       {

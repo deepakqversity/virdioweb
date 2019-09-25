@@ -1332,6 +1332,7 @@ function changeImage(){
 }
 
   function onPageResize(){
+
     let leftHeight = $(".right-sidebar").height();
     $(".joined-member-list").height(`${leftHeight -100 }px`);
     $(".guest-left-wine").css("max-height", "leftHeight");
@@ -3660,10 +3661,12 @@ function signalHandler(uid, signalData, userType) {
         let userList = getOrderUser();
         $('#attendy-list').find('.user-status').attr('src', '/images/offline.png');
         $('#attendy-list').find('.user-online-status').text('offline');
+        $('#attendy-list').find('.visible-status .fa').addClass('fa-times').addClass('text-red').removeClass('fa-check').removeClass('text-green');
         for(let i= 0; i < membersList.length; i++){
           let eleId = convertEmailToId(membersList[i]);
           $('#online-user-row-'+eleId).find('.user-status').attr('src', '/images/online.png');
           $('#online-user-row-'+eleId).find('.user-online-status').html('online');
+          $('#online-user-row-'+eleId).find('.visible-status .fa').addClass('fa-check').addClass('text-green').removeClass('fa-times').removeClass('text-red');
           if(userList != ''){
             for(let j in userList){
               if(userList[j].id == membersList[i]){

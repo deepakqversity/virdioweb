@@ -1420,6 +1420,9 @@ position: absolute;
   animation: countdown 30s linear infinite forwards;
   animation-direction: reverse;
 }
+.footer-fitness-script .fitness-guest .swiper-slide-next svg circle{
+  stroke-dasharray: 166px;
+}
 .header svg circle{
   stroke-dasharray: 160px;
   stroke-dashoffset: 0px;

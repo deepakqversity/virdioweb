@@ -1533,17 +1533,18 @@ function changeImage(){
     // var countdown = 30;
     countdown = parseInt(countdownNumberEl.html());
     activeEle.find('svg circle').attr("style","animation-duration:"+countdown+"s !important");
-    countdownNumberEl.html(countdown + '\ SEC') ;
+    // countdownNumberEl.html(countdown + '\ SEC') ;
     
     console.log('countdown ======= countdown start ----', countdown)
     
     var resetCount = setInterval(function() {
-    console.log('countdown ======= countdown----', countdown)
+      // countdown = countdown;
       countdown--;
-      countdown = countdown < 0 ? 0 : countdown;
 
-      countdownNumberEl.html(countdown + '\ SEC') ;
-      if(countdown <= 0){
+      console.log('countdown ======= countdown----', countdown)
+      countdownNumberEl.html((countdown > 0 ? countdown : 0) + '\ SEC') ;
+
+      if(countdown < 1){
         console.log('=========== **********', countdown)
         activeEle.find('svg circle').removeAttr("style");
         mySwiper.slideNext();
@@ -2007,13 +2008,13 @@ function signalHandler(uid, signalData, userType) {
 
       // check current user in mute state
       if(vdo != undefined && vdo.muted){
-
         let selectedParticipentId = $('#selected-participent-id').val();
+        console.log('selectedParticipentId , id', id, selectedParticipentId)
         if(id != selectedParticipentId){
           rule = true;
         }
 
-        if(!rule){
+        if(rule == false){
           let broadcster = getAllBroadcster();
           if(broadcster.length > 0){
             
@@ -2790,7 +2791,7 @@ function signalHandler(uid, signalData, userType) {
     if(tempUsers != null){
       
       for(let i in tempUsers){
-        console.log('&&&&&&& 22222222', tempUsers[i]);
+        // console.log('&&&&&&& 22222222', tempUsers[i]);
         if(tempUsers[i].hasOwnProperty('isSubscribe') && parseInt(tempUsers[i].isSubscribe) == 1){
           broadcasters.push(tempUsers[i]);          
         }
@@ -2840,11 +2841,18 @@ function signalHandler(uid, signalData, userType) {
     $('#exptn-errors').html('<pre>'+err+'</pre>');
   }
   
+  function removeFromFirst() {
+          let localData = getCurrentUserData();
+          let maxUserLimit = localData.default.preScreenUserLimit;
+          if($('#joiners').find('span').length >= maxUserLimit){
+            $( "#joiners").find('span').first().remove();
 
+          }
+      }
 
       $(document).ready(function(){
 
-        // switchUsers();
+        switchUsers();
 
         let heightScript = $(".host-script-section").height();
             

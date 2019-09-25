@@ -179,7 +179,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
           // if(totalScreenUsers < totalBrodcaster, storeData.default.maxUserLimit){
 
-          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" data-dismiss="modal">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute   d-none"  id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
+          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" data-dismiss="modal">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute   d-none"  id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-like d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-dislike d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-easy d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-too-hard d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-perfect d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-awesome d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
           // }
           // totalScreenUsers++;
         }
@@ -1623,7 +1623,6 @@ function signalHandler(uid, signalData, userType) {
         // audience only raise hand by participant
         addAudienceInList(resultant);
       }
-
       else if(resultant[0] == '216')
       {
         console.log('********gggg************ resultant', resultant);
@@ -1690,48 +1689,49 @@ function signalHandler(uid, signalData, userType) {
       else if(resultant[0] == "227")
       {
 
-        $("#subscribers-list .video-holder").trigger('click',"227");
-            
+        $("#subscribers-list .video-holder:eq(0)").trigger('click');
+           
       }
       else if(resultant[0] == "228")
       {
-
-        $("#subscribers-list .video-holder").trigger('click',"228");
+      
+        $("#subscribers-list .video-holder:eq(1)").trigger('click');
+       
             
       }else if(resultant[0] == "229")
       {
 
-        $("#subscribers-list .video-holder").trigger('click',"229");
+        $("#subscribers-list .video-holder:eq(2)").trigger('click');
             
       }
       else if(resultant[0] == "230")
       {
 
-        $("#subscribers-list .video-holder").trigger('click',"230");
+        $("#subscribers-list .video-holder:eq(3)").trigger('click');
             
       }
       else if(resultant[0] == "231")
       {
 
-        $("#subscribers-list .video-holder").trigger('click',"231");
+        $("#subscribers-list .video-holder:eq(4)").trigger('click');
             
       }
       else if(resultant[0] == "232")
       {
 
-        $("#subscribers-list .video-holder").trigger('click',"232");
+        $("#subscribers-list .video-holder:eq(5)").trigger('click');
             
       }
       else if(resultant[0] == "233")
       {
  
-        $("#subscribers-list .video-holder").trigger('click',"233");
+        $("#subscribers-list .video-holder:eq(6)").trigger('click');
             
       }
       else if(resultant[0] == "234")
       {
        
-        $("#subscribers-list .video-holder").trigger('click',"234");
+        $("#subscribers-list .video-holder:eq(7)").trigger('click');
             
       }
           
@@ -2308,7 +2308,7 @@ function signalHandler(uid, signalData, userType) {
      
       if(getUserDataFromList(memberID, 'userType') == 2){
         count4++;
-        $('#all_joined_member_list').append('<div class="attendee-list"><img src="images/attendee.png" /><span class="title">'+userName+'</span><div class="vid-icons"> <span class="icon-appearance d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-appearance1 d-none"   data-attr="'+memberID+'"></span><span class="icon-appearance2 d-none"  data-attr="'+memberID+'"></span><span class="icon-appearance3 d-none"  data-attr="'+memberID+'"></span><span class="icon-appearance4 d-none"  data-attr="'+memberID+'"></span><span class="icon-aroma d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma1 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma2 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma3 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma4 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-palate d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate1 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate2 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate3 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate4 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-score d-none"  id="emojies_sc'+memberID+'"  data-attr="'+memberID+'"></span></div></div>');
+        $('#all_joined_member_list').append('<div class="attendee-list"><img src="images/attendee.png" /><span class="title">'+userName+'</span><div class="vid-icons"> <span class="icon-appearance d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-appearance1 d-none"   data-attr="'+memberID+'"></span><span class="icon-appearance2 d-none"  data-attr="'+memberID+'"></span><span class="icon-appearance3 d-none"  data-attr="'+memberID+'"></span><span class="icon-appearance4 d-none"  data-attr="'+memberID+'"></span><span class="icon-aroma d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma1 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma2 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma3 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma4 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-palate d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate1 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate2 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate3 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate4 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-like d-none"  data-attr="'+memberID+'"></span><span class="icon-dislike d-none"  data-attr="'+memberID+'"></span><span class="icon-easy d-none"  data-attr="'+memberID+'"></span><span class="icon-too-hard d-none"  data-attr="'+memberID+'"></span><span class="icon-perfect d-none"  data-attr="'+memberID+'"></span><span class="icon-awesome d-none"  data-attr="'+memberID+'"></span><span class="icon-score d-none"  id="emojies_sc'+memberID+'"  data-attr="'+memberID+'"></span></div></div>');
         }
       }); 
       console.log('*******finalcountatattendies*************** element ', count4);
@@ -2536,7 +2536,32 @@ function signalHandler(uid, signalData, userType) {
         }else if(signalData == "score")
         {
           $('.icon-score[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }else if(signalData == "like")
+        {
+          console.log('********hostemojies************** signalData ', newSenderID)
+          $('.icon-like[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }else if(signalData == "dislike")
+        {
+          console.log('********hostemojiesdislike************** signalData ', newSenderID)
+          $('.icon-dislike[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }else if(signalData == "easy")
+        {
+          console.log('********hostemojieseasy************** signalData ', newSenderID)
+          $('.icon-easy[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }else if(signalData == "too-hard")
+        {
+          console.log('********hostemojiestoo-hard************** signalData ', newSenderID)
+          $('.icon-too-hard[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }else if(signalData == "perfect")
+        {
+          console.log('********hostemojiesperfect************** signalData ', newSenderID)
+          $('.icon-perfect[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }else if(signalData == "awesome")
+        {
+          console.log('********hostemojiesawesome************** signalData ', newSenderID)
+          $('.icon-awesome[data-attr=\''+newSenderID+'\']').removeClass("d-none");
         }
+
       
       }
 
@@ -2579,46 +2604,63 @@ function signalHandler(uid, signalData, userType) {
         }else if(signalData == "aroma1")
         {
           $('.icon-aroma1[data-attr=\''+newSenderID+'\']').removeClass("d-none");
-        //  $('#emojies_ar'+newSenderID+'').removeClass("d-none");
+
         } else if(signalData == "aroma2")
         {
           $('.icon-aroma2[data-attr=\''+newSenderID+'\']').removeClass("d-none");
-        //  $('#emojies_ar'+newSenderID+'').removeClass("d-none");
         } else if(signalData == "aroma3")
         {
           $('.icon-aroma3[data-attr=\''+newSenderID+'\']').removeClass("d-none");
-        //  $('#emojies_ar'+newSenderID+'').removeClass("d-none");
         } else if(signalData == "aroma4")
         {
           $('.icon-aroma4[data-attr=\''+newSenderID+'\']').removeClass("d-none");
-        //  $('#emojies_ar'+newSenderID+'').removeClass("d-none");
         } 
         else if(signalData == "palate")
         {
           $('.icon-palate[data-attr=\''+newSenderID+'\']').removeClass("d-none");
-         // $('#emojies_pal'+newSenderID+'').removeClass("d-none");
         }else if(signalData == "palate1")
         {
           $('.icon-palate1[data-attr=\''+newSenderID+'\']').removeClass("d-none");
-         // $('#emojies_pal'+newSenderID+'').removeClass("d-none");
         } else if(signalData == "palate2")
         {
           $('.icon-palate2[data-attr=\''+newSenderID+'\']').removeClass("d-none");
-         // $('#emojies_pal'+newSenderID+'').removeClass("d-none");
         }else if(signalData == "palate3")
         {
           $('.icon-palate3[data-attr=\''+newSenderID+'\']').removeClass("d-none");
-         // $('#emojies_pal'+newSenderID+'').removeClass("d-none");
         }else if(signalData == "palate4")
         {
           $('.icon-palate4[data-attr=\''+newSenderID+'\']').removeClass("d-none");
-         // $('#emojies_pal'+newSenderID+'').removeClass("d-none");
         }
         else if(signalData == "score")
         {
           $('.icon-score[data-attr=\''+newSenderID+'\']').removeClass("d-none");
-         // $('#emojies_sc'+newSenderID+'').removeClass("d-none");
         }
+        else if(signalData == "like")
+        {
+          console.log('********attendiesemojies************** signalData ', newSenderID)
+          $('.icon-like[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }else if(signalData == "dislike")
+        {
+          console.log('********attendiesemojiesdislike************** signalData ', newSenderID)
+          $('.icon-dislike[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }else if(signalData == "easy")
+        {
+          console.log('********attendiesemojieseasy************** signalData ', newSenderID)
+          $('.icon-easy[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }else if(signalData == "too-hard")
+        {
+          console.log('********attendiesemojiestoo-hard************** signalData ', newSenderID)
+          $('.icon-too-hard[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }else if(signalData == "perfect")
+        {
+          console.log('********attendiesemojiesperfect************** signalData ', newSenderID)
+          $('.icon-perfect[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }else if(signalData == "awesome")
+        {
+          console.log('********attendiesemojiesawesome************** signalData ', newSenderID)
+          $('.icon-awesome[data-attr=\''+newSenderID+'\']').removeClass("d-none");
+        }
+      
        // console.log('********Rammmmmmmmmmmmm************** signalData ', signalData, userType);
       }
 
@@ -3229,92 +3271,128 @@ function signalHandler(uid, signalData, userType) {
       $( '#appear1' ).bind( "click", function(event) {
         console.log('hello');
 
-        messages="202"+sep+"appearence1"; 
-          sendMessageToChannel(channelName1,messages);
-         });
+      messages="202"+sep+"appearence1"; 
+      sendMessageToChannel(channelName1,messages);
+      });
 
-         $( '#appear2' ).bind( "click", function(event) {
-          console.log('hello');
-          messages="202"+sep+"appearence2"; 
-            sendMessageToChannel(channelName1,messages);
-           });
-           $( '#appear3' ).bind( "click", function(event) {
-            console.log('hello');
+      $( '#appear2' ).bind( "click", function(event) {
+      console.log('hello');
+      messages="202"+sep+"appearence2"; 
+      sendMessageToChannel(channelName1,messages);
+      });
+      $( '#appear3' ).bind( "click", function(event) {
+      console.log('hello');
 
-            messages="202"+sep+"appearence3"; 
-              sendMessageToChannel(channelName1,messages);
-             });
+      messages="202"+sep+"appearence3"; 
+      sendMessageToChannel(channelName1,messages);
+      });
 
-             $( '#appear4' ).bind( "click", function(event) {
-              console.log('hello');
-              messages="202"+sep+"appearence4"; 
-                sendMessageToChannel(channelName1,messages);
-               });
+      $( '#appear4' ).bind( "click", function(event) {
+      console.log('hello');
+      messages="202"+sep+"appearence4"; 
+      sendMessageToChannel(channelName1,messages);
+      });
 
-               $( '#aroma1' ).bind( "click", function(event) {
-                console.log('hello');
-        
-                messages="202"+sep+"aroma1";                
-                sendMessageToChannel(channelName1,messages);
-                 });
+      $( '#aroma1' ).bind( "click", function(event) {
+      console.log('hello');
 
-                 $( '#aroma2' ).bind( "click", function(event) {
-                  console.log('hello');
-          
-                  messages="202"+sep+"aroma2"; 
-                    sendMessageToChannel(channelName1,messages);
-                   });
-                 
-                   
-                   $( '#aroma3' ).bind( "click", function(event) {
-                    console.log('hello');
-            
-                    messages="202"+sep+"aroma3"; 
-                      sendMessageToChannel(channelName1,messages);
-                     });
-                 
-                     
-                     $( '#aroma4' ).bind( "click", function(event) {
-                      console.log('hello');
+      messages="202"+sep+"aroma1";                
+      sendMessageToChannel(channelName1,messages);
+      });
+
+      $( '#aroma2' ).bind( "click", function(event) {
+      console.log('hello');
+
+      messages="202"+sep+"aroma2"; 
+      sendMessageToChannel(channelName1,messages);
+      });
               
-                      messages="202"+sep+"aroma4"; 
-                        sendMessageToChannel(channelName1,messages);
-                       });
-
-                    $( '#palate1' ).bind( "click", function(event) {
-                      console.log('hello');
-              
-                      messages="202"+sep+"palate1";
-                      sendMessageToChannel(channelName1,messages);
-                        });
-                       
-                      $( '#palate2' ).bind( "click", function(event) {
-                        console.log('hello');
                 
-                        messages="202"+sep+"palate2";
-                        sendMessageToChannel(channelName1,messages);
-                          });
+      $( '#aroma3' ).bind( "click", function(event) {
+      console.log('hello');
 
-                        $( '#palate3' ).bind( "click", function(event) {
-                          console.log('hello');
+      messages="202"+sep+"aroma3"; 
+      sendMessageToChannel(channelName1,messages);
+      });
+    
                   
-                          messages="202"+sep+"palate3";
-                          sendMessageToChannel(channelName1,messages);
-                            });
+      $( '#aroma4' ).bind( "click", function(event) {
+      console.log('hello');
 
-                        $( '#palate4' ).bind( "click", function(event) {
-                          console.log('hello');
-                  
-                          messages="202"+sep+"palate4";
-                          sendMessageToChannel(channelName1,messages);
-                            });
+      messages="202"+sep+"aroma4"; 
+      sendMessageToChannel(channelName1,messages);
+      });
+
+      $( '#palate1' ).bind( "click", function(event) {
+        console.log('hello');
+
+      messages="202"+sep+"palate1";
+      sendMessageToChannel(channelName1,messages);
+        });
+                    
+      $( '#palate2' ).bind( "click", function(event) {
+        console.log('hello');
+
+      messages="202"+sep+"palate2";
+      sendMessageToChannel(channelName1,messages);
+        });
+
+      $( '#palate3' ).bind( "click", function(event) {
+        console.log('hello');
+
+      messages="202"+sep+"palate3";
+      sendMessageToChannel(channelName1,messages);
+        });
+
+      $( '#palate4' ).bind( "click", function(event) {
+        console.log('hello');
+
+      messages="202"+sep+"palate4";
+      sendMessageToChannel(channelName1,messages);
+        });
+
+      $( '#like' ).bind( "click", function(event) {  
+        console.log('Hi Lalit');                    
+      messages="202"+sep+"like";
+      sendMessageToChannel(channelName1,messages);
+      });
+      
+      $( '#dislike').bind( "click", function(event) {  
+        alert('hi lalit')                 
+      messages="202"+sep+"dislike";
+      sendMessageToChannel(channelName1,messages);
+      }); 
+
+      $( '#easy' ).bind( "click", function(event) {  
+        console.log('Hi Lalit');                    
+      messages="202"+sep+"easy";
+      sendMessageToChannel(channelName1,messages);
+      }); 
+
+      $( '#too-hard' ).bind( "click", function(event) {  
+        console.log('Hi Lalit');                    
+      messages="202"+sep+"too-hard";
+      sendMessageToChannel(channelName1,messages);
+      }); 
+
+      $( '#perfect' ).bind( "click", function(event) {  
+        console.log('Hi Lalit');                    
+      messages="202"+sep+"perfect";
+      sendMessageToChannel(channelName1,messages);
+      }); 
+
+      $( '#awesome' ).bind( "click", function(event) {  
+        console.log('Hi Lalit');                    
+      messages="202"+sep+"awesome";
+      sendMessageToChannel(channelName1,messages);
+      }); 
 
 
-                  $( '#newhtt').bind( "click", function(event) {
-                    let message = "227"+sep;
-                    let attendiesID='arjun.rishi@virdio.com'
-                    sendMessage(attendiesID, message);
-                      });     
+      $( '#newhtt').bind( "click", function(event) {
+      let message = "227"+sep;
+      let attendiesID='arjun.rishi@virdio.com'
+      sendMessage(attendiesID, message);
+        });     
 
 
       $( '#score_button' ).bind( "click", function(event) {
@@ -3378,95 +3456,10 @@ function signalHandler(uid, signalData, userType) {
       });
     
     //
-    $(document).on('click', '#subscribers-list .video-holder ', function(event,param){
-console.log('----------param1-------------',param);
 
-    if(param == 227)
-    {
-      console.log('----------param3-------------',param);
-      let id = $(this).attr('id');
-      if($(this).find('video:first').hasClass('video-selected')){
-        $('#selected-participent-id').val('');
-        $(this).find('video:first').removeClass('video-selected');
-      } else {
-        $('#selected-participent-id').val( id );
-        $(this).find('video:first').addClass('video-selected');
-      }
-    }
-    else if(param == 228)
-    {
-      let id = $(this).attr('id');
-      if($(this).find('video:nth-child(2)').hasClass('video-selected')){
-        $('#selected-participent-id').val('');
-        $(this).find('video:nth-child(2)').removeClass('video-selected');
-      } else {
-        $('#selected-participent-id').val( id );
-        $(this).find('video:nth-child(2)').addClass('video-selected');
-      }
-    } else if(param == 229)
-    {
-      let id = $(this).attr('id');
-      if($(this).find('video:nth-child(3)').hasClass('video-selected')){
-        $('#selected-participent-id').val('');
-        $(this).find('video:nth-child(3)').removeClass('video-selected');
-      } else {
-        $('#selected-participent-id').val( id );
-        $(this).find('video:nth-child(3)').addClass('video-selected');
-      }
-    }else if(param == 230)
-    {
-      let id = $(this).attr('id');
-      if($(this).find('video:nth-child(4)').hasClass('video-selected')){
-        $('#selected-participent-id').val('');
-        $(this).find('video:nth-child(4)').removeClass('video-selected');
-      } else {
-        $('#selected-participent-id').val( id );
-        $(this).find('video:nth-child(4)').addClass('video-selected');
-      }
-    }else if(param == 231)
-    {
-      let id = $(this).attr('id');
-      if($(this).find('video:nth-child(5)').hasClass('video-selected')){
-        $('#selected-participent-id').val('');
-        $(this).find('video:nth-child(5)').removeClass('video-selected');
-      } else {
-        $('#selected-participent-id').val( id );
-        $(this).find('video:nth-child(5)').addClass('video-selected');
-      }
-    }else if(param == 232)
-    {
-      let id = $(this).attr('id');
-      if($(this).find('video:nth-child(6)').hasClass('video-selected')){
-        $('#selected-participent-id').val('');
-        $(this).find('video:nth-child(6)').removeClass('video-selected');
-      } else {
-        $('#selected-participent-id').val( id );
-        $(this).find('video:nth-child(6)').addClass('video-selected');
-      }
-    }else if(param == 233)
-    {
-      let id = $(this).attr('id');
-      if($(this).find('video:nth-child(7)').hasClass('video-selected')){
-        $('#selected-participent-id').val('');
-        $(this).find('video:nth-child(7)').removeClass('video-selected');
-      } else {
-        $('#selected-participent-id').val( id );
-        $(this).find('video:nth-child(7)').addClass('video-selected');
-      }
-    }else if(param == 234)
-    {
-      let id = $(this).attr('id');
-      if($(this).find('video:nth-child(7)').hasClass('video-selected')){
-        $('#selected-participent-id').val('');
-        $(this).find('video:nth-child(7)').removeClass('video-selected');
-      } else {
-        $('#selected-participent-id').val( id );
-        $(this).find('video:nth-child(7)').addClass('video-selected');
-      }
-    }
-    else
-    {
-      console.log('----------param2-------------',param);
+
+    $(document).on('click', ' #subscribers-list .video-holder:eq(0)', function(){
+   
       let id = $(this).attr('id');
       if($(this).find('video').hasClass('video-selected')){
         $('#selected-participent-id').val('');
@@ -3475,7 +3468,98 @@ console.log('----------param1-------------',param);
         $('#selected-participent-id').val( id );
         $(this).find('video').addClass('video-selected');
       }
-    }
+
+    })
+
+    $(document).on('click', ' #subscribers-list .video-holder:eq(1)', function(){
+     
+      let id = $(this).attr('id');
+      if($(this).find('video').hasClass('video-selected')){
+        $('#selected-participent-id').val('');
+        $(this).find('video').removeClass('video-selected');
+      } else {
+        $('#selected-participent-id').val( id );
+        $(this).find('video').addClass('video-selected');
+      }
+
+    })
+
+    $(document).on('click', ' #subscribers-list .video-holder:eq(2)', function(){
+    
+      let id = $(this).attr('id');
+      if($(this).find('video').hasClass('video-selected')){
+        $('#selected-participent-id').val('');
+        $(this).find('video').removeClass('video-selected');
+      } else {
+        $('#selected-participent-id').val( id );
+        $(this).find('video').addClass('video-selected');
+      }
+
+    })
+
+    $(document).on('click', ' #subscribers-list .video-holder:eq(3)', function(){
+      
+      let id = $(this).attr('id');
+      if($(this).find('video').hasClass('video-selected')){
+        $('#selected-participent-id').val('');
+        $(this).find('video').removeClass('video-selected');
+      } else {
+        $('#selected-participent-id').val( id );
+        $(this).find('video').addClass('video-selected');
+      }
+
+    })
+
+    $(document).on('click', ' #subscribers-list .video-holder:eq(4)', function(){
+      
+      let id = $(this).attr('id');
+      if($(this).find('video').hasClass('video-selected')){
+        $('#selected-participent-id').val('');
+        $(this).find('video').removeClass('video-selected');
+      } else {
+        $('#selected-participent-id').val( id );
+        $(this).find('video').addClass('video-selected');
+      }
+
+    })
+
+    $(document).on('click', ' #subscribers-list .video-holder:eq(5)', function(){
+      
+      let id = $(this).attr('id');
+      if($(this).find('video').hasClass('video-selected')){
+        $('#selected-participent-id').val('');
+        $(this).find('video').removeClass('video-selected');
+      } else {
+        $('#selected-participent-id').val( id );
+        $(this).find('video').addClass('video-selected');
+      }
+
+    })
+
+    $(document).on('click', ' #subscribers-list .video-holder:eq(6)', function(){
+      
+      let id = $(this).attr('id');
+      if($(this).find('video').hasClass('video-selected')){
+        $('#selected-participent-id').val('');
+        $(this).find('video').removeClass('video-selected');
+      } else {
+        $('#selected-participent-id').val( id );
+        $(this).find('video').addClass('video-selected');
+      }
+
+    })
+
+    $(document).on('click', ' #subscribers-list .video-holder:eq(7)', function(){
+      
+      let id = $(this).attr('id');
+      if($(this).find('video').hasClass('video-selected')){
+        $('#selected-participent-id').val('');
+        $(this).find('video').removeClass('video-selected');
+      } else {
+        $('#selected-participent-id').val( id );
+        $(this).find('video').addClass('video-selected');
+      }
+
     })
 
     function sort_li(a, b) {

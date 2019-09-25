@@ -815,6 +815,7 @@ position: absolute;
     background: #fff;
     border-radius: 7px 7px;
     padding: 3px 12px;
+    overflow: hidden;
 }
 .video-holder .vid-icons{
 	bottom: -3px;

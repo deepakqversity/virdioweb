@@ -13,7 +13,7 @@ class SessionScript{
 		
         return await new Promise((resolve, reject) => {
         	
-        	db.query('SELECT ss.*, ssm.sessionScriptId FROM session_script ss LEFT JOIN session_script_mapping ssm ON ssm.sessionScriptId = ss.id WHERE ssm.sessionId = ? AND ss.userId = ? status = 1', [sessionId, userId], function (error, results, fields) {
+        	db.query('SELECT ss.*, ssm.sessionScriptId FROM session_script ss LEFT JOIN session_script_mapping ssm ON ssm.sessionScriptId = ss.id WHERE ssm.sessionId = ? AND ss.userId = ? AND status = 1', [sessionId, userId], function (error, results, fields) {
 			  if (error) reject(error);
 			  // console.log('================== results ', results)
 			  	

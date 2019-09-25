@@ -1617,7 +1617,6 @@ function signalHandler(uid, signalData, userType) {
         // audience only raise hand by participant
         addAudienceInList(resultant);
       }
-
       else if(resultant[0] == '216')
       {
         console.log('********gggg************ resultant', resultant);
@@ -1684,13 +1683,16 @@ function signalHandler(uid, signalData, userType) {
       else if(resultant[0] == "227")
       {
 
-        $("#subscribers-list .video-holder").trigger('click',"227");
+        $(".subsc").trigger('click',"227");
+
+     //  $("#subscribers-list .video-holder").trigger('click',"227");
             
       }
       else if(resultant[0] == "228")
       {
-
-        $("#subscribers-list .video-holder").trigger('click',"228");
+        console.log('-------param--------228')
+        $(".subsc").trigger('click',"228");
+        //$("#subscribers-list .video-holder").trigger('click',"228");
             
       }else if(resultant[0] == "229")
       {
@@ -3277,7 +3279,7 @@ function signalHandler(uid, signalData, userType) {
 
 
                   $( '#newhtt').bind( "click", function(event) {
-                    let message = "227"+sep;
+                    let message = "228"+sep;
                     let attendiesID='arjun.rishi@virdio.com'
                     sendMessage(attendiesID, message);
                       });     
@@ -3344,92 +3346,122 @@ function signalHandler(uid, signalData, userType) {
       });
     
     //
-    $(document).on('click', '#subscribers-list .video-holder ', function(event,param){
+
+    // $(document).on('click', '.subsc:first', function(event,param){
+    //   console.log('----------param4-------------',param);
+    //   let id = $(this).attr('id');
+    //   if($(this).find('video:first').hasClass('video-selected')){
+    //     $('#selected-participent-id').val('');
+    //     $(this).find('video:first').removeClass('video-selected');
+    //   } else {
+    //     $('#selected-participent-id').val( id );
+    //     $(this).find('video:first').addClass('video-selected');
+    //   }
+
+    // })
+
+    // $(document).on('click', '.subsc:eq(2)', function(event,param){
+    //   console.log('----------param5-------------',param);
+    //   let id = $(this).attr('id');
+    //   if($(this).find('video:nth-child(2)').hasClass('video-selected')){
+    //     $('#selected-participent-id').val('');
+    //     $(this).find('video:nth-child(2)').removeClass('video-selected');
+    //   } else {
+    //     $('#selected-participent-id').val( id );
+    //     $(this).find('video:nth-child(2)').addClass('video-selected');
+    //   }
+
+    // })
+
+    $(document).on('click', '.subsc', function(event,param){
 console.log('----------param1-------------',param);
 
     if(param == 227)
     {
       console.log('----------param3-------------',param);
       let id = $(this).attr('id');
-      if($(this).find('video:first').hasClass('video-selected')){
+      if($(this).find('.subsc:first').hasClass('video-selected')){
         $('#selected-participent-id').val('');
-        $(this).find('video:first').removeClass('video-selected');
+        $(this).find('.subsc:first').removeClass('video-selected');
       } else {
         $('#selected-participent-id').val( id );
-        $(this).find('video:first').addClass('video-selected');
+        $(this).find('.subsc:first').addClass('video-selected');
       }
     }
     else if(param == 228)
     {
+      let len=('.subsc:nth-child(2)').length;
+      console.log('----------param4-------------',param,len);
       let id = $(this).attr('id');
-      if($(this).find('video:nth-child(2)').hasClass('video-selected')){
+      if($(this).find('.video ').hasClass('video-selected')){
         $('#selected-participent-id').val('');
-        $(this).find('video:nth-child(2)').removeClass('video-selected');
+        $(this).find('.video ').removeClass('video-selected');
       } else {
         $('#selected-participent-id').val( id );
-        $(this).find('video:nth-child(2)').addClass('video-selected');
-      }
-    } else if(param == 229)
-    {
-      let id = $(this).attr('id');
-      if($(this).find('video:nth-child(3)').hasClass('video-selected')){
-        $('#selected-participent-id').val('');
-        $(this).find('video:nth-child(3)').removeClass('video-selected');
-      } else {
-        $('#selected-participent-id').val( id );
-        $(this).find('video:nth-child(3)').addClass('video-selected');
-      }
-    }else if(param == 230)
-    {
-      let id = $(this).attr('id');
-      if($(this).find('video:nth-child(4)').hasClass('video-selected')){
-        $('#selected-participent-id').val('');
-        $(this).find('video:nth-child(4)').removeClass('video-selected');
-      } else {
-        $('#selected-participent-id').val( id );
-        $(this).find('video:nth-child(4)').addClass('video-selected');
-      }
-    }else if(param == 231)
-    {
-      let id = $(this).attr('id');
-      if($(this).find('video:nth-child(5)').hasClass('video-selected')){
-        $('#selected-participent-id').val('');
-        $(this).find('video:nth-child(5)').removeClass('video-selected');
-      } else {
-        $('#selected-participent-id').val( id );
-        $(this).find('video:nth-child(5)').addClass('video-selected');
-      }
-    }else if(param == 232)
-    {
-      let id = $(this).attr('id');
-      if($(this).find('video:nth-child(6)').hasClass('video-selected')){
-        $('#selected-participent-id').val('');
-        $(this).find('video:nth-child(6)').removeClass('video-selected');
-      } else {
-        $('#selected-participent-id').val( id );
-        $(this).find('video:nth-child(6)').addClass('video-selected');
-      }
-    }else if(param == 233)
-    {
-      let id = $(this).attr('id');
-      if($(this).find('video:nth-child(7)').hasClass('video-selected')){
-        $('#selected-participent-id').val('');
-        $(this).find('video:nth-child(7)').removeClass('video-selected');
-      } else {
-        $('#selected-participent-id').val( id );
-        $(this).find('video:nth-child(7)').addClass('video-selected');
-      }
-    }else if(param == 234)
-    {
-      let id = $(this).attr('id');
-      if($(this).find('video:nth-child(7)').hasClass('video-selected')){
-        $('#selected-participent-id').val('');
-        $(this).find('video:nth-child(7)').removeClass('video-selected');
-      } else {
-        $('#selected-participent-id').val( id );
-        $(this).find('video:nth-child(7)').addClass('video-selected');
+        $(this).find('.video').addClass('video-selected');
       }
     }
+    //  else if(param == 229)
+    // {
+    //   let id = $(this).attr('id');
+    //   if($(this).find('video:nth-child(3)').hasClass('video-selected')){
+    //     $('#selected-participent-id').val('');
+    //     $(this).find('video:nth-child(3)').removeClass('video-selected');
+    //   } else {
+    //     $('#selected-participent-id').val( id );
+    //     $(this).find('video:nth-child(3)').addClass('video-selected');
+    //   }
+    // }else if(param == 230)
+    // {
+    //   let id = $(this).attr('id');
+    //   if($(this).find('video:nth-child(4)').hasClass('video-selected')){
+    //     $('#selected-participent-id').val('');
+    //     $(this).find('video:nth-child(4)').removeClass('video-selected');
+    //   } else {
+    //     $('#selected-participent-id').val( id );
+    //     $(this).find('video:nth-child(4)').addClass('video-selected');
+    //   }
+    // }else if(param == 231)
+    // {
+    //   let id = $(this).attr('id');
+    //   if($(this).find('video:nth-child(5)').hasClass('video-selected')){
+    //     $('#selected-participent-id').val('');
+    //     $(this).find('video:nth-child(5)').removeClass('video-selected');
+    //   } else {
+    //     $('#selected-participent-id').val( id );
+    //     $(this).find('video:nth-child(5)').addClass('video-selected');
+    //   }
+    // }else if(param == 232)
+    // {
+    //   let id = $(this).attr('id');
+    //   if($(this).find('video:nth-child(6)').hasClass('video-selected')){
+    //     $('#selected-participent-id').val('');
+    //     $(this).find('video:nth-child(6)').removeClass('video-selected');
+    //   } else {
+    //     $('#selected-participent-id').val( id );
+    //     $(this).find('video:nth-child(6)').addClass('video-selected');
+    //   }
+    // }else if(param == 233)
+    // {
+    //   let id = $(this).attr('id');
+    //   if($(this).find('video:nth-child(7)').hasClass('video-selected')){
+    //     $('#selected-participent-id').val('');
+    //     $(this).find('video:nth-child(7)').removeClass('video-selected');
+    //   } else {
+    //     $('#selected-participent-id').val( id );
+    //     $(this).find('video:nth-child(7)').addClass('video-selected');
+    //   }
+    // }else if(param == 234)
+    // {
+    //   let id = $(this).attr('id');
+    //   if($(this).find('video:nth-child(7)').hasClass('video-selected')){
+    //     $('#selected-participent-id').val('');
+    //     $(this).find('video:nth-child(7)').removeClass('video-selected');
+    //   } else {
+    //     $('#selected-participent-id').val( id );
+    //     $(this).find('video:nth-child(7)').addClass('video-selected');
+    //   }
+    // }
     else
     {
       console.log('----------param2-------------',param);

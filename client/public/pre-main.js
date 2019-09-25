@@ -552,9 +552,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
         
         if (device.kind === 'audioinput') {
           // if(device.label.indexOf('Built-in') !== -1 || (device.label.indexOf('Internal') !== -1 && device.label.indexOf('Default') === -1)){
-          if(device.label.indexOf('Internal') !== -1 && device.label.indexOf('Default') === -1){
-            continue;
-          }
+          //if(device.label.indexOf('Internal') !== -1 && device.label.indexOf('Default') === -1){
+            //continue;
+          //}
           // console.log('deviceId,,,,,,,,,,,, ', deviceId)
 
           if(microphoneId == null) {

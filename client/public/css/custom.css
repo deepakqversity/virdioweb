@@ -383,6 +383,9 @@ h3.main-heading span span span {
 	.guest-screen h3.main-heading{
 		text-align:center;
 	}
+	.header .guest-screen .count-box .countdown{
+		margin:auto !important;
+	}
 }
 @media (min-width:1920px){
 	.h-lg-100{

@@ -56,9 +56,9 @@ class Guest extends Component {
   }
 
 
-  showpart = e => {
-    $('#newhtt').trigger('click');
-  }
+  // showpart = e => {
+  //   $('#newhtt').trigger('click');
+  // }
 
 
   loadScript = function (src) {
@@ -237,7 +237,7 @@ return (
                     
                     <a className="col-2 justify-content-end d-flex align-items-center" href="javascript:;" className="btn btn-primary" tabIndex="1" id="mute-unmute"><i className="fa fa-volume-up"></i></a>
 
-                    <a className="col-2 justify-content-end d-flex align-items-center" href="#" data-toggle="modal" data-target="#show-details" className="btn btn-primary "  onClick={this.showpart.bind(this)} tabIndex="1">Details</a>
+                    <a className="col-2 justify-content-end d-flex align-items-center" href="#" data-toggle="modal" data-target="#show-details" className="btn btn-primary "   tabIndex="1">Details</a>
                     {/* <a className="col-2 justify-content-end d-flex align-items-center" href="#" className="btn btn-primary "   tabIndex="1">Details</a> */}
                     <div className="default-btns mr-2">
                       <a href="#" className="btn btn-primary ml-2" id="mocrophone-off" onClick={this.handRaise.bind(this)} alt="Microphone" title="Microphone Off"><img src="images/hand.png" /></a>
@@ -289,7 +289,7 @@ return (
       
     </div>
   </div>
-    <footer className="footer position-relative zindex-5 count-box mb-5 mt-4">
+    <footer className="footer position-relative zindex-5 count-box mb-5 mb-lg-2 mt-4">
       
       <FooterScriptParticipant sessId={sessionData.id} />
 

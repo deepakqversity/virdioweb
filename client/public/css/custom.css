@@ -905,15 +905,15 @@ position: absolute;
 .icon-too-hard, 
 .icon-perfect, 
 .icon-awesome{
-	width: 18px;
-    height: 18px;
-    background-size: 13px;
-    background-repeat: no-repeat;
-    background-position: center;
+	width: 28px;
+    height: 28px;
+    background-size: 28px !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
     border-radius: 20px;
     padding: 2px;
     float: left;
-	cursor:pointer;
+    cursor: pointer;
 }
 .icon-like{
 	background: #fff url(../images/like.png);

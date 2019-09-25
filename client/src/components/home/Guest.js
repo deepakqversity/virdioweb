@@ -287,7 +287,7 @@ return (
       
     </div>
   </div>
-    <footer className="footer position-relative zindex-5 count-box mb-5 mt-4">
+    <footer className="footer position-relative zindex-5 count-box mb-4 mt-4">
       
       <FooterScriptParticipant sessId={sessionData.id} />
 

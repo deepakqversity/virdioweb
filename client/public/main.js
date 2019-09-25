@@ -2920,7 +2920,10 @@ function signalHandler(uid, signalData, userType) {
     });
 
     $(".show-hide-script").click(function(){
-      
+      //var scriptHeight = $(".script-section").height();
+      //if(scriptHeight < 210){
+        //$(".script-section").height("500px");
+      //}
       //$(this).text($(this).text() == '"Hide Script"' ? '"Show Script"' : '"Hide Script"');
       showHideScript();
       //$(".add-remove-flex").removeClass( ? '" "' : '"flex-grow-1"');
@@ -2928,6 +2931,8 @@ function signalHandler(uid, signalData, userType) {
       $(".script-section").slideToggle();
       
     });
+
+
 
     $(".host-script-section").height("255px");
     $(".host-section").css({"min-width": "380px", "max-width": "380px"});

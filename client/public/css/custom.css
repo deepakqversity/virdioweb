@@ -653,6 +653,24 @@ display: block;
     justify-content: space-between;
 	    align-items: flex-end;
 }
+.heart-rate-icon{
+position: absolute;
+    top: 20px;
+    right: 0;
+    width: 48px;
+    background: #fff;
+    border-radius: 10px 0 0 10px;
+    padding: 0 5px;
+    font-size: 12px;
+    font-family: Avenir-Medium;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+	    box-shadow: 0 3px 8px -2px #333;
+}
+.heart-rate-icon img{
+	
+}
 .popup-added .att-details .att-name, 
 .popup-added .att-details .vid-icons{
     position: relative;

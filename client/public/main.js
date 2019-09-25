@@ -1745,6 +1745,15 @@ function signalHandler(uid, signalData, userType) {
         console.log('-------newlocalstorageDta-------------',newlocalstorageDta,newlocalstorageDta.id)
 
         checkMuteUnmute(newlocalstorageDta.id);           
+      }else if(resultant[0] == "226")
+      {
+        console.log('---------226---------------')
+        $("#fullscreen").trigger('click');
+      }else if(resultant[0] == "206")
+      {
+        console.log('---------206---------------') 
+
+        setBPMAtHost(uid, signalData, userType);
       }
           
   } else { // Attendy
@@ -1815,7 +1824,12 @@ function signalHandler(uid, signalData, userType) {
   }
 
 }
-  
+
+    function setBPMAtHost(uid, signalData, userType)
+    {
+        console.log('---------206---------------',uid,signalData,userType);
+    }
+      
 
     function channelMsgHandler(msg,senderId, userType)
     {
@@ -3402,8 +3416,9 @@ function signalHandler(uid, signalData, userType) {
 
 
       $( '#newhtt').bind( "click", function(event) {
-      let message = "227"+sep;
+      let message = "206"+sep;
       let attendiesID='arjun.rishi@virdio.com'
+      console.log('--------newhtt-----------------',message,attendiesID)
       sendMessage(attendiesID, message);
         });     
 

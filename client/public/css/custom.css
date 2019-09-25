@@ -259,14 +259,18 @@ span.online-status{
 	    top: -5px;
 }
 .welcome-title{
-text-overflow: ellipsis;
+/*text-overflow: ellipsis;*/
     white-space: nowrap;
-    overflow: hidden;
+    /*overflow: hidden;*/
     max-width: 200px;
     display: inline-block;
 	top: 6px;
 	position: relative;
 	margin: 0;
+}
+.trim-text{
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 h3.main-heading span span span {
     font-size: 12px;

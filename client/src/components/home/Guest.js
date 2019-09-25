@@ -222,7 +222,7 @@ return (
               </div>
             </div>
               <div className="col-12 col-lg-11 col-md-11 col-sm-12">
-              <h3 className="main-heading show-hide-title d-block">{sessionData.name} <span>by <span className="welcome-title">{sessionData.hostFirstName.toLowerCase()} {sessionData.hostLastName.toLowerCase()}</span><span className="green-online online-status"><span>ONLINE</span></span></span>
+              <h3 className="main-heading show-hide-title d-block">{sessionData.name} <span>by <span className="welcome-title trim-text">{sessionData.hostFirstName.toLowerCase()} {sessionData.hostLastName.toLowerCase()}</span><span className="green-online online-status"><span>ONLINE</span></span></span>
           
           </h3>
                 <div className="row justify-content-between align-items-center">
@@ -234,7 +234,9 @@ return (
                   </div>
                   
                   <div className="col-12 center-mob col-sm-12 col-md-6 col-lg-3 d-flex justify-content-end">
-                  
+                    
+                    <a className="col-2 justify-content-end d-flex align-items-center" href="javascript:;" className="btn btn-primary" tabIndex="1" id="mute-unmute"><i className="fa fa-volume-up"></i></a>
+
                     <a className="col-2 justify-content-end d-flex align-items-center" href="#" data-toggle="modal" data-target="#show-details" className="btn btn-primary "  onClick={this.showpart.bind(this)} tabIndex="1">Details</a>
                     {/* <a className="col-2 justify-content-end d-flex align-items-center" href="#" className="btn btn-primary "   tabIndex="1">Details</a> */}
                     <div className="default-btns mr-2">

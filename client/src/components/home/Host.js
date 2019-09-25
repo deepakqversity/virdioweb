@@ -201,7 +201,7 @@ render() {
         return (
           <tr data-position="100000000000000" id={"online-user-row-"+id} key={idx}>
           <th scope="row"><img src={image} /></th>
-          <td className="text-left"><span className="welcome-title">{firstName.toLowerCase()} {lastName != null ? lastName.toLowerCase() : ''} {city != null ? ', '+city.toLowerCase() : ''}</span></td>
+          <td className="text-left"><span className="welcome-title trim-text">{firstName.toLowerCase()} {lastName != null ? lastName.toLowerCase() : ''} {city != null ? ', '+city.toLowerCase() : ''}</span></td>
           <td><img className="mr-2 user-status" src="/images/offline.png" />online</td>
           <td><i className="fa fa-check text-green"></i><i className="fa fa-times text-red d-none"></i></td>
           <td>5</td>

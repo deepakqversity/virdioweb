@@ -22,7 +22,8 @@ class PreConfiguration extends Component {
       timerTime: 0,
       userType:-1,
       interest:0,
-      alert10Sec:false
+      alert10Sec:false,
+      isHostJoined:false
     }
   }
 
@@ -214,7 +215,7 @@ class PreConfiguration extends Component {
           {
             
           this.setState({
-            isHostJoined: true,
+            isHostJoined: true
             });
           //  $('#continue-join').prop("disabled", false);
           }
@@ -267,8 +268,8 @@ render() {
           <tr data-position="100000000000000" id={"online-user-row-"+id} key={idx}>
           <th scope="row"><img src={image} /></th>
           <td className="text-left"><span className="welcome-title">{firstName.toLowerCase()} {lastName != null ? lastName.toLowerCase() : ''} {city != null ? ', '+city.toLowerCase() : ''}</span></td>
-          <td><img className="mr-2 user-status" src="/images/offline.png" />offline</td>
-          <td><i className="fa fa-check text-green"></i><i className="fa fa-times text-red d-none"></i></td>
+          <td><img className="mr-2 user-status" src="/images/offline.png" /><span className="user-online-status">offline</span></td>
+          <td className="visible-status"><i className="fa fa-check text-green"></i><i className="fa fa-times text-red d-none"></i></td>
           <td>5</td>
           </tr>
         );
@@ -318,7 +319,7 @@ render() {
                 <div className="row">
                   <div className="col-lg-8">
                     <h4 className="small-heading">Your Upcoming Session</h4>
-                    <h3 className="popup-heading">{sessionData.name}<span>by <label className="welcome-title">{sessionData.hostFirstName.toLowerCase()}  {sessionData.hostLastName.toLowerCase()}</label></span><span className="green-online online-status" id="online_state"><span>ONLINE</span></span></h3>
+                    <h3 className="popup-heading">{sessionData.name}<span>by <label className="welcome-title trim-text">{sessionData.hostFirstName.toLowerCase()}  {sessionData.hostLastName.toLowerCase()}</label></span><span className="green-online online-status" id="online_state"><span>ONLINE</span></span></h3>
                     <div className="time py-xs-1">  
                       <span className="no-border">{localDate}</span>
                     </div>

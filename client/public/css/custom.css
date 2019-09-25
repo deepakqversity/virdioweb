@@ -259,15 +259,26 @@ span.online-status{
 	    top: -5px;
 }
 .welcome-title{
-text-overflow: ellipsis;
+/*text-overflow: ellipsis;*/
     white-space: nowrap;
-    overflow: hidden;
+    /*overflow: hidden;*/
     max-width: 200px;
     display: inline-block;
 	top: 6px;
 	position: relative;
 	margin: 0;
 }
+.trim-text{
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+@media (max-width:1024px){
+	.welcome-title{
+		top: 0px;
+	}
+}
+
 h3.main-heading span span span {
     font-size: 12px;
     margin-left: 21px;
@@ -344,7 +355,9 @@ h3.main-heading span span span {
 	left: 10px;
 	margin: 0 !important;
 }
-
+.header .guest-screen .count-box .countdown{
+	left: -2px;
+}
 @media (max-width: 1024px){
 
 	h3.main-heading{
@@ -369,6 +382,9 @@ h3.main-heading span span span {
 @media (max-width:767px){
 	.guest-screen h3.main-heading{
 		text-align:center;
+	}
+	.header .guest-screen .count-box .countdown{
+		margin:auto !important;
 	}
 }
 @media (min-width:1920px){
@@ -802,6 +818,7 @@ position: absolute;
     background: #fff;
     border-radius: 7px 7px;
     padding: 3px 12px;
+    overflow: hidden;
 }
 .video-holder .vid-icons{
 	bottom: -3px;
@@ -892,15 +909,15 @@ position: absolute;
 .icon-too-hard, 
 .icon-perfect, 
 .icon-awesome{
-	width: 18px;
-    height: 18px;
-    background-size: 13px;
-    background-repeat: no-repeat;
-    background-position: center;
+	width: 28px;
+    height: 28px;
+    background-size: 28px !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
     border-radius: 20px;
     padding: 2px;
     float: left;
-	cursor:pointer;
+    cursor: pointer;
 }
 .icon-like{
 	background: #fff url(../images/like.png);
@@ -1481,7 +1498,7 @@ position: absolute;
     
 }
 .swiper-fitness-container{
-	    height: 160px;
+	    height: 150px;
     overflow: hidden;
 }
 .footer-fitness-script .fitness-guest .swiper-slide-next .count-timer{
@@ -1689,6 +1706,12 @@ position: absolute;
 		left: 19%;
 	}
 }
+@media (max-width: 768px){
+.fitness-emoji {
+    left: 26%;
+}
+}
+
 .fitness-emoji::after{
 	content: "\f0d7";
     font-family: FontAwesome;
@@ -2827,16 +2850,23 @@ ul.music-playlist li a span:nth-child(3){
 }
 .minimize-others{
 background: transparent;
+background:url(../images/exit-screen.png);
+	background-size: 22px;
+    background-repeat: no-repeat;
+	background-position: center;
     outline: none;
     border: 0;
-    width: 34px;
+    width: 26px;
+    height: 26px;
     margin: auto;
     display: table;
 	bottom: 15px;
     position: absolute;
     left: -10px;
     right: 0;
+	
 }
+
 .show-others:focus, .minimize-others:focus{
 outline: none;
 }

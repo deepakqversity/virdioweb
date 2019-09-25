@@ -197,6 +197,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
         console.log('MemberJoined ================MemberJoined ');
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-status').attr('src', '/images/online.png');
+        $('#online-user-row-'+convertEmailToId(memberId)).find('.user-online-status').html('online');
         let userList = getOrderUser()
 
         if(userList != ''){
@@ -706,7 +707,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   // }
 
 
-  let agoraLocal = $("#agora_local").find("video").width();
+  var agoraLocal = $("#agora_local").find("video").width();
     $("#agora_local video").height(`${agoraLocal / 1.778 }px`);
 function attendeeScreenHeight(){
   let attendeeHeight = $(".attend-mid-section").height();
@@ -1743,20 +1744,31 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
       $('#attendy-list').on('shown.bs.modal', function () {
           
           channel.getMembers().then(membersList => {
+
+            let localData = getCurrentUserData();
+          // let maxUserLimit = localData.default.maxUserLimit;
+
             let userList = getOrderUser();
             $('#attendy-list').find('.user-status').attr('src', '/images/offline.png');
+            $('#attendy-list').find('.user-online-status').html('offline');
+            $('#attendy-list').find('.visible-status .fa').addClass('fa-times').addClass('text-red').removeClass('fa-check').removeClass('text-green');
+            // let memCtr = 0;
             for(let i= 0; i < membersList.length; i++){
               let eleId = convertEmailToId(membersList[i]);
               $('#online-user-row-'+eleId).find('.user-status').attr('src', '/images/online.png');
+              $('#online-user-row-'+eleId).find('.user-online-status').html('online');
+              $('#online-user-row-'+eleId).find('.visible-status .fa').addClass('fa-check').addClass('text-green').removeClass('fa-times').removeClass('text-red');
               if(userList != ''){
                 for(let j in userList){
                   if(userList[j].id == membersList[i]){
-
+                      // if(memCtr < localData.default.maxUserLimit){
+                      // }
                       $('#online-user-row-'+eleId).attr('data-position', userList[j].joinAt );
                       break;
                   }
                 }
               }
+              // memCtr++;
               $('#online-user-list tr').sort(sort_li).appendTo('#online-user-list');
               
             }

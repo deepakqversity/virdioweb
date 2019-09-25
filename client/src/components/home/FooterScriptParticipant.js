@@ -138,7 +138,7 @@ console.log('sessionScript=', sessionScript)
       ) : (
       this.props.sessId == 2 ? (
         <div className="w-75 swiper-fitness-container float-left">
-          <div className="fitness-emoji">
+          <div className="fitness-emoji d-none">
             <h3>How are you feeling?</h3>
               <div className="d-flex justify-content-between a3">
                 <a href="#" id="like"><img src="images/like.png" />

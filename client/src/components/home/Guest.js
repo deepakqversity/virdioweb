@@ -56,9 +56,9 @@ class Guest extends Component {
   }
 
 
-  showpart = e => {
-    $('#newhtt').trigger('click');
-  }
+  // showpart = e => {
+  //   $('#newhtt').trigger('click');
+  // }
 
 
   loadScript = function (src) {
@@ -235,7 +235,7 @@ return (
                   
                   <div className="col-12 center-mob col-sm-12 col-md-6 col-lg-3 d-flex justify-content-end">
                   
-                    <a className="col-2 justify-content-end d-flex align-items-center" href="#" data-toggle="modal" data-target="#show-details" className="btn btn-primary "  onClick={this.showpart.bind(this)} tabIndex="1">Details</a>
+                    <a className="col-2 justify-content-end d-flex align-items-center" href="#" data-toggle="modal" data-target="#show-details" className="btn btn-primary "  tabIndex="1">Details</a>
                     {/* <a className="col-2 justify-content-end d-flex align-items-center" href="#" className="btn btn-primary "   tabIndex="1">Details</a> */}
                     <div className="default-btns mr-2">
                       <a href="#" className="btn btn-primary ml-2" id="mocrophone-off" onClick={this.handRaise.bind(this)} alt="Microphone" title="Microphone Off"><img src="images/hand.png" /></a>

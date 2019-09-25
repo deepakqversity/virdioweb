@@ -1225,11 +1225,7 @@ display:none;
   background: #9b51e0; 
 }
 @media (min-width:1110px){
-.max-h200::-webkit-scrollbar-track, 
-.max-h200::-webkit-scrollbar, .max-h200::-webkit-scrollbar-thumb {
-	display:none !important;
-	width: 0 !important
-}
+
 }
 .sub-heading{
     font-family: Avenir-Heavy;
@@ -1282,6 +1278,7 @@ position: absolute;
 	margin-top: 29px;
 	margin-right: 20px;
     padding-right: 20px;
+	max-height:430px;
 }
 .script-info .carousel-inner.guest-left-wine::-webkit-scrollbar{
 	width:6px;
@@ -1396,7 +1393,7 @@ position: absolute;
     margin-bottom: 15px;
     font-family: Avenir-Medium;
 }
-.start span a{
+.start span a, .end span a{
 	color: #fff;
     text-align: center;
     display: flex;
@@ -1423,6 +1420,9 @@ position: absolute;
   animation: countdown 30s linear infinite forwards;
   animation-direction: reverse;
 }
+.footer-fitness-script .fitness-guest .swiper-slide-next svg circle{
+  stroke-dasharray: 166px;
+}
 .header svg circle{
   stroke-dasharray: 160px;
   stroke-dashoffset: 0px;
@@ -1443,7 +1443,7 @@ position: absolute;
     
 }
 .swiper-fitness-container{
-	    height: 150px;
+	    height: 175px;
     overflow: hidden;
 }
 .footer-fitness-script .fitness-guest .swiper-slide-next .count-timer{
@@ -1558,15 +1558,15 @@ position: absolute;
 	}
 }
 
-.swiper-guest.start{
-	    background: transparent;
+.swiper-guest.start, .swiper-guest.end{
+	background: transparent;
     border: 0 !important;
 	
 }
 .swiper-guest.start{
 	
 }
-.swiper-guest.start span a{
+.swiper-guest.start span a, .swiper-guest.end span a{
 	width: 60px;
     height: 60px;
     border: 6px solid #484848 !important;
@@ -1574,7 +1574,10 @@ position: absolute;
     font-family: Avenir-Medium;
     font-size: 9px;
 }
-.swiper-guest.start.swiper-slide-next span a{
+.swiper-guest.end span a{
+	margin: auto;
+}
+.swiper-guest.start.swiper-slide-next span a, .swiper-guest.end.swiper-slide-next span a{
 	width: 100px;
     height: 100px;
     border: 6px solid #9B51E0 !important;
@@ -1582,8 +1585,11 @@ position: absolute;
     font-family: Avenir-Medium;
     font-size: 18px;
 }
-.swiper-guest.start span{
+.swiper-guest.start span, .swiper-guest.end span{
 	width:110px !important;
+}
+.swiper-guest.end span{
+	    margin: auto;
 }
 .fitness-guest .swiper-slide{
 	display: flex;
@@ -1593,29 +1599,76 @@ position: absolute;
 	display:block;
 	transform: inherit;
 }
-.fitness-guest .swiper-slide img{
+.fitness-guest .swiper-slide img.arrow-image{
 	position: absolute;
-    left: -56px;
-	width:125px;
+    left: -87px;
+    width: 169px;
 }
-.fitness-guest .swiper-slide:nth-child(4) img, 
-.fitness-guest .swiper-slide.swiper-slide-active img{
+
+.fitness-guest .swiper-slide img.arrow-image{
 	display:none;
 }
+
 .fitness-guest .count-timer{
 	box-shadow: inset 0 0px 0px 6px #484848;
 }
-.swiper-slide.swiper-slide-next + .swiper-slide img, .fitness-guest .swiper-slide.swiper-slide-next img{
+.swiper-slide.swiper-slide-next + .swiper-slide img.arrow-image,
+.swiper-slide:nth-child(3) img.arrow-image, 
+.fitness-guest .swiper-slide.swiper-slide-next img.arrow-image{
 	display:block;
 }
 .mobile-arrow{
-	    width: 20px !important;
+	width: 20px !important;
     left: 0 !important;
 }
 .fitness-guest .swiper-slide.swiper-slide-next img.mobile-arrow{
 	left:-13px !important;
 }
-
+.fitness-emoji{
+	position: absolute;
+    top: -140px;
+    left: 25%;
+    background: rgba(0,0,0,0.4);
+    padding: 20px;
+    border-radius: 10px;
+    width: 340px;
+}
+@media (max-width:1024px){
+	.fitness-emoji{
+		left: 19%;
+	}
+}
+.fitness-emoji::after{
+	content: "\f0d7";
+    font-family: FontAwesome;
+    color: rgba(0,0,0,0.4);
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    margin-left: -5px;
+    font-size: 22px;
+}
+.fitness-emoji a img{
+    width: 30px;
+    border-radius: 10px;
+    display: table;
+    margin: auto;
+	    margin-bottom: 3px;
+}
+.fitness-emoji h3{
+	color: #fff;
+    text-align: center;
+    font-size: 18px;
+    font-family: Avenir-Medium;
+    margin: 0px 0 11px;
+}
+.fitness-emoji a span{
+    display: block;
+    color: #fff;
+    font-family: Avenir-Book;
+    text-align: center;
+    font-size: 10px;
+}
 
 
 
@@ -1976,7 +2029,7 @@ img.user-login{
 	    float: right;
 }
 .count-timer{
-	    position: relative;
+	position: relative;
     margin: auto;
     margin-top: 10px;
     margin-bottom: 20px;
@@ -1989,14 +2042,18 @@ img.user-login{
     box-shadow: inset 0 0px 0px 4px #484848;
 }
 .count-timer h4{
-	    font-family: Avenir-Book;
+	font-family: Avenir-Book;
     color: rgba(255,255,255,0.5);
     font-weight: normal;
     font-size: 18px;
     text-align: center;
+    margin-top: 10px;
+	width: 100px;
     position: absolute;
-    bottom: -38px;
-    width: 100%;
+    left: -20px;
+}
+.footer-fitness-script .swiper-slide.swiper-slide-next .count-timer h4{
+	font-size:15px;
 }
 .prescreen-popup .signup-total, .prescreen-popup .online-total{
     color: #fff;

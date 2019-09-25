@@ -217,7 +217,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         if(storeData.userType == 1){
           if( $('#joinee-' + convertEmailToId(memberId)).length == 0 ){
             removeFromFirst();
-            $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(memberId)+'"><img src="'+getUserDataFromList(memberId, 'image')+'" />'+getUserDataFromList(memberId, 'firstName')+', '+getUserDataFromList(memberId, 'city')+'</span>');
+            $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(memberId)+'">'+getUserDataFromList(memberId, 'firstName')+' '+(getUserDataFromList(memberId, 'lastName') != null?getUserDataFromList(memberId, 'lastName'):'')+'</span>');
             totalChannelMembers();
           }
         }
@@ -253,7 +253,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
           if(storeData.userType ==1){
             if( $('#joinee-' + convertEmailToId(senderId)).length == 0 ){
               removeFromFirst();
-              $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(senderId)+'"><img src="'+getUserDataFromList(senderId, 'image')+'" />'+getUserDataFromList(senderId, 'firstName')+', '+getUserDataFromList(senderId, 'city')+'</span>');
+              $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(senderId)+'">'+getUserDataFromList(senderId, 'firstName')+' '+(getUserDataFromList(senderId, 'lastName') != null?getUserDataFromList(senderId, 'lastName'):'')+'</span>');
               totalChannelMembers()
             }
           }
@@ -552,9 +552,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
         
         if (device.kind === 'audioinput') {
           // if(device.label.indexOf('Built-in') !== -1 || (device.label.indexOf('Internal') !== -1 && device.label.indexOf('Default') === -1)){
-          //if(device.label.indexOf('Internal') !== -1 && device.label.indexOf('Default') === -1){
-            //continue;
-          //}
+          // if(device.label.indexOf('Internal') !== -1 && device.label.indexOf('Default') === -1){
+          //   continue;
+          // }
           // console.log('deviceId,,,,,,,,,,,, ', deviceId)
 
           if(microphoneId == null) {
@@ -1537,7 +1537,7 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
                 if(membersList[i].id == strArray[j].id && getUserDataFromList(membersList[i], 'userType') == 2){
                   if(ctr++ <= maxUserLimit){
                     if( $('#joinee-' + convertEmailToId(membersList[i])).length == 0 ){
-                      $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(membersList[i])+'"><img src="'+getUserDataFromList(membersList[i], 'image')+'" />'+getUserDataFromList(membersList[i], 'firstName')+', '+getUserDataFromList(membersList[i], 'city')+'</span>');
+                      $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(membersList[i])+'">'+getUserDataFromList(membersList[i], 'firstName')+' '+(getUserDataFromList(membersList[i], 'lastName') != null?getUserDataFromList(membersList[i], 'lastName'):'')+'</span>');
                     }
                   }
                 }                
@@ -1560,7 +1560,7 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
             for(let i= totMember-1; i >= 0 ; i--){
               if(getUserDataFromList(membersList[i], 'userType') == 2){
                 if(membersList[i] != id && $('#joinee-' + convertEmailToId(membersList[i])).length == 0 ){
-                  $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(membersList[i])+'"><img src="'+getUserDataFromList(membersList[i], 'image')+'" />'+getUserDataFromList(membersList[i], 'firstName')+', '+getUserDataFromList(membersList[i], 'city')+'</span>');
+                  $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(membersList[i])+'">'+getUserDataFromList(membersList[i], 'firstName')+' '+(getUserDataFromList(membersList[i], 'lastName') != null?getUserDataFromList(membersList[i], 'lastName'):'')+'</span>');
                   break;
                 }
               }
@@ -1578,7 +1578,6 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
           let maxUserLimit = localData.default.preScreenUserLimit;
           if($('#joiners').find('span').length >= maxUserLimit){
             $( "#joiners").find('span').first().remove();
-
           }
       }
 

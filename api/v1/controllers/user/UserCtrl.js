@@ -64,7 +64,7 @@ class UserCtrl {
 								if(currentSession.logo && !isEmpty(currentSession.logo)){
 									currentSession.logo = process.env.LOGOS + currentSession.logo;
 								} else {
-									currentSession.logo = process.env.IMAGES + 'v-logo.png';
+									currentSession.logo = process.env.IMAGES + 'login-logo.png';
 								}
 
 								

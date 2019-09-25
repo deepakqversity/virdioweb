@@ -138,8 +138,32 @@ console.log('sessionScript=', sessionScript)
       ) : (
       this.props.sessId == 2 ? (
         <div className="w-75 swiper-fitness-container float-left">
+          <div className="fitness-emoji">
+            <h3>How are you feeling?</h3>
+              <div className="d-flex justify-content-between a3">
+                <a href="#" id=""><img src="images/like.png" />
+                  <span>like</span>
+                </a>
+                <a href="#" id=""><img src="images/dislike.png" />
+                <span>dislike</span>
+                </a>
+                <a href="#" id=""><img src="images/easy.png" />
+                  <span>easy</span>
+                </a>
+                <a href="#" id=""><img src="images/too-hard.png" />
+                  <span>easy</span>
+                </a>
+                <a href="#" id=""><img src="images/perfect.png" />
+                  <span>too-hard</span>
+                </a>
+                <a href="#" id=""><img src="images/awesome.png" />
+                  <span>awesome</span>
+                </a>
+              </div>
+            </div>
           <div className="d-flex justify-content-between arrow-after align-items-center footer-fitness-script">
            <div className="swiper-container">
+           
               <div className="swiper-wrapper align-items-center fitness-guest">
                 <div className="swiper-guest swiper-slide start position-relative">              
                   <span className="position-relative" id="swip_slide">
@@ -155,7 +179,7 @@ console.log('sessionScript=', sessionScript)
                         
                          
                               <div className="swiper-slide" key={i}>
-                                
+                                  
                                   <div id="countdown" className="count-timer" key={i}>
                                   {opt.attribute.map(function(attrb, index){
                                     if(attrb.attrLabel == 'counter'){
@@ -168,7 +192,9 @@ console.log('sessionScript=', sessionScript)
                                   </svg>
                                 <h4>{opt.name}</h4>
                                 </div>
-                                <img src="images/arrow-img.png" />   
+                                <img src="images/arrow-img.png" className="arrow-image" /> 
+                                
+                                
                               </div> 
                                  
                   
@@ -177,6 +203,7 @@ console.log('sessionScript=', sessionScript)
                       <span>
                         <a href="#">End</a>
                       </span>
+                      <img src="images/arrow-img.png" className="arrow-image" />
                     </div>
               </div>
             </div>

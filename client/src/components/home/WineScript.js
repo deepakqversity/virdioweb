@@ -46,13 +46,13 @@ return (
                   <a className="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev" onClick={this.getPrev.bind(this)} >
                     <img src="images/prev-icon.png" className="next-btn" />
                   </a>
-                  <a href="#" className=" mr-5 show-hide-script"><img src="images/showscript.png" /></a>
+                  <a href="#" className=" mr-5 show-full-script show-hide-script"><img src="images/showscript.png" /></a>
                   <a className="carousel-control-next position-relative" href="#carouselExampleControls" role="button" data-slide="next" id="winscript"  onClick={this.getNext.bind(this)}>
                     <img src="images/next-icon.png" className="next-btn" />
                   </a>
                 </div>
                        
-                        <div className="bg-gray bottom-rounded px-3 pb-2 item-description script-section mt--1 flex-grow-1">
+                        <div className="bg-gray bottom-rounded px-3 pb-2 item-description script-section d-block mt--1 flex-grow-1">
                         <div className="max-h200">
                           <h4 className="item-name">{opt.name}</h4>
                           <div className="row">

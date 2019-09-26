@@ -35,8 +35,9 @@ $(document).ready(function(){
     //}
   });
   mySwiper = document.querySelector('.swiper-container').swiper
-  $(".swiper-slide").removeClass("swiper-slide-next");
-  $(".swiper-slide:nth-child(1)").addClass("swiper-slide-next");
+  $(".swiper-slide:nth-child(2)").addClass("remove-slider-bg");
+  $(".swiper-slide:nth-child(1)").addClass("swiper-start");
+
   if($(".swiper-wrapper .swiper-slide:nth-child(1)").hasClass("swiper-slide-next")){
     $(".swiper-btn-next").css("display", "none")
   } 

@@ -986,14 +986,17 @@ function signalHandler(uid, signalData, userType) {
      else if(resultant[0] == '216')
     {
       console.log('********gggg************ resultant', resultant[1]);
+
       let joinDateTimeattendies = convertUnixTimestamp(resultant[1]);
+
       console.log('********ssssss************ resultant', joinDateTimeattendies);
 
-      let message="Hi " +localDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your first virtual session with us  ";
-   
-     // let message="Welcome  User, " + getUserDataFromList(uid, 'firstName') + " has already joined ";
+      let message="Hi " +localDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your 1st virtual session with us  ";
       
-      //$('#newmsg').html(message);
+      console.log('********ssssss************ resultant', message);
+      
+      $('#newmsg').html(message);
+
       console.log(' uid =================== time', uid, resultant);
 
       addRtmJoinOrder(uid, resultant[1]);

@@ -1606,11 +1606,11 @@ function changeImage(){
 
 function signalHandler(uid, signalData, userType) {
 
-  //signalData = JSON.parse(signalData);
 
   let resultant=signalData.split(sep);
      
-  
+  let nlocalDta= JSON.parse(localStorage.getItem("userData"));
+
   if(userType == 1) { // Host
 
     if(resultant[0] == '201'){
@@ -1637,12 +1637,10 @@ function signalHandler(uid, signalData, userType) {
       }
       else if(resultant[0] == '216')
       {
-        console.log('********gggg************ resultant', resultant);
-
+       
         let joinDateTime = convertUnixTimestamp(resultant[1]);
-
-        console.log('********ppppp************ resultant', joinDateTime,uid);
-        let message="Welcome  Host, " + getUserDataFromList(uid, 'firstName') + " has already joined   ";
+     
+        let message="Hi " +nlocalDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your 1st virtual session with us  ";
         
         //$('#newmsg').html(message);
        // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
@@ -1798,25 +1796,24 @@ function signalHandler(uid, signalData, userType) {
     }
     else if(resultant[0] == '216')
     {
-      console.log('********gggg************ resultant', resultant[1]);
+
       let joinDateTimeattendies = convertUnixTimestamp(resultant[1]);
-      console.log('********ssssss************ resultant', joinDateTimeattendies);
-   
-      let message="Welcome  User, " + getUserDataFromList(uid, 'firstName') + " has already joined ";
-      
-      //$('#newmsg').html(message);
+
+      let message="Hi " +nlocalDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your 1st virtual session with us  ";        
+     
+      $('#newmsg').html(message);
      // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
       addRtmJoinOrder(uid, resultant[1]);
     }
 
     else if(resultant[0] == '205')
     {
-     // console.log('********ggggggggggggg************** signalData ', signalData.message); 
+     
       $('#hostmsg').html('Eject');
       setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
     }else if(resultant[0] == '209')
     {
-     // console.log('********ggggggggggggg************** signalData ', signalData.message); 
+   
       $('#hostmsg').html('UnMute');
       setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
     } else if(resultant[0] == '1002') {

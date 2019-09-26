@@ -22,8 +22,8 @@ class PreConfiguration extends Component {
       timerTime: 0,
       userType:-1,
       interest:0,
-      alert10Sec:false,
-      isHostJoined:false
+      alert10Sec:false
+ 
     }
   }
 
@@ -88,16 +88,37 @@ class PreConfiguration extends Component {
     this.startTimer();
   }
 
-  joinAttendies(){
-    alert('hi');
+  checkHostSession = () => {
+    console.log('test', this.state.isHostJoined)
+    let tempUserDta = JSON.parse(localStorage.getItem('tempUser'));
+
+    if(tempUserDta != null){
+      for(let i in tempUserDta){
+        if(tempUserDta[i].userType == 1  && tempUserDta[i].sessionStatus == 1){
+
+          this.setState({
+            isHostJoined: true
+            });        
+        }
+
+      }
+      console.log('test == ', this.state.isHostJoined)
+
+    }
+
   }
 
+
   joinSession = () => {
-     // console.log('#############');
+
+    
+      console.log('#####join####button########');
 
       //alert('hello');
       
       window.joinChannel();
+
+      console.log('#####joinchannel########');
 
       // setTimeout(function(){ }, 1000);
       
@@ -301,6 +322,9 @@ render() {
 
     
   $("body").css("overflow-y", "scroll");
+
+  console.log('------virender----users ', this.state.isHostJoined)
+
   return (
        <div>
       <div className="prescreen-popup" id="media-config">
@@ -379,6 +403,7 @@ render() {
               {localstoragedata.userType == 1 ? (<div className="row">
                   <div className="online-streams">
                     <span className="online-total">Online streams on screen</span>
+                    {/* <span className="signup-number" >{localstoragedata.default.maxUserLimit}</span> */}
                     <span className="signup-number" >{localstoragedata.default.maxUserLimit}</span>
                   </div>
                   
@@ -523,19 +548,21 @@ render() {
                 <div className="d-flex justify-content-end flex-wrap">
 
                   <button type="submit" className="w110 mr-4 btn-cancel btn btn-large btn-leave btn-outline-secondary rounded py-1 px-4" onClick={this.callfunction.bind(this)} >Leave</button>
+                  
                   {(
                     ()=>{
                         if(localstoragedata.userType == 1) {
                           return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-4 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
                         } else {
 
-                          if(this.state.isHostJoined == false)
-                          {
-                            return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)} disabled>Join</button>;
-                          }else
-                          {
-                            return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
-                          }
+
+                          //if(this.state.isHostJoined == false)
+                          //{
+                            //return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)} disabled="true">Join==</button>;
+                          //}else
+                          //{
+                            //return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
+                          //}
                         }
                     }
                   )()}
@@ -596,6 +623,8 @@ render() {
           </div>
         </div>
       </div>
+
+      <button id="set-temp-sesstion" onClick={this.checkHostSession}>cccc</button>
       
       </div>
     );

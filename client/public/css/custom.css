@@ -1305,14 +1305,17 @@ display:none;
     color: #fff;
     font-size: 14px;
 }
-.show-hide-script{
+.show-hide-script, .show-fitness-script{
 position: absolute;
     right: 10px;
     z-index: 6;
     top: 13px;
     width: 24px;
+	    outline: none;
 }
-
+.show-fitness-script img{
+outline:0;
+}
 @media (max-width:480px){
 .item-description .list-info li span:last-child{
 	float: left;
@@ -1320,6 +1323,16 @@ position: absolute;
 .second-heading{
 	font-size: 20px;
 }
+}
+
+.height-500{
+	height:60% !important;
+}
+.height-500 .max-h200 {
+    max-height: 95%;
+}
+.height-500 .host-section{
+	height: 255px !important;
 }
 
 /*----7. Testing Script section-----*/
@@ -2791,7 +2804,7 @@ ul.music-playlist li a span:nth-child(3){
     margin-bottom: 0;
 }
 .attendy-list .modal-dialog{
-    max-width: 86%;
+    max-width: 96%;
     margin: 1.75rem auto;
     display: flex;
     align-items: center;
@@ -2801,7 +2814,10 @@ ul.music-playlist li a span:nth-child(3){
 	padding-left:0;
 	padding-right:0;
 }
-
+.fitness-script1 .table th:nth-child(1), 
+.fitness-script1 .table td:nth-child(1){
+text-align:left;
+}
 
 
 /* ---------Attendees Screen------------------- */

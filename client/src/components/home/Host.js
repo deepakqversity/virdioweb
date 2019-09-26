@@ -441,6 +441,9 @@ return (
 
 
       </div>
+      
+
+
       <div id="show-details" className="modal fade " role="dialog">
       <div className="w-100 d-flex align-items-center bg-black flex-direction-column h-100 mw-100 justify-content-center">
         <div className="modal-content">
@@ -541,6 +544,125 @@ return (
       <input type="hidden" id="to-broadcast" />
       <input type="hidden" id="current-camera" />
       <input type="hidden" id="current-microphone" />
+
+      <div className="modal attendy-list fitness-script1" id="fitness-script">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h4 className="modal-title">Fitness Script</h4>
+              <button type="button" className="close" data-dismiss="modal">×</button>
+            </div>
+            <div className="modal-body">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th scope="col" className="text-left">Name</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Duration type</th>
+                  <th scope="col">Counts (Reps/Secs)</th>
+                  <th scope="col">Target Zone</th>
+                  <th scope="col">Target BPM</th>
+                  <th scope="col">Video</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Chest Strech</td>
+                  <td>Warm up</td>
+                  <td>Time</td>
+                  <td>30</td>
+                  <td>40%</td>
+                  <td>90</td>
+                  <td>NA</td>
+                </tr>
+                <tr>
+                  <td>Shoulder Strech</td>
+                  <td>Warm up</td>
+                  <td>Time</td>
+                  <td>30</td>
+                  <td>40%</td>
+                  <td>90</td>
+                  <td>NA</td>
+                </tr>   
+                <tr>
+                  <td>Hamstring Strech</td>
+                  <td>Warm up</td>
+                  <td>Time</td>
+                  <td>30</td>
+                  <td>60%</td>
+                  <td>90</td>
+                  <td><img src="images/screen-video.png" width="16" /></td>
+                </tr>   
+                <tr>
+                  <td>Pushup</td>
+                  <td>Strength</td>
+                  <td>Time</td>
+                  <td>30</td>
+                  <td>50%</td>
+                  <td>90</td>
+                  <td>NA</td>
+                </tr>   
+                <tr>
+                  <td>Rest</td>
+                  <td>Rest</td>
+                  <td>Time</td>
+                  <td>30</td>
+                  <td>60%</td>
+                  <td>90</td>
+                  <td>NA</td>
+                </tr>              
+                <tr>
+                  <td>Chest Strech</td>
+                  <td>Warm up</td>
+                  <td>Time</td>
+                  <td>30</td>
+                  <td>40%</td>
+                  <td>90</td>
+                  <td>NA</td>
+                </tr>
+                <tr>
+                  <td>Shoulder Strech</td>
+                  <td>Warm up</td>
+                  <td>Time</td>
+                  <td>30</td>
+                  <td>40%</td>
+                  <td>90</td>
+                  <td>NA</td>
+                </tr>   
+                <tr>
+                  <td>Hamstring Strech</td>
+                  <td>Warm up</td>
+                  <td>Time</td>
+                  <td>30</td>
+                  <td>60%</td>
+                  <td>90</td>
+                  <td><img src="images/screen-video.png" width="16" /></td>
+                </tr>   
+                <tr>
+                  <td>Pushup</td>
+                  <td>Strength</td>
+                  <td>Time</td>
+                  <td>30</td>
+                  <td>50%</td>
+                  <td>90</td>
+                  <td>NA</td>
+                </tr>   
+                <tr>
+                  <td>Rest</td>
+                  <td>Rest</td>
+                  <td>Time</td>
+                  <td>30</td>
+                  <td>60%</td>
+                  <td>90</td>
+                  <td>NA</td>
+                </tr>           
+              </tbody>
+            </table>
+            </div>
+            
+          </div>
+        </div>
+      </div>
 
       <div className="modal attendy-list" id="attendy-list">
         <div className="modal-dialog">

@@ -479,7 +479,12 @@ if(!AgoraRTC.checkSystemRequirements()) {
       console.log("Leave channel failed");
     });
   }
-
+//  function demo(){
+//   let message = "206"+sep+"130";
+//  // let channelName1='arjun.rishi@virdio.co'
+//   console.log('--------newhtt-----------------',channelName1)
+//   sendMessageToChannel(channelName1, message);
+//  }
   //var currentSession = getCurrentSession(); 
   var newclient; 
   var channel;
@@ -509,6 +514,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
             channel = newclient.createChannel(channelName1);
 
             channel.join().then(() => {
+
+              demo();
 
             // after join channel send join channel message to host
             joinChannel();
@@ -1764,11 +1771,6 @@ function signalHandler(uid, signalData, userType) {
       {
         console.log('---------226---------------')
         $("#fullscreen").trigger('click');
-      }else if(resultant[0] == "206")
-      {
-        console.log('---------206---------------') 
-
-        setBPMAtHost(uid, resultant[1], userType);
       }
           
   } else { // Attendy
@@ -1843,9 +1845,10 @@ function signalHandler(uid, signalData, userType) {
     function setBPMAtHost(senderId, signalData, userType)
     {
       //class="heart-icon" data-attr="'+stream.getId()+'"
-        console.log('---------206---------------',senderId,signalData,userType);
-
+        
         newSenderID=convertEmailToId(senderId);
+
+        console.log('---------206---------------',senderId,newSenderID,userType);
      
         $('.heart-icon[data-attr=\''+newSenderID+'\']').html(signalData);
      
@@ -1930,6 +1933,11 @@ function signalHandler(uid, signalData, userType) {
       {
         $(".carousel-control-prev").trigger('click');
           //alert('Winsscript previous');
+      }else if(res1[0] == "206")
+      {
+        console.log('---------206---------------') 
+
+        setBPMAtHost(senderId, res1[1], userType);
       }
     
      }
@@ -3469,10 +3477,10 @@ function signalHandler(uid, signalData, userType) {
 
 
       $( '#newhtt').bind( "click", function(event) {
-      let message = "228"+sep;
+      let message = "206"+sep+"120";
       let attendiesID='arjun.rishi@virdio.com'
       console.log('--------newhtt-----------------',message,attendiesID)
-      sendMessage(attendiesID, message);
+      sendMessageToChannel(channelName1, message);
         });     
 
 

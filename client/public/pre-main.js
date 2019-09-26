@@ -1635,6 +1635,21 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
       return userList; 
     }
 
+    // function getTotalParticipants(){
+    //   let userList = getTempUsers();
+
+    //   if(userList == null) return 0;
+
+    //   userList = JSON.parse(userList);
+    //   // console.log('userListuserList',userList, typeof userList);
+    //   // userList.sort(function(a, b) { return parseInt(a.joinAt) - parseInt(b.joinAt); });
+    //   userList.filter(function(value) {
+    //       return value.userType == 2; // Get only elements, which have such a key
+    //   }).shift();
+      
+    //   return userList; 
+    // }
+
   function addUserAttribute(id, key, value){
       
     let tempUsers = getTempUsers();

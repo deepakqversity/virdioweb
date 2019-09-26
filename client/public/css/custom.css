@@ -1510,10 +1510,9 @@ position: absolute;
 .footer-fitness-script .fitness-guest .swiper-slide-next svg circle{
 	stroke-width: 7px;
 }
-.footer-fitness-script .fitness-guest .swiper-slide-next{
+.footer-fitness-script .fitness-guest .swiper-slide-next, .swiper-guest.swiper-start.start{
 	background: transparent;
-    border: none !important;
-    
+    border: none !important;   
 }
 .swiper-fitness-container{
 	    height: 150px;
@@ -1544,6 +1543,13 @@ position: absolute;
 .remove-slider-bg .count-box svg circle{
     animation: none;
     stroke:none;
+}
+.footer-fitness-script .fitness-guest .remove-slider-bg .count-timer{
+    transform: scale(1);
+}
+.footer-fitness-script .fitness-guest .remove-slider-bg .count-timer svg circle{
+    stroke:none;
+    animation:none;
 }
 
 .swiper-slide-next .target-info span{
@@ -1662,7 +1668,7 @@ position: absolute;
 .swiper-guest.end span a{
 	margin: auto;
 }
-.swiper-guest.start.swiper-slide-next span a, .swiper-guest.end.swiper-slide-next span a{
+.swiper-guest.swiper-start.start span a, .swiper-guest.end.swiper-slide-next span a{
 	width: 100px;
     height: 100px;
     border: 6px solid #9B51E0 !important;

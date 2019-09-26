@@ -479,7 +479,12 @@ if(!AgoraRTC.checkSystemRequirements()) {
       console.log("Leave channel failed");
     });
   }
-
+//  function demo(){
+//   let message = "206"+sep+"130";
+//  // let channelName1='arjun.rishi@virdio.co'
+//   console.log('--------newhtt-----------------',channelName1)
+//   sendMessageToChannel(channelName1, message);
+//  }
   //var currentSession = getCurrentSession(); 
   var newclient; 
   var channel;
@@ -509,6 +514,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
             channel = newclient.createChannel(channelName1);
 
             channel.join().then(() => {
+
+              demo();
 
             // after join channel send join channel message to host
             joinChannel();
@@ -1600,11 +1607,11 @@ function changeImage(){
 
 function signalHandler(uid, signalData, userType) {
 
-  //signalData = JSON.parse(signalData);
 
   let resultant=signalData.split(sep);
      
-  
+  let nlocalDta= JSON.parse(localStorage.getItem("userData"));
+
   if(userType == 1) { // Host
 
     if(resultant[0] == '201'){
@@ -1631,12 +1638,10 @@ function signalHandler(uid, signalData, userType) {
       }
       else if(resultant[0] == '216')
       {
-        console.log('********gggg************ resultant', resultant);
-
+       
         let joinDateTime = convertUnixTimestamp(resultant[1]);
-
-        console.log('********ppppp************ resultant', joinDateTime,uid);
-        let message="Welcome  Host, " + getUserDataFromList(uid, 'firstName') + " has already joined   ";
+     
+        let message="Hi " +nlocalDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your 1st virtual session with us  ";
         
         //$('#newmsg').html(message);
        // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
@@ -1765,11 +1770,6 @@ function signalHandler(uid, signalData, userType) {
       {
         console.log('---------226---------------')
         $("#fullscreen").trigger('click');
-      }else if(resultant[0] == "206")
-      {
-        console.log('---------206---------------') 
-
-        setBPMAtHost(uid, resultant[1], userType);
       }
           
   } else { // Attendy
@@ -1797,25 +1797,24 @@ function signalHandler(uid, signalData, userType) {
     }
     else if(resultant[0] == '216')
     {
-      console.log('********gggg************ resultant', resultant[1]);
+
       let joinDateTimeattendies = convertUnixTimestamp(resultant[1]);
-      console.log('********ssssss************ resultant', joinDateTimeattendies);
-   
-      let message="Welcome  User, " + getUserDataFromList(uid, 'firstName') + " has already joined ";
-      
-      //$('#newmsg').html(message);
+
+      let message="Hi " +nlocalDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your 1st virtual session with us  ";        
+     
+      $('#newmsg').html(message);
      // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
       addRtmJoinOrder(uid, resultant[1]);
     }
 
     else if(resultant[0] == '205')
     {
-     // console.log('********ggggggggggggg************** signalData ', signalData.message); 
+     
       $('#hostmsg').html('Eject');
       setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
     }else if(resultant[0] == '209')
     {
-     // console.log('********ggggggggggggg************** signalData ', signalData.message); 
+   
       $('#hostmsg').html('UnMute');
       setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
     } else if(resultant[0] == '1002') {
@@ -1844,9 +1843,10 @@ function signalHandler(uid, signalData, userType) {
     function setBPMAtHost(senderId, signalData, userType)
     {
       //class="heart-icon" data-attr="'+stream.getId()+'"
-        console.log('---------206---------------',senderId,signalData,userType);
-
+        
         newSenderID=convertEmailToId(senderId);
+
+        console.log('---------206---------------',senderId,newSenderID,userType);
      
         $('.heart-icon[data-attr=\''+newSenderID+'\']').html(signalData);
      
@@ -1931,6 +1931,11 @@ function signalHandler(uid, signalData, userType) {
       {
         $(".carousel-control-prev").trigger('click');
           //alert('Winsscript previous');
+      }else if(res1[0] == "206")
+      {
+        console.log('---------206---------------') 
+
+        setBPMAtHost(senderId, res1[1], userType);
       }
     
      }
@@ -2829,11 +2834,13 @@ function signalHandler(uid, signalData, userType) {
     onPageResize();
   });
 
-  function  startSlider(){
-    $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
-    $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
+  function startSlider(){
+    //$(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
+    //$(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
     $(".swiper-slide.start a").prop('disabled', true);
-    $(".swiper-btn-next").css("display", "block")
+    $(".swiper-btn-next").css("display", "block");
+    $(".swiper-slide").removeClass("remove-slider-bg");
+  $(".start").removeClass("swiper-start");
     countDown();
   }
 
@@ -3498,10 +3505,10 @@ function signalHandler(uid, signalData, userType) {
 
 
       $( '#newhtt').bind( "click", function(event) {
-      let message = "228"+sep;
+      let message = "206"+sep+"120";
       let attendiesID='arjun.rishi@virdio.com'
       console.log('--------newhtt-----------------',message,attendiesID)
-      sendMessage(attendiesID, message);
+      sendMessageToChannel(channelName1, message);
         });     
 
 
@@ -3752,6 +3759,12 @@ function signalHandler(uid, signalData, userType) {
     //   }
 
     // })
+    // 
+    
+    $(document).on('click', '#subscribers-list .video-holder', function(){
+      
+      rtmAction($(this).attr('id'));
+    })
 
     function sort_li(a, b) {
       return parseInt($(b).attr('data-position')) < parseInt($(a).attr('data-position')) ? 1 : -1;

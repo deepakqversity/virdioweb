@@ -202,7 +202,7 @@ render() {
           <tr data-position="100000000000000" id={"online-user-row-"+id} key={idx}>
           <th scope="row"><img src={image} /></th>
           <td className="text-left"><span className="welcome-title">{firstName.toLowerCase()} {lastName != null ? lastName.toLowerCase() : ''} {city != null ? ', '+city.toLowerCase() : ''}</span></td>
-          <td><img className="mr-2 user-status" src="/images/offline.png" /><span className="user-online-status">online</span></td>
+          <td><img className="mr-2 user-status" src="/images/offline.png" /><span className="user-online-status">offline</span></td>
           <td className="visible-status"><i className="fa fa-check text-green"></i><i className="fa fa-times text-red d-none"></i></td>
           <td>5</td>
           </tr>
@@ -240,7 +240,7 @@ return (
             <div className="col-12 col-sm-7">
               <div className="time">  <span>{localDate}</span>
                 <span className="countdown-timer">Time Remaining: {hours} : {minutes} : {seconds}</span>
-                <div id="errmsg" style={{color:'green'}}></div>
+                <div id="errmsg"  className="d-none" style={{color:'green'}}></div>
                 <div id ="all_attendies_list"></div>
               </div>
             </div>

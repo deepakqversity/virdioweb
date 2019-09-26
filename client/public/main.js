@@ -3116,7 +3116,7 @@ function signalHandler(uid, signalData, userType) {
       
     });
 
-
+    
 
     $(".host-script-section").height("255px");
     $(".host-section").css({"min-width": "380px", "max-width": "380px"});
@@ -3141,6 +3141,13 @@ function signalHandler(uid, signalData, userType) {
         $(".section.attendees").css("margin-top", "105px !important" );
         $("#fullscreen img").attr("src", "images/full-screen.png"); 
         $("#fullscreen img").removeClass("exit-screen");
+        
+      }
+      if ($(".item-description.script-section").hasClass("d-block")){
+        $(".item-description.script-section").removeClass("d-block");
+        $(".item-description.script-section").addClass("d-none");
+      } 
+      else {
         $(".item-description.script-section").removeClass("d-none");
         $(".item-description.script-section").addClass("d-block");
       }
@@ -3162,7 +3169,7 @@ function signalHandler(uid, signalData, userType) {
       
 
       $(".host-show-hide").slideToggle();
-      $(".script-section").slideToggle();
+      //$(".script-section").slideToggle();
       
 
 

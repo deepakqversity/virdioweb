@@ -1525,13 +1525,25 @@ position: absolute;
 .swiper-slide{
 	box-sizing:border-box;
 }
-.swiper-slide-next{
+.swiper-slide-next, .swiper-start{
 	background: rgba(110,67,150,0.3);
     border: 1.5px solid #9B51E0 !important;
     border-radius: 12px;
     padding: 10px;
 	position: relative;
 	height: auto !important;
+}
+.remove-slider-bg{
+    background: none;
+    border: none !important;
+    border-radius: 12px;
+    padding: 10px;
+    position: relative;
+    height: auto !important;
+}
+.remove-slider-bg .count-box svg circle{
+    animation: none;
+    stroke:none;
 }
 
 .swiper-slide-next .target-info span{

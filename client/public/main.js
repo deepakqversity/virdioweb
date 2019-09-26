@@ -2833,11 +2833,13 @@ function signalHandler(uid, signalData, userType) {
     onPageResize();
   });
 
-  function  startSlider(){
-    $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
-    $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
+  function startSlider(){
+    //$(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
+    //$(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
     $(".swiper-slide.start a").prop('disabled', true);
-    $(".swiper-btn-next").css("display", "block")
+    $(".swiper-btn-next").css("display", "block");
+    $(".swiper-slide").removeClass("remove-slider-bg");
+  $(".start").removeClass("swiper-start");
     countDown();
   }
 

@@ -3728,6 +3728,19 @@ function signalHandler(uid, signalData, userType) {
     //   }
 
     // })
+    // 
+    
+    $(document).on('click', '#subscribers-list .video-holder', function(){
+      
+      let id = $(this).attr('id');
+      if($(this).find('video').hasClass('video-selected')){
+        $('#selected-participent-id').val('');
+        $(this).find('video').removeClass('video-selected');
+      } else {
+        $('#selected-participent-id').val( id );
+        $(this).find('video').addClass('video-selected');
+      }
+    })
 
     function sort_li(a, b) {
       return parseInt($(b).attr('data-position')) < parseInt($(a).attr('data-position')) ? 1 : -1;

@@ -89,23 +89,17 @@ class PreConfiguration extends Component {
   }
 
   checkHostSession = () => {
-    console.log('test', this.state.isHostJoined)
-    let tempUserDta = JSON.parse(localStorage.getItem('tempUser'));
+    let tempUserDta = localStorage.getItem('tempUsers');
 
     if(tempUserDta != null){
+      tempUserDta = JSON.parse(tempUserDta);
       for(let i in tempUserDta){
-        if(tempUserDta[i].userType == 1  && tempUserDta[i].sessionStatus == 1){
-
-          this.setState({
-            isHostJoined: true
-            });        
+        if(tempUserDta[i].userType == 1 && tempUserDta[i].sessionStatus == 1){
+          this.setState({isHostJoined: true});
+          break;        
         }
-
       }
-      console.log('test == ', this.state.isHostJoined)
-
     }
-
   }
 
 
@@ -263,6 +257,11 @@ render() {
       // console.log('seconds, minutes, hours====== ', seconds, minutes, hours);
   //const  {user}  = this.props.auth;
 
+  if(this.state.isHostJoined == false){
+    this.checkHostSession();
+  }
+  console.log('------virender----users ', this.state.isHostJoined)
+
   let localstoragedata = JSON.parse(localStorage.getItem('userData'));
 
   let sessionData = localstoragedata.sessionData;
@@ -322,8 +321,7 @@ render() {
 
     
   $("body").css("overflow-y", "scroll");
-
-  console.log('------virender----users ', this.state.isHostJoined)
+  
 
   return (
        <div>
@@ -556,13 +554,14 @@ render() {
                         } else {
 
 
-                          //if(this.state.isHostJoined == false)
-                          //{
-                            //return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)} disabled="true">Join==</button>;
-                          //}else
-                          //{
-                            //return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
-                          //}
+                          if(this.state.isHostJoined == false)
+                          {
+                            // return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)} disabled="true">Join==</button>;
+                          }else
+                          {
+                            // return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
+                          }
+                          return <button className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession} disabled={!this.state.isHostJoined}>Join==</button>;
                         }
                     }
                   )()}
@@ -623,9 +622,6 @@ render() {
           </div>
         </div>
       </div>
-
-      <button id="set-temp-sesstion" onClick={this.checkHostSession}>cccc</button>
-      
       </div>
     );
   }

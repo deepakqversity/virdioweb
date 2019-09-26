@@ -3728,6 +3728,12 @@ function signalHandler(uid, signalData, userType) {
     //   }
 
     // })
+    // 
+    
+    $(document).on('click', '#subscribers-list .video-holder', function(){
+      
+      rtmAction($(this).attr('id'));
+    })
 
     function sort_li(a, b) {
       return parseInt($(b).attr('data-position')) < parseInt($(a).attr('data-position')) ? 1 : -1;

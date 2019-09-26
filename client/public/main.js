@@ -3732,14 +3732,7 @@ function signalHandler(uid, signalData, userType) {
     
     $(document).on('click', '#subscribers-list .video-holder', function(){
       
-      let id = $(this).attr('id');
-      if($(this).find('video').hasClass('video-selected')){
-        $('#selected-participent-id').val('');
-        $(this).find('video').removeClass('video-selected');
-      } else {
-        $('#selected-participent-id').val( id );
-        $(this).find('video').addClass('video-selected');
-      }
+      rtmAction($(this).attr('id'));
     })
 
     function sort_li(a, b) {

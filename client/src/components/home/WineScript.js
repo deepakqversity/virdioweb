@@ -46,7 +46,7 @@ return (
                   <a className="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev" onClick={this.getPrev.bind(this)} >
                     <img src="images/prev-icon.png" className="next-btn" />
                   </a>
-                  <a href="#" className=" mr-5 show-hide-script"><img src="images/showscript.png" /></a>
+                  <a href="#" className=" mr-5 show-full-script show-hide-script"><img src="images/showscript.png" /></a>
                   <a className="carousel-control-next position-relative" href="#carouselExampleControls" role="button" data-slide="next" id="winscript"  onClick={this.getNext.bind(this)}>
                     <img src="images/next-icon.png" className="next-btn" />
                   </a>

@@ -1325,6 +1325,16 @@ outline:0;
 }
 }
 
+.height-500{
+	height:60% !important;
+}
+.height-500 .max-h200 {
+    max-height: 95%;
+}
+.height-500 .host-section{
+	height: 255px !important;
+}
+
 /*----7. Testing Script section-----*/
 .script-info .carousel-control-next, 
 .script-info .carousel-control-prev{

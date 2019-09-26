@@ -179,7 +179,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
           // if(totalScreenUsers < totalBrodcaster, storeData.default.maxUserLimit){
 
-          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" data-dismiss="modal">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute   d-none"  id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="heart-rate-icon"><img src="images/red-heart.png" />80%</div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-like d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-dislike d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-easy d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-too-hard d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-perfect d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-awesome d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
+          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" data-dismiss="modal">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute   d-none"  id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="heart-rate-icon"><img src="images/red-heart.png" /><span class="heart-icon" data-attr="'+stream.getId()+'">80</span></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-like d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-dislike d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-easy d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-too-hard d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-perfect d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-awesome d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
           // }
           // totalScreenUsers++;
         }
@@ -1267,6 +1267,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);  
       } 
       $("#fullscreen img").attr("src", "images/exit-screen.png"); 
+      
     } else {  
       if (document.cancelFullScreen) {  
         document.cancelFullScreen();  
@@ -1332,6 +1333,7 @@ function changeImage(){
 }
 
   function onPageResize(){
+
     let leftHeight = $(".right-sidebar").height();
     $(".joined-member-list").height(`${leftHeight -100 }px`);
     $(".guest-left-wine").css("max-height", "leftHeight");
@@ -1693,49 +1695,63 @@ function signalHandler(uid, signalData, userType) {
       else if(resultant[0] == "227")
       {
 
-        $("#subscribers-list .video-holder:eq(0)").trigger('click');
+        // $("#subscribers-list .video-holder:eq(0)").trigger('click');
+        let scrnId = $("#subscribers-list .video-holder:eq(0)").attr('id');
+        console.log('=====================rtmAction',scrnId)
+        rtmAction(scrnId);
            
       }
       else if(resultant[0] == "228")
       {
       
-        $("#subscribers-list .video-holder:eq(1)").trigger('click');
-       
+        // $("#subscribers-list .video-holder:eq(1)").trigger('click');
+        let scrnId = $("#subscribers-list .video-holder:eq(1)").attr('id');
+        rtmAction(scrnId);
             
       }else if(resultant[0] == "229")
       {
 
-        $("#subscribers-list .video-holder:eq(2)").trigger('click');
+        // $("#subscribers-list .video-holder:eq(2)").trigger('click');
+        let scrnId = $("#subscribers-list .video-holder:eq(2)").attr('id');
+        rtmAction(scrnId);
             
       }
       else if(resultant[0] == "230")
       {
 
-        $("#subscribers-list .video-holder:eq(3)").trigger('click');
-            
+        // $("#subscribers-list .video-holder:eq(3)").trigger('click');
+        let scrnId = $("#subscribers-list .video-holder:eq(3)").attr('id');
+        rtmAction(scrnId);    
       }
       else if(resultant[0] == "231")
       {
 
-        $("#subscribers-list .video-holder:eq(4)").trigger('click');
-            
+        // $("#subscribers-list .video-holder:eq(4)").trigger('click');
+        let scrnId = $("#subscribers-list .video-holder:eq(4)").attr('id');
+        rtmAction(scrnId);
       }
       else if(resultant[0] == "232")
       {
 
-        $("#subscribers-list .video-holder:eq(5)").trigger('click');
+        // $("#subscribers-list .video-holder:eq(5)").trigger('click');
+        let scrnId = $("#subscribers-list .video-holder:eq(5)").attr('id');
+        rtmAction(scrnId);
             
       }
       else if(resultant[0] == "233")
       {
  
-        $("#subscribers-list .video-holder:eq(6)").trigger('click');
+        // $("#subscribers-list .video-holder:eq(6)").trigger('click');
+        let scrnId = $("#subscribers-list .video-holder:eq(6)").attr('id');
+        rtmAction(scrnId);
             
       }
       else if(resultant[0] == "234")
       {
        
-        $("#subscribers-list .video-holder:eq(7)").trigger('click');
+        // $("#subscribers-list .video-holder:eq(7)").trigger('click');
+        let scrnId = $("#subscribers-list .video-holder:eq(7)").attr('id');
+        rtmAction(scrnId);
             
       }
       else if(resultant[0] == "235")
@@ -1745,6 +1761,15 @@ function signalHandler(uid, signalData, userType) {
         console.log('-------newlocalstorageDta-------------',newlocalstorageDta,newlocalstorageDta.id)
 
         checkMuteUnmute(newlocalstorageDta.id);           
+      }else if(resultant[0] == "226")
+      {
+        console.log('---------226---------------')
+        $("#fullscreen").trigger('click');
+      }else if(resultant[0] == "206")
+      {
+        console.log('---------206---------------') 
+
+        setBPMAtHost(uid, resultant[1], userType);
       }
           
   } else { // Attendy
@@ -1815,7 +1840,18 @@ function signalHandler(uid, signalData, userType) {
   }
 
 }
-  
+
+    function setBPMAtHost(senderId, signalData, userType)
+    {
+      //class="heart-icon" data-attr="'+stream.getId()+'"
+        console.log('---------206---------------',senderId,signalData,userType);
+
+        newSenderID=convertEmailToId(senderId);
+     
+        $('.heart-icon[data-attr=\''+newSenderID+'\']').html(signalData);
+     
+    }
+      
 
     function channelMsgHandler(msg,senderId, userType)
     {
@@ -2025,13 +2061,12 @@ function signalHandler(uid, signalData, userType) {
 
       // check current user in mute state
       if(vdo != undefined && vdo.muted){
+
         let selectedParticipentId = $('#selected-participent-id').val();
         console.log('selectedParticipentId , id', id, selectedParticipentId)
         if(id != selectedParticipentId){
-          rule = true;
-        }
-
-        if(rule == false){
+          // rule = true;
+        
           let broadcster = getAllBroadcster();
           if(broadcster.length > 0){
             
@@ -2926,9 +2961,67 @@ function signalHandler(uid, signalData, userType) {
           });
       }
 
-      $(document).ready(function(){
+      function rtmAction(id) {
 
-        switchUsers();
+        let vdo1 = $('#subscribers-list #agora_remote'+id).find('video')[0];
+        let ado1 = $('#subscribers-list #agora_remote'+id).find('audio')[0];
+        
+        if(vdo1.muted || ado1.muted){
+          if($('#subscribers-list #agora_remote'+id).find('.hand-icon').hasClass("d-none") == false) {
+          
+            vdo1.muted = false;
+            ado1.muted = false;
+            
+            onclickhandRaise(id);
+            $('#selected-participent-id').val( id );
+            $('#subscribers-list #agora_remote'+id).find('video').addClass('video-selected');
+          } else {
+  
+            if($('#subscribers-list #agora_remote'+id).find('video').hasClass('video-selected')){
+              $('#selected-participent-id').val('');
+              $('#subscribers-list #agora_remote'+id).find('video').removeClass('video-selected');
+            } else {
+              $('#selected-participent-id').val( id );
+              $('#subscribers-list #agora_remote'+id).find('video').addClass('video-selected');
+            }
+          }
+        } else {
+          vdo1.muted = true;
+          ado1.muted = true;
+          onclickaudioOn(id)
+          $('#selected-participent-id').val( id );
+          $(this).find('video').addClass('video-selected');
+        }
+      }
+    function showHideWineScript(){
+      
+      let hostFooter = $(".host-script-section").height();
+      let mxHeight = $(".max-h200").height();
+      if ($("#fullscreen img").hasClass("exit-screen") && mxHeight > 200){
+          $('.item-description.script-section').addClass("d-none");
+        }
+        else{
+          $('.item-description.script-section').removeClass("d-none");
+        }
+      if(hostFooter < 300){
+        $(".host-script-section").addClass("height-500");
+      }
+      else {
+        $(".host-script-section").removeClass("height-500");
+      }
+      if($('.script-section').css('display') == 'none') {
+          $('.script-section').css('display', 'block');
+        }
+        
+    }
+
+      $(document).ready(function(){
+      
+      $(".show-hide-script").click(function(){
+        showHideWineScript();
+      })
+        
+      switchUsers();
 
         let heightScript = $(".host-script-section").height();
             
@@ -3012,7 +3105,7 @@ function signalHandler(uid, signalData, userType) {
       showHideScript();
       //$(".add-remove-flex").removeClass( ? '" "' : '"flex-grow-1"');
       
-      $(".script-section").slideToggle();
+      //$(".script-section").slideToggle();
       
     });
 
@@ -3032,6 +3125,7 @@ function signalHandler(uid, signalData, userType) {
         $(".countdown-logo").hide();
         $(".section.attendees").css("margin-top", "77px !important" );
         $("#fullscreen img").attr("src", "images/exit-screen.png"); 
+        $("#fullscreen img").addClass("exit-screen");
       }
       else{
         $(".show-hide-title").addClass("d-block").removeClass("d-none");
@@ -3039,7 +3133,9 @@ function signalHandler(uid, signalData, userType) {
         $(".countdown-logo").show();
         $(".section.attendees").css("margin-top", "105px !important" );
         $("#fullscreen img").attr("src", "images/full-screen.png"); 
-        
+        $("#fullscreen img").removeClass("exit-screen");
+        $(".item-description.script-section").removeClass("d-none");
+        $(".item-description.script-section").addClass("d-block");
       }
       //$(".host-script-section").css({'max-height:55px'});
       showHideScript();
@@ -3402,8 +3498,9 @@ function signalHandler(uid, signalData, userType) {
 
 
       $( '#newhtt').bind( "click", function(event) {
-      let message = "227"+sep;
+      let message = "228"+sep;
       let attendiesID='arjun.rishi@virdio.com'
+      console.log('--------newhtt-----------------',message,attendiesID)
       sendMessage(attendiesID, message);
         });     
 
@@ -3469,163 +3566,192 @@ function signalHandler(uid, signalData, userType) {
       });
     
     //
-
-
-    $(document).on('click', ' #subscribers-list .video-holder:eq(0)', function(){
-   
-      let id = $(this).attr('id');
-      // if(!$(this).find('.microphone-icon').hasClass('d-none')){
-
-      // }
-      if (!$('.microphone-icon').hasClass("d-none")) {
-        $(".microphone-icon").trigger('click');
-      }else if(!$('.hand-icon').hasClass("d-none"))
-      {
-        $(".hand-icon").trigger('click');
-      }
-      else if($(this).find('video').hasClass('video-selected')){
-        $('#selected-participent-id').val('');
-        $(this).find('video').removeClass('video-selected');
-      } else {
-        $('#selected-participent-id').val( id );
-        $(this).find('video').addClass('video-selected');
-      }
-
-    })
-
-    $(document).on('click', ' #subscribers-list .video-holder:eq(1)', function(){
-     
-      let id = $(this).attr('id');
-      if (!$('.microphone-icon').hasClass("d-none")) {
-        $(".microphone-icon").trigger('click');
-      }else if(!$('.hand-icon').hasClass("d-none"))
-      {
-        $(".hand-icon").trigger('click');
-      }
-      else if
-      ($(this).find('video').hasClass('video-selected')){
-        $('#selected-participent-id').val('');
-        $(this).find('video').removeClass('video-selected');
-      } else {
-        $('#selected-participent-id').val( id );
-        $(this).find('video').addClass('video-selected');
-      }
-
-    })
-
-    $(document).on('click', ' #subscribers-list .video-holder:eq(2)', function(){
     
-      let id = $(this).attr('id');
-      if (!$('.microphone-icon').hasClass("d-none")) {
-        $(".microphone-icon").trigger('click');
-      }else if(!$('.hand-icon').hasClass("d-none"))
-      {
-        $(".hand-icon").trigger('click');
-      }
-      else if($(this).find('video').hasClass('video-selected')){
-        $('#selected-participent-id').val('');
-        $(this).find('video').removeClass('video-selected');
-      } else {
-        $('#selected-participent-id').val( id );
-        $(this).find('video').addClass('video-selected');
-      }
 
-    })
 
-    $(document).on('click', ' #subscribers-list .video-holder:eq(3)', function(){
+    // $(document).on('click', ' #subscribers-list .video-holder:eq(0)', function(){
+   
+    //   let id = $(this).attr('id');
+
+    //   let vdo1 = $(this).find('video')[0];
+    //   let ado1 = $(this).find('audio')[0];
       
-      let id = $(this).attr('id');
-      if (!$('.microphone-icon').hasClass("d-none")) {
-        $(".microphone-icon").trigger('click');
-      }else if(!$('.hand-icon').hasClass("d-none"))
-      {
-        $(".hand-icon").trigger('click');
-      }
-     else  if($(this).find('video').hasClass('video-selected')){
-        $('#selected-participent-id').val('');
-        $(this).find('video').removeClass('video-selected');
-      } else {
-        $('#selected-participent-id').val( id );
-        $(this).find('video').addClass('video-selected');
-      }
+    //   if(vdo1.muted || ado1.muted){
+    //     if($(this).find('.hand-icon').hasClass("d-none") == false) {
+        
+    //       vdo1.muted = false;
+    //       ado1.muted = false;
+          
+    //       onclickhandRaise(id);
+    //       $('#selected-participent-id').val( id );
+    //       $(this).find('video').addClass('video-selected');
+    //     } else {
 
-    })
+    //       if($(this).find('video').hasClass('video-selected')){
+    //         $('#selected-participent-id').val('');
+    //         $(this).find('video').removeClass('video-selected');
+    //       } else {
+    //         $('#selected-participent-id').val( id );
+    //         $(this).find('video').addClass('video-selected');
+    //       }
+    //     }
+    //   } else {
+    //     vdo1.muted = true;
+    //     ado1.muted = true;
+    //     onclickaudioOn(id)
+    //     $('#selected-participent-id').val( id );
+    //     $(this).find('video').addClass('video-selected');
+    //   }
 
-    $(document).on('click', ' #subscribers-list .video-holder:eq(4)', function(){
+    //   // if (!$(this).find('.microphone-icon').hasClass("d-none")) {
+    //   //   onclickaudioOn(id)
+    //   // }else if(!$(this).find('.hand-icon').hasClass("d-none"))
+    //   // {
+    //   //   onclickhandRaise(id);
+    //   // }
+    //   // else if($(this).find('video').hasClass('video-selected')){
+    //   //   $('#selected-participent-id').val('');
+    //   //   $(this).find('video').removeClass('video-selected');
+    //   // } else {
+    //   //   $('#selected-participent-id').val( id );
+    //   //   $(this).find('video').addClass('video-selected');
+    //   // }
+
+    // })
+
+    // $(document).on('click', ' #subscribers-list .video-holder:eq(1)', function(){
+    //   let id = $(this).attr('id');
+    //   console.log('===============click ==========')
+    //   if (!$(this).find('.microphone-icon').hasClass("d-none")) {
+    //     $(this).find(".microphone-icon").trigger('click');
+    //   }else if(!$(this).find('.hand-icon').hasClass("d-none"))
+    //   {
+    //     $(this).find(".hand-icon").trigger('click');
+    //   }
+    //   else if
+    //   ($(this).find('video').hasClass('video-selected')){
+    //     $('#selected-participent-id').val('');
+    //     $(this).find('video').removeClass('video-selected');
+    //   } else {
+    //     $('#selected-participent-id').val( id );
+    //     $(this).find('video').addClass('video-selected');
+    //   }
+
+    // })
+
+    // $(document).on('click', ' #subscribers-list .video-holder:eq(2)', function(){
+    
+    //   let id = $(this).attr('id');
+    //   if (!$(this).find('.microphone-icon').hasClass("d-none")) {
+    //     $(this).find(".microphone-icon").trigger('click');
+    //   }else if(!$(this).find('.hand-icon').hasClass("d-none"))
+    //   {
+    //     $(this).find(".hand-icon").trigger('click');
+    //   }
+    //   else if($(this).find('video').hasClass('video-selected')){
+    //     $('#selected-participent-id').val('');
+    //     $(this).find('video').removeClass('video-selected');
+    //   } else {
+    //     $('#selected-participent-id').val( id );
+    //     $(this).find('video').addClass('video-selected');
+    //   }
+
+    // })
+
+    // $(document).on('click', ' #subscribers-list .video-holder:eq(3)', function(){
       
-      let id = $(this).attr('id');
-      if (!$('.microphone-icon').hasClass("d-none")) {
-        $(".microphone-icon").trigger('click');
-      }else if(!$('.hand-icon').hasClass("d-none"))
-      {
-        $(".hand-icon").trigger('click');
-      }
-     else if($(this).find('video').hasClass('video-selected')){
-        $('#selected-participent-id').val('');
-        $(this).find('video').removeClass('video-selected');
-      } else {
-        $('#selected-participent-id').val( id );
-        $(this).find('video').addClass('video-selected');
-      }
+    //   let id = $(this).attr('id');
+    //   if (!$(this).find('.microphone-icon').hasClass("d-none")) {
+    //     $(this).find(".microphone-icon").trigger('click');
+    //   }else if(!$(this).find('.hand-icon').hasClass("d-none"))
+    //   {
+    //     $(this).find(".hand-icon").trigger('click');
+    //   }
+    //  else  if($(this).find('video').hasClass('video-selected')){
+    //     $('#selected-participent-id').val('');
+    //     $(this).find('video').removeClass('video-selected');
+    //   } else {
+    //     $('#selected-participent-id').val( id );
+    //     $(this).find('video').addClass('video-selected');
+    //   }
 
-    })
+    // })
 
-    $(document).on('click', ' #subscribers-list .video-holder:eq(5)', function(){
+    // $(document).on('click', ' #subscribers-list .video-holder:eq(4)', function(){
       
-      let id = $(this).attr('id');
-      if (!$('.microphone-icon').hasClass("d-none")) {
-        $(".microphone-icon").trigger('click');
-      }else if(!$('.hand-icon').hasClass("d-none"))
-      {
-        $(".hand-icon").trigger('click');
-      }
-     else if($(this).find('video').hasClass('video-selected')){
-        $('#selected-participent-id').val('');
-        $(this).find('video').removeClass('video-selected');
-      } else {
-        $('#selected-participent-id').val( id );
-        $(this).find('video').addClass('video-selected');
-      }
+    //   let id = $(this).attr('id');
+    //   if (!$(this).find('.microphone-icon').hasClass("d-none")) {
+    //     $(this).find(".microphone-icon").trigger('click');
+    //   }else if(!$(this).find('.hand-icon').hasClass("d-none"))
+    //   {
+    //     $(this).find(".hand-icon").trigger('click');
+    //   }
+    //  else if($(this).find('video').hasClass('video-selected')){
+    //     $('#selected-participent-id').val('');
+    //     $(this).find('video').removeClass('video-selected');
+    //   } else {
+    //     $('#selected-participent-id').val( id );
+    //     $(this).find('video').addClass('video-selected');
+    //   }
 
-    })
+    // })
 
-    $(document).on('click', ' #subscribers-list .video-holder:eq(6)', function(){
+    // $(document).on('click', ' #subscribers-list .video-holder:eq(5)', function(){
       
-      let id = $(this).attr('id');
-      if (!$('.microphone-icon').hasClass("d-none")) {
-        $(".microphone-icon").trigger('click');
-      }else if(!$('.hand-icon').hasClass("d-none"))
-      {
-        $(".hand-icon").trigger('click');
-      }
-     else if($(this).find('video').hasClass('video-selected')){
-        $('#selected-participent-id').val('');
-        $(this).find('video').removeClass('video-selected');
-      } else {
-        $('#selected-participent-id').val( id );
-        $(this).find('video').addClass('video-selected');
-      }
+    //   let id = $(this).attr('id');
+    //   if (!$(this).find('.microphone-icon').hasClass("d-none")) {
+    //     $(this).find(".microphone-icon").trigger('click');
+    //   }else if(!$(this).find('.hand-icon').hasClass("d-none"))
+    //   {
+    //     $(this).find(".hand-icon").trigger('click');
+    //   }
+    //  else if($(this).find('video').hasClass('video-selected')){
+    //     $('#selected-participent-id').val('');
+    //     $(this).find('video').removeClass('video-selected');
+    //   } else {
+    //     $('#selected-participent-id').val( id );
+    //     $(this).find('video').addClass('video-selected');
+    //   }
 
-    })
+    // })
 
-    $(document).on('click', ' #subscribers-list .video-holder:eq(7)', function(){
+    // $(document).on('click', ' #subscribers-list .video-holder:eq(6)', function(){
       
-      let id = $(this).attr('id');
-      if (!$('.microphone-icon').hasClass("d-none")) {
-        $(".microphone-icon").trigger('click');
-      }else if(!$('.hand-icon').hasClass("d-none"))
-      {
-        $(".hand-icon").trigger('click');
-      }
-     else if($(this).find('video').hasClass('video-selected')){
-        $('#selected-participent-id').val('');
-        $(this).find('video').removeClass('video-selected');
-      } else {
-        $('#selected-participent-id').val( id );
-        $(this).find('video').addClass('video-selected');
-      }
+    //   let id = $(this).attr('id');
+    //   if (!$(this).find('.microphone-icon').hasClass("d-none")) {
+    //     $(this).find(".microphone-icon").trigger('click');
+    //   }else if(!$(this).find('.hand-icon').hasClass("d-none"))
+    //   {
+    //     $(this).find(".hand-icon").trigger('click');
+    //   }
+    //  else if($(this).find('video').hasClass('video-selected')){
+    //     $('#selected-participent-id').val('');
+    //     $(this).find('video').removeClass('video-selected');
+    //   } else {
+    //     $('#selected-participent-id').val( id );
+    //     $(this).find('video').addClass('video-selected');
+    //   }
 
-    })
+    // })
+
+    // $(document).on('click', ' #subscribers-list .video-holder:eq(7)', function(){
+      
+    //   let id = $(this).attr('id');
+    //   if (!$(this).find('.microphone-icon').hasClass("d-none")) {
+    //     $(this).find(".microphone-icon").trigger('click');
+    //   }else if(!$(this).find('.hand-icon').hasClass("d-none"))
+    //   {
+    //     $(this).find(".hand-icon").trigger('click');
+    //   }
+    //  else if($(this).find('video').hasClass('video-selected')){
+    //     $('#selected-participent-id').val('');
+    //     $(this).find('video').removeClass('video-selected');
+    //   } else {
+    //     $('#selected-participent-id').val( id );
+    //     $(this).find('video').addClass('video-selected');
+    //   }
+
+    // })
 
     function sort_li(a, b) {
       return parseInt($(b).attr('data-position')) < parseInt($(a).attr('data-position')) ? 1 : -1;
@@ -3639,10 +3765,12 @@ function signalHandler(uid, signalData, userType) {
         let userList = getOrderUser();
         $('#attendy-list').find('.user-status').attr('src', '/images/offline.png');
         $('#attendy-list').find('.user-online-status').text('offline');
+        $('#attendy-list').find('.visible-status .fa').addClass('fa-times').addClass('text-red').removeClass('fa-check').removeClass('text-green');
         for(let i= 0; i < membersList.length; i++){
           let eleId = convertEmailToId(membersList[i]);
           $('#online-user-row-'+eleId).find('.user-status').attr('src', '/images/online.png');
           $('#online-user-row-'+eleId).find('.user-online-status').html('online');
+          $('#online-user-row-'+eleId).find('.visible-status .fa').addClass('fa-check').addClass('text-green').removeClass('fa-times').removeClass('text-red');
           if(userList != ''){
             for(let j in userList){
               if(userList[j].id == membersList[i]){

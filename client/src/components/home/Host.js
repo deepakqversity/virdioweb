@@ -201,9 +201,9 @@ render() {
         return (
           <tr data-position="100000000000000" id={"online-user-row-"+id} key={idx}>
           <th scope="row"><img src={image} /></th>
-          <td className="text-left"><span className="welcome-title trim-text">{firstName.toLowerCase()} {lastName != null ? lastName.toLowerCase() : ''} {city != null ? ', '+city.toLowerCase() : ''}</span></td>
-          <td><img className="mr-2 user-status" src="/images/offline.png" />online</td>
-          <td><i className="fa fa-check text-green"></i><i className="fa fa-times text-red d-none"></i></td>
+          <td className="text-left"><span className="welcome-title">{firstName.toLowerCase()} {lastName != null ? lastName.toLowerCase() : ''} {city != null ? ', '+city.toLowerCase() : ''}</span></td>
+          <td><img className="mr-2 user-status" src="/images/offline.png" /><span className="user-online-status">online</span></td>
+          <td className="visible-status"><i className="fa fa-check text-green"></i><i className="fa fa-times text-red d-none"></i></td>
           <td>5</td>
           </tr>
         );
@@ -576,7 +576,7 @@ return (
                   <td>NA</td>
                 </tr>
                 <tr>
-                  <td>Chest Strech</td>
+                  <td>Shoulder Strech</td>
                   <td>Warm up</td>
                   <td>Time</td>
                   <td>30</td>
@@ -585,23 +585,32 @@ return (
                   <td>NA</td>
                 </tr>   
                 <tr>
-                  <td>Chest Strech</td>
+                  <td>Hamstring Strech</td>
                   <td>Warm up</td>
                   <td>Time</td>
                   <td>30</td>
-                  <td>40%</td>
+                  <td>60%</td>
                   <td>90</td>
                   <td><img src="images/screen-video.png" width="16" /></td>
                 </tr>   
                 <tr>
-                  <td>Chest Strech</td>
-                  <td>Warm up</td>
+                  <td>Pushup</td>
+                  <td>Strength</td>
                   <td>Time</td>
                   <td>30</td>
-                  <td>40%</td>
+                  <td>50%</td>
                   <td>90</td>
                   <td>NA</td>
                 </tr>   
+                <tr>
+                  <td>Rest</td>
+                  <td>Rest</td>
+                  <td>Time</td>
+                  <td>30</td>
+                  <td>60%</td>
+                  <td>90</td>
+                  <td>NA</td>
+                </tr>              
                 <tr>
                   <td>Chest Strech</td>
                   <td>Warm up</td>
@@ -610,7 +619,43 @@ return (
                   <td>40%</td>
                   <td>90</td>
                   <td>NA</td>
-                </tr>              
+                </tr>
+                <tr>
+                  <td>Shoulder Strech</td>
+                  <td>Warm up</td>
+                  <td>Time</td>
+                  <td>30</td>
+                  <td>40%</td>
+                  <td>90</td>
+                  <td>NA</td>
+                </tr>   
+                <tr>
+                  <td>Hamstring Strech</td>
+                  <td>Warm up</td>
+                  <td>Time</td>
+                  <td>30</td>
+                  <td>60%</td>
+                  <td>90</td>
+                  <td><img src="images/screen-video.png" width="16" /></td>
+                </tr>   
+                <tr>
+                  <td>Pushup</td>
+                  <td>Strength</td>
+                  <td>Time</td>
+                  <td>30</td>
+                  <td>50%</td>
+                  <td>90</td>
+                  <td>NA</td>
+                </tr>   
+                <tr>
+                  <td>Rest</td>
+                  <td>Rest</td>
+                  <td>Time</td>
+                  <td>30</td>
+                  <td>60%</td>
+                  <td>90</td>
+                  <td>NA</td>
+                </tr>           
               </tbody>
             </table>
             </div>

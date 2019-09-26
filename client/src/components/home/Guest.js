@@ -230,7 +230,7 @@ return (
                     <div className="time py-xs-1">  <span>{localDate}</span>
                     <span className="countdown-timer">Time Remaining: {hours} : {minutes} : {seconds}</span>
                     </div>
-                    <div id="hostmsg" style={{color:'green'}}></div>
+                    <div id="hostmsg" className="d-none" style={{color:'green'}}></div>
                   </div>
                   
                   <div className="col-12 center-mob col-sm-12 col-md-6 col-lg-3 d-flex justify-content-end">

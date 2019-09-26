@@ -240,7 +240,7 @@ return (
             <div className="col-12 col-sm-7">
               <div className="time">  <span>{localDate}</span>
                 <span className="countdown-timer">Time Remaining: {hours} : {minutes} : {seconds}</span>
-                <div id="errmsg" style={{color:'green'}}></div>
+                <div id="errmsg"  className="d-none" style={{color:'green'}}></div>
                 <div id ="all_attendies_list"></div>
               </div>
             </div>

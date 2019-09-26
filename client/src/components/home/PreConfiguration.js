@@ -552,16 +552,8 @@ render() {
                         if(localstoragedata.userType == 1) {
                           return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-4 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
                         } else {
-
-
-                          if(this.state.isHostJoined == false)
-                          {
-                            // return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)} disabled="true">Join==</button>;
-                          }else
-                          {
-                            // return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
-                          }
-                          return <button className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession} disabled={!this.state.isHostJoined}>Join==</button>;
+                          
+                          return <button className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession} disabled={!this.state.isHostJoined}>Join</button>;
                         }
                     }
                   )()}

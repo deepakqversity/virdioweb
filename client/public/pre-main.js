@@ -184,12 +184,12 @@ if(!AgoraRTC.checkSystemRequirements()) {
         console.log('-------There is error in joining a channel------')
       });
 
-      channel.getMembers().then(membersList => {    
-        channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
-      }).catch(error => {
-        displayError(error);
-        console.log('*************There is an error******');
-      });
+      // channel.getMembers().then(membersList => {    
+      //   channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
+      // }).catch(error => {
+      //   displayError(error);
+      //   console.log('*************There is an error******');
+      // });
 
       channel.on('MemberJoined', memberId => { 
 
@@ -306,33 +306,33 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
       function getMemberList()
       {
-          channel.getMembers().then(membersList => {    
+      //     channel.getMembers().then(membersList => {    
           
        
-        var arr=membersList;             
-        counter=membersList.length;
-        counter=parseInt(counter); 
+      //   var arr=membersList;             
+      //   counter=membersList.length;
+      //   counter=parseInt(counter); 
        
-        var html = '';
-        var optionbox='';
-        optionbox +='<option value="select">select</option>';
-        arr.forEach(function (value, i) {
-          console.log("--------totalvalueold--------------", i, value);
-          if(i >= 0 && value == 2)
-          {   
-            console.log("--------totalvaluenew--------------", i, value);     
+      //   var html = '';
+      //   var optionbox='';
+      //   optionbox +='<option value="select">select</option>';
+      //   arr.forEach(function (value, i) {
+      //     console.log("--------totalvalueold--------------", i, value);
+      //     if(i >= 0 && value == 2)
+      //     {   
+      //       console.log("--------totalvaluenew--------------", i, value);     
                                   
-          optionbox +='<option value=' + value + '>' + value + '</option>';
+      //     optionbox +='<option value=' + value + '>' + value + '</option>';
    
-          }
-        });
-        html += '<select id="opt" onchange="onclickShowAsBroadcaster();">'+optionbox+'</select>';
-        $('#guestmsg').append(html);
+      //     }
+      //   });
+      //   html += '<select id="opt" onchange="onclickShowAsBroadcaster();">'+optionbox+'</select>';
+      //   $('#guestmsg').append(html);
 
-      }).catch(error => {
-        displayError(error);
-          console.log('*************There is an error******');
-      });
+      // }).catch(error => {
+      //   displayError(error);
+      //     console.log('*************There is an error******');
+      // });
 
       }
 
@@ -949,12 +949,15 @@ function signalHandler(uid, signalData, userType) {
         console.log('********gggg************ resultant', resultant);
 
         let joinDateTime = convertUnixTimestamp(resultant[1]);
+
+        incrementcountOnPreStreming(uid,'welcome');
         
-        console.log('********ppppp************ resultant', joinDateTime,uid);
         let message="Hi " +localDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your first virtual session with us  ";
         
         //$('#newmsg').html(message);
        // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
+
+       
        addRtmJoinOrder(uid, resultant[1]);
        addUserAttribute(convertEmailToId(uid), 'currentStatus', 1);
       }
@@ -985,16 +988,15 @@ function signalHandler(uid, signalData, userType) {
     }
      else if(resultant[0] == '216')
     {
-      console.log('********gggg************ resultant', resultant[1]);
-
+   
       let joinDateTimeattendies = convertUnixTimestamp(resultant[1]);
 
-      console.log('********ssssss************ resultant', joinDateTimeattendies);
+      console.log('----------welcome----------uid----------',uid)
+
+      incrementcountOnPreStreming(uid,'welcome');
 
       let message="Hi " +localDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your 1st virtual session with us  ";
-      
-      console.log('********ssssss************ resultant', message);
-      
+            
       $('#newmsg').html(message);
 
       console.log(' uid =================== time', uid, resultant);
@@ -1122,11 +1124,6 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
 
         
         $('#set-temp-sesstion').trigger('click');
-        // $('.enb').removeClass("d-none");
-        // $('.dsb').addClass("d-none");
-        
-
-        // $('#continue-join').attr("disabled",false);
 
         let newmsg="Now U can Join";
         //$('#newmsg').html(newmsg);
@@ -1229,20 +1226,11 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
 
         }
 
-      //   let n = res[1].includes("RM-");
- 
-      //   if(n != true )
-      //  {
-      //   count4=count3+1;
-      //  }
-      // else{
-
-      //   count4=count3;
-        
-      // }
-       
+      
       count4=count3+1;
      
+      $('#totalonline').empty(); 
+      $('#totalonline').html(count4);
 
       }else if(signalData.msgtype=='left') {
 
@@ -1255,23 +1243,11 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
         {          
           $('#online_state').removeClass("online-status");
         }
-
-      //   let n = res[1].includes("RM-");
- 
-      //   if(n != true )
-      //  {
-      //   afterleftcount=count3-1;
-      //  }
-      // else{
-
-      //   afterleftcount=count3;
-        
-      // }
-
       
         count4= count3 > 0 ? count3-1 : 0;
      
-
+        $('#totalonline').empty(); 
+        $('#totalonline').html(count4);
            
       }else if(signalData.msgtype=='totalcount') {
         
@@ -1295,35 +1271,49 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
           $('#online_state').removeClass("online-status");        
             $('#online_state').addClass("online-status");
           }
-
-          
-          // if(n != true)
-          // {  
-          //   updatedcount=count4;
-
-          // }else{
-          //   updatedcount=count4-1;
-          // }
      
         });  
         
         count4 = count4 > 0 ? count4 - 1 : 0;
       }
       
-      $('#totalonline').empty(); 
-      $('#totalonline').html(count4);
+      // $('#totalonline').empty(); 
+      // $('#totalonline').html(count4);
     
-      $('#joined_users_at_client').empty(); 
-      $('#joined_users_at_client').html(count4); 
+      // $('#joined_users_at_client').empty(); 
+      // $('#joined_users_at_client').html(count4); 
     }
+
+
+      function incrementcountOnPreStreming(signalData,type)      
+      { 
+
+        if(type == 'welcome'){          
+        let prestrecount=$('#totalonline').html();
+        
+        prestrecount=parseInt(prestrecount);
+
+        console.log('------------prestrecount----------------',prestrecount);
+
+        prestrecount=prestrecount+1;
+          if(prestrecount < 1)
+          {
+            prestrecount=0;
+          }
+         $('#totalonline').empty(); 
+
+         console.log('------------prestrecount----------------',prestrecount);
+
+          $('#totalonline').html(prestrecount); 
+        }
+      }
 
 
       function incrementcountAtHost(signalData,userType)
       {  
-        //console.log('********munmunHost************** signalData ', signalData, userType);
+        
         var count=$('#totalonline').html();
 
-      // console.log('********munmunHost************** signalData ', signalData);
         count=parseInt(count);
 
         let storeData = getCurrentUserData();
@@ -1346,21 +1336,8 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
         let str=signalData.message;
         let res2 = str.split(sep);
         
-      //   let n = res2[1].includes("RM-");
-
-      //   if(n != true )
-      //  {
-      //   count1=count+1;
-      //  }
-      // else{
-
-      //   count1=count;
-        
-      // }
-
       count1=count+1;
-       
-         // console.log('*********lllllllll************* signalData ', signalData.message);
+              
           $('#totalonline').empty(); 
           $('#totalonline').html(count1);  
         
@@ -1370,48 +1347,22 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
         let str=signalData.message;
         let res2 = str.split(sep);
         
-        // let n = res2[1].includes("RM-");
-
-        //   if(n != true )
-        // {
-        //   ncount=count-1;
-        // }
-        // else{
-
-        //   ncount=count;
-          
-        // }
-
-
           count1= count > 0 ? count-1 : 0; 
-     
-        
-
-       
+            
           $('#totalonline').empty(); 
           $('#totalonline').html(count1);  
-          // $('#newmsg').html(signalData.message);
-          // setTimeout(function(){ $('#newmsg').html(''); }, 10000); 
-        
-            // $('#joined_users').empty(); 
-            // $('#joined_users').html(count1);
         
       }else if(signalData.msgtype=='totalcount') {
-        var arr=signalData.totalmember;
-           //  console.log('---------alllist----------',arr)
-
+        let arr=signalData.totalmember;
  
            count1=signalData.member;
            count1=parseInt(count1); 
    
         count1= count1 > 0 ? count1-1 : 0;
       
-        $('#totalonline').empty(); 
-        $('#totalonline').html(count1);  
-     
-          // $('#joined_users').empty(); 
-          // $('#joined_users').html(count1);
-       
+        // $('#totalonline').empty(); 
+        // $('#totalonline').html(count1);  
+            
       }
 
 

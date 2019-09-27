@@ -88,19 +88,6 @@ class PreConfiguration extends Component {
     this.startTimer();
   }
  
-  checkHostSession = () => {
-    let tempUserDta = localStorage.getItem('tempUsers');
-
-    if(tempUserDta != null){
-      tempUserDta = JSON.parse(tempUserDta);
-      for(let i in tempUserDta){
-        if(tempUserDta[i].userType == 1 && tempUserDta[i].sessionStatus == 1){
-          this.setState({isHostJoined: true});
-          break;        
-        }
-      }
-    }
-  }
 
   checkstatus = () => {
 
@@ -117,9 +104,6 @@ class PreConfiguration extends Component {
 
 
   joinSession = () => {
-
-    
-
    
    //   this.checkHostSession();
     
@@ -275,9 +259,9 @@ render() {
       // console.log('seconds, minutes, hours====== ', seconds, minutes, hours);
   //const  {user}  = this.props.auth;
 
-  if(this.state.isHostJoined == false){
-    this.checkHostSession();
-  }
+  // if(this.state.isHostJoined == false){
+  //   this.checkHostSession();
+  // }
   console.log('------virender----users ', this.state.isHostJoined)
 
   let localstoragedata = JSON.parse(localStorage.getItem('userData'));
@@ -382,7 +366,7 @@ render() {
                     </div>
                     <div className="col-lg-6">
                       <span className="online-total">Online</span>
-                      <span className="online-number" id="totalonline"></span>
+                      <span className="online-number" id="totalonline">0</span>
                     </div>
                   </div>
                   
@@ -571,7 +555,7 @@ render() {
                           return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-4 rounded " data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
                         } else {
                       
-                            return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dsb" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)} disabled={!this.state.isHostJoined}>Join</button>;                     
+                            return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)} disabled={!this.state.isHostJoined}>Join</button>;                     
                         }
                     }
                   )()}

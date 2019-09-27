@@ -1821,10 +1821,12 @@ function signalHandler(uid, signalData, userType) {
     {
 
       let joinDateTimeattendies = convertUnixTimestamp(resultant[1]);
+      if(getUserDataFromList(uid, 'userType') == 1){
 
-      let message="Hi " +nlocalDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your 1st virtual session with us  ";        
-     
-      $('#newmsg').html(message);
+        let message="Hi " +nlocalDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your 1st virtual session with us  ";        
+       
+        $('#newmsg').html(message);
+      }
      // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
       addRtmJoinOrder(uid, resultant[1]);
     }

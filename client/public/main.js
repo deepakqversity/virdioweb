@@ -1815,9 +1815,9 @@ function signalHandler(uid, signalData, userType) {
     }else if(resultant[0] == '209')
     {
    
-      $('#hostmsg').html('UnMute');
-      setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
-    } else if(resultant[0] == '1002') {
+      // $('#hostmsg').html('UnMute');
+      // setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
+    // } else if(resultant[0] == '209') {
       
       // console.log('********ggggggggggggg************** signalData ', signalData.message); 
       unpublish();
@@ -1825,7 +1825,9 @@ function signalHandler(uid, signalData, userType) {
       $('#mocrophone-on').removeClass('d-none');
       $('#mocrophone-off').addClass('d-none');
       setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
-    } else if(resultant[0] == '1003') {
+    
+
+    } else if(resultant[0] == '200') {
 
       // console.log('********ggggggggggggg************** signalData ', signalData.message); 
       $('#hostmsg').html('Now you are became a broadcaster.');
@@ -2094,7 +2096,7 @@ function signalHandler(uid, signalData, userType) {
     }
 
     function kickUser(id){
-      let text = "1002"+sep+"kicked by host";
+      let text = "209"+sep+"kicked by host";
       console.log('############### text', text)
       sendMessage( convertIdToEmail(id), text);
     }
@@ -2125,7 +2127,7 @@ function signalHandler(uid, signalData, userType) {
       }
     }
     function sendPushIntoSessionMessage(uid){
-        let text = "1003"+sep+" in session";
+        let text = "200"+sep+" in session";
         sendMessage(convertIdToEmail(uid), text);
     }
 

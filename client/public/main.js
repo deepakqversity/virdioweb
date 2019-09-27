@@ -212,14 +212,17 @@ if(!AgoraRTC.checkSystemRequirements()) {
             if ($('#agora_host #agora_remote'+stream.getId()).length === 0) {
               
               $('#agora_host').append('<div id="agora_remote'+stream.getId()+'"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div></div>');
+              
+              if(checkUserRole() == 1){
+
+                massages="1000" + sep + storeData.id;
+                sendMessage(storeData.sessionData.hostEmail, massages);
+              }
+              
             }
             stream.play('agora_remote_vdo' + stream.getId());
 
-            if(checkUserRole() == 1){
-
-              massages="1000" + sep + storeData.id;
-              sendMessage(storeData.sessionData.hostEmail, massages);
-            }
+            
 
             // checkMuteUnmute(stream.getId());
           } else {

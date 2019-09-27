@@ -13,7 +13,7 @@ class PreConfiguration extends Component {
 
    this.state = {
       isLoading: true,
-      isHostJoined: false,
+      isHostJoined: '',
       users: [],
       error: null,
       sessionScript: 0,
@@ -87,7 +87,7 @@ class PreConfiguration extends Component {
   componentWillMount(){
     this.startTimer();
   }
-
+ 
   checkHostSession = () => {
     console.log('test', this.state.isHostJoined)
     let tempUserDta = JSON.parse(localStorage.getItem('tempUser'));
@@ -108,9 +108,27 @@ class PreConfiguration extends Component {
 
   }
 
+  checkstatus = () => {
+
+    console.log('-----------hello-----lalit----------------------')
+    let storedt = JSON.parse(localStorage.getItem('userData'));
+
+    if(storedt.userType == 2)
+    {
+    this.setState({
+      isHostJoined: true
+      });
+    }
+  }
+
 
   joinSession = () => {
 
+    
+
+   
+   //   this.checkHostSession();
+    
     
       console.log('#####join####button########');
 
@@ -552,17 +570,10 @@ render() {
                   {(
                     ()=>{
                         if(localstoragedata.userType == 1) {
-                          return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-4 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
+                          return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-4 rounded " data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
                         } else {
-
-
-                          //if(this.state.isHostJoined == false)
-                          //{
-                            //return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)} disabled="true">Join==</button>;
-                          //}else
-                          //{
-                            //return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
-                          //}
+                      
+                            return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dsb" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)} disabled={!this.state.isHostJoined}>Join</button>;                     
                         }
                     }
                   )()}
@@ -624,7 +635,7 @@ render() {
         </div>
       </div>
 
-      <button id="set-temp-sesstion" onClick={this.checkHostSession}>cccc</button>
+      <button id="set-temp-sesstion" onClick={this.checkstatus}>cccc</button>
       
       </div>
     );

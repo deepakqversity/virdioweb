@@ -1121,8 +1121,13 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
 
         updateHostSessionStatus(1);
 
-        $('#set-temp-sesstion').click();
-        $('#continue-join').attr("disabled",false);
+        
+        $('#set-temp-sesstion').trigger('click');
+        // $('.enb').removeClass("d-none");
+        // $('.dsb').addClass("d-none");
+        
+
+        // $('#continue-join').attr("disabled",false);
 
         let newmsg="Now U can Join";
         //$('#newmsg').html(newmsg);
@@ -1711,7 +1716,7 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
 
   function updateHostSessionStatus(status){
     let tempUsers = getTempUsers();
-    // console.log('tempUsers =========== tempUsers ======', tempUsers);
+     console.log('tempUsers =========== tempUsers ======', tempUsers);
     
     if(tempUsers != null){
       for(let i in tempUsers){

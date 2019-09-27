@@ -1642,6 +1642,9 @@ function signalHandler(uid, signalData, userType) {
       $('#errmsg').html('Client HandRaise');
       setTimeout(function(){ $('#errmsg').html(''); }, 10000);
 
+      $('#selected-participent-id').val( convertEmailToId(uid) );
+      $('#subscribers-list #agora_remote'+convertEmailToId(uid)).find('video').addClass('video-selected');
+
     } else if(signalData.code == '100') {
        $('#errmsg').html(signalData.message);
        setTimeout(function(){ $('#errmsg').html(''); }, 10000);

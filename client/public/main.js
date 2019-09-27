@@ -863,6 +863,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
       }
       // check user exists in list of first order
       isUserExists = checkUserInOrder(storeData);
+      if(isUserExists && totalBrodcaster < parseInt(storeData.default.maxUserLimit)){
+        checkUserTime = true;
+      }
     }
     console.log('checkUserTime , isUserExists', checkUserTime , isUserExists)    
 

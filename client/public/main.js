@@ -215,6 +215,12 @@ if(!AgoraRTC.checkSystemRequirements()) {
             }
             stream.play('agora_remote_vdo' + stream.getId());
 
+            if(checkUserRole() == 1){
+
+              massages="1000" + sep + storeData.id;
+              sendMessage(storeData.sessionData.hostEmail, massages);
+            }
+
             // checkMuteUnmute(stream.getId());
           } else {
             // totalBrodcaster++;

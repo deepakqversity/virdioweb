@@ -82,7 +82,7 @@ return (
                   <a href="#" data-toggle="modal" data-target="#fitness-script" tabIndex="1" className="mr-5 show-fitness-script"><img src="images/showscript.png" /></a>
                 </div>
               
-              <div className="bg-gray bottom-rounded px-3 pb-2 item-description script-section mt--1 flex-grow-1">
+              <div className="bg-gray bottom-rounded px-3 pb-2 item-description d-block script-section mt--1 flex-grow-1">
                 <div className="h-100">
                   <div className="row">
                   <div className="swiper-container swiper-container-host">

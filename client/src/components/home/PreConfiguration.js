@@ -89,23 +89,17 @@ class PreConfiguration extends Component {
   }
  
   checkHostSession = () => {
-    console.log('test', this.state.isHostJoined)
-    let tempUserDta = JSON.parse(localStorage.getItem('tempUser'));
+    let tempUserDta = localStorage.getItem('tempUsers');
 
     if(tempUserDta != null){
+      tempUserDta = JSON.parse(tempUserDta);
       for(let i in tempUserDta){
-        if(tempUserDta[i].userType == 1  && tempUserDta[i].sessionStatus == 1){
-
-          this.setState({
-            isHostJoined: true
-            });        
+        if(tempUserDta[i].userType == 1 && tempUserDta[i].sessionStatus == 1){
+          this.setState({isHostJoined: true});
+          break;        
         }
-
       }
-      console.log('test == ', this.state.isHostJoined)
-
     }
-
   }
 
   checkstatus = () => {
@@ -281,6 +275,11 @@ render() {
       // console.log('seconds, minutes, hours====== ', seconds, minutes, hours);
   //const  {user}  = this.props.auth;
 
+  if(this.state.isHostJoined == false){
+    this.checkHostSession();
+  }
+  console.log('------virender----users ', this.state.isHostJoined)
+
   let localstoragedata = JSON.parse(localStorage.getItem('userData'));
 
   let sessionData = localstoragedata.sessionData;
@@ -340,8 +339,7 @@ render() {
 
     
   $("body").css("overflow-y", "scroll");
-
-  console.log('------virender----users ', this.state.isHostJoined)
+  
 
   return (
        <div>
@@ -635,7 +633,7 @@ render() {
         </div>
       </div>
 
-      <button id="set-temp-sesstion" onClick={this.checkstatus}>cccc</button>
+      <button id="set-temp-sesstion" onClick={this.checkstatus} hidden="hidden">cccc</button>
       
       </div>
     );

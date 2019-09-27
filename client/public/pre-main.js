@@ -1118,7 +1118,6 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
           }
         }
 
-
         updateHostSessionStatus(1);
 
         

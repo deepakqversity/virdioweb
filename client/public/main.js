@@ -275,6 +275,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
         $('#agora_remote' + stream.getId()).remove();
         switchVideoSize();
         console.log(evt.uid + " leaved from this channel");
+
+        if(storeData.userType == 1){
+          // // add stream after leaving current stream on hand raise event
+          // pushIntoSessionByHost();
+          // switch user every specific time duration
+          switchAudienceToBroadcaster();
+        }
       }
     });
 
@@ -1830,12 +1837,12 @@ function signalHandler(uid, signalData, userType) {
     } else if(resultant[0] == '200') {
 
       // console.log('********ggggggggggggg************** signalData ', signalData.message); 
-      $('#hostmsg').html('Now you are became a broadcaster.');
+      // $('#hostmsg').html('Now you are became a broadcaster.');
       // publish();
       publishAfterKick();
       $('#mocrophone-on').addClass('d-none');
       $('#mocrophone-off').removeClass('d-none');
-      setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
+      // setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
     }
 
   }

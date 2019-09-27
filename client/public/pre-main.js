@@ -991,6 +991,7 @@ function signalHandler(uid, signalData, userType) {
    
       let joinDateTimeattendies = convertUnixTimestamp(resultant[1]);
 
+<<<<<<< HEAD
       console.log('----------welcome----------uid----------',uid)
 
       incrementcountOnPreStreming(uid,'welcome');
@@ -998,6 +999,17 @@ function signalHandler(uid, signalData, userType) {
       let message="Hi " +localDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your 1st virtual session with us  ";
             
       $('#newmsg').html(message);
+=======
+      console.log('********ssssss************ resultant', joinDateTimeattendies);
+      if(getUserDataFromList(uid, 'userType') == 1){
+        
+        let message="Hi " +localDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your 1st virtual session with us  ";
+        
+        console.log('********ssssss************ resultant', message);
+        
+        $('#newmsg').html(message);
+      }
+>>>>>>> 221eedf718adc8566420547702bd4222852456c4
 
       console.log(' uid =================== time', uid, resultant);
 
@@ -1765,7 +1777,7 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
               
             }
           }).catch(error => {
-            console.log('*************There is an error******');
+            console.log('*************There is an error******=============', error);
           });
       })
   });

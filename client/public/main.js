@@ -212,8 +212,15 @@ if(!AgoraRTC.checkSystemRequirements()) {
             if ($('#agora_host #agora_remote'+stream.getId()).length === 0) {
               
               $('#agora_host').append('<div id="agora_remote'+stream.getId()+'"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div></div>');
+
             }
             stream.play('agora_remote_vdo' + stream.getId());
+
+            if(checkUserRole() == 1){
+
+              massages="1000" + sep + storeData.id;
+              sendMessage(storeData.sessionData.hostEmail, massages);
+            }
 
             // checkMuteUnmute(stream.getId());
           } else {
@@ -244,13 +251,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
           // remove id when unpublished
           // currentPublishedUser.splice(currentPublishedUser.indexOf(stream.getId()), 1); 
         }
-        addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
-        addUserAttribute(stream.getId(), 'isSubscribe', 0);
-        
         // remove from audience list
         removeAudienceInList(stream.getId())
       }
 
+      addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
+      addUserAttribute(stream.getId(), 'isSubscribe', 0);
+      
       if(storeData.userType == 1){
         // add stream after leaving current stream on hand raise event
         pushIntoSessionByHost();
@@ -275,6 +282,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
         $('#agora_remote' + stream.getId()).remove();
         switchVideoSize();
         console.log(evt.uid + " leaved from this channel");
+
+        if(storeData.userType == 1){
+          // // add stream after leaving current stream on hand raise event
+          // pushIntoSessionByHost();
+          // switch user every specific time duration
+          switchAudienceToBroadcaster();
+        }
       }
     });
 
@@ -612,10 +626,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
         });
       } else {
         // user join streaming channel
-        if(storeData.userType == 2){
-          massages="1000" + sep + storeData.id;
-          sendMessage(storeData.sessionData.hostEmail, massages);
-        }
+        // if(storeData.userType == 2){
+        //   massages="1000" + sep + storeData.id;
+        //   sendMessage(storeData.sessionData.hostEmail, massages);
+        // }
        
         channel.getMembers().then(membersList => {    
           console.log('------------membersListlalit-------',membersList);       
@@ -849,6 +863,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
       }
       // check user exists in list of first order
       isUserExists = checkUserInOrder(storeData);
+      if(isUserExists && totalBrodcaster < parseInt(storeData.default.maxUserLimit)){
+        checkUserTime = true;
+      }
     }
     console.log('checkUserTime , isUserExists', checkUserTime , isUserExists)    
 
@@ -1342,15 +1359,20 @@ function changeImage(){
   function onPageResize(){
 
     let leftHeight = $(".right-sidebar").height();
-    $(".joined-member-list").height(`${leftHeight -100 }px`);
-    $(".guest-left-wine").css("max-height", "leftHeight");
+    
 
     let winHeight = $( window ).height();
     let headerHeight = $(".header.bg-gray").height();
     let hostHeight = $(".host-script-section").height();
     let sectionHeights = winHeight - (hostHeight + headerHeight);
 
-    $("#subscribers-list").height(`${sectionHeights - 107}px`)
+    
+    $(".script-info .carousel-inner.guest-left-wine").css("max-height", `${winHeight - 390}px`);
+    $(".guest-left-wine").css("max-height", "leftHeight");
+    let guestLeftWine = $(".script-info .carousel-inner.guest-left-wine").height();
+    $(".joined-member-list").css({"max-height": `${guestLeftWine}px`, "height": guestLeftWine});
+
+    $("#subscribers-list").height(`${sectionHeights - 107}px`);
     
     let sub_list_y = $("#subscribers-list").height(); 
     let sub_list_x = $("#subscribers-list").width(); 
@@ -1620,6 +1642,9 @@ function signalHandler(uid, signalData, userType) {
       $('#errmsg').html('Client HandRaise');
       setTimeout(function(){ $('#errmsg').html(''); }, 10000);
 
+      $('#selected-participent-id').val( convertEmailToId(uid) );
+      $('#subscribers-list #agora_remote'+convertEmailToId(uid)).find('video').addClass('video-selected');
+
     } else if(signalData.code == '100') {
        $('#errmsg').html(signalData.message);
        setTimeout(function(){ $('#errmsg').html(''); }, 10000);
@@ -1796,18 +1821,20 @@ function signalHandler(uid, signalData, userType) {
       $('#hostmsg').html('Now U can Speak');
       setTimeout(function(){ $('#hostmsg').html(''); }, 10000);      
       //hand-icon position-absolute hand;    
-    }else if(resultant[0] == '200') {    
-      $('#hostmsg').html('Now You can Publish');
-      setTimeout(function(){ $('#hostmsg').html(''); }, 10000);   
+    // }else if(resultant[0] == '200') {    
+    //   $('#hostmsg').html('Now You can Publish');
+    //   setTimeout(function(){ $('#hostmsg').html(''); }, 10000);   
     }
     else if(resultant[0] == '216')
     {
 
       let joinDateTimeattendies = convertUnixTimestamp(resultant[1]);
+      if(getUserDataFromList(uid, 'userType') == 1){
 
-      let message="Hi " +nlocalDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your 1st virtual session with us  ";        
-     
-      $('#newmsg').html(message);
+        let message="Hi " +nlocalDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your 1st virtual session with us  ";        
+       
+        $('#newmsg').html(message);
+      }
      // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
       addRtmJoinOrder(uid, resultant[1]);
     }
@@ -1820,25 +1847,27 @@ function signalHandler(uid, signalData, userType) {
     }else if(resultant[0] == '209')
     {
    
-      $('#hostmsg').html('UnMute');
-      setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
-    } else if(resultant[0] == '1002') {
+      // $('#hostmsg').html('UnMute');
+      // setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
+    // } else if(resultant[0] == '209') {
       
       // console.log('********ggggggggggggg************** signalData ', signalData.message); 
       unpublish();
-      $('#hostmsg').html('Now you are became a audience.');
+      // $('#hostmsg').html('Now you are became a audience.');
       $('#mocrophone-on').removeClass('d-none');
       $('#mocrophone-off').addClass('d-none');
-      setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
-    } else if(resultant[0] == '1003') {
+      // setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
+    
+
+    } else if(resultant[0] == '200') {
 
       // console.log('********ggggggggggggg************** signalData ', signalData.message); 
-      $('#hostmsg').html('Now you are became a broadcaster.');
+      // $('#hostmsg').html('Now you are became a broadcaster.');
       // publish();
       publishAfterKick();
       $('#mocrophone-on').addClass('d-none');
       $('#mocrophone-off').removeClass('d-none');
-      setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
+      // setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
     }
 
   }
@@ -2099,7 +2128,7 @@ function signalHandler(uid, signalData, userType) {
     }
 
     function kickUser(id){
-      let text = "1002"+sep+"kicked by host";
+      let text = "209"+sep+"kicked by host";
       console.log('############### text', text)
       sendMessage( convertIdToEmail(id), text);
     }
@@ -2130,7 +2159,7 @@ function signalHandler(uid, signalData, userType) {
       }
     }
     function sendPushIntoSessionMessage(uid){
-        let text = "1003"+sep+" in session";
+        let text = "200"+sep+" in session";
         sendMessage(convertIdToEmail(uid), text);
     }
 
@@ -2966,7 +2995,7 @@ function signalHandler(uid, signalData, userType) {
       let newTempUsers = {};
       if(tempUsers != null){
         for(let i in tempUsers){
-          if(tempUsers[i].hasOwnProperty(key) && tempUsers[i].id != id){
+          if(tempUsers[i].hasOwnProperty(key) && tempUsers[i].id == id){
             delete tempUsers[i].key;
           }
         }

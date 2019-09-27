@@ -1361,7 +1361,7 @@ outline:0;
 	margin-top: 29px;
 	margin-right: 20px;
     padding-right: 20px;
-	max-height:430px;
+	max-height:600px;
 }
 .script-info .carousel-inner.guest-left-wine::-webkit-scrollbar{
 	width:6px;
@@ -2949,13 +2949,13 @@ outline: none;
     
 }
 .joined-member-list{
-	overflow-y:scroll;
+	overflow-y:auto;
 	    padding-right: 6px;
     overflow-x: hidden;
 }
 .joined-member-list::-webkit-scrollbar{
 	width:6px;
-	
+	background:#ccc;
 }
 .joined-member-list::-webkit-scrollbar-thumb{
 	width:6px;
@@ -3105,8 +3105,104 @@ float: left;
 
 
 
+/*   coming soon   */
+body.coming-soon{
+	background: #000 url(../images/bg.png);
+    width: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    float: left;
+    width: 100%;
+}
+.black-coming-bg{
+	background: rgba(0,0,0,0.2);
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+	padding-bottom:20px;
+}
+@media (max-width:991px){
+	.black-coming-bg{
+		background: rgba(0,0,0,0.6);
+	}
+}
+.black-coming-bg .form-elements h3{
+	margin: 15px 0;
+    font-size: 20px;
+}
+.black-coming-bg .form-group input {
+    background: rgba(176,2,237,0.25);
+    border: 1.4px solid #B002ED;
+    height: 60px;
+    color: #fff !important;
+    font-size: 16px;
+    border-radius:10px;
+	margin-top: 13px;
+}
+.black-coming-bg .form-group input:focus {
+    box-shadow: none;
+	border: 1.4px solid #B002ED;
+    background: rgba(176,2,237,0.25);
+}
+.black-coming-bg .form-group input::placeholder{
+	color:#fff;
+}
+.black-coming-bg .form-group input.small-input{
+	height: 46px;
+    font-size: 14px;
+}
+@media (min-width: 1200px){
+	.black-coming-bg  .container {
+    max-width: 1366px;
+}
+}
 
+.black-coming-bg .items-collection label{
+	width: auto;
+    border: 1.4px solid #B002ED;
+    margin: 5px;
+    padding: 7px 17px;
+    border-radius: 35px;
+    font-size: 14px;
+    font-family: "Avenir-Medium";
+    color: #fff;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+.black-coming-bg .items-collection label.active, .items-collection label:hover{
+	background:#B002ED;
+}
+.black-coming-bg .form-group {
+    margin-bottom: 0;
+}	
+.black-coming-bg .items-collection label input[type=checkbox]{
+	height:0px;
+	width:0px;
+}
 
+.black-coming-bg a.submit-btn{
+border: 1.4px solid #B002ED;
+    padding: 25px 50px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 14px;
+    align-items: center;
+    font-family: Avenir-Medium;
+    text-decoration: none;
+	height: 150px;
+    justify-content: center;
+}
+.black-coming-bg a.submit-btn img{
+	    width: 45px;
+    margin-bottom: 5px;
+}
 
 
 

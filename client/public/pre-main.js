@@ -990,12 +990,14 @@ function signalHandler(uid, signalData, userType) {
       let joinDateTimeattendies = convertUnixTimestamp(resultant[1]);
 
       console.log('********ssssss************ resultant', joinDateTimeattendies);
-
-      let message="Hi " +localDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your 1st virtual session with us  ";
-      
-      console.log('********ssssss************ resultant', message);
-      
-      $('#newmsg').html(message);
+      if(getUserDataFromList(uid, 'userType') == 1){
+        
+        let message="Hi " +localDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your 1st virtual session with us  ";
+        
+        console.log('********ssssss************ resultant', message);
+        
+        $('#newmsg').html(message);
+      }
 
       console.log(' uid =================== time', uid, resultant);
 

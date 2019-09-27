@@ -212,6 +212,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
             if ($('#agora_host #agora_remote'+stream.getId()).length === 0) {
               
               $('#agora_host').append('<div id="agora_remote'+stream.getId()+'"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div></div>');
+
             }
             stream.play('agora_remote_vdo' + stream.getId());
 
@@ -862,6 +863,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
       }
       // check user exists in list of first order
       isUserExists = checkUserInOrder(storeData);
+      if(isUserExists && totalBrodcaster < parseInt(storeData.default.maxUserLimit)){
+        checkUserTime = true;
+      }
     }
     console.log('checkUserTime , isUserExists', checkUserTime , isUserExists)    
 
@@ -1638,6 +1642,9 @@ function signalHandler(uid, signalData, userType) {
       $('#errmsg').html('Client HandRaise');
       setTimeout(function(){ $('#errmsg').html(''); }, 10000);
 
+      $('#selected-participent-id').val( convertEmailToId(uid) );
+      $('#subscribers-list #agora_remote'+convertEmailToId(uid)).find('video').addClass('video-selected');
+
     } else if(signalData.code == '100') {
        $('#errmsg').html(signalData.message);
        setTimeout(function(){ $('#errmsg').html(''); }, 10000);
@@ -1817,10 +1824,12 @@ function signalHandler(uid, signalData, userType) {
     {
 
       let joinDateTimeattendies = convertUnixTimestamp(resultant[1]);
+      if(getUserDataFromList(uid, 'userType') == 1){
 
-      let message="Hi " +nlocalDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your 1st virtual session with us  ";        
-     
-      $('#newmsg').html(message);
+        let message="Hi " +nlocalDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your 1st virtual session with us  ";        
+       
+        $('#newmsg').html(message);
+      }
      // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
       addRtmJoinOrder(uid, resultant[1]);
     }
@@ -2949,7 +2958,7 @@ function signalHandler(uid, signalData, userType) {
       let newTempUsers = {};
       if(tempUsers != null){
         for(let i in tempUsers){
-          if(tempUsers[i].hasOwnProperty(key) && tempUsers[i].id != id){
+          if(tempUsers[i].hasOwnProperty(key) && tempUsers[i].id == id){
             delete tempUsers[i].key;
           }
         }

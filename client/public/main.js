@@ -2944,7 +2944,7 @@ function signalHandler(uid, signalData, userType) {
       let newTempUsers = {};
       if(tempUsers != null){
         for(let i in tempUsers){
-          if(tempUsers[i].hasOwnProperty(key) && tempUsers[i].id != id){
+          if(tempUsers[i].hasOwnProperty(key) && tempUsers[i].id == id){
             delete tempUsers[i].key;
           }
         }

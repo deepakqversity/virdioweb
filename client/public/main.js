@@ -244,13 +244,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
           // remove id when unpublished
           // currentPublishedUser.splice(currentPublishedUser.indexOf(stream.getId()), 1); 
         }
-        addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
-        addUserAttribute(stream.getId(), 'isSubscribe', 0);
-        
         // remove from audience list
         removeAudienceInList(stream.getId())
       }
 
+      addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
+      addUserAttribute(stream.getId(), 'isSubscribe', 0);
+      
       if(storeData.userType == 1){
         // add stream after leaving current stream on hand raise event
         pushIntoSessionByHost();
@@ -1791,9 +1791,9 @@ function signalHandler(uid, signalData, userType) {
       $('#hostmsg').html('Now U can Speak');
       setTimeout(function(){ $('#hostmsg').html(''); }, 10000);      
       //hand-icon position-absolute hand;    
-    }else if(resultant[0] == '200') {    
-      $('#hostmsg').html('Now You can Publish');
-      setTimeout(function(){ $('#hostmsg').html(''); }, 10000);   
+    // }else if(resultant[0] == '200') {    
+    //   $('#hostmsg').html('Now You can Publish');
+    //   setTimeout(function(){ $('#hostmsg').html(''); }, 10000);   
     }
     else if(resultant[0] == '216')
     {
@@ -1821,10 +1821,10 @@ function signalHandler(uid, signalData, userType) {
       
       // console.log('********ggggggggggggg************** signalData ', signalData.message); 
       unpublish();
-      $('#hostmsg').html('Now you are became a audience.');
+      // $('#hostmsg').html('Now you are became a audience.');
       $('#mocrophone-on').removeClass('d-none');
       $('#mocrophone-off').addClass('d-none');
-      setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
+      // setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
     
 
     } else if(resultant[0] == '200') {

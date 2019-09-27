@@ -625,10 +625,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
         });
       } else {
         // user join streaming channel
-        if(storeData.userType == 2){
-          massages="1000" + sep + storeData.id;
-          sendMessage(storeData.sessionData.hostEmail, massages);
-        }
+        // if(storeData.userType == 2){
+        //   massages="1000" + sep + storeData.id;
+        //   sendMessage(storeData.sessionData.hostEmail, massages);
+        // }
        
         channel.getMembers().then(membersList => {    
           console.log('------------membersListlalit-------',membersList);       

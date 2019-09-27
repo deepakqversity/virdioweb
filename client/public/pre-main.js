@@ -1118,8 +1118,8 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
           }
         }
 
+        updateHostSessionStatus(1);
 
-        $('#continue-join').removeAttr("disabled");
         let newmsg="Now U can Join";
         //$('#newmsg').html(newmsg);
         setTimeout(function(){ $('#newmsg').html(''); }, 10000);    
@@ -1703,6 +1703,21 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
     }
     console.log('broadcasters =========== broadcasters ======', broadcasters);
     return broadcasters;      
+  }
+
+  function updateHostSessionStatus(status){
+    let tempUsers = getTempUsers();
+    // console.log('tempUsers =========== tempUsers ======', tempUsers);
+    
+    if(tempUsers != null){
+      for(let i in tempUsers){
+        if(tempUsers[i].userType == 1){
+
+          tempUsers[i].sessionStatus = status;          
+        }
+      }
+      localStorage.setItem("tempUsers", JSON.stringify(tempUsers));
+    }
   }
   
   // function removeUserAttribute(id, key){

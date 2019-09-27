@@ -1361,7 +1361,7 @@ outline:0;
 	margin-top: 29px;
 	margin-right: 20px;
     padding-right: 20px;
-	max-height:430px;
+	max-height:600px;
 }
 .script-info .carousel-inner.guest-left-wine::-webkit-scrollbar{
 	width:6px;
@@ -2949,13 +2949,13 @@ outline: none;
     
 }
 .joined-member-list{
-	overflow-y:scroll;
+	overflow-y:auto;
 	    padding-right: 6px;
     overflow-x: hidden;
 }
 .joined-member-list::-webkit-scrollbar{
 	width:6px;
-	
+	background:#ccc;
 }
 .joined-member-list::-webkit-scrollbar-thumb{
 	width:6px;

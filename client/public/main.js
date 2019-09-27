@@ -1355,15 +1355,20 @@ function changeImage(){
   function onPageResize(){
 
     let leftHeight = $(".right-sidebar").height();
-    $(".joined-member-list").height(`${leftHeight -100 }px`);
-    $(".guest-left-wine").css("max-height", "leftHeight");
+    
 
     let winHeight = $( window ).height();
     let headerHeight = $(".header.bg-gray").height();
     let hostHeight = $(".host-script-section").height();
     let sectionHeights = winHeight - (hostHeight + headerHeight);
 
-    $("#subscribers-list").height(`${sectionHeights - 107}px`)
+    
+    $(".script-info .carousel-inner.guest-left-wine").css("max-height", `${winHeight - 390}px`);
+    $(".guest-left-wine").css("max-height", "leftHeight");
+    let guestLeftWine = $(".script-info .carousel-inner.guest-left-wine").height();
+    $(".joined-member-list").css({"max-height": `${guestLeftWine}px`, "height": guestLeftWine});
+
+    $("#subscribers-list").height(`${sectionHeights - 107}px`);
     
     let sub_list_y = $("#subscribers-list").height(); 
     let sub_list_x = $("#subscribers-list").width(); 

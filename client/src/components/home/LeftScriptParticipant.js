@@ -54,20 +54,21 @@ return (
                     
                   </div>
                 </div>
-                <button type="button" data-toggle="modal" data-target="#show-details" className="btn btn-outline-secondary show-details-btn">"Show Details"</button>
+                
               </div>
             </div>
 
           )}
                     
           </div>
-
+          <button type="button" data-toggle="modal" data-target="#show-details" className="mt-4 btn btn-outline-secondary show-details-btn">"Show Details"</button>
           <a className="carousel-control-prev d-none" href="#demo" data-slide="prev">
             <span className="carousel-control-prev-icon"></span>
           </a>
           <a className="carousel-control-next d-none" href="#demo" data-slide="next">
             <span className="carousel-control-next-icon"></span>
           </a>
+          
           </div>
         
         

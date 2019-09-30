@@ -11,7 +11,7 @@ class ScriptAttributes{
 		let table = this.table;
         return await new Promise((resolve, reject) => {
         	
-        	db.query('SELECT * FROM ?? WHERE sessionScriptId IN (?) AND status = 1', [table, sessionScriptIds], function (error, results, fields) {
+        	db.query('SELECT * FROM ?? WHERE sessionScriptId IN (?) AND status = 1 ORDER BY orderBy ASC', [table, sessionScriptIds], function (error, results, fields) {
 			  if (error) reject(error);
 			  // console.log('================== results ', results)
 			  // db.end();

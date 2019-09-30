@@ -13,6 +13,60 @@ class SessionScript{
 		
         return await new Promise((resolve, reject) => {
         	
+        	db.query('SELECT ss.id, ss.name, ss.description, ssm.sessionScriptId FROM session_script ss LEFT JOIN session_script_mapping ssm ON ssm.sessionScriptId = ss.id WHERE ssm.sessionId = ? AND ss.userId = ? AND status = 1', [sessionId, userId], function (error, results, fields) {
+			 	
+			 	if (error) reject(error);
+			 	// console.log('================== results ', results)
+			  	
+		  		scriptAttr.getAttributesByIds(underscore.pluck(results, 'sessionScriptId'))
+			  		.then(function(attributes){
+
+	  					let nestedData = [];
+			  			if(!isEmpty(attributes)){
+
+			  			// console.log('================== attributes ', attributes)
+		  					for(let j in attributes){
+			  					let attrData = attributes[j];
+			  					
+		  						if(interest == 101){
+		  							let position = '';
+		  							if(attrData.attrLabel == 'TARGET ZONE')
+		  								position = 1;
+		  							else if(attrData.attrLabel == 'TARGET BPM')
+		  								position = 2;
+		  							else if(attrData.attrLabel == 'counter')
+		  								position = 0;
+		  							underscore.extend(attrData, {position : position});
+		  						}
+		  						if(!nestedData[attrData.orderBy]){
+				  					for(let i in results){
+					  					let sessData = results[i];
+					  					if(sessData.id == attrData.sessionScriptId){
+					  						sessData.attribute = [];
+			  								nestedData[attrData.orderBy] = sessData;
+			  							}
+					  				}
+		  						}
+		  						nestedData[attrData.orderBy]['attribute'].push(attrData);
+			  					// console.log('*****************',nestedData);
+			  				}	
+			  			}
+			  			nestedData = underscore.filter(nestedData , function(data){
+			  				return data != null;
+			  			});
+			  			return resolve(nestedData);
+			  		});
+
+			  // db.end();
+			});
+        });
+	}	
+
+
+	async getProductDetail_Bakup(sessionId, userId, interest) {
+		
+        return await new Promise((resolve, reject) => {
+        	
         	db.query('SELECT ss.*, ssm.sessionScriptId FROM session_script ss LEFT JOIN session_script_mapping ssm ON ssm.sessionScriptId = ss.id WHERE ssm.sessionId = ? AND ss.userId = ? AND status = 1', [sessionId, userId], function (error, results, fields) {
 			  if (error) reject(error);
 			  // console.log('================== results ', results)

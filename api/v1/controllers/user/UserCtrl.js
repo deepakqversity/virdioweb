@@ -18,7 +18,7 @@ class UserCtrl {
 
 	async userDetail(req, res) {
 	    try {
-			let user1 = await userModel.getUserById(req.currentUser._id);
+			let user1 = await userModel.getUserById(req.currentUser.id);
 			res.status(200).send(user1);
 				
 	    } catch(exception) {

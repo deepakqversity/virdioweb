@@ -2364,6 +2364,13 @@ display: inline-block;
 .waveStrength-1 .wv2.wave {
 	border-top-color: #565656;
 }  
+.waveStrength-0 .wave{
+    border-top-color: #777;
+}
+.waveStrength-0 .wv1{
+        background: #777;
+}
+
 .wv1{
 	border: 8px solid transparent;
     background: #6DD400;

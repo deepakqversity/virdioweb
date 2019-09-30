@@ -1609,6 +1609,7 @@ function changeImage(){
     var ctrflag = 0;
     let resetCount = setInterval(function() {
       if(!isPaused) {
+        activeEle.find('svg circle').attr("style","animation-play-state:running");
       // countdown = countdown;
       countdown--;
       // console.log('countdown ======= countdown----', countdown, $('.swiper-slide .data-slide').length , indexNum)
@@ -1631,8 +1632,7 @@ function changeImage(){
         
       }
     } else {
-    
-    activeEle.find('svg circle').attr("style","animation-play-state:paused");
+      activeEle.find('svg circle').attr("style","animation-play-state:paused");
     }
     }, 1000);
   }
@@ -3097,7 +3097,14 @@ function signalHandler(uid, signalData, userType) {
       })
 
       $('#pause-slider').on('click', function(){
+        $(this).addClass('d-none')
+        $('#play-slider').removeClass('d-none')
         isPaused = true;
+      });
+      $('#play-slider').on('click', function(){
+        $(this).addClass('d-none')
+        $('#pause-slider').removeClass('d-none')
+        isPaused = false;
       });
         
       switchUsers();

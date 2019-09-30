@@ -418,6 +418,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   var localClient = '';
   function networkBandwidth() {
 
+    var localClient = '';
     let storeData = getCurrentUserData();
 
     localClient = AgoraRTC.createClient({ mode: 'live', codec:'h264' });
@@ -435,13 +436,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
           
             localStream1.init(function() {
 
-                          localClient.publish(localStream1, function (err) {
-                            console.log("Publish local stream error: " + err);
-                          });
-
-                          
-
-
+              localClient.publish(localStream1, function (err) {
+                console.log("Publish local stream error: " + err);
+              });
            
             }, function (err) {
               console.log("getUserMedia failed", err);
@@ -454,13 +451,49 @@ if(!AgoraRTC.checkSystemRequirements()) {
       console.log("AgoraRTC client init failed", err);
     });
 
-    setInterval(function(){      
-      localClient.getTransportStats((stats) => {
-          console.log(`Current Transport RTT: ${stats.RTT}`);
-          console.log(`Current Network Type: ${stats.networkType}`);
-          console.log(`Current Transport OutgoingAvailableBandwidth: ${stats.OutgoingAvailableBandwidth}`);
-      });
-    }, 3000);   
+    let counter = 0;
+    let k = -1;
+    let j = 1;
+    var networkRef = setInterval(function(){  
+
+      if(counter >= 3000){
+
+        localClient.getTransportStats((stats) => {
+            console.log(`Current Transport RTT: ${stats.RTT}`);
+            console.log(`Current Network Type: ${stats.networkType}`);
+            console.log(`Current Transport OutgoingAvailableBandwidth: ${stats.OutgoingAvailableBandwidth}`);
+            
+            if(stats.OutgoingAvailableBandwidth != undefined && stats.OutgoingAvailableBandwidth > 0){
+
+              clearInterval(networkRef);
+
+              localClient.leave(function () {
+
+                if($('.fill-wifi.waveStrength-3').length > 0){
+                  $('.fill-wifi').removeClass('waveStrength-3');
+                }
+                $('.fill-wifi').addClass('waveStrength-4');
+
+                console.log("Leavel channel successfully");
+              }, function (err) {
+                console.log("Leave channel failed");
+              });
+            }
+        });
+      } else {
+
+        k = k > 4 ? 0 : k ;
+        k++;
+        console.log('kkkkkkkkkkkkkk', k);
+        if($('.fill-wifi.waveStrength-'+(k-1)).length > 0){
+          $('.fill-wifi').removeClass('waveStrength-'+(k-1));
+        }
+        $('.fill-wifi').addClass('waveStrength-'+k);
+      } 
+
+      counter += 100;   
+          
+    }, 100);   
     
   }
   
@@ -1758,6 +1791,7 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
     onPageResize();
     window.onresize = onPageResize;
 
+    networkBandwidth();
     // check devices
     getDevices();
     rtmJoin(); 

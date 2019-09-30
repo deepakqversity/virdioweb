@@ -388,7 +388,7 @@ render() {
             <div className="bg-gray h-100 position-relative pad15 rounded">
               <h6 className="small-heading mb-3">Network Reliability</h6>
                 
-              <div className="fill-wifi waveStrength-3">
+              <div className="fill-wifi waveStrength-0">
                 <div className="wv4 wave">
                   <div className="wv3 wave">
                     <div className="wv2 wave">

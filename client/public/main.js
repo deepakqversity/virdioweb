@@ -1503,7 +1503,7 @@ function changeImage(){
   }
 
   function showHideScript(){
-      if($(".add-remove-round").hasClass("top-rounded")){
+      if($(".add-remove-round").hasClass("top-rounded") && $(".script-section").hasClass("d-none")){
                
         setTimeout(function(){
           $(".add-remove-round").addClass("rounded").removeClass("top-rounded");

@@ -250,7 +250,7 @@ return (
               <div className="col-12 justify-content-end d-flex align-items-center">
                 
                 <div className="border-right pr-3">
-                <a className="btn  btn-primary border-right pr-20" href="#" data-toggle="modal" data-target="#show-details" tabIndex="1">Details</a>
+                <a className="btn  btn-primary border-right pr-20" href="#" data-toggle="modal" data-target="#show-details1" tabIndex="1">Details</a>
                 </div>
                 <button className="logout-btn ml-3" onClick={this.callfunction.bind(this)} tabIndex="1">
                   <i className="fa fa-times" aria-hidden="true"></i>
@@ -444,7 +444,7 @@ return (
       
 
 
-      <div id="show-details" className="modal fade " role="dialog">
+      <div id="show-details1" className="show-details modal fade " role="dialog">
       <div className="w-100 d-flex align-items-center bg-black flex-direction-column h-100 mw-100 justify-content-center">
         <div className="modal-content">
         

@@ -52,7 +52,7 @@ return (
                   </a>
                 </div>
                        
-                        <div className="bg-gray bottom-rounded px-3 pb-2 item-description script-section d-block mt--1 flex-grow-1">
+                        <div className="bg-gray bottom-rounded px-3 pb-2 item-description script-section d-block flex-grow-1">
                         <div className="max-h200">
                           <h4 className="item-name">{opt.name}</h4>
                           <div className="row">

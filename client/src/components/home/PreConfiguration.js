@@ -65,7 +65,14 @@ class PreConfiguration extends Component {
   }
 
   componentDidMount(){
-
+    $(document).ready(function(){
+      $(".close-model-btn").click(function(){
+      
+      $(".modal-backdrop").remove();
+      $(".show-details").removeClass("show").hide();
+            $("body").removeClass("modal-open");
+    })
+    })
     this.loadScript('/AgoraRTCSDK-2.7.1.js');
     this.loadScript('/agora-rtm-sdk-1.0.0.js');
     this.loadScript('/pre-main.js');
@@ -348,7 +355,7 @@ render() {
                   </div>
                   <div className="col-lg-4 float-right time-session">
                     <span className="countdown-timer">{hours} : {minutes} : {seconds}</span>
-                    <a href="#" data-toggle="modal" data-target="#show-details" className="btn btn-primary float-right">Session details</a>
+                    <a href="#" data-toggle="modal" data-target="#show-details2" className="btn btn-primary float-right">Session details</a>
                   </div>
                   <div className="text-danger" style={{color:'#fff'}} id="exptn-errors"></div>
                 </div>
@@ -428,7 +435,7 @@ render() {
         </div>
         
 
-        <div id="show-details" className="modal fade " role="dialog">
+        <div id="show-details2" className="show-details modal fade " role="dialog">
       <div className="w-100 d-flex align-items-center bg-dark flex-direction-column h-100 mw-100 justify-content-center">
         <div className="modal-content">
         

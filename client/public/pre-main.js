@@ -469,10 +469,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
               localClient.leave(function () {
 
-                if($('.fill-wifi.waveStrength-3').length > 0){
                   $('.fill-wifi').removeClass('waveStrength-3');
-                }
-                $('.fill-wifi').addClass('waveStrength-4');
 
                 console.log("Leavel channel successfully");
               }, function (err) {
@@ -482,11 +479,14 @@ if(!AgoraRTC.checkSystemRequirements()) {
         });
       } else {
         k = k > 4 ? 0 : k ;
-        console.log('kkkkkkkkkkkkkk', k);
+        
         if($('.fill-wifi.waveStrength-'+(k-1)).length > 0){
           $('.fill-wifi').removeClass('waveStrength-'+(k-1));
         }
-        $('.fill-wifi').addClass('waveStrength-'+k);
+
+        if(k<4)
+          $('.fill-wifi').addClass('waveStrength-'+k);
+
         k++;
       } 
 

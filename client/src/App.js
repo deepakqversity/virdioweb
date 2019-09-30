@@ -27,6 +27,7 @@ import RegisterForm from './components/auth/RegisterForm';
 import VerifyUserRegister from "./components/auth/VerifyUserRegister";
 import Forgotpassword from "./components/auth/Forgotpassword";
 import ResetPassword from "./components/auth/ResetPassword"
+import ComingSoon from "./components/coming-soon"
 
 // Check for token to keep user logged in
 if (localStorage.userData) {
@@ -55,6 +56,7 @@ class App extends Component {
         <Router>
       <div className="App">
         <Navbar />
+        <Route exact path="/coming-soon" component={ComingSoon} />
         <Route exact path="/" component={Login} />
           <Route exact path="/session-type" component={Register} />
           <Route exact path="/login" component={Login} />

@@ -459,23 +459,40 @@ if(!AgoraRTC.checkSystemRequirements()) {
       if(counter >= 3000){
 
         localClient.getTransportStats((stats) => {
-            console.log(`Current Transport RTT: ${stats.RTT}`);
-            console.log(`Current Network Type: ${stats.networkType}`);
-            console.log(`Current Transport OutgoingAvailableBandwidth: ${stats.OutgoingAvailableBandwidth}`);
             
-            if(stats.OutgoingAvailableBandwidth != undefined && stats.OutgoingAvailableBandwidth > 0){
+          clearInterval(networkRef);
+          
+          console.log(`Current Transport RTT: ${stats.RTT}`);
+          console.log(`Current Network Type: ${stats.networkType}`);
+          console.log(`Current Transport OutgoingAvailableBandwidth: ${stats.OutgoingAvailableBandwidth}`);
+          
+          if(stats.OutgoingAvailableBandwidth != undefined && stats.OutgoingAvailableBandwidth > 0){
 
-              clearInterval(networkRef);
 
-              localClient.leave(function () {
+            localClient.leave(function () {
+                // check in kbps
+                if(stats.OutgoingAvailableBandwidth > 500){
 
                   $('.fill-wifi').removeClass('waveStrength-3');
+                } else if(stats.OutgoingAvailableBandwidth > 300) {
 
-                console.log("Leavel channel successfully");
-              }, function (err) {
-                console.log("Leave channel failed");
-              });
-            }
+                  $('.fill-wifi').addClass('waveStrength-3');
+                  $('.fill-wifi').removeClass('waveStrength-2');
+                } else if(stats.OutgoingAvailableBandwidth > 100) {
+
+                  $('.fill-wifi').addClass('waveStrength-2');
+                  $('.fill-wifi').removeClass('waveStrength-1');
+                } else {
+
+                  $('.fill-wifi').addClass('waveStrength-1');
+                  $('.fill-wifi').removeClass('waveStrength-0');
+                }
+
+              console.log("Leavel channel successfully");
+            }, function (err) {
+              console.log("Leave channel failed");
+            });
+          }
         });
       } else {
         k = k > 4 ? 0 : k ;

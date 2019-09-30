@@ -50,5 +50,14 @@
   </body>
   <script src="%PUBLIC_URL%/js/popper.min.js"></script>
   <script src="%PUBLIC_URL%/js/bootstrap.min.js"></script>
-
+<script>
+$(document).ready(function(){
+  $(".close-model-btn").click(function(){
+   
+  $(".modal-backdrop").remove();
+  $(".show-details").removeClass("show").hide();
+        $("body").removeClass("modal-open");
+})
+})
+</script>
 </html>

@@ -61,7 +61,7 @@ return (
           )}
                     
           </div>
-          <button type="button" data-toggle="modal" data-target="#show-details" className="mt-4 btn btn-outline-secondary show-details-btn">"Show Details"</button>
+          <button type="button" data-toggle="modal" data-target="#show-details4" className="mt-4 btn btn-outline-secondary show-details-btn">"Show Details"</button>
           <a className="carousel-control-prev d-none" href="#demo" data-slide="prev">
             <span className="carousel-control-prev-icon"></span>
           </a>

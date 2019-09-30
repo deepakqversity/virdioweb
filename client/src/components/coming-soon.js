@@ -8,19 +8,24 @@ class ComingSoon extends React.Component {
 
     componentDidMount(){
         $("body").addClass("coming-soon");
+
+
         $(document).ready(function(){
             $(".items-collection label").on("click", function(){
                 
-                if($(this).hasClass("noactive")){
+                if($(".items-collection label").hasClass("noactive")){
                     $(this).addClass("active")
                     $(this).removeClass("noactive");
                     
-                } else {
+                }  else if($(".items-collection label").hasClass("active")) {
                     $(this).removeClass("active")
-                    $(this).addClass("noactive");
+                    $(this).addClass("noactive1");
                     
                 } 
             });
+            $(".items-collection label").on("click", function(){
+                
+            })
         });
     }
 

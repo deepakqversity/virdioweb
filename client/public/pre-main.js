@@ -458,12 +458,6 @@ function onclickhandRaise(receiverId) {
   }
 }
 
-function eject_participent(receiverId) {
-  let receiverEmail = convertIdToEmail(receiverId);
-  var massages = "205" + sep;
-  sendMessage(receiverEmail, massages);
-}
-
 function changeParticipentToAudience(receiverId) {
   let receiverEmail = convertIdToEmail(receiverId);
   var massages = "209" + sep;
@@ -495,20 +489,15 @@ function networkBandwidth() {
           // localClient.join(null, '900001', storeData.email, function(uid) {
           console.log("-------------------------------------------uid");
           // create local stream
-          let localStream1 = AgoraRTC.createStream({
-            streamID: uid,
-            audio: true,
-            video: true,
-            screen: false
-          });
+            let localStream1 = AgoraRTC.createStream({streamID: uid, audio: true, video: true, screen: false });
+          
+            localStream1.init(function() {
 
-          localStream1.init(
-            function() {
-              localClient.publish(localStream1, function(err) {
+              localClient.publish(localStream1, function (err) {
                 console.log("Publish local stream error: " + err);
               });
-            },
-            function(err) {
+           
+            }, function (err) {
               console.log("getUserMedia failed", err);
             }
           );
@@ -532,47 +521,104 @@ function networkBandwidth() {
       );
     });
   }, 3000);
-}
 
-var checkMic = function(micId) {
-  stream2 = AgoraRTC.createStream({
-    streamID: Math.floor(Math.random() * 1000000),
-    // Set audio to true if testing the microphone.
-    video: false,
-    audio: true,
-    microphoneId: micId
-  });
-  // console.log('----------', micId)
+    let counter = 0;
+    let k = -1;
+    let j = 1;
+    var networkRef = setInterval(function(){  
 
-  // The user has granted access to the camera and mic.
-  stream2.on("accessAllowed", function() {
-    console.log("accessAllowed");
+      if(counter >= 3000){
 
-    $("#audio-media-content")
-      .find(".fa-microphone")
-      .removeClass("text-success");
-    $("#ado-" + micId)
-      .find(".fa-microphone")
-      .addClass("text-success");
-  });
+        localClient.getTransportStats((stats) => {
+            
+          clearInterval(networkRef);
+          
+          console.log(`Current Transport RTT: ${stats.RTT}`);
+          console.log(`Current Network Type: ${stats.networkType}`);
+          console.log(`Current Transport OutgoingAvailableBandwidth: ${stats.OutgoingAvailableBandwidth}`);
+          
+          if(stats.OutgoingAvailableBandwidth != undefined && stats.OutgoingAvailableBandwidth > 0){
 
-  // The user has denied access to the camera and mic.
-  stream2.on("accessDenied", function() {
-    $("#audio-media-content")
-      .find(".fa-microphone")
-      .removeClass("text-success");
-    console.log("accessDenied");
-  });
 
-  // Initialize the stream.
-  stream2.init(function() {
-    // stream2.play('local-audio-media');
-    // setInterval(function(){
-    // // should be greater than 0
-    //     console.log(`Local Stream Audio Level ${stream2.getAudioLevel()}`);
-    // }, 1000);
-  });
-};
+            localClient.leave(function () {
+                // check in kbps
+                if(stats.OutgoingAvailableBandwidth > 500){
+
+                  $('.fill-wifi').removeClass('waveStrength-3');
+                } else if(stats.OutgoingAvailableBandwidth > 300) {
+
+                  $('.fill-wifi').addClass('waveStrength-3');
+                  $('.fill-wifi').removeClass('waveStrength-2');
+                } else if(stats.OutgoingAvailableBandwidth > 100) {
+
+                  $('.fill-wifi').addClass('waveStrength-2');
+                  $('.fill-wifi').removeClass('waveStrength-1');
+                } else {
+
+                  $('.fill-wifi').addClass('waveStrength-1');
+                  $('.fill-wifi').removeClass('waveStrength-0');
+                }
+
+              console.log("Leavel channel successfully");
+            }, function (err) {
+              console.log("Leave channel failed");
+            });
+          }
+        });
+      } else {
+        k = k > 4 ? 0 : k ;
+        
+        if($('.fill-wifi.waveStrength-'+(k-1)).length > 0){
+          $('.fill-wifi').removeClass('waveStrength-'+(k-1));
+        }
+
+        if(k<4)
+          $('.fill-wifi').addClass('waveStrength-'+k);
+
+        k++;
+      } 
+
+      counter += 100;   
+          
+    }, 100);   
+    
+  }
+  
+  var checkMic = function(micId){
+
+      stream2 = AgoraRTC.createStream({
+          streamID: Math.floor(Math.random()*1000000),
+          // Set audio to true if testing the microphone.
+          video: false,
+          audio: true,
+          microphoneId: micId
+      });
+      // console.log('----------', micId)
+
+      // The user has granted access to the camera and mic.
+        stream2.on("accessAllowed", function() {
+          console.log("accessAllowed");
+
+          $('#audio-media-content').find('.fa-microphone').removeClass('text-success');
+          $("#ado-"+micId).find('.fa-microphone').addClass('text-success');
+        });
+
+        // The user has denied access to the camera and mic.
+        stream2.on("accessDenied", function() {
+          $('#audio-media-content').find('.fa-microphone').removeClass('text-success');
+          console.log("accessDenied");
+
+        });
+
+      // Initialize the stream.
+      stream2.init(function(){
+          // stream2.play('local-audio-media');
+          // setInterval(function(){
+          // // should be greater than 0
+          //     console.log(`Local Stream Audio Level ${stream2.getAudioLevel()}`);
+          // }, 1000);
+      })
+  };
 
 function cropDeviceName(str) {
   // if(str.indexOf('(') !== -1){
@@ -1825,9 +1871,10 @@ $(document).ready(function() {
   onPageResize();
   window.onresize = onPageResize;
 
+  networkBandwidth();
   // check devices
   getDevices();
-  rtmJoin();
+  rtmJoin(); 
 
   $("#logout_button").click(function() {
     updateJoinSessionStatus();

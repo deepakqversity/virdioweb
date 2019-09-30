@@ -237,8 +237,8 @@ return (
                     
                     <a className="col-2 justify-content-end d-flex align-items-center" href="javascript:;" className="btn btn-primary mr-2" tabIndex="1" id="mute-unmute"><i className="fa fa-volume-up"></i></a>
 
-                    <a className="col-2 justify-content-end d-flex align-items-center" href="#" data-toggle="modal" data-target="#show-details" className="btn btn-primary "  tabIndex="1">Details</a>
-                    {/* <a className="col-2 justify-content-end d-flex align-items-center" href="#"  className="btn btn-primary "  onClick={this.showpart.bind(this)}  tabIndex="1">Details</a> */}
+                    <a className="col-2 justify-content-end d-flex align-items-center" href="#" data-toggle="modal" data-target="#show-details4" className="btn btn-primary "  tabIndex="1">Details</a>
+                    {/* <a className="col-2 justify-content-end d-flex align-items-center" href="#" data-toggle="modal" data-target="#show-details" className="btn btn-primary "  onClick={this.showpart.bind(this)}  tabIndex="1">Details</a> */}
                     {/* <a className="col-2 justify-content-end d-flex align-items-center" href="#" className="btn btn-primary "   tabIndex="1">Details</a> */}
                     <div className="default-btns">
                       <a href="#" className="btn btn-primary ml-2" id="mocrophone-off" onClick={this.handRaise.bind(this)} alt="Microphone" title="Microphone Off"><img src="images/hand.png" /></a>
@@ -303,7 +303,7 @@ return (
     
   
     
-    <div id="show-details" className="modal fade " role="dialog">
+    <div id="show-details4" className="show-details modal fade " role="dialog">
       <div className="w-100 d-flex align-items-center bg-dark flex-direction-column h-100 mw-100 justify-content-center">
         <div className="modal-content">
         

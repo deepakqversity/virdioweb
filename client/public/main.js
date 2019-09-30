@@ -930,9 +930,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
     return userList; 
   }
 
-  var localClient = '';
   function networkBandwidth() {
 
+    var localClient = '';
     let storeData = getCurrentUserData();
 
     localClient = AgoraRTC.createClient({ mode: 'live', codec:'h264' });
@@ -950,13 +950,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
           
             localStream1.init(function() {
 
-                          localClient.publish(localStream1, function (err) {
-                            console.log("Publish local stream error: " + err);
-                          });
-
-                          
-
-
+              localClient.publish(localStream1, function (err) {
+                console.log("Publish local stream error: " + err);
+              });
            
             }, function (err) {
               console.log("getUserMedia failed", err);
@@ -969,13 +965,49 @@ if(!AgoraRTC.checkSystemRequirements()) {
       console.log("AgoraRTC client init failed", err);
     });
 
-    setInterval(function(){      
-      localClient.getTransportStats((stats) => {
-          console.log(`Current Transport RTT: ${stats.RTT}`);
-          console.log(`Current Network Type: ${stats.networkType}`);
-          console.log(`Current Transport OutgoingAvailableBandwidth: ${stats.OutgoingAvailableBandwidth}`);
-      });
-    }, 3000);   
+    let counter = 0;
+    let k = -1;
+    let j = 1;
+    var networkRef = setInterval(function(){  
+
+      if(counter >= 3000){
+
+        localClient.getTransportStats((stats) => {
+            console.log(`Current Transport RTT: ${stats.RTT}`);
+            console.log(`Current Network Type: ${stats.networkType}`);
+            console.log(`Current Transport OutgoingAvailableBandwidth: ${stats.OutgoingAvailableBandwidth}`);
+            
+            if(stats.OutgoingAvailableBandwidth != undefined && stats.OutgoingAvailableBandwidth > 0){
+
+              clearInterval(networkRef);
+
+              localClient.leave(function () {
+
+                if($('.fill-wifi.waveStrength-3').length > 0){
+                  $('.fill-wifi').removeClass('waveStrength-3');
+                }
+                $('.fill-wifi').addClass('waveStrength-4');
+
+                console.log("Leavel channel successfully");
+              }, function (err) {
+                console.log("Leave channel failed");
+              });
+            }
+        });
+      } else {
+
+        k = k > 4 ? 0 : k ;
+        k++;
+        console.log('kkkkkkkkkkkkkk', k);
+        if($('.fill-wifi.waveStrength-'+(k-1)).length > 0){
+          $('.fill-wifi').removeClass('waveStrength-'+(k-1));
+        }
+        $('.fill-wifi').addClass('waveStrength-'+k);
+      } 
+
+      counter += 100;   
+          
+    }, 100);   
     
   }
 
@@ -1503,7 +1535,7 @@ function changeImage(){
   }
 
   function showHideScript(){
-      if($(".add-remove-round").hasClass("top-rounded")){
+      if($(".add-remove-round").hasClass("top-rounded") && $(".script-section").hasClass("d-none")){
                
         setTimeout(function(){
           $(".add-remove-round").addClass("rounded").removeClass("top-rounded");
@@ -1544,9 +1576,10 @@ function changeImage(){
     localStorage.removeItem("channel");
     localStorage.removeItem("allloginuser");
   }
+  
   // var resetCount = '';
   var countdown = 0;
-
+ var isPaused = false;
   function countDown(){
     
     let disCtr = 0;
@@ -1575,17 +1608,19 @@ function changeImage(){
     // console.log('countdown ======= countdown start ----', countdown)
     var ctrflag = 0;
     let resetCount = setInterval(function() {
+      if(!isPaused) {
       // countdown = countdown;
       countdown--;
       // console.log('countdown ======= countdown----', countdown, $('.swiper-slide .data-slide').length , indexNum)
       countdownNumberEl.html((countdown > 0 ? countdown : 0) + '\ SEC') ;
-
+      
       if(countdown < 1){
 
         console.log('=========== **********', $('.swiper-slide .data-slide').length, indexNum)
 
         activeEle.find('svg circle').removeAttr("style");
         clearInterval(resetCount);
+
         if( $('.swiper-slide .data-slide').length != indexNum ) {
           // Now you can use all slider methods like
           mySwiper.slideNext();
@@ -1595,6 +1630,10 @@ function changeImage(){
         }
         
       }
+    } else {
+    
+    activeEle.find('svg circle').attr("style","animation-play-state:paused");
+    }
     }, 1000);
   }
 
@@ -3098,6 +3137,10 @@ function signalHandler(uid, signalData, userType) {
       $(".show-hide-script").click(function(){
         showHideWineScript();
       })
+
+      $('#pause-slider').on('click', function(){
+        isPaused = true;
+      });
         
       switchUsers();
 

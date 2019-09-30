@@ -75,8 +75,8 @@ return (
             { localstoragedata.sessionData.displayScript == 1 ? (<div className="d-flex height-script h-100 justify-content-end flex-direction-column position-relative">
                 <div className="animate-display bg-gray position-relative top-rounded d-md-flex justify-content-between align-items-center px-3 py-3 add-remove-round ">
                   <h3 className="main-heading font-size-16">Fitness Script <span className="ml-md-4 font-size-16"><span id="fitness-counter">0</span>/{sessionScript.length} {localstoragedata.sessionData.scriptType}</span></h3>
-                  <a href="#" className=" mr-2 play-pause-btn" id="pause-slider"><img src="images/play.png" /></a>
-                  <a href="#" className=" mr-2 stop-btn d-none"><img src="images/pause.png" /></a>
+                  <a href="#" className=" mr-2 play-pause-btn d-none" id="play-slider"><img src="images/play.png" /></a>
+                  <a href="#" className=" mr-2 play-pause-btn" id="pause-slider"><img src="images/pause.png" /></a>
                   <a href="#" className=" mr-2 stop-btn"><img src="images/stop.png" /></a>
                   {/* <a href="#" className=" mr-5 show-hide-script"><img src="images/showscript.png" /></a> */}
                   <a href="#" data-toggle="modal" data-target="#fitness-script" tabIndex="1" className="mr-5 show-fitness-script" id="fitnesScript"><img src="images/showscript.png" /></a>

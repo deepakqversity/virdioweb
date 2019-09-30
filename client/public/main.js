@@ -1576,9 +1576,10 @@ function changeImage(){
     localStorage.removeItem("channel");
     localStorage.removeItem("allloginuser");
   }
+  
   // var resetCount = '';
   var countdown = 0;
-
+ var isPaused = false;
   function countDown(){
     
     let disCtr = 0;
@@ -1607,17 +1608,19 @@ function changeImage(){
     // console.log('countdown ======= countdown start ----', countdown)
     var ctrflag = 0;
     let resetCount = setInterval(function() {
+      if(!isPaused) {
       // countdown = countdown;
       countdown--;
       // console.log('countdown ======= countdown----', countdown, $('.swiper-slide .data-slide').length , indexNum)
       countdownNumberEl.html((countdown > 0 ? countdown : 0) + '\ SEC') ;
-
+      
       if(countdown < 1){
 
         console.log('=========== **********', $('.swiper-slide .data-slide').length, indexNum)
 
         activeEle.find('svg circle').removeAttr("style");
         clearInterval(resetCount);
+
         if( $('.swiper-slide .data-slide').length != indexNum ) {
           // Now you can use all slider methods like
           mySwiper.slideNext();
@@ -1627,6 +1630,10 @@ function changeImage(){
         }
         
       }
+    } else {
+    
+    activeEle.find('svg circle').attr("style","animation-play-state:paused");
+    }
     }, 1000);
   }
 
@@ -3088,6 +3095,10 @@ function signalHandler(uid, signalData, userType) {
       $(".show-hide-script").click(function(){
         showHideWineScript();
       })
+
+      $('#pause-slider').on('click', function(){
+        isPaused = true;
+      });
         
       switchUsers();
 

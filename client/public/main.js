@@ -1801,6 +1801,11 @@ function signalHandler(uid, signalData, userType) {
         console.log('---------223---------------')
         $("#fitnesScript").trigger('click');
       }
+      else if(resultant[0] == "239")
+      {
+        console.log('---------239---------------')
+        $("#logout_button").trigger('click');
+      }
           
   } else { // Attendy
 

@@ -556,7 +556,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     // }
     return str;
   }
- console.log('============', cropDeviceName('hello (world) oooo'))
+ // console.log('============', cropDeviceName('hello (world) oooo'))
   var stream2 = null;
   var stream1 = [];
   function getDevices() {

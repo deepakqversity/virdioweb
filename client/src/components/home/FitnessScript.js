@@ -79,7 +79,7 @@ return (
                   <a href="#" className=" mr-2 play-pause-btn" id="pause-slider"><img src="images/pause.png" /></a>
                   <a href="#" className=" mr-2 stop-btn"><img src="images/stop.png" /></a>
                   {/* <a href="#" className=" mr-5 show-hide-script"><img src="images/showscript.png" /></a> */}
-                  <a href="#" data-toggle="modal" data-target="#fitness-script" tabIndex="1" className="mr-5 show-fitness-script"><img src="images/showscript.png" /></a>
+                  <a href="#" data-toggle="modal" data-target="#fitness-script" tabIndex="1" className="mr-5 show-fitness-script" id="fitnesScript"><img src="images/showscript.png" /></a>
                 </div>
               
               <div className="bg-gray bottom-rounded px-3 pb-2 item-description d-block script-section mt--1 flex-grow-1">

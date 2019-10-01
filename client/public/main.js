@@ -1835,6 +1835,16 @@ function signalHandler(uid, signalData, userType) {
         console.log('---------226---------------')
         $("#fullscreen").trigger('click');
       }
+      else if(resultant[0] == "223")
+      {
+        console.log('---------223---------------')
+        $("#fitnesScript").trigger('click');
+      }
+      else if(resultant[0] == "239")
+      {
+        console.log('---------239---------------')
+        $("#logout_button").trigger('click');
+      }
           
   } else { // Attendy
 
@@ -2306,23 +2316,87 @@ function signalHandler(uid, signalData, userType) {
       }
     }
 
+
+    function incrementcountOnStreming(signalData,type)      
+    { 
+
+      if(type == 'welcome'){          
+      let atStremCount=$('#joined_users_at_client').html();
+      
+      atStremCount=parseInt(atStremCount);
+
+      console.log('------------atStremCount----------------',atStremCount);
+
+      atStremCount=atStremCount+1;
+        if(atStremCount < 1)
+        {
+          atStremCount=0;
+        }
+       $('#joined_users_at_client').empty(); 
+
+       console.log('------------atStremCount----------------',atStremCount);
+
+       // $('#joined_users_at_client').html(atStremCount); 
+
+       let localstoragedata = JSON.parse(localStorage.getItem('allloginuser'));
+       let newmem=signalData;
+     
+       localstoragedata.push(newmem);
+       localStorage.setItem("allloginuser", JSON.stringify(localstoragedata));
+       let str=signalData.message;
+       let res = str.split(sep);
+       let storeData = getCurrentUserData();
+        hostEmail=storeData.sessionData.hostEmail;
+
+     let arrayToDispaly = JSON.parse(localStorage.getItem('allloginuser'));
+
+     console.log('----------------------arrayToDispaly', arrayToDispaly,count4)
+
+     $('#all_joined_member_list').html('');
+
+     count4=0;
+     arrayToDispaly.forEach(element => {
+       
+     console.log('---------------arrayToDispaly', element)
+
+     memberID=convertEmailToId(element);
+
+     let userName = getUserDataFromList(element, 'firstName');
+        
+     console.log('*******element*************** element ', element,'-----memberID-----',memberID);
+    
+     if(getUserDataFromList(memberID, 'userType') == 2){
+       count4++;
+       $('#all_joined_member_list').append('<div class="attendee-list"><img src="images/attendee.png" /><span class="title">'+userName+'</span><div class="vid-icons"> <span class="icon-appearance d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-appearance1 d-none"   data-attr="'+memberID+'"></span><span class="icon-appearance2 d-none"  data-attr="'+memberID+'"></span><span class="icon-appearance3 d-none"  data-attr="'+memberID+'"></span><span class="icon-appearance4 d-none"  data-attr="'+memberID+'"></span><span class="icon-aroma d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma1 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma2 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma3 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma4 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-palate d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate1 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate2 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate3 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate4 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-like d-none"  data-attr="'+memberID+'"></span><span class="icon-dislike d-none"  data-attr="'+memberID+'"></span><span class="icon-easy d-none"  data-attr="'+memberID+'"></span><span class="icon-too-hard d-none"  data-attr="'+memberID+'"></span><span class="icon-perfect d-none"  data-attr="'+memberID+'"></span><span class="icon-awesome d-none"  data-attr="'+memberID+'"></span><span class="icon-score d-none"  id="emojies_sc'+memberID+'"  data-attr="'+memberID+'"></span></div></div>');
+       }
+     }); 
+     console.log('*******finalcountatattendies*************** element ', count4);
+     if(count4 <= 0)
+     {
+       count4 = 0;
+     }
+     console.log('*******finalcountatattendies11*************** element ', count4);
+       // $('#joined_users_at_client').empty(); 
+       $('#joined_users_at_client').html(count4);
+
+
+      }
+    }
+
       function incrementcountAtAttendies(signalData,userType)
       {
-       // console.log('*******totallist111*************** signalData ',signalData);
-        let count3=$('#joined_users_at_client').html();
 
-       // console.log('*******totallist222*************** signalData ',signalData.member,'----mmm----', count3);
+        let count3=$('#joined_users_at_client').html();
       
         count3=parseInt(count3);
         var arr;
         
       if(signalData.msgtype=='Joined')
       { 
-      //  console.log('*******totallist333333*************** signalData ',signalData.member,'----mmm----', count3);
+     
         let localstoragedata = JSON.parse(localStorage.getItem('allloginuser'));
         let newmem=signalData.member;
-       // console.log('*******totallist5555555*************** signalData ',count3); 
-
+      
         localstoragedata.push(newmem);
         localStorage.setItem("allloginuser", JSON.stringify(localstoragedata));
         let str=signalData.message;
@@ -2402,9 +2476,7 @@ function signalHandler(uid, signalData, userType) {
         }); 
       }
         count4=count4;
-        // count4=signalData.member;
-        // count4=parseInt(count4);
-        // count4=count4-1;
+    
        console.log('*******totallist*************** signalData ', count4);
        //arr.shift();
    
@@ -2412,13 +2484,15 @@ function signalHandler(uid, signalData, userType) {
 
       let storeData = getCurrentUserData();    
         hostEmail=storeData.sessionData.hostEmail;
-      //  let hostEmail='deepak@test.com';
 
       let arrayToDispaly = JSON.parse(localStorage.getItem('allloginuser'));
+
       console.log('----------------------arrayToDispaly', arrayToDispaly,count4)
+
       $('#all_joined_member_list').html('');
       count4=0;
       arrayToDispaly.forEach(element => {
+
       console.log('---------------arrayToDispaly', element)
       memberID=convertEmailToId(element);
 
@@ -2443,6 +2517,31 @@ function signalHandler(uid, signalData, userType) {
       }
 
 
+
+      function incrementcountOnHosttreming(signalData,type)      
+      { 
+
+        if(type == 'welcome'){          
+        let hoststrecount=$('#joined_users').html();
+        
+        hoststrecount=parseInt(hoststrecount);
+
+        console.log('------------hoststrecount----------------',hoststrecount);
+
+        hoststrecount=hoststrecount+1;
+          if(hoststrecount < 1)
+          {
+            hoststrecount=0;
+          }
+         $('#joined_users').empty(); 
+
+         console.log('------------hoststrecount----------------',hoststrecount);
+
+          $('#joined_users').html(hoststrecount); 
+        }
+      }
+
+
       function incrementcountAtHost(signalData,userType)
       {  
 
@@ -2456,11 +2555,7 @@ function signalHandler(uid, signalData, userType) {
         let hostid=storeData.sessionData.hostId;
         let clientid=storeData.sessionData.id;
         let TypeOfUser=storeData.userType;
-        // if(hostid == clientid)
-        // {
-        //   $('#online_state').removeClass("online-status");        
-        //   $('#online_state').addClass("online-status");
-        // }
+  
 
         if(TypeOfUser == 1)
         {
@@ -2472,53 +2567,18 @@ function signalHandler(uid, signalData, userType) {
       {     
        
 
-        // let str=signalData.message;
-        // let res2 = str.split(sep);
-        
-        // let n = res2[1].includes("RM-");
-
-        //   if(n != true )
-        // {
-        //   count1=count+1;
-        // }
-        // else{
-
-        //   count1=count;
-          
-        // }
-
         count1=count+1;
 
        
         console.log('********guduHost111111111************** signalData ', signalData, count,count1);
-       
-         // console.log('*********lllllllll************* signalData ', signalData.message);
-          // $('#totalonline').empty(); 
-          // $('#totalonline').html(count1);  
-        
+              
             $('#joined_users').empty(); 
             $('#joined_users').html(count1);
        
 
       }else if(signalData.msgtype=='left') {
 
-        
-
-        // let str=signalData.message;
-        // let res2 = str.split(sep);
-        
-        // let n = res2[1].includes("RM-");
-
-        //     if(n != true )
-        //   {
-        //     count1=count-1; 
-        //   }
-        //   else{
-
-        //     count1=count; 
-            
-        //   }
-
+ 
           count1=count-1; 
 
         console.log('********virenHost111111111************** signalData ', signalData, count,count1);
@@ -2533,32 +2593,14 @@ function signalHandler(uid, signalData, userType) {
             $('#joined_users').html(count1);
         
 
- 
-
       }else if(signalData.msgtype=='totalcount') {
         var arr=signalData.totalmember;
            //  console.log('---------alllist----------',arr)
         count1=signalData.member;
         count1=parseInt(count1); 
-
-        // arr.forEach(element => {
-
-        //   let n = element.includes("RM-");
-
-        //   if(n != true)
-        //   {  
-        //     count1=count1;
-
-        //   }else{
-        //     count1=count1-1;
-        //   }
-     
-        // }); 
        
         count1=count1-1;
         
-        // $('#totalonline').empty(); 
-        // $('#totalonline').html(count1);  
 
         if(count1 <= 0)
         {
@@ -3591,10 +3633,11 @@ function signalHandler(uid, signalData, userType) {
 
 
       $( '#newhtt').bind( "click", function(event) {
-      let message = "206"+sep+"120";
-      let attendiesID='arjun.rishi@virdio.com'
+      let message = "223"+sep;
+      let attendiesID='arjun.rishi@virdio.com';
       console.log('--------newhtt-----------------',message,attendiesID)
-      sendMessageToChannel(channelName1, message);
+     // sendMessageToChannel(channelName1, message);
+            sendMessage(attendiesID, message);
         });     
 
 

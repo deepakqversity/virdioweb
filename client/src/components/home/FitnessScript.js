@@ -7,6 +7,7 @@ class FitnessScript extends Component {
   
  
   componentDidMount(){
+		
     var loadScript = function (src) {
       var tag = document.createElement('script');
       tag.async = false;
@@ -17,6 +18,8 @@ class FitnessScript extends Component {
     }
     loadScript('/js/swiper.min.js');
     loadScript('/js/swiper-modifier.js');
+    
+    
 
     //var s = $(".target-info span");
     //s.filter(function(i){

@@ -661,15 +661,16 @@ if(!AgoraRTC.checkSystemRequirements()) {
             
           // Initialize the stream.
           stream1[l].init(function(){
-            console.log('cameraId = 5555 =', l, d[l])
+            // console.log('cameraId = 5555 =', l, d[l], $('#local-media-' + d[l]))
               stream1[l].play('local-media-' + d[l]);
               // stream1.muteAudio();
           })
+
+
           
         }
       }
-
-console.log('cameraId = ',stream1)
+      console.log('cameraId = ',stream1)
     });
 
     $(document).on('click', 'input[name="audio-type"]', function(){

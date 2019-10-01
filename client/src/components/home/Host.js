@@ -309,7 +309,7 @@ return (
           <div className="add-remove-round1 add-remove-height height-53 px-3 bg-gray pt-2 pb-2 top-rounded d-flex justify-content-between align-items-center">
             <h3 className="main-heading font-size-16 float-left">Streaming</h3>
             <div className="host-header">
-              <img src="images/mute-microphone.png" className="unmute-icon" id="mute-unmute-local" />
+              <img src="images/mute-microphone.png" className="mute-unmute-local unmute-icon" id="mute-unmute-local" />
               <img src="images/music-icon.png" className="music-icon" data-toggle="modal" data-target="#musicList" id="bg-music" />
               <img src="images/video-icon.png" className="video-icon d-none" id="publish" />
               <img src="images/video-close.png" className="video-icon" id="unpublish" />

@@ -557,8 +557,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
     return str;
   }
  console.log('============', cropDeviceName('hello (world) oooo'))
-  var stream1 = stream2 = null;
-
+  var stream2 = null;
+  var stream1 = [];
   function getDevices() {
     
     AgoraRTC.getDevices(function (devices) {
@@ -587,6 +587,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
       let device = '';
       let deviceId = '';
       let deviceArray = [];
+      let l=-1;
+      var d = [];
       for (var i = 0, ctr = 0, ctr1 = 0; i !== devices.length; ++i) {
 
         if(!devices[i] || devices[i] == undefined) continue;
@@ -628,7 +630,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
             checkMic(deviceId);
           }
         } else if (device.kind === 'videoinput') {
-
+          l++;
           if(cameraId == null) {
             if(ctr == 0)
               defaultSetting = 'checked';
@@ -646,25 +648,28 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
           $('#video-media-content').append(vdoMediaHtml)
 
-          stream1 = AgoraRTC.createStream({
+          stream1[l] = AgoraRTC.createStream({
               // streamID: Math.floor(Math.random()*1000000),
               // Set audio to true if testing the microphone.
               video: true,
               audio: false,
               cameraId: deviceId,
           });
-          d = deviceId;
+          d[l] = deviceId;
 
-          stream1.setVideoProfile('720p_3');
+          stream1[l].setVideoProfile('720p_3');
             
           // Initialize the stream.
-          stream1.init(function(){
-              stream1.play('local-media-' + d);
+          stream1[l].init(function(){
+            console.log('cameraId = 5555 =', l, d[l])
+              stream1[l].play('local-media-' + d[l]);
               // stream1.muteAudio();
           })
+          
         }
       }
 
+console.log('cameraId = ',stream1)
     });
 
     $(document).on('click', 'input[name="audio-type"]', function(){
@@ -689,8 +694,15 @@ if(!AgoraRTC.checkSystemRequirements()) {
   }
 
   function removePreScreenSession(){
-    if(stream1 != undefined && stream1 != null)
-      stream1.close();
+    if(stream1 != undefined && stream1 != null){
+      // stream1.close();
+      if(stream1.length > 0){
+        for(let l in stream1){
+
+            stream1[l].close();
+        }
+      }
+    }
     if(stream2 != undefined && stream2 != null)
       stream2.close();
   }

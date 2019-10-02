@@ -538,8 +538,9 @@ render() {
             </div> */}
              
               <div className="col-lg-8">
-              <span id='newmsg' style={{color:'green'}}></span>
-                <h6 className="small-heading mb-3 no-border">Joined</h6>
+              
+                <h6 className="small-heading mb-2 no-border">Joined</h6>
+                <span id='newmsg' className="welcome-msg"></span>
                 <div className="">
                   <div className="joiners d-flex flex-wrap">
                     

@@ -4018,6 +4018,26 @@ function signalHandler(uid, signalData, userType) {
       }
     });
 
+    $('.host-header .mute-unmute-local').on('click', function(){
+      
+      let vdo = $('#agora_local video')[0];
+      let ado = $('#agora_local audio')[0]; 
+      console.log('vdo vdo vdo ', vdo, ado, vdo.muted, ado.muted)
+
+      if( vdo.muted || ado.muted ){
+        vdo.muted = false;
+        ado.muted = false;
+        localStream.unmuteAudio();
+        $(this).attr('src','images/voice-commands.png');
+      } else {
+        vdo.muted = true;
+        ado.muted = true;
+        localStream.muteAudio();
+        $(this).attr('src','images/mute-microphone.png');
+      }
+
+    });
+
 
   });
  

@@ -2375,6 +2375,21 @@ display: inline-block;
 	border: 8px solid transparent;
     background: #6DD400;
 }
+@media (max-width:1024px){
+.wave {
+    border: 5px solid transparent;
+    margin: 5px;
+	    border-top-color: #6DD400;
+}
+.fill-wifi {
+    right: 0px;
+    height: 52px;
+}
+.wv1 {
+    border: 5px solid transparent;
+    background: #6DD400;
+}
+}
 .btn-join{
 	background: rgba(189,0,255, 0.53) !important;
     border-color: rgba(189,0,255, 0.53) !important;
@@ -2476,9 +2491,7 @@ display: inline-block;
 	.prescreen-popup .participant-status .border-right-gray{
 	border:0;
 }
-.fill-wifi {
-    right: -25px;
-}
+
 .time-session{
 	    display: flex;
     justify-content: space-between;

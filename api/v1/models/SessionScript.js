@@ -16,7 +16,7 @@ class SessionScript{
         	db.query('SELECT ss.id, ss.name, ss.description, ssm.sessionScriptId FROM session_script ss LEFT JOIN session_script_mapping ssm ON ssm.sessionScriptId = ss.id WHERE ssm.sessionId = ? AND ss.userId = ? AND status = 1', [sessionId, userId], function (error, results, fields) {
 			 	
 			 	if (error) reject(error);
-			 	// console.log('================== results ', results)
+			 	console.log('================== results ', results)
 			  	
 		  		scriptAttr.getAttributesByIds(underscore.pluck(results, 'sessionScriptId'))
 			  		.then(function(attributes){
@@ -24,7 +24,7 @@ class SessionScript{
 	  					let nestedData = [];
 			  			if(!isEmpty(attributes)){
 
-			  			// console.log('================== attributes ', attributes)
+			  			console.log('================== attributes ', attributes)
 		  					for(let j in attributes){
 			  					let attrData = attributes[j];
 			  					
@@ -37,17 +37,29 @@ class SessionScript{
 		  							else if(attrData.attrLabel == 'counter')
 		  								position = 0;
 		  							underscore.extend(attrData, {position : position});
+			  						
+			  						if(!nestedData[attrData.orderBy]){
+					  					for(let i in results){
+						  					let sessData = results[i];
+						  					if(sessData.id == attrData.sessionScriptId){
+						  						sessData.attribute = [];
+				  								nestedData[attrData.orderBy] = sessData;
+				  							}
+						  				}
+			  						}
+		  							nestedData[attrData.orderBy]['attribute'].push(attrData);
+		  						} else if(interest == 100) {
+		  							if(!nestedData[attrData.sessionScriptId]){
+					  					for(let i in results){
+						  					let sessData = results[i];
+						  					if(sessData.id == attrData.sessionScriptId){
+						  						sessData.attribute = [];
+				  								nestedData[attrData.sessionScriptId] = sessData;
+				  							}
+						  				}
+			  						}
+		  							nestedData[attrData.sessionScriptId]['attribute'].push(attrData);
 		  						}
-		  						if(!nestedData[attrData.orderBy]){
-				  					for(let i in results){
-					  					let sessData = results[i];
-					  					if(sessData.id == attrData.sessionScriptId){
-					  						sessData.attribute = [];
-			  								nestedData[attrData.orderBy] = sessData;
-			  							}
-					  				}
-		  						}
-		  						nestedData[attrData.orderBy]['attribute'].push(attrData);
 			  					// console.log('*****************',nestedData);
 			  				}	
 			  			}

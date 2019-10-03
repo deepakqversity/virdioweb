@@ -57,7 +57,7 @@ class User{
 		return await new Promise((resolve, reject) => {
 			db.query('SELECT id, firstName, lastName, email, password, image, status, isBanned FROM ?? WHERE email = ? AND status = 1 limit 1', [table, email], function (error, results, fields) {
 			  if (error) reject(error);
-			  console.log('================== results ', results)
+			  // console.log('================== results ', results)
 			  // db.end();
 			  return resolve(isEmpty(results) ? '' : results[0]);
 			});

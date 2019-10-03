@@ -558,7 +558,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   }
  // console.log('============', cropDeviceName('hello (world) oooo'))
   var stream2 = null;
-  var stream1 = [];
+  var stream1 = '';
   function getDevices() {
     
     AgoraRTC.getDevices(function (devices) {
@@ -587,13 +587,12 @@ if(!AgoraRTC.checkSystemRequirements()) {
       let device = '';
       let deviceId = '';
       let deviceArray = [];
-      let l=-1;
-      var d = [];
+      var d = '';
       for (var i = 0, ctr = 0, ctr1 = 0; i !== devices.length; ++i) {
 
         if(!devices[i] || devices[i] == undefined) continue;
 
-        // console.log('devices[i] = ', devices[i])
+        console.log('cameraId devices[i] = ', devices[i])
         device = devices[i];
         deviceId = device.deviceId;
 
@@ -630,7 +629,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
             checkMic(deviceId);
           }
         } else if (device.kind === 'videoinput') {
-          l++;
+          
           if(cameraId == null) {
             if(ctr == 0)
               defaultSetting = 'checked';
@@ -648,26 +647,21 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
           $('#video-media-content').append(vdoMediaHtml)
 
-          stream1[l] = AgoraRTC.createStream({
-              // streamID: Math.floor(Math.random()*1000000),
+          stream1 = AgoraRTC.createStream({
+              streamID: Math.floor(Math.random()*1000000),
               // Set audio to true if testing the microphone.
               video: true,
               audio: false,
               cameraId: deviceId,
           });
-          d[l] = deviceId;
+          d = deviceId;
 
-          stream1[l].setVideoProfile('720p_3');
-            
+          stream1.setVideoProfile('720p_3');
           // Initialize the stream.
-          stream1[l].init(function(){
-            // console.log('cameraId = 5555 =', l, d[l], $('#local-media-' + d[l]))
-              stream1[l].play('local-media-' + d[l]);
-              // stream1.muteAudio();
+          stream1.init(function(){
+              stream1.play('local-media-' + d);
+              stream1.muteAudio();
           })
-
-
-          
         }
       }
       console.log('cameraId = ',stream1)

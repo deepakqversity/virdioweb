@@ -37,12 +37,7 @@ $(document).ready(function(){
   mySwiper = document.querySelector('.swiper-container').swiper
   $(".swiper-slide:nth-child(2)").addClass("remove-slider-bg");
   $(".swiper-slide:nth-child(1)").addClass("swiper-start");
-	$(".stop-btn").click(function(){
-		//mySwiper.destroy(true, false);
-		//mySwiper.slides[1]
-		console.log(mySwiper.realIndex, mySwiper.activeIndex, mySwiper.previousIndex);
-		mySwiper.slideTo(0, 1000, true);
-	})
+
   if($(".swiper-wrapper .swiper-slide:nth-child(1)").hasClass("swiper-slide-next")){
     $(".swiper-btn-next").css("display", "none")
   } 

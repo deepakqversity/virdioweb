@@ -1577,8 +1577,12 @@ function changeImage(){
     localStorage.removeItem("allloginuser");
   }
   
+
+
+
   // var resetCount = '';
   var countdown = 0;
+  var resetCount = null;
  var isPaused = false;
   function countDown(){
     
@@ -1601,13 +1605,13 @@ function changeImage(){
       $('.fitness-emoji').addClass('d-none');
     }
     // var countdown = 30;
-    countdown = parseInt(countdownNumberEl.html());
+    countdown = parseInt(countdownNumberEl.attr("data-number"));
     activeEle.find('svg circle').attr("style","animation-duration:"+countdown+"s !important");
     // countdownNumberEl.html(countdown + '\ SEC') ;
     
     // console.log('countdown ======= countdown start ----', countdown)
     var ctrflag = 0;
-    let resetCount = setInterval(function() {
+    resetCount = setInterval(function() {
       if(!isPaused) {
         activeEle.find('svg circle').attr("style","animation-play-state:running");
       // countdown = countdown;
@@ -1637,6 +1641,20 @@ function changeImage(){
     }, 1000);
   }
 
+
+  function loadSwiperSlide(){
+    let activeEle = $('.swiper-slide.swiper-slide-next');
+    // let indexNum = parseInt(activeEle.find('.data-slide').find('.countdown-number').attr('data-number'));
+    // activeEle.find('.data-slide').find('.countdown-number').html(indexNum + '\ SEC');
+    activeEle.find('.data-slide').find('.countdown-number').each(function(i, val){
+      $(this).html( parseInt($(this).attr('data-number')) + '\ SEC')
+    });
+    clearInterval(resetCount);
+
+  }
+
+
+
   function sessionTimer(){
     
     let storeData = getCurrentUserData();
@@ -1657,8 +1675,7 @@ function changeImage(){
   }
   
 
-  function convertUnixTimestamp(t)
-  {
+  function convertUnixTimestamp(t){
   var dt = new Date(t*1000);
   let date = dt.getDate()+'/'+(dt.getMonth()+1)+'/'+dt.getFullYear();
   let time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds()+'.'+dt.getMilliseconds();
@@ -3170,8 +3187,8 @@ function signalHandler(uid, signalData, userType) {
       
         $(".script-info .carousel-inner .carousel-item:first").addClass("active");
        
-        $(document).on("click", ".swiper-container-host .start span a", function(){
-          
+        $(document).on("click", ".host-script-section .swiper-container-host .start span a", function(){
+          alert("hi");
           // $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
           // $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
           // $(".swiper-slide.start a").prop('disabled', true);

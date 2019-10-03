@@ -3247,3 +3247,8 @@ border: 1.4px solid #B002ED;
 
 
 
+.welcome-msg{
+    color: #fff;
+    font-family: Avenir-Medium;
+    font-size: 15px;
+}

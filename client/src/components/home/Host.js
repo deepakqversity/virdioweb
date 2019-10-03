@@ -266,7 +266,7 @@ return (
     <section className="bg-gray mt-1 px-0 py-1 rounded section attendees">
       <div className="row px-0 px-sm-3 pb-2 pt-1 justify-content-between align-items-center">
         <div className="col-6 col-md-6 d-flex align-items-center">
-          <h4 className="title">Participant View (<span id="joined_users">0</span>/<span>{localstoragedata.default.maxUserLimit}</span>)</h4>
+          <h4 className="title">Participant View (<span id="joined_users">0</span>/<span>{newulength}</span>)</h4>
           <a href="" className="move-list"  id="partlist"  data-toggle="modal" data-target="#attendy-list" className="open-list"><img src="images/move-list.png" /></a>
           <a href="" className="move-list"><img src="images/swipe-list.png" /></a>
           <div className="hand-raise-list">
@@ -309,7 +309,7 @@ return (
           <div className="add-remove-round1 add-remove-height height-53 px-3 bg-gray pt-2 pb-2 top-rounded d-flex justify-content-between align-items-center">
             <h3 className="main-heading font-size-16 float-left">Streaming</h3>
             <div className="host-header">
-              <img src="images/mute-microphone.png" className="mute-unmute-local unmute-icon" id="mute-unmute-local" />
+              <img src="images/mute-microphone.png" className="unmute-icon" id="mute-unmute-local" />
               <img src="images/music-icon.png" className="music-icon" data-toggle="modal" data-target="#musicList" id="bg-music" />
               <img src="images/video-icon.png" className="video-icon d-none" id="publish" />
               <img src="images/video-close.png" className="video-icon" id="unpublish" />

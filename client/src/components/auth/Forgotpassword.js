@@ -50,11 +50,12 @@ class Forgotpassword extends Component {
               });
             }else{
 
-                axios
-                .post("/api/v1/user/forgotPassword", userData)
-                
-                .then(res => {
+              console.log('-------------userData--------------',userData)
 
+                axios
+                .post("/api/v1/user/forgotpassword",userData)                
+                .then(res => {
+console.log('---------forgotpasswd--------------',res.data)
                     if(res.data == 'email not in DB')
 
                     {

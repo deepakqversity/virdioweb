@@ -36,6 +36,19 @@ class Otp{
 		});
 	}
 
+	async check(userId, channel, status){
+
+		let table = this.table;
+
+		return await new Promise((resolve, reject) => {
+			db.query('SELECT code FROM ?? WHERE userId = ? AND channel = ? AND status = ? limit 1', [table, userId, channel, status], function (error, results, fields) {
+			  if (error) reject(error);
+			  // console.log('results = ', results);
+			  return resolve(isEmpty(results) ? '' : results[0]);
+			});
+		});
+	}
+
 	async updateOtp(code, userId){
 
 		let table = this.table;

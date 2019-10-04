@@ -18,6 +18,7 @@ class FitnessScript extends Component {
     }
     loadScript('/js/swiper.min.js');
     loadScript('/js/swiper-modifier.js');
+    loadScript('/js/fitnessReloadScript.js');
     
     
 
@@ -42,6 +43,7 @@ class FitnessScript extends Component {
       }
       loadScript('/js/swiper.min.js');
       loadScript('/js/swiper-modifier.js');
+      loadScript('/js/fitnessReloadScript.js');
       window.loadSwiperSlide();
       window.mySwiper.slideTo(0, 1000, true);
     this.forceUpdate();

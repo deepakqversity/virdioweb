@@ -296,7 +296,7 @@ class UserCtrl {
 
 				let encoded_email = await utils.encodedDecodedString(email,0);
 
-				let emaillink="https://localhost:3000/verify-link/"+encoded_email+"/"+resultant_code;
+				let emaillink="https://13.58.212.237:3000/verify-link/"+encoded_email+"/"+resultant_code;
 
 				console.log('-------emaillink--------',emaillink)
 

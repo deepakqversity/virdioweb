@@ -117,6 +117,19 @@ class User{
 			});
 		});
 	}
+	async updatePassword(email,password) {
+		let table = this.table;
+		return await new Promise((resolve, reject) => {
+			db.query('UPDATE ?? SET password = ? WHERE email = ? AND status = 1', [table,password, email], function (error, results, fields) {
+			  if (error) reject(error);
+			  // console.log('================== results ', results)
+			  // db.end();
+
+			  console.log('-----updatepassword--------',results)
+			  return resolve(isEmpty(results) ? 0 : results);
+			});
+		});
+	}
 }
 
 module.exports = new User();

@@ -26,6 +26,7 @@ import Verification from "./components/auth/Verification";
 import RegisterForm from './components/auth/RegisterForm';
 import VerifyUserRegister from "./components/auth/VerifyUserRegister";
 import Forgotpassword from "./components/auth/Forgotpassword";
+import Verifylink from "./components/auth/Verifylink";
 import ResetPassword from "./components/auth/ResetPassword"
 import ComingSoon from "./components/coming-soon"
 
@@ -64,6 +65,7 @@ class App extends Component {
           <Route exact path="/register" component={RegisterForm} />
           <Route exact path="/verify-status" component={VerifyUserRegister} />
           <Route exact path="/forgot-password" component={Forgotpassword} />
+          <Route path="/verify-link/" component={Verifylink} />
           <Route exact path="/reset-password" component={ResetPassword} />           
           <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />

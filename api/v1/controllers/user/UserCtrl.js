@@ -272,28 +272,41 @@ class UserCtrl {
 		try {
 			let email = req.body.email;
 
-			console.log('--------email--------',email);
-
-			let userexist = await userModel.getExistsUserByEmail(email);
+			let userObj = await userModel.getExistsUserByEmail(email);
 			
-			
-			// if(!isEmpty(userObj)){
+			if(!isEmpty(userObj)){
 
-			// 	let otpObj = await otpModel.check(userObj.id, 0, 0);
-			// 	let code = '';
-			// 	// check if otp already sent
-			// 	if(!isEmpty(otpObj)){
-			// 		code = otpObj.code;
-			// 	} else {
-			// 		code = utils.encodedString();
-			// 		let emailUpdate = await otpModel.add(userObj.id, code, 0);
-			// 	}
-			// 	let msg = 'Your account created successfully, Please check email for verification link';
-			// 	res.status(200).send({message:msg, link: code });
+				let otpObj = await otpModel.check(userObj.id, 0, 0);
+				let code='';
+				// check if otp already sent
+				if(!isEmpty(otpObj)){
+					code = otpObj.code;
+					console.log('--------code1--------',code);
 
-			// } else {
-			// 	res.status(400).send({email:"Email doesn\'t exists in system."});
-			// }
+				} else {
+					
+					code = utils.encodedString();
+
+					console.log('--------code2--------',code);
+
+					let emailUpdate = await otpModel.add(userObj.id, code, 0);
+				}
+
+				let resultant_code = await utils.encodedDecodedString(code,0);
+
+				let encoded_email = await utils.encodedDecodedString(email,0);
+
+				let emaillink="https://localhost:3000/verify-link/"+encoded_email+"/"+resultant_code;
+
+				console.log('-------emaillink--------',emaillink)
+
+				let msg = 'email hasbeen sent to ur mail';
+
+				res.status(200).send({message:msg, link: code });
+
+			} else {
+				res.status(400).send({email:"Email doesn\'t exists in system."});
+			}
 				
 	    } catch(exception) {
 			res.status(500).send(exception)
@@ -302,8 +315,43 @@ class UserCtrl {
 
 	async verifyLink(req, res) {
 		try {
+
+	    	let email = req.body.email;
+			let otpcode = req.body.otpcode;
 			
-			res.status(200).send({message:"Account activated successfully."});
+			console.log('----------email------otpcode-----',email,otpcode)
+
+			let decoded_email = await utils.encodedDecodedString(email,1);
+
+
+			 let emailObj = await userModel.getExistsUserByEmail(decoded_email);
+
+
+			if(!isEmpty(emailObj)){
+
+				let decoded_otp = await utils.encodedDecodedString(otpcode,1);
+
+
+				let otp_exist = await otpModel.otpExist(emailObj.id, decoded_otp, 0);
+
+
+				if(!isEmpty(otp_exist)){
+
+				let msg = 'your link is verified';
+
+
+				res.status(200).send({message:msg, link:decoded_email });
+
+				}else {
+					res.status(400).send({email:"OTP is not Valid."});
+				}
+
+			}else {
+				res.status(400).send({email:"Email not exists in system."});
+			}
+			
+			//res.status(200).send({message:"Account activated successfully."});
+
 	    } catch(exception) {
 			res.status(500).send(exception)
 	    }
@@ -311,8 +359,38 @@ class UserCtrl {
 
 	async updatePassword(req, res) {
 		try {
+
+			let email = req.body.email;
 			
-			res.status(200).send({message:"Account activated successfully."});
+			console.log('-------------email12345------------------',email)
+
+			let userObj = await userModel.getExistsUserByEmail(email);
+
+			console.log('-------------userObj------------------',userObj)
+
+			if(!isEmpty(userObj)){
+
+				let password = await bcrypt.hash(req.body.password, saltRounds);
+
+				console.log('-------------password------------------',password)
+
+				let output= await userModel.updatePassword(email,password);
+
+				console.log('-------------output------------------',output)
+
+				res.status(200).send({message:"password updated"});
+
+			}else {
+				if(userObj.status == 0){
+
+					res.status(400).send({message:"Email  exists but inactive."})
+				} else {
+
+					res.status(400).send({message:"Email Doesnot exists."})
+				}
+			}
+
+			
 	    } catch(exception) {
 			res.status(500).send(exception)
 	    }

@@ -6,8 +6,6 @@ import $ from 'jquery';
 import React from 'react'
 import  { Redirect } from 'react-router-dom'
 //import AgoraRTC from "agora-rtc-sdk";
-// import React from 'react'
-// import { Redirect } from "react-router-dom"
 
 import {
   GET_ERRORS,

@@ -1656,13 +1656,33 @@ function signalHandler(uid, signalData, userType) {
        // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
        addRtmJoinOrder(uid, resultant[1]);
       } else if(resultant[0] == '211') {        
-        $(".start span a").trigger('click');
+       $(" #play-slider").trigger('click');
+      
+        // if(!isPaused)
+        // {
+        //   console.log('------------ispaused=false--------------')
+        //   isPaused = false;
+        // $(".start span a").trigger('click');
+        // //$("#ftnsStart").trigger('click');
 
-        let storeData1 = getCurrentUserData();
+        // let storeData = getCurrentUserData();
      
-        let ftnsStartCode=storeData1.rtm.ftnsStart.code;                  
-        messages=ftnsStartCode+sep;        
-        sendMessageToChannel(channelName1,messages);
+        // let ftnsStartCode=storeData.rtm.ftnsStart.code;                  
+        // messages=ftnsStartCode+sep;        
+        // sendMessageToChannel(channelName1,messages);
+        // }else{
+        //   console.log('------------ispaused=true--------------')
+        //   isPaused = false;
+        //   $(".start span a").trigger('click');
+        //   //$("#ftnsStart").trigger('click');
+
+        //   let storeData = getCurrentUserData();
+     
+        //   let ftnsResumeCode=storeData.rtm.ftnsResume.code;                  
+        //   messages=ftnsResumeCode+sep;        
+        //   sendMessageToChannel(channelName1,messages);
+
+        // }
 
       }
       else if(resultant[0] == '212') {        
@@ -1673,6 +1693,9 @@ function signalHandler(uid, signalData, userType) {
         let ftnsStopCode=storeData2.rtm.ftnsStop.code;                  
         messages=ftnsStopCode+sep;        
         sendMessageToChannel(channelName1,messages);
+
+      }else if(resultant[0] == '213') {        
+        $("#pause-slider").trigger('click');
 
       }else if(resultant[0] == "214")
       {
@@ -1774,7 +1797,7 @@ function signalHandler(uid, signalData, userType) {
 
         console.log('-------newlocalstorageDta-------------',newlocalstorageDta,newlocalstorageDta.id)
 
-        checkMuteUnmute(newlocalstorageDta.id);           
+        checkMuteSelfAudio(newlocalstorageDta.id);           
       }else if(resultant[0] == "226")
       {
         console.log('---------226---------------')
@@ -1931,12 +1954,6 @@ function signalHandler(uid, signalData, userType) {
         console.log('-------------------fitscript has Started-------------');
        // $('#hostFtnsScript').trigger('click');
         $(".swiper-guest.start span a").trigger('click');
-        // $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
-        // $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
-        // $(".swiper-slide.start a").prop('disabled', true);
-        // $(".swiper-btn-next").css("display", "block")
-        // countDown();
-        // startSlider();
 
       }else if(res1[0] == "212")
       {
@@ -1945,7 +1962,12 @@ function signalHandler(uid, signalData, userType) {
         $(".end span a").trigger('click');
       }else if(res1[0] == "213")
       {
-        //alert('fitscript pause');
+       console.log('-----------guestfitnessscript-------------213---')
+       guestfitnessscript(res1[0]);
+      }else if(res1[0] == "404")
+      {
+       console.log('-----------guestfitnessscript-------------404---')
+       guestfitnessscript(res1[0]);
       }else if(res1[0] == "214")
       {
         $(".carousel-control-next").trigger('click');
@@ -3069,6 +3091,16 @@ function signalHandler(uid, signalData, userType) {
         
     }
 
+      function guestfitnessscript(code)
+      {
+        console.log('---------guestfitnessscript--------------')
+        if(code == 213){
+        isPaused = true;
+        }else{
+          isPaused = false;
+        }
+      }
+
       $(document).ready(function(){
       
       $(".show-hide-script").click(function(){
@@ -3079,12 +3111,51 @@ function signalHandler(uid, signalData, userType) {
         $(this).addClass('d-none')
         $('#play-slider').removeClass('d-none')
         isPaused = true;
+       // $("#pause-slider").trigger('click');
+
+       let storeData = getCurrentUserData();     
+       let ftnsPauseCode=storeData.rtm.ftnsPause.code;                  
+       messages=ftnsPauseCode+sep;        
+       sendMessageToChannel(channelName1,messages);
       });
+
       $('#play-slider').on('click', function(){
         $(this).addClass('d-none')
         $('#pause-slider').removeClass('d-none')
-        isPaused = false;
+        if(!isPaused)
+        {
+          console.log('------------ispaused=false--------------')
+          isPaused = false;
+        $(".start span a").trigger('click');
+        //$("#ftnsStart").trigger('click');
+
+        let storeData = getCurrentUserData();
+     
+        let ftnsStartCode=storeData.rtm.ftnsStart.code;                  
+        messages=ftnsStartCode+sep;        
+        sendMessageToChannel(channelName1,messages);
+        }else{
+          console.log('------------ispaused=true--------------')
+          isPaused = false;
+          $(".start span a").trigger('click');
+          //$("#ftnsStart").trigger('click');
+
+          let storeData = getCurrentUserData();
+     
+          let ftnsResumeCode=storeData.rtm.ftnsResume.code;                  
+          messages=ftnsResumeCode+sep;        
+          sendMessageToChannel(channelName1,messages);
+
+        }
+        
       });
+
+
+      $('#stop-slider').on('click', function(){
+        $(".end span a").trigger('click');
+      });
+
+
         
       switchUsers();
 
@@ -3553,7 +3624,7 @@ function signalHandler(uid, signalData, userType) {
 
 
       $( '#newhtt').bind( "click", function(event) {
-      let message = "223"+sep;
+      let message = "211"+sep;
       let attendiesID='arjun.rishi@virdio.com';
       console.log('--------newhtt-----------------',message,attendiesID)
      // sendMessageToChannel(channelName1, message);
@@ -3867,6 +3938,26 @@ function signalHandler(uid, signalData, userType) {
       }
     });
 
+    $('.host-header .mute-unmute-local').on('click', function(){
+      
+      let vdo = $('#agora_local video')[0];
+      let ado = $('#agora_local audio')[0]; 
+      console.log('vdo vdo vdo ', vdo, ado, vdo.muted, ado.muted)
+
+      if( vdo.muted || ado.muted ){
+        vdo.muted = false;
+        ado.muted = false;
+        localStream.unmuteAudio();
+        $(this).attr('src','images/voice-commands.png');
+      } else {
+        vdo.muted = true;
+        ado.muted = true;
+        localStream.muteAudio();
+        $(this).attr('src','images/mute-microphone.png');
+      }
+
+    });
+
 
   });
  
@@ -3932,7 +4023,25 @@ function signalHandler(uid, signalData, userType) {
       // $('#agora_remote'+id).find('.mute-unmute').addClass('mute');
      // $('#agora_remote'+id).find('.mute-unmute .fa').addClass('fa-volume-off');
 
-  }
+  }    
+
+  function checkMuteSelfAudio(id) {
+
+    console.log('----------checkMuteSelfAudio-------------',id)
+
+      let vdo = $('#video'+ id )[0];   
+      let ado = $('#audio'+ id )[0];   
+
+      vdo.muted = true;
+      ado.muted = true;
+
+      // $('#agora_remote'+id).find('.mute-unmute').addClass('mute');
+     // $('#agora_remote'+id).find('.mute-unmute .fa').addClass('fa-volume-off');
+
+  } 
+
+
+
 
   $(document).ready(function() {
     onPageResize();

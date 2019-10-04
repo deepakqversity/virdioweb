@@ -270,8 +270,28 @@ class UserCtrl {
 
 	async forgotPassword(req, res) {
 		try {
-			
-			res.status(200).send({message:"Account activated successfully."});
+			let email = req.body.email;
+
+	    	let userObj = await userModel.getExistsUserByEmail(email);
+
+			if(!isEmpty(userObj)){
+
+				let otpObj = await otpModel.check(userObj.id, 0, 0);
+				let code = '';
+				// check if otp already sent
+				if(!isEmpty(otpObj)){
+					code = otpObj.code;
+				} else {
+					code = utils.encodedString();
+					let emailUpdate = await otpModel.add(userObj.id, code, 0);
+				}
+				let msg = 'Your account created successfully, Please check email for verification link';
+				res.status(200).send({message:msg, link: code });
+
+			} else {
+				res.status(400).send({email:"Email doesn\'t exists in system."});
+			}
+				
 	    } catch(exception) {
 			res.status(500).send(exception)
 	    }

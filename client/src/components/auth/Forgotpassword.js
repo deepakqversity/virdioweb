@@ -5,6 +5,12 @@ import { connect } from "react-redux";
 import classnames from "classnames";
 import axios from "axios";
 
+import {
+  GET_ERRORS,
+  SET_CURRENT_USER,
+  USER_LOADING
+} from "../../actions/types";
+
 import $ from 'jquery';
 
 class Forgotpassword extends Component {
@@ -32,31 +38,31 @@ class Forgotpassword extends Component {
           
           handleChange= name => e => {
             this.setState({[name]: e.target.value});
+
           };
 
-        sendEmail = e => {
-            e.preventDefault();
-                  
-           //alert(this.state.email);return false;
-           const userData = {
+        sendEmail = e => dispatch => {
+          e.preventDefault();
+
+          alert(this.state.email);
+          const userData = {
             email: this.state.email
           };
         
-            if(this.state.email == "")
-            {
-              this.setState({
-                showError:false,
+          if(this.state.email == "")
+          {
+            this.setState({
+              showError:false,
               messageFromServer:'',
-              });
-            }else{
+            });
+          } else {
 
                 axios
-                .post("/api/v1/user/forgotPassword", userData)
+                .post("/api/v1/user/forgot-password", userData)
                 
                 .then(res => {
 
                     if(res.data == 'email not in DB')
-
                     {
                         this.setState({
                             showError:true,
@@ -67,12 +73,17 @@ class Forgotpassword extends Component {
                         this.setState({
                         showError:false,
                           messageFromServer:'recovery email sent',
-                          });
+                        });
                     }
 
                 })
                 .catch(err =>{
                     console.log('there is problem');
+                    dispatch({
+        
+                      type: GET_ERRORS,
+                      payload: err.response.data
+                    })
                 });
 
             }
@@ -81,7 +92,8 @@ class Forgotpassword extends Component {
 
         render() {
 
-            const {email,messageFromServer,showNullError,showError}=this.state;
+            // const {email, messageFromServer, showNullError, showError, errors}=this.state;
+            const { errors } = this.state;
 
         return (
 
@@ -95,18 +107,18 @@ class Forgotpassword extends Component {
                     <img src="/images/login-logo.png" className="login-logo" />
                     <p className="login-tagline">Forgot Password</p>
                   </div>
-                  <form className = "form-horizontal pt-1" role = "form"  noValidate onSubmit={this.sendEmail} autocomplete="off">
+                  <form className="form-horizontal pt-1" role = "form" noValidate onSubmit={this.sendEmail} autoComplete="off">
                   
                     <div className="login-inner">
-                    <div className = "form-group pb-3 mb-0 mt-4">
-                        {/* <span className="text-danger">{errors.email}{errors.emailincorrect}{errors.message}</span> */}
+                    <div className="form-group pb-3 mb-0 mt-4">
+                        <span className="text-danger">{errors.email}{errors.emailincorrect}{errors.message}</span>
                         <label>Enter your email address</label>
-                        <input type="email"  id="email" onChange={this.handleChange('email')}  value={this.state.email}  className = "form-control"  />
+                        <input autoFocus type="email"  id="email" onChange={this.handleChange('email')} value={this.state.email} error={errors.email} className={classnames("", { invalid: errors.email || errors.emailincorrect }) + 'form-control'}  />
                       <img src="/images/login-user.png" className="user-login" />
                     </div>
                        
-                    <div className = "form-group pt-3 mb-4">
-                        <div className = "d-flex flex-wrap justify-content-between align-items-center">
+                    <div className="form-group pt-3 mb-4">
+                        <div className="d-flex flex-wrap justify-content-between align-items-center">
                         
     
                           <button type = "button" className="btn-cancel btn btn-large btn-outline-secondary waves-effect waves-light hoverable blue accent-3 rounded p-3 px-4">Cancel</button>
@@ -137,7 +149,6 @@ const container = {
     "max-width": "1140px"
   
   };
-
 
 export default connect()(Forgotpassword);
 

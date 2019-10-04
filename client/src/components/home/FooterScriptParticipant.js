@@ -81,7 +81,7 @@ render() {
   let localstoragedata = JSON.parse(localStorage.getItem('userData'));
 
 let sessionScript = localstoragedata.sessionData.scriptDetail;
-console.log('sessionScript=', sessionScript)
+//console.log('sessionScript=', sessionScript)
 
   return (
     

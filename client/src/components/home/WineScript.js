@@ -29,7 +29,7 @@ render() {
   let sessionData = localstoragedata.sessionData;
 
   let sessionScript = localstoragedata.sessionData.scriptDetail;
-  console.log('sessionScript=', sessionScript)
+  //console.log('sessionScript=', sessionScript)
 
 return (
     

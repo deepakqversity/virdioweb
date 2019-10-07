@@ -28,10 +28,12 @@ function startSlider(){
     startSlider()
   })
 
- 
+  var countdown = 0;
+  var resetCount = null;
+ var isPaused = false;
 
   function countDown1(){
-    let isPaused = false;
+  //  let isPaused = false;
     let disCtr = 0;
     if($('#fitness-counter').length > 0){
 
@@ -88,9 +90,6 @@ function startSlider(){
   }
 
   // var resetCount = '';
-  var countdown = 0;
-  //var resetCount = null;
- var isPaused = false;
   function countDown(){
     
     let disCtr = 0;

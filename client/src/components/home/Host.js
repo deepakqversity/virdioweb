@@ -176,6 +176,8 @@ render() {
 
     localDate = localDate.replace('#', 'at');
     let remTime = '';
+    let total_limit= localstoragedata.default.maxUserLimit;
+    console.log('--------total_limit------------',total_limit)
     // console.log('scheduleDate ',localDate );
     // console.log('------------------------------', user);
     let scriptHtml = '';

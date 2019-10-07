@@ -1126,8 +1126,8 @@ display:none;
 
 
 /*----detail button popup----*/
-.carousel-indicators{
-	
+.show-details .carousel-indicators {
+    margin-bottom: -15px;
 }
 .show-details .carousel-indicators li {
     box-sizing: content-box;
@@ -1154,9 +1154,12 @@ display:none;
 	padding: 15px;
     background: #000;
 }
+.show-details .width-1000{
+	max-width:1300px;
+}
 .content-scroll{
-    max-height: 500px;
-    height: 500px;
+    max-height: 460px;
+    height: 460px;
     overflow-y: scroll;
 }
 

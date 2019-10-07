@@ -183,7 +183,7 @@ let sessionScript = localstoragedata.sessionData.scriptDetail;
                                   <div id="countdown" className="count-timer data-slide" data-index={i+1}>
                                   {opt.attribute.map(function(attrb, index){
                                     if(attrb.attrLabel == 'counter'){
-                                    return <div className="countdown-number" key={index}>{attrb.attrValue} SEC</div>;
+                                    return <div className="countdown-number"  data-number={attrb.attrValue} key={index}>{attrb.attrValue} SEC</div>;
                                     }
                                   })}
 

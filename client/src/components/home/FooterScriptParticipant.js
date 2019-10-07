@@ -34,6 +34,7 @@ class FooterScriptParticipant extends Component {
     }
     loadScript('/js/swiper.min.js');
     loadScript('/js/swiper-modifier.js');
+    loadScript('/js/fitnessReloadScript.js');
   }
 
   componentWillMount(){

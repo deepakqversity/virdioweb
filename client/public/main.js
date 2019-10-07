@@ -1577,65 +1577,11 @@ function changeImage(){
     localStorage.removeItem("allloginuser");
   }
   
-  // var resetCount = '';
-  var countdown = 0;
- var isPaused = false;
-  function countDown(){
-    
-    let disCtr = 0;
-    if($('#fitness-counter').length > 0){
 
-      disCtr = $('#fitness-counter').html();
-      disCtr = disCtr == '' ? 0 : parseInt(disCtr);
-      disCtr++;
-      $('#fitness-counter').html(disCtr);
-    }
 
-    let activeEle = $('.swiper-slide.swiper-slide-next');
-    var countdownNumberEl = activeEle.find('.countdown-number');
-    
-    var indexNum = parseInt(activeEle.find('.data-slide').attr('data-index'));
-    if(activeEle.find('h4').html().toLowerCase() == 'rest'){
-      $('.fitness-emoji').removeClass('d-none');
-    } else {
-      $('.fitness-emoji').addClass('d-none');
-    }
-    // var countdown = 30;
-    countdown = parseInt(countdownNumberEl.html());
-    activeEle.find('svg circle').attr("style","animation-duration:"+countdown+"s !important");
-    // countdownNumberEl.html(countdown + '\ SEC') ;
-    
-    // console.log('countdown ======= countdown start ----', countdown)
-    var ctrflag = 0;
-    let resetCount = setInterval(function() {
-      if(!isPaused) {
-        activeEle.find('svg circle').attr("style","animation-play-state:running");
-      // countdown = countdown;
-      countdown--;
-      // console.log('countdown ======= countdown----', countdown, $('.swiper-slide .data-slide').length , indexNum)
-      countdownNumberEl.html((countdown > 0 ? countdown : 0) + '\ SEC') ;
-      
-      if(countdown < 1){
 
-        console.log('=========== **********', $('.swiper-slide .data-slide').length, indexNum)
+  
 
-        activeEle.find('svg circle').removeAttr("style");
-        clearInterval(resetCount);
-
-        if( $('.swiper-slide .data-slide').length != indexNum ) {
-          // Now you can use all slider methods like
-          mySwiper.slideNext();
-          countDown();
-        } else {
-          activeEle.find('svg circle').css('animation', 'none')
-        }
-        
-      }
-    } else {
-      activeEle.find('svg circle').attr("style","animation-play-state:paused");
-    }
-    }, 1000);
-  }
 
   function sessionTimer(){
     
@@ -1657,8 +1603,7 @@ function changeImage(){
   }
   
 
-  function convertUnixTimestamp(t)
-  {
+  function convertUnixTimestamp(t){
   var dt = new Date(t*1000);
   let date = dt.getDate()+'/'+(dt.getMonth()+1)+'/'+dt.getFullYear();
   let time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds()+'.'+dt.getMilliseconds();
@@ -1711,15 +1656,35 @@ function signalHandler(uid, signalData, userType) {
        // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
        addRtmJoinOrder(uid, resultant[1]);
       } else if(resultant[0] == '211') {        
-        $(".start span a").trigger('click');
+       $(" #play-slider").trigger('click');
+      
+        // if(!isPaused)
+        // {
+        //   console.log('------------ispaused=false--------------')
+        //   isPaused = false;
+        // $(".start span a").trigger('click');
+        // //$("#ftnsStart").trigger('click');
 
-        let storeData1 = getCurrentUserData();
+        // let storeData = getCurrentUserData();
      
-        let ftnsStartCode=storeData1.rtm.ftnsStart.code;                  
-        messages=ftnsStartCode+sep;        
-        sendMessageToChannel(channelName1,messages);
+        // let ftnsStartCode=storeData.rtm.ftnsStart.code;                  
+        // messages=ftnsStartCode+sep;        
+        // sendMessageToChannel(channelName1,messages);
+        // }else{
+        //   console.log('------------ispaused=true--------------')
+        //   isPaused = false;
+        //   $(".start span a").trigger('click');
+        //   //$("#ftnsStart").trigger('click');
 
-      }
+        //   let storeData = getCurrentUserData();
+     
+        //   let ftnsResumeCode=storeData.rtm.ftnsResume.code;                  
+        //   messages=ftnsResumeCode+sep;        
+        //   sendMessageToChannel(channelName1,messages);
+
+        // }
+
+ 3     }
       else if(resultant[0] == '212') {        
         $(".end span a").trigger('click');
 
@@ -1728,6 +1693,9 @@ function signalHandler(uid, signalData, userType) {
         let ftnsStopCode=storeData2.rtm.ftnsStop.code;                  
         messages=ftnsStopCode+sep;        
         sendMessageToChannel(channelName1,messages);
+
+      }else if(resultant[0] == '213') {        
+        $("#pause-slider").trigger('click');
 
       }else if(resultant[0] == "214")
       {
@@ -1829,11 +1797,21 @@ function signalHandler(uid, signalData, userType) {
 
         console.log('-------newlocalstorageDta-------------',newlocalstorageDta,newlocalstorageDta.id)
 
-        checkMuteUnmute(newlocalstorageDta.id);           
+        checkMuteSelfAudio(newlocalstorageDta.id);           
       }else if(resultant[0] == "226")
       {
         console.log('---------226---------------')
         $("#fullscreen").trigger('click');
+      }
+      else if(resultant[0] == "223")
+      {
+        console.log('---------223---------------')
+        $("#fitnesScript").trigger('click');
+      }
+      else if(resultant[0] == "239")
+      {
+        console.log('---------239---------------')
+        $("#logout_button").trigger('click');
       }
           
   } else { // Attendy
@@ -1976,12 +1954,6 @@ function signalHandler(uid, signalData, userType) {
         console.log('-------------------fitscript has Started-------------');
        // $('#hostFtnsScript').trigger('click');
         $(".swiper-guest.start span a").trigger('click');
-        // $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
-        // $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
-        // $(".swiper-slide.start a").prop('disabled', true);
-        // $(".swiper-btn-next").css("display", "block")
-        // countDown();
-        // startSlider();
 
       }else if(res1[0] == "212")
       {
@@ -1990,7 +1962,12 @@ function signalHandler(uid, signalData, userType) {
         $(".end span a").trigger('click');
       }else if(res1[0] == "213")
       {
-        //alert('fitscript pause');
+       console.log('-----------guestfitnessscript-------------213---')
+       guestfitnessscript(res1[0]);
+      }else if(res1[0] == "404")
+      {
+       console.log('-----------guestfitnessscript-------------404---')
+       guestfitnessscript(res1[0]);
       }else if(res1[0] == "214")
       {
         $(".carousel-control-next").trigger('click');
@@ -2306,23 +2283,87 @@ function signalHandler(uid, signalData, userType) {
       }
     }
 
+
+    function incrementcountOnStreming(signalData,type)      
+    { 
+
+      if(type == 'welcome'){          
+      let atStremCount=$('#joined_users_at_client').html();
+      
+      atStremCount=parseInt(atStremCount);
+
+      console.log('------------atStremCount----------------',atStremCount);
+
+      atStremCount=atStremCount+1;
+        if(atStremCount < 1)
+        {
+          atStremCount=0;
+        }
+       $('#joined_users_at_client').empty(); 
+
+       console.log('------------atStremCount----------------',atStremCount);
+
+       // $('#joined_users_at_client').html(atStremCount); 
+
+       let localstoragedata = JSON.parse(localStorage.getItem('allloginuser'));
+       let newmem=signalData;
+     
+       localstoragedata.push(newmem);
+       localStorage.setItem("allloginuser", JSON.stringify(localstoragedata));
+       let str=signalData.message;
+       let res = str.split(sep);
+       let storeData = getCurrentUserData();
+        hostEmail=storeData.sessionData.hostEmail;
+
+     let arrayToDispaly = JSON.parse(localStorage.getItem('allloginuser'));
+
+     console.log('----------------------arrayToDispaly', arrayToDispaly,count4)
+
+     $('#all_joined_member_list').html('');
+
+     count4=0;
+     arrayToDispaly.forEach(element => {
+       
+     console.log('---------------arrayToDispaly', element)
+
+     memberID=convertEmailToId(element);
+
+     let userName = getUserDataFromList(element, 'firstName');
+        
+     console.log('*******element*************** element ', element,'-----memberID-----',memberID);
+    
+     if(getUserDataFromList(memberID, 'userType') == 2){
+       count4++;
+       $('#all_joined_member_list').append('<div class="attendee-list"><img src="images/attendee.png" /><span class="title">'+userName+'</span><div class="vid-icons"> <span class="icon-appearance d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-appearance1 d-none"   data-attr="'+memberID+'"></span><span class="icon-appearance2 d-none"  data-attr="'+memberID+'"></span><span class="icon-appearance3 d-none"  data-attr="'+memberID+'"></span><span class="icon-appearance4 d-none"  data-attr="'+memberID+'"></span><span class="icon-aroma d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma1 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma2 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma3 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma4 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-palate d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate1 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate2 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate3 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate4 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-like d-none"  data-attr="'+memberID+'"></span><span class="icon-dislike d-none"  data-attr="'+memberID+'"></span><span class="icon-easy d-none"  data-attr="'+memberID+'"></span><span class="icon-too-hard d-none"  data-attr="'+memberID+'"></span><span class="icon-perfect d-none"  data-attr="'+memberID+'"></span><span class="icon-awesome d-none"  data-attr="'+memberID+'"></span><span class="icon-score d-none"  id="emojies_sc'+memberID+'"  data-attr="'+memberID+'"></span></div></div>');
+       }
+     }); 
+     console.log('*******finalcountatattendies*************** element ', count4);
+     if(count4 <= 0)
+     {
+       count4 = 0;
+     }
+     console.log('*******finalcountatattendies11*************** element ', count4);
+       // $('#joined_users_at_client').empty(); 
+       $('#joined_users_at_client').html(count4);
+
+
+      }
+    }
+
       function incrementcountAtAttendies(signalData,userType)
       {
-       // console.log('*******totallist111*************** signalData ',signalData);
-        let count3=$('#joined_users_at_client').html();
 
-       // console.log('*******totallist222*************** signalData ',signalData.member,'----mmm----', count3);
+        let count3=$('#joined_users_at_client').html();
       
         count3=parseInt(count3);
         var arr;
         
       if(signalData.msgtype=='Joined')
       { 
-      //  console.log('*******totallist333333*************** signalData ',signalData.member,'----mmm----', count3);
+     
         let localstoragedata = JSON.parse(localStorage.getItem('allloginuser'));
         let newmem=signalData.member;
-       // console.log('*******totallist5555555*************** signalData ',count3); 
-
+      
         localstoragedata.push(newmem);
         localStorage.setItem("allloginuser", JSON.stringify(localstoragedata));
         let str=signalData.message;
@@ -2402,9 +2443,7 @@ function signalHandler(uid, signalData, userType) {
         }); 
       }
         count4=count4;
-        // count4=signalData.member;
-        // count4=parseInt(count4);
-        // count4=count4-1;
+    
        console.log('*******totallist*************** signalData ', count4);
        //arr.shift();
    
@@ -2412,13 +2451,15 @@ function signalHandler(uid, signalData, userType) {
 
       let storeData = getCurrentUserData();    
         hostEmail=storeData.sessionData.hostEmail;
-      //  let hostEmail='deepak@test.com';
 
       let arrayToDispaly = JSON.parse(localStorage.getItem('allloginuser'));
+
       console.log('----------------------arrayToDispaly', arrayToDispaly,count4)
+
       $('#all_joined_member_list').html('');
       count4=0;
       arrayToDispaly.forEach(element => {
+
       console.log('---------------arrayToDispaly', element)
       memberID=convertEmailToId(element);
 
@@ -2443,6 +2484,31 @@ function signalHandler(uid, signalData, userType) {
       }
 
 
+
+      function incrementcountOnHosttreming(signalData,type)      
+      { 
+
+        if(type == 'welcome'){          
+        let hoststrecount=$('#joined_users').html();
+        
+        hoststrecount=parseInt(hoststrecount);
+
+        console.log('------------hoststrecount----------------',hoststrecount);
+
+        hoststrecount=hoststrecount+1;
+          if(hoststrecount < 1)
+          {
+            hoststrecount=0;
+          }
+         $('#joined_users').empty(); 
+
+         console.log('------------hoststrecount----------------',hoststrecount);
+
+          $('#joined_users').html(hoststrecount); 
+        }
+      }
+
+
       function incrementcountAtHost(signalData,userType)
       {  
 
@@ -2456,11 +2522,7 @@ function signalHandler(uid, signalData, userType) {
         let hostid=storeData.sessionData.hostId;
         let clientid=storeData.sessionData.id;
         let TypeOfUser=storeData.userType;
-        // if(hostid == clientid)
-        // {
-        //   $('#online_state').removeClass("online-status");        
-        //   $('#online_state').addClass("online-status");
-        // }
+  
 
         if(TypeOfUser == 1)
         {
@@ -2472,53 +2534,18 @@ function signalHandler(uid, signalData, userType) {
       {     
        
 
-        // let str=signalData.message;
-        // let res2 = str.split(sep);
-        
-        // let n = res2[1].includes("RM-");
-
-        //   if(n != true )
-        // {
-        //   count1=count+1;
-        // }
-        // else{
-
-        //   count1=count;
-          
-        // }
-
         count1=count+1;
 
        
         console.log('********guduHost111111111************** signalData ', signalData, count,count1);
-       
-         // console.log('*********lllllllll************* signalData ', signalData.message);
-          // $('#totalonline').empty(); 
-          // $('#totalonline').html(count1);  
-        
+              
             $('#joined_users').empty(); 
             $('#joined_users').html(count1);
        
 
       }else if(signalData.msgtype=='left') {
 
-        
-
-        // let str=signalData.message;
-        // let res2 = str.split(sep);
-        
-        // let n = res2[1].includes("RM-");
-
-        //     if(n != true )
-        //   {
-        //     count1=count-1; 
-        //   }
-        //   else{
-
-        //     count1=count; 
-            
-        //   }
-
+ 
           count1=count-1; 
 
         console.log('********virenHost111111111************** signalData ', signalData, count,count1);
@@ -2533,32 +2560,14 @@ function signalHandler(uid, signalData, userType) {
             $('#joined_users').html(count1);
         
 
- 
-
       }else if(signalData.msgtype=='totalcount') {
         var arr=signalData.totalmember;
            //  console.log('---------alllist----------',arr)
         count1=signalData.member;
         count1=parseInt(count1); 
-
-        // arr.forEach(element => {
-
-        //   let n = element.includes("RM-");
-
-        //   if(n != true)
-        //   {  
-        //     count1=count1;
-
-        //   }else{
-        //     count1=count1-1;
-        //   }
-     
-        // }); 
        
         count1=count1-1;
         
-        // $('#totalonline').empty(); 
-        // $('#totalonline').html(count1);  
 
         if(count1 <= 0)
         {
@@ -2902,15 +2911,7 @@ function signalHandler(uid, signalData, userType) {
     onPageResize();
   });
 
-  function startSlider(){
-    //$(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
-    //$(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
-    $(".swiper-slide.start a").prop('disabled', true);
-    $(".swiper-btn-next").css("display", "block");
-    $(".swiper-slide").removeClass("remove-slider-bg");
-  $(".start").removeClass("swiper-start");
-    countDown();
-  }
+  
 
   function addUserAttribute(id, key, value){
       
@@ -3090,7 +3091,102 @@ function signalHandler(uid, signalData, userType) {
         
     }
 
+      function guestfitnessscript(code)
+      {
+        console.log('---------guestfitnessscript--------------')
+        if(code == 213){
+        isPaused = true;
+        }else{
+          isPaused = false;
+        }
+      }
+
+      function startSlider1(){
+        //$(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
+        //$(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
+        $(".swiper-slide.start a").prop('disabled', true);
+        $(".swiper-btn-next").css("display", "block");
+        $(".swiper-slide").removeClass("remove-slider-bg");
+        $(".start").removeClass("swiper-start");
+        countDown();
+      }
+
+      var countdown = 0;
+      var resetCount = null;
+     var isPaused = false;
+      function countDown(){
+        
+        let disCtr = 0;
+        if($('#fitness-counter').length > 0){
+    
+          disCtr = $('#fitness-counter').html();
+          disCtr = disCtr == '' ? 0 : parseInt(disCtr);
+          disCtr++;
+          $('#fitness-counter').html(disCtr);
+        }
+    
+        let activeEle = $('.swiper-slide.swiper-slide-next');
+        var countdownNumberEl = activeEle.find('.countdown-number');
+        
+        var indexNum = parseInt(activeEle.find('.data-slide').attr('data-index'));
+        if(activeEle.find('h4').html().toLowerCase() == 'rest'){
+          $('.fitness-emoji').removeClass('d-none');
+        } else {
+          $('.fitness-emoji').addClass('d-none');
+        }
+        // var countdown = 30;
+        countdown = parseInt(countdownNumberEl.attr("data-number"));
+        activeEle.find('svg circle').attr("style","animation-duration:"+countdown+"s !important");
+        // countdownNumberEl.html(countdown + '\ SEC') ;
+        
+        // console.log('countdown ======= countdown start ----', countdown)
+        var ctrflag = 0;
+        resetCount = setInterval(function() {
+          if(!isPaused) {
+            activeEle.find('svg circle').attr("style","animation-play-state:running");
+          // countdown = countdown;
+          countdown--;
+          // console.log('countdown ======= countdown----', countdown, $('.swiper-slide .data-slide').length , indexNum)
+          countdownNumberEl.html((countdown > 0 ? countdown : 0) + '\ SEC') ;
+          
+          if(countdown < 1){
+    
+            console.log('=========== **********', $('.swiper-slide .data-slide').length, indexNum)
+    
+            activeEle.find('svg circle').removeAttr("style");
+            clearInterval(resetCount);
+    
+            if( $('.swiper-slide .data-slide').length != indexNum ) {
+              // Now you can use all slider methods like
+              mySwiper.slideNext();
+              countDown();
+            } else {
+              activeEle.find('svg circle').css('animation', 'none')
+            }
+            
+          }
+        } else {
+          activeEle.find('svg circle').attr("style","animation-play-state:paused");
+        }
+        }, 1000);
+      }
+
       $(document).ready(function(){
+
+        // $(document).on("click", ".swiper-guest.start span a", function(){
+    
+        //   console.log('---------hey lalit------');
+        //   // $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
+        //   // $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
+        //   // $(".swiper-slide.start a").prop('disabled', true);
+        //   // $(".swiper-btn-next").css("display", "block")
+        //   // countDown();
+        //   startSlider()
+        // })
+
+        $(".swiper-guest.start span a").click(function(){
+          startSlider1();
+        })
       
       $(".show-hide-script").click(function(){
         showHideWineScript();
@@ -3100,12 +3196,56 @@ function signalHandler(uid, signalData, userType) {
         $(this).addClass('d-none')
         $('#play-slider').removeClass('d-none')
         isPaused = true;
+       // $("#pause-slider").trigger('click');
+
+       let storeData = getCurrentUserData();     
+       let ftnsPauseCode=storeData.rtm.ftnsPause.code;                  
+       messages=ftnsPauseCode+sep;        
+       sendMessageToChannel(channelName1,messages);
       });
+
       $('#play-slider').on('click', function(){
         $(this).addClass('d-none')
         $('#pause-slider').removeClass('d-none')
-        isPaused = false;
+        if(!isPaused)
+        {
+          console.log('------------ispaused=false--------------')
+          isPaused = false;
+        $(".start span a").trigger('click');
+        //$("#ftnsStart").trigger('click');
+
+        let storeData = getCurrentUserData();
+     
+        let ftnsStartCode=storeData.rtm.ftnsStart.code;                  
+        messages=ftnsStartCode+sep;        
+        sendMessageToChannel(channelName1,messages);
+        }else{
+          console.log('------------ispaused=true--------------')
+          isPaused = false;
+          $(".start span a").trigger('click');
+          //$("#ftnsStart").trigger('click');
+
+          let storeData = getCurrentUserData();
+     
+          let ftnsResumeCode=storeData.rtm.ftnsResume.code;                  
+          messages=ftnsResumeCode+sep;        
+          sendMessageToChannel(channelName1,messages);
+
+        }
+        
       });
+
+
+      $('#stop-slider').on('click', function(){
+        $(".end span a").trigger('click');
+      });
+
+      $('.swiper-guest.start span a').on('click', function(){
+        $(".start span a").trigger('click');
+      });
+
+
+
         
       switchUsers();
 
@@ -3128,24 +3268,7 @@ function signalHandler(uid, signalData, userType) {
       
         $(".script-info .carousel-inner .carousel-item:first").addClass("active");
        
-        $(document).on("click", ".swiper-container-host .start span a", function(){
-          
-          // $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
-          // $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
-          // $(".swiper-slide.start a").prop('disabled', true);
-          // $(".swiper-btn-next").css("display", "block")
-          // countDown();
-          startSlider()
-        })
-        $(document).on("click", ".swiper-guest.start span a", function(){
-          
-          // $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
-          // $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
-          // $(".swiper-slide.start a").prop('disabled', true);
-          // $(".swiper-btn-next").css("display", "block")
-          // countDown();
-          startSlider()
-        })
+        
 
         // $(document).on("click", "#winscript", function(){
           
@@ -3554,13 +3677,13 @@ function signalHandler(uid, signalData, userType) {
         });
 
       $( '#like' ).bind( "click", function(event) {  
-        console.log('Hi Lalit');                    
+                         
       messages="202"+sep+"like";
       sendMessageToChannel(channelName1,messages);
       });
       
       $( '#dislike').bind( "click", function(event) {  
-        alert('hi lalit')                 
+                  
       messages="202"+sep+"dislike";
       sendMessageToChannel(channelName1,messages);
       }); 
@@ -3578,23 +3701,24 @@ function signalHandler(uid, signalData, userType) {
       }); 
 
       $( '#perfect' ).bind( "click", function(event) {  
-        console.log('Hi Lalit');                    
+                     
       messages="202"+sep+"perfect";
       sendMessageToChannel(channelName1,messages);
       }); 
 
       $( '#awesome' ).bind( "click", function(event) {  
-        console.log('Hi Lalit');                    
+                         
       messages="202"+sep+"awesome";
       sendMessageToChannel(channelName1,messages);
       }); 
 
 
       $( '#newhtt').bind( "click", function(event) {
-      let message = "206"+sep+"120";
-      let attendiesID='arjun.rishi@virdio.com'
+      let message = "211"+sep;
+      let attendiesID='arjun.rishi@virdio.com';
       console.log('--------newhtt-----------------',message,attendiesID)
-      sendMessageToChannel(channelName1, message);
+     // sendMessageToChannel(channelName1, message);
+            sendMessage(attendiesID, message);
         });     
 
 
@@ -3904,6 +4028,26 @@ function signalHandler(uid, signalData, userType) {
       }
     });
 
+    $('.host-header .mute-unmute-local').on('click', function(){
+      
+      let vdo = $('#agora_local video')[0];
+      let ado = $('#agora_local audio')[0]; 
+      console.log('vdo vdo vdo ', vdo, ado, vdo.muted, ado.muted)
+
+      if( vdo.muted || ado.muted ){
+        vdo.muted = false;
+        ado.muted = false;
+        localStream.unmuteAudio();
+        $(this).attr('src','images/voice-commands.png');
+      } else {
+        vdo.muted = true;
+        ado.muted = true;
+        localStream.muteAudio();
+        $(this).attr('src','images/mute-microphone.png');
+      }
+
+    });
+
 
   });
  
@@ -3969,7 +4113,25 @@ function signalHandler(uid, signalData, userType) {
       // $('#agora_remote'+id).find('.mute-unmute').addClass('mute');
      // $('#agora_remote'+id).find('.mute-unmute .fa').addClass('fa-volume-off');
 
-  }
+  }    
+
+  function checkMuteSelfAudio(id) {
+
+    console.log('----------checkMuteSelfAudio-------------',id)
+
+      let vdo = $('#video'+ id )[0];   
+      let ado = $('#audio'+ id )[0];   
+
+      vdo.muted = true;
+      ado.muted = true;
+
+      // $('#agora_remote'+id).find('.mute-unmute').addClass('mute');
+     // $('#agora_remote'+id).find('.mute-unmute .fa').addClass('fa-volume-off');
+
+  } 
+
+
+
 
   $(document).ready(function() {
     onPageResize();

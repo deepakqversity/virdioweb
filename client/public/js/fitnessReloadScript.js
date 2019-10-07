@@ -8,16 +8,7 @@ function startSlider(){
     countDown();
   }
   $(document).on("click", ".host-script-section .swiper-container-host .start span a", function(){
-    alert("hi");
-    // $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
-    // $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
-    // $(".swiper-slide.start a").prop('disabled', true);
-    // $(".swiper-btn-next").css("display", "block")
-    // countDown();
-    startSlider()
-  })
-  $(document).on("click", ".swiper-guest.start span a", function(){
-    
+   // alert("hi");
     // $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
     // $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
     // $(".swiper-slide.start a").prop('disabled', true);

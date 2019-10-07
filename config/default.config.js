@@ -12,9 +12,9 @@ let config = {
 		ftnsResume : { code : 404, 'message' : ''},
 		WinsNext : { code : 214, 'message' : ''},
 		WinsPrev : { code : 215, 'message' : ''},
-		AttSelect : { code : 227, 'message' : ''}
-	
+		AttSelect : { code : 227, 'message' : ''}	
 	}
+
 };
 
 module.exports = config;

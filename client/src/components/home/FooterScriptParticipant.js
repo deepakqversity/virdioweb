@@ -165,14 +165,13 @@ let sessionScript = localstoragedata.sessionData.scriptDetail;
            <div className="swiper-container">
            
               <div className="swiper-wrapper align-items-center fitness-guest">
-                <div className="swiper-guest swiper-slide start position-relative">              
+                <div className="swiper-guest swiper-slide position-relative start">              
                   <span className="position-relative" id="swip_slide">
                     <a href="#">Start</a>
                   </span>
                   <div className="prevent-click"></div>
                 </div>
-              
-              
+                            
             
                      {
                         sessionScript.map((opt, i) =>

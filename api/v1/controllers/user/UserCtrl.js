@@ -10,6 +10,7 @@ const otpModel = require('../../models/Otp');
 const sessionScriptModel = require('../../models/SessionScript');
 const clientToken = require( process.cwd() + '/util/ClientToken');
 const utils = require(process.cwd() + '/util/Utils');
+const SendMail = require(process.cwd() + '/util/SendMail');
 const defaultConfig = require(process.cwd() + '/config/default.config');
 
 const saltRounds = 10;
@@ -294,11 +295,27 @@ class UserCtrl {
 
 				let resultant_code = await utils.encodedDecodedString(code,0);
 
+				console.log('-------resultant_code--------',resultant_code)
+
 				let encoded_email = await utils.encodedDecodedString(email,0);
 
-				let emaillink="https://13.58.212.237:3000/verify-link/"+encoded_email+"/"+resultant_code;
+				console.log('-------encoded_email12--------',encoded_email) 
 
-				console.log('-------emaillink--------',emaillink)
+				console.log('-------process.cwd()--------',process.cwd())
+
+				//let emaillink="https://13.58.212.237:3000/verify-link/"+encoded_email+"/"+resultant_code;
+
+				//let emaillink="https://localhost:3000/verify-link/"+encoded_email+"/"+resultant_code;
+
+				let html='<p>Click <a href="https://localhost:3000/verify-link/'+ encoded_email+"/"+resultant_code + '">here</a> to reset your password</p>';
+
+				console.log('-------html--------',html)
+
+				let to=email;
+				let subject='Mail From Virdio';
+				let text='Please Check ur Mail';
+
+				let sendmail = await SendMail.emailInput(to,subject,html);
 
 				let msg = 'email hasbeen sent to ur mail';
 

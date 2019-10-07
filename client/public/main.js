@@ -3112,7 +3112,7 @@ function signalHandler(uid, signalData, userType) {
       }
 
       var countdown = 0;
-      var resetCount = null;
+      //var resetCount = null;
      var isPaused = false;
       function countDown(){
         

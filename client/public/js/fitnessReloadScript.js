@@ -19,7 +19,7 @@ function startSlider(){
 
   // var resetCount = '';
   var countdown = 0;
-  var resetCount = null;
+  //var resetCount = null;
  var isPaused = false;
   function countDown(){
     

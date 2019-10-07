@@ -519,22 +519,31 @@ if(!AgoraRTC.checkSystemRequirements()) {
     console.log('newclient , channel =========== ', newclient , channel)
     if(newclient == undefined || channel == undefined){
 
+     
       newclient = AgoraRTM.createInstance(appId1);
       newclient.login({ token: token, uid: peer }).then(() => {
 
-        console.log('***********AgoraRTM client login success***********');
+        
+
+        
 
             // Create channel
             channel = newclient.createChannel(channelName1);
 
             channel.join().then(() => {
 
-              demo();
+            
+
+              //demo();
+
+              console.log('***********AgoraRTMlalit***********');
 
             // after join channel send join channel message to host
             joinChannel();
 
-            console.log('************channel joined successfully**********');
+          
+
+            console.log('************channeljoined111111**********');
 
              // var today = new Date();
              // var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();

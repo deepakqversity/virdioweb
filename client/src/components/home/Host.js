@@ -314,7 +314,8 @@ return (
               <img src="images/mute-microphone.png" className="unmute-icon" id="mute-unmute-local" />
               <img src="images/music-icon.png" className="music-icon" data-toggle="modal" data-target="#musicList" id="bg-music" />
               <img src="images/video-icon.png" className="video-icon d-none" id="publish" />
-              <img src="images/video-close.png" className="video-icon" id="unpublish" />
+              <img src="images/video-close.png" className="video-icon d-none" id="unpublish" />
+              <img src="images/video-close.png" className="video-icon" id="switch-camera" />
               <img src="images/circle.png" className="circle-icon mr-0" id="record-stream" />
             </div>
           </div>
@@ -801,6 +802,8 @@ return (
         </div>
       </div>
 
+
+
       <div className="modal attendy-list" id="attendy-list">
         <div className="modal-dialog">
           <div className="modal-content">
@@ -825,6 +828,23 @@ return (
             </table>
             </div>
             
+          </div>
+        </div>
+      </div>
+
+      <div className="modal attendy-list" id="switch-camera-popup">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h4 className="modal-title">Select Video Camera</h4>
+              <button type="button" className="close" data-dismiss="modal">×</button>
+            </div>
+            <div className="modal-body">
+              <div className="col-12 video-streams select-camera" id="video-media-content"></div>
+            </div>
+            <div className="modal-footer">
+              <button type="button" id="camera-switch-btn">Switch</button>
+            </div>
           </div>
         </div>
       </div>

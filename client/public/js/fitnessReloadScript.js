@@ -51,7 +51,7 @@ function startSlider(){
         activeEle.find('svg circle').attr("style","animation-play-state:running");
       // countdown = countdown;
       countdown--;
-      // console.log('countdown ======= countdown----', countdown, $('.swiper-slide .data-slide').length , indexNum)
+      console.log('countdown ======= countdown----', countdown, $('.swiper-slide .data-slide').length , indexNum)
       countdownNumberEl.html((countdown > 0 ? countdown : 0) + '\ SEC') ;
       
       if(countdown < 1){
@@ -115,11 +115,12 @@ function startSlider(){
       console.log('----------klklaaaaaa---------')
       startSlider();
     })
-
-    $(".host-script-section .swiper-container-host .start span a").click(function(){
-      console.log('----------klkliiiiiiii---------')
-      startSlider();
-    })
+let k=0;
+      console.log('----------ooooooooooooooooooooooooo---------')
+    // $(".host-script-section .swiper-container-host .start span a").click(function(){
+    //   console.log('----------klkliiiiiiii---------', k++)
+    //   startSlider();
+    // })
 
     //   $('#stop-slider').on('click', function(){
     //     $('#pause-slider').addClass('d-none')

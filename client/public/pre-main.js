@@ -583,6 +583,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
         }
 
       }
+
+      $('#video-media-content').html('');
       
       let device = '';
       let deviceId = '';

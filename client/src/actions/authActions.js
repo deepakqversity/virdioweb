@@ -75,13 +75,11 @@ export const loginUser = userData => dispatch => {
     })
     .catch(err =>
       
-     { 
-console.log('err ------------', err);
       dispatch({
-             
-             type: GET_ERRORS,
-             payload: err.response.data
-           })}
+        
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
     );
 };
 

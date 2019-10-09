@@ -79,23 +79,11 @@ export const loginUser = userData => dispatch => {
     })
     .catch(err =>
       
-<<<<<<< HEAD
-     { 
-    console.log('err----------res.data-----', err);
-      dispatch({
-             
-             type: GET_ERRORS,
-             payload: err.response.data
-           })
-          
-          }
-=======
       dispatch({
         
         type: GET_ERRORS,
         payload: err.response.data
       })
->>>>>>> 773135d5327d870510162eaadd25516594cfbfc0
     );
 };
 

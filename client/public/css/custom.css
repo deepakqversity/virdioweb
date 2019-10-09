@@ -2337,6 +2337,13 @@ img.user-login{
 .video-streams.select-camera{
 	min-height:170px;
 }
+.video-streams.select-camera div{
+	background: transparent !Important;
+    text-align: center;
+}
+.video-streams.select-camera video{
+	border-radius:10px !important;
+}
 .form-radio:checked{
      background-color: #BD00FF;
 	     border: none;

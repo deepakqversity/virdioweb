@@ -315,7 +315,7 @@ return (
               <img src="images/music-icon.png" className="music-icon" data-toggle="modal" data-target="#musicList" id="bg-music" />
               <img src="images/video-icon.png" className="video-icon d-none" id="publish" />
               <img src="images/video-close.png" className="video-icon d-none" id="unpublish" />
-              <img src="images/video-close.png" className="video-icon" id="switch-camera" />
+              <img src="images/reverse-cam.png" className="video-icon" id="switch-camera" />
               <img src="images/circle.png" className="circle-icon mr-0" id="record-stream" />
             </div>
           </div>

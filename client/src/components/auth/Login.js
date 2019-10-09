@@ -99,13 +99,16 @@ onChange = e => {
 
 onSubmit = e => {
     e.preventDefault();
+
+    console.log('---------hello---------------')
       const userData = {
       email: this.state.email,
       password: this.state.password,
       // name: this.state.name,
       type: this.state.type
     };
-   console.log('------------userData---------------',userData);
+   console.log('------------userData1111---------------',this.state.email)
+   console.log('------------userData111134---------------',userData)
     this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
   };
   
@@ -230,7 +233,7 @@ Login.propTypes = {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  errors: state.errors
+  errors: state.user
 });
 
 export default connect(

@@ -22,7 +22,7 @@ export const registerUser = (userData, history) => dispatch => {
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
-        payload: err.response.data.errorData
+        payload: err.response.data
       })
     );
 };
@@ -79,6 +79,7 @@ export const loginUser = userData => dispatch => {
     })
     .catch(err =>
       
+<<<<<<< HEAD
      { 
     console.log('err----------res.data-----', err);
       dispatch({
@@ -88,6 +89,13 @@ export const loginUser = userData => dispatch => {
            })
           
           }
+=======
+      dispatch({
+        
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+>>>>>>> 773135d5327d870510162eaadd25516594cfbfc0
     );
 };
 

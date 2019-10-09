@@ -1144,7 +1144,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
               defaultSetting = 'checked';
           }
           
-          vdoMediaHtml = '<div class="col-md-3 mx-auto" id="vdo-'+deviceId+'"><div id="local-media-'+deviceId+'" ></div><div class="check-camera"><input type="radio" class="form-radio" name="video-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'><label for="lbl-'+deviceId+'"> '+ cropDeviceName(device.label) +'</label></div></div>';
+          vdoMediaHtml = '<div class="col-md-3" id="vdo-'+deviceId+'"><div id="local-media-'+deviceId+'" ></div><div class="check-camera"><input type="radio" class="form-radio" name="video-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'><label for="lbl-'+deviceId+'"> '+ cropDeviceName(device.label) +'</label></div></div>';
 
           $('#video-media-content').append(vdoMediaHtml)
 
@@ -3154,11 +3154,6 @@ function signalHandler(uid, signalData, userType) {
         $('#switch-camera-popup').modal('hide');
       });   
 
-<<<<<<< HEAD
-       
-      
-=======
->>>>>>> 773135d5327d870510162eaadd25516594cfbfc0
       $(".show-hide-script").click(function(){
         showHideWineScript();
       })

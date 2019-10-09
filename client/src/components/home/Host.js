@@ -315,7 +315,7 @@ return (
               <img src="images/music-icon.png" className="music-icon" data-toggle="modal" data-target="#musicList" id="bg-music" />
               <img src="images/video-icon.png" className="video-icon d-none" id="publish" />
               <img src="images/video-close.png" className="video-icon d-none" id="unpublish" />
-              <img src="images/video-close.png" className="video-icon" id="switch-camera" />
+              <img src="images/reverse-cam.png" className="video-icon" id="switch-camera" />
               <img src="images/circle.png" className="circle-icon mr-0" id="record-stream" />
             </div>
           </div>
@@ -840,10 +840,10 @@ return (
               <button type="button" className="close" data-dismiss="modal">×</button>
             </div>
             <div className="modal-body">
-              <div className="col-12 video-streams select-camera" id="video-media-content"></div>
+              <div className="row justify-content-center video-streams select-camera" id="video-media-content"></div>
             </div>
             <div className="modal-footer">
-              <button type="button" id="camera-switch-btn">Switch</button>
+              <button type="button" className=" btn-join btn btn-large btn-primary text-uppercase py-1 px-4 rounded " id="camera-switch-btn">Switch</button>
             </div>
           </div>
         </div>

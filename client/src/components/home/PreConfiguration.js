@@ -388,7 +388,7 @@ render() {
           
           <div className="row">
             <div className="col-12"><h6 className="small-heading mb-2">Select Video Camera</h6></div>
-            <div className="col-12 video-streams select-camera" id="video-media-content"></div>
+            <div className="row justify-content-center video-streams select-camera" id="video-media-content"></div>
             
           </div>
         

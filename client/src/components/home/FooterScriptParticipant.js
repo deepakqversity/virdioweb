@@ -188,7 +188,7 @@ let sessionScript = localstoragedata.sessionData.scriptDetail;
                                   })}
 
                                   <svg>
-                                    <circle r="27" cx="30" cy="30"></circle>
+                                    <circle r="30" cx="33" cy="33"></circle>
                                   </svg>
                                 <h4>{opt.name}</h4>
                                 </div>

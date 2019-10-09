@@ -19,7 +19,7 @@ render() {
   let sessionData = localstoragedata.sessionData;
 
   let sessionScript = localstoragedata.sessionData.scriptDetail;
-  console.log('sessionScript=', sessionScript)
+  //console.log('sessionScript=', sessionScript)
 
 return (
       <div className="col-lg-4 col-md-6 col-sm-6 col-6 max-width-300">

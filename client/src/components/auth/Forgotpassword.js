@@ -41,10 +41,9 @@ class Forgotpassword extends Component {
 
           };
 
-        sendEmail = e => dispatch => {
+        sendEmail = e => {
           e.preventDefault();
-
-          alert(this.state.email);
+     
           const userData = {
             email: this.state.email
           };
@@ -57,33 +56,38 @@ class Forgotpassword extends Component {
             });
           } else {
 
+              console.log('-------------userData--------------',userData)
+
                 axios
-                .post("/api/v1/user/forgot-password", userData)
-                
+                .post("/api/v1/user/forgotpassword",userData)                
                 .then(res => {
 
-                    if(res.data == 'email not in DB')
+              console.log('---------forgotpasswd--------------',res.data.message)
+
+                    if(res.data.message == 'Email doesn\'t exists in system')
                     {
-                        this.setState({
-                            showError:true,
-                          messageFromServer:'',
+                     
+                          this.setState({
+                            errors: res.data
                           });
-                    }else if(res.data == 'recovery email sent')
+
+                    }else if(res.data.message == 'email hasbeen sent to ur mail')
                     {
+                        
                         this.setState({
-                        showError:false,
-                          messageFromServer:'recovery email sent',
+                          errors: res.data
                         });
+                       
                     }
 
                 })
                 .catch(err =>{
                     console.log('there is problem');
-                    dispatch({
+                    // dispatch({
         
-                      type: GET_ERRORS,
-                      payload: err.response.data
-                    })
+                    //   type: GET_ERRORS,
+                    //   payload: err.response.data
+                    // })
                 });
 
             }

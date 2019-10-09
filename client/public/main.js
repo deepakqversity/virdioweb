@@ -519,22 +519,31 @@ if(!AgoraRTC.checkSystemRequirements()) {
     console.log('newclient , channel =========== ', newclient , channel)
     if(newclient == undefined || channel == undefined){
 
+     
       newclient = AgoraRTM.createInstance(appId1);
       newclient.login({ token: token, uid: peer }).then(() => {
 
-        console.log('***********AgoraRTM client login success***********');
+        
+
+        
 
             // Create channel
             channel = newclient.createChannel(channelName1);
 
             channel.join().then(() => {
 
-              demo();
+            
+
+              //demo();
+
+              console.log('***********AgoraRTMlalit***********');
 
             // after join channel send join channel message to host
             joinChannel();
 
-            console.log('************channel joined successfully**********');
+          
+
+            console.log('************channeljoined111111**********');
 
              // var today = new Date();
              // var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
@@ -1577,65 +1586,11 @@ function changeImage(){
     localStorage.removeItem("allloginuser");
   }
   
-  // var resetCount = '';
-  var countdown = 0;
- var isPaused = false;
-  function countDown(){
-    
-    let disCtr = 0;
-    if($('#fitness-counter').length > 0){
 
-      disCtr = $('#fitness-counter').html();
-      disCtr = disCtr == '' ? 0 : parseInt(disCtr);
-      disCtr++;
-      $('#fitness-counter').html(disCtr);
-    }
 
-    let activeEle = $('.swiper-slide.swiper-slide-next');
-    var countdownNumberEl = activeEle.find('.countdown-number');
-    
-    var indexNum = parseInt(activeEle.find('.data-slide').attr('data-index'));
-    if(activeEle.find('h4').html().toLowerCase() == 'rest'){
-      $('.fitness-emoji').removeClass('d-none');
-    } else {
-      $('.fitness-emoji').addClass('d-none');
-    }
-    // var countdown = 30;
-    countdown = parseInt(countdownNumberEl.html());
-    activeEle.find('svg circle').attr("style","animation-duration:"+countdown+"s !important");
-    // countdownNumberEl.html(countdown + '\ SEC') ;
-    
-    // console.log('countdown ======= countdown start ----', countdown)
-    var ctrflag = 0;
-    let resetCount = setInterval(function() {
-      if(!isPaused) {
-        activeEle.find('svg circle').attr("style","animation-play-state:running");
-      // countdown = countdown;
-      countdown--;
-      // console.log('countdown ======= countdown----', countdown, $('.swiper-slide .data-slide').length , indexNum)
-      countdownNumberEl.html((countdown > 0 ? countdown : 0) + '\ SEC') ;
-      
-      if(countdown < 1){
 
-        console.log('=========== **********', $('.swiper-slide .data-slide').length, indexNum)
+  
 
-        activeEle.find('svg circle').removeAttr("style");
-        clearInterval(resetCount);
-
-        if( $('.swiper-slide .data-slide').length != indexNum ) {
-          // Now you can use all slider methods like
-          mySwiper.slideNext();
-          countDown();
-        } else {
-          activeEle.find('svg circle').css('animation', 'none')
-        }
-        
-      }
-    } else {
-      activeEle.find('svg circle').attr("style","animation-play-state:paused");
-    }
-    }, 1000);
-  }
 
   function sessionTimer(){
     
@@ -1657,8 +1612,7 @@ function changeImage(){
   }
   
 
-  function convertUnixTimestamp(t)
-  {
+  function convertUnixTimestamp(t){
   var dt = new Date(t*1000);
   let date = dt.getDate()+'/'+(dt.getMonth()+1)+'/'+dt.getFullYear();
   let time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds()+'.'+dt.getMilliseconds();
@@ -1739,7 +1693,7 @@ function signalHandler(uid, signalData, userType) {
 
         // }
 
-      }
+ 3     }
       else if(resultant[0] == '212') {        
         $(".end span a").trigger('click');
 
@@ -2966,15 +2920,7 @@ function signalHandler(uid, signalData, userType) {
     onPageResize();
   });
 
-  function startSlider(){
-    //$(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
-    //$(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
-    $(".swiper-slide.start a").prop('disabled', true);
-    $(".swiper-btn-next").css("display", "block");
-    $(".swiper-slide").removeClass("remove-slider-bg");
-  $(".start").removeClass("swiper-start");
-    countDown();
-  }
+  
 
   function addUserAttribute(id, key, value){
       
@@ -3164,8 +3110,11 @@ function signalHandler(uid, signalData, userType) {
         }
       }
 
+
+
       $(document).ready(function(){
-      
+
+     
       $(".show-hide-script").click(function(){
         showHideWineScript();
       })
@@ -3218,6 +3167,11 @@ function signalHandler(uid, signalData, userType) {
         $(".end span a").trigger('click');
       });
 
+      // $('.swiper-guest.start span a').on('click', function(){
+      //   $(".start span a").trigger('click');
+      // });
+
+
 
         
       switchUsers();
@@ -3241,24 +3195,7 @@ function signalHandler(uid, signalData, userType) {
       
         $(".script-info .carousel-inner .carousel-item:first").addClass("active");
        
-        $(document).on("click", ".swiper-container-host .start span a", function(){
-          
-          // $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
-          // $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
-          // $(".swiper-slide.start a").prop('disabled', true);
-          // $(".swiper-btn-next").css("display", "block")
-          // countDown();
-          startSlider()
-        })
-        $(document).on("click", ".swiper-guest.start span a", function(){
-          
-          // $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
-          // $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
-          // $(".swiper-slide.start a").prop('disabled', true);
-          // $(".swiper-btn-next").css("display", "block")
-          // countDown();
-          startSlider()
-        })
+        
 
         // $(document).on("click", "#winscript", function(){
           
@@ -3667,13 +3604,13 @@ function signalHandler(uid, signalData, userType) {
         });
 
       $( '#like' ).bind( "click", function(event) {  
-        console.log('Hi Lalit');                    
+                         
       messages="202"+sep+"like";
       sendMessageToChannel(channelName1,messages);
       });
       
       $( '#dislike').bind( "click", function(event) {  
-        alert('hi lalit')                 
+                  
       messages="202"+sep+"dislike";
       sendMessageToChannel(channelName1,messages);
       }); 
@@ -3691,13 +3628,13 @@ function signalHandler(uid, signalData, userType) {
       }); 
 
       $( '#perfect' ).bind( "click", function(event) {  
-        console.log('Hi Lalit');                    
+                     
       messages="202"+sep+"perfect";
       sendMessageToChannel(channelName1,messages);
       }); 
 
       $( '#awesome' ).bind( "click", function(event) {  
-        console.log('Hi Lalit');                    
+                         
       messages="202"+sep+"awesome";
       sendMessageToChannel(channelName1,messages);
       }); 

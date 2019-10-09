@@ -34,6 +34,7 @@ class FooterScriptParticipant extends Component {
     }
     loadScript('/js/swiper.min.js');
     loadScript('/js/swiper-modifier.js');
+    loadScript('/js/fitnessReloadScript.js');
   }
 
   componentWillMount(){
@@ -81,7 +82,7 @@ render() {
   let localstoragedata = JSON.parse(localStorage.getItem('userData'));
 
 let sessionScript = localstoragedata.sessionData.scriptDetail;
-console.log('sessionScript=', sessionScript)
+//console.log('sessionScript=', sessionScript)
 
   return (
     
@@ -165,14 +166,13 @@ console.log('sessionScript=', sessionScript)
            <div className="swiper-container">
            
               <div className="swiper-wrapper align-items-center fitness-guest">
-                <div className="swiper-guest swiper-slide start position-relative">              
+                <div className="swiper-guest swiper-slide position-relative start">              
                   <span className="position-relative" id="swip_slide">
                     <a href="#">Start</a>
                   </span>
                   <div className="prevent-click"></div>
                 </div>
-              
-              
+                            
             
                      {
                         sessionScript.map((opt, i) =>
@@ -183,7 +183,7 @@ console.log('sessionScript=', sessionScript)
                                   <div id="countdown" className="count-timer data-slide" data-index={i+1}>
                                   {opt.attribute.map(function(attrb, index){
                                     if(attrb.attrLabel == 'counter'){
-                                    return <div className="countdown-number" key={index}>{attrb.attrValue} SEC</div>;
+                                    return <div className="countdown-number"  data-number={attrb.attrValue} key={index}>{attrb.attrValue} SEC</div>;
                                     }
                                   })}
 

@@ -657,24 +657,14 @@ if(!AgoraRTC.checkSystemRequirements()) {
               cameraId: d[l],
           });
 
-          // stream1[l].setVideoProfile('720p_3');
-          //   console.log('=========== cameraId 111=====', d);
-          // // Initialize the stream.
-          // stream1[l].init(function(){
-          //   console.log('=========== cameraId 222=====', d[l], l);
-          //     stream1[l].play('local-media-' + d[l]);
-          //     stream1[l].muteAudio();
-          // })
           l++;
         }
       }
       if(stream1 != null){
         for(let l in stream1){
           stream1[l].setVideoProfile('720p_3');
-            console.log('=========== cameraId 111=====', d);
           // Initialize the stream.
           stream1[l].init(function(){
-            console.log('=========== cameraId 222=====', d[l], l);
               stream1[l].play('local-media-' + d[l]);
               stream1[l].muteAudio();
           })

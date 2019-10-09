@@ -75,13 +75,15 @@ export const loginUser = userData => dispatch => {
       // console.log('decoded ===========',decoded)
       // Set current user
       console.log('err2---------res.data----------',decoded)
-      dispatch(setCurrentUser(decoded));
+      dispatch(setCurrentUser(decoded))
+      
     })
     .catch(err =>
       
-<<<<<<< HEAD
      { 
+
     console.log('err----------res.data-----', err);
+    
       dispatch({
              
              type: GET_ERRORS,
@@ -89,13 +91,6 @@ export const loginUser = userData => dispatch => {
            })
           
           }
-=======
-      dispatch({
-        
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
->>>>>>> 773135d5327d870510162eaadd25516594cfbfc0
     );
 };
 

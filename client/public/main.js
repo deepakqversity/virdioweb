@@ -1968,7 +1968,8 @@ function signalHandler(uid, signalData, userType) {
       {
        // alert('fitscript has Stopped');
         console.log('-------------------fitscript has Stopped-------------');
-        $(".end span a").trigger('click');
+      // $(".end span a").trigger('click');
+      guestfitnessScriptStop(res1[0]);
       }else if(res1[0] == "213")
       {
        console.log('-----------guestfitnessscript-------------213---')
@@ -3109,12 +3110,35 @@ function signalHandler(uid, signalData, userType) {
           isPaused = false;
         }
       }
-
-
+      
+      function guestfitnessScriptStop(code)
+      {
+        console.log('---------guestfitnessScriptStop--------------')
+        
+        if(code == 212){
+          var loadScript = function (src) {
+            var tag = document.createElement('script');
+            tag.async = false;
+            tag.src = src;
+            
+            var body = document.getElementsByTagName('body')[0];
+            body.appendChild(tag);
+          }
+          loadScript('/js/swiper.min.js');
+          loadScript('/js/swiper-modifier.js');
+          loadScript('/js/fitnessReloadScript.js');
+          window.loadSwiperSlide();
+          window.mySwiper.slideTo(0, 1000, true);
+          window.mySwiper.forceUpdate();
+         // component12.forceUpdate();
+        }
+      }
+      
 
       $(document).ready(function(){
 
-     
+       
+      
       $(".show-hide-script").click(function(){
         showHideWineScript();
       })
@@ -3162,17 +3186,43 @@ function signalHandler(uid, signalData, userType) {
         
       });
 
-
       $('#stop-slider').on('click', function(){
-        $(".end span a").trigger('click');
+       
+        $('#pause-slider').addClass('d-none')
+        $('#play-slider').removeClass('d-none')
+        var loadScript = function (src) {
+          var tag = document.createElement('script');
+          tag.async = false;
+          tag.src = src;
+          
+          var body = document.getElementsByTagName('body')[0];
+          body.appendChild(tag);
+        }
+        loadScript('/js/swiper.min.js');
+        loadScript('/js/swiper-modifier.js');
+        loadScript('/js/fitnessReloadScript.js');
+        window.loadSwiperSlide();
+        window.mySwiper.slideTo(0, 1000, true);
+     // component12.forceUpdate();
+
+
+        let storeData = getCurrentUserData();     
+        let ftnsStopCode=storeData.rtm.ftnsStop.code;                  
+        messages=ftnsStopCode+sep;   
+        console.log('------------ftnessStop--------------',messages)     
+        sendMessageToChannel(channelName1,messages);
       });
 
-      // $('.swiper-guest.start span a').on('click', function(){
-      //   $(".start span a").trigger('click');
-      // });
+      $( '#stopGuestFtnesBut' ).bind( "click", function(event) {
+        $('#pause-slider').addClass('d-none')
+        $('#play-slider').removeClass('d-none')
+        let storeData = getCurrentUserData();     
+        let ftnsStopCode=storeData.rtm.ftnsStop.code;                  
+        messages=ftnsStopCode+sep;        
+        sendMessageToChannel(channelName1,messages);
+      });
 
-
-
+   
         
       switchUsers();
 

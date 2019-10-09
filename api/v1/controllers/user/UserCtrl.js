@@ -10,6 +10,7 @@ const otpModel = require('../../models/Otp');
 const sessionScriptModel = require('../../models/SessionScript');
 const clientToken = require( process.cwd() + '/util/ClientToken');
 const utils = require(process.cwd() + '/util/Utils');
+const response = require(process.cwd() + '/util/Response');
 const defaultConfig = require(process.cwd() + '/config/default.config');
 
 const saltRounds = 10;
@@ -19,10 +20,12 @@ class UserCtrl {
 	async userDetail(req, res) {
 	    try {
 			let user1 = await userModel.getUserById(req.currentUser.id);
-			res.status(200).send(user1);
+			// res.status(200).send(user1);
+			response.resp(res, 200, user1)
 				
 	    } catch(exception) {
-			res.status(500).send(exception)
+			// res.status(500).send(exception)
+			response.resp(res, 500, exception)
 	    }
 	}
 
@@ -35,13 +38,15 @@ class UserCtrl {
 			if(!isEmpty(userObj)){
 
     			if(userObj.status == 0){
-    				res.status(400).send({message:"user already exists but inactive."})
+    				// res.status(400).send({message:"user already exists but inactive."})
+    				response.resp(res, 400, {message:"user already exists but inactive."})
     			} else {
 
 	        		let t = await bcrypt.compare(password, userObj.password);
 					if(t){
 						if(userObj.isBanned == 1){
-		    				res.status(400).send({message:"Sorry! You cannot login."})
+		    				// res.status(400).send({message:"Sorry! You cannot login."})
+		    				response.resp(res, 400, {message:"Sorry! You cannot login."})
 		    			} else {
 
 							if(isEmpty(userObj.image)){
@@ -117,7 +122,7 @@ class UserCtrl {
 							} else {
 
 								underscore.extend(userObj, { message : "There are no sessions available."});
-								underscore.extend(userObj, { sessionData : []});
+								// underscore.extend(userObj, { sessionData : []});
 							}
 
 							userObj = underscore.omit(userObj, 'password');
@@ -130,18 +135,23 @@ class UserCtrl {
 
 							underscore.extend(userObj, {default: settings});
 
-							res.status(200).send(userObj);
+							// res.status(200).send(userObj);
+							// res.status(200).send(response.resp(200, userObj));
+							response.resp(res, 200, userObj)
 						}
 					} else {
-						res.status(400).send({password:"Invalid password"})
+						// res.status(400).send({password:"Invalid password"})
+						response.resp(res, 400, {password:"Invalid password"})
 					}
 				}
 			} else {
-				res.status(400).send({email:"User doesn\'t exists in system."});
+				// res.status(400).send({email:"User doesn\'t exists in system."});
+				response.resp(res, 400, {email:"User doesn\'t exists in system."})
 			}
 				
 	    } catch(exception) {
-			res.status(500).send(exception)
+			// res.status(500).send(exception)
+			response.resp(res, 500, exception)
 	    }
 	}
 
@@ -177,24 +187,29 @@ class UserCtrl {
 						}
 					} 
 
-					res.status(200).send({message : msg+". Please verify account."});
+					// res.status(200).send({message : msg+". Please verify account."});
+					response.resp(res, 200, {message : msg+". Please verify account."})
 				} else {
 
-					res.status(400).send({message:"Something went wrong."})
+					// res.status(400).send({message:"Something went wrong."})
+					response.resp(res, 400, {message:"Something went wrong."})
 				}
 			} else {
 				if(userObj.status == 0){
 
-					res.status(400).send({message:"Email already exists but inactive."})
+					// res.status(400).send({message:"Email already exists but inactive."})
+					response.resp(res, 400, {message:"Email already exists but inactive."})
 				} else {
 
-					res.status(400).send({message:"user already exists."})
+					// res.status(400).send({message:"user already exists."})
+					response.resp(res, 400, {message:"user already exists."})
 				}
 			}
 				
 	    } catch(exception) {
 
-			res.status(500).send(exception)
+			// res.status(500).send(exception)
+			response.resp(res, 500, exception)
 	    }
 	}
 
@@ -209,10 +224,12 @@ class UserCtrl {
 				sessionObj = underscore.omit(sessionObj, 'appCertificate');
 			}
 
-			res.status(200).send(sessionObj);
+			// res.status(200).send(sessionObj);
+			response.resp(res, 200, sessionObj)
 				
 	    } catch(exception) {
-			res.status(500).send(exception);
+			// res.status(500).send(exception);
+			response.resp(res, 500, exception)
 	    }
 	}
 	/**
@@ -241,9 +258,11 @@ class UserCtrl {
 						let updateOtp = await otpModel.updateOtp(req.body.code, userObj.id);
 						
 						if(updateOtp){
-							res.status(200).send({message:"Account activated successfully."});
+							// res.status(200).send({message:"Account activated successfully."});
+							response.resp(res, 200, {message:"Account activated successfully."})
 						} else {
-							res.status(400).send({message:"Something went wrong."});
+							// res.status(400).send({message:"Something went wrong."});
+							response.resp(res, 400, {message:"Something went wrong."})
 						}
 					} else {
 						let errorMsg = 'OTP already Verified';
@@ -252,19 +271,23 @@ class UserCtrl {
 						else if(otpObj.status == 3)
 							errorMsg = 'OTP Failed';
 
-						res.status(400).send({message:errorMsg});
+						// res.status(400).send({message:errorMsg});
+						response.resp(res, 400, {message:errorMsg})
 					}
 				} else {
 
-					res.status(400).send({message:"Invalid OTP"});
+					// res.status(400).send({message:"Invalid OTP"});
+					response.resp(res, 400, {message:"Invalid OTP"})
 				}
 
 			} else {
-				res.status(400).send({email:"User doesn\'t exists in system."});
+				// res.status(400).send({email:"User doesn\'t exists in system."});
+				response.resp(res, 400, {email:"User doesn\'t exists in system."})
 			}
 				
 	    } catch(exception) {
-			res.status(500).send(exception)
+			// res.status(500).send(exception)
+			response.resp(res, 500, exception)
 	    }
 	}
 

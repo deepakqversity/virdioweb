@@ -225,6 +225,7 @@ class PreConfiguration extends Component {
     .then(response => response.json())
     // ...then we update the users state
     .then(data => {
+      data = data.responseData;
         this.setState({
               users: data,
               isLoading: false,

@@ -22,7 +22,7 @@ export const registerUser = (userData, history) => dispatch => {
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
-        payload: err.response.data
+        payload: err.response.data.errorData
       })
     );
 };
@@ -63,7 +63,7 @@ export const loginUser = userData => dispatch => {
           localStorage.removeItem('chkbx');
       }
     
-      localStorage.setItem("userData", JSON.stringify(res.data));
+      localStorage.setItem("userData", JSON.stringify(res.data.responseData));
 
       // Set token to Auth header
       setAuthToken(token);
@@ -75,13 +75,16 @@ export const loginUser = userData => dispatch => {
     })
     .catch(err =>
       
+     { 
+console.log('err ------------', err);
       dispatch({
-        
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
+             
+             type: GET_ERRORS,
+             payload: err.response.data
+           })}
     );
 };
+
 // Set logged in user
 export const setCurrentUser = decoded => {
   return {

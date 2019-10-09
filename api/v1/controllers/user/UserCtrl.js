@@ -342,14 +342,17 @@ class UserCtrl {
 
 				let msg = 'email hasbeen sent to ur mail';
 
-				res.status(200).send({message:msg, link: code });
+				// res.status(200).send({message:msg, link: code });
+				response.resp(res, 200, {message:msg, link: code })
 
 			} else {
-				res.status(400).send({email:"Email doesn\'t exists in system."});
+				// res.status(400).send({email:"Email doesn\'t exists in system."});
+				response.resp(res, 400, {email:"Email doesn\'t exists in system."})
 			}
 				
 	    } catch(exception) {
-			res.status(500).send(exception)
+			// res.status(500).send(exception)
+			response.resp(res, 500, exception)
 	    }
 	}
 

@@ -82,7 +82,7 @@ class Login extends Component {
 
 if (nextProps.errors) {
       this.setState({
-        errors: nextProps.errors
+        errors: nextProps.errors.errorData
       });
     }
   }

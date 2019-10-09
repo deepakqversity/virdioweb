@@ -9,6 +9,7 @@ function startSlider(){
   }
 
   function startSlider1(){
+    
     //$(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
     //$(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
     $(".swiper-slide.start a").prop('disabled', true);
@@ -35,6 +36,7 @@ function startSlider(){
   function countDown1(){
   //  let isPaused = false;
     let disCtr = 0;
+   
     if($('#fitness-counter').length > 0){
 
       disCtr = $('#fitness-counter').html();
@@ -45,6 +47,7 @@ function startSlider(){
 
     let activeEle = $('.swiper-slide.swiper-slide-next');
     var countdownNumberEl = activeEle.find('.countdown-number');
+    console.log('----------klklaaaaaa11111---------',countdownNumberEl)
     
     var indexNum = parseInt(activeEle.find('.data-slide').attr('data-index'));
     if(activeEle.find('h4').html().toLowerCase() == 'rest'){
@@ -54,6 +57,7 @@ function startSlider(){
     }
     // var countdown = 30;
     countdown = parseInt(countdownNumberEl.attr("data-number"));
+  
     activeEle.find('svg circle').attr("style","animation-duration:"+countdown+"s !important");
     // countdownNumberEl.html(countdown + '\ SEC') ;
     
@@ -163,6 +167,7 @@ function startSlider(){
 
   $(document).ready(function(){
     $(".swiper-guest.start span a").click(function(){
+      console.log('----------klklaaaaaa---------')
       startSlider1();
     })
   })

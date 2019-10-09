@@ -3167,9 +3167,9 @@ function signalHandler(uid, signalData, userType) {
         $(".end span a").trigger('click');
       });
 
-      //$('.swiper-guest.start span a').on('click', function(){
-        //$(".start span a").trigger('click');
-      //});
+      // $('.swiper-guest.start span a').on('click', function(){
+      //   $(".start span a").trigger('click');
+      // });
 
 
 

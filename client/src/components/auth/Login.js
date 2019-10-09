@@ -105,7 +105,7 @@ onSubmit = e => {
       // name: this.state.name,
       type: this.state.type
     };
-   console.log(userData);
+   console.log('------------userData---------------',userData);
     this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
   };
   
@@ -128,7 +128,7 @@ return (
               
                 <div className="login-inner">
                 <div className = "form-group pb-3 mb-0 mt-4">
-                    <span className="text-danger">{errors.email}{errors.emailincorrect}{errors.message}</span>
+                    <span className="text-danger">{errors.email}{errors.emailincorrect}</span>
                     <label>Enter your email address</label>
                     <input autoFocus type="email"  id="email" onChange={this.onChange} value={this.state.email}  error={errors.email}  className={classnames("", { invalid: errors.email || errors.emailincorrect })} className = "form-control"  />
                   <img src="/images/login-user.png" className="user-login" />

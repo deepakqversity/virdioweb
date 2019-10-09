@@ -51,7 +51,7 @@ export const loginUser = userData => dispatch => {
       
       // Save to localStorage
 
-      const  token  = res.data.token;
+      const  token  = res.data.responseData.token;
 
        if ($('#remember_me').is(':checked')) {
           // save username and password
@@ -65,21 +65,37 @@ export const loginUser = userData => dispatch => {
     
       localStorage.setItem("userData", JSON.stringify(res.data.responseData));
 
+      console.log('error1---------res.data----------',res.data)
+      
+
       // Set token to Auth header
       setAuthToken(token);
       // Decode token to get user data
       const decoded = jwt_decode(token);
       // console.log('decoded ===========',decoded)
       // Set current user
+      console.log('err2---------res.data----------',decoded)
       dispatch(setCurrentUser(decoded));
     })
     .catch(err =>
       
+<<<<<<< HEAD
+     { 
+    console.log('err----------res.data-----', err);
+      dispatch({
+             
+             type: GET_ERRORS,
+             payload: err.response.data
+           })
+          
+          }
+=======
       dispatch({
         
         type: GET_ERRORS,
         payload: err.response.data
       })
+>>>>>>> 773135d5327d870510162eaadd25516594cfbfc0
     );
 };
 

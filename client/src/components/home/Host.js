@@ -840,10 +840,10 @@ return (
               <button type="button" className="close" data-dismiss="modal">×</button>
             </div>
             <div className="modal-body">
-              <div className="col-12 video-streams select-camera" id="video-media-content"></div>
+              <div className="row justify-content-center video-streams select-camera" id="video-media-content"></div>
             </div>
             <div className="modal-footer">
-              <button type="button" id="camera-switch-btn">Switch</button>
+              <button type="button" className=" btn-join btn btn-large btn-primary text-uppercase py-1 px-4 rounded " id="camera-switch-btn">Switch</button>
             </div>
           </div>
         </div>

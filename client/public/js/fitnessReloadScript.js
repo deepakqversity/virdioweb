@@ -1,6 +1,8 @@
 //import FitnessScript from "./src/components/home/FitnessScript";
 
 function startSlider(){
+   $('#play-slider').addClass('d-none');
+    $('#pause-slider').removeClass('d-none');
     //$(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
     //$(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
     $(".swiper-slide.start a").prop('disabled', true);

@@ -1064,7 +1064,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
       })
   };
 
-  var stream1 = stream2 = null;
+  var stream1 = [];
+  var stream2 = null;
 
   function getDevices() {
     
@@ -1094,11 +1095,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
       let device = '';
       let deviceId = '';
       let deviceArray = [];
+      var d = [];
+      var l = 0;
       for (var i = 0, ctr = 0, ctr1 = 0; i !== devices.length; ++i) {
 
         if(!devices[i] || devices[i] == undefined) continue;
 
-        // console.log('devices[i] = ', devices[i])
+        // console.log('cameraId devices[i] = ', devices[i])
         device = devices[i];
         deviceId = device.deviceId;
 
@@ -1108,7 +1111,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
         deviceArray.push(deviceId);
         
         if (device.kind === 'audioinput') {
-          
+          // if(device.label.indexOf('Built-in') !== -1 || (device.label.indexOf('Internal') !== -1 && device.label.indexOf('Default') === -1)){
+          // if(device.label.indexOf('Internal') !== -1 && device.label.indexOf('Default') === -1){
+          //   continue;
+          // }
           // console.log('deviceId,,,,,,,,,,,, ', deviceId)
 
           if(microphoneId == null) {
@@ -1123,16 +1129,16 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
           ++ctr1;
 
-          adoMediaHtml = '<div class="" id="ado-'+deviceId+'"><input class="form-radio" type="radio" name="audio-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'> <label for="lbl-'+deviceId+'"> '+ device.label +'</label> </div>';
+          adoMediaHtml = '<div class="" id="ado-'+deviceId+'"><input class="form-radio" type="radio" name="audio-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'> <label for="lbl-'+deviceId+'"> '+ cropDeviceName(device.label) +'</label> </div>';
 
           $('#audio-media-content').append(adoMediaHtml)
 
           if(defaultSetting == 'checked'){
             // console.log('current =============', deviceId)
-            checkMicStream(deviceId);
+            checkMic(deviceId);
           }
         } else if (device.kind === 'videoinput') {
-
+          
           if(cameraId == null) {
             if(ctr == 0)
               defaultSetting = 'checked';
@@ -1146,42 +1152,48 @@ if(!AgoraRTC.checkSystemRequirements()) {
           }
           // console.log('---------- cameraId == deviceId - ', cameraId , deviceId,  defaultSetting)
 
-          vdoMediaHtml = '<div class="col-12 col-md-3" id="vdo-'+deviceId+'"><div id="local-media-'+deviceId+'" ></div><div class="check-camera"><input type="radio" class="form-radio" name="video-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'><label for="lbl-'+deviceId+'">'+ device.label +'</label></div></div>';
+          vdoMediaHtml = '<div class="col-md-3 mx-auto" id="vdo-'+deviceId+'"><div id="local-media-'+deviceId+'" ></div><div class="check-camera"><input type="radio" class="form-radio" name="video-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'><label for="lbl-'+deviceId+'"> '+ cropDeviceName(device.label) +'</label></div></div>';
 
           $('#video-media-content').append(vdoMediaHtml)
 
-          stream1 = AgoraRTC.createStream({
-              // streamID: Math.floor(Math.random()*1000000),
+          d[l] = deviceId;
+          stream1[l] = AgoraRTC.createStream({
+              streamID: Math.floor(Math.random()*1000000),
               // Set audio to true if testing the microphone.
               video: true,
               audio: false,
-              cameraId: deviceId,
+              cameraId: d[l],
           });
-          d = deviceId;
 
-          stream1.setVideoProfile('720p_3');
-
-          // stream1.setVideoEncoderConfiguration({
-          //   // Video resolution
-          //     resolution: {
-          //         width: 640,
-          //         height: 380
-          //     }
-          // });
-            
+          // stream1[l].setVideoProfile('720p_3');
+          //   console.log('=========== cameraId 111=====', d);
+          // // Initialize the stream.
+          // stream1[l].init(function(){
+          //   console.log('=========== cameraId 222=====', d[l], l);
+          //     stream1[l].play('local-media-' + d[l]);
+          //     stream1[l].muteAudio();
+          // })
+          l++;
+        }
+      }
+      if(stream1 != null){
+        for(let l in stream1){
+          stream1[l].setVideoProfile('720p_3');
+            console.log('=========== cameraId 111=====', d);
           // Initialize the stream.
-          stream1.init(function(){
-              stream1.play('local-media-' + d);
-              // stream1.muteAudio();
+          stream1[l].init(function(){
+            console.log('=========== cameraId 222=====', d[l], l);
+              stream1[l].play('local-media-' + d[l]);
+              stream1[l].muteAudio();
           })
         }
       }
-
+      console.log('cameraId = ',stream1)
     });
 
     $(document).on('click', 'input[name="audio-type"]', function(){
         console.log($(this).val());
-        // checkMicStream($(this).val());
+        checkMic($(this).val());
     });
   }
 

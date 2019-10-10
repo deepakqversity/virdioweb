@@ -1741,6 +1741,10 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
       
   $(document).ready(function(){
 
+    $("#show-details2-popup").click(function(){
+         $('#show-details2').modal('show');
+    });
+
     function sort_li(a, b) {
       return parseInt($(b).attr('data-position')) < parseInt($(a).attr('data-position')) ? 1 : -1;
     }

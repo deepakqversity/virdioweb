@@ -1667,8 +1667,10 @@ function signalHandler(uid, signalData, userType) {
         //$('#newmsg').html(message);
        // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
        addRtmJoinOrder(uid, resultant[1]);
-      } else if(resultant[0] == '211') {        
-       $(" #play-slider").trigger('click');
+      } else if(resultant[0] == '211') {   
+        
+        playSlider();
+      // $(" #play-slider").trigger('click');
       
         // if(!isPaused)
         // {
@@ -1706,11 +1708,9 @@ function signalHandler(uid, signalData, userType) {
         // messages=ftnsStopCode+sep;        
         // sendMessageToChannel(channelName1,messages);
 
-      }else if(resultant[0] == '213') {        
-        $("#pause-slider").trigger('click');
-
-      }else if(resultant[0] == '213') {        
-        $("#pause-slider").trigger('click');
+      }else if(resultant[0] == '213') { 
+        pauseSlider();       
+        //$("#pause-slider").trigger('click');
 
       }else if(resultant[0] == "214")
       {
@@ -1968,7 +1968,7 @@ function signalHandler(uid, signalData, userType) {
       {
         console.log('-------------------fitscript has Started-------------');
        // $('#hostFtnsScript').trigger('click');
-        $(".swiper-guest.start span a").trigger('click');
+        $(".swiper-guest.swiper-slide.start.swiper-start span a").trigger('click');
 
       }else if(res1[0] == "212")
       {
@@ -3162,14 +3162,14 @@ function signalHandler(uid, signalData, userType) {
       }
       
     function zoomVideo(id){
-      if($('#agora_remote'+id).find('.video-holder').hasClass('zoom-video'))
-        $('#agora_remote'+id).find('.video-holder').removeClass('zoom-video');
+      if($('#agora_remote'+id).find('.video-holder').hasClass('test'))
+        $('#agora_remote'+id).find('.video-holder').removeClass('test');
       else
-        $('#agora_remote'+id).find('.video-holder').addClass('zoom-video');
+        $('#agora_remote'+id).find('.video-holder').addClass('test');
     }
 
     function playSlider(){
-      isPaused = false;
+      
       $('#pause-slider').removeClass('d-none')
       $('#play-slider').addClass('d-none')
 
@@ -3180,11 +3180,27 @@ function signalHandler(uid, signalData, userType) {
         
       }
 
+     
       let storeData = getCurrentUserData();
+      if(isPaused != true)
+      {
+        console.log('------------ispaused=false--------------')
+     
      
         let ftnsStartCode=storeData.rtm.ftnsStart.code;                  
         messages=ftnsStartCode+sep;        
         sendMessageToChannel(channelName1,messages);
+
+      }else{
+     
+        console.log('------------ispaused=resume--------------')
+        let ftnsResumeCode=storeData.rtm.ftnsResume.code;                  
+        messages=ftnsResumeCode+sep;        
+        sendMessageToChannel(channelName1,messages);
+
+      }
+
+      isPaused = false;
 
     }
 
@@ -3220,10 +3236,7 @@ function signalHandler(uid, signalData, userType) {
         showHideWineScript();
       })
 
-      $(".swiper-guest.start span a").click(function(){
-        console.log('----------klklaaaaaa---------')
-        startSlider();
-      })
+    
 
       // $('#pause-slider').on('click', function(){
       //   $(this).addClass('d-none')

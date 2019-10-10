@@ -50,13 +50,21 @@ function startSlider(){
     // countdown = parseInt(countdownNumberEl.attr("data-number"));
     countdown = parseInt(countdownNumberEl.html());
 
+    console.log('------countdown--------',countdown)
+
     activeEle.find('svg circle').attr("style","animation-duration:"+countdown+"s !important");
     // countdownNumberEl.html(countdown + '\ SEC') ;
     
     // console.log('countdown ======= countdown start ----', countdown)
+
+    console.log('------isPaused1112222--------',isPaused)
+
     var ctrflag = 0;
     resetCount = setInterval(function() {
-      if(!isPaused) {
+     
+      if(isPaused != true) {
+        console.log('------countdown11111--------',countdown)
+
         activeEle.find('svg circle').attr("style","animation-play-state:running");
       // countdown = countdown;
       countdown--;
@@ -82,6 +90,8 @@ function startSlider(){
         
       }
     } else {
+
+      
       activeEle.find('svg circle').attr("style","animation-play-state:paused");
     }
     }, 1000);
@@ -123,7 +133,7 @@ function startSlider(){
 
   $(document).ready(function(){
 
-    $(".swiper-guest.start span a").click(function(){
+    $(".swiper-guest.swiper-slide.start.swiper-start span a").click(function(){
       console.log('----------klklaaaaaa---------')
       startSlider();
     })

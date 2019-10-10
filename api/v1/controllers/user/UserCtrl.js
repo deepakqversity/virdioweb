@@ -326,11 +326,7 @@ class UserCtrl {
 
 				console.log('-------process.cwd()--------',process.cwd())
 
-				//let emaillink="https://13.58.212.237:3000/verify-link/"+encoded_email+"/"+resultant_code;
-
-				//let emaillink="https://localhost:3000/verify-link/"+encoded_email+"/"+resultant_code;
-
-				let html='<p>Click <a href="https://localhost:3000/verify-link/'+ encoded_email+"/"+resultant_code + '">here</a> to reset your password</p>';
+				let html='<p>Click <a href="'+process.env.DOMAIN_URL+"/"+ encoded_email+"/"+resultant_code + '">here</a> to reset your password</p>';
 
 				console.log('-------html--------',html)
 
@@ -340,7 +336,7 @@ class UserCtrl {
 
 				let sendmail = await SendMail.emailInput(to,subject,html);
 
-				let msg = 'email hasbeen sent to ur mail';
+				let msg = 'Email hasbeen sent to ur mail';
 
 				// res.status(200).send({message:msg, link: code });
 				response.resp(res, 200, {message:msg, link: code })

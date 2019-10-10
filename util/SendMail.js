@@ -8,13 +8,13 @@ class SendMail{
                 service: "gmail",
                 host: "smtp.gmail.com",
                 auth: {
-                    user: "lalit3485@gmail.com",
-                    pass: "Munmun81"
+                    user: process.env.SMTP_EMAIL,
+                    pass: process.env.SMTP_PWD
                 }
               });
 
               let mailOptions={
-                from: 'lalit3485@gmail.com',
+                from: process.env.SMTP_EMAI,
                 to :to,
                 subject :subject,
                 html: text

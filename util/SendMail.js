@@ -14,7 +14,7 @@ class SendMail{
               });
 
               let mailOptions={
-                from: process.env.SMTP_EMAI,
+                from: process.env.SMTP_EMAIL,
                 to :to,
                 subject :subject,
                 html: text

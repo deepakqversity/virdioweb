@@ -19,9 +19,11 @@ function startSlider(){
 
   var countdown = 0;
   var resetCount = null;
- var isPaused = false;
+ var isPaused = "false";
 
   function countDown(){
+
+    console.log('------isPauseddddddddddd--------',isPaused)
     
     let disCtr = 0;
     if($('#fitness-counter').length > 0){
@@ -31,10 +33,13 @@ function startSlider(){
       disCtr++;
       $('#fitness-counter').html(disCtr);
     }
+  
 
     let activeEle = $('.swiper-slide.swiper-slide-next');
     var countdownNumberEl = activeEle.find('.countdown-number');
-    
+
+    console.log('------countdownNumberEldddddddddd--------',countdownNumberEl)
+
     var indexNum = parseInt(activeEle.find('.data-slide').attr('data-index'));
     if(activeEle.find('h4').html().toLowerCase() == 'rest'){
       $('.fitness-emoji').removeClass('d-none');
@@ -43,6 +48,9 @@ function startSlider(){
     }
     // var countdown = 30;
     countdown = parseInt(countdownNumberEl.attr("data-number"));
+
+    console.log('------countdownduuuuuuuuuuu--------',countdown)
+
     activeEle.find('svg circle').attr("style","animation-duration:"+countdown+"s !important");
     // countdownNumberEl.html(countdown + '\ SEC') ;
     
@@ -55,10 +63,12 @@ function startSlider(){
       countdown--;
     //  console.log('countdown ======= countdown----', countdown, $('.swiper-slide .data-slide').length , indexNum)
       countdownNumberEl.html((countdown > 0 ? countdown : 0) + '\ SEC') ;
+
+     // console.log('------countdown--------',countdown)
       
       if(countdown < 1){
 
-        console.log('=========== **********', $('.swiper-slide .data-slide').length, indexNum)
+       // console.log('=========== **********', $('.swiper-slide .data-slide').length, indexNum)
 
         activeEle.find('svg circle').removeAttr("style");
         clearInterval(resetCount);

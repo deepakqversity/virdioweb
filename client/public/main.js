@@ -3168,6 +3168,26 @@ function signalHandler(uid, signalData, userType) {
         $('#agora_remote'+id).find('.video-holder').addClass('zoom-video');
     }
 
+    function playSlider(){
+      isPaused = false;
+      $('#pause-slider').removeClass('d-none')
+      $('#play-slider').addClass('d-none')
+
+      if($('.swiper-slide.start.swiper-start').length > 0){
+        
+          // $(".start span a").trigger('click');
+          $(".swiper-slide.start.swiper-start span button").trigger('click');
+        
+      }
+
+    }
+
+    function pauseSlider(){
+      isPaused = true;
+      $('#pause-slider').addClass('d-none')
+      $('#play-slider').removeClass('d-none')
+    }
+
     $(document).ready(function(){
 
       $('#switch-camera').on('click', function(){
@@ -3189,48 +3209,48 @@ function signalHandler(uid, signalData, userType) {
         showHideWineScript();
       })
 
-      $('#pause-slider').on('click', function(){
-        $(this).addClass('d-none')
-        $('#play-slider').removeClass('d-none')
-        isPaused = true;
-       // $("#pause-slider").trigger('click');
+      // $('#pause-slider').on('click', function(){
+      //   $(this).addClass('d-none')
+      //   $('#play-slider').removeClass('d-none')
+      //   isPaused = true;
+      //  // $("#pause-slider").trigger('click');
 
-       let storeData = getCurrentUserData();     
-       let ftnsPauseCode=storeData.rtm.ftnsPause.code;                  
-       messages=ftnsPauseCode+sep;        
-       sendMessageToChannel(channelName1,messages);
-      });
+      //  let storeData = getCurrentUserData();     
+      //  let ftnsPauseCode=storeData.rtm.ftnsPause.code;                  
+      //  messages=ftnsPauseCode+sep;        
+      //  sendMessageToChannel(channelName1,messages);
+      // });
 
-      $('#play-slider').on('click', function(){
-        $(this).addClass('d-none')
-        $('#pause-slider').removeClass('d-none')
-        if(!isPaused)
-        {
-          console.log('------------ispaused=false--------------')
-          isPaused = false;
-        $(".start span a").trigger('click');
-        //$("#ftnsStart").trigger('click');
+      // $('#play-slider').on('click', function(){
+      //   $(this).addClass('d-none')
+      //   $('#pause-slider').removeClass('d-none')
+      //   if(!isPaused)
+      //   {
+      //     console.log('------------ispaused=false--------------')
+      //     isPaused = false;
+      //   $(".start span a").trigger('click');
+      //   //$("#ftnsStart").trigger('click');
 
-        let storeData = getCurrentUserData();
+      //   let storeData = getCurrentUserData();
      
-        let ftnsStartCode=storeData.rtm.ftnsStart.code;                  
-        messages=ftnsStartCode+sep;        
-        sendMessageToChannel(channelName1,messages);
-        }else{
-          console.log('------------ispaused=true--------------')
-          isPaused = false;
-          $(".start span a").trigger('click');
-          //$("#ftnsStart").trigger('click');
+      //   let ftnsStartCode=storeData.rtm.ftnsStart.code;                  
+      //   messages=ftnsStartCode+sep;        
+      //   sendMessageToChannel(channelName1,messages);
+      //   }else{
+      //     console.log('------------ispaused=true--------------')
+      //     isPaused = false;
+      //     $(".start span a").trigger('click');
+      //     //$("#ftnsStart").trigger('click');
 
-          let storeData = getCurrentUserData();
+      //     let storeData = getCurrentUserData();
      
-          let ftnsResumeCode=storeData.rtm.ftnsResume.code;                  
-          messages=ftnsResumeCode+sep;        
-          sendMessageToChannel(channelName1,messages);
+      //     let ftnsResumeCode=storeData.rtm.ftnsResume.code;                  
+      //     messages=ftnsResumeCode+sep;        
+      //     sendMessageToChannel(channelName1,messages);
 
-        }
+      //   }
         
-      });
+      // });
       $('#stop1-script').on('click', function(){
 
         console.log('-------------------stopscript-------')

@@ -35,8 +35,8 @@ render() {
                   <i className="fa fa-power-off"></i>
                 </button></h4>
                 {
-                  localstoragedata.sessionData.id != undefined ? ( 
-                  <div>{ localstoragedata.sessionData.message }</div> 
+                  localstoragedata.message != undefined ? ( 
+                  <div>{ localstoragedata.message }</div> 
                   ) : ( 
                   <div> </div> 
                   )

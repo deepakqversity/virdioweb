@@ -55,11 +55,7 @@ function startSlider(){
         activeEle.find('svg circle').attr("style","animation-play-state:running");
       // countdown = countdown;
       countdown--;
-<<<<<<< HEAD
-      // console.log('countdown ======= countdown----', countdown, $('.swiper-slide .data-slide').length , indexNum)
-=======
     //  console.log('countdown ======= countdown----', countdown, $('.swiper-slide .data-slide').length , indexNum)
->>>>>>> master
       countdownNumberEl.html((countdown > 0 ? countdown : 0) + '\ SEC') ;
       
       if(countdown < 1){
@@ -95,8 +91,6 @@ function startSlider(){
     clearInterval(resetCount);
 
   }
-<<<<<<< HEAD
-=======
 
 
   // function guestfitnessScriptStop(code)
@@ -159,4 +153,3 @@ let k=0;
     //   });
 
   })
->>>>>>> master

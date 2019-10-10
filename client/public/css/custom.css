@@ -655,7 +655,7 @@ display: block;
 }
 .heart-rate-icon{
 position: absolute;
-    top: 20px;
+    top: 50px;
     right: 0;
     width: 48px;
     background: #fff;
@@ -3274,7 +3274,18 @@ border: 1.4px solid #B002ED;
 	display:none !important;
 }
 
-
+.click-zoom{
+position: absolute;
+    top: 0;
+    right: 0;
+    color: #fff;
+    padding: 6px 18px;
+    font-size: 18px;
+    background: #9b51e0;
+    border-radius: 0 10px 0 0;
+    cursor: pointer;
+    z-index: 99;
+}
 
 .welcome-msg{
     color: #fff;

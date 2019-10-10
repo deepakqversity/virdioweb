@@ -179,7 +179,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
           // if(totalScreenUsers < totalBrodcaster, storeData.default.maxUserLimit){
 
-          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" data-dismiss="modal">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute   d-none"  id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="heart-rate-icon"><img src="images/red-heart.png" /><span class="heart-icon" data-attr="'+stream.getId()+'">80</span></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-like d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-dislike d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-easy d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-too-hard d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-perfect d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-awesome d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
+          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" data-dismiss="modal">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute d-none" id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><small class="click-zoom d-none" onclick="zoomVideo(\''+stream.getId()+'\')"><i class="fa fa-search-plus" aria-hidden="true"></i></small><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="heart-rate-icon"><img src="images/red-heart.png" /><span class="heart-icon" data-attr="'+stream.getId()+'">80</span></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-like d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-dislike d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-easy d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-too-hard d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-perfect d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-awesome d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
           // }
           // totalScreenUsers++;
         }
@@ -790,8 +790,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
   function onclickhandRaise(receiverId)
   {   
     let receiverEmail = convertIdToEmail(receiverId);
-    $('#agora_hand_raise'+receiverId+'').addClass("d-none");
-    $('#audion_on'+receiverId+'').removeClass("d-none");
+    $('#subscribers-list #agora_hand_raise'+receiverId).addClass("d-none");
+    $('#subscribers-list #audion_on'+receiverId).removeClass("d-none");
     var massages="203"+sep; 
     sendMessage(receiverEmail, massages);
 
@@ -1639,6 +1639,7 @@ function signalHandler(uid, signalData, userType) {
 
       $('#selected-participent-id').val( convertEmailToId(uid) );
       $('#subscribers-list #agora_remote'+convertEmailToId(uid)).find('video').addClass('video-selected');
+      $('#subscribers-list #agora_remote'+convertEmailToId(uid)).find(".click-zoom").addClass("d-block").removeClass("d-none");
 
     } else if(signalData.code == '100') {
        $('#errmsg').html(signalData.message);
@@ -3063,14 +3064,17 @@ function signalHandler(uid, signalData, userType) {
             onclickhandRaise(id);
             $('#selected-participent-id').val( id );
             $('#subscribers-list #agora_remote'+id).find('video').addClass('video-selected');
+            $('#subscribers-list #agora_remote'+id).find(".click-zoom").addClass("d-block").removeClass("d-none");
           } else {
   
             if($('#subscribers-list #agora_remote'+id).find('video').hasClass('video-selected')){
               $('#selected-participent-id').val('');
+              $('#subscribers-list #agora_remote'+id).find(".click-zoom").removeClass("d-block").addClass("d-none");
               $('#subscribers-list #agora_remote'+id).find('video').removeClass('video-selected');
             } else {
               $('#selected-participent-id').val( id );
               $('#subscribers-list #agora_remote'+id).find('video').addClass('video-selected');
+              $('#subscribers-list #agora_remote'+id).find(".click-zoom").addClass("d-block").removeClass("d-none");
             }
           }
         } else {
@@ -3079,6 +3083,7 @@ function signalHandler(uid, signalData, userType) {
           onclickaudioOn(id)
           $('#selected-participent-id').val( id );
           $(this).find('video').addClass('video-selected');
+          $(this).find(".click-zoom").addClass("d-block").removeClass("d-none");
         }
       }
     function showHideWineScript(){
@@ -3136,6 +3141,12 @@ function signalHandler(uid, signalData, userType) {
         }
       }
       
+    function zoomVideo(id){
+      if($('#agora_remote'+id).find('.video-holder').hasClass('test'))
+        $('#agora_remote'+id).find('.video-holder').removeClass('test');
+      else
+        $('#agora_remote'+id).find('.video-holder').addClass('test');
+    }
 
     $(document).ready(function(){
 
@@ -3774,198 +3785,10 @@ function signalHandler(uid, signalData, userType) {
         sendMessage(strmId, JSON.stringify({code:'101'}));
       });
     
-    //
     
-
-
-    // $(document).on('click', ' #subscribers-list .video-holder:eq(0)', function(){
-   
-    //   let id = $(this).attr('id');
-
-    //   let vdo1 = $(this).find('video')[0];
-    //   let ado1 = $(this).find('audio')[0];
+    $(document).on('click', '#subscribers-list .video-holder video', function(){
       
-    //   if(vdo1.muted || ado1.muted){
-    //     if($(this).find('.hand-icon').hasClass("d-none") == false) {
-        
-    //       vdo1.muted = false;
-    //       ado1.muted = false;
-          
-    //       onclickhandRaise(id);
-    //       $('#selected-participent-id').val( id );
-    //       $(this).find('video').addClass('video-selected');
-    //     } else {
-
-    //       if($(this).find('video').hasClass('video-selected')){
-    //         $('#selected-participent-id').val('');
-    //         $(this).find('video').removeClass('video-selected');
-    //       } else {
-    //         $('#selected-participent-id').val( id );
-    //         $(this).find('video').addClass('video-selected');
-    //       }
-    //     }
-    //   } else {
-    //     vdo1.muted = true;
-    //     ado1.muted = true;
-    //     onclickaudioOn(id)
-    //     $('#selected-participent-id').val( id );
-    //     $(this).find('video').addClass('video-selected');
-    //   }
-
-    //   // if (!$(this).find('.microphone-icon').hasClass("d-none")) {
-    //   //   onclickaudioOn(id)
-    //   // }else if(!$(this).find('.hand-icon').hasClass("d-none"))
-    //   // {
-    //   //   onclickhandRaise(id);
-    //   // }
-    //   // else if($(this).find('video').hasClass('video-selected')){
-    //   //   $('#selected-participent-id').val('');
-    //   //   $(this).find('video').removeClass('video-selected');
-    //   // } else {
-    //   //   $('#selected-participent-id').val( id );
-    //   //   $(this).find('video').addClass('video-selected');
-    //   // }
-
-    // })
-
-    // $(document).on('click', ' #subscribers-list .video-holder:eq(1)', function(){
-    //   let id = $(this).attr('id');
-    //   console.log('===============click ==========')
-    //   if (!$(this).find('.microphone-icon').hasClass("d-none")) {
-    //     $(this).find(".microphone-icon").trigger('click');
-    //   }else if(!$(this).find('.hand-icon').hasClass("d-none"))
-    //   {
-    //     $(this).find(".hand-icon").trigger('click');
-    //   }
-    //   else if
-    //   ($(this).find('video').hasClass('video-selected')){
-    //     $('#selected-participent-id').val('');
-    //     $(this).find('video').removeClass('video-selected');
-    //   } else {
-    //     $('#selected-participent-id').val( id );
-    //     $(this).find('video').addClass('video-selected');
-    //   }
-
-    // })
-
-    // $(document).on('click', ' #subscribers-list .video-holder:eq(2)', function(){
-    
-    //   let id = $(this).attr('id');
-    //   if (!$(this).find('.microphone-icon').hasClass("d-none")) {
-    //     $(this).find(".microphone-icon").trigger('click');
-    //   }else if(!$(this).find('.hand-icon').hasClass("d-none"))
-    //   {
-    //     $(this).find(".hand-icon").trigger('click');
-    //   }
-    //   else if($(this).find('video').hasClass('video-selected')){
-    //     $('#selected-participent-id').val('');
-    //     $(this).find('video').removeClass('video-selected');
-    //   } else {
-    //     $('#selected-participent-id').val( id );
-    //     $(this).find('video').addClass('video-selected');
-    //   }
-
-    // })
-
-    // $(document).on('click', ' #subscribers-list .video-holder:eq(3)', function(){
-      
-    //   let id = $(this).attr('id');
-    //   if (!$(this).find('.microphone-icon').hasClass("d-none")) {
-    //     $(this).find(".microphone-icon").trigger('click');
-    //   }else if(!$(this).find('.hand-icon').hasClass("d-none"))
-    //   {
-    //     $(this).find(".hand-icon").trigger('click');
-    //   }
-    //  else  if($(this).find('video').hasClass('video-selected')){
-    //     $('#selected-participent-id').val('');
-    //     $(this).find('video').removeClass('video-selected');
-    //   } else {
-    //     $('#selected-participent-id').val( id );
-    //     $(this).find('video').addClass('video-selected');
-    //   }
-
-    // })
-
-    // $(document).on('click', ' #subscribers-list .video-holder:eq(4)', function(){
-      
-    //   let id = $(this).attr('id');
-    //   if (!$(this).find('.microphone-icon').hasClass("d-none")) {
-    //     $(this).find(".microphone-icon").trigger('click');
-    //   }else if(!$(this).find('.hand-icon').hasClass("d-none"))
-    //   {
-    //     $(this).find(".hand-icon").trigger('click');
-    //   }
-    //  else if($(this).find('video').hasClass('video-selected')){
-    //     $('#selected-participent-id').val('');
-    //     $(this).find('video').removeClass('video-selected');
-    //   } else {
-    //     $('#selected-participent-id').val( id );
-    //     $(this).find('video').addClass('video-selected');
-    //   }
-
-    // })
-
-    // $(document).on('click', ' #subscribers-list .video-holder:eq(5)', function(){
-      
-    //   let id = $(this).attr('id');
-    //   if (!$(this).find('.microphone-icon').hasClass("d-none")) {
-    //     $(this).find(".microphone-icon").trigger('click');
-    //   }else if(!$(this).find('.hand-icon').hasClass("d-none"))
-    //   {
-    //     $(this).find(".hand-icon").trigger('click');
-    //   }
-    //  else if($(this).find('video').hasClass('video-selected')){
-    //     $('#selected-participent-id').val('');
-    //     $(this).find('video').removeClass('video-selected');
-    //   } else {
-    //     $('#selected-participent-id').val( id );
-    //     $(this).find('video').addClass('video-selected');
-    //   }
-
-    // })
-
-    // $(document).on('click', ' #subscribers-list .video-holder:eq(6)', function(){
-      
-    //   let id = $(this).attr('id');
-    //   if (!$(this).find('.microphone-icon').hasClass("d-none")) {
-    //     $(this).find(".microphone-icon").trigger('click');
-    //   }else if(!$(this).find('.hand-icon').hasClass("d-none"))
-    //   {
-    //     $(this).find(".hand-icon").trigger('click');
-    //   }
-    //  else if($(this).find('video').hasClass('video-selected')){
-    //     $('#selected-participent-id').val('');
-    //     $(this).find('video').removeClass('video-selected');
-    //   } else {
-    //     $('#selected-participent-id').val( id );
-    //     $(this).find('video').addClass('video-selected');
-    //   }
-
-    // })
-
-    // $(document).on('click', ' #subscribers-list .video-holder:eq(7)', function(){
-      
-    //   let id = $(this).attr('id');
-    //   if (!$(this).find('.microphone-icon').hasClass("d-none")) {
-    //     $(this).find(".microphone-icon").trigger('click');
-    //   }else if(!$(this).find('.hand-icon').hasClass("d-none"))
-    //   {
-    //     $(this).find(".hand-icon").trigger('click');
-    //   }
-    //  else if($(this).find('video').hasClass('video-selected')){
-    //     $('#selected-participent-id').val('');
-    //     $(this).find('video').removeClass('video-selected');
-    //   } else {
-    //     $('#selected-participent-id').val( id );
-    //     $(this).find('video').addClass('video-selected');
-    //   }
-
-    // })
-    // 
-    
-    $(document).on('click', '#subscribers-list .video-holder', function(){
-      
-      rtmAction($(this).attr('id'));
+      rtmAction($(this).closest('.video-holder').attr('id'));
     })
 
     function sort_li(a, b) {

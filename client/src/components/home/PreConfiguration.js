@@ -13,7 +13,7 @@ class PreConfiguration extends Component {
 
    this.state = {
       isLoading: true,
-      isHostJoined: false,
+      isHostJoined: '',
       users: [],
       error: null,
       sessionScript: 0,
@@ -94,24 +94,26 @@ class PreConfiguration extends Component {
   componentWillMount(){
     this.startTimer();
   }
+ 
 
-  checkHostSession = () => {
-    let tempUserDta = localStorage.getItem('tempUsers');
+  checkstatus = () => {
 
-    if(tempUserDta != null){
-      tempUserDta = JSON.parse(tempUserDta);
-      for(let i in tempUserDta){
-        if(tempUserDta[i].userType == 1 && tempUserDta[i].sessionStatus == 1){
-          this.setState({isHostJoined: true});
-          break;        
-        }
-      }
+    console.log('-----------hello-----lalit----------------------')
+    let storedt = JSON.parse(localStorage.getItem('userData'));
+
+    if(storedt.userType == 2)
+    {
+    this.setState({
+      isHostJoined: true
+      });
     }
   }
 
 
   joinSession = () => {
-
+   
+   //   this.checkHostSession();
+    
     
       console.log('#####join####button########');
 
@@ -223,6 +225,7 @@ class PreConfiguration extends Component {
     .then(response => response.json())
     // ...then we update the users state
     .then(data => {
+      data = data.responseData;
         this.setState({
               users: data,
               isLoading: false,
@@ -264,9 +267,9 @@ render() {
       // console.log('seconds, minutes, hours====== ', seconds, minutes, hours);
   //const  {user}  = this.props.auth;
 
-  if(this.state.isHostJoined == false){
-    this.checkHostSession();
-  }
+  // if(this.state.isHostJoined == false){
+  //   this.checkHostSession();
+  // }
   console.log('------virender----users ', this.state.isHostJoined)
 
   let localstoragedata = JSON.parse(localStorage.getItem('userData'));
@@ -371,7 +374,7 @@ render() {
                     </div>
                     <div className="col-lg-6">
                       <span className="online-total">Online</span>
-                      <span className="online-number" id="totalonline"></span>
+                      <span className="online-number" id="totalonline">0</span>
                     </div>
                   </div>
                   
@@ -385,7 +388,7 @@ render() {
           
           <div className="row">
             <div className="col-12"><h6 className="small-heading mb-2">Select Video Camera</h6></div>
-            <div className="col-12 video-streams select-camera" id="video-media-content"></div>
+            <div className="row justify-content-center video-streams select-camera" id="video-media-content"></div>
             
           </div>
         
@@ -436,13 +439,13 @@ render() {
         
 
         <div id="show-details2" className="show-details modal fade " role="dialog">
-      <div className="w-100 d-flex align-items-center bg-dark flex-direction-column h-100 mw-100 justify-content-center">
+        <div className="w-100 d-flex align-items-center bg-black flex-direction-column h-100 mw-100 justify-content-center ">
         <div className="modal-content">
         
            <div className="row no-gutters">
-            <div className="col-12 col-sm-6">
+            <div className="col-12 col-sm-12">
               
-            <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
+            <div id="carouselExampleIndicators" className="width-1000 carousel slide" data-ride="carousel">
               <ol className="carousel-indicators">
                 <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
                 <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -450,80 +453,215 @@ render() {
               </ol>
               <div className="carousel-inner">
                 <div className="carousel-item active">
-                  <img className="d-block mx-auto" src="images/product.png" alt="First slide" />
-                </div>
-                <div className="carousel-item">
-                  <img className="d-block mx-auto" src="images/product.png" alt="Second slide" />
-                </div>
-                <div className="carousel-item">
-                  <img className="d-block mx-auto" src="images/product.png" alt="Third slide" />
-                </div>
-              </div>
-              
-            </div>
-            </div>
-            <div className="col-12 col-sm-6 detail-model item-description">
-              
-              <div className="">
-              <button type="button" className="close close-model-btn m-0" data-dismiss="modal">&times;</button>
-                <div className="details-content">
-                  <h3 className="second-heading my-3">2014 Bliss Block Pinot Noir</h3>
-                  <div className="content-scroll">
-                    <div className=" row w-100">
-                      <ul className="col-12 col-md-12 col-lg-6 list-info">
-                        <li><span>Varietal</span><span>100% Pinot Noir</span></li>
-                        <li><span>Year</span><span>2014&#8203;</span></li>
-                        <li><span>Country</span><span>United States&#8203;</span></li>
-                        <li><span>Appellation</span><span>Sonoma</span></li>
-                        <li><span>Alcohol</span><span>14.3%</span></li>
-                      </ul>
-                      <ul className="col-12 col-md-12 col-lg-6 list-info">
-                        <li><span>pH</span><span>3.69</span></li>
-                        <li><span>Aging</span><span>15 months in French Oak Barrels, 82%</span></li>
-                        <li><span>Price</span><span>$80&#8203;</span></li>
-                        <li><span>Case Production</span><span>250</span></li>
-                      </ul>
-                      <div className="col col-md-12">
-                        <p className="item-text">The Bliss Block Pinot Noir beautifully captures the rich spice qualities that are characteristic of this cool pocket of our Quail Hill Estate vineyard. A bright garnet hue </p>
-                        
-                      </div>
-                      <div className="col-md-12 mt-3">
-                        <strong className="sub-heading">Varietal Composition</strong>
-                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
-                      </div>
-                      <div className="col-md-12 mt-3">
-                        <strong className="sub-heading">Varietal Composition</strong>
-                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
-                      </div>
-                      <div className="col-md-12 mt-3">
-                        <strong className="sub-heading">Varietal Composition</strong>
-                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
-                      </div>
-                      <div className="col-md-12 mt-3">
-                        <strong className="sub-heading">Varietal Composition</strong>
-                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
-                      </div>
-                      <div className="col-md-12 mt-3">
-                        <strong className="sub-heading">Varietal Composition</strong>
-                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
-                      </div>
-                      <div className="col-md-12 mt-3">
-                        <strong className="sub-heading">Varietal Composition</strong>
-                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
-                      </div>
-                      <div className="col-md-12 mt-3">
-                        <strong className="sub-heading">Varietal Composition</strong>
-                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
-                      </div>
-                      <div className="col-md-12 mt-3">
-                        <strong className="sub-heading">Varietal Composition</strong>
-                        <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                  <div className="d-flex">
+                    <div className="col-12 col-sm-6 d-flex align-items-center">
+                      <img className="mx-auto d-block mw-75" src="images/product.png" alt="First slide" />
+                    </div>
+                    
+                    <div className="col-12 col-sm-6 detail-model item-description">
+                    <div className="">
+                    <button type="button" className="close close-model-btn m-0" data-dismiss="modal">&times;</button>
+                      <div className="details-content">
+                        <h3 className="second-heading my-3">2014 Bliss Block Pinot Noir</h3>
+                        <div className="content-scroll">
+                          <div className=" row w-100">
+                            <ul className="col-12 col-md-12 col-lg-6 list-info">
+                              <li><span>Varietal</span><span>100% Pinot Noir</span></li>
+                              <li><span>Year</span><span>2014&#8203;</span></li>
+                              <li><span>Country</span><span>United States&#8203;</span></li>
+                              <li><span>Appellation</span><span>Sonoma</span></li>
+                              <li><span>Alcohol</span><span>14.3%</span></li>
+                            </ul>
+                            <ul className="col-12 col-md-12 col-lg-6 list-info">
+                              <li><span>pH</span><span>3.69</span></li>
+                              <li><span>Aging</span><span>15 months in French Oak Barrels, 82%</span></li>
+                              <li><span>Price</span><span>$80&#8203;</span></li>
+                              <li><span>Case Production</span><span>250</span></li>
+                            </ul>
+                            <div className="col col-md-12">
+                              <p className="item-text">The Bliss Block Pinot Noir beautifully captures the rich spice qualities that are characteristic of this cool pocket of our Quail Hill Estate vineyard. A bright garnet hue </p>
+                              
+                            </div>
+                            <div className="col-md-12 mt-3">
+                              <strong className="sub-heading">Varietal Composition</strong>
+                              <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                            </div>
+                            <div className="col-md-12 mt-3">
+                              <strong className="sub-heading">Varietal Composition</strong>
+                              <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                            </div>
+                            <div className="col-md-12 mt-3">
+                              <strong className="sub-heading">Varietal Composition</strong>
+                              <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                            </div>
+                            <div className="col-md-12 mt-3">
+                              <strong className="sub-heading">Varietal Composition</strong>
+                              <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                            </div>
+                            <div className="col-md-12 mt-3">
+                              <strong className="sub-heading">Varietal Composition</strong>
+                              <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                            </div>
+                            <div className="col-md-12 mt-3">
+                              <strong className="sub-heading">Varietal Composition</strong>
+                              <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                            </div>
+                            <div className="col-md-12 mt-3">
+                              <strong className="sub-heading">Varietal Composition</strong>
+                              <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                            </div>
+                            <div className="col-md-12 mt-3">
+                              <strong className="sub-heading">Varietal Composition</strong>
+                              <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
+                  </div>
+                </div>
+                <div className="carousel-item">
+                  <div className="d-flex">
+                  <div className="col-12 col-sm-6 d-flex align-items-center">
+                      <img className="mx-auto d-block mw-75" src="images/product.png" alt="First slide" />
+                    </div>
+                    <div className="col-12 col-sm-6 detail-model item-description">
+                    <div className="">
+                    <button type="button" className="close close-model-btn m-0" data-dismiss="modal">&times;</button>
+                      <div className="details-content">
+                        <h3 className="second-heading my-3">2014 Bliss Block Pinot Noir</h3>
+                        <div className="content-scroll">
+                          <div className=" row w-100">
+                            <ul className="col-12 col-md-12 col-lg-6 list-info">
+                              <li><span>Varietal</span><span>100% Pinot Noir</span></li>
+                              <li><span>Year</span><span>2014&#8203;</span></li>
+                              <li><span>Country</span><span>United States&#8203;</span></li>
+                              <li><span>Appellation</span><span>Sonoma</span></li>
+                              <li><span>Alcohol</span><span>14.3%</span></li>
+                            </ul>
+                            <ul className="col-12 col-md-12 col-lg-6 list-info">
+                              <li><span>pH</span><span>3.69</span></li>
+                              <li><span>Aging</span><span>15 months in French Oak Barrels, 82%</span></li>
+                              <li><span>Price</span><span>$80&#8203;</span></li>
+                              <li><span>Case Production</span><span>250</span></li>
+                            </ul>
+                            <div className="col col-md-12">
+                              <p className="item-text">The Bliss Block Pinot Noir beautifully captures the rich spice qualities that are characteristic of this cool pocket of our Quail Hill Estate vineyard. A bright garnet hue </p>
+                              
+                            </div>
+                            <div className="col-md-12 mt-3">
+                              <strong className="sub-heading">Varietal Composition</strong>
+                              <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                            </div>
+                            <div className="col-md-12 mt-3">
+                              <strong className="sub-heading">Varietal Composition</strong>
+                              <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                            </div>
+                            <div className="col-md-12 mt-3">
+                              <strong className="sub-heading">Varietal Composition</strong>
+                              <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                            </div>
+                            <div className="col-md-12 mt-3">
+                              <strong className="sub-heading">Varietal Composition</strong>
+                              <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                            </div>
+                            <div className="col-md-12 mt-3">
+                              <strong className="sub-heading">Varietal Composition</strong>
+                              <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                            </div>
+                            <div className="col-md-12 mt-3">
+                              <strong className="sub-heading">Varietal Composition</strong>
+                              <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                            </div>
+                            <div className="col-md-12 mt-3">
+                              <strong className="sub-heading">Varietal Composition</strong>
+                              <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                            </div>
+                            <div className="col-md-12 mt-3">
+                              <strong className="sub-heading">Varietal Composition</strong>
+                              <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+                <div className="carousel-item">
+                  <div className="d-flex">
+                  <div className="col-12 col-sm-6 d-flex align-items-center">
+                      <img className="mx-auto d-block mw-75" src="images/product.png" alt="First slide" />
+                    </div>
+                    <div className="col-12 col-sm-6 detail-model item-description">
+                    <div className="">
+                    <button type="button" className="close close-model-btn m-0" data-dismiss="modal">&times;</button>
+                      <div className="details-content">
+                        <h3 className="second-heading my-3">2014 Bliss Block Pinot Noir</h3>
+                        <div className="content-scroll">
+                          <div className=" row w-100">
+                            <ul className="col-12 col-md-12 col-lg-6 list-info">
+                              <li><span>Varietal</span><span>100% Pinot Noir</span></li>
+                              <li><span>Year</span><span>2014&#8203;</span></li>
+                              <li><span>Country</span><span>United States&#8203;</span></li>
+                              <li><span>Appellation</span><span>Sonoma</span></li>
+                              <li><span>Alcohol</span><span>14.3%</span></li>
+                            </ul>
+                            <ul className="col-12 col-md-12 col-lg-6 list-info">
+                              <li><span>pH</span><span>3.69</span></li>
+                              <li><span>Aging</span><span>15 months in French Oak Barrels, 82%</span></li>
+                              <li><span>Price</span><span>$80&#8203;</span></li>
+                              <li><span>Case Production</span><span>250</span></li>
+                            </ul>
+                            <div className="col col-md-12">
+                              <p className="item-text">The Bliss Block Pinot Noir beautifully captures the rich spice qualities that are characteristic of this cool pocket of our Quail Hill Estate vineyard. A bright garnet hue </p>
+                              
+                            </div>
+                            <div className="col-md-12 mt-3">
+                              <strong className="sub-heading">Varietal Composition</strong>
+                              <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                            </div>
+                            <div className="col-md-12 mt-3">
+                              <strong className="sub-heading">Varietal Composition</strong>
+                              <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                            </div>
+                            <div className="col-md-12 mt-3">
+                              <strong className="sub-heading">Varietal Composition</strong>
+                              <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                            </div>
+                            <div className="col-md-12 mt-3">
+                              <strong className="sub-heading">Varietal Composition</strong>
+                              <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                            </div>
+                            <div className="col-md-12 mt-3">
+                              <strong className="sub-heading">Varietal Composition</strong>
+                              <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                            </div>
+                            <div className="col-md-12 mt-3">
+                              <strong className="sub-heading">Varietal Composition</strong>
+                              <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                            </div>
+                            <div className="col-md-12 mt-3">
+                              <strong className="sub-heading">Varietal Composition</strong>
+                              <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                            </div>
+                            <div className="col-md-12 mt-3">
+                              <strong className="sub-heading">Varietal Composition</strong>
+                              <p className="item-text">Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. Quisque volut.Donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metu.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
                 </div>
               </div>
+              
             </div>
+            </div>
+            
            </div>
           
         </div>
@@ -536,8 +674,9 @@ render() {
             </div> */}
              
               <div className="col-lg-8">
-              <span id='newmsg' style={{color:'green'}}></span>
-                <h6 className="small-heading mb-3 no-border">Joined</h6>
+              
+                <h6 className="small-heading mb-2 no-border">Joined</h6>
+                <span id='newmsg' className="welcome-msg"></span>
                 <div className="">
                   <div className="joiners d-flex flex-wrap">
                     
@@ -557,10 +696,10 @@ render() {
                   {(
                     ()=>{
                         if(localstoragedata.userType == 1) {
-                          return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-4 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
+                          return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-4 rounded " data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
                         } else {
-                          
-                          return <button className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded dis" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession} disabled={!this.state.isHostJoined}>Join</button>;
+                      
+                            return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)} disabled={!this.state.isHostJoined}>Join</button>;                     
                         }
                     }
                   )()}
@@ -621,6 +760,9 @@ render() {
           </div>
         </div>
       </div>
+
+      <button id="set-temp-sesstion" onClick={this.checkstatus} hidden="hidden">cccc</button>
+      
       </div>
     );
   }

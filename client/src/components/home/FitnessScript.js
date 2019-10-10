@@ -7,6 +7,7 @@ class FitnessScript extends Component {
   
  
   componentDidMount(){
+		
     var loadScript = function (src) {
       var tag = document.createElement('script');
       tag.async = false;
@@ -17,6 +18,9 @@ class FitnessScript extends Component {
     }
     loadScript('/js/swiper.min.js');
     loadScript('/js/swiper-modifier.js');
+    loadScript('/js/fitnessReloadScript.js');
+    
+    
 
     //var s = $(".target-info span");
     //s.filter(function(i){
@@ -29,15 +33,37 @@ class FitnessScript extends Component {
 
   }
   
+    handleButtonClick(){
+      console.log('--------stopscrpt22222222-------------')
+      var loadScript = function (src) {
+        var tag = document.createElement('script');
+        tag.async = false;
+        tag.src = src;
+        
+        var body = document.getElementsByTagName('body')[0];
+        body.appendChild(tag);
+      }
+      loadScript('/js/swiper.min.js');
+      loadScript('/js/swiper-modifier.js');
+      loadScript('/js/fitnessReloadScript.js');
+      window.loadSwiperSlide();
+      window.mySwiper.slideTo(0, 1000, true);
+    this.forceUpdate();
+
+    //$('#stopGuestFtnesBut').trigger('click');
+    
+  }
+
   componentWillMount(){
     //console.log(1);
     // window.test();
   }
   
   fitnessScriptStart(){  
-    $('#ftnsStart').trigger('click');
+    window.startSlider();
+    //$('#ftnsStart').trigger('click');
   }
-
+  
   fitnessScriptStop(){  
     $('#ftnsStop').trigger('click');
   }
@@ -62,7 +88,7 @@ render() {
 
 let localstoragedata = JSON.parse(localStorage.getItem('userData'));
 let sessionScript = localstoragedata.sessionData.scriptDetail;
-console.log('sessionScript=', sessionScript)
+//console.log('sessionScript=', sessionScript)
 
 return (
     
@@ -75,11 +101,12 @@ return (
             { localstoragedata.sessionData.displayScript == 1 ? (<div className="d-flex height-script h-100 justify-content-end flex-direction-column position-relative">
                 <div className="animate-display bg-gray position-relative top-rounded d-md-flex justify-content-between align-items-center px-3 py-3 add-remove-round ">
                   <h3 className="main-heading font-size-16">Fitness Script <span className="ml-md-4 font-size-16"><span id="fitness-counter">0</span>/{sessionScript.length} {localstoragedata.sessionData.scriptType}</span></h3>
-                  <a href="#" className=" mr-2 play-pause-btn d-none" id="play-slider"><img src="images/play.png" /></a>
-                  <a href="#" className=" mr-2 play-pause-btn" id="pause-slider"><img src="images/pause.png" /></a>
-                  <a href="#" className=" mr-2 stop-btn"><img src="images/stop.png" /></a>
+                  <a href="#" className=" mr-2 play-pause-btn" id="play-slider" onClick={this.fitnessScriptStart.bind(this)}><img src="images/play.png" /></a>
+                  <a href="#" className=" mr-2 play-pause-btn d-none" id="pause-slider"><img src="images/pause.png" /></a>
+                  {/* <a href="#"  className=" mr-2 stop-btn" id="stop-slider"><img src="images/stop.png" /></a> */}
+                  <button onClick={this.handleButtonClick.bind(this)} className=" mr-2 stop-btn" id="stop-slider"><img src="images/stop.png" /></button>
                   {/* <a href="#" className=" mr-5 show-hide-script"><img src="images/showscript.png" /></a> */}
-                  <a href="#" data-toggle="modal" data-target="#fitness-script" tabIndex="1" className="mr-5 show-fitness-script"><img src="images/showscript.png" /></a>
+                  <a href="#" data-toggle="modal" data-target="#fitness-script" tabIndex="1" className="mr-5 show-fitness-script" id="fitnesScript"><img src="images/showscript.png" /></a>
                 </div>
               
               <div className="bg-gray bottom-rounded px-3 pb-2 item-description d-block script-section mt--1 flex-grow-1">
@@ -88,21 +115,24 @@ return (
                   <div className="swiper-container swiper-container-host">
                       <div className="swiper-wrapper">
                         <div className="swiper-slide start">
+                          <span className="countdown-number d-none">0</span>
                           <span id="host_slider_ftnes">
                             <a href="#" id="hostFtnsScript" onClick={this.fitnessScriptStart.bind(this)}>Start</a>
                           </span>
                         </div>
-                      {
+                        
+                       {
+                         
                         sessionScript.map((opt, i) =>
                           <div className="swiper-slide" key={i}>
                           <div className="data-slide" data-index={i+1}>
                             <div className="count-box">
                               <h4>{opt.name}</h4>
-  
+                              
                               <div className="countdown">
                                 {opt.attribute.map(function(attrb, index){
                                   if(attrb.attrLabel == 'counter'){
-                                  return <div className="countdown-number" key={index}>{attrb.attrValue} SEC</div>;
+                                  return <div className="countdown-number" data-number={attrb.attrValue} key={index}>{attrb.attrValue} SEC</div>;
                                   }
                                 })}
 
@@ -130,7 +160,7 @@ return (
                           </div>
                         </div>
 
-                        )}
+                        )} 
                         <div className="swiper-slide end">
                           <span>
                             <h4>End of Script</h4>

@@ -27,6 +27,43 @@ module.exports.encodedString = function() {
 	for ( var i = 0; i < len; i++ ) {
 	  result += characters.charAt(Math.floor(Math.random() * charactersLength));
 	}
+	console.log('----------encodedString-------------',result)
+	return result;
+
+};
+
+module.exports.encodedDecodedString = function(code,type) {
+
+	
+	let result;
+
+	if(type == 0){
+		
+		let buf = Buffer.from(code);		
+	let encodedData = buf.toString('base64');
+
+	console.log('-------encodedData------------',encodedData)
+
+	 result=encodedData;
+
+	console.log('-------result------------',result)
+
+	}else{
+		console.log('-------type1------------',type)
+		
+		let buff1 = Buffer.from(code, 'base64');
+
+
+	//console.log('-------buff1------------',buff1)
+
+	let text = buff1.toString('ascii');	
+
+	console.log('-------text------------',text)
+	
+	 result=text;
+	}
+
+
 	return result;
 
 };

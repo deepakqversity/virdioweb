@@ -10,6 +10,8 @@ const otpModel = require('../../models/Otp');
 const sessionScriptModel = require('../../models/SessionScript');
 const clientToken = require( process.cwd() + '/util/ClientToken');
 const utils = require(process.cwd() + '/util/Utils');
+const response = require(process.cwd() + '/util/Response');
+const SendMail = require(process.cwd() + '/util/SendMail');
 const defaultConfig = require(process.cwd() + '/config/default.config');
 
 const saltRounds = 10;
@@ -19,10 +21,12 @@ class UserCtrl {
 	async userDetail(req, res) {
 	    try {
 			let user1 = await userModel.getUserById(req.currentUser.id);
-			res.status(200).send(user1);
+			// res.status(200).send(user1);
+			response.resp(res, 200, user1)
 				
 	    } catch(exception) {
-			res.status(500).send(exception)
+			// res.status(500).send(exception)
+			response.resp(res, 500, exception)
 	    }
 	}
 
@@ -35,13 +39,15 @@ class UserCtrl {
 			if(!isEmpty(userObj)){
 
     			if(userObj.status == 0){
-    				res.status(400).send({message:"user already exists but inactive."})
+    				// res.status(400).send({message:"user already exists but inactive."})
+    				response.resp(res, 400, {message:"user already exists but inactive."})
     			} else {
 
 	        		let t = await bcrypt.compare(password, userObj.password);
 					if(t){
 						if(userObj.isBanned == 1){
-		    				res.status(400).send({message:"Sorry! You cannot login."})
+		    				// res.status(400).send({message:"Sorry! You cannot login."})
+		    				response.resp(res, 400, {message:"Sorry! You cannot login."})
 		    			} else {
 
 							if(isEmpty(userObj.image)){
@@ -117,7 +123,7 @@ class UserCtrl {
 							} else {
 
 								underscore.extend(userObj, { message : "There are no sessions available."});
-								underscore.extend(userObj, { sessionData : []});
+								// underscore.extend(userObj, { sessionData : []});
 							}
 
 							userObj = underscore.omit(userObj, 'password');
@@ -130,18 +136,23 @@ class UserCtrl {
 
 							underscore.extend(userObj, {default: settings});
 
-							res.status(200).send(userObj);
+							// res.status(200).send(userObj);
+							// res.status(200).send(response.resp(200, userObj));
+							response.resp(res, 200, userObj)
 						}
 					} else {
-						res.status(400).send({password:"Invalid password"})
+						// res.status(400).send({password:"Invalid password"})
+						response.resp(res, 400, {password:"Invalid password"})
 					}
 				}
 			} else {
-				res.status(400).send({email:"User doesn\'t exists in system."});
+				// res.status(400).send({email:"User doesn\'t exists in system."});
+				response.resp(res, 400, {email:"User doesn\'t exists in system."})
 			}
 				
 	    } catch(exception) {
-			res.status(500).send(exception)
+			// res.status(500).send(exception)
+			response.resp(res, 500, exception)
 	    }
 	}
 
@@ -177,24 +188,29 @@ class UserCtrl {
 						}
 					} 
 
-					res.status(200).send({message : msg+". Please verify account."});
+					// res.status(200).send({message : msg+". Please verify account."});
+					response.resp(res, 200, {message : msg+". Please verify account."})
 				} else {
 
-					res.status(400).send({message:"Something went wrong."})
+					// res.status(400).send({message:"Something went wrong."})
+					response.resp(res, 400, {message:"Something went wrong."})
 				}
 			} else {
 				if(userObj.status == 0){
 
-					res.status(400).send({message:"Email already exists but inactive."})
+					// res.status(400).send({message:"Email already exists but inactive."})
+					response.resp(res, 400, {message:"Email already exists but inactive."})
 				} else {
 
-					res.status(400).send({message:"user already exists."})
+					// res.status(400).send({message:"user already exists."})
+					response.resp(res, 400, {message:"user already exists."})
 				}
 			}
 				
 	    } catch(exception) {
 
-			res.status(500).send(exception)
+			// res.status(500).send(exception)
+			response.resp(res, 500, exception)
 	    }
 	}
 
@@ -209,10 +225,12 @@ class UserCtrl {
 				sessionObj = underscore.omit(sessionObj, 'appCertificate');
 			}
 
-			res.status(200).send(sessionObj);
+			// res.status(200).send(sessionObj);
+			response.resp(res, 200, sessionObj)
 				
 	    } catch(exception) {
-			res.status(500).send(exception);
+			// res.status(500).send(exception);
+			response.resp(res, 500, exception)
 	    }
 	}
 	/**
@@ -241,9 +259,11 @@ class UserCtrl {
 						let updateOtp = await otpModel.updateOtp(req.body.code, userObj.id);
 						
 						if(updateOtp){
-							res.status(200).send({message:"Account activated successfully."});
+							// res.status(200).send({message:"Account activated successfully."});
+							response.resp(res, 200, {message:"Account activated successfully."})
 						} else {
-							res.status(400).send({message:"Something went wrong."});
+							// res.status(400).send({message:"Something went wrong."});
+							response.resp(res, 400, {message:"Something went wrong."})
 						}
 					} else {
 						let errorMsg = 'OTP already Verified';
@@ -252,35 +272,125 @@ class UserCtrl {
 						else if(otpObj.status == 3)
 							errorMsg = 'OTP Failed';
 
-						res.status(400).send({message:errorMsg});
+						// res.status(400).send({message:errorMsg});
+						response.resp(res, 400, {message:errorMsg})
 					}
 				} else {
 
-					res.status(400).send({message:"Invalid OTP"});
+					// res.status(400).send({message:"Invalid OTP"});
+					response.resp(res, 400, {message:"Invalid OTP"})
 				}
 
 			} else {
-				res.status(400).send({email:"User doesn\'t exists in system."});
+				// res.status(400).send({email:"User doesn\'t exists in system."});
+				response.resp(res, 400, {email:"User doesn\'t exists in system."})
 			}
 				
 	    } catch(exception) {
-			res.status(500).send(exception)
+			// res.status(500).send(exception)
+			response.resp(res, 500, exception)
 	    }
 	}
 
 	async forgotPassword(req, res) {
 		try {
+			let email = req.body.email;
+
+			let userObj = await userModel.getExistsUserByEmail(email);
 			
-			res.status(200).send({message:"Account activated successfully."});
+			if(!isEmpty(userObj)){
+
+				let otpObj = await otpModel.check(userObj.id, 0, 0);
+				let code='';
+				// check if otp already sent
+				if(!isEmpty(otpObj)){
+					code = otpObj.code;
+					console.log('--------code1--------',code);
+
+				} else {
+					
+					code = utils.encodedString();
+
+					console.log('--------code2--------',code);
+
+					let emailUpdate = await otpModel.add(userObj.id, code, 0);
+				}
+
+				let resultant_code = await utils.encodedDecodedString(code,0);
+
+				console.log('-------resultant_code--------',resultant_code)
+
+				let encoded_email = await utils.encodedDecodedString(email,0);
+
+				console.log('-------encoded_email12--------',encoded_email) 
+
+				console.log('-------process.cwd()--------',process.cwd())
+
+				let html='<p>Click <a href="'+process.env.DOMAIN_URL+"/"+ encoded_email+"/"+resultant_code + '">here</a> to reset your password</p>';
+
+				console.log('-------html--------',html)
+
+				let to=email;
+				let subject='Mail From Virdio';
+				let text='Please Check ur Mail';
+
+				let sendmail = await SendMail.emailInput(to,subject,html);
+
+				let msg = 'Email hasbeen sent to ur mail';
+
+				// res.status(200).send({message:msg, link: code });
+				response.resp(res, 200, {message:msg, link: code })
+
+			} else {
+				// res.status(400).send({email:"Email doesn\'t exists in system."});
+				response.resp(res, 400, {email:"Email doesn\'t exists in system."})
+			}
+				
 	    } catch(exception) {
-			res.status(500).send(exception)
+			// res.status(500).send(exception)
+			response.resp(res, 500, exception)
 	    }
 	}
 
 	async verifyLink(req, res) {
 		try {
+
+	    	let email = req.body.email;
+			let otpcode = req.body.otpcode;
 			
-			res.status(200).send({message:"Account activated successfully."});
+			console.log('----------email------otpcode-----',email,otpcode)
+
+			let decoded_email = await utils.encodedDecodedString(email,1);
+
+
+			 let emailObj = await userModel.getExistsUserByEmail(decoded_email);
+
+
+			if(!isEmpty(emailObj)){
+
+				let decoded_otp = await utils.encodedDecodedString(otpcode,1);
+
+
+				let otp_exist = await otpModel.otpExist(emailObj.id, decoded_otp, 0);
+
+
+				if(!isEmpty(otp_exist)){
+
+				let msg = 'your link is verified';
+
+
+				res.status(200).send({message:msg, link:decoded_email });
+
+				}else {
+					res.status(400).send({email:"OTP is not Valid."});
+				}
+
+			}else {
+				res.status(400).send({email:"Email not exists in system."});
+			}
+			
+			//res.status(200).send({message:"Account activated successfully."});
+
 	    } catch(exception) {
 			res.status(500).send(exception)
 	    }
@@ -288,8 +398,38 @@ class UserCtrl {
 
 	async updatePassword(req, res) {
 		try {
+
+			let email = req.body.email;
 			
-			res.status(200).send({message:"Account activated successfully."});
+			console.log('-------------email12345------------------',email)
+
+			let userObj = await userModel.getExistsUserByEmail(email);
+
+			console.log('-------------userObj------------------',userObj)
+
+			if(!isEmpty(userObj)){
+
+				let password = await bcrypt.hash(req.body.password, saltRounds);
+
+				console.log('-------------password------------------',password)
+
+				let output= await userModel.updatePassword(email,password);
+
+				console.log('-------------output------------------',output)
+
+				res.status(200).send({message:"password updated"});
+
+			}else {
+				if(userObj.status == 0){
+
+					res.status(400).send({message:"Email  exists but inactive."})
+				} else {
+
+					res.status(400).send({message:"Email Doesnot exists."})
+				}
+			}
+
+			
 	    } catch(exception) {
 			res.status(500).send(exception)
 	    }

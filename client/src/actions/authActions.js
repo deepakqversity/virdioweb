@@ -6,8 +6,6 @@ import $ from 'jquery';
 import React from 'react'
 import  { Redirect } from 'react-router-dom'
 //import AgoraRTC from "agora-rtc-sdk";
-// import React from 'react'
-// import { Redirect } from "react-router-dom"
 
 import {
   GET_ERRORS,
@@ -53,7 +51,7 @@ export const loginUser = userData => dispatch => {
       
       // Save to localStorage
 
-      const  token  = res.data.token;
+      const  token  = res.data.responseData.token;
 
        if ($('#remember_me').is(':checked')) {
           // save username and password
@@ -65,7 +63,10 @@ export const loginUser = userData => dispatch => {
           localStorage.removeItem('chkbx');
       }
     
-      localStorage.setItem("userData", JSON.stringify(res.data));
+      localStorage.setItem("userData", JSON.stringify(res.data.responseData));
+
+      console.log('error1---------res.data----------',res.data)
+      
 
       // Set token to Auth header
       setAuthToken(token);
@@ -73,17 +74,27 @@ export const loginUser = userData => dispatch => {
       const decoded = jwt_decode(token);
       // console.log('decoded ===========',decoded)
       // Set current user
-      dispatch(setCurrentUser(decoded));
+      console.log('err2---------res.data----------',decoded)
+      dispatch(setCurrentUser(decoded))
+      
     })
     .catch(err =>
       
+     { 
+
+    console.log('err----------res.data-----', err);
+    
       dispatch({
-        
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
+             
+             type: GET_ERRORS,
+             payload: err.response.data
+           })
+          
+          }
+
     );
 };
+
 // Set logged in user
 export const setCurrentUser = decoded => {
   return {

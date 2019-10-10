@@ -1,5 +1,6 @@
 const Validator = require("validator");
 const isEmpty = require("is-empty");
+const response = require(process.cwd() + '/util/Response');
 
 class UserValidation {
 
@@ -7,7 +8,7 @@ class UserValidation {
 		
 		let data = req.body;
 		let errors = {};
-console.log(data)
+// console.log(data)
 		// Convert empty fields to an empty string so we can use validator functions
 		data.password = !isEmpty(data.password) ? data.password : "";
 
@@ -29,7 +30,8 @@ console.log(data)
 		}
 
 		if(true != isEmpty(errors)){
-			res.status(400).json(errors);
+			// res.status(400).json(errors);
+			response.resp(res, 400, errors)
 		} else {
 			next()
 		}
@@ -70,7 +72,8 @@ console.log(data)
 		}
 
 		if(true != isEmpty(errors)){
-			res.status(400).json(errors);
+			// res.status(400).json(errors);
+			response.resp(res, 400, errors)
 		} else {
 			next()
 		}
@@ -88,7 +91,8 @@ console.log(data)
 		}
 
 		if(true != isEmpty(errors)){
-			res.status(400).json(errors);
+			// res.status(400).json(errors);
+			response.resp(res, 400, errors)
 		} else {
 			next()
 		}

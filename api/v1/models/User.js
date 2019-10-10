@@ -57,7 +57,7 @@ class User{
 		return await new Promise((resolve, reject) => {
 			db.query('SELECT id, firstName, lastName, email, password, image, status, isBanned FROM ?? WHERE email = ? AND status = 1 limit 1', [table, email], function (error, results, fields) {
 			  if (error) reject(error);
-			  console.log('================== results ', results)
+			  // console.log('================== results ', results)
 			  // db.end();
 			  return resolve(isEmpty(results) ? '' : results[0]);
 			});
@@ -74,7 +74,7 @@ class User{
 		let table = this.table;
 	
 		return await new Promise((resolve, reject) => {
-			db.query("SELECT id, firstName, lastName, email, password, status FROM ?? WHERE email = ? LIMIT 1", [table, email], function (error, results, fields) {
+			db.query("SELECT id, firstName, lastName, email, password, status FROM ?? WHERE email = ? AND status = 1 AND isBanned = 0  LIMIT 1", [table, email], function (error, results, fields) {
 			  if (error) reject(error);
 			  console.log('================== results ', results)
 			  // db.end();
@@ -114,6 +114,19 @@ class User{
 			  // console.log('================== results ', results)
 			  // db.end();
 			  return resolve(isEmpty(results) ? 0 : results.insertId);
+			});
+		});
+	}
+	async updatePassword(email,password) {
+		let table = this.table;
+		return await new Promise((resolve, reject) => {
+			db.query('UPDATE ?? SET password = ? WHERE email = ? AND status = 1', [table,password, email], function (error, results, fields) {
+			  if (error) reject(error);
+			  // console.log('================== results ', results)
+			  // db.end();
+
+			  console.log('-----updatepassword--------',results)
+			  return resolve(isEmpty(results) ? 0 : results);
 			});
 		});
 	}

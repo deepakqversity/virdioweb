@@ -34,6 +34,7 @@ class FooterScriptParticipant extends Component {
     }
     loadScript('/js/swiper.min.js');
     loadScript('/js/swiper-modifier.js');
+    loadScript('/js/fitnessReloadScript.js');
   }
 
   componentWillMount(){
@@ -76,12 +77,20 @@ class FooterScriptParticipant extends Component {
     $('#score_button').trigger('click');
   }
 
+  handleButtonClick1 = ()=>{
+    console.log('--------stopscrpt11111111-------------')
+    window.guestfitScriptStop();
+    window.loadSwiperSlide();
+    window.mySwiper.slideTo(0, 1000, true);
+  this.forceUpdate();  
+}
+
 
 render() {
   let localstoragedata = JSON.parse(localStorage.getItem('userData'));
 
 let sessionScript = localstoragedata.sessionData.scriptDetail;
-console.log('sessionScript=', sessionScript)
+//console.log('sessionScript=', sessionScript)
 
   return (
     
@@ -161,18 +170,19 @@ console.log('sessionScript=', sessionScript)
                 </a>
               </div>
             </div>
+           
           <div className="d-flex justify-content-between arrow-after align-items-center footer-fitness-script">
            <div className="swiper-container">
-           
+           <button  id="stop1-script"  onClick={this.handleButtonClick1} className="mr-2 stop-btn" hidden="hidden">fitnessStop</button>
+            {/* <a href="#" onClick={this.handleButtonClick1} className="mr-2 stop-btn" id="stop1-script" hidden="hidden">fitnessStop</a> */}
               <div className="swiper-wrapper align-items-center fitness-guest">
-                <div className="swiper-guest swiper-slide start position-relative">              
+                <div className="swiper-guest swiper-slide position-relative start">              
                   <span className="position-relative" id="swip_slide">
                     <a href="#">Start</a>
                   </span>
                   <div className="prevent-click"></div>
                 </div>
-              
-              
+                            
             
                      {
                         sessionScript.map((opt, i) =>
@@ -183,12 +193,12 @@ console.log('sessionScript=', sessionScript)
                                   <div id="countdown" className="count-timer data-slide" data-index={i+1}>
                                   {opt.attribute.map(function(attrb, index){
                                     if(attrb.attrLabel == 'counter'){
-                                    return <div className="countdown-number" key={index}>{attrb.attrValue} SEC</div>;
+                                    return <div className="countdown-number"  data-number={attrb.attrValue} key={index}>{attrb.attrValue} SEC</div>;
                                     }
                                   })}
 
                                   <svg>
-                                    <circle r="27" cx="30" cy="30"></circle>
+                                    <circle r="30" cx="33" cy="33"></circle>
                                   </svg>
                                 <h4>{opt.name}</h4>
                                 </div>

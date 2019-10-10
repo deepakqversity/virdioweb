@@ -5,6 +5,7 @@ const sessionModel = require('../../models/Session');
 const sessionUserModel = require('../../models/SessionUser');
 const activityLogsModel = require('../../models/ActivityLogs');
 const clientToken = require( process.cwd() + '/util/ClientToken');
+const response = require(process.cwd() + '/util/Response');
 
 class SessionCtrl {
 
@@ -12,10 +13,12 @@ class SessionCtrl {
 	    try {
 			let sessionObj = await sessionModel.findAllSessionById(req.currentUser.id);
 
-			res.status(200).send(sessionObj);
+			// res.status(200).send(sessionObj);
+			response.resp(res, 200, sessionObj)
 				
 	    } catch(exception) {
-			res.status(500).send(exception)
+			// res.status(500).send(exception)
+			response.resp(res, 500, exception)
 	    }
 	}
 
@@ -31,10 +34,12 @@ class SessionCtrl {
 				sessionObj = underscore.omit(sessionObj, 'appCertificate');
 			}
 
-			res.status(200).send(sessionObj);
+			// res.status(200).send(sessionObj);
+			response.resp(res, 200, sessionObj)
 				
 	    } catch(exception) {
-			res.status(500).send(exception)
+			// res.status(500).send(exception)
+			response.resp(res, 500, exception)
 	    }
 	}
 	
@@ -51,50 +56,60 @@ class SessionCtrl {
 					}
 				}
 			}
-			res.status(200).send(userObj);
+			// res.status(200).send(userObj);
+			response.resp(res, 200, userObj)
 				
 	    } catch(exception) {
-			res.status(500).send(exception)
+			// res.status(500).send(exception)
+			response.resp(res, 500, exception)
 	    }
 	}
 
 	async updateSessionUser(req, res) {
 	    try {
 			let updateData = await sessionUserModel.updateCurrentSessionType(req.params.userId, req.params.sessionId, req.body.state);
-			res.status(200).send(updateData);
+			// res.status(200).send(updateData);
+			response.resp(res, 200, updateData)
 				
 	    } catch(exception) {
-			res.status(500).send(exception)
+			// res.status(500).send(exception)
+			response.resp(res, 500, exception)
 	    }
 	}
 
 	async updateUserStream(req, res) {
 	    try {
 			let updateData = await sessionUserModel.updateConferenceUser(req.currentUser.id,  req.params.sessionId, req.body.streamId);
-			res.status(200).send(updateData);
+			// res.status(200).send(updateData);
+			response.resp(res, 200, updateData)
 				
 	    } catch(exception) {
-			res.status(500).send(exception)
+			// res.status(500).send(exception)
+			response.resp(res, 500, exception)
 	    }
 	}
 
 	async updateSessionStatus(req, res) {
 	    try {
 			let updateData = await sessionUserModel.updateSessionUser(req.currentUser.id,  req.params.sessionId);
-			res.status(200).send(updateData);
-				
+			// res.status(200).send(updateData);
+			response.resp(res, 200, updateData)
+			
 	    } catch(exception) {
-			res.status(500).send(exception)
+			// res.status(500).send(exception)
+			response.resp(res, 500, exception)
 	    }
 	}
 
 	async updateSessionjoinStatus(req, res) {
 	    try {
 			let updateData = await sessionUserModel.updatejoinSessionUser(req.currentUser.id,  req.params.sessionId);
-			res.status(200).send(updateData);
+			// res.status(200).send(updateData);
+			response.resp(res, 200, updateData)
 				
 	    } catch(exception) {
-			res.status(500).send(exception)
+			// res.status(500).send(exception)
+			response.resp(res, 500, exception)
 	    }
 	}
 
@@ -102,10 +117,12 @@ class SessionCtrl {
 		try {
 			// console.log(req.params);
 			let sessionObj = await sessionUserModel.findByStreamUser(req.params.sessionId, req.params.userId);
-			res.status(200).send(sessionObj);
+			// res.status(200).send(sessionObj);
+			response.resp(res, 200, sessionObj)
 				
 	    } catch(exception) {
-			res.status(500).send(exception)
+			// res.status(500).send(exception)
+			response.resp(res, 500, exception)
 	    }
 	}
 
@@ -127,12 +144,15 @@ class SessionCtrl {
 			let insertedId = await activityLogsModel.add(insertData);
 
 			if(insertedId > 0){
-				res.status(200).send({logId : insertedId});
+				// res.status(200).send({logId : insertedId});
+				response.resp(res, 200, {logId : insertedId})
 			} else {
-				res.status(400).send({message:"Something went wrong."})
+				// res.status(400).send({message:"Something went wrong."})
+				response.resp(res, 500, {message:"Something went wrong."})
 			}
 		} catch(exception) {
-			res.status(500).send(exception)
+			// res.status(500).send(exception)
+			response.resp(res, 500, exception)
 		}
 	}
 }

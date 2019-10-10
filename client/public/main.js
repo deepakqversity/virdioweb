@@ -179,7 +179,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
           // if(totalScreenUsers < totalBrodcaster, storeData.default.maxUserLimit){
 
-          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" data-dismiss="modal">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute   d-none"  id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="heart-rate-icon"><img src="images/red-heart.png" /><span class="heart-icon" data-attr="'+stream.getId()+'">80</span></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-like d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-dislike d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-easy d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-too-hard d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-perfect d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-awesome d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
+          $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" data-dismiss="modal">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute d-none" id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><small class="click-zoom d-none" onclick="zoomVideo(\''+stream.getId()+'\')"><i class="fa fa-search-plus" aria-hidden="true"></i></small><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="heart-rate-icon"><img src="images/red-heart.png" /><span class="heart-icon" data-attr="'+stream.getId()+'">80</span></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-like d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-dislike d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-easy d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-too-hard d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-perfect d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-awesome d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
           // }
           // totalScreenUsers++;
         }
@@ -519,22 +519,31 @@ if(!AgoraRTC.checkSystemRequirements()) {
     console.log('newclient , channel =========== ', newclient , channel)
     if(newclient == undefined || channel == undefined){
 
+     
       newclient = AgoraRTM.createInstance(appId1);
       newclient.login({ token: token, uid: peer }).then(() => {
 
-        console.log('***********AgoraRTM client login success***********');
+        
+
+        
 
             // Create channel
             channel = newclient.createChannel(channelName1);
 
             channel.join().then(() => {
 
-              demo();
+            
+
+              //demo();
+
+              console.log('***********AgoraRTMlalit***********');
 
             // after join channel send join channel message to host
             joinChannel();
 
-            console.log('************channel joined successfully**********');
+          
+
+            console.log('************channeljoined111111**********');
 
              // var today = new Date();
              // var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
@@ -781,8 +790,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
   function onclickhandRaise(receiverId)
   {   
     let receiverEmail = convertIdToEmail(receiverId);
-    $('#agora_hand_raise'+receiverId+'').addClass("d-none");
-    $('#audion_on'+receiverId+'').removeClass("d-none");
+    $('#subscribers-list #agora_hand_raise'+receiverId).addClass("d-none");
+    $('#subscribers-list #audion_on'+receiverId).removeClass("d-none");
     var massages="203"+sep; 
     sendMessage(receiverEmail, massages);
 
@@ -1055,7 +1064,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
       })
   };
 
-  var stream1 = stream2 = null;
+  var stream1 = [];
+  var stream2 = null;
 
   function getDevices() {
     
@@ -1073,7 +1083,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
           cameraId = mediaIds.camera;
           microphoneId = mediaIds.microphone;
 
-          $('#set-default').prop('checked', true);
+          // $('#set-default').prop('checked', true);
 
         } else {
           console.log('something went wrong')
@@ -1081,15 +1091,18 @@ if(!AgoraRTC.checkSystemRequirements()) {
         }
 
       }
+      $('#video-media-content').html('')
       
       let device = '';
       let deviceId = '';
       let deviceArray = [];
+      var d = [];
+      var l = 0;
       for (var i = 0, ctr = 0, ctr1 = 0; i !== devices.length; ++i) {
 
         if(!devices[i] || devices[i] == undefined) continue;
 
-        // console.log('devices[i] = ', devices[i])
+        // console.log('cameraId devices[i] = ', devices[i])
         device = devices[i];
         deviceId = device.deviceId;
 
@@ -1099,81 +1112,79 @@ if(!AgoraRTC.checkSystemRequirements()) {
         deviceArray.push(deviceId);
         
         if (device.kind === 'audioinput') {
-          
+          // if(device.label.indexOf('Built-in') !== -1 || (device.label.indexOf('Internal') !== -1 && device.label.indexOf('Default') === -1)){
+          // if(device.label.indexOf('Internal') !== -1 && device.label.indexOf('Default') === -1){
+          //   continue;
+          // }
           // console.log('deviceId,,,,,,,,,,,, ', deviceId)
 
-          if(microphoneId == null) {
-            if(ctr1 == 0)
-              defaultSetting = 'checked';
-          } else {
-            if(microphoneId == deviceId) {
-                defaultSetting = 'checked';
-            }
-          }
-          console.log('---------- microphoneId == deviceId - ', microphoneId, deviceId, ctr1)
+          // if(microphoneId == null) {
+          //   if(ctr1 == 0)
+          //     defaultSetting = 'checked';
+          // } else {
+          //   if(microphoneId == deviceId) {
+          //       defaultSetting = 'checked';
+          //   }
+          // }
+          // console.log('---------- microphoneId == deviceId - ', microphoneId, deviceId, ctr1)
 
-          ++ctr1;
+          // ++ctr1;
 
-          adoMediaHtml = '<div class="" id="ado-'+deviceId+'"><input class="form-radio" type="radio" name="audio-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'> <label for="lbl-'+deviceId+'"> '+ device.label +'</label> </div>';
+          // adoMediaHtml = '<div class="" id="ado-'+deviceId+'"><input class="form-radio" type="radio" name="audio-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'> <label for="lbl-'+deviceId+'"> '+ cropDeviceName(device.label) +'</label> </div>';
 
-          $('#audio-media-content').append(adoMediaHtml)
+          // $('#audio-media-content').append(adoMediaHtml)
 
-          if(defaultSetting == 'checked'){
-            // console.log('current =============', deviceId)
-            checkMicStream(deviceId);
-          }
+          // if(defaultSetting == 'checked'){
+          //   // console.log('current =============', deviceId)
+          //   checkMicStream(deviceId);
+          // }
         } else if (device.kind === 'videoinput') {
-
-          if(cameraId == null) {
-            if(ctr == 0)
+          
+          if(cameraId == deviceId) {
               defaultSetting = 'checked';
-          } else {
-            if(cameraId == deviceId) {
-                defaultSetting = 'checked';
-            } else {
-              if(ctr == 0)
-                defaultSetting = 'checked';
-            }
           }
-          // console.log('---------- cameraId == deviceId - ', cameraId , deviceId,  defaultSetting)
-
-          vdoMediaHtml = '<div class="col-12 col-md-3" id="vdo-'+deviceId+'"><div id="local-media-'+deviceId+'" ></div><div class="check-camera"><input type="radio" class="form-radio" name="video-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'><label for="lbl-'+deviceId+'">'+ device.label +'</label></div></div>';
+          
+          vdoMediaHtml = '<div class="col-md-3 mx-auto" id="vdo-'+deviceId+'"><div id="local-media-'+deviceId+'" ></div><div class="check-camera"><input type="radio" class="form-radio" name="video-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'><label for="lbl-'+deviceId+'"> '+ cropDeviceName(device.label) +'</label></div></div>';
 
           $('#video-media-content').append(vdoMediaHtml)
 
-          stream1 = AgoraRTC.createStream({
-              // streamID: Math.floor(Math.random()*1000000),
+          d[l] = deviceId;
+          stream1[l] = AgoraRTC.createStream({
+              streamID: Math.floor(Math.random()*1000000),
               // Set audio to true if testing the microphone.
               video: true,
               audio: false,
-              cameraId: deviceId,
+              cameraId: d[l],
           });
-          d = deviceId;
 
-          stream1.setVideoProfile('720p_3');
-
-          // stream1.setVideoEncoderConfiguration({
-          //   // Video resolution
-          //     resolution: {
-          //         width: 640,
-          //         height: 380
-          //     }
-          // });
-            
+          l++;
+        }
+      }
+      if(stream1 != null){
+        for(let l in stream1){
+          stream1[l].setVideoProfile('720p_3');
           // Initialize the stream.
-          stream1.init(function(){
-              stream1.play('local-media-' + d);
-              // stream1.muteAudio();
+          stream1[l].init(function(){
+              stream1[l].play('local-media-' + d[l]);
+              stream1[l].muteAudio();
           })
         }
       }
-
+      console.log('cameraId = ',stream1)
     });
 
     $(document).on('click', 'input[name="audio-type"]', function(){
         console.log($(this).val());
-        // checkMicStream($(this).val());
+        checkMic($(this).val());
     });
+  }
+
+  function cropDeviceName(str){
+    // if(str.indexOf('(') !== -1){
+      str = str.replace(/\(.*\)/i,'');
+      str = str.replace(/\s+/i,' ')
+    // }
+    return str;
   }
 
   function speakerOnOff(id){
@@ -1628,6 +1639,7 @@ function signalHandler(uid, signalData, userType) {
 
       $('#selected-participent-id').val( convertEmailToId(uid) );
       $('#subscribers-list #agora_remote'+convertEmailToId(uid)).find('video').addClass('video-selected');
+      $('#subscribers-list #agora_remote'+convertEmailToId(uid)).find(".click-zoom").addClass("d-block").removeClass("d-none");
 
     } else if(signalData.code == '100') {
        $('#errmsg').html(signalData.message);
@@ -1686,13 +1698,16 @@ function signalHandler(uid, signalData, userType) {
 
  3     }
       else if(resultant[0] == '212') {        
-        $(".end span a").trigger('click');
+        $("#stop-slider").trigger('click');
 
-        let storeData2 = getCurrentUserData();
+        // let storeData2 = getCurrentUserData();
      
-        let ftnsStopCode=storeData2.rtm.ftnsStop.code;                  
-        messages=ftnsStopCode+sep;        
-        sendMessageToChannel(channelName1,messages);
+        // let ftnsStopCode=storeData2.rtm.ftnsStop.code;                  
+        // messages=ftnsStopCode+sep;        
+        // sendMessageToChannel(channelName1,messages);
+
+      }else if(resultant[0] == '213') {        
+        $("#pause-slider").trigger('click');
 
       }else if(resultant[0] == '213') {        
         $("#pause-slider").trigger('click');
@@ -1959,7 +1974,9 @@ function signalHandler(uid, signalData, userType) {
       {
        // alert('fitscript has Stopped');
         console.log('-------------------fitscript has Stopped-------------');
-        $(".end span a").trigger('click');
+      // $(".end span a").trigger('click');
+     // guestfitnessScriptStop(res1[0]);
+      $("#stop1-script").trigger('click');
       }else if(res1[0] == "213")
       {
        console.log('-----------guestfitnessscript-------------213---')
@@ -3051,14 +3068,17 @@ function signalHandler(uid, signalData, userType) {
             onclickhandRaise(id);
             $('#selected-participent-id').val( id );
             $('#subscribers-list #agora_remote'+id).find('video').addClass('video-selected');
+            $('#subscribers-list #agora_remote'+id).find(".click-zoom").addClass("d-block").removeClass("d-none");
           } else {
   
             if($('#subscribers-list #agora_remote'+id).find('video').hasClass('video-selected')){
               $('#selected-participent-id').val('');
+              $('#subscribers-list #agora_remote'+id).find(".click-zoom").removeClass("d-block").addClass("d-none");
               $('#subscribers-list #agora_remote'+id).find('video').removeClass('video-selected');
             } else {
               $('#selected-participent-id').val( id );
               $('#subscribers-list #agora_remote'+id).find('video').addClass('video-selected');
+              $('#subscribers-list #agora_remote'+id).find(".click-zoom").addClass("d-block").removeClass("d-none");
             }
           }
         } else {
@@ -3067,6 +3087,7 @@ function signalHandler(uid, signalData, userType) {
           onclickaudioOn(id)
           $('#selected-participent-id').val( id );
           $(this).find('video').addClass('video-selected');
+          $(this).find(".click-zoom").addClass("d-block").removeClass("d-none");
         }
       }
     function showHideWineScript(){
@@ -3100,94 +3121,70 @@ function signalHandler(uid, signalData, userType) {
           isPaused = false;
         }
       }
-
-      function startSlider1(){
-        //$(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
-        //$(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
-        $(".swiper-slide.start a").prop('disabled', true);
-        $(".swiper-btn-next").css("display", "block");
-        $(".swiper-slide").removeClass("remove-slider-bg");
-        $(".start").removeClass("swiper-start");
-        countDown();
-      }
-
-      var countdown = 0;
-      var resetCount = null;
-     var isPaused = false;
-      function countDown(){
-        
-        let disCtr = 0;
-        if($('#fitness-counter').length > 0){
-    
-          disCtr = $('#fitness-counter').html();
-          disCtr = disCtr == '' ? 0 : parseInt(disCtr);
-          disCtr++;
-          $('#fitness-counter').html(disCtr);
-        }
-    
-        let activeEle = $('.swiper-slide.swiper-slide-next');
-        var countdownNumberEl = activeEle.find('.countdown-number');
-        
-        var indexNum = parseInt(activeEle.find('.data-slide').attr('data-index'));
-        if(activeEle.find('h4').html().toLowerCase() == 'rest'){
-          $('.fitness-emoji').removeClass('d-none');
-        } else {
-          $('.fitness-emoji').addClass('d-none');
-        }
-        // var countdown = 30;
-        countdown = parseInt(countdownNumberEl.attr("data-number"));
-        activeEle.find('svg circle').attr("style","animation-duration:"+countdown+"s !important");
-        // countdownNumberEl.html(countdown + '\ SEC') ;
-        
-        // console.log('countdown ======= countdown start ----', countdown)
-        var ctrflag = 0;
-        resetCount = setInterval(function() {
-          if(!isPaused) {
-            activeEle.find('svg circle').attr("style","animation-play-state:running");
-          // countdown = countdown;
-          countdown--;
-          // console.log('countdown ======= countdown----', countdown, $('.swiper-slide .data-slide').length , indexNum)
-          countdownNumberEl.html((countdown > 0 ? countdown : 0) + '\ SEC') ;
-          
-          if(countdown < 1){
-    
-            console.log('=========== **********', $('.swiper-slide .data-slide').length, indexNum)
-    
-            activeEle.find('svg circle').removeAttr("style");
-            clearInterval(resetCount);
-    
-            if( $('.swiper-slide .data-slide').length != indexNum ) {
-              // Now you can use all slider methods like
-              mySwiper.slideNext();
-              countDown();
-            } else {
-              activeEle.find('svg circle').css('animation', 'none')
-            }
-            
-          }
-        } else {
-          activeEle.find('svg circle').attr("style","animation-play-state:paused");
-        }
-        }, 1000);
-      }
-
-      $(document).ready(function(){
-
-        // $(document).on("click", ".swiper-guest.start span a", function(){
-    
-        //   console.log('---------hey lalit------');
-        //   // $(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
-        //   // $(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
-        //   // $(".swiper-slide.start a").prop('disabled', true);
-        //   // $(".swiper-btn-next").css("display", "block")
-        //   // countDown();
-        //   startSlider()
-        // })
-
-        $(".swiper-guest.start span a").click(function(){
-          startSlider1();
-        })
       
+      function guestfitnessScriptStop(code)
+      {
+        console.log('---------guestfitnessScriptStop--------------')
+        
+        if(code == 212){
+          var loadScript = function (src) {
+            var tag = document.createElement('script');
+            tag.async = false;
+            tag.src = src;
+            
+            var body = document.getElementsByTagName('body')[0];
+            body.appendChild(tag);
+          }
+          loadScript('/js/swiper.min.js');
+          loadScript('/js/swiper-modifier.js');
+          loadScript('/js/fitnessReloadScript.js');
+          window.loadSwiperSlide();
+          window.mySwiper.slideTo(0, 1000, true);
+          window.mySwiper.forceUpdate();
+         // component12.forceUpdate();
+        }
+      }
+
+      function guestfitScriptStop()
+      {
+        console.log('---------guestfitnessScriptStop--------------')       
+          var loadScript = function (src) {
+            var tag = document.createElement('script');
+            tag.async = false;
+            tag.src = src;
+            
+            var body = document.getElementsByTagName('body')[0];
+            body.appendChild(tag);
+          }
+          loadScript('/js/swiper.min.js');
+          loadScript('/js/swiper-modifier.js');
+          loadScript('/js/fitnessReloadScript.js');         
+      }
+      
+    function zoomVideo(id){
+      if($('#agora_remote'+id).find('.video-holder').hasClass('zoom-video'))
+        $('#agora_remote'+id).find('.video-holder').removeClass('zoom-video');
+      else
+        $('#agora_remote'+id).find('.video-holder').addClass('zoom-video');
+    }
+
+    $(document).ready(function(){
+
+      $('#switch-camera').on('click', function(){
+        getDevices();
+        $('#switch-camera-popup').modal('show');
+      });   
+
+      $('#camera-switch-btn').on('click', function(){
+        let mediaSetting = localStorage.getItem("media-setting");
+        mediaSetting = JSON.parse(mediaSetting);
+        let dId = $('input[name="video-type"]:checked').val();
+        mediaSetting['camera'] = dId;
+        localStorage.setItem("media-setting", JSON.stringify(mediaSetting));
+        localStream.switchDevice("video", dId.toString(), function(){},function(){});
+        $('#switch-camera-popup').modal('hide');
+      });   
+
       $(".show-hide-script").click(function(){
         showHideWineScript();
       })
@@ -3234,18 +3231,39 @@ function signalHandler(uid, signalData, userType) {
         }
         
       });
+      $('#stop1-script').on('click', function(){
 
+        console.log('-------------------stopscript-------')
+
+        $('#stop1-script').addClass('d-none')
+  
+      });
 
       $('#stop-slider').on('click', function(){
-        $(".end span a").trigger('click');
+
+        console.log('------------ftnessStoplalit--------------')  
+       
+        $('#pause-slider').addClass('d-none')
+        $('#play-slider').removeClass('d-none')
+        $('#fitness-counter').html(0);
+        
+        let storeData = getCurrentUserData();     
+        let ftnsStopCode=storeData.rtm.ftnsStop.code;                  
+        messages=ftnsStopCode+sep;   
+        console.log('------------ftnessStop--------------',messages)     
+        sendMessageToChannel(channelName1,messages);
       });
 
-      $('.swiper-guest.start span a').on('click', function(){
-        $(".start span a").trigger('click');
-      });
+      // $( '#stopGuestFtnesBut' ).bind( "click", function(event) {
+      //   $('#pause-slider').addClass('d-none')
+      //   $('#play-slider').removeClass('d-none')
+      //   let storeData = getCurrentUserData();     
+      //   let ftnsStopCode=storeData.rtm.ftnsStop.code;                  
+      //   messages=ftnsStopCode+sep;        
+      //   sendMessageToChannel(channelName1,messages);
+      // });
 
-
-
+   
         
       switchUsers();
 
@@ -3714,7 +3732,7 @@ function signalHandler(uid, signalData, userType) {
 
 
       $( '#newhtt').bind( "click", function(event) {
-      let message = "211"+sep;
+      let message = "212"+sep;
       let attendiesID='arjun.rishi@virdio.com';
       console.log('--------newhtt-----------------',message,attendiesID)
      // sendMessageToChannel(channelName1, message);
@@ -3782,198 +3800,10 @@ function signalHandler(uid, signalData, userType) {
         sendMessage(strmId, JSON.stringify({code:'101'}));
       });
     
-    //
     
-
-
-    // $(document).on('click', ' #subscribers-list .video-holder:eq(0)', function(){
-   
-    //   let id = $(this).attr('id');
-
-    //   let vdo1 = $(this).find('video')[0];
-    //   let ado1 = $(this).find('audio')[0];
+    $(document).on('click', '#subscribers-list .video-holder video', function(){
       
-    //   if(vdo1.muted || ado1.muted){
-    //     if($(this).find('.hand-icon').hasClass("d-none") == false) {
-        
-    //       vdo1.muted = false;
-    //       ado1.muted = false;
-          
-    //       onclickhandRaise(id);
-    //       $('#selected-participent-id').val( id );
-    //       $(this).find('video').addClass('video-selected');
-    //     } else {
-
-    //       if($(this).find('video').hasClass('video-selected')){
-    //         $('#selected-participent-id').val('');
-    //         $(this).find('video').removeClass('video-selected');
-    //       } else {
-    //         $('#selected-participent-id').val( id );
-    //         $(this).find('video').addClass('video-selected');
-    //       }
-    //     }
-    //   } else {
-    //     vdo1.muted = true;
-    //     ado1.muted = true;
-    //     onclickaudioOn(id)
-    //     $('#selected-participent-id').val( id );
-    //     $(this).find('video').addClass('video-selected');
-    //   }
-
-    //   // if (!$(this).find('.microphone-icon').hasClass("d-none")) {
-    //   //   onclickaudioOn(id)
-    //   // }else if(!$(this).find('.hand-icon').hasClass("d-none"))
-    //   // {
-    //   //   onclickhandRaise(id);
-    //   // }
-    //   // else if($(this).find('video').hasClass('video-selected')){
-    //   //   $('#selected-participent-id').val('');
-    //   //   $(this).find('video').removeClass('video-selected');
-    //   // } else {
-    //   //   $('#selected-participent-id').val( id );
-    //   //   $(this).find('video').addClass('video-selected');
-    //   // }
-
-    // })
-
-    // $(document).on('click', ' #subscribers-list .video-holder:eq(1)', function(){
-    //   let id = $(this).attr('id');
-    //   console.log('===============click ==========')
-    //   if (!$(this).find('.microphone-icon').hasClass("d-none")) {
-    //     $(this).find(".microphone-icon").trigger('click');
-    //   }else if(!$(this).find('.hand-icon').hasClass("d-none"))
-    //   {
-    //     $(this).find(".hand-icon").trigger('click');
-    //   }
-    //   else if
-    //   ($(this).find('video').hasClass('video-selected')){
-    //     $('#selected-participent-id').val('');
-    //     $(this).find('video').removeClass('video-selected');
-    //   } else {
-    //     $('#selected-participent-id').val( id );
-    //     $(this).find('video').addClass('video-selected');
-    //   }
-
-    // })
-
-    // $(document).on('click', ' #subscribers-list .video-holder:eq(2)', function(){
-    
-    //   let id = $(this).attr('id');
-    //   if (!$(this).find('.microphone-icon').hasClass("d-none")) {
-    //     $(this).find(".microphone-icon").trigger('click');
-    //   }else if(!$(this).find('.hand-icon').hasClass("d-none"))
-    //   {
-    //     $(this).find(".hand-icon").trigger('click');
-    //   }
-    //   else if($(this).find('video').hasClass('video-selected')){
-    //     $('#selected-participent-id').val('');
-    //     $(this).find('video').removeClass('video-selected');
-    //   } else {
-    //     $('#selected-participent-id').val( id );
-    //     $(this).find('video').addClass('video-selected');
-    //   }
-
-    // })
-
-    // $(document).on('click', ' #subscribers-list .video-holder:eq(3)', function(){
-      
-    //   let id = $(this).attr('id');
-    //   if (!$(this).find('.microphone-icon').hasClass("d-none")) {
-    //     $(this).find(".microphone-icon").trigger('click');
-    //   }else if(!$(this).find('.hand-icon').hasClass("d-none"))
-    //   {
-    //     $(this).find(".hand-icon").trigger('click');
-    //   }
-    //  else  if($(this).find('video').hasClass('video-selected')){
-    //     $('#selected-participent-id').val('');
-    //     $(this).find('video').removeClass('video-selected');
-    //   } else {
-    //     $('#selected-participent-id').val( id );
-    //     $(this).find('video').addClass('video-selected');
-    //   }
-
-    // })
-
-    // $(document).on('click', ' #subscribers-list .video-holder:eq(4)', function(){
-      
-    //   let id = $(this).attr('id');
-    //   if (!$(this).find('.microphone-icon').hasClass("d-none")) {
-    //     $(this).find(".microphone-icon").trigger('click');
-    //   }else if(!$(this).find('.hand-icon').hasClass("d-none"))
-    //   {
-    //     $(this).find(".hand-icon").trigger('click');
-    //   }
-    //  else if($(this).find('video').hasClass('video-selected')){
-    //     $('#selected-participent-id').val('');
-    //     $(this).find('video').removeClass('video-selected');
-    //   } else {
-    //     $('#selected-participent-id').val( id );
-    //     $(this).find('video').addClass('video-selected');
-    //   }
-
-    // })
-
-    // $(document).on('click', ' #subscribers-list .video-holder:eq(5)', function(){
-      
-    //   let id = $(this).attr('id');
-    //   if (!$(this).find('.microphone-icon').hasClass("d-none")) {
-    //     $(this).find(".microphone-icon").trigger('click');
-    //   }else if(!$(this).find('.hand-icon').hasClass("d-none"))
-    //   {
-    //     $(this).find(".hand-icon").trigger('click');
-    //   }
-    //  else if($(this).find('video').hasClass('video-selected')){
-    //     $('#selected-participent-id').val('');
-    //     $(this).find('video').removeClass('video-selected');
-    //   } else {
-    //     $('#selected-participent-id').val( id );
-    //     $(this).find('video').addClass('video-selected');
-    //   }
-
-    // })
-
-    // $(document).on('click', ' #subscribers-list .video-holder:eq(6)', function(){
-      
-    //   let id = $(this).attr('id');
-    //   if (!$(this).find('.microphone-icon').hasClass("d-none")) {
-    //     $(this).find(".microphone-icon").trigger('click');
-    //   }else if(!$(this).find('.hand-icon').hasClass("d-none"))
-    //   {
-    //     $(this).find(".hand-icon").trigger('click');
-    //   }
-    //  else if($(this).find('video').hasClass('video-selected')){
-    //     $('#selected-participent-id').val('');
-    //     $(this).find('video').removeClass('video-selected');
-    //   } else {
-    //     $('#selected-participent-id').val( id );
-    //     $(this).find('video').addClass('video-selected');
-    //   }
-
-    // })
-
-    // $(document).on('click', ' #subscribers-list .video-holder:eq(7)', function(){
-      
-    //   let id = $(this).attr('id');
-    //   if (!$(this).find('.microphone-icon').hasClass("d-none")) {
-    //     $(this).find(".microphone-icon").trigger('click');
-    //   }else if(!$(this).find('.hand-icon').hasClass("d-none"))
-    //   {
-    //     $(this).find(".hand-icon").trigger('click');
-    //   }
-    //  else if($(this).find('video').hasClass('video-selected')){
-    //     $('#selected-participent-id').val('');
-    //     $(this).find('video').removeClass('video-selected');
-    //   } else {
-    //     $('#selected-participent-id').val( id );
-    //     $(this).find('video').addClass('video-selected');
-    //   }
-
-    // })
-    // 
-    
-    $(document).on('click', '#subscribers-list .video-holder', function(){
-      
-      rtmAction($(this).attr('id'));
+      rtmAction($(this).closest('.video-holder').attr('id'));
     })
 
     function sort_li(a, b) {

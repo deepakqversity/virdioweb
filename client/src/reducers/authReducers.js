@@ -9,6 +9,7 @@ import {
     loading: false
   };
   export default function(state = initialState, action) {
+    //console.log('err3---------res.data----------',action.payload)
     switch (action.type) {
       case SET_CURRENT_USER:
         return {

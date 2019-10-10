@@ -68,6 +68,16 @@ class FitnessScript extends Component {
     $('#ftnsStop').trigger('click');
   }
 
+  fitnessScriptPlay(){  
+    window.playSlider();
+    //$('#ftnsStart').trigger('click');
+  }
+
+  fitnessScriptPause(){  
+    window.pauseSlider();
+    //$('#ftnsStart').trigger('click');
+  }
+
   createProduct = () => {
     let prodHtml = []
 
@@ -101,8 +111,8 @@ return (
             { localstoragedata.sessionData.displayScript == 1 ? (<div className="d-flex height-script h-100 justify-content-end flex-direction-column position-relative">
                 <div className="animate-display bg-gray position-relative top-rounded d-md-flex justify-content-between align-items-center px-3 py-3 add-remove-round ">
                   <h3 className="main-heading font-size-16">Fitness Script <span className="ml-md-4 font-size-16"><span id="fitness-counter">0</span>/{sessionScript.length} {localstoragedata.sessionData.scriptType}</span></h3>
-                  <a href="#" className=" mr-2 play-pause-btn" id="play-slider" onClick={this.fitnessScriptStart.bind(this)}><img src="images/play.png" /></a>
-                  <a href="#" className=" mr-2 play-pause-btn d-none" id="pause-slider"><img src="images/pause.png" /></a>
+                  <a href="#" className=" mr-2 play-pause-btn" id="play-slider" onClick={this.fitnessScriptPlay.bind(this)}><img src="images/play.png" /></a>
+                  <a href="#" className=" mr-2 play-pause-btn d-none" id="pause-slider" onClick={this.fitnessScriptPause.bind(this)}><img src="images/pause.png" /></a>
                   {/* <a href="#"  className=" mr-2 stop-btn" id="stop-slider"><img src="images/stop.png" /></a> */}
                   <button onClick={this.handleButtonClick.bind(this)} className=" mr-2 stop-btn" id="stop-slider"><img src="images/stop.png" /></button>
                   {/* <a href="#" className=" mr-5 show-hide-script"><img src="images/showscript.png" /></a> */}
@@ -117,7 +127,7 @@ return (
                         <div className="swiper-slide start">
                           <span className="countdown-number d-none">0</span>
                           <span id="host_slider_ftnes">
-                            <a href="#" id="hostFtnsScript" onClick={this.fitnessScriptStart.bind(this)}>Start</a>
+                            <button id="hostFtnsScript" onClick={this.fitnessScriptStart.bind(this)}>Start</button>
                           </span>
                         </div>
                         

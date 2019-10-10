@@ -47,9 +47,8 @@ function startSlider(){
       $('.fitness-emoji').addClass('d-none');
     }
     // var countdown = 30;
-    countdown = parseInt(countdownNumberEl.attr("data-number"));
-
-    console.log('------countdownduuuuuuuuuuu--------',countdown)
+    // countdown = parseInt(countdownNumberEl.attr("data-number"));
+    countdown = parseInt(countdownNumberEl.html());
 
     activeEle.find('svg circle').attr("style","animation-duration:"+countdown+"s !important");
     // countdownNumberEl.html(countdown + '\ SEC') ;

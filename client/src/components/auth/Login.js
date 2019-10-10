@@ -38,7 +38,7 @@ class Login extends Component {
       //   this.props.history.push("/home");
       // }
 
-      if(localstoragedata && localstoragedata.sessionData.id != undefined){
+      if(localstoragedata && localstoragedata.sessionData && localstoragedata.sessionData.id != undefined){
         this.props.history.push("/pre-screen");
       } else {
         this.props.history.push("/home");
@@ -72,7 +72,7 @@ class Login extends Component {
       //   this.props.history.push("/home");
       // }
 
-      if(localstoragedata && localstoragedata.sessionData.id != undefined){
+      if(localstoragedata && localstoragedata.sessionData && localstoragedata.sessionData.id != undefined){
         this.props.history.push("/pre-screen");
       } else {
         this.props.history.push("/home");

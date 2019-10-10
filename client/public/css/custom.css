@@ -655,7 +655,7 @@ display: block;
 }
 .heart-rate-icon{
 position: absolute;
-    top: 20px;
+    top: 50px;
     right: 0;
     width: 48px;
     background: #fff;
@@ -1488,7 +1488,7 @@ outline:0;
     margin-bottom: 15px;
     font-family: Avenir-Medium;
 }
-.start span a, .end span a{
+.start span a, .end span a, .start span button{
 	color: #fff;
     text-align: center;
     display: flex;
@@ -1499,6 +1499,9 @@ outline:0;
     letter-spacing: 1px;
     align-items: center;
     justify-content: center;
+    background: transparent;
+    outline: none;
+    border: none;
 }
 .swiper-slide{
 	padding:10px;
@@ -3274,7 +3277,18 @@ border: 1.4px solid #B002ED;
 	display:none !important;
 }
 
-
+.click-zoom{
+position: absolute;
+    top: 0;
+    right: 0;
+    color: #fff;
+    padding: 6px 18px;
+    font-size: 18px;
+    background: #9b51e0;
+    border-radius: 0 10px 0 0;
+    cursor: pointer;
+    z-index: 99;
+}
 
 .welcome-msg{
     color: #fff;

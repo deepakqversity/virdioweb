@@ -1144,7 +1144,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
               defaultSetting = 'checked';
           }
           
-          vdoMediaHtml = '<div class="col-md-3" id="vdo-'+deviceId+'"><div id="local-media-'+deviceId+'" ></div><div class="check-camera"><input type="radio" class="form-radio" name="video-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'><label for="lbl-'+deviceId+'"> '+ cropDeviceName(device.label) +'</label></div></div>';
+          vdoMediaHtml = '<div class="col-md-3 mx-auto" id="vdo-'+deviceId+'"><div id="local-media-'+deviceId+'" ></div><div class="check-camera"><input type="radio" class="form-radio" name="video-type" id="lbl-'+deviceId+'" value="'+deviceId+'" '+ defaultSetting +'><label for="lbl-'+deviceId+'"> '+ cropDeviceName(device.label) +'</label></div></div>';
 
           $('#video-media-content').append(vdoMediaHtml)
 
@@ -1698,13 +1698,13 @@ function signalHandler(uid, signalData, userType) {
 
  3     }
       else if(resultant[0] == '212') {        
-        $(".end span a").trigger('click');
+        $("#stop-slider").trigger('click');
 
-        let storeData2 = getCurrentUserData();
+        // let storeData2 = getCurrentUserData();
      
-        let ftnsStopCode=storeData2.rtm.ftnsStop.code;                  
-        messages=ftnsStopCode+sep;        
-        sendMessageToChannel(channelName1,messages);
+        // let ftnsStopCode=storeData2.rtm.ftnsStop.code;                  
+        // messages=ftnsStopCode+sep;        
+        // sendMessageToChannel(channelName1,messages);
 
       }else if(resultant[0] == '213') {        
         $("#pause-slider").trigger('click');
@@ -1972,7 +1972,8 @@ function signalHandler(uid, signalData, userType) {
        // alert('fitscript has Stopped');
         console.log('-------------------fitscript has Stopped-------------');
       // $(".end span a").trigger('click');
-      guestfitnessScriptStop(res1[0]);
+     // guestfitnessScriptStop(res1[0]);
+      $("#stop1-script").trigger('click');
       }else if(res1[0] == "213")
       {
        console.log('-----------guestfitnessscript-------------213---')
@@ -3140,6 +3141,22 @@ function signalHandler(uid, signalData, userType) {
          // component12.forceUpdate();
         }
       }
+
+      function guestfitScriptStop()
+      {
+        console.log('---------guestfitnessScriptStop--------------')       
+          var loadScript = function (src) {
+            var tag = document.createElement('script');
+            tag.async = false;
+            tag.src = src;
+            
+            var body = document.getElementsByTagName('body')[0];
+            body.appendChild(tag);
+          }
+          loadScript('/js/swiper.min.js');
+          loadScript('/js/swiper-modifier.js');
+          loadScript('/js/fitnessReloadScript.js');         
+      }
       
     function zoomVideo(id){
       if($('#agora_remote'+id).find('.video-holder').hasClass('test'))
@@ -3211,27 +3228,22 @@ function signalHandler(uid, signalData, userType) {
         }
         
       });
+      $('#stop1-script').on('click', function(){
+
+        console.log('-------------------stopscript-------')
+
+        $('#stop1-script').addClass('d-none')
+  
+      });
 
       $('#stop-slider').on('click', function(){
+
+        console.log('------------ftnessStoplalit--------------')  
        
         $('#pause-slider').addClass('d-none')
         $('#play-slider').removeClass('d-none')
-        var loadScript = function (src) {
-          var tag = document.createElement('script');
-          tag.async = false;
-          tag.src = src;
-          
-          var body = document.getElementsByTagName('body')[0];
-          body.appendChild(tag);
-        }
-        loadScript('/js/swiper.min.js');
-        loadScript('/js/swiper-modifier.js');
-        loadScript('/js/fitnessReloadScript.js');
-        window.loadSwiperSlide();
-        window.mySwiper.slideTo(0, 1000, true);
-     // component12.forceUpdate();
-
-
+        $('#fitness-counter').html(0);
+        
         let storeData = getCurrentUserData();     
         let ftnsStopCode=storeData.rtm.ftnsStop.code;                  
         messages=ftnsStopCode+sep;   
@@ -3239,14 +3251,14 @@ function signalHandler(uid, signalData, userType) {
         sendMessageToChannel(channelName1,messages);
       });
 
-      $( '#stopGuestFtnesBut' ).bind( "click", function(event) {
-        $('#pause-slider').addClass('d-none')
-        $('#play-slider').removeClass('d-none')
-        let storeData = getCurrentUserData();     
-        let ftnsStopCode=storeData.rtm.ftnsStop.code;                  
-        messages=ftnsStopCode+sep;        
-        sendMessageToChannel(channelName1,messages);
-      });
+      // $( '#stopGuestFtnesBut' ).bind( "click", function(event) {
+      //   $('#pause-slider').addClass('d-none')
+      //   $('#play-slider').removeClass('d-none')
+      //   let storeData = getCurrentUserData();     
+      //   let ftnsStopCode=storeData.rtm.ftnsStop.code;                  
+      //   messages=ftnsStopCode+sep;        
+      //   sendMessageToChannel(channelName1,messages);
+      // });
 
    
         
@@ -3717,7 +3729,7 @@ function signalHandler(uid, signalData, userType) {
 
 
       $( '#newhtt').bind( "click", function(event) {
-      let message = "211"+sep;
+      let message = "212"+sep;
       let attendiesID='arjun.rishi@virdio.com';
       console.log('--------newhtt-----------------',message,attendiesID)
      // sendMessageToChannel(channelName1, message);

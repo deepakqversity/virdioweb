@@ -1,6 +1,8 @@
 //import FitnessScript from "./src/components/home/FitnessScript";
 
 function startSlider(){
+  $('#play-slider').addClass('d-none');
+  $('#pause-slider').removeClass('d-none');
     //$(".swiper-slide:nth-child(1)").removeClass("swiper-slide-next");
     //$(".swiper-slide:nth-child(2)").addClass("swiper-slide-next");
     $(".swiper-slide.start a").prop('disabled', true);
@@ -51,7 +53,7 @@ function startSlider(){
         activeEle.find('svg circle').attr("style","animation-play-state:running");
       // countdown = countdown;
       countdown--;
-      console.log('countdown ======= countdown----', countdown, $('.swiper-slide .data-slide').length , indexNum)
+    //  console.log('countdown ======= countdown----', countdown, $('.swiper-slide .data-slide').length , indexNum)
       countdownNumberEl.html((countdown > 0 ? countdown : 0) + '\ SEC') ;
       
       if(countdown < 1){
@@ -89,25 +91,25 @@ function startSlider(){
   }
 
 
-  function guestfitnessScriptStop(code)
-  {
-    console.log('---------guestfitnessScriptStop--------------')
-    if(code == 212){
-      var loadScript = function (src) {
-      var tag = document.createElement('script');
-      tag.async = false;
-      tag.src = src;
+  // function guestfitnessScriptStop(code)
+  // {
+  //   console.log('---------guestfitnessScriptStop--------------')
+  //   if(code == 212){
+  //     var loadScript = function (src) {
+  //     var tag = document.createElement('script');
+  //     tag.async = false;
+  //     tag.src = src;
       
-      var body = document.getElementsByTagName('body')[0];
-      body.appendChild(tag);
-    }
-    loadScript('/js/swiper.min.js');
-    loadScript('/js/swiper-modifier.js');
-    loadScript('/js/fitnessReloadScript.js');
-    window.loadSwiperSlide();
-    window.mySwiper.slideTo(0, 1000, true);
-    }
-  }
+  //     var body = document.getElementsByTagName('body')[0];
+  //     body.appendChild(tag);
+  //   }
+  //   loadScript('/js/swiper.min.js');
+  //   loadScript('/js/swiper-modifier.js');
+  //   loadScript('/js/fitnessReloadScript.js');
+  //   window.loadSwiperSlide();
+  //   window.mySwiper.slideTo(0, 1000, true);
+  //   }
+  // }
 
 
   $(document).ready(function(){

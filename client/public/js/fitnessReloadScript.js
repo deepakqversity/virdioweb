@@ -122,10 +122,12 @@ function startSlider(){
 
 
   $(document).ready(function(){
+
     $(".swiper-guest.start span a").click(function(){
       console.log('----------klklaaaaaa---------')
       startSlider();
     })
+  
 let k=0;
       console.log('----------ooooooooooooooooooooooooo---------')
     // $(".host-script-section .swiper-container-host .start span a").click(function(){

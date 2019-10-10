@@ -3177,12 +3177,23 @@ function signalHandler(uid, signalData, userType) {
         
       }
 
+      let storeData = getCurrentUserData();
+     
+        let ftnsStartCode=storeData.rtm.ftnsStart.code;                  
+        messages=ftnsStartCode+sep;        
+        sendMessageToChannel(channelName1,messages);
+
     }
 
     function pauseSlider(){
       isPaused = true;
       $('#pause-slider').addClass('d-none')
       $('#play-slider').removeClass('d-none')
+
+      let storeData = getCurrentUserData();     
+       let ftnsPauseCode=storeData.rtm.ftnsPause.code;                  
+       messages=ftnsPauseCode+sep;        
+       sendMessageToChannel(channelName1,messages);
     }
 
     $(document).ready(function(){
@@ -3204,6 +3215,11 @@ function signalHandler(uid, signalData, userType) {
 
       $(".show-hide-script").click(function(){
         showHideWineScript();
+      })
+
+      $(".swiper-guest.start span a").click(function(){
+        console.log('----------klklaaaaaa---------')
+        startSlider();
       })
 
       // $('#pause-slider').on('click', function(){

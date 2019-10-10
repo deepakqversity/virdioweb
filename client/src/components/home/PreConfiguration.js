@@ -358,7 +358,7 @@ render() {
                   </div>
                   <div className="col-lg-4 float-right time-session">
                     <span className="countdown-timer">{hours} : {minutes} : {seconds}</span>
-                    <a href="javascript:void(0)" data-toggle="modal" id="show-details2-popup" className="btn btn-primary float-right">Session details</a>
+                    <a href="javascript:void(0)" data-toggle="modal" data-target="#show-details2" className="btn btn-primary float-right">Session details</a>
                   </div>
                   <div className="text-danger" style={{color:'#fff'}} id="exptn-errors"></div>
                 </div>
@@ -439,9 +439,11 @@ render() {
         
 
         <div id="show-details2" className="show-details modal fade" role="dialog">
-        <div className="w-100 d-flex align-items-center bg-black flex-direction-column h-100 mw-100 justify-content-center ">
+        <div className="modal-dialog w-100 d-flex align-items-center bg-black flex-direction-column h-100 mw-100 justify-content-center ">
         <div className="modal-content">
-        
+          <div className="modal-header">
+            <button type="button" className="close close-model-btn m-0" data-dismiss="modal">&times;</button>
+          </div>
            <div className="row no-gutters">
             <div className="col-12 col-sm-12">
               
@@ -466,7 +468,7 @@ render() {
                       
                       <div className="col-12 col-sm-6 detail-model item-description">
                       <div className="">
-                      <button type="button" className="close close-model-btn m-0" data-dismiss="modal">&times;</button>
+                      
                         <div className="details-content">
                           <h3 className="second-heading my-3">{opt.name}</h3>
                           <div className="content-scroll">

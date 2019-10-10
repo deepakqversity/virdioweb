@@ -1709,6 +1709,9 @@ function signalHandler(uid, signalData, userType) {
       }else if(resultant[0] == '213') {        
         $("#pause-slider").trigger('click');
 
+      }else if(resultant[0] == '213') {        
+        $("#pause-slider").trigger('click');
+
       }else if(resultant[0] == "214")
       {
         $(".carousel-control-next").trigger('click');
@@ -3159,10 +3162,10 @@ function signalHandler(uid, signalData, userType) {
       }
       
     function zoomVideo(id){
-      if($('#agora_remote'+id).find('.video-holder').hasClass('test'))
-        $('#agora_remote'+id).find('.video-holder').removeClass('test');
+      if($('#agora_remote'+id).find('.video-holder').hasClass('zoom-video'))
+        $('#agora_remote'+id).find('.video-holder').removeClass('zoom-video');
       else
-        $('#agora_remote'+id).find('.video-holder').addClass('test');
+        $('#agora_remote'+id).find('.video-holder').addClass('zoom-video');
     }
 
     function playSlider(){

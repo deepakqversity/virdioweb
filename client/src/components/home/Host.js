@@ -219,7 +219,7 @@ return (
           <div className="count-box position-relative countdown-logo">
             <div className="countdown">
               <svg>
-                <circle r="26" cx="30" cy="30"></circle>
+                <circle r="30" cx="33" cy="33"></circle>
               </svg>
               <a href="#" className="host-logo logo">
                 <img src="images/v-logo.png" />

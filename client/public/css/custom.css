@@ -647,6 +647,31 @@ display: block;
 	height:100%;
 	overflow: hidden;
 }
+.video-holder.zoom-video{
+	position: absolute !important;
+    left: 0;
+    top: 0;
+    width: 90%;
+    height: 100%;
+    margin: auto;
+    right: 0;
+    z-index: 99;
+    vertical-align: middle;
+    background: #000;
+    padding: 25px;
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.video-holder.zoom-video::before{
+content: '';
+    background: #000;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
 .popup-added .att-details{
     display: flex;
     flex-direction: row-reverse;
@@ -1089,7 +1114,15 @@ display:none;
 .zoom-box, .zoom-box .video-streams{
 	height:100%;
 }
-
+.zoom-video .eject-popup, 
+.zoom-video .guest-video-footer {
+    display: block;
+}
+.zoom-video .video-streams video, .zoom-video .zoom-box, .zoom-video .zoom-box .video-streams {
+    height: auto;
+}{
+	height:auto !important;
+}
 .eject-popup .close-model-btn{
     margin: 10px;
     color: #964DD9;
@@ -1730,9 +1763,17 @@ outline:0;
 	width:24px;
 }
 .stop-btn{
-	position: absolute;
+position: absolute;
     right: 10px;
-	top:13px;
+    top: 13px;
+    background: transparent;
+    outline: none;
+    border: none;
+	    padding: 0;
+}
+.stop-btn:focus{
+	outline: none;
+    border: none;
 }
 
 .fitness-guest .swiper-slide img.arrow-image{

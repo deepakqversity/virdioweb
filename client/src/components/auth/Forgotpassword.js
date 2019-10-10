@@ -19,6 +19,7 @@ class Forgotpassword extends Component {
            // let email;
             this.state = {
                 email:"",
+                msg:"",
                 showError:false,
                 messageFromServer:'',
                 type:"1",
@@ -51,8 +52,7 @@ class Forgotpassword extends Component {
           if(this.state.email == "")
           {
             this.setState({
-              showError:false,
-              messageFromServer:'',
+              msg: 'Email Should Not be Blank'
             });
           } else {
 
@@ -62,20 +62,20 @@ class Forgotpassword extends Component {
                 .post("/api/v1/user/forgotpassword",userData)                
                 .then(res => {
 
-              console.log('---------forgotpasswd--------------',res.data.message)
+              console.log('---------forgotpasswd--------------',res.data)
 
-                    if(res.data.message == 'Email doesn\'t exists in system')
+                    if(res.data.responseData.message == 'Email doesn\'t exists in system')
                     {
                      
                           this.setState({
-                            errors: res.data
+                            msg: res.data.responseData.message
                           });
 
-                    }else if(res.data.message == 'email hasbeen sent to ur mail')
+                    }else if(res.data.responseData.message == 'email hasbeen sent to ur mail')
                     {
-                        
+                      console.log('---------forgotpas--------------',res.data)
                         this.setState({
-                          errors: res.data
+                          msg: res.data.responseData.message
                         });
                        
                     }
@@ -97,7 +97,7 @@ class Forgotpassword extends Component {
         render() {
 
             // const {email, messageFromServer, showNullError, showError, errors}=this.state;
-            const { errors } = this.state;
+            const {password,errors,isLoading,updated}=this.state;
 
         return (
 
@@ -114,8 +114,19 @@ class Forgotpassword extends Component {
                   <form className="form-horizontal pt-1" role = "form" noValidate onSubmit={this.sendEmail} autoComplete="off">
                   
                     <div className="login-inner">
-                    <div className="form-group pb-3 mb-0 mt-4">
-                        <span className="text-danger">{errors.email}{errors.emailincorrect}{errors.message}</span>
+
+                    {(
+                    ()=>{
+                        if(this.state.msg == "email hasbeen sent to ur mail") {
+                          return  <div id="msg"  style={{color:'green'}}>{this.state.msg}</div>;
+                        } else {
+                      
+                            return  <div id="msg"  style={{color:'red'}}>{this.state.msg}</div>;                     
+                        }
+                    }
+                  )()}
+                    {/* <span className="text-danger">{errors.email}{errors.emailincorrect}{errors.message}</span> */}
+                    <div className="form-group pb-3 mb-0 mt-4">                        
                         <label>Enter your email address</label>
                         <input autoFocus type="email"  id="email" onChange={this.handleChange('email')} value={this.state.email} error={errors.email} className={classnames("", { invalid: errors.email || errors.emailincorrect }) + 'form-control'}  />
                       <img src="/images/login-user.png" className="user-login" />

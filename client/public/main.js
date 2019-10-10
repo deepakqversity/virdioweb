@@ -3231,7 +3231,8 @@ function signalHandler(uid, signalData, userType) {
        
         $('#pause-slider').addClass('d-none')
         $('#play-slider').removeClass('d-none')
-       
+        $('#fitness-counter').html(0);
+        
         let storeData = getCurrentUserData();     
         let ftnsStopCode=storeData.rtm.ftnsStop.code;                  
         messages=ftnsStopCode+sep;   

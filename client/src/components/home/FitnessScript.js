@@ -33,7 +33,8 @@ class FitnessScript extends Component {
 
   }
   
-    handleButtonClick = ()=>{
+    handleButtonClick(){
+      console.log('--------stopscrpt22222222-------------')
       var loadScript = function (src) {
         var tag = document.createElement('script');
         tag.async = false;
@@ -49,7 +50,7 @@ class FitnessScript extends Component {
       window.mySwiper.slideTo(0, 1000, true);
     this.forceUpdate();
 
-    $('#resetguuesbutton').trigger('click');
+    //$('#stopGuestFtnesBut').trigger('click');
     
   }
 
@@ -103,7 +104,7 @@ return (
                   <a href="#" className=" mr-2 play-pause-btn" id="play-slider" onClick={this.fitnessScriptStart.bind(this)}><img src="images/play.png" /></a>
                   <a href="#" className=" mr-2 play-pause-btn d-none" id="pause-slider"><img src="images/pause.png" /></a>
                   {/* <a href="#"  className=" mr-2 stop-btn" id="stop-slider"><img src="images/stop.png" /></a> */}
-                  <a href="#" onClick={this.handleButtonClick} className=" mr-2 stop-btn" id="stop-slider"><img src="images/stop.png" /></a>
+                  <button onClick={this.handleButtonClick.bind(this)} className=" mr-2 stop-btn" id="stop-slider"><img src="images/stop.png" /></button>
                   {/* <a href="#" className=" mr-5 show-hide-script"><img src="images/showscript.png" /></a> */}
                   <a href="#" data-toggle="modal" data-target="#fitness-script" tabIndex="1" className="mr-5 show-fitness-script" id="fitnesScript"><img src="images/showscript.png" /></a>
                 </div>
@@ -136,7 +137,7 @@ return (
                                 })}
 
                                 <svg>
-                                  <circle r="30" cx="33" cy="33"></circle>
+                                  <circle r="26" cx="30" cy="30"></circle>
                                 </svg>
                                 
                               </div>

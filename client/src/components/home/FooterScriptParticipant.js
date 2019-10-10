@@ -77,6 +77,14 @@ class FooterScriptParticipant extends Component {
     $('#score_button').trigger('click');
   }
 
+  handleButtonClick1 = ()=>{
+    console.log('--------stopscrpt11111111-------------')
+    window.guestfitScriptStop();
+    window.loadSwiperSlide();
+    window.mySwiper.slideTo(0, 1000, true);
+  this.forceUpdate();  
+}
+
 
 render() {
   let localstoragedata = JSON.parse(localStorage.getItem('userData'));
@@ -162,9 +170,11 @@ let sessionScript = localstoragedata.sessionData.scriptDetail;
                 </a>
               </div>
             </div>
+           
           <div className="d-flex justify-content-between arrow-after align-items-center footer-fitness-script">
            <div className="swiper-container">
-           
+           <button  id="stop1-script"  onClick={this.handleButtonClick1} className="mr-2 stop-btn" hidden="hidden">fitnessStop</button>
+            {/* <a href="#" onClick={this.handleButtonClick1} className="mr-2 stop-btn" id="stop1-script" hidden="hidden">fitnessStop</a> */}
               <div className="swiper-wrapper align-items-center fitness-guest">
                 <div className="swiper-guest swiper-slide position-relative start">              
                   <span className="position-relative" id="swip_slide">

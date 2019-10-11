@@ -100,9 +100,26 @@ function startSlider(){
 
   function loadSwiperSlide(){
     let activeEle = $('.swiper-slide .countdown');
+    console.log('-------loadSwiperSlide3333-----------',activeEle.length)
     //let indexNum = parseInt(activeEle.find('.data-slide').find('.countdown-number').attr('data-number'));
      //activeEle.find('.data-slide').find('.countdown-number').html(indexNum + '\ SEC');
     activeEle.find('.countdown-number').each(function(i, val){
+      
+      console.log('-----------loadSwiperSlide------------------',parseInt($(this).attr('data-number')))
+      $(this).html( parseInt($(this).attr('data-number')) + '\ SEC')
+    });
+    clearInterval(resetCount);
+
+  }
+
+  function loadSwiperSlide1(){
+    console.log('-------loadSwiperSlide222-----------')
+    let activeEle = $('.swiper-slide.newcounter .countdown');
+    console.log('-------loadSwiperSlide3333-----------',activeEle)
+    //let indexNum = parseInt(activeEle.find('.data-slide').find('.countdown-number').attr('data-number'));
+     //activeEle.find('.data-slide').find('.countdown-number').html(indexNum + '\ SEC');
+    activeEle.find('.countdown-number').each(function(i, val){
+      console.log('-----------loadSwiperSlide1111------------------',parseInt($(this).attr('data-number')))
       $(this).html( parseInt($(this).attr('data-number')) + '\ SEC')
     });
     clearInterval(resetCount);

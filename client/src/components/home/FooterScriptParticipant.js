@@ -79,11 +79,26 @@ class FooterScriptParticipant extends Component {
 
   handleButtonClick1 = ()=>{
     console.log('--------stopscrpt11111111-------------')
-    window.guestfitScriptStop();
-    window.loadSwiperSlide();
+   // window.guestfitScriptStop();
+   var loadScript = function (src) {
+    var tag = document.createElement('script');
+    tag.async = false;
+    tag.src = src;
+    
+    var body = document.getElementsByTagName('body')[0];
+    body.appendChild(tag);
+  }
+  loadScript('/js/swiper.min.js');
+  loadScript('/js/swiper-modifier.js');
+  loadScript('/js/fitnessReloadScript.js'); 
+
+    window.loadSwiperSlide1();
     window.mySwiper.slideTo(0, 1000, true);
   this.forceUpdate();  
 }
+
+
+
 
 
 render() {
@@ -188,7 +203,7 @@ let sessionScript = localstoragedata.sessionData.scriptDetail;
                         sessionScript.map((opt, i) =>
                         
                          
-                              <div className="swiper-slide" data-index={i+1} key={i}>
+                              <div className="swiper-slide newcounter" data-index={i+1} key={i}>
                                   
                                   <div id="countdown" className="count-timer data-slide" data-index={i+1}>
                                   {opt.attribute.map(function(attrb, index){

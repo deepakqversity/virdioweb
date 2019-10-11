@@ -3122,44 +3122,46 @@ function signalHandler(uid, signalData, userType) {
         }
       }
       
-      function guestfitnessScriptStop(code)
-      {
-        console.log('---------guestfitnessScriptStop--------------')
+      // function guestfitnessScriptStop(code)
+      // {
+      //   console.log('---------guestfitnessScriptStop--------------')
         
-        if(code == 212){
-          var loadScript = function (src) {
-            var tag = document.createElement('script');
-            tag.async = false;
-            tag.src = src;
+      //   if(code == 212){
+      //     var loadScript = function (src) {
+      //       var tag = document.createElement('script');
+      //       tag.async = false;
+      //       tag.src = src;
             
-            var body = document.getElementsByTagName('body')[0];
-            body.appendChild(tag);
-          }
-          loadScript('/js/swiper.min.js');
-          loadScript('/js/swiper-modifier.js');
-          loadScript('/js/fitnessReloadScript.js');
-          window.loadSwiperSlide();
-          window.mySwiper.slideTo(0, 1000, true);
-          window.mySwiper.forceUpdate();
-         // component12.forceUpdate();
-        }
-      }
+      //       var body = document.getElementsByTagName('body')[0];
+      //       body.appendChild(tag);
+      //     }
+      //     loadScript('/js/swiper.min.js');
+      //     loadScript('/js/swiper-modifier.js');
+      //     loadScript('/js/fitnessReloadScript.js');
+      //     window.loadSwiperSlide();
+      //     window.mySwiper.slideTo(0, 1000, true);
+      //     window.mySwiper.forceUpdate();
+      //    // component12.forceUpdate();
+      //   }
+      // }
 
-      function guestfitScriptStop()
-      {
-        console.log('---------guestfitnessScriptStop--------------')       
-          var loadScript = function (src) {
-            var tag = document.createElement('script');
-            tag.async = false;
-            tag.src = src;
+      // function guestfitScriptStop()
+      // {
+      //   console.log('---------guestfitnessScriptStop--------------')       
+      //     var loadScript = function (src) {
+      //       var tag = document.createElement('script');
+      //       tag.async = false;
+      //       tag.src = src;
             
-            var body = document.getElementsByTagName('body')[0];
-            body.appendChild(tag);
-          }
-          loadScript('/js/swiper.min.js');
-          loadScript('/js/swiper-modifier.js');
-          loadScript('/js/fitnessReloadScript.js');         
-      }
+      //       var body = document.getElementsByTagName('body')[0];
+      //       body.appendChild(tag);
+      //     }
+      //     loadScript('/js/swiper.min.js');
+      //     loadScript('/js/swiper-modifier.js');
+      //     loadScript('/js/fitnessReloadScript.js');         
+      // }
+
+ 
       
     function zoomVideo(id){
       if($('#agora_remote'+id).find('.video-holder').hasClass('test'))

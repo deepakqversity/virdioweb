@@ -40,19 +40,20 @@ if(!AgoraRTC.checkSystemRequirements()) {
         return false;
       }
 
-    } else {
-      if($('input[name="video-type"]').length > 0 && $('input[name="audio-type"]').length > 0){
+    } 
+    // else {
+    //   if($('input[name="video-type"]').length > 0 && $('input[name="audio-type"]').length > 0){
 
-        camera = $('#current-camera').val();
-        microphone = $('#current-microphone').val();
-        // camera = $('input[name="video-type"]:checked').val();
-        // microphone = $('input[name="audio-type"]:checked').val();
-      } else {
-        location.href = 'pre-screen';
-        console.log('Media device not found==')
-        return false;
-      }
-    }
+    //     camera = $('#current-camera').val();
+    //     microphone = $('#current-microphone').val();
+    //     // camera = $('input[name="video-type"]:checked').val();
+    //     // microphone = $('input[name="audio-type"]:checked').val();
+    //   } else {
+    //     location.href = 'pre-screen';
+    //     console.log('Media device not found==')
+    //     return false;
+    //   }
+    // }
 
     console.log('camera, microphone = ', camera, microphone)
 

@@ -123,7 +123,7 @@ function startSlider(){
       $(this).html( parseInt($(this).attr('data-number')) + '\ SEC')
     });
     clearInterval(resetCount);
-
+    
   }
 
 

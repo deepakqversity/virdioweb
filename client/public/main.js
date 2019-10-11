@@ -204,7 +204,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
             clearInterval(ref);
           }
         }, 10);
-
+        countCurrentSubscribers();
       } else {
           let subscribeUserId = getUserDataFromList(stream.getId(), 'userType');
           if(1 == subscribeUserId){
@@ -261,11 +261,14 @@ if(!AgoraRTC.checkSystemRequirements()) {
       if(storeData.userType == 1){
         // add stream after leaving current stream on hand raise event
         pushIntoSessionByHost();
+        
         // switch user every specific time duration
         switchAudienceToBroadcaster();
       }
 
       $('#agora_remote' + stream.getId()).remove();
+      
+      countCurrentSubscribers();
 
       switchVideoSize();
       
@@ -367,6 +370,11 @@ if(!AgoraRTC.checkSystemRequirements()) {
       // }
     });
 
+  }
+
+  function countCurrentSubscribers()
+  {
+    $("#joined_users").html($('.video-holder').length)
   }
   
   function getCurrentUserData(){
@@ -2510,18 +2518,18 @@ function signalHandler(uid, signalData, userType) {
         
         hoststrecount=parseInt(hoststrecount);
 
-        console.log('------------hoststrecount----------------',hoststrecount);
+      //  console.log('------------hoststrecount----------------',hoststrecount);
 
         hoststrecount=hoststrecount+1;
           if(hoststrecount < 1)
           {
             hoststrecount=0;
           }
-         $('#joined_users').empty(); 
+        // $('#joined_users').empty(); 
 
-         console.log('------------hoststrecount----------------',hoststrecount);
+        // console.log('------------hoststrecount----------------',hoststrecount);
 
-          $('#joined_users').html(hoststrecount); 
+          //$('#joined_users').html(hoststrecount); 
         }
       }
 
@@ -2529,10 +2537,10 @@ function signalHandler(uid, signalData, userType) {
       function incrementcountAtHost(signalData,userType)
       {  
 
-        console.log('********munmunHost222222222************** signalData ', signalData, userType);
+       // console.log('********munmunHost222222222************** signalData ', signalData, userType);
         let count=$('#joined_users').html();
 
-      console.log('********munmunHost************** signalData ', signalData,count);
+    //  console.log('********munmunHost************** signalData ', signalData,count);
         count=parseInt(count);
 
         let storeData = getCurrentUserData();
@@ -2554,10 +2562,10 @@ function signalHandler(uid, signalData, userType) {
         count1=count+1;
 
        
-        console.log('********guduHost111111111************** signalData ', signalData, count,count1);
+        //console.log('********guduHost111111111************** signalData ', signalData, count,count1);
               
-            $('#joined_users').empty(); 
-            $('#joined_users').html(count1);
+           // $('#joined_users').empty(); 
+           // $('#joined_users').html(count1);
        
 
       }else if(signalData.msgtype=='left') {
@@ -2565,7 +2573,7 @@ function signalHandler(uid, signalData, userType) {
  
           count1=count-1; 
 
-        console.log('********virenHost111111111************** signalData ', signalData, count,count1);
+       // console.log('********virenHost111111111************** signalData ', signalData, count,count1);
 
        
       
@@ -2573,8 +2581,8 @@ function signalHandler(uid, signalData, userType) {
             {
               count1 = 0;
             }       
-            $('#joined_users').empty(); 
-            $('#joined_users').html(count1);
+           // $('#joined_users').empty(); 
+           // $('#joined_users').html(count1);
         
 
       }else if(signalData.msgtype=='totalcount') {
@@ -2591,8 +2599,8 @@ function signalHandler(uid, signalData, userType) {
           count1 = 0;
         }
      
-          $('#joined_users').empty(); 
-          $('#joined_users').html(count1);
+         // $('#joined_users').empty(); 
+        //  $('#joined_users').html(count1);
        
        }
 

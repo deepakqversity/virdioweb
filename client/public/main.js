@@ -3164,10 +3164,10 @@ function signalHandler(uid, signalData, userType) {
  
       
     function zoomVideo(id){
-      if($('#agora_remote'+id).find('.video-holder').hasClass('test'))
-        $('#agora_remote'+id).find('.video-holder').removeClass('test');
+      if($('#agora_remote'+id).find('.video-holder').hasClass('zoom-video'))
+        $('#agora_remote'+id).find('.video-holder').removeClass('zoom-video');
       else
-        $('#agora_remote'+id).find('.video-holder').addClass('test');
+        $('#agora_remote'+id).find('.video-holder').addClass('zoom-video');
     }
 
     function playSlider(){

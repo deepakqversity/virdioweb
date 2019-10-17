@@ -3179,6 +3179,17 @@ function signalHandler(uid, signalData, userType) {
         $('#agora_remote'+id).find('.video-holder').addClass('zoom-video');
     }
 
+    function starthostslider(){
+
+      console.log('------------startslider-----------')
+      window.startSlider();
+      let storeData = getCurrentUserData();
+      let ftnsStartCode=storeData.rtm.ftnsStart.code;                  
+      messages=ftnsStartCode+sep;        
+      sendMessageToChannel(channelName1,messages);
+     
+    }
+
     function playSlider(){
       
       $('#pause-slider').removeClass('d-none')

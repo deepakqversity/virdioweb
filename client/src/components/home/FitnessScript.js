@@ -60,7 +60,8 @@ class FitnessScript extends Component {
   }
   
   fitnessScriptStart(){  
-    window.startSlider();
+   // window.startSlider();
+   window.starthostslider();
     //$('#ftnsStart').trigger('click');
   }
   

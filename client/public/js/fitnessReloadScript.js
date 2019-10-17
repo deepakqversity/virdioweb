@@ -53,6 +53,7 @@ function startSlider(){
     console.log('------countdown--------',countdown)
 
     activeEle.find('svg circle').attr("style","animation-duration:"+countdown+"s !important");
+
     // countdownNumberEl.html(countdown + '\ SEC') ;
     
     // console.log('countdown ======= countdown start ----', countdown)
@@ -65,7 +66,9 @@ function startSlider(){
       if(isPaused != true) {
         console.log('------countdown11111--------',countdown)
 
-        activeEle.find('svg circle').attr("style","animation-play-state:running");
+        //activeEle.find('svg circle').attr("style","animation-play-state:running");
+
+
       // countdown = countdown;
       countdown--;
     //  console.log('countdown ======= countdown----', countdown, $('.swiper-slide .data-slide').length , indexNum)

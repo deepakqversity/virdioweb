@@ -134,7 +134,6 @@ class SessionCtrl {
 	 */
 	async activityLogs(req, res) {
 		try{
-			console.log('req.body=====', req.body);
 			let insertData = {
 				userId : req.currentUser.id,
 				sessionId : req.body.sessionId,

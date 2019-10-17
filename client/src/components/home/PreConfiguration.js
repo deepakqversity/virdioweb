@@ -267,10 +267,8 @@ render() {
       // console.log('seconds, minutes, hours====== ', seconds, minutes, hours);
   //const  {user}  = this.props.auth;
 
-  // if(this.state.isHostJoined == false){
-  //   this.checkHostSession();
-  // }
-  console.log('------virender----users ', this.state.isHostJoined)
+ 
+  //console.log('------virender----users ', this.state.isHostJoined)
 
   let localstoragedata = JSON.parse(localStorage.getItem('userData'));
 

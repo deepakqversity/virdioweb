@@ -1342,9 +1342,15 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
     
         prestrecount = parseInt(prestrecount);
     
-        console.log("------------prestrecount----------------", prestrecount);
-    
+        console.log("------------signalData----------------", signalData);
+        let substring="RM-";
+       let output= signalData.includes(substring);
+
+    console.log("------------output----------------", output);
+    if(output != true)
+      {
         prestrecount = prestrecount + 1;
+      }
         if (prestrecount < 1) {
           prestrecount = 0;
         }

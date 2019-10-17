@@ -315,7 +315,7 @@ return (
            <div className="row no-gutters">
             <div className="col-12 col-sm-12">
               
-            <div id="carouselExampleIndicators" className="width-1000 carousel slide" data-ride="carousel">
+            <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
               <ol className="carousel-indicators">
                 {
                   sessionData.scriptDetail.map((opt, i) =>

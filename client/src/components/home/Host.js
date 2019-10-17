@@ -459,7 +459,7 @@ return (
            <div className="row no-gutters">
             <div className="col-12 col-sm-12">
               
-            <div id="carouselExampleIndicators" className="width-1000 carousel slide" data-ride="carousel">
+            <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
               <ol className="carousel-indicators">
                 {
                   sessionData.scriptDetail.map((opt, i) =>
@@ -472,11 +472,11 @@ return (
                   sessionData.scriptDetail.map((opt, i) =>
                     <div className={i==0 ? 'carousel-item active' : 'carousel-item'} key={i}>
                     <div className="d-flex">
-                      <div className="col-12 col-sm-6 d-flex align-items-center">
+                      <div className="col-12 col-sm-4 d-flex align-items-center">
                         <img className="mx-auto d-block mw-75" src={ opt.image != '' ? 'images/'+opt.image : 'images/product.png'} />
                       </div>
                       
-                      <div className="col-12 col-sm-6 detail-model item-description">
+                      <div className="col-12 col-sm-8 detail-model item-description">
                       <div className="">
                       
                         <div className="details-content">
@@ -522,7 +522,7 @@ return (
           <div className="modal-content">
             <div className="modal-header">
               <h4 className="modal-title">Fitness Script</h4>
-              <button type="button" className="close" data-dismiss="modal">×</button>
+              <button type="button" className="close " data-dismiss="modal">×</button>
             </div>
             <div className="modal-body">
             <table className="table">

@@ -220,7 +220,7 @@ class PreConfiguration extends Component {
     //var  userID=userData.id;
       
       var sessionId=userData.sessionData.sessionId;
-    
+
     fetch("/api/v1/session/"+sessionId+"/users", {headers : {'Authorization': userData.token}})
     .then(response => response.json())
     // ...then we update the users state
@@ -422,7 +422,19 @@ render() {
                   <div className="online-streams">
                     <span className="online-total">Online streams on screen</span>
                     {/* <span className="signup-number" >{localstoragedata.default.maxUserLimit}</span> */}
-                    <span className="signup-number" >{localstoragedata.default.maxUserLimit}</span>
+                    <span className="signup-number" >
+
+                        {(
+                            ()=>{
+                                if(newulength >= localstoragedata.default.maxUserLimit) {
+                                    return localstoragedata.default.maxUserLimit;
+                                } else {                      
+                                    return newulength;
+                                }
+                            }
+                        )()}
+                        
+                    </span>
                   </div>
                   
                 </div>) : (<div></div>)}
@@ -651,9 +663,9 @@ render() {
                                         this.duration = opt1.attrValue           
                                     } else if(opt1.attrLabel.toLowerCase() == 'counter') {                      
                                         this.counts = opt1.attrValue           
-                                    } else if(opt1.attrLabel.toLowerCase() == 'target zone') {                      
+                                    } else if(opt1.attrLabel.toLowerCase() == 'target zone' && sessionData.zoneTracking == 1) {                      
                                         this.targetZone = opt1.attrValue           
-                                    } else if(opt1.attrLabel.toLowerCase() === 'target bpm') {                      
+                                    } else if(opt1.attrLabel.toLowerCase() === 'target bpm' && sessionData.heartRateMonitor == 1) {                      
                                         this.targetBPM = opt1.attrValue           
                                     } else if(opt1.attrLabel.toLowerCase() == 'video') {                      
                                         this.video = opt1.attrValue           

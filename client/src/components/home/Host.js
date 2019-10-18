@@ -583,9 +583,9 @@ return (
                                         this.duration = opt1.attrValue           
                                     } else if(opt1.attrLabel.toLowerCase() == 'counter') {                      
                                         this.counts = opt1.attrValue           
-                                    } else if(opt1.attrLabel.toLowerCase() == 'target zone') {                      
+                                    } else if(opt1.attrLabel.toLowerCase() == 'target zone' && sessionData.zoneTracking == 1) {                      
                                         this.targetZone = opt1.attrValue           
-                                    } else if(opt1.attrLabel.toLowerCase() === 'target bpm') {                      
+                                    } else if(opt1.attrLabel.toLowerCase() === 'target bpm' && sessionData.heartRateMonitor == 1) {                      
                                         this.targetBPM = opt1.attrValue           
                                     } else if(opt1.attrLabel.toLowerCase() == 'video') {                      
                                         this.video = opt1.attrValue           

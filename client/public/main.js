@@ -2558,15 +2558,10 @@ function signalHandler(uid, signalData, userType) {
 
       if(signalData.msgtype=='Joined')
       {     
-       
+          count1=count+1;
 
-        count1=count+1;
-
-       
-        //console.log('********guduHost111111111************** signalData ', signalData, count,count1);
-              
-           // $('#joined_users').empty(); 
-           // $('#joined_users').html(count1);
+           $('#joined_users').empty(); 
+           $('#joined_users').html(count1);
        
 
       }else if(signalData.msgtype=='left') {
@@ -2574,16 +2569,13 @@ function signalHandler(uid, signalData, userType) {
  
           count1=count-1; 
 
-       // console.log('********virenHost111111111************** signalData ', signalData, count,count1);
-
-       
       
             if(count1 <= 0)
             {
               count1 = 0;
             }       
-           // $('#joined_users').empty(); 
-           // $('#joined_users').html(count1);
+           $('#joined_users').empty(); 
+           $('#joined_users').html(count1);
         
 
       }else if(signalData.msgtype=='totalcount') {
@@ -2600,8 +2592,8 @@ function signalHandler(uid, signalData, userType) {
           count1 = 0;
         }
      
-         // $('#joined_users').empty(); 
-        //  $('#joined_users').html(count1);
+         $('#joined_users').empty(); 
+         $('#joined_users').html(count1);
        
        }
 

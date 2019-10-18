@@ -33,14 +33,23 @@ function startSlider(){
       disCtr++;
       $('#fitness-counter').html(disCtr);
     }
-  
 
-    let activeEle = $('.swiper-slide.swiper-slide-next');
+    let activeEle = $('.swiper-slide.swiper-slide-next');  
+
     var countdownNumberEl = activeEle.find('.countdown-number');
 
-    console.log('------countdownNumberEldddddddddd--------',countdownNumberEl)
+    let scriptnameClass = activeEle.find('.scriptName');
 
+    let script_name = scriptnameClass.html();
+
+    console.log('------script_name--------',script_name)
+
+    
+    $('#script_name').html(script_name);
+
+    
     var indexNum = parseInt(activeEle.find('.data-slide').attr('data-index'));
+
     if(activeEle.find('h4').html().toLowerCase() == 'rest'){
       $('.fitness-emoji').removeClass('d-none');
     } else {
@@ -49,6 +58,8 @@ function startSlider(){
     // var countdown = 30;
     // countdown = parseInt(countdownNumberEl.attr("data-number"));
     countdown = parseInt(countdownNumberEl.html());
+
+    
 
     console.log('------countdown--------',countdown)
 
@@ -73,7 +84,7 @@ function startSlider(){
       countdown--;
     //  console.log('countdown ======= countdown----', countdown, $('.swiper-slide .data-slide').length , indexNum)
       countdownNumberEl.html((countdown > 0 ? countdown : 0) + '\ SEC') ;
-
+      $('#script_time').html((countdown > 0 ? countdown : 0) + '\ SEC') ;
      // console.log('------countdown--------',countdown)
       
       if(countdown < 1){

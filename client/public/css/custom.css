@@ -249,6 +249,12 @@ h3.main-heading span{
     color: #D8D8D8;
 	    position: relative;
 }
+
+h3.main-heading span.script_name{
+    padding-right: 11px;
+    padding-left: 11px;
+}
+
 h3.main-heading span.online-status{
 	    top: -5px;
 }

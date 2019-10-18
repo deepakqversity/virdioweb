@@ -111,7 +111,8 @@ return (
               
             { localstoragedata.sessionData.displayScript == 1 ? (<div className="d-flex height-script h-100 justify-content-end flex-direction-column position-relative">
                 <div className="animate-display bg-gray position-relative top-rounded d-md-flex justify-content-between align-items-center px-3 py-3 add-remove-round ">
-                  <h3 className="main-heading font-size-16">Fitness Script <span className="ml-md-4 font-size-16"><span id="fitness-counter">0</span>/{sessionScript.length} {localstoragedata.sessionData.scriptType}</span></h3>
+                  <h3 className="main-heading font-size-16">Fitness Script <span className="ml-md-4 font-size-16"><span id="fitness-counter">0</span>/{sessionScript.length} {localstoragedata.sessionData.scriptType}</span><span id="script_name" className="script_name d-none"></span><span id="script_time" className="script_time d-none"></span></h3>
+                  
                   <a href="#" className=" mr-2 play-pause-btn" id="play-slider" onClick={this.fitnessScriptPlay.bind(this)}><img src="images/play.png" /></a>
                   <a href="#" className=" mr-2 play-pause-btn d-none" id="pause-slider" onClick={this.fitnessScriptPause.bind(this)}><img src="images/pause.png" /></a>
                   {/* <a href="#"  className=" mr-2 stop-btn" id="stop-slider"><img src="images/stop.png" /></a> */}
@@ -138,7 +139,7 @@ return (
                           <div className="swiper-slide" key={i}>
                           <div className="data-slide" data-index={i+1}>
                             <div className="count-box">
-                              <h4>{opt.name}</h4>
+                              <h4 className="scriptName">{opt.name}</h4>
                               
                               <div className="countdown">
                                 {opt.attribute.map(function(attrb, index){

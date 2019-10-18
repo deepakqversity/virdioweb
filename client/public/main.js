@@ -3413,6 +3413,26 @@ function signalHandler(uid, signalData, userType) {
     $(".host-section").css({"min-width": "380px", "max-width": "380px"});
     
     $(".fullscreen, .back-btn").click(function(){
+
+      console.log('---------fullscreen--------------')
+      
+      if($(".script_name").hasClass("d-none")){
+        $(".script_name").removeClass("d-none")
+      }
+
+      if($(".script_time").hasClass("d-none")){
+        $(".script_time").removeClass("d-none")
+      }
+
+      if($("#fullscreen img").hasClass("exit-screen")){
+        $(".script_name").addClass("d-none")
+      }
+
+      if($("#fullscreen img").hasClass("exit-screen")){
+        $(".script_time").addClass("d-none")
+      }
+
+     
       $(".host-script-section").height() < 255 ? $(".host-script-section").height("255px") : $(".host-script-section").height("auto");
       
       $(".show-hide-v").hasClass("d-none") ? $(".show-hide-v").removeClass("d-none").addClass("d-block") : $(".show-hide-v").addClass("d-none").removeClass("d-block");

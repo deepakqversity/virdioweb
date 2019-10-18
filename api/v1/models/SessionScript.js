@@ -30,12 +30,18 @@ class SessionScript{
 			  					
 		  						if(interest == 101){
 		  							let position = '';
-		  							if(attrData.attrLabel == 'TARGET ZONE')
+		  							if(attrData.attrLabel.toLowerCase() == 'target zone')
 		  								position = 1;
-		  							else if(attrData.attrLabel == 'TARGET BPM')
+		  							else if(attrData.attrLabel.toLowerCase() == 'target bpm')
 		  								position = 2;
-		  							else if(attrData.attrLabel == 'counter')
+		  							else if(attrData.attrLabel.toLowerCase() == 'counter')
 		  								position = 0;
+		  							else if(attrData.attrLabel.toLowerCase() == 'activity type')
+		  								position = 3;
+		  							else if(attrData.attrLabel.toLowerCase() == 'duration')
+		  								position = 4;
+		  							else if(attrData.attrLabel.toLowerCase() == 'video')
+		  								position = 5;
 		  							underscore.extend(attrData, {position : position});
 			  						
 			  						if(!nestedData[attrData.orderBy]){

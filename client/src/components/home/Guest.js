@@ -237,8 +237,17 @@ return (
                   <div className="col-12 center-mob col-sm-12 col-md-6 col-lg-3 d-flex justify-content-end">
                     
                     <a className="col-2 justify-content-end d-flex align-items-center" href="javascript:;" className="btn btn-primary mr-2" tabIndex="1" id="mute-unmute"><i className="fa fa-volume-up"></i></a>
+                    
+                    {(
+                        ()=>{
+                            if(sessionData.interestId == 1) {
+                                return <a className="col-2 justify-content-end d-flex align-items-center" href="#" data-toggle="modal" data-target="#show-details4" className="btn btn-primary" tabIndex="1">Details</a>;
+                            } else {                      
+                                return <a className="btn  btn-primary border-right pr-20" href="javascript:void(0)" data-toggle="modal" data-target="#fitness-script" tabIndex="1">Details</a>;             
+                            }
+                        }
+                    )()}
 
-                    <a className="col-2 justify-content-end d-flex align-items-center" href="#" data-toggle="modal" data-target="#show-details4" className="btn btn-primary "  tabIndex="1">Details</a>
                     {/* <a className="col-2 justify-content-end d-flex align-items-center" href="#" data-toggle="modal" data-target="#show-details" className="btn btn-primary "  onClick={this.showpart.bind(this)}  tabIndex="1">Details</a> */}
                     {/* <a className="col-2 justify-content-end d-flex align-items-center" href="#" className="btn btn-primary "   tabIndex="1">Details</a> */}
                     <div className="default-btns">
@@ -368,6 +377,81 @@ return (
 
       </div>
     </div>
+
+    <div className="modal attendy-list fitness-script1" id="fitness-script">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h4 className="modal-title">Fitness Script</h4>
+              <button type="button" className="close " data-dismiss="modal">×</button>
+            </div>
+            <div className="modal-body">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th scope="col" className="text-left">Name</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Duration type</th>
+                  <th scope="col">Counts (Reps/Secs)</th>
+                  <th scope="col">Target Zone</th>
+                  <th scope="col">Target BPM</th>
+                  <th scope="col">Video</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                {
+                  sessionData.scriptDetail.map((opt, i) =>
+                    <tr key={i}>
+                      <td>{opt.name}</td>
+
+                        {
+                           this.type = '', 
+                           this.duration = '',
+                           this.counts = '',
+                           this.targetBPM = '',
+                           this.targetZone = '',
+                           this.video = ''
+                        }
+
+                        {
+                          opt.attribute.map((opt1, j) =>
+
+                            {(
+                                ()=>{
+                                    if(opt1.attrLabel.toLowerCase() == 'activity type') {
+                                        this.type = opt1.attrValue
+                                    } else if(opt1.attrLabel.toLowerCase() == 'duration') {                      
+                                        this.duration = opt1.attrValue           
+                                    } else if(opt1.attrLabel.toLowerCase() == 'counter') {                      
+                                        this.counts = opt1.attrValue           
+                                    } else if(opt1.attrLabel.toLowerCase() == 'target zone' && sessionData.zoneTracking == 1) {                      
+                                        this.targetZone = opt1.attrValue           
+                                    } else if(opt1.attrLabel.toLowerCase() === 'target bpm' && sessionData.heartRateMonitor == 1) {                      
+                                        this.targetBPM = opt1.attrValue           
+                                    } else if(opt1.attrLabel.toLowerCase() == 'video') {                      
+                                        this.video = opt1.attrValue           
+                                    }
+                                }
+                            )()}
+                        )}
+                      
+                        <td>{this.type}</td>
+                        <td>{this.duration}</td>
+                        <td>{this.counts}</td>
+                        <td>{this.targetZone}</td>
+                        <td>{this.targetBPM}</td>
+                        <td>{this.video}</td>
+                    </tr>
+                )}
+
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
   </div>
     );

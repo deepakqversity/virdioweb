@@ -76,10 +76,16 @@ function startSlider(){
      
       if(isPaused != true) {
         console.log('------countdown11111--------',countdown)
+<<<<<<< HEAD
      
         //activeEle.find('svg circle').attr("style","animation-play-state:running");
       
       
+=======
+
+        activeEle.find('svg circle').attr("style","animation-play-state:running");
+
+>>>>>>> 272f4c762202733a73a94e95f5e03364c466b636
 
       // countdown = countdown;
       countdown--;

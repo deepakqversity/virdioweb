@@ -156,7 +156,7 @@ return (
                               <div className="row fitness-info justify-content-center">
                                 
                                 {opt.attribute.map(function(attrb, index){
-                                  if(attrb.attrLabel != 'counter'){
+                                  if(attrb.attrLabel != 'counter' && attrb.attrLabel.toLowerCase() == 'target bpm'){
 
                                   return <div className={opt.attribute.length != 3 ? 'no-border-right' : ''} key={index}>
                                     <div className="target-info">

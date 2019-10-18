@@ -8,7 +8,7 @@ let config = {
 	auth : {
 		key:"djghhhhuuwiwuewieuwieuriwu",
 		flag : true,
-		ttl : 31556926
+		ttl : 86400
 	}
 };
 

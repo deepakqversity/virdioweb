@@ -19,7 +19,15 @@ class Host extends Component {
       timerStart: 0,
       timerTime: 0,
       camera:'',
-      microphone:''
+      microphone:'',
+
+
+      type : '',
+      duration : '',
+      counts : '',
+      targetZone : '',
+      targetBPM : '',
+      video : ''
     };
 
   }
@@ -253,7 +261,17 @@ return (
               <div className="col-12 justify-content-end d-flex align-items-center">
                 
                 <div className="border-right pr-3">
-                <a className="btn  btn-primary border-right pr-20" href="#" data-toggle="modal" data-target="#show-details1" tabIndex="1">Details</a>
+
+                {(
+                    ()=>{
+                        if(sessionData.interestId == 1) {
+                            return <a className="btn  btn-primary border-right pr-20" href="#" data-toggle="modal" data-target="#show-details1" tabIndex="1">Details</a>;
+                        } else {                      
+                            return <a className="btn  btn-primary border-right pr-20" href="#" data-toggle="modal" data-target="#fitness-script" tabIndex="1">Details</a>;             
+                        }
+                    }
+                )()}
+
                 </div>
                 <button className="logout-btn ml-3" onClick={this.callfunction.bind(this)} tabIndex="1">
                   <i className="fa fa-times" aria-hidden="true"></i>
@@ -269,7 +287,8 @@ return (
     <section className="bg-gray mt-1 px-0 py-1 rounded section attendees">
       <div className="row px-0 px-sm-3 pb-2 pt-1 justify-content-between align-items-center">
         <div className="col-6 col-md-6 d-flex align-items-center">
-          <h4 className="title">Participant View (<span id="joined_users">0</span>/<span>{localstoragedata.default.maxUserLimit}</span>)</h4>
+          {/*<h4 className="title">Participant View (<span id="joined_users">0</span>/<span>{localstoragedata.default.maxUserLimit}</span>)</h4>*/}
+          <h4 className="title">Participant View (<span id="joined_users">0</span>/<span>{newulength}</span>)</h4>
           <a href="" className="move-list"  id="partlist"  data-toggle="modal" data-target="#attendy-list" className="open-list"><img src="images/move-list.png" /></a>
           <a href="" className="move-list"><img src="images/swipe-list.png" /></a>
           <div className="hand-raise-list">
@@ -538,104 +557,58 @@ return (
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Chest Strech</td>
-                  <td>Warm up</td>
-                  <td>Time</td>
-                  <td>30</td>
-                  <td>40%</td>
-                  <td>90</td>
-                  <td>NA</td>
-                </tr>
-                <tr>
-                  <td>Shoulder Strech</td>
-                  <td>Warm up</td>
-                  <td>Time</td>
-                  <td>30</td>
-                  <td>40%</td>
-                  <td>90</td>
-                  <td>NA</td>
-                </tr>   
-                <tr>
-                  <td>Hamstring Strech</td>
-                  <td>Warm up</td>
-                  <td>Time</td>
-                  <td>30</td>
-                  <td>60%</td>
-                  <td>90</td>
-                  <td><img src="images/screen-video.png" width="16" /></td>
-                </tr>   
-                <tr>
-                  <td>Pushup</td>
-                  <td>Strength</td>
-                  <td>Time</td>
-                  <td>30</td>
-                  <td>50%</td>
-                  <td>90</td>
-                  <td>NA</td>
-                </tr>   
-                <tr>
-                  <td>Rest</td>
-                  <td>Rest</td>
-                  <td>Time</td>
-                  <td>30</td>
-                  <td>60%</td>
-                  <td>90</td>
-                  <td>NA</td>
-                </tr>              
-                <tr>
-                  <td>Chest Strech</td>
-                  <td>Warm up</td>
-                  <td>Time</td>
-                  <td>30</td>
-                  <td>40%</td>
-                  <td>90</td>
-                  <td>NA</td>
-                </tr>
-                <tr>
-                  <td>Shoulder Strech</td>
-                  <td>Warm up</td>
-                  <td>Time</td>
-                  <td>30</td>
-                  <td>40%</td>
-                  <td>90</td>
-                  <td>NA</td>
-                </tr>   
-                <tr>
-                  <td>Hamstring Strech</td>
-                  <td>Warm up</td>
-                  <td>Time</td>
-                  <td>30</td>
-                  <td>60%</td>
-                  <td>90</td>
-                  <td><img src="images/screen-video.png" width="16" /></td>
-                </tr>   
-                <tr>
-                  <td>Pushup</td>
-                  <td>Strength</td>
-                  <td>Time</td>
-                  <td>30</td>
-                  <td>50%</td>
-                  <td>90</td>
-                  <td>NA</td>
-                </tr>   
-                <tr>
-                  <td>Rest</td>
-                  <td>Rest</td>
-                  <td>Time</td>
-                  <td>30</td>
-                  <td>60%</td>
-                  <td>90</td>
-                  <td>NA</td>
-                </tr>           
+
+                {
+                  sessionData.scriptDetail.map((opt, i) =>
+                    <tr key={i}>
+                      <td>{opt.name}</td>
+
+                        {
+                           this.type = '', 
+                           this.duration = '',
+                           this.counts = '',
+                           this.targetBPM = '',
+                           this.targetZone = '',
+                           this.video = ''
+                        }
+
+                        {
+                          opt.attribute.map((opt1, j) =>
+
+                            {(
+                                ()=>{
+                                    if(opt1.attrLabel.toLowerCase() == 'activity type') {
+                                        this.type = opt1.attrValue
+                                    } else if(opt1.attrLabel.toLowerCase() == 'duration') {                      
+                                        this.duration = opt1.attrValue           
+                                    } else if(opt1.attrLabel.toLowerCase() == 'counter') {                      
+                                        this.counts = opt1.attrValue           
+                                    } else if(opt1.attrLabel.toLowerCase() == 'target zone') {                      
+                                        this.targetZone = opt1.attrValue           
+                                    } else if(opt1.attrLabel.toLowerCase() === 'target bpm') {                      
+                                        this.targetBPM = opt1.attrValue           
+                                    } else if(opt1.attrLabel.toLowerCase() == 'video') {                      
+                                        this.video = opt1.attrValue           
+                                    }
+                                }
+                            )()}
+                        )}
+                      
+                        <td>{this.type}</td>
+                        <td>{this.duration}</td>
+                        <td>{this.counts}</td>
+                        <td>{this.targetZone}</td>
+                        <td>{this.targetBPM}</td>
+                        <td>{this.video}</td>
+                    </tr>
+                )}
+
               </tbody>
             </table>
             </div>
-            
           </div>
         </div>
       </div>
-
 
 
       <div className="modal attendy-list" id="attendy-list">

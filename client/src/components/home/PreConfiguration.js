@@ -325,7 +325,7 @@ render() {
       // var allData= this.props.dispatch(allUsers(sessionId));
       var userlength=this.state.users;
 
-      const newulength=Object.keys(userlength).length;
+      const newulength=Object.keys(userlength).length - 1;
 
     
   $("body").css("overflow-y", "scroll");

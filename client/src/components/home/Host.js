@@ -198,7 +198,7 @@ render() {
     }
 
     var newulength = JSON.parse(localStorage.getItem('tempUsers')).length;
-    newulength = newulength < 1 ? 0 : newulength ;
+    newulength = newulength < 1 ? 0 : --newulength ;
 
     let onlineUsers = '';
     let participent = '';

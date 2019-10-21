@@ -428,10 +428,12 @@ if(!AgoraRTC.checkSystemRequirements()) {
     // Initialize the client and join the channel.
     console.log('-------------------------------------------ooo')
     // initialize client
+    let channelId2 = storeData.sessionData.channelId + '-122';
     localClient.init(storeData.sessionData.appId, function () {
     console.log('-------------------------------------------HHH')
           // create and join channel
-      localClient.join(storeData.sessionData.streamToken, storeData.sessionData.channelId.toString(), storeData.id, function(uid) {
+      //localClient.join(storeData.sessionData.streamToken, storeData.sessionData.channelId.toString(), storeData.id, function(uid) {
+         localClient.join(storeData.sessionData.streamToken, channelId2.toString(), storeData.id, function(uid) {
         // localClient.join(null, '900001', storeData.email, function(uid) {
         console.log('-------------------------------------------uid')
           // create local stream
@@ -462,7 +464,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       if(counter >= 3000){
 
         localClient.getTransportStats((stats) => {
-            
+           
           clearInterval(networkRef);
           
           console.log(`Current Transport RTT: ${stats.RTT}`);

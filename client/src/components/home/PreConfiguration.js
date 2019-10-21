@@ -91,6 +91,7 @@ class PreConfiguration extends Component {
     this.setState({timerTime: scDate});// 1 sec 1000 = 1sec
     this.setState({interest:localstoragedata.sessionData.code});
   }
+  
   componentWillMount(){
     this.startTimer();
   }
@@ -98,13 +99,12 @@ class PreConfiguration extends Component {
 
   checkstatus = () => {
 
-    console.log('-----------hello-----lalit----------------------')
     let storedt = JSON.parse(localStorage.getItem('userData'));
 
     if(storedt.userType == 2)
     {
-    this.setState({
-      isHostJoined: true
+      this.setState({
+        isHostJoined: true
       });
     }
   }

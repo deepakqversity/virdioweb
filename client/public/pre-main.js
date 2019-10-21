@@ -1179,6 +1179,8 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
                   if($('#participent-timer-alert').length > 0){
 
                     $('#participent-timer-alert').modal('show');
+                    $('#continue-join').removeAttr('disabled');
+                    $('#set-temp-sesstion').click();
 
                     let duration = parseInt(storeData.default.maxJoinDuration);
 

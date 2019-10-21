@@ -410,7 +410,21 @@ render() {
                   <div className="online-streams">
                     <span className="online-total">Online streams on screen</span>
                     {/* <span className="signup-number" >{localstoragedata.default.maxUserLimit}</span> */}
-                    <span className="signup-number" >{localstoragedata.default.maxUserLimit}</span>
+
+                    <span className="signup-number" >
+
+                      {(
+                          ()=>{
+                              if(newulength >= localstoragedata.default.maxUserLimit) {
+                                  return localstoragedata.default.maxUserLimit;
+                              } else {                      
+                                  return newulength;
+                              }
+                          }
+                      )()}
+
+                    </span>
+
                   </div>
                   
                 </div>) : (<div></div>)}

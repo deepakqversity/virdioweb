@@ -191,7 +191,7 @@ render() {
     }    
     let newulength = JSON.parse(localStorage.getItem('tempUsers')).length;
     console.log('newulength-------------', newulength);
-    newulength = newulength < 1 ? 0 : newulength ;
+    newulength = newulength < 1 ? 0 : --newulength ;
 
 return (
     <div className="container d-flex flex-column justify-content-between h-100 overlay position-relative">

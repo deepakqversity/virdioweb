@@ -91,7 +91,7 @@ class PreConfiguration extends Component {
     this.setState({timerTime: scDate});// 1 sec 1000 = 1sec
     this.setState({interest:localstoragedata.sessionData.code});
   }
-  
+
   componentWillMount(){
     this.startTimer();
   }
@@ -325,8 +325,8 @@ render() {
       // var allData= this.props.dispatch(allUsers(sessionId));
       var userlength=this.state.users;
 
-      const newulength=Object.keys(userlength).length - 1;
-
+      var newulength=Object.keys(userlength).length;
+      newulength = newulength < 1 ? 0 : --newulength ;
     
   $("body").css("overflow-y", "scroll");
   
@@ -356,7 +356,17 @@ render() {
                   </div>
                   <div className="col-lg-4 float-right time-session">
                     <span className="countdown-timer">{hours} : {minutes} : {seconds}</span>
-                    <a href="javascript:void(0)" data-toggle="modal" data-target="#show-details2" className="btn btn-primary float-right">Session details</a>
+                    
+                    {(
+                        ()=>{
+                            if(sessionData.interestId == 1) {
+                                return <a href="javascript:void(0)" data-toggle="modal" data-target="#show-details2" className="btn btn-primary float-right">Session Details</a>;
+                            } else {                      
+                                return <a className="btn btn-primary border-right pr-20" href="javascript:void(0)" data-toggle="modal" data-target="#fitness-script" tabIndex="1">Session Details</a>;             
+                            }
+                        }
+                    )()}
+
                   </div>
                   <div className="text-danger" style={{color:'#fff'}} id="exptn-errors"></div>
                 </div>
@@ -605,6 +615,80 @@ render() {
 
       <button id="set-temp-sesstion" onClick={this.checkstatus} hidden="hidden">cccc</button>
       
+      <div className="modal attendy-list fitness-script1" id="fitness-script">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h4 className="modal-title">Fitness Script</h4>
+              <button type="button" className="close " data-dismiss="modal">×</button>
+            </div>
+            <div className="modal-body">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th scope="col" className="text-left">Name</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Duration type</th>
+                  <th scope="col">Counts (Reps/Secs)</th>
+                  <th scope="col">Target Zone</th>
+                  <th scope="col">Target BPM</th>
+                  <th scope="col">Video</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                {
+                  sessionData.scriptDetail.map((opt, i) =>
+                    <tr key={i}>
+                      <td>{opt.name}</td>
+
+                        {
+                           this.type = '', 
+                           this.duration = '',
+                           this.counts = '',
+                           this.targetBPM = '',
+                           this.targetZone = '',
+                           this.video = ''
+                        }
+
+                        {
+                          opt.attribute.map((opt1, j) =>
+
+                            {(
+                                ()=>{
+                                    if(opt1.attrLabel.toLowerCase() == 'activity type') {
+                                        this.type = opt1.attrValue
+                                    } else if(opt1.attrLabel.toLowerCase() == 'duration') {                      
+                                        this.duration = opt1.attrValue           
+                                    } else if(opt1.attrLabel.toLowerCase() == 'counter') {                      
+                                        this.counts = opt1.attrValue           
+                                    } else if(opt1.attrLabel.toLowerCase() == 'target zone' && sessionData.zoneTracking == 1  ) {                      
+                                        this.targetZone = opt1.attrValue           
+                                    } else if(opt1.attrLabel.toLowerCase() === 'target bpm' && sessionData.heartRateMonitor == 1) {                      
+                                        this.targetBPM = opt1.attrValue           
+                                    } else if(opt1.attrLabel.toLowerCase() == 'video') {                      
+                                        this.video = opt1.attrValue           
+                                    }
+                                }
+                            )()}
+                        )}
+
+                        <td>{this.type}</td>
+                        <td>{this.duration}</td>
+                        <td>{this.counts}</td>
+                        <td>{this.targetZone}</td>
+                        <td>{this.targetBPM}</td>
+                        <td>{this.video}</td>
+                    </tr>
+                )}
+
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
       </div>
     );
   }

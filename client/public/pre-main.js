@@ -18,6 +18,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
   // var client, camera, microphone;
   var totalBrodcaster = 0;
   var sep = '~@$';
+  var newArr121 = [];
+  var newArr122 = [];
 
   function getCurrentUserData(){
     return JSON.parse(localStorage.getItem("userData"));
@@ -1019,7 +1021,9 @@ function signalHandler(uid, signalData, userType) {
 
         let joinDateTime = convertUnixTimestamp(resultant[1]);
 
-        incrementcountOnPreStreming(uid, "welcome");
+       // incrementcountOnPreStreming(uid, "welcome");
+
+        incrementcountAtHost(uid, "welcome");
         
         console.log('********ppppp************ resultant', joinDateTime,uid);
         let message="Hi " +localDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your first virtual session with us  ";
@@ -1028,6 +1032,7 @@ function signalHandler(uid, signalData, userType) {
        // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
        addRtmJoinOrder(uid, resultant[1]);
        addUserAttribute(convertEmailToId(uid), 'currentStatus', 1);
+             
       }else if(resultant[0] == "237")
       {
         console.log('---------237---------------')
@@ -1068,7 +1073,9 @@ function signalHandler(uid, signalData, userType) {
 
       let joinDateTimeattendies = convertUnixTimestamp(resultant[1]);
 
-      incrementcountOnPreStreming(uid, "welcome");
+     // incrementcountOnPreStreming(uid, "welcome");
+
+     incrementcountAtAttendies(uid, "welcome");
 
       console.log('********ssssss************ resultant', joinDateTimeattendies);
       if(getUserDataFromList(uid, 'userType') == 1){
@@ -1275,6 +1282,53 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
     }
 
     function incrementcountAtAttendies(signalData, userType) {
+
+      if (userType == "welcome") {
+
+               
+        let prestrecount = $("#totalonline").html();
+    
+        prestrecount = parseInt(prestrecount);
+
+        console.log("------------prestrecount1111----------------", prestrecount);
+
+        let substring="RM-";
+       let output= signalData.includes(substring);
+
+    console.log("------------output----------------", output);
+
+    memberID=convertEmailToId(signalData);
+
+    if(output != true  && getUserDataFromList(memberID, 'userType') == 2)
+      {
+        newArr121.push(signalData);
+
+        var unique = newArr121.filter(function(itm, i, a) {
+          return i == newArr121.indexOf(itm);
+      });
+      console.log('---------unique---------',unique);     
+      uuCount= unique.length;
+       uuCount++;
+       // prestrecount = prestrecount + 1;
+      }else{
+       uuCount=prestrecount;
+      }
+
+      console.log("------------newArr1111----------------",uuCount);
+
+
+        if (uuCount < 1) {
+          uuCount = 0;
+        }
+        $("#totalonline").empty();
+    
+        console.log("------------uuCount11----------------", uuCount);
+    
+        $("#totalonline").html(uuCount);
+      }
+
+    else{
+
       var count3 = $("#totalonline").html();
     
       console.log('--------------signalData123456----------',signalData)
@@ -1305,9 +1359,19 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
  
      if(output != true  && getUserDataFromList(memberID, 'userType') == 2)
        {
-        count4 = count3 + 1;
+        //count4 = count3 + 1;
+
+        newArr121.push(signalData.member);
+        var unique1 = newArr121.filter(function(itm, i, a) {
+          return i == newArr121.indexOf(itm);
+      });
+      console.log('---------unique---------',unique1);     
+      count4= unique1.length;
+      console.log('---------unique12---------',count4); 
+       count4++;
+       console.log('---------unique11---------',count4); 
        }else{
-        count4 = count3
+        count4 = count3;
        }
  
         console.log('--------count4joined--------',count4)
@@ -1335,7 +1399,16 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
  
      if(output != true  && getUserDataFromList(memberID, 'userType') == 2)
        {
-        count4 = count3 > 0 ? count3 - 1 : 0;
+
+        //count4 = count3 > 0 ? count3 - 1 : 0;
+
+    let  unique1 = newArr121.filter(item => !signalData.member.includes(item))
+
+      console.log('---------unique---------',unique1);     
+        count4= unique1.length;
+      // count4;
+       console.log('---------count4---------',count4);
+       count4++; 
        }else{
         count4 = count3 > 0 ? count3 : 0;
        }
@@ -1370,15 +1443,74 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
     
       // $('#joined_users_at_client').empty();
       // $('#joined_users_at_client').html(count4);
+
+    }
     }
     
-    function incrementcountOnPreStreming(signalData, type) {
-      if (type == "welcome") {
+    // function incrementcountOnPreStreming(signalData, type) {
+    //   if (type == "welcome") {
+
+    //     var newArr121 = [];
+        
+    //     let prestrecount = $("#totalonline").html();
+
+    //     newArr121.push(signalData);
+
+    //     var unique = newArr121.filter(function(itm, i, a) {
+    //       return i == newArr121.indexOf(itm);
+    //   });
+    //   console.log('---------unique---------',unique);     
+    //    var uuCount= unique.length;
+    
+    //     prestrecount = parseInt(prestrecount);
+
+    //     console.log("------------prestrecount1111----------------", prestrecount);
+
+    //     let substring="RM-";
+    //    let output= signalData.includes(substring);
+
+    // console.log("------------output----------------", output);
+
+    // memberID=convertEmailToId(signalData);
+
+    // if(output != true  && getUserDataFromList(memberID, 'userType') == 2)
+    //   {
+
+    //    uuCount++;
+    //   }
+
+    //   console.log("------------newArr1111----------------",uuCount);
+
+
+    //   // if(getUserDataFromList(memberID, 'userType') == 2){
+
+    //   //   prestrecount = prestrecount + 1;
+    //   // }
+
+    //     if (uuCount < 1) {
+    //       uuCount = 0;
+    //     }
+    //     $("#totalonline").empty();
+    
+    //     console.log("------------uuCount11----------------", uuCount);
+    
+    //     $("#totalonline").html(uuCount);
+    //   }
+    // }
+
+    function incrementcountAtHost(signalData, userType) {
+
+      if (userType == "welcome") {
+
+               
         let prestrecount = $("#totalonline").html();
+
+
     
         prestrecount = parseInt(prestrecount);
-    
-        console.log("------------signalData----------------", signalData);
+
+        console.log("------------prestrecount1111----------------", prestrecount);
+
         let substring="RM-";
        let output= signalData.includes(substring);
 
@@ -1388,26 +1520,35 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
 
     if(output != true  && getUserDataFromList(memberID, 'userType') == 2)
       {
-        prestrecount = prestrecount + 1;
+
+        newArr122.push(signalData);
+
+        var unique = newArr122.filter(function(itm, i, a) {
+          return i == newArr122.indexOf(itm);
+      });
+      console.log('---------unique---------',unique);     
+        uuCount= unique.length;
+       // prestrecount = prestrecount + 1;
+      }else{
+         uuCount= prestrecount;
       }
 
-      // if(getUserDataFromList(memberID, 'userType') == 2){
+      console.log("------------newArr122----------------",uuCount);
 
-      //   prestrecount = prestrecount + 1;
-      // }
 
-        if (prestrecount < 1) {
-          prestrecount = 0;
+        if (uuCount < 1) {
+          uuCount = 0;
         }
         $("#totalonline").empty();
     
-        console.log("------------prestrecount----------------", prestrecount);
+        console.log("------------uuCount11----------------", uuCount);
     
-        $("#totalonline").html(prestrecount);
+        $("#totalonline").html(uuCount);
       }
-    }
 
-    function incrementcountAtHost(signalData, userType) {
+
+      else{
+
       var count = $("#totalonline").html();
     
       count = parseInt(count);
@@ -1422,15 +1563,35 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
     
       if (signalData.msgtype == "Joined") {
         console.log(
-          "********guduHost************** signalData ",
-          signalData,
-          userType
+          "********guduHost************** signalData ", signalData,userType
         );
     
         let str = signalData.message;
         let res2 = str.split(sep);
+
+        let substring="RM-";
+        let output= signalData.member.includes(substring);
+ 
+     console.log("------------output----------------", output);
+ 
+     memberID=convertEmailToId(signalData.member);
+ 
+     if(output != true  && getUserDataFromList(memberID, 'userType') == 2)
+       {
+ 
+         newArr122.push(signalData.member);
+ 
+         let unique = newArr122.filter(function(itm, i, a) {
+           return i == newArr122.indexOf(itm);
+       });
+       console.log('---------unique---------',unique);     
+         count1= unique.length;
+        // prestrecount = prestrecount + 1;
+       }else{
+        count1 = count;
+       }
     
-        count1 = count + 1;
+       // count1 = count + 1;
     
         $("#totalonline").empty();
         $("#totalonline").html(count1);
@@ -1439,7 +1600,33 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
         let res2 = str.split(sep);
     
         count1 = count > 0 ? count - 1 : 0;
-    
+
+
+        let substring="RM-";
+        let output= signalData.member.includes(substring);
+ 
+     console.log("------------output----------------", output);
+ 
+     memberID=convertEmailToId(signalData.member);
+ 
+     if(output != true  && getUserDataFromList(memberID, 'userType') == 2)
+       {
+        console.log('---------newArr122---------',newArr122); 
+
+        let  unique1 = newArr122.filter(item => !signalData.member.includes(item))
+
+        console.log('---------unique---------',unique1); 
+            
+        count1= unique1.length;
+
+        count1 = count1 > 0 ? count1 : 0;
+        // count4;
+         console.log('---------count1---------',count1);
+        // prestrecount = prestrecount + 1;
+       }else{
+        count1 = count > 0 ? count  : 0;
+       }
+   
         $("#totalonline").empty();
         $("#totalonline").html(count1);
       } else if (signalData.msgtype == "totalcount") {
@@ -1453,6 +1640,8 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
         // $('#totalonline').empty();
         // $('#totalonline').html(count1);
       }
+
+    }
     }
     
     
@@ -1577,20 +1766,29 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
       }
 
       function recentlyJoinedChannelUser(){
+        console.log('----------recentlyJoinedChannelUser---------------');
         let localData = getCurrentUserData();
+        let strArray1 =  JSON.parse(localStorage.getItem('rtm-join-order'));
         let strArray = localStorage.getItem("rtm-join-order");
+        console.log('---------strArray---------',strArray1);
         channel.getMembers().then(membersList => {
             let totMember = membersList.length;
-            console.log('totMember', membersList);
+            console.log('---------totMemberlalit---------', membersList);
             let maxUserLimit = localData.default.preScreenUserLimit;
             console.log('totMember maxUserLimit', totMember, maxUserLimit);
+            
             let ctr = 1;
 
             for(let j=0; j < strArray.length; j++){
+              console.log('---------totMember123---------', strArray.length);
               for(let i= totMember-1; i >= 0 ; i--){
+                console.log('---------totMember2222---------', totMember);
                 if(membersList[i].id == strArray[j].id && getUserDataFromList(membersList[i], 'userType') == 2){
+                  console.log('---------totMember33333---------', membersList[i].id,strArray[j].id);
                   if(ctr++ <= maxUserLimit){
+                    console.log('---------totMember4444---------', maxUserLimit);
                     if( $('#joinee-' + convertEmailToId(membersList[i])).length == 0 ){
+                      console.log('---------totMember5555---------', membersList[i]);
                       $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(membersList[i])+'">'+getUserDataFromList(membersList[i], 'firstName')+' '+(getUserDataFromList(membersList[i], 'lastName') != null?getUserDataFromList(membersList[i], 'lastName'):'')+'</span>');
                     }
                   }

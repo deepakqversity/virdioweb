@@ -1309,8 +1309,8 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
           return i == newArr121.indexOf(itm);
       });
       console.log('---------unique---------',unique);     
-      uuCount= unique.length;
-       uuCount++;
+      uuCount= unique.length+1;
+       //uuCount++;
        // prestrecount = prestrecount + 1;
       }else{
        uuCount=prestrecount;
@@ -1368,9 +1368,9 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
           return i == newArr121.indexOf(itm);
       });
       console.log('---------unique---------',unique1);     
-      count4= unique1.length;
+      count4= unique1.length+1;
       console.log('---------unique12---------',count4); 
-       count4++;
+       //count4++;
        console.log('---------unique11---------',count4); 
        }else{
         count4 = count3;
@@ -1390,7 +1390,7 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
           $("#online_state").removeClass("online-status");
         }
     
-        count4 = count3 > 0 ? count3 - 1 : 0;
+       // count4 = count3 > 0 ? count3 - 1 : 0;
 
         let substring="RM-";
         let output= signalData.member.includes(substring);
@@ -1398,20 +1398,25 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
      console.log("------------output----------------", output);
  
      memberID=convertEmailToId(signalData.member);
+
+ 
  
      if(output != true  && getUserDataFromList(memberID, 'userType') == 2)
        {
 
         //count4 = count3 > 0 ? count3 - 1 : 0;
+        newArr121 = newArr121.filter(item => !signalData.member.includes(item))
+ 
+      let unique12 = newArr121.filter(function(itm, i, a) {
+          return i == newArr121.indexOf(itm);
+          });
 
-    let  unique1 = newArr121.filter(item => !signalData.member.includes(item))
-
-      console.log('---------unique---------',unique1);     
-        count4= unique1.length;
-      // count4;
+      console.log('---------unique---------',unique12);     
+        count4= unique12.length+1;
        console.log('---------count4---------',count4);
-       count4++; 
+       //count4++; 
        }else{
+      // let count31= newArr121.length+1;
         count4 = count3 > 0 ? count3 : 0;
        }
     
@@ -1601,7 +1606,7 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
         let str = signalData.message;
         let res2 = str.split(sep);
     
-        count1 = count > 0 ? count - 1 : 0;
+       // count1 = count > 0 ? count - 1 : 0;
 
 
         let substring="RM-";
@@ -1610,16 +1615,22 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
      console.log("------------output----------------", output);
  
      memberID=convertEmailToId(signalData.member);
+
+    
  
      if(output != true  && getUserDataFromList(memberID, 'userType') == 2)
        {
         console.log('---------newArr122---------',newArr122); 
 
-        let  unique1 = newArr122.filter(item => !signalData.member.includes(item))
+        newArr122 = newArr122.filter(item => !signalData.member.includes(item))
 
-        console.log('---------unique---------',unique1); 
+        let unique45 = newArr122.filter(function(itm, i, a) {
+          return i == newArr122.indexOf(itm);
+          });
+
+        console.log('---------unique1---------',unique45); 
             
-        count1= unique1.length;
+        count1= unique45.length;
 
         count1 = count1 > 0 ? count1 : 0;
         // count4;

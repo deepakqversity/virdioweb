@@ -2134,6 +2134,7 @@ function signalHandler(uid, signalData, userType) {
       let id = convertEmailToId(dataObj.id);
       let vdo = $('#subscribers-list #agora_remote'+ id + ' video' )[0];  
       console.log('subscribers-list video = ', vdo);
+      let storeData = getCurrentUserData();
 
       // check current user in mute state
       if(vdo != undefined && vdo.muted){
@@ -2152,7 +2153,7 @@ function signalHandler(uid, signalData, userType) {
                 console.log('========== check 30 sec in side', broadcster[i])
 
                 let tm =  (new Date()).getTime() - parseInt(broadcster[i].subscribeTime);
-                if((tm / 1000) >= 30){
+                if((tm / 1000) >= storeData.default.switchDuration){
                   rule = true;
                 }
               }
@@ -2223,7 +2224,7 @@ function signalHandler(uid, signalData, userType) {
         console.log('switchUsers ***************');
         var switchRef = setInterval( function(){
           switchBroadcasterToAudience();
-        } , 1000 * 30); 
+        } , 1000 * storeData.default.switchDuration); 
       }
     }
 
@@ -3595,16 +3596,16 @@ function signalHandler(uid, signalData, userType) {
     $("#minimize-others").click(function(){
       
       $(".slide-right-left").css({"width": "72px", "float": "right"});
-      $("#minimize-others, .right-sidebar .title").addClass('d-none');
+      //$("#minimize-others, .right-sidebar .title").addClass('d-none');
+      $("#minimize-others").addClass('d-none');
       $("#show-everyone").removeClass('d-none');
       //$(".attendee-list").css("background", "transparent");
-      $(".slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").hide();
-        
+      $(".slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").fadeOut(300);
         
       })
         
         $(".attendee-list").css("background", "transparent");
-        $(".slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").hide();
+        //$(".slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").hide();
 
 
       $("#show-everyone").click(function(){
@@ -3614,7 +3615,7 @@ function signalHandler(uid, signalData, userType) {
         $("#show-everyone").addClass('d-none');
         setTimeout(function(){
           $("#minimize-others").removeClass('d-none');
-          $(".right-sidebar .title").removeClass('d-none');
+          //$(".right-sidebar .title").removeClass('d-none');
           $(".attendee-list").css("background", "#000");
         $(".slide-right-left .title, .slide-right-left .joined-attendees .attendee-list span").fadeIn(500);
         }, 200)

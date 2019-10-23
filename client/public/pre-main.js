@@ -1783,7 +1783,7 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
         console.log('%%%%%%%%%%%%%%%%%%%%%%',channel.getMembers());
         let localData = getCurrentUserData();
         channel.getMembers().then(membersList => {
-
+            console.log('totMemberjagat-----------', membersList)
             //let totMember = membersList.length -1;
 
             let totMember = getUniqueMembers(membersList) - 1;

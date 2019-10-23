@@ -1771,7 +1771,7 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
             console.log('totMember-----------', totMember)
             let maxUserLimit = localData.default.preScreenUserLimit;
             console.log('totMember-----------', totMember,maxUserLimit)
-            $('#total-joinees').html(totMember > maxUserLimit ? `+${maxUserLimit} more` : '');
+            $('#total-joinees').html(totMember > maxUserLimit ? `+${totMember - maxUserLimit} more` : '');
             
           }).catch(error => {
             console.log('*************There is an error******');

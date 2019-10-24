@@ -180,10 +180,12 @@ class PreConfiguration extends Component {
       timerStart: this.state.timerTime
     });
 
+        
     this.timer = setInterval(() => {
       const newTime = this.state.timerTime - 10;
 
       let remSec = Math.floor(newTime / 1000);
+
       //console.log('remSec *********** ', remSec)
       if(remSec > 0 && remSec < 10){
         this.setState({
@@ -261,9 +263,16 @@ render() {
 
   let seconds = ("0" + (Math.floor((timerTime / 1000) % 60) % 60)).slice(-2);
   let minutes = ("0" + Math.floor((timerTime / 60000) % 60)).slice(-2);
-  let hours = ("0" + Math.floor((timerTime / 3600000))).slice(-2);
+  //let hours = ("0" + Math.floor((timerTime / 3600000))).slice(-2);
+  let hours = Math.floor((timerTime / 3600000));
+  
+  if(hours >= 100) {
+    hours = ("0" + hours).slice(-3);
+  } else {
+    hours = ("0" + hours).slice(-2);
+  }
 
-      console.log('seconds, minutes, hours====== ', seconds, minutes, hours);
+  //console.log('seconds, minutes, hours====== ', seconds, minutes, hours);
   //const  {user}  = this.props.auth;
 
  

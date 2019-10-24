@@ -167,7 +167,14 @@ render() {
 
     let seconds = ("0" + (Math.floor((timerTime / 1000) % 60) % 60)).slice(-2);
     let minutes = ("0" + Math.floor((timerTime / 60000) % 60)).slice(-2);
-    let hours = ("0" + Math.floor((timerTime / 3600000))).slice(-2);
+    //let hours = ("0" + Math.floor((timerTime / 3600000))).slice(-2);
+    let hours = Math.floor((timerTime / 3600000));
+
+    if(hours >= 100) {
+      hours = ("0" + hours).slice(-3);
+    } else {
+      hours = ("0" + hours).slice(-2);
+    }
 
     const  {user}  = this.props.auth;
 

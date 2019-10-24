@@ -58,7 +58,7 @@ class App extends Component {
       <div className="App">
         <Navbar />
         {/* <Route exact path="/coming-soon" component={ComingSoon} /> */}
-        <Route exact path="/login" component={Login} />
+        <Route exact path="/" component={Login} />
           <Route exact path="/session-type" component={Register} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/verify" component={Verification} />
@@ -67,7 +67,7 @@ class App extends Component {
           <Route exact path="/forgot-password" component={Forgotpassword} />
           <Route path="/verify-link/" component={Verifylink} />
           <Route exact path="/reset-password" component={ResetPassword} />
-          <Route exact path="/" component={ComingSoon} />           
+          <Route exact path="/coming-soon" component={ComingSoon} />           
           <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute exact path="/home" component={Home} />

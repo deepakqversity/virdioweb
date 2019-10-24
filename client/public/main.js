@@ -3196,9 +3196,9 @@ function signalHandler(uid, signalData, userType) {
       
       $('#pause-slider').removeClass('d-none')
       $('#play-slider').addClass('d-none')
-
+      
       if($('.swiper-slide.start.swiper-start').length > 0){
-        
+          
           // $(".start span a").trigger('click');
           $(".swiper-slide.start.swiper-start span button").trigger('click');
         
@@ -3211,9 +3211,9 @@ function signalHandler(uid, signalData, userType) {
         console.log('------------ispaused=false--------------')
      
         
-        let ftnsStartCode=storeData.rtm.ftnsStart.code;                  
-        messages=ftnsStartCode+sep;        
-        sendMessageToChannel(channelName1,messages);
+        // let ftnsStartCode=storeData.rtm.ftnsStart.code;                  
+        // messages=ftnsStartCode+sep;        
+        // sendMessageToChannel(channelName1,messages);
 
       }else{
      

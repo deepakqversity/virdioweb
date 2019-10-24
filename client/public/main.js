@@ -1707,7 +1707,7 @@ function signalHandler(uid, signalData, userType) {
 
         // }
 
- 3     }
+      }
       else if(resultant[0] == '212') {        
         $("#stop-slider").trigger('click');
 
@@ -1977,7 +1977,8 @@ function signalHandler(uid, signalData, userType) {
       {
         console.log('-------------------fitscript has Started-------------');
        // $('#hostFtnsScript').trigger('click');
-        $(".swiper-guest.swiper-slide.start.swiper-start span a").trigger('click');
+        //$(".swiper-guest.swiper-slide.start.swiper-start span a").trigger('click');
+        window.startSlider();
 
       }else if(res1[0] == "212")
       {

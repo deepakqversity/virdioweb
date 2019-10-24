@@ -69,15 +69,16 @@ function startSlider(){
     
     // console.log('countdown ======= countdown start ----', countdown)
 
-    console.log('------isPaused1112222--------',isPaused)
+   // console.log('------isPaused1112222--------',isPaused)
 
     var ctrflag = 0;
     resetCount = setInterval(function() {
      
       if(isPaused != true) {
-        console.log('------countdown11111--------',countdown)
+        //console.log('------countdown11111--------',countdown)
 
         activeEle.find('svg circle').attr("style","animation-play-state:running");
+
 
       // countdown = countdown;
       countdown--;

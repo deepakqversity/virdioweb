@@ -15,15 +15,14 @@ class FooterScriptParticipant extends Component {
   }
  
 
-
   componentDidMount(){
-    
-    
 
+    
     let localstoragedata = JSON.parse(localStorage.getItem('userData'));
     var userEmail=localstoragedata.email;
     var  userID=localstoragedata.id;
     this.setState({getEmail : userEmail});
+    
     var loadScript = function (src) {
       var tag = document.createElement('script');
       tag.async = false;
@@ -35,11 +34,13 @@ class FooterScriptParticipant extends Component {
     loadScript('/js/swiper.min.js');
     loadScript('/js/swiper-modifier.js');
     loadScript('/js/fitnessReloadScript.js');
+    //this.forceUpdate();
   }
 
   componentWillMount(){
     //console.log(1);
     // window.test();
+   // this.forceUpdate();
   }
 
   getAppearence(){  
@@ -80,7 +81,7 @@ class FooterScriptParticipant extends Component {
   handleButtonClick1 = ()=>{
     console.log('--------stopscrpt11111111-------------')
    // window.guestfitScriptStop();
-   var loadScript = function (src) {
+   let loadScript = function (src) {
     var tag = document.createElement('script');
     tag.async = false;
     tag.src = src;
@@ -96,8 +97,6 @@ class FooterScriptParticipant extends Component {
     window.mySwiper.slideTo(0, 1000, true);
   this.forceUpdate();  
 }
-
-
 
 
 

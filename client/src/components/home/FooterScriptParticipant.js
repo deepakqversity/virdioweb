@@ -40,7 +40,7 @@ class FooterScriptParticipant extends Component {
   componentWillMount(){
     //console.log(1);
     // window.test();
-    this.forceUpdate();
+   // this.forceUpdate();
   }
 
   getAppearence(){  
@@ -97,8 +97,6 @@ class FooterScriptParticipant extends Component {
     window.mySwiper.slideTo(0, 1000, true);
   this.forceUpdate();  
 }
-
-
 
 
 

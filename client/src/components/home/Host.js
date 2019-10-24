@@ -482,7 +482,7 @@ return (
               <ol className="carousel-indicators">
                 {
                   sessionData.scriptDetail.map((opt, i) =>
-                    <li data-target="#carouselExampleIndicators" data-slide-to={i} className={i==0 ? "active" : ""}></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to={i} className={i==0 ? "active" : ""} key={i}></li>
                 )}
               </ol>
               <div className="carousel-inner">
@@ -506,7 +506,7 @@ return (
 
                                 {
                                   opt.attribute.map((opt1, j) =>
-                                    <li><span>{opt1.attrLabel}</span><span>{opt1.attrValue}</span></li>
+                                    <li key={j}><span>{opt1.attrLabel}</span><span>{opt1.attrValue}</span></li>
                                 )}
                               </ul>
                             </div>
@@ -557,7 +557,6 @@ return (
                 </tr>
               </thead>
               <tbody>
-
                 {
                   sessionData.scriptDetail.map((opt, i) =>
                     <tr key={i}>

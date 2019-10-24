@@ -128,7 +128,7 @@ function startSlider(){
 
   function loadSwiperSlide1(){
     
-    let activeEle = $('.swiper-slide.newcounter .count-timer');
+    let activeEle = $('.swiper-slide .count-timer');
     console.log('-------loadSwiperSlide3333-----------',activeEle)
     //let indexNum = parseInt(activeEle.find('.data-slide').find('.countdown-number').attr('data-number'));
      //activeEle.find('.data-slide').find('.countdown-number').html(indexNum + '\ SEC');
@@ -163,13 +163,9 @@ function startSlider(){
 
 
   $(document).ready(function(){
-
-    $(".swiper-guest.swiper-slide.start.swiper-start span a").click(function(){
-      console.log('----------klklaaaaaa---------')
-      startSlider();
-    })
   
-let k=0;
+    let k=0;
+    
       console.log('----------ooooooooooooooooooooooooo---------')
     // $(".host-script-section .swiper-container-host .start span a").click(function(){
     //   console.log('----------klkliiiiiiii---------', k++)

@@ -194,7 +194,7 @@ let sessionScript = localstoragedata.sessionData.scriptDetail;
               <div className="swiper-wrapper align-items-center fitness-guest">
                 <div className="swiper-guest swiper-slide position-relative start">              
                   <span className="position-relative" id="swip_slide">
-                    <a href="#">Start</a>
+                    <a href="javascript:void(0)">Start</a>
                   </span>
                   <div className="prevent-click"></div>
                 </div>

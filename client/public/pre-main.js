@@ -1762,16 +1762,35 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
         // }
       }
 
+      function getUniqueMembers(membersList) {
+          if (membersList.length > 0) {
+              var uniqueCount = 0;
+
+              $.each(membersList, function (index, value) {
+                // alert(value)
+                // alert(value.includes("RM-"));
+                if (value.includes("RM-") === false) {
+                    uniqueCount++;
+                }
+
+              });
+
+              return uniqueCount;
+          }
+      }
 
       function totalChannelMembers(){
         console.log('%%%%%%%%%%%%%%%%%%%%%%',channel.getMembers());
         let localData = getCurrentUserData();
         channel.getMembers().then(membersList => {
-            let totMember = membersList.length -1;
-            console.log('totMember-----------', totMember)
+            console.log('totMemberjagat-----------', membersList)
+            //let totMember = membersList.length -1;
+
+            let totMember = getUniqueMembers(membersList) - 1;
+            //console.log('totMember-----------', totMember)
             let maxUserLimit = localData.default.preScreenUserLimit;
             console.log('totMember-----------', totMember,maxUserLimit)
-            $('#total-joinees').html(totMember > maxUserLimit ? `+${maxUserLimit} more` : '');
+            $('#total-joinees').html(totMember > maxUserLimit ? `+${totMember - maxUserLimit} more` : '');
             
           }).catch(error => {
             console.log('*************There is an error******');
@@ -1784,8 +1803,11 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
         let strArray1 =  JSON.parse(localStorage.getItem('rtm-join-order'));
         let strArray = localStorage.getItem("rtm-join-order");
         console.log('---------strArray---------',strArray1);
+
         channel.getMembers().then(membersList => {
-            let totMember = membersList.length;
+            //let totMember = membersList.length;
+            let totMember = getUniqueMembers(membersList);
+
             console.log('---------totMemberlalit---------', membersList);
             let maxUserLimit = localData.default.preScreenUserLimit;
             console.log('totMember maxUserLimit', totMember, maxUserLimit);
@@ -1810,7 +1832,8 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
             }
             console.log('totMember maxUserLimit ===', totMember, maxUserLimit);
 
-            $('#total-joinees').html(totMember-1 > maxUserLimit ? `+${maxUserLimit} more=` : '');
+            totMember = totMember-1;
+            $('#total-joinees').html(totMember > maxUserLimit ? `+${totMember - maxUserLimit} more` : '');
             
           }).catch(error => {
             console.log('*************There is an error******');
@@ -1821,7 +1844,8 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
         setTimeout(()=>{}, 2000);
         let localData = getCurrentUserData();
         channel.getMembers().then(membersList => {
-            let totMember = membersList.length;
+            //let totMember = membersList.length;
+            let totMember = getUniqueMembers(membersList);
             for(let i= totMember-1; i >= 0 ; i--){
               if(getUserDataFromList(membersList[i], 'userType') == 2){
                 if(membersList[i] != id && $('#joinee-' + convertEmailToId(membersList[i])).length == 0 ){
@@ -1831,7 +1855,7 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
               }
             }
             let maxUserLimit = localData.default.preScreenUserLimit;
-            $('#total-joinees').html(totMember-1 > maxUserLimit ? `+${maxUserLimit} more` : '');
+            $('#total-joinees').html(totMember-1 > maxUserLimit ? `+${(totMember-1) - maxUserLimit} more` : '');
             
           }).catch(error => {
             console.log('*************There is an error******');

@@ -178,7 +178,7 @@ render() {
     const  {user}  = this.props.auth;
 
     let localstoragedata = JSON.parse(localStorage.getItem('userData'));
-    console.log('localstoragedata=============', localstoragedata)
+    //console.log('localstoragedata=============', localstoragedata)
     let sessionData = localstoragedata.sessionData;
    
     let localDate = moment(sessionData.scheduleDate).format('MM/DD/YYYY # h:mm a');

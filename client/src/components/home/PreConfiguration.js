@@ -79,7 +79,6 @@ class PreConfiguration extends Component {
 
     this.fetchUsers();
 
-
     let localstoragedata = JSON.parse(localStorage.getItem('userData'));
     this.setState({sessionScript: localstoragedata.sessionData.id});
     let scDate = localstoragedata.sessionData.scheduleDate;
@@ -87,7 +86,6 @@ class PreConfiguration extends Component {
     // console.log('scDate= ',scDate, new Date(scDate).getTime(), new Date().getTime())
 
     scDate = (new Date(scDate).getTime()) - (new Date().getTime());
-    // console.log('scDate- ', scDate)
     this.setState({timerTime: scDate});// 1 sec 1000 = 1sec
     this.setState({interest:localstoragedata.sessionData.code});
   }
@@ -181,11 +179,12 @@ class PreConfiguration extends Component {
       timerTime: this.state.timerTime,
       timerStart: this.state.timerTime
     });
+
     this.timer = setInterval(() => {
       const newTime = this.state.timerTime - 10;
 
       let remSec = Math.floor(newTime / 1000);
-      // console.log('remSec *********** ', remSec)
+      //console.log('remSec *********** ', remSec)
       if(remSec > 0 && remSec < 10){
         this.setState({
           timerTime: newTime
@@ -204,7 +203,6 @@ class PreConfiguration extends Component {
         clearInterval(this.timer);
         this.setState({ timerOn: false });
         $('.countdown-timer').html('Session Started')
-        //alert("Countdown ended");
       }
     }, 10);
   };
@@ -263,8 +261,9 @@ render() {
 
   let seconds = ("0" + (Math.floor((timerTime / 1000) % 60) % 60)).slice(-2);
   let minutes = ("0" + Math.floor((timerTime / 60000) % 60)).slice(-2);
-  let hours = ("0" + Math.floor((timerTime / 3600000) % 60)).slice(-2);
-      // console.log('seconds, minutes, hours====== ', seconds, minutes, hours);
+  let hours = ("0" + Math.floor((timerTime / 3600000))).slice(-2);
+
+      console.log('seconds, minutes, hours====== ', seconds, minutes, hours);
   //const  {user}  = this.props.auth;
 
  

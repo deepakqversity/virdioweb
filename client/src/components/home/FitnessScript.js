@@ -34,6 +34,7 @@ class FitnessScript extends Component {
   }
   
     handleButtonClick(){
+      $('#hostFtnsScript').removeAttr('disabled');
       console.log('--------stopscrpt22222222-------------')
       var loadScript = function (src) {
         var tag = document.createElement('script');
@@ -60,6 +61,7 @@ class FitnessScript extends Component {
   }
   
   fitnessScriptStart(){  
+    $('#hostFtnsScript').attr('disabled', 'disabled');
    // window.startSlider();
    window.starthostslider();
     //$('#ftnsStart').trigger('click');
@@ -113,12 +115,12 @@ return (
                 <div className="animate-display bg-gray position-relative top-rounded d-md-flex justify-content-between align-items-center px-3 py-3 add-remove-round ">
                   <h3 className="main-heading font-size-16">Fitness Script <span className="ml-md-4 font-size-16"><span id="fitness-counter">0</span>/{sessionScript.length} {localstoragedata.sessionData.scriptType}</span><span id="script_name" className="script_name d-none"></span><span id="script_time" className="script_time d-none"></span></h3>
                   
-                  <a href="#" className=" mr-2 play-pause-btn" id="play-slider" onClick={this.fitnessScriptPlay.bind(this)}><img src="images/play.png" /></a>
-                  <a href="#" className=" mr-2 play-pause-btn d-none" id="pause-slider" onClick={this.fitnessScriptPause.bind(this)}><img src="images/pause.png" /></a>
+                  <a href="javascript:void(0)" className=" mr-2 play-pause-btn" id="play-slider" onClick={this.fitnessScriptPlay.bind(this)}><img src="images/play.png" /></a>
+                  <a href="javascript:void(0)" className=" mr-2 play-pause-btn d-none" id="pause-slider" onClick={this.fitnessScriptPause.bind(this)}><img src="images/pause.png" /></a>
                   {/* <a href="#"  className=" mr-2 stop-btn" id="stop-slider"><img src="images/stop.png" /></a> */}
                   <button onClick={this.handleButtonClick.bind(this)} className=" mr-2 stop-btn" id="stop-slider"><img src="images/stop.png" /></button>
                   {/* <a href="#" className=" mr-5 show-hide-script"><img src="images/showscript.png" /></a> */}
-                  <a href="#" data-toggle="modal" data-target="#fitness-script" tabIndex="1" className="mr-5 show-fitness-script" id="fitnesScript"><img src="images/showscript.png" /></a>
+                  <a href="javascript:void(0)" data-toggle="modal" data-target="#fitness-script" tabIndex="1" className="mr-5 show-fitness-script" id="fitnesScript"><img src="images/showscript.png" /></a>
                 </div>
               
               <div className="bg-gray bottom-rounded px-3 pb-2 item-description d-block script-section mt--1 flex-grow-1">

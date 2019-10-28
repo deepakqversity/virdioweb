@@ -34,7 +34,7 @@ class FitnessScript extends Component {
   }
   
     handleButtonClick(){
-      $('#hostFtnsScript').removeAttr('disabled');
+      $('#host_slider_ftnes').removeAttr('style');
       console.log('--------stopscrpt22222222-------------')
       var loadScript = function (src) {
         var tag = document.createElement('script');
@@ -60,8 +60,8 @@ class FitnessScript extends Component {
     // window.test();
   }
   
-  fitnessScriptStart(){  
-    $('#hostFtnsScript').attr('disabled', 'disabled');
+  fitnessScriptStart(){
+    $('#host_slider_ftnes').attr("style", 'pointer-events:none');
    // window.startSlider();
    window.starthostslider();
     //$('#ftnsStart').trigger('click');
@@ -130,8 +130,8 @@ return (
                       <div className="swiper-wrapper">
                         <div className="swiper-slide start">
                           <span className="countdown-number d-none">0</span>
-                          <span id="host_slider_ftnes">
-                            <button id="hostFtnsScript" onClick={this.fitnessScriptStart.bind(this)}>Start</button>
+                          <span id="host_slider_ftnes" onClick={this.fitnessScriptStart.bind(this)}>
+                            <button id="hostFtnsScript">Start</button>
                           </span>
                         </div>
                         

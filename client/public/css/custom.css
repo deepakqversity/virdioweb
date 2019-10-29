@@ -3436,9 +3436,13 @@ background-position: right;
 
 position: absolute;
 
-left:-27px;
+left: -13px;
 
 }
+
+.totalText {
+    font-size: 18px;
+    }
 
  
 

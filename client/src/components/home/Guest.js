@@ -710,7 +710,7 @@ return (
                         <div class="col-md-11"></div>                                          
                         <div class="col-md-1">
                           <p>Total</p>
-                          <div>$462</div>
+                          <div class="totalText">$462</div>
                         </div>
                     </div>                    
                   </div>

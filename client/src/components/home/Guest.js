@@ -480,6 +480,7 @@ return (
               <div class="modal-header violetborder">
                 <h4 class="modal-title white">Order Wines that were tasted</h4>
                 {/*<button type="button" class="close white closepopup" data-dismiss="modal">&times;</button>*/}
+                <button type="button" class="close white closepopup" data-dismiss="modal">&times;</button>
               </div>
               
               <div class="modal-body">

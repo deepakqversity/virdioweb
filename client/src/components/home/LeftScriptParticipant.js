@@ -66,7 +66,7 @@ return (
           {(
             ()=>{
                 if(localstoragedata.userType == 2 && sessionData.interestId == 1) {
-                  return <button type="button" className="mt-4 btn btn-outline-secondary show-details-btn"><img src="images/shopping-cart.png" /></button>;
+                  return <button type="button" className="shopping-btn"><img src="images/shopping-icon.png" />Order Wine</button>;
                 } else {                          
                   return <button type="button" data-toggle="modal" data-target="#show-details4" className="mt-4 btn btn-outline-secondary show-details-btn">"Show Details"</button>;
                 }

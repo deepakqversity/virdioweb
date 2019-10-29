@@ -3346,6 +3346,12 @@ position: absolute;
 
 /*------------Order Wines slide 22---------*/
 
+.closepopup {
+    color: #BD00FF !important;
+    font-size: 32px !important;
+    font-weight: normal !important;
+}
+
 .suborder{
 
     margin: 0 auto;
@@ -3403,13 +3409,9 @@ position: absolute;
 }
 
 .winesbg .aroma-icon{
-
-width: 33px;
-
-height: 33px;
-
-margin: 2px;
-
+    width: 34px;
+    height: 34px;
+    margin: 2px;
 }
 
  
@@ -3441,10 +3443,24 @@ left: -13px;
 }
 
 .totalText {
-    font-size: 18px;
+    font-size: 25px;
     }
 
- 
+     .shopping-btn
+    {
+        padding: 10px 15px;
+        background-color: #bd00ff;
+        color: white;
+        outline: none;
+        border: none;
+        border-radius: 8px;
+    }
+    .shopping-btn img
+    {
+        width: 16px;
+        margin-right: 10px;
+
+    }
 
 @media only screen and (max-width: 610px) {
 
@@ -3504,7 +3520,7 @@ text-transform: uppercase;
 
     border-bottom: 1px solid #414141 !important;
 
-    padding-bottom: 92px !important;
+    padding-bottom: 92.5px !important;
 
 }
 
@@ -3528,7 +3544,7 @@ text-transform: uppercase;
 
     display: flex;
 
-    margin-bottom: 13px;
+    margin-bottom: 12px;
 
 }
 

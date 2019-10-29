@@ -267,9 +267,21 @@ return (
                          <a href="#" className="btn btn-primary ml-2 d-none" id="strm-unpublish" alt="Audience" title="Audience"><i className="fa fa-user-times"></i></a>*/}
 
                       {/* <button className="btn btn-primary ml-2" onClick={this.onLogoutClick} tabIndex="1"><i className="fa fa-power-off"></i></button> */}
-                      <button className="ml-2 logout-btn" onClick={this.callfunction.bind(this)} tabIndex="1">
+                      
+                      {(
+                        ()=>{
+                            if(localstoragedata.userType == 2 && sessionData.interestId == 1) {
+                              return <button className="ml-2 logout-btn" data-toggle="modal" data-target="#cart-details"><i className="fa fa-times" aria-hidden="true"></i></button>;
+                            } else {                          
+                              return <button className="ml-2 logout-btn" onClick={this.callfunction.bind(this)} tabIndex="1"><i className="fa fa-times" aria-hidden="true"></i></button>;
+                            }
+                        }
+                      )()}
+
+                      {/*<button className="ml-2 logout-btn" onClick={this.callfunction.bind(this)} tabIndex="1">
                         <i className="fa fa-times" aria-hidden="true"></i>
-                      </button>
+                      </button>*/}
+
                   </div>
                   <div className="text-danger" style={{color:'#fff'}} id="exptn-errors"></div>
                 </div>
@@ -459,6 +471,63 @@ return (
         </div>
       </div>
 
+
+      <div className="modal music-list" id="cart-details">
+        <div className="modal-dialog  rounded">
+          <div className="modal-content bg-gray">
+            
+            <div className="modal-header">
+              <button type="button" className="close" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <div className="modal-body">
+              <ul className="music-playlist">
+                <li><a href="#">
+                  <span>If I Can’t Have You</span>
+                  <span>Shawn Mendes • If I Can’t Have You</span>
+                  <span>3:10</span>
+                </a></li>
+                <li><a href="#">
+                  <span>If I Can’t Have You</span>
+                  <span>Shawn Mendes • If I Can’t Have You</span>
+                  <span>3:10</span>
+                </a></li>
+                <li><a href="#">
+                  <span>If I Can’t Have You</span>
+                  <span>Shawn Mendes • If I Can’t Have You</span>
+                  <span>3:10</span>
+                </a></li>
+                <li><a href="#">
+                  <span>If I Can’t Have You</span>
+                  <span>Shawn Mendes • If I Can’t Have You</span>
+                  <span>3:10</span>
+                </a></li>
+                <li><a href="#">
+                  <span>If I Can’t Have You</span>
+                  <span>Shawn Mendes • If I Can’t Have You</span>
+                  <span>3:10</span>
+                </a></li>
+                <li><a href="#">
+                  <span>If I Can’t Have You</span>
+                  <span>Shawn Mendes • If I Can’t Have You</span>
+                  <span>3:10</span>
+                </a></li>
+                <li><a href="#">
+                  <span>If I Can’t Have You</span>
+                  <span>Shawn Mendes • If I Can’t Have You</span>
+                  <span>3:10</span>
+                </a></li>
+                <li><a href="#">
+                  <span>If I Can’t Have You</span>
+                  <span>Shawn Mendes • If I Can’t Have You</span>
+                  <span>3:10</span>
+                </a></li>
+              </ul>
+              <button type="button" className="ml-2 logout-btn" onClick={this.callfunction.bind(this)} tabIndex="1">Submit Order</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
   </div>
     );

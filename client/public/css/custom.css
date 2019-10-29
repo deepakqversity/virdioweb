@@ -3343,3 +3343,219 @@ position: absolute;
     font-family: Avenir-Medium;
     font-size: 15px;
 }
+
+/*------------Order Wines slide 22---------*/
+
+.suborder{
+
+    margin: 0 auto;
+
+    width: 190px;
+
+    height: 60px;
+
+    }
+
+    .suborder-2{
+
+    border-radius: 35px;
+
+    background: #5d067c;
+
+    color: #fff;
+
+    text-align: center;
+
+    font-family: "Avenir-Book";
+
+    font-size: 18px;
+
+    text-transform: uppercase;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    border:none;
+
+    width: 190px;
+
+    height: 60px;
+
+    margin-top: 80px;
+
+    letter-spacing: 2px;
+
+}
+
+.winesbg{
+
+    background: #343434 !important;
+
+    max-width: 1300px !important;
+
+    margin:0 auto;
+
+    border:none !important;
+
+    color: #fff;
+
+}
+
+.winesbg .aroma-icon{
+
+width: 33px;
+
+height: 33px;
+
+margin: 2px;
+
+}
+
+ 
+
+.winesbg h1{
+
+color: #fff;
+
+font-family: Avenir-Medium;
+
+font-size: 20px;
+
+padding-bottom: 20px;
+
+}
+
+.winesbg h2:before {
+
+content: url(../images/eye.png);
+
+background-repeat: no-repeat;
+
+background-position: right;
+
+position: absolute;
+
+left:-27px;
+
+}
+
+ 
+
+@media only screen and (max-width: 610px) {
+
+    .winesbg h2:before {
+
+content: url(../images/eye.png);
+
+background-repeat: no-repeat;
+
+background-position: right;
+
+position: absolute;
+
+left:-14px !important;
+
+}
+
+ }
+
+ 
+
+.winesbg h2{
+
+color: #fff;
+
+font-family: Avenir-Medium;
+
+font-size: 20px;
+
+padding-bottom: 20px;
+
+}
+
+ 
+
+.winesbg p{
+
+color: #fff;
+
+font-family: "Avenir-Book";
+
+font-size: 15px;
+
+text-transform: uppercase;
+
+}
+
+.border-bot{
+
+    border-bottom: 1px solid #414141 !important;
+
+    margin-bottom: 25px;
+
+}
+
+.border-total{
+
+    border-bottom: 1px solid #414141 !important;
+
+    padding-bottom: 92px !important;
+
+}
+
+.border-qty{
+
+    border-bottom: 1px solid #414141 !important;
+
+    padding-bottom: 15px !important;
+
+}
+
+.violetborder{
+
+   border-bottom: 2px solid #9b51e0 !important;
+
+}
+
+ 
+
+.quantity{
+
+    display: flex;
+
+    margin-bottom: 13px;
+
+}
+
+.quantity-digit{
+
+padding: 10px 18px 0px 10px;
+
+}
+
+.quantity-score{
+
+    width: 57px;
+
+    margin:0 auto;
+
+    background: #ccc;
+
+}
+
+.order-bt{
+
+    width: 267px;
+
+    margin: 0 auto !important;
+
+}
+
+.ss{
+
+    float: right !important;
+
+}
+
+/*------------End Order Wines slide 22---------*/

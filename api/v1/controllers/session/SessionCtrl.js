@@ -2,6 +2,7 @@ const auth = require('../../auth/Auth');
 const isEmpty = require("is-empty");
 const underscore = require("underscore");
 const sessionModel = require('../../models/Session');
+const sessionUserModel = require('../../models/SessionUser');
 const sessionScriptModel = require('../../models/SessionScript');
 const sessionScriptMappingModel = require('../../models/SessionScriptMapping');
 const scriptAttributesModel = require('../../models/ScriptAttributes');

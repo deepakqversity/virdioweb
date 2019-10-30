@@ -14,4 +14,13 @@ route
   .get('/:sessionId/:userId/stream-id', auth.verifyToken, SessionCtrl.getStreamUser)
   .post('/activity-log', auth.verifyToken, SessionCtrl.activityLogs)
 
+  .get('/:channelId/channel', SessionCtrl.getSessionsByChannel)
+  .get('/:sessionId/sess', SessionCtrl.getSessionDetail1)
+  .get('/:userId/product', SessionCtrl.getAllProductByHost)
+  .get('/:sessionId', auth.verifyToken, SessionCtrl.getSessions1)
+  //.post('/create', auth.verifyToken, SessionCtrl.createSession)
+  .post('/create',  SessionCtrl.createSession)
+  .get('/check/:sessionName', auth.verifyToken, SessionCtrl.checkDuplicateSession)
+  .get('/hosts-list/:channelId', auth.verifyToken, SessionCtrl.getHosts)
+
 module.exports = route;

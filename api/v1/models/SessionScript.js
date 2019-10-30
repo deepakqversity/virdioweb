@@ -124,7 +124,26 @@ class SessionScript{
 			  // db.end();
 			});
         });
-	}	
+	}
+	
+	
+	async add(data) {
+		let table = this.table;
+		return await new Promise((resolve, reject) => {
+			db.query('INSERT INTO ?? SET name=?, description=?, userId=?, interestId=?, status=1', 
+					[
+						table,
+						data.name, 
+						data.description,
+						data.userId,
+						data.interestId
+					], function (error, results, fields) {
+			  if (error) reject(error);
+
+			  return resolve(isEmpty(results) ? 0 : results.insertId);
+			});
+		});
+	}
 }
 
 module.exports = new SessionScript();

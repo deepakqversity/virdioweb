@@ -19,6 +19,18 @@ class ScriptAttributes{
 			});
         })
 	}
+
+	async add(data) {
+		let table = this.table;
+        return await new Promise((resolve, reject) => {
+        	
+        	db.query('INSERT INTO ?? (sessionScriptId, attrLabel, attrValue, status, orderBy) VALUES ?', [table, data], function (error, results, fields) {
+			  if (error) reject(error);
+			  
+			  return resolve(isEmpty(results) ? 0 : results.insertId);
+			});
+        })
+	}
 	
 }
 

@@ -114,7 +114,17 @@ class PreConfiguration extends Component {
    
    //   this.checkHostSession();
     
-    
+      if(JSON.parse(localStorage.getItem('userData')).userType == 2) {
+
+        let sessionTime = localStorage.getItem("pre-session-time");
+        console.log('----sessionTime----', sessionTime);
+        if(sessionTime != null){
+          sessionTime = JSON.parse(sessionTime);
+          sessionTime['joinTime'] = (new Date()).getTime();
+          localStorage.setItem("pre-session-time", JSON.stringify(sessionTime));
+        }
+      }
+
       console.log('#####join####button########');
 
       //alert('hello');
@@ -243,8 +253,12 @@ class PreConfiguration extends Component {
             
           this.setState({
             isHostJoined: true
-            });
-          //  $('#continue-join').prop("disabled", false);
+          });
+
+            let sessionTime = {};
+            sessionTime['startTime'] = (new Date()).getTime();
+            sessionTime['joinTime'] = ''
+            localStorage.setItem("pre-session-time", JSON.stringify(sessionTime));
           }
 
         });
@@ -447,7 +461,7 @@ render() {
 
                   </div>
                   
-                </div>) : (<div></div>)}
+                </div>) : (<div><div className="row mt-5"></div></div>)}
             </div>
           </div>
           <div className="flex-grow-1 select-audio">

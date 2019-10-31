@@ -86,7 +86,7 @@ return (
         
       </div>
     ) : (
-      this.props.sessId == 2 ? (
+      this.props.interestId == 2 ? (
       <div className="h-100 col-lg-1 col-md-1 col-sm-1 col-1 max-width-300 d-flex">
         <div className="left-section mt-3 ml-4">
           <div className="bpm-bar">

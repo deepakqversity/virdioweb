@@ -297,7 +297,7 @@ return (
     
     <div className="d-flex justify-content-between zindex-5 position-relative flex-grow-1 attend-mid-section">
     
-    <LeftScriptParticipant sessId={sessionData.id} />
+    <LeftScriptParticipant interestId={sessionData.interestId} />
     
     <div className="col-lg-3 col-md-4 col-sm-5 col-6 max-width-300 float-right pl-0 mt-4">
         <div className="right-sidebar">
@@ -321,7 +321,7 @@ return (
   </div>
     <footer className="footer position-relative zindex-5 count-box mb-5 mb-lg-2 mt-4">
       
-      <FooterScriptParticipant sessId={sessionData.id} />
+      <FooterScriptParticipant interestId={sessionData.interestId} />
 
       <div className="self-video1 mt-3 w-50">
           

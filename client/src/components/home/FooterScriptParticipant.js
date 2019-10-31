@@ -109,7 +109,7 @@ let sessionScript = localstoragedata.sessionData.scriptDetail;
   return (
     
        <div>
-       { this.props.sessId == 1 ? (
+       { this.props.interestId == 1 ? (
        
           <div className="participent-emoji">
             <ul className="bottom-links flex-wrap list-group list-group-horizontal mx-auto d-md-flex justify-content-center py-xs-1">
@@ -159,7 +159,7 @@ let sessionScript = localstoragedata.sessionData.scriptDetail;
            </ul>
          </div>
       ) : (
-      this.props.sessId == 2 ? (
+      this.props.interestId == 2 ? (
         <div className="w-75 swiper-fitness-container float-left">
           <div className="fitness-emoji d-none">
             <h3>How are you feeling?</h3>

@@ -8,6 +8,7 @@ class ScriptAttributes{
 	}
 
 	async getAttributesByIds(sessionScriptIds) {
+		console.log('!!!!!!!!!!!!', sessionScriptIds);
 		let table = this.table;
         return await new Promise((resolve, reject) => {
         	

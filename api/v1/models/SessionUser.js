@@ -1,4 +1,5 @@
 const db = require(process.cwd() + '/library/Mysql');
+const isEmpty = require("is-empty");
 
 class SessionUser{
 
@@ -116,6 +117,30 @@ class SessionUser{
 			  // console.log('================== 123 results ', results)
 			  // db.end();
 			  return resolve(results);
+			});
+		});
+	}
+
+
+	/**
+	 * Insert New session User
+	 * @param  {int} userId
+	 * @param  {int} sessionId
+	 * @return {obj} 
+	 */
+	async addSessionUser(sessionId,userId) {
+        let table = this.table;
+        console.log('----------sessionId2222------------------',sessionId,table,userId)
+		return await new Promise((resolve, reject) => {
+			db.query('INSERT INTO ?? SET sessionId=?, userId=?, type=1, sessionStatus=0, status=1', 
+					[
+						table,
+						sessionId, 
+						userId
+					], function (error, results, fields) {
+			  if (error) reject(error);
+			  console.log('----------resultsessionuser------------------',results)
+			  return resolve(isEmpty(results) ? 0 : results.insertId);
 			});
 		});
 	}

@@ -180,7 +180,7 @@ class Session{
 						data.zoneTracking
 						], function (error, results, fields) {
 			  if (error) reject(error);
-			  console.log('================== ************ results ', results)
+			  console.log('==========lalitErr======== ************ results ', results)
 			  return resolve(isEmpty(results) ? 0 : results.insertId);
 			});
 		});

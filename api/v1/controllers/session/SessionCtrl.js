@@ -2,6 +2,8 @@ const auth = require('../../auth/Auth');
 const isEmpty = require("is-empty");
 const underscore = require("underscore");
 const sessionModel = require('../../models/Session');
+const sessionUserModel = require('../../models/SessionUser');
+const sessionConfigMappingModel = require('../../models/SessionConfigMapping');
 const sessionScriptModel = require('../../models/SessionScript');
 const sessionScriptMappingModel = require('../../models/SessionScriptMapping');
 const scriptAttributesModel = require('../../models/ScriptAttributes');
@@ -231,11 +233,27 @@ class SessionCtrl {
 
 			if(sessionId > 0){
 
-				//let userId=11;
+				let userId=11;
 
-				//let sessionUserId = await SessionUserModel.addSessionUser(sessionId,userID);
+				
+				let sessionUserId;
 
-				console.log('----------sessionId------------------',sessionId)
+				 sessionUserId = await sessionUserModel.addSessionUser(sessionId,userId);
+
+			
+					let c1=2;
+					let c2=3;
+
+					let dataval = [
+						[ sessionId, c1],
+						[ sessionId, c2],            
+					];
+			
+					console.log('----------dataval------------------',dataval)
+
+				let sessionconfig = await sessionConfigMappingModel.addSessionConfig(dataval);
+
+				console.log('----------sessionId5555------------------',sessionId)
 
 				if(false === isEmpty(req.body.activities)){
 					

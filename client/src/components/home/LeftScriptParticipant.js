@@ -23,7 +23,7 @@ render() {
 
 return (
       <div className="col-lg-4 col-md-6 col-sm-6 col-6 max-width-300">
-      { this.props.sessId == 1 ? (
+      { sessionData.interestId == 1 ? (
 
         
       <div className="">

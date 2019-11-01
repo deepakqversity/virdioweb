@@ -37,7 +37,31 @@ class Session{
 			  if (error) reject(error);
 			  // console.log('================== ************ results ', results)
 			  // db.end();
+			  //return resolve(results[0]);
+			  return resolve(results);
+			});
+        });
+	}
+
+
+
+	 /**
+	 * Get session detail by sessionId and user id
+	 * @param  {int} sessionId 
+	 * @param  {int} userId 
+	 * @return {obj} 
+	 */
+	async findSessionDetail1(sessionId, userId) {
+
+		console.log('-----sessionId, userId----------',sessionId, userId)
+		
+        return await new Promise((resolve, reject) => {
+        	db.query('SELECT s.*, su.type, su.sessionType, su.userId  FROM session_users su LEFT JOIN sessions s ON s.id = su.sessionId  WHERE su.status = 1 AND su.sessionId = ? AND su.userId = ?', [sessionId, userId], function (error, results, fields) {
+			  if (error) reject(error);
+			   console.log('=======lalittiwari=========== ************ results ', results)
+			  // db.end();
 			  return resolve(results[0]);
+
 			});
         });
 	}
@@ -142,7 +166,7 @@ class Session{
 	 */
 	async findAllPrevSessionByChannel(channelId){
         return await new Promise((resolve, reject) => {
-        	db.query('SELECT s.* FROM session_users su LEFT JOIN sessions s ON s.id = su.sessionId LEFT JOIN channel_host ch ON ch.hostId= su.userId WHERE su.status = 1 AND ch.channelId = ? group by s.id', [channelId], function (error, results, fields) {
+        	db.query('SELECT s.* FROM session_users su INNER JOIN sessions s ON s.id = su.sessionId INNER JOIN channel_host ch ON ch.hostId= su.userId WHERE su.status = 1 AND ch.channelId = ? group by s.id', [channelId], function (error, results, fields) {
 			  if (error) reject(error);			  
 			  return resolve(results);
 			});

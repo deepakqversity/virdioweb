@@ -169,7 +169,7 @@ class SessionCtrl {
 	async getSessionsByChannel(req, res) {
 
 		let userId = req.params.channelId;
-		 //console.log('------asdds+++++lalit-----------',req.params.channelId);
+		 console.log('------asdds+++++lalit-----------',req.params.channelId);
 	    try {			
 			let sessionObj = await sessionModel.findAllPrevSessionByChannel(req.params.channelId);
 			 console.log('sessionObj======lalit--------=======',sessionObj);
@@ -320,7 +320,7 @@ class SessionCtrl {
 	    try {
 			let user_id=11;
 			console.log('------userid-----------',user_id)
-			let sessionObj = await sessionModel.findSessionDetail(req.params.sessionId, user_id);
+			let sessionObj = await sessionModel.findSessionDetail1(req.params.sessionId, user_id);
 
 			console.log('sessionObj ====munmun=========== ',sessionObj);
 			

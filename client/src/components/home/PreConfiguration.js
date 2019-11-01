@@ -549,7 +549,7 @@ render() {
             <input type="checkbox" id="set-default" /><label htmlFor="set-default">Save as Default Setting</label>
             </div> */}
              
-              <div className="col-lg-8">
+              <div className="col-lg-9">
               
                 <h6 className="small-heading mb-2 no-border">Joined</h6>
                 <span id='newmsg' className="welcome-msg"></span>
@@ -564,7 +564,7 @@ render() {
                 </div>
 
               </div>
-              <div className="col-lg-4">
+              <div className="col-lg-3">
                 <div className="d-flex justify-content-end flex-wrap">
 
                   <button type="submit" className="w110 mr-4 btn-cancel btn btn-large btn-leave btn-outline-secondary rounded py-1 px-4" onClick={this.callfunction.bind(this)} >Leave</button>
@@ -712,7 +712,7 @@ render() {
           </div>
         </div>
       </div>
-
+      <span id="joiner-name-width" style={{color:'#000'}}></span>
       </div>
     );
   }

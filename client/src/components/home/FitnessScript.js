@@ -60,7 +60,8 @@ class FitnessScript extends Component {
     // window.test();
   }
   
-  fitnessScriptStart(){
+
+  fitnessScriptStart(){  
     $('#host_slider_ftnes').attr("style", 'pointer-events:none');
    // window.startSlider();
    window.starthostslider();

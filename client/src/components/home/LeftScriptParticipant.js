@@ -23,7 +23,7 @@ render() {
 
 return (
       <div className="col-lg-4 col-md-6 col-sm-6 col-6 max-width-300">
-      { this.props.sessId == 1 ? (
+      { sessionData.interestId == 1 ? (
 
         
       <div className="">
@@ -61,7 +61,19 @@ return (
           )}
                     
           </div>
-          <button type="button" data-toggle="modal" data-target="#show-details4" className="mt-4 btn btn-outline-secondary show-details-btn">"Show Details"</button>
+          {/* <button type="button" data-toggle="modal" data-target="#show-details4" className="mt-4 btn btn-outline-secondary show-details-btn">"Show Details"</button> */}
+          
+          {(
+            ()=>{
+                if(localstoragedata.userType == 2 && sessionData.interestId == 1) {
+                  return <button type="button" className="shopping-btn"><img src="images/shopping-icon.png" />Order Wine</button>;
+                } else {                          
+                  return <button type="button" data-toggle="modal" data-target="#show-details4" className="mt-4 btn btn-outline-secondary show-details-btn">"Show Details"</button>;
+                }
+            }
+          )()}
+
+          
           <a className="carousel-control-prev d-none" href="#demo" data-slide="prev">
             <span className="carousel-control-prev-icon"></span>
           </a>
@@ -74,7 +86,7 @@ return (
         
       </div>
     ) : (
-      this.props.sessId == 2 ? (
+      this.props.interestId == 2 ? (
       <div className="h-100 col-lg-1 col-md-1 col-sm-1 col-1 max-width-300 d-flex">
         <div className="left-section mt-3 ml-4">
           <div className="bpm-bar">

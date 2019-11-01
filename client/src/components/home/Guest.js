@@ -250,7 +250,7 @@ return (
                             if(sessionData.interestId == 1) {
                                 return <a className="col-2 justify-content-end d-flex align-items-center" href="#" data-toggle="modal" data-target="#show-details4" className="btn btn-primary" tabIndex="1">Details</a>;
                             } else {                      
-                                return <a className="btn  btn-primary border-right pr-20" href="javascript:void(0)" data-toggle="modal" data-target="#fitness-script" tabIndex="1">Details</a>;             
+                                return <a className="btn  btn-primary border-right pr-20" href="#!" data-toggle="modal" data-target="#fitness-script" tabIndex="1">Details</a>;             
                             }
                         }
                     )()}
@@ -267,9 +267,21 @@ return (
                          <a href="#" className="btn btn-primary ml-2 d-none" id="strm-unpublish" alt="Audience" title="Audience"><i className="fa fa-user-times"></i></a>*/}
 
                       {/* <button className="btn btn-primary ml-2" onClick={this.onLogoutClick} tabIndex="1"><i className="fa fa-power-off"></i></button> */}
-                      <button className="ml-2 logout-btn" onClick={this.callfunction.bind(this)} tabIndex="1">
+                      
+                      {(
+                        ()=>{
+                            if(localstoragedata.userType == 2 && sessionData.interestId == 1) {
+                              return <button className="ml-2 logout-btn" data-toggle="modal" data-target="#cart-details"><i className="fa fa-times" aria-hidden="true"></i></button>;
+                            } else {                          
+                              return <button className="ml-2 logout-btn" onClick={this.callfunction.bind(this)} tabIndex="1"><i className="fa fa-times" aria-hidden="true"></i></button>;
+                            }
+                        }
+                      )()}
+
+                      {/*<button className="ml-2 logout-btn" onClick={this.callfunction.bind(this)} tabIndex="1">
                         <i className="fa fa-times" aria-hidden="true"></i>
-                      </button>
+                      </button>*/}
+
                   </div>
                   <div className="text-danger" style={{color:'#fff'}} id="exptn-errors"></div>
                 </div>
@@ -285,7 +297,7 @@ return (
     
     <div className="d-flex justify-content-between zindex-5 position-relative flex-grow-1 attend-mid-section">
     
-    <LeftScriptParticipant sessId={sessionData.id} />
+    <LeftScriptParticipant interestId={sessionData.interestId} />
     
     <div className="col-lg-3 col-md-4 col-sm-5 col-6 max-width-300 float-right pl-0 mt-4">
         <div className="right-sidebar">
@@ -309,7 +321,7 @@ return (
   </div>
     <footer className="footer position-relative zindex-5 count-box mb-5 mb-lg-2 mt-4">
       
-      <FooterScriptParticipant sessId={sessionData.id} />
+      <FooterScriptParticipant interestId={sessionData.interestId} />
 
       <div className="self-video1 mt-3 w-50">
           
@@ -459,6 +471,258 @@ return (
         </div>
       </div>
 
+
+      <div className="modal" id="cart-details">
+
+          
+          <div class="modal-content winesbg">
+      
+              <div class="modal-header violetborder">
+                <h4 class="modal-title white">Order Wines that were tasted</h4>
+                {/*<button type="button" class="close white closepopup" data-dismiss="modal">&times;</button>*/}
+                <button type="button" class="close white closepopup" data-dismiss="modal">&times;</button>
+              </div>
+              
+              <div class="modal-body">
+               <div class="card winesbg">
+                  
+                  <div class="container">
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                          <h1 class="border-bot">Wine</h1>
+                          <h2>Purcari 2007</h2>
+                          <div class="row border-bot pb-3">
+                            <div class="col-md-4">
+                              <p>Appearence</p>
+                              <span><img class="aroma-icon" src="images/appearance-1.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/appearance-2.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/appearance-3.png" alt="" /></span>
+                            </div>
+                            <div class="col-md-8">
+                              <p>Aroma</p>
+                              <span><img class="aroma-icon" src="images/aroma-1.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-2.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-3.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-4.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-1.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-2.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-3.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-4.png" alt="" /></span>
+                            </div>
+                          </div>
+
+                          <h2>Poinot Noir 2005</h2>
+                          <div class="row border-bot pb-3">
+                            <div class="col-md-4">
+                              <p>Appearence</p>
+                              <span><img class="aroma-icon" src="images/appearance-1.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/appearance-2.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/appearance-3.png" alt="" /></span>
+                            </div>
+                            <div class="col-md-8">
+                              <p>Aroma</p>
+                              <span><img class="aroma-icon" src="images/aroma-1.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-2.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-3.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-4.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-1.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-2.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-3.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-4.png" alt="" /></span>
+                            </div>
+                          </div>
+                          <h2>Napa Valley's Finest</h2>
+                          <div class="row border-bot pb-3">
+                            <div class="col-md-4">
+                              <p>Appearence</p>
+                              <span><img class="aroma-icon" src="images/appearance-1.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/appearance-2.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/appearance-3.png" alt="" /></span>
+                            </div>
+                            <div class="col-md-8">
+                              <p>Aroma</p>
+                              <span><img class="aroma-icon" src="images/aroma-1.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-2.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-3.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-4.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-1.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-2.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-3.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-4.png" alt="" /></span>
+                            </div>
+                          </div>
+                          <h2>Lacrima Lui Ovidiu 2001</h2>
+                          <div class="row border-bot pb-3">
+                            <div class="col-md-4">
+                              <p>Appearence</p>
+                              <span><img class="aroma-icon" src="images/appearance-1.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/appearance-2.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/appearance-3.png" alt="" /></span>
+                            </div>
+                            <div class="col-md-8">
+                              <p>Aroma</p>
+                              <span><img class="aroma-icon" src="images/aroma-1.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-2.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-3.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-4.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-1.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-2.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-3.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-4.png" alt="" /></span>
+                            </div>
+                          </div>
+                        </div>
+
+                      <div class="col-md-3">
+                          <h1 class="border-bot">Price</h1>
+                          <h1>$40</h1>
+                          <div class="row border-bot pb-3">
+                            <div class="col-md-12">
+                              <p>Palate</p>
+                              <span><img class="aroma-icon" src="images/aroma-1.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-2.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-3.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-4.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-1.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-2.png" alt="" /></span>
+                            </div>
+                          </div>
+                          <h1>$40</h1>
+                          <div class="row border-bot pb-3">
+                            <div class="col-md-12">
+                              <p>Palate</p>
+                              <span><img class="aroma-icon" src="images/aroma-1.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-2.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-3.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-4.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-1.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-2.png" alt="" /></span>
+                            </div>
+                          </div>
+                          <h1>$40</h1>
+                          <div class="row border-bot pb-3">
+                            <div class="col-md-12">
+                              <p>Palate</p>
+                              <span><img class="aroma-icon" src="images/aroma-1.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-2.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-3.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-4.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-1.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-2.png" alt="" /></span>
+                            </div>
+                          </div>
+                          <h1>$77</h1>
+                          <div class="row border-bot pb-3">
+                            <div class="col-md-12">
+                              <p>Palate</p>
+                              <span><img class="aroma-icon" src="images/aroma-1.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-2.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-3.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-4.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-1.png" alt="" /></span>
+                              <span><img class="aroma-icon" src="images/aroma-2.png" alt="" /></span>
+                            </div>
+                          </div>
+                      </div>
+
+                      <div class="col-md-2">
+                          <h1 class="border-bot">Enter Quantity</h1>
+                          <div class="row border-bot pb-3">
+                            <div class="col-md-12">
+                              <div class="quantity">                  
+                                <div><a href="#"><img src="images/add.png" class="mr-2" /></a></div>
+                                <div class="quantity-digit">0</div>    
+                                <div><a href="#"><img src="images/minus.png" class="mr-2" /></a></div>
+                              </div>
+                              <div class="ml-5">
+                                <p>Score</p>
+                                <span><img class="aroma-icon" src="images/score.png" alt="" /></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row border-bot pb-3">
+                            <div class="col-md-12">
+                              <div class="quantity">                  
+                                <div><a href="#"><img src="images/add.png" class="mr-2" /></a></div>
+                                <div class="quantity-digit">0</div>    
+                                <div><a href="#"><img src="images/minus.png" class="mr-2" /></a></div>
+                              </div>
+                              <div class="ml-5">
+                                <p>Score</p>
+                                <span><img class="aroma-icon" src="images/score.png" alt="" /></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row border-bot pb-3">
+                            <div class="col-md-12">
+                              <div class="quantity">                  
+                                <div><a href="#"><img src="images/add.png" class="mr-2" /></a></div>
+                                <div class="quantity-digit">0</div>    
+                                <div><a href="#"><img src="images/minus.png" class="mr-2" /></a></div>
+                              </div>
+                              <div class="ml-5">
+                                <p>Score</p>
+                                <span><img class="aroma-icon" src="images/score.png" alt="" /></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row border-bot pb-3">
+                            <div class="col-md-12">
+                              <div class="quantity">                  
+                                <div><a href="#"><img src="images/add.png" class="mr-2" /></a></div>
+                                <div class="quantity-digit">6</div>    
+                                <div><a href="#"><img src="images/minus.png" class="mr-2" /></a></div>
+                              </div>
+                              <div class="ml-5">
+                                <p>Score</p>
+                                <span><img class="aroma-icon" src="images/score-2.png" alt="" /></span>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+
+                      <div class="col-md-1">
+                          <h1 class="border-bot">Total</h1>
+                          <div class="row border-total">
+                            <div class="col-md-12">
+                              <h1>$0</h1>
+                            </div>
+                          </div>
+                          <div class="row border-total pt-4">
+                            <div class="col-md-12">
+                              <h1>$0</h1>
+                            </div>
+                          </div>
+                          <div class="row border-total pt-4">
+                            <div class="col-md-12">
+                              <h1>$0</h1>
+                            </div>
+                          </div>
+                          <div class="row border-total pt-4">
+                            <div class="col-md-12">
+                              <h1>$462</h1>
+                            </div>
+                          </div>
+                        </div>
+            
+                        <div class="col-md-11"></div>                                          
+                        <div class="col-md-1">
+                          <p>Total</p>
+                          <div class="totalText">$462</div>
+                        </div>
+                    </div>                    
+                  </div>
+              </div>                     
+            </div>
+          <div class="order-bt">
+            <a href="#!" class="save-btn btn btn-primary my-5 mx-auto" onClick={this.callfunction.bind(this)}>Submit Order</a>
+          </div>
+          </div>
+
+      </div>
 
   </div>
     );

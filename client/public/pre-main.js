@@ -1165,19 +1165,19 @@ function signalHandler(uid, signalData, userType) {
 
       }else if(res1[0] == "222")
       {
-        console.log('2222222222222222222222222')
+        //console.log('2222222222222222222222222')
         let userList = getOrderUser();
         if(userList != ''){
-          console.log('22222222222  77777777777 ----------',userList)
+          //console.log('22222222222  77777777777 ----------',userList)
           let ct = 0;
           for(let i=0; i < userList.length; i++){
             let uTyp = getUserDataFromList(userList[i].id, 'userType');
-            console.log('22222222222 000000000000----------',storeData.id, userList[i].id, uTyp, ct)
+            //console.log('22222222222 000000000000----------',storeData.id, userList[i].id, uTyp, ct)
             if(ct < parseInt(storeData.default.maxUserLimit) && uTyp == 2){
               let currentUId = convertEmailToId(userList[i].id);
-console.log('22222222222 111111111----------',storeData.id , userList[i])
+//console.log('22222222222 111111111----------',storeData.id , userList[i])
               if(storeData.id == currentUId) {
-                console.log('22222222222 ======', userList[i]);
+                //console.log('22222222222 ======', userList[i]);
                   let sessionTime = {};
                   sessionTime['startTime'] = (new Date()).getTime();
                   sessionTime['joinTime'] = ''
@@ -1203,6 +1203,21 @@ console.log('22222222222 111111111----------',storeData.id , userList[i])
                   break;
               }
               ct++;
+            } else if (uTyp == 2) {
+                let currentUId = convertEmailToId(userList[i].id);
+
+                if(storeData.id == currentUId) {
+                  
+                    let sessionTime = {};
+                    sessionTime['startTime'] = (new Date()).getTime();
+                    sessionTime['joinTime'] = ''
+                    localStorage.setItem("pre-session-time", JSON.stringify(sessionTime));
+
+                    $('#continue-join').removeAttr('disabled');
+                    $('#set-temp-sesstion').click();
+
+                    break;
+                }
             }
           }
         }

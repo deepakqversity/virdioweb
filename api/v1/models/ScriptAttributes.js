@@ -8,6 +8,7 @@ class ScriptAttributes{
 	}
 
 	async getAttributesByIds(sessionScriptIds) {
+		console.log('!!!!!!!!!!!!', sessionScriptIds);
 		let table = this.table;
         return await new Promise((resolve, reject) => {
         	
@@ -16,6 +17,18 @@ class ScriptAttributes{
 			  // console.log('================== results ', results)
 			  // db.end();
 			  return resolve(results);
+			});
+        })
+	}
+
+	async add(data) {
+		let table = this.table;
+        return await new Promise((resolve, reject) => {
+        	
+        	db.query('INSERT INTO ?? (sessionScriptId, attrLabel, attrValue, status, orderBy) VALUES ?', [table, data], function (error, results, fields) {
+			  if (error) reject(error);
+			  
+			  return resolve(isEmpty(results) ? 0 : results.insertId);
 			});
         })
 	}

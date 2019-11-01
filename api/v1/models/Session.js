@@ -1,4 +1,6 @@
 const db = require(process.cwd() + '/library/Mysql');
+const isEmpty = require("is-empty");
+const underscore = require("underscore");
 
 class Session{
 
@@ -96,6 +98,94 @@ class Session{
 			});
         });
 	}
+
+
+		/**
+	 * Check for duplicate session name for the same host
+	 * @param  {int} userId 
+	 * @return {obj} 
+	 */
+	async checkDuplicateSession(userId, sessionName) {
+        return await new Promise((resolve, reject) => {
+        	db.query('SELECT id FROM ?? WHERE hostId = ? AND name = ? AND status = 1', [this.table, userId, sessionName], function (error, results, fields) {
+				  if (error) reject(error);
+				  
+				  return resolve(results);
+
+			});
+        });
+	}
+
+		/**
+	 * Get ost AllProduct By Host Id 
+	 * @param  {int} userId 
+	 * @return {obj} 
+	 */
+	async findAllProductByHost(userId) {
+
+		console.log('-----sessionId, userId----------',userId)
+		
+        return await new Promise((resolve, reject) => {
+        	db.query('SELECT ss.*  FROM session_script ss  WHERE ss.status = 1 AND userId = ?' , [userId], function (error, results, fields) {
+			  if (error) reject(error);
+			   console.log('=======lalittiwari123=========== ************ results ', results)
+			  // db.end();
+			  return resolve(results);
+			});
+        });
+	}
+
+		/**
+	 * Insert new session
+	 * @param  {int} userId 
+	 * @return {obj} 
+	 */
+	async findAllPrevSessionByChannel(channelId){
+        return await new Promise((resolve, reject) => {
+        	db.query('SELECT s.* FROM session_users su LEFT JOIN sessions s ON s.id = su.sessionId LEFT JOIN channel_host ch ON ch.hostId= su.userId WHERE su.status = 1 AND ch.channelId = ? group by s.id', [channelId], function (error, results, fields) {
+			  if (error) reject(error);			  
+			  return resolve(results);
+			});
+        });
+	}
+	
+	async add(data){
+		console.log('============output====== ************ results ',this.table, data)
+		return await new Promise((resolve, reject) => {
+			db.query('INSERT INTO ?? SET interestId=?, name=?, description=?, hostId=?, scheduleDate=?, duration=?, level=?, minAttendee=?, maxAttendee=?, currency=?, chargeForSession=?,sessionChargeAllowed=?, showParticipantsCount=?, hostReminder=?, participantReminder=?, cutOffTime=?, minNotMetNoticeTime=?, participantDisableDM=?, participantsPickPlaylist=?, showParticipantsPicToOtherPartcipants=?, allowGroupLocation=?, activity=?, heartRateMonitor=?, zoneTracking=?, status=1', [
+						this.table,
+						data.interestId, 
+						data.name, 
+						data.description, 
+						data.hostId,
+						data.scheduleDate,
+						data.duration,
+						data.level,
+						data.minAttendee,
+						data.maxAttendee,
+						data.currency,
+						data.chargeForSession,
+						data.sessionChargeAllowed,
+						data.showParticipantsCount,
+						data.hostReminder,
+						data.participantReminder,
+						data.cutOffTime,
+						data.minNotMetNoticeTime,
+						data.participantDisableDM,
+						data.participantsPickPlaylist,
+						data.showParticipantsPicToOtherPartcipants,
+						data.allowGroupLocation,
+						data.activity,
+						data.heartRateMonitor,
+						data.zoneTracking
+						], function (error, results, fields) {
+			  if (error) reject(error);
+			  console.log('==========lalitErr======== ************ results ', results)
+			  return resolve(isEmpty(results) ? 0 : results.insertId);
+			});
+		});
+	}
+
 }
 
 module.exports = new Session();

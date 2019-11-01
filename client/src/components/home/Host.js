@@ -95,7 +95,7 @@ class Host extends Component {
     // }
 
     let localstoragedata = JSON.parse(localStorage.getItem('userData'));
-    this.setState({sessionScript: localstoragedata.sessionData.id});
+    this.setState({sessionScript: localstoragedata.sessionData.interestId});
     let scDate = localstoragedata.sessionData.scheduleDate;
 
     // console.log('scDate= ',scDate, new Date(scDate).getTime(), new Date().getTime())

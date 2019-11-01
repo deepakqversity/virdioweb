@@ -82,12 +82,12 @@ export const loginUser = userData => dispatch => {
       
      { 
 
-    console.log('err----------res.data-----', err);
+    console.log('err----------res.data-----', err.response.data.errorData);
     
       dispatch({
              
              type: GET_ERRORS,
-             payload: err.response.data
+             payload: err.response.data.errorData
            })
           
           }

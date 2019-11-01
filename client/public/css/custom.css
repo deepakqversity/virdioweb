@@ -268,11 +268,13 @@ span.online-status{
 /*text-overflow: ellipsis;*/
     white-space: nowrap;
     /*overflow: hidden;*/
-    max-width: 200px;
+    /*max-width: 200px;*/
     display: inline-block;
 	top: 6px;
 	position: relative;
 	margin: 0;
+    /*border: 1px solid #7d7d7d;*/
+
 }
 .trim-text{
     text-overflow: ellipsis;
@@ -2505,6 +2507,8 @@ display: inline-block;
 	margin-bottom:15px;
     display: flex;
     align-items: center;
+    border-radius: 8px;
+    padding: 10px 15px;
 }
 @media (max-width:1280px){
 	.prescreen-popup .signup-number, .prescreen-popup .online-number{      

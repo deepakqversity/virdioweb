@@ -219,8 +219,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
         console.log('memberId============', memberId)
         if(storeData.userType == 1){
           if( $('#joinee-' + convertEmailToId(memberId)).length == 0 ){
-            removeFromFirst();
-            $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(memberId)+'">'+getUserDataFromList(memberId, 'firstName')+' '+(getUserDataFromList(memberId, 'lastName') != null?getUserDataFromList(memberId, 'lastName'):'')+'</span>');
+
+            let joinerName = getUserDataFromList(memberId, 'firstName')+' '+(getUserDataFromList(memberId, 'lastName') != null?getUserDataFromList(memberId, 'lastName'):'');
+            removeFromFirst(joinerName);
+            $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(memberId)+'">'+joinerName+'</span>');
             totalChannelMembers();
           }
         }
@@ -258,8 +260,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
           channelMsgHandler(msg, senderId,storeData.userType);
           if(storeData.userType ==1){
             if( $('#joinee-' + convertEmailToId(senderId)).length == 0 ){
-              removeFromFirst();
-              $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(senderId)+'">'+getUserDataFromList(senderId, 'firstName')+' '+(getUserDataFromList(senderId, 'lastName') != null?getUserDataFromList(senderId, 'lastName'):'')+'</span>');
+
+              let joinerName = getUserDataFromList(senderId, 'firstName')+' '+(getUserDataFromList(senderId, 'lastName') != null?getUserDataFromList(senderId, 'lastName'):'');
+              removeFromFirst(joinerName);
+              $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(senderId)+'">'+joinerName+'</span>');
               totalChannelMembers()
             }
           }
@@ -1795,7 +1799,7 @@ function signalHandler(uid, signalData, userType) {
       }
 
       function totalChannelMembers(){
-        console.log('%%%%%%%%%%%%%%%%%%%%%%',channel.getMembers());
+        /*console.log('%%%%%%%%%%%%%%%%%%%%%%',channel.getMembers());
         let localData = getCurrentUserData();
         channel.getMembers().then(membersList => {
             console.log('totMemberjagat-----------', membersList)
@@ -1809,15 +1813,15 @@ function signalHandler(uid, signalData, userType) {
             
           }).catch(error => {
             console.log('*************There is an error******');
-          });
+          });*/
       }
 
       function recentlyJoinedChannelUser(){
         console.log('----------recentlyJoinedChannelUser---------------');
         let localData = getCurrentUserData();
         let strArray1 =  JSON.parse(localStorage.getItem('rtm-join-order'));
-        let strArray = localStorage.getItem("rtm-join-order");
-        console.log('---------strArray---------',strArray1);
+        let strArray = JSON.parse(localStorage.getItem("rtm-join-order"));
+        console.log('---------strArray---------',strArray);
 
         channel.getMembers().then(membersList => {
             //let totMember = membersList.length;
@@ -1829,26 +1833,42 @@ function signalHandler(uid, signalData, userType) {
             
             let ctr = 1;
 
-            for(let j=0; j < strArray.length; j++){
-              console.log('---------totMember123---------', strArray.length);
+
+            //for(let j=0; j < strArray.length; j++){
+
+            $.each(strArray, function( key, value ) {
+              console.log('---------totMember4444---------', value.id);
+              //console.log('---------totMember123---------', strArray.length);
               for(let i= totMember-1; i >= 0 ; i--){
-                console.log('---------totMember2222---------', totMember);
-                if(membersList[i].id == strArray[j].id && getUserDataFromList(membersList[i], 'userType') == 2){
-                  console.log('---------totMember33333---------', membersList[i].id,strArray[j].id);
+                console.log('---------totMember555---------', value.id);
+                //console.log('---------totMember2222---------', totMember);
+                //if(membersList[i].id == strArray[j].id && getUserDataFromList(membersList[i], 'userType') == 2){
+                if(membersList[i] == value.id && getUserDataFromList(membersList[i], 'userType') == 2){
+                  //console.log('---------totMember33333---------', membersList[i],strArray[j].id);
+                  console.log('---------totMember33333---------', membersList[i], value.id);
                   if(ctr++ <= maxUserLimit){
-                    console.log('---------totMember4444---------', maxUserLimit);
+                    //console.log('---------totMember4444---------', maxUserLimit);
                     if( $('#joinee-' + convertEmailToId(membersList[i])).length == 0 ){
-                      console.log('---------totMember5555---------', membersList[i]);
+                      //console.log('---------totMember5555---------', membersList[i]);
                       $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(membersList[i])+'">'+getUserDataFromList(membersList[i], 'firstName')+' '+(getUserDataFromList(membersList[i], 'lastName') != null?getUserDataFromList(membersList[i], 'lastName'):'')+'</span>');
+                    }
+                  } else {
+                    console.log('----remove first--------');
+                    if( $('#joinee-' + convertEmailToId(membersList[i])).length == 0 ){
+                      
+                      let joinerName = getUserDataFromList(membersList[i], 'firstName')+' '+(getUserDataFromList(membersList[i], 'lastName') != null?getUserDataFromList(membersList[i], 'lastName'):'');
+                      removeFromFirst(joinerName);
+
+                      $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(membersList[i])+'">'+joinerName+'</span>');
                     }
                   }
                 }                
               }
-            }
-            console.log('totMember maxUserLimit ===', totMember, maxUserLimit);
+            });
+            //console.log('totMember maxUserLimit ===', totMember, maxUserLimit);
 
-            totMember = totMember-1;
-            $('#total-joinees').html(totMember > maxUserLimit ? `+${totMember - maxUserLimit} more` : '');
+            //totMember = totMember-1;
+            //$('#total-joinees').html(totMember > maxUserLimit ? `+${totMember - maxUserLimit} more` : '');
             
           }).catch(error => {
             console.log('*************There is an error******');
@@ -1859,6 +1879,7 @@ function signalHandler(uid, signalData, userType) {
         setTimeout(()=>{}, 2000);
         let localData = getCurrentUserData();
         channel.getMembers().then(membersList => {
+            console.log('---afterremovemembrlist------', membersList);
             //let totMember = membersList.length;
             let totMember = getUniqueMembers(membersList);
             for(let i= totMember-1; i >= 0 ; i--){
@@ -1869,20 +1890,32 @@ function signalHandler(uid, signalData, userType) {
                 }
               }
             }
-            let maxUserLimit = localData.default.preScreenUserLimit;
-            $('#total-joinees').html(totMember-1 > maxUserLimit ? `+${(totMember-1) - maxUserLimit} more` : '');
+            //let maxUserLimit = localData.default.preScreenUserLimit;
+            //$('#total-joinees').html(totMember-1 > maxUserLimit ? `+${(totMember-1) - maxUserLimit} more` : '');
             
           }).catch(error => {
             console.log('*************There is an error******');
           });
       }
 
-      function removeFromFirst() {
+      function removeFromFirst(joinerName) {
           let localData = getCurrentUserData();
           let maxUserLimit = localData.default.preScreenUserLimit;
-          if($('#joiners').find('span').length >= maxUserLimit){
+          //alert('window width------'+$( window ).width());
+          //alert('joiner class width------'+$('.joiners').width());
+          //alert('joiner id width------'+$('#joiners').width());
+
+          $('#joiner-name-width').text(joinerName);
+          //alert($('#joiner-name-width').width());
+          if(($('#joiners').width() + $('#joiner-name-width').width()) > $('.joiners').width()){
             $( "#joiners").find('span').first().remove();
           }
+
+          $('#joiner-name-width').text('');
+
+          /*if($('#joiners').find('span').length >= maxUserLimit){
+            $( "#joiners").find('span').first().remove();
+          }*/
       }
 
 

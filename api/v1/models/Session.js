@@ -204,7 +204,7 @@ class Session{
 						data.zoneTracking
 						], function (error, results, fields) {
 			  if (error) reject(error);
-			  console.log('==========lalitErr======== ************ results ', results)
+			  console.log('==========lalitErr======== ************ results ', error)
 			  return resolve(isEmpty(results) ? 0 : results.insertId);
 			});
 		});

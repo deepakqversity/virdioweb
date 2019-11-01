@@ -25,7 +25,7 @@ class SessionConfigMapping{
         	db.query('INSERT INTO ?? (sessionId, configId) VALUES ?', [table, data], function (error, results, fields) {
                 if (error) reject(error);
 
-                console.log('----------sessionconfig------------------',results)
+                console.log('----------sessionconfig------------------',error)
 
                 return resolve(isEmpty(results) ? 0 : results);
               });

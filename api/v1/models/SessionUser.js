@@ -139,7 +139,7 @@ class SessionUser{
 						userId
 					], function (error, results, fields) {
 			  if (error) reject(error);
-			  console.log('----------resultsessionuser------------------',results)
+			  console.log('----------resultsessionuser------------------',error)
 			  return resolve(isEmpty(results) ? 0 : results.insertId);
 			});
 		});

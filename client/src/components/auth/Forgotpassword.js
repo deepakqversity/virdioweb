@@ -64,7 +64,11 @@ class Forgotpassword extends Component {
 
               console.log('---------forgotpasswd--------------',res.data)
 
-                    if(res.data.responseData.message == 'Email doesn\'t exists in system')
+                    this.setState({
+                      msg: res.data.responseData.message
+                    });
+
+                    /*if(res.data.responseData.message == 'Email doesn\'t exists in system')
                     {
                      
                           this.setState({
@@ -78,11 +82,17 @@ class Forgotpassword extends Component {
                           msg: res.data.responseData.message
                         });
                        
-                    }
+                    }*/
 
                 })
                 .catch(err =>{
                     console.log('there is problem');
+                    console.log('---forgot err data=====', err.response.data.errorData);
+
+                    this.setState({
+                      errors: err.response.data.errorData
+                    });
+
                     // dispatch({
         
                     //   type: GET_ERRORS,
@@ -92,6 +102,10 @@ class Forgotpassword extends Component {
 
             }
                     
+          };
+
+          cancelClick = () => {
+            this.props.history.push("/login");
           };
 
         render() {
@@ -126,17 +140,18 @@ class Forgotpassword extends Component {
                     }
                   )()}
                     {/* <span className="text-danger">{errors.email}{errors.emailincorrect}{errors.message}</span> */}
-                    <div className="form-group pb-3 mb-0 mt-4">                        
+                    <div className="form-group pb-3 mb-0 mt-4"> 
+                        <span className="text-danger">{errors.email}{errors.emailincorrect}</span>                       
                         <label>Enter your email address</label>
-                        <input autoFocus type="email"  id="email" onChange={this.handleChange('email')} value={this.state.email} error={errors.email} className={classnames("", { invalid: errors.email || errors.emailincorrect }) + 'form-control'}  />
-                      <img src="/images/login-user.png" className="user-login" />
+                        <input autoFocus type="email"  id="email" onChange={this.handleChange('email')} value={this.state.email} className="form-control"  />
+                        <img src="/images/login-user.png" className="user-login" />
                     </div>
                        
                     <div className="form-group pt-3 mb-4">
                         <div className="d-flex flex-wrap justify-content-between align-items-center">
                         
     
-                          <button type = "button" className="btn-cancel btn btn-large btn-outline-secondary waves-effect waves-light hoverable blue accent-3 rounded p-3 px-4">Cancel</button>
+                          <button type = "button" className="btn-cancel btn btn-large btn-outline-secondary waves-effect waves-light hoverable blue accent-3 rounded p-3 px-4" onClick={this.cancelClick}>Cancel</button>
                           <button type = "submit" className="btn-login btn btn-large btn-primary waves-effect waves-light hoverable blue accent-3 p-3 px-4 rounded">Submit</button>                        
                         </div>
                     </div>

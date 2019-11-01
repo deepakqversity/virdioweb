@@ -115,7 +115,6 @@ onSubmit = e => {
 render() {
     const { errors } = this.state;
 
-    
 return (
       <div className="container">
         <div className="row">
@@ -131,16 +130,16 @@ return (
               
                 <div className="login-inner">
                 <div className = "form-group pb-3 mb-0 mt-4">
-                    <span className="text-danger">{errors.email}{errors.emailincorrect}</span>
+                    <span className="text-danger">{this.props.errors.email}{this.props.errors.emailincorrect}</span>
                     <label>Enter your email address</label>
-                    <input autoFocus type="email"  id="email" onChange={this.onChange} value={this.state.email}  error={errors.email}  className={classnames("", { invalid: errors.email || errors.emailincorrect })} className = "form-control"  />
+                    <input autoFocus type="email"  id="email" onChange={this.onChange} value={this.state.email}  error={this.props.errors.email}  className={classnames("", { invalid: this.props.errors.email || this.props.errors.emailincorrect })} className = "form-control"  />
                   <img src="/images/login-user.png" className="user-login" />
                 </div>
 
                 <div className = "form-group mt-4 mb-0">
-                    <span className="text-danger">{errors.password}{errors.passwordincorrect}</span>
+                    <span className="text-danger">{this.props.errors.password}{this.props.errors.passwordincorrect}</span>
                     <label>Password</label>
-                    <input type="password"  id="password" onChange={this.onChange} value={this.state.password} error={errors.password} className={classnames("", { invalid: errors.password || errors.passwordincorrect })} className = "form-control"  />
+                    <input type="password"  id="password" onChange={this.onChange} value={this.state.password} error={this.props.errors.password} className={classnames("", { invalid: this.props.errors.password || this.props.errors.passwordincorrect })} className = "form-control"  />
                     <img src="/images/login-user.png" className="user-login" />
                 </div>
                 
@@ -167,8 +166,8 @@ return (
                     <div className = "d-flex flex-wrap justify-content-between align-items-center">
                     
 
-                      <button type = "button" className="btn-cancel btn btn-large btn-outline-secondary waves-effect waves-light hoverable blue accent-3 rounded p-3 px-4">Cancel</button>
-                      <button type = "submit" className="btn-login btn btn-large btn-primary waves-effect waves-light hoverable blue accent-3 p-3 px-4 rounded">Log in</button>
+                      {/*<button type = "button" className="btn-cancel btn btn-large btn-outline-secondary waves-effect waves-light hoverable blue accent-3 rounded p-3 px-4">Cancel</button>*/}
+                      <button type = "submit" className="btn-login btn btn-large btn-primary waves-effect waves-light hoverable blue accent-3 p-3 px-4 rounded">Login</button>
                       <a href="/forgot-password"  className="open-list" className="forgot-password mt-sm-0 mt-3">Forgot password?</a>
                     </div>
                 </div>
@@ -227,13 +226,12 @@ return (
 
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  errors: state.user
+  errors: state.errors
 });
 
 export default connect(

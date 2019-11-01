@@ -250,7 +250,7 @@ return (
                             if(sessionData.interestId == 1) {
                                 return <a className="col-2 justify-content-end d-flex align-items-center" href="#" data-toggle="modal" data-target="#show-details4" className="btn btn-primary" tabIndex="1">Details</a>;
                             } else {                      
-                                return <a className="btn  btn-primary border-right pr-20" href="javascript:void(0)" data-toggle="modal" data-target="#fitness-script" tabIndex="1">Details</a>;             
+                                return <a className="btn  btn-primary border-right pr-20" href="#!" data-toggle="modal" data-target="#fitness-script" tabIndex="1">Details</a>;             
                             }
                         }
                     )()}
@@ -718,7 +718,7 @@ return (
               </div>                     
             </div>
           <div class="order-bt">
-            <a href="javascript:void(0)" class="save-btn btn btn-primary my-5 mx-auto" onClick={this.callfunction.bind(this)}>Submit Order</a>
+            <a href="#!" class="save-btn btn btn-primary my-5 mx-auto" onClick={this.callfunction.bind(this)}>Submit Order</a>
           </div>
           </div>
 

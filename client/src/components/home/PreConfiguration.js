@@ -384,9 +384,9 @@ render() {
                     {(
                         ()=>{
                             if(sessionData.interestId == 1) {
-                                return <a href="javascript:void(0)" data-toggle="modal" data-target="#show-details2" className="btn btn-primary float-right">Session Details</a>;
+                                return <a href="#!" data-toggle="modal" data-target="#show-details2" className="btn btn-primary float-right">Session Details</a>;
                             } else {                      
-                                return <a className="btn btn-primary border-right pr-20" href="javascript:void(0)" data-toggle="modal" data-target="#fitness-script" tabIndex="1">Session Details</a>;             
+                                return <a className="btn btn-primary border-right pr-20" href="#!" data-toggle="modal" data-target="#fitness-script" tabIndex="1">Session Details</a>;             
                             }
                         }
                     )()}

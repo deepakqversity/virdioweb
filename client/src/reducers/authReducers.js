@@ -1,6 +1,7 @@
 import {
     SET_CURRENT_USER,
-    USER_LOADING
+    USER_LOADING,
+    GET_ERRORS
   } from "../actions/types";
   const isEmpty = require("is-empty");
   const initialState = {
@@ -22,6 +23,11 @@ import {
           ...state,
           loading: true
         };
+      case GET_ERRORS:
+        return {
+          ...state,
+          errors: action.payload
+        }
       default:
         return state;
     }

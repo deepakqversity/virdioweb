@@ -336,7 +336,7 @@ class UserCtrl {
 
 				let sendmail = await SendMail.emailInput(to,subject,html);
 
-				let msg = 'Email hasbeen sent to ur mail';
+				let msg = 'Email has been sent to your email id';
 
 				// res.status(200).send({message:msg, link: code });
 				response.resp(res, 200, {message:msg, link: code })

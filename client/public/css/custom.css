@@ -273,7 +273,7 @@ span.online-status{
 	top: 6px;
 	position: relative;
 	margin: 0;
-    border: 1px solid #7d7d7d;
+    /*border: 1px solid #7d7d7d;*/
 
 }
 .trim-text{

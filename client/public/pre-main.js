@@ -1906,7 +1906,7 @@ function signalHandler(uid, signalData, userType) {
           //alert('joiner id width------'+$('#joiners').width());
 
           $('#joiner-name-width').text(joinerName);
-          alert($('#joiner-name-width').width());
+          //alert($('#joiner-name-width').width());
           if(($('#joiners').width() + $('#joiner-name-width').width()) > $('.joiners').width()){
             $( "#joiners").find('span').first().remove();
           }

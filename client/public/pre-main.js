@@ -219,8 +219,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
         console.log('memberId============', memberId)
         if(storeData.userType == 1){
           if( $('#joinee-' + convertEmailToId(memberId)).length == 0 ){
-            removeFromFirst();
-            $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(memberId)+'">'+getUserDataFromList(memberId, 'firstName')+' '+(getUserDataFromList(memberId, 'lastName') != null?getUserDataFromList(memberId, 'lastName'):'')+'</span>');
+
+            let joinerName = getUserDataFromList(memberId, 'firstName')+' '+(getUserDataFromList(memberId, 'lastName') != null?getUserDataFromList(memberId, 'lastName'):'');
+            removeFromFirst(joinerName);
+            $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(memberId)+'">'+joinerName+'</span>');
             totalChannelMembers();
           }
         }
@@ -258,8 +260,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
           channelMsgHandler(msg, senderId,storeData.userType);
           if(storeData.userType ==1){
             if( $('#joinee-' + convertEmailToId(senderId)).length == 0 ){
-              removeFromFirst();
-              $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(senderId)+'">'+getUserDataFromList(senderId, 'firstName')+' '+(getUserDataFromList(senderId, 'lastName') != null?getUserDataFromList(senderId, 'lastName'):'')+'</span>');
+
+              let joinerName = getUserDataFromList(senderId, 'firstName')+' '+(getUserDataFromList(senderId, 'lastName') != null?getUserDataFromList(senderId, 'lastName'):'');
+              removeFromFirst(joinerName);
+              $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(senderId)+'">'+joinerName+'</span>');
               totalChannelMembers()
             }
           }
@@ -1852,9 +1856,10 @@ function signalHandler(uid, signalData, userType) {
                     console.log('----remove first--------');
                     if( $('#joinee-' + convertEmailToId(membersList[i])).length == 0 ){
                       
-                      removeFromFirst();
+                      let joinerName = getUserDataFromList(membersList[i], 'firstName')+' '+(getUserDataFromList(membersList[i], 'lastName') != null?getUserDataFromList(membersList[i], 'lastName'):'');
+                      removeFromFirst(joinerName);
 
-                      $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(membersList[i])+'">'+getUserDataFromList(membersList[i], 'firstName')+' '+(getUserDataFromList(membersList[i], 'lastName') != null?getUserDataFromList(membersList[i], 'lastName'):'')+'</span>');
+                      $('#joiners').append('<span class="welcome-title" id="joinee-'+convertEmailToId(membersList[i])+'">'+joinerName+'</span>');
                     }
                   }
                 }                
@@ -1893,12 +1898,24 @@ function signalHandler(uid, signalData, userType) {
           });
       }
 
-      function removeFromFirst() {
+      function removeFromFirst(joinerName) {
           let localData = getCurrentUserData();
           let maxUserLimit = localData.default.preScreenUserLimit;
-          if($('#joiners').find('span').length >= maxUserLimit){
+          //alert('window width------'+$( window ).width());
+          //alert('joiner class width------'+$('.joiners').width());
+          //alert('joiner id width------'+$('#joiners').width());
+
+          $('#joiner-name-width').text(joinerName);
+          alert($('#joiner-name-width').width());
+          if(($('#joiners').width() + $('#joiner-name-width').width()) > $('.joiners').width()){
             $( "#joiners").find('span').first().remove();
           }
+
+          $('#joiner-name-width').text('');
+
+          /*if($('#joiners').find('span').length >= maxUserLimit){
+            $( "#joiners").find('span').first().remove();
+          }*/
       }
 
 

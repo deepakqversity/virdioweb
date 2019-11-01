@@ -467,7 +467,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     // javascript each
     $('#subscribers-list .newcss').each(function (index, value) {
       
-      $(this).removeClass('col-md-6')
+      /*$(this).removeClass('col-md-6')
         .removeClass('col-md-4')
         .removeClass('one')
         .removeClass('two')
@@ -485,7 +485,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
         .removeClass('col-sm-3')
         .removeClass('col-6')
         .removeClass('col-12')
-        .removeClass('mx-auto');
+        .removeClass('mx-auto');*/
+
+      $(this).removeClass('col-md-6 col-md-4 one two three four five ol-lg-8 col-md-4 col-lg-6 col-lg-5 col-lg-4 col-lg-3 col-sm-6 col-sm-4 col-sm-3 col-6 col-12 mx-auto');
 
       $(this).addClass(vdoSize);
 

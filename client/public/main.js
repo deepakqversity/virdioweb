@@ -2536,11 +2536,15 @@ function signalHandler(uid, signalData, userType) {
         hostEmail=storeData.sessionData.hostEmail;
 
       let arrayToDispaly = JSON.parse(localStorage.getItem('allloginuser'));
-
+      
       console.log('----------------------arrayToDispaly', arrayToDispaly,count4)
 
       $('#all_joined_member_list').html('');
+
       count4=0;
+      arrayToDispaly = getUniqueData(arrayToDispaly);
+      console.log('----------------------uniquearrayToDispaly', arrayToDispaly);
+
       arrayToDispaly.forEach(element => {
 
       console.log('---------------arrayToDispaly', element)
@@ -2566,7 +2570,14 @@ function signalHandler(uid, signalData, userType) {
     
       }
 
-
+      function getUniqueData(arrList) {
+          var final = [];
+          $.each(arrList, function (i, e) {
+              if ($.inArray(e, final) == -1) final.push(e);
+          });
+          
+          return final;
+      }
 
       function incrementcountOnHosttreming(signalData,type)      
       { 

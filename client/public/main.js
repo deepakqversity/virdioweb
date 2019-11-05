@@ -3743,10 +3743,14 @@ function signalHandler(uid, signalData, userType) {
       $('#logout_button').click(function(){
         // localStream.stop();
         updateJoinSessionStatus();
-        leave_channel();
-        leave();
-        removeSession();       
-        location.href  = '/login';
+
+        setTimeout(()=>{
+            leave_channel();
+            leave();
+            removeSession();       
+            location.href  = '/login';
+        }, 200);
+        
         // location.reload();
       });
 

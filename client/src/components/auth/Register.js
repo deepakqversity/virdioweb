@@ -38,9 +38,9 @@ class Register extends Component {
     }
     $("body").addClass("registration");
     //$("html").height("auto");
-    $("body, div").bind('mousewheel', function() {
-      return true
-    });
+    // $("body, div").bind('mousewheel', function() {
+    //   return true
+    // });
     $(".select-usertype>div:nth-child(1)").click(function(){
       $(this).addClass("op1").removeClass("op3");
       $(".select-usertype>div:nth-child(2)").removeClass("op1").addClass("op3");

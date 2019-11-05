@@ -2086,9 +2086,9 @@ function signalHandler(uid, signalData, userType) {
     }
     $('#online-user-list tr').sort(sort_li).appendTo('#online-user-list');
 
-    $("body, div").bind('mousewheel', function() {
-      return false
-    });
+    // $("body, div").bind('mousewheel', function() {
+    //   return false
+    // });
     onPageResize();
     window.onresize = onPageResize;
 

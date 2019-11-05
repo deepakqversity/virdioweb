@@ -3,15 +3,15 @@ const underscore = require("underscore");
 const db = require(process.cwd() + '/library/Mysql');
 const scriptAttr = require('./ScriptAttributes');
 
-class ChannelHost{
+class InterestEquipment{
 
 	constructor(){
-		this.table = 'channel_host';
+		this.table = 'Interest_equipment';
 	}
 
 	/**
-	 * Get Lists of all hosts
-	 * @param  {int} userId 
+	 * Get Lists of all equipments
+	 * @param  {int} equipmentId
 	 * @return {obj} 
 	 */
 	async getChannelHostsList(channelId) {
@@ -30,4 +30,4 @@ class ChannelHost{
 	}
 }
 
-module.exports = new ChannelHost();
+module.exports = new InterestEquipment();

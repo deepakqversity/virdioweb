@@ -80,12 +80,12 @@ body{
 height:100vh;
 overflow:hidden;
 }
-@media (max-width:767px){
+/*@media (max-width:767px){
 	body{
 		overflow: inherit;
 		overflow-x:hidden;
 	}
-}
+}*/
 #root, .App{
 	height:100%;
 }

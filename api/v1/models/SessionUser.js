@@ -144,6 +144,25 @@ class SessionUser{
 			});
 		});
 	}
+
+	async addSessionAnotherhost(data) {
+        let table = this.table;
+
+        console.log('----------sessionId2222------------------',data)
+
+        //data to be inserted into table
+  
+		return await new Promise((resolve, reject) => {
+            
+        	db.query('INSERT INTO ?? (sessionId, userId,type,sessionStatus,status) VALUES ?', [table, data], function (error, results, fields) {
+                if (error) reject(error);
+
+                console.log('----------sessionuser------------------',error)
+
+                return resolve(isEmpty(results) ? 0 : results);
+              });
+		});
+	}
 }
 
 module.exports = new SessionUser();

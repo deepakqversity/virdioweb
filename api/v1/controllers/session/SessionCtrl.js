@@ -8,6 +8,8 @@ const sessionScriptModel = require('../../models/SessionScript');
 const sessionScriptMappingModel = require('../../models/SessionScriptMapping');
 const scriptAttributesModel = require('../../models/ScriptAttributes');
 const channelHostModel = require('../../models/ChannelHost');
+const InterestEquipmentModel = require('../../models/InterestEquipment');
+const InterestShoppingModel = require('../../models/InterestShoppingList');
 const activityLogsModel = require('../../models/ActivityLogs');
 const clientToken = require( process.cwd() + '/util/ClientToken');
 const response = require(process.cwd() + '/util/Response');
@@ -226,12 +228,17 @@ class SessionCtrl {
 
 			console.log('----------insertData------------------',insertData)
 
+			
+
 			// insert into sessions table
 			let sessionId = await sessionModel.add(insertData);
 
-			console.log('----------sessionId1111------------------',sessionId)
+			//console.log('----------sessionId1111------------------',sessionId)
 
 			if(sessionId > 0){
+
+
+				console.log('----------insertData11111------------------',req.body.host_list)
 
 				let userId=11;
 
@@ -240,6 +247,7 @@ class SessionCtrl {
 
 				 sessionUserId = await sessionUserModel.addSessionUser(sessionId,userId);
 
+				 
 			
 					let c1=2;
 					let c2=3;
@@ -253,7 +261,26 @@ class SessionCtrl {
 
 				let sessionconfig = await sessionConfigMappingModel.addSessionConfig(dataval);
 
-				console.log('----------sessionId5555------------------',sessionId)
+				console.log('----------sessionId5555------------------',req.body.host_list.hostList.length)
+
+				if(req.body.host_list.hostList.length != 0)
+				{
+					let hostlist=[];
+					 hostlist=req.body.host_list.hostList;					 
+
+					 let sessionUserData;
+
+					 for(let i in hostlist){
+						sessionUserData = [[sessionId,hostlist[i],3,0,1]]
+						console.log('----------sessionId23333------------------',sessionUserData)
+
+					let sessionUserresult = await sessionUserModel.addSessionAnotherhost(sessionUserData);
+					
+
+					 }
+
+
+				}
 
 				if(false === isEmpty(req.body.activities)){
 					
@@ -373,14 +400,46 @@ class SessionCtrl {
 
 	async getHosts(req, res) {
 	    try {
-
+			console.log('------lalitgethost---------',req.params.channelId)
 			let hostsList = await channelHostModel.getChannelHostsList(req.params.channelId);
+
+			console.log('------lalitgethostlist---------',hostsList)
 
 			response.resp(res, 200, hostsList);
 	    } catch(exception) {
 			response.resp(res, 500, exception);
 	    }
 	}
+
+
+	async getEquipments(req, res) {
+	    try {
+			console.log('------getEquipments---------',req.params.interestId)
+			let equipmentList = await InterestEquipmentModel.getEquipments(req.params.interestId);
+
+			console.log('------lalitgetequipment---------',equipmentList)
+
+			response.resp(res, 200, equipmentList);
+	    } catch(exception) {
+			response.resp(res, 500, exception);
+	    }
+	}
+
+
+	async getShoppingList(req, res) {
+	    try {
+			console.log('------getShopping---------',req.params.interestId)
+			
+			let shopping_List = await InterestShoppingModel.getInterestShoppingList(req.params.interestId);
+
+			console.log('------lalitgetshopping---------',shopping_List)
+
+			response.resp(res, 200, shopping_List);
+	    } catch(exception) {
+			response.resp(res, 500, exception);
+	    }
+	}
+
 
 
 

@@ -22,5 +22,8 @@ route
   .post('/create',  SessionCtrl.createSession)
   .get('/check/:sessionName', auth.verifyToken, SessionCtrl.checkDuplicateSession)
   .get('/hosts-list/:channelId', auth.verifyToken, SessionCtrl.getHosts)
+  .get('/hosts-list1/:channelId', SessionCtrl.getHosts)
+  .get('/equipments/:interestId', SessionCtrl.getEquipments)
+  .get('/shoppinglist/:interestId', SessionCtrl.getShoppingList)
 
 module.exports = route;

@@ -3745,8 +3745,31 @@ function signalHandler(uid, signalData, userType) {
       $('#logout_button').click(function(e){
         e.preventDefault();
         // localStream.stop();
-        updateJoinSessionStatus();
+        //updateJoinSessionStatus();
 
+        let data_op = JSON.parse(localStorage.getItem("userData"));
+        if(data_op.userType == 1)
+        {
+          $.ajax({
+            headers: { 
+                "Content-Type": "application/json; charset=utf-8",
+                "Authorization": data_op.token
+            },
+            url: '/api/v1/session/'+data_op.sessionData.id+'/updatestatus',       
+            dataType: 'json',
+            type: 'PUT',
+            success: function( data, textStatus, jQxhr ){
+                
+                let respData = data;
+
+            console.log('-------respData----------',respData);
+            },
+            error: function( jqXhr, textStatus, errorThrown ){
+                console.log( errorThrown );
+            }
+          });
+        }
+        
         setTimeout(()=>{
             leave_channel();
             leave();

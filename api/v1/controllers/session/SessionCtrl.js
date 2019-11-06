@@ -11,6 +11,8 @@ const channelHostModel = require('../../models/ChannelHost');
 const InterestEquipmentModel = require('../../models/InterestEquipment');
 const InterestShoppingModel = require('../../models/InterestShoppingList');
 const ActivityTypeModel = require('../../models/ActivityType');
+const SessionEquipmentMappingModel = require('../../models/SessionEquipmentMapping');
+const SessionShoppingListModel = require('../../models/SessionShoppingList');
 const activityLogsModel = require('../../models/ActivityLogs');
 const clientToken = require( process.cwd() + '/util/ClientToken');
 const response = require(process.cwd() + '/util/Response');
@@ -283,6 +285,51 @@ class SessionCtrl {
 
 
 				}
+
+				
+
+				if(req.body.equipment_list.equipmentList.length != 0)
+				{
+					let equipmentList=[];
+					equipmentList=req.body.equipment_list.equipmentList;
+
+					console.log('----------equipment_list------------------',equipmentList)
+
+					 let sessionEquipData;
+
+					 for(let i in equipmentList){
+						sessionEquipData = [[sessionId,equipmentList[i].id,equipmentList[i].Quantity,equipmentList[i].Link]]
+						console.log('----------sessionEquipData------------------',sessionEquipData)
+
+					let sessionEquipresult = await SessionEquipmentMappingModel.addSessionEquipment(sessionEquipData);
+					
+					 }
+
+
+				}
+
+				console.log('----------shopping_list------------------',req.body.shopping_list.shoppingList)
+
+				if(req.body.shopping_list.shoppingList.length != 0)
+				{
+					let shoppingList=[];
+					shoppingList=req.body.shopping_list.shoppingList;
+
+					console.log('----------shoppingList------------------',shoppingList)
+
+					 let sessionshopData;
+
+					 for(let i in shoppingList){
+						sessionshopData = [[sessionId,shoppingList[i].id,shoppingList[i].Quantity,shoppingList[i].itemNote,shoppingList[i].Link]]
+						console.log('----------sessionshopData------------------',sessionshopData)
+
+					let sessionshopresult = await SessionShoppingListModel.addSessionshoppingList(sessionshopData);
+					console.log('-------session shopping data will be inserted-------')
+					 }
+
+
+				}
+
 
 				if(false === isEmpty(req.body.activities)){
 					

@@ -10,6 +10,7 @@ const scriptAttributesModel = require('../../models/ScriptAttributes');
 const channelHostModel = require('../../models/ChannelHost');
 const InterestEquipmentModel = require('../../models/InterestEquipment');
 const InterestShoppingModel = require('../../models/InterestShoppingList');
+const ActivityTypeModel = require('../../models/ActivityType');
 const activityLogsModel = require('../../models/ActivityLogs');
 const clientToken = require( process.cwd() + '/util/ClientToken');
 const response = require(process.cwd() + '/util/Response');
@@ -213,6 +214,7 @@ class SessionCtrl {
 				chargeForSession  : req.body.session.amountCharge ? req.body.session.amountCharge : 0,
 				sessionChargeAllowed  : req.body.session.session_charge == true ? 1 : 0,
 				showParticipantsCount : req.body.session.show_particpants_count == true ? 1 : 0,
+				sessionProperty : req.body.session.sessionProperty == true ? 1 : 0,
 				hostReminder : req.body.reminder.host_reminder,
 				participantReminder : req.body.reminder.participants_reminder,
 				cutOffTime : req.body.reminder.cutoff_date_time,
@@ -435,6 +437,20 @@ class SessionCtrl {
 			console.log('------lalitgetshopping---------',shopping_List)
 
 			response.resp(res, 200, shopping_List);
+	    } catch(exception) {
+			response.resp(res, 500, exception);
+	    }
+	}
+
+	async getActivityType(req, res) {
+	    try {
+			console.log('------getActivityType---------',req.params.interestId)
+			
+			let activity_List = await ActivityTypeModel.getActivityType(req.params.interestId);
+
+			console.log('------lalitgetactivity---------',activity_List)
+
+			response.resp(res, 200, activity_List);
 	    } catch(exception) {
 			response.resp(res, 500, exception);
 	    }

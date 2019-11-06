@@ -25,5 +25,6 @@ route
   .get('/hosts-list1/:channelId', SessionCtrl.getHosts)
   .get('/equipments/:interestId', SessionCtrl.getEquipments)
   .get('/shoppinglist/:interestId', SessionCtrl.getShoppingList)
+  .get('/activityType/:interestId', SessionCtrl.getActivityType)
 
 module.exports = route;

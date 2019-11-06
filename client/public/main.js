@@ -3752,7 +3752,7 @@ function signalHandler(uid, signalData, userType) {
         {
           $.ajax({
             headers: { 
-                //"Content-Type": "application/json; charset=utf-8",
+                "Content-Type": "application/json; charset=utf-8",
                 "Authorization": data_op.token
             },
             url: '/api/v1/session/'+data_op.sessionData.id+'/updatestatus',       

@@ -3742,7 +3742,8 @@ function signalHandler(uid, signalData, userType) {
 
       });
 
-      $('#logout_button').click(function(){
+      $('#logout_button').click(function(e){
+        e.preventDefault();
         // localStream.stop();
         updateJoinSessionStatus();
 

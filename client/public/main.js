@@ -3752,17 +3752,17 @@ function signalHandler(uid, signalData, userType) {
         {
           $.ajax({
             headers: { 
-                "Content-Type": "application/json; charset=utf-8",
+                //"Content-Type": "application/json; charset=utf-8",
                 "Authorization": data_op.token
             },
             url: '/api/v1/session/'+data_op.sessionData.id+'/updatestatus',       
-            dataType: 'json',
+            //dataType: 'json',
             type: 'PUT',
             success: function( data, textStatus, jQxhr ){
                 
                 let respData = data;
 
-            console.log('-------respData----------',respData);
+                console.log('-------respData----------',respData);
             },
             error: function( jqXhr, textStatus, errorThrown ){
                 console.log( errorThrown );

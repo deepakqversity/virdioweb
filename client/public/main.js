@@ -1332,8 +1332,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
         error: function( jqXhr, textStatus, errorThrown ){
             console.log( errorThrown );
         }
-    });
+      });
     }
+
+    return false;
   }
 
   function joinChannel(){
@@ -3749,7 +3751,7 @@ function signalHandler(uid, signalData, userType) {
             leave();
             removeSession();       
             location.href  = '/login';
-        }, 200);
+        }, 300);
         
         // location.reload();
       });

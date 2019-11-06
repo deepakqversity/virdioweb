@@ -217,7 +217,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
         $('#online-user-list tr').sort(sort_li).appendTo('#online-user-list');
 
         console.log('memberId============', memberId)
-        if(storeData.userType == 1){
+
+        let remoteUser = memberId.includes("RM-");
+
+        if(storeData.userType == 1 && remoteUser == false){
           if( $('#joinee-' + convertEmailToId(memberId)).length == 0 ){
 
             let joinerName = getUserDataFromList(memberId, 'firstName')+' '+(getUserDataFromList(memberId, 'lastName') != null?getUserDataFromList(memberId, 'lastName'):'');
@@ -258,7 +261,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
           console.log('msggggggggggggggggggg', msg)
           // msg = JSON.parse(msg);  
           channelMsgHandler(msg, senderId,storeData.userType);
-          if(storeData.userType ==1){
+
+          let remoteUser = senderId.includes("RM-");
+
+          if(storeData.userType == 1 && remoteUser == false){
             if( $('#joinee-' + convertEmailToId(senderId)).length == 0 ){
 
               let joinerName = getUserDataFromList(senderId, 'firstName')+' '+(getUserDataFromList(senderId, 'lastName') != null?getUserDataFromList(senderId, 'lastName'):'');

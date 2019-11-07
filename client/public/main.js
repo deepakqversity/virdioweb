@@ -915,7 +915,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   function publish() {
     let storeData = getCurrentUserData();
-      
+
     setTimeout(function(){ console.log('%%%%%%%%%%%%%%%%%%%%');}, 1000);
 
     console.log(' @@@@@@@ totalBrodcaster @@@@@@@ ', totalBrodcaster, storeData.default.maxUserLimit);
@@ -925,7 +925,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     if(storeData.userType == 2){
 
       // check time duration to be first screen users 
-      let sessionTime = localStorage.getItem("pre-session-time");
+      /*let sessionTime = localStorage.getItem("pre-session-time");
       console.log('sessionTime sessionTime', sessionTime);
       if(sessionTime != null){
         sessionTime = JSON.parse(sessionTime);
@@ -933,7 +933,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
         if((sessionTime.joinTime - sessionTime.startTime)/1000 <= storeData.default.maxJoinDuration ){
           checkUserTime = true;
         }
-      }
+      }*/
+
       // check user exists in list of first order
       isUserExists = checkUserInOrder(storeData);
       if(isUserExists && totalBrodcaster < parseInt(storeData.default.maxUserLimit)){

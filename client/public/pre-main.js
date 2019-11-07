@@ -1198,8 +1198,43 @@ function signalHandler(uid, signalData, userType) {
           let ct = 0;
           for(let i=0; i < userList.length; i++){
             let uTyp = getUserDataFromList(userList[i].id, 'userType');
+
+            if (uTyp == 2) {
+
+                let storeData = getCurrentUserData();
+                
+                $('#participent-stream-redirect-alert').modal('show');
+                $('#set-temp-sesstion').click();
+
+                let duration = parseInt(storeData.default.streamRedirectDuration);
+
+                let ref2 = setInterval( function() {
+                    $('#stream-rem-join-timer').html(duration < 0 ? 0 : duration);
+                    if(duration <= 0){
+                      clearInterval(ref2);
+                      $('#continue-join').click();
+                    }
+                    duration--;
+                }, 1000 );
+
+                // let currentUId = convertEmailToId(userList[i].id);
+
+                // if(storeData.id == currentUId) {
+                  
+                //     let sessionTime = {};
+                //     sessionTime['startTime'] = (new Date()).getTime();
+                //     sessionTime['joinTime'] = ''
+                //     localStorage.setItem("pre-session-time", JSON.stringify(sessionTime));
+
+                //     $('#continue-join').removeAttr('disabled');
+                //     $('#set-temp-sesstion').click();
+
+                //     break;
+                // }
+            }
+
             //console.log('22222222222 000000000000----------',storeData.id, userList[i].id, uTyp, ct)
-            if(ct < parseInt(storeData.default.maxUserLimit) && uTyp == 2){
+            /*if(ct < parseInt(storeData.default.maxUserLimit) && uTyp == 2){
               let currentUId = convertEmailToId(userList[i].id);
 //console.log('22222222222 111111111----------',storeData.id , userList[i])
               if(storeData.id == currentUId) {
@@ -1244,7 +1279,7 @@ function signalHandler(uid, signalData, userType) {
 
                     break;
                 }
-            }
+            }*/
           }
         }
 

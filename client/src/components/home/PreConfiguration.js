@@ -606,7 +606,7 @@ render() {
         </div>
       </div>
 
-      {participentTimerPopup}
+      {/*participentTimerPopup*/}
 
       <div id="participent-stream-redirect-alert" className="modal fade">
         <div className="modal-dialog modal-confirm">

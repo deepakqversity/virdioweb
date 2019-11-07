@@ -109,7 +109,6 @@ class PreConfiguration extends Component {
     }
   }
 
-
   joinSession = () => {
    
    //   this.checkHostSession();
@@ -142,7 +141,8 @@ class PreConfiguration extends Component {
       this.removeScript('/pre-main.js');
 
       window.participentTimerAlertClose();
-
+      window.participentStreamTimerAlertClose();
+      
       let localstoragedata = JSON.parse(localStorage.getItem('userData'));
     // this.setState({userType : localstoragedata.userType})
       
@@ -572,10 +572,9 @@ render() {
                   {(
                     ()=>{
                         if(localstoragedata.userType == 1) {
-                          return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-4 rounded " data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
+                            return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-4 rounded " data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
                         } else {
-                      
-                            return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)} disabled={!this.state.isHostJoined}>Join</button>;                     
+                            return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded d-none" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)} disabled={!this.state.isHostJoined}>Join</button>;                     
                         }
                     }
                   )()}
@@ -608,6 +607,23 @@ render() {
       </div>
 
       {participentTimerPopup}
+
+      <div id="participent-stream-redirect-alert" className="modal fade">
+        <div className="modal-dialog modal-confirm">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h4 className="modal-title">Joining Session</h4>  
+                {/* <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button> */}
+            </div>
+            <div className="modal-body">
+              <div>You will be redirected in <strong><span id="stream-rem-join-timer"></span></strong> seconds</div>
+            </div>
+            {/*<div className="modal-footer">
+              <button type="button" className="btn btn-success" onClick={this.joinSessionByFirst}>Join</button>
+            </div>*/}
+          </div>
+        </div>
+      </div>
 
       <div className="modal attendy-list" id="attendy-list">
         <div className="modal-dialog">

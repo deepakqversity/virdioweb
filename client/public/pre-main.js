@@ -1100,7 +1100,23 @@ function signalHandler(uid, signalData, userType) {
       console.log(' uid =================== time', uid, resultant);
 
       addRtmJoinOrder(uid, resultant[1]);
-     // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
+
+      if (resultant[2] == 1) {
+          let storeData = getCurrentUserData();
+          
+          $('#participent-stream-redirect-alert').modal('show');
+
+          let duration = parseInt(storeData.default.streamRedirectDuration);
+
+          let ref2 = setInterval( function() {
+              $('#stream-rem-join-timer').html(duration < 0 ? 0 : duration);
+              if(duration <= 0){
+                clearInterval(ref2);
+                $('#continue-join').click();
+              }
+              duration--;
+          }, 1000 );
+      }
     }
 
     else if(resultant[0] == '205')
@@ -1166,7 +1182,7 @@ function signalHandler(uid, signalData, userType) {
               let ts = (new Date()).getTime();
               let text ="216"+sep+ts;
             }
-            let text ="216"+sep+ele.joinAt;
+            let text ="216"+sep+ele.joinAt+sep+0;
             // console.log('-------------text=== ', text)
              sendMessage(senderId, text);
           }
@@ -1944,6 +1960,10 @@ function signalHandler(uid, signalData, userType) {
 
           $('#participent-timer-alert').modal('hide');
         }
+      }
+
+      function participentStreamTimerAlertClose() {
+          $('#participent-stream-redirect-alert').modal('hide');
       }
 
       // Get user specific data

@@ -14,12 +14,12 @@ class ChannelHost{
 	 * @param  {int} userId 
 	 * @return {obj} 
 	 */
-	async getChannelHostsList(channelId) {
+	async getChannelHostsList(channelId,userId) {
 
-		console.log('------lalitgetchannel---------',channelId)
+		console.log('------lalitgetchannel---------',channelId,userId)
 		
         return await new Promise((resolve, reject) => {
-        	db.query('SELECT ch.hostId as userId, CONCAT(u.firstName, " ", u.lastName) as username FROM channel_host as ch INNER JOIN users as u WHERE ch.hostId = u.id AND u.isBanned = 0  AND ch.channelAdmin = 0  AND  ch.channelId = ?', [channelId], function (error, results, fields) {
+        	db.query('SELECT ch.hostId as userId, CONCAT(u.firstName, " ", u.lastName) as username FROM channel_host as ch INNER JOIN users as u WHERE ch.hostId = u.id AND u.isBanned = 0  AND ch.channelAdmin = 0  AND  u.id !=?  AND ch.channelId = ?', [userId,channelId], function (error, results, fields) {
 				  if (error) reject(error);
 				  
 				  console.log('------getchannel---------',error)

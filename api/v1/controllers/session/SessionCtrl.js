@@ -449,8 +449,10 @@ class SessionCtrl {
 
 	async getHosts(req, res) {
 	    try {
-			console.log('------lalitgethost---------',req.params.channelId)
-			let hostsList = await channelHostModel.getChannelHostsList(req.params.channelId);
+
+			let userId=11;
+			console.log('------lalitgethost---------',req.param)
+			let hostsList = await channelHostModel.getChannelHostsList(req.params.channelId,userId);
 
 			console.log('------lalitgethostlist---------',hostsList)
 

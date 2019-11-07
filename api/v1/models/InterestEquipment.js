@@ -15,7 +15,7 @@ class InterestEquipment{
 	 * @return {obj} 
 	 */
 
-
+	 
     async getEquipments(interestId){
 
         let table = this.table;

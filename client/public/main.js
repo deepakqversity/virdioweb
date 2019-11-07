@@ -2009,7 +2009,17 @@ function signalHandler(uid, signalData, userType) {
               let ts = (new Date()).getTime();
               let text ="216"+sep+ts;
             }
-            let text ="216"+sep+ele.joinAt;
+
+            console.log('===jagatlocalUserDta----', localUserDta.userType);
+
+            let text = '';
+
+            if (localUserDta.userType == 1) {
+                text ="216"+sep+ele.joinAt+sep+1;
+            } else {
+                text ="216"+sep+ele.joinAt+sep+0;
+            }
+            
             // console.log('-------------text=== ', text)
              sendMessage(senderId, text);
           }

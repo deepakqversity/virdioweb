@@ -440,12 +440,14 @@ if(!AgoraRTC.checkSystemRequirements()) {
     // Initialize the client and join the channel.
     console.log('-------------------------------------------ooo')
     // initialize client
-    let channelId2 = storeData.sessionData.channelId + '-122';
+    let channelId2 = 9999999999 + '' + storeData.sessionData.channelId + '' + storeData.id;
+    console.log('channelId2======', channelId2);
     localClient.init(storeData.sessionData.appId, function () {
     console.log('-------------------------------------------HHH')
           // create and join channel
       //localClient.join(storeData.sessionData.streamToken, storeData.sessionData.channelId.toString(), storeData.id, function(uid) {
-         localClient.join(storeData.sessionData.streamToken, channelId2.toString(), storeData.id, function(uid) {
+         //localClient.join(storeData.sessionData.streamToken, channelId2.toString(), storeData.id, function(uid) {
+          localClient.join(storeData.sessionData.streamDummyToken, channelId2.toString(), storeData.id, function(uid) {
         // localClient.join(null, '900001', storeData.email, function(uid) {
         console.log('-------------------------------------------uid')
           // create local stream
@@ -485,27 +487,30 @@ if(!AgoraRTC.checkSystemRequirements()) {
           
           if(stats.OutgoingAvailableBandwidth != undefined && stats.OutgoingAvailableBandwidth > 0){
 
-
             localClient.leave(function () {
-                // check in kbps
-                if(stats.OutgoingAvailableBandwidth > 500){
 
-                  $('.fill-wifi').removeClass('waveStrength-3');
-                } else if(stats.OutgoingAvailableBandwidth > 300) {
-
-                  $('.fill-wifi').addClass('waveStrength-3');
-                  $('.fill-wifi').removeClass('waveStrength-2');
-                } else if(stats.OutgoingAvailableBandwidth > 100) {
-
-                  $('.fill-wifi').addClass('waveStrength-2');
-                  $('.fill-wifi').removeClass('waveStrength-1');
-                } else {
-
-                  $('.fill-wifi').addClass('waveStrength-1');
-                  $('.fill-wifi').removeClass('waveStrength-0');
+                var resolution = checkBandwidthRule(storeData.userType, stats.OutgoingAvailableBandwidth);
+                //var resolution = false; 
+                if (false === resolution) {
+                    $('#bandwidth-low-alert').modal('show');
+                    
+                    setTimeout(function(){
+                        $('#logout_button').click();
+                    }, 4000);
                 }
+                console.log("Leave channel successfully");
+            }, function (err) {
+              console.log("Leave channel failed");
+            });
+          } else {
+            localClient.leave(function () {
 
-              console.log("Leavel channel successfully");
+                localStorage.setItem("video-resolution", '360p_11');
+
+                $('.fill-wifi').addClass('waveStrength-2');
+                $('.fill-wifi').removeClass('waveStrength-1');
+
+                console.log("Leavel channel successfully");
             }, function (err) {
               console.log("Leave channel failed");
             });
@@ -966,6 +971,9 @@ function attendeeScreenHeight(){
     localStorage.removeItem("load-page");
     localStorage.removeItem("channel");
     localStorage.removeItem("allloginuser");
+    localStorage.removeItem("video-resolution");
+    localStorage.removeItem("swap-subscriber-id");
+    localStorage.removeItem("email");
   }
   var resetCount = '';
 
@@ -1104,19 +1112,29 @@ function signalHandler(uid, signalData, userType) {
       if (resultant[2] == 1) {
           let storeData = getCurrentUserData();
           
-          $('#participent-stream-redirect-alert').modal('show');
-          $('#set-temp-sesstion').click();
-          
-          let duration = parseInt(storeData.default.streamRedirectDuration);
+          var bandwidthCheckCounter = setInterval(function() {
 
-          let ref2 = setInterval( function() {
-              $('#stream-rem-join-timer').html(duration < 0 ? 0 : duration);
-              if(duration <= 0){
-                clearInterval(ref2);
-                $('#continue-join').click();
-              }
-              duration--;
-          }, 1000 );
+            //alert(localStorage.getItem("video-resolution"));
+
+            if(localStorage.getItem("video-resolution") != null) {
+
+                clearInterval(bandwidthCheckCounter);
+
+                $('#participent-stream-redirect-alert').modal('show');
+                $('#set-temp-sesstion').click();
+                
+                let duration = parseInt(storeData.default.streamRedirectDuration);
+
+                let ref2 = setInterval( function() {
+                    $('#stream-rem-join-timer').html(duration < 0 ? 0 : duration);
+                    if(duration <= 0){
+                      clearInterval(ref2);
+                      $('#continue-join').click();
+                    }
+                    duration--;
+                }, 1000 );
+            }
+          }, 1000);
       }
     }
 
@@ -2160,7 +2178,7 @@ function signalHandler(uid, signalData, userType) {
     rtmJoin(); 
     
       $('#logout_button').click(function(){
-        updateJoinSessionStatus();
+        //updateJoinSessionStatus();
         leave_channel();
         removeSession();
         location.href  = '/login';

@@ -100,7 +100,12 @@ class UserCtrl {
 											// generate streaming token
 											let streamToken = clientToken.createToken(agoraConfig[i].appId, agoraConfig[i].appCertificate, currentSession.channelId, currentSession.userId);
 
+											// dummy token for bandwidth check
+											let channelUid = 9999999999 + '' + currentSession.channelId + '' + userObj.id;
+											let streamDummyToken = clientToken.createToken(agoraConfig[i].appId, agoraConfig[i].appCertificate, channelUid, currentSession.userId);
+
 											underscore.extend(currentSession, {streamToken : streamToken});
+											underscore.extend(currentSession, {streamDummyToken : streamDummyToken});
 											// currentSession = underscore.omit(currentSession, 'appCertificate');
 										} else if(agoraConfig[i].type == 2){
 											underscore.extend(currentSession, {rtmAppId: agoraConfig[i].appId});

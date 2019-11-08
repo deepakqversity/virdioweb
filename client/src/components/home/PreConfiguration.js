@@ -76,6 +76,7 @@ class PreConfiguration extends Component {
     this.loadScript('/AgoraRTCSDK-2.7.1.js');
     this.loadScript('/agora-rtm-sdk-1.0.0.js');
     this.loadScript('/pre-main.js');
+    this.loadScript('/check-rule.js');
 
     this.fetchUsers();
 
@@ -139,6 +140,7 @@ class PreConfiguration extends Component {
       this.removeScript('/AgoraRTCSDK-2.7.1.js');
       this.removeScript('/agora-rtm-sdk-1.0.0.js');
       this.removeScript('/pre-main.js');
+      this.loadScript('/check-rule.js');
 
       window.participentTimerAlertClose();
       window.participentStreamTimerAlertClose();
@@ -608,7 +610,7 @@ render() {
 
       {/*participentTimerPopup*/}
 
-      <div id="participent-stream-redirect-alert" className="modal fade">
+      <div id="participent-stream-redirect-alert" className="modal fade" data-backdrop="static" data-keyboard="false">
         <div className="modal-dialog modal-confirm">
           <div className="modal-content">
             <div className="modal-header">
@@ -621,6 +623,18 @@ render() {
             {/*<div className="modal-footer">
               <button type="button" className="btn btn-success" onClick={this.joinSessionByFirst}>Join</button>
             </div>*/}
+          </div>
+        </div>
+      </div>
+
+      <div id="bandwidth-low-alert" className="modal fade" data-backdrop="static" data-keyboard="false">
+        <div className="modal-dialog modal-confirm">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h4 className="modal-title">Bandwidth too low</h4></div>
+            <div className="modal-body">
+              <div>Your network bandwidth is too low for joining session at Virdio</div>
+            </div>
           </div>
         </div>
       </div>

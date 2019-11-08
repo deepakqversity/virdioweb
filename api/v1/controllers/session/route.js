@@ -30,5 +30,8 @@ route
   .get('/:interestId/shoppinglist', SessionCtrl.getShoppingList)
   //.get('/activityType/:interestId', SessionCtrl.getActivityType)
   .get('/:interestId/activityType', SessionCtrl.getActivityType)
+  .post('/createwineSession',  SessionCtrl.createWineSession)
+  .get('/:interestId/emojiesList', SessionCtrl.getEmojiesList)
+  .get('/:channelId/product-list', SessionCtrl.getProductList)
 
 module.exports = route;

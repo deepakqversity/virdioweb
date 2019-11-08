@@ -1105,7 +1105,8 @@ function signalHandler(uid, signalData, userType) {
           let storeData = getCurrentUserData();
           
           $('#participent-stream-redirect-alert').modal('show');
-
+          $('#set-temp-sesstion').click();
+          
           let duration = parseInt(storeData.default.streamRedirectDuration);
 
           let ref2 = setInterval( function() {

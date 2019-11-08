@@ -616,7 +616,7 @@ render() {
                 {/* <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button> */}
             </div>
             <div className="modal-body">
-              <div>You will be redirected in <strong><span id="stream-rem-join-timer"></span></strong> seconds</div>
+              <div>You will be redirected in <strong><span id="stream-rem-join-timer">{localstoragedata.default.streamRedirectDuration}</span></strong> seconds</div>
             </div>
             {/*<div className="modal-footer">
               <button type="button" className="btn btn-success" onClick={this.joinSessionByFirst}>Join</button>

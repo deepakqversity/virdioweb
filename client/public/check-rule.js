@@ -21,9 +21,9 @@ function checkBandwidthRule(userType, bandwidth) {
         $('.fill-wifi').removeClass('waveStrength-1');
       } else {
 
-        resolution = '360p_10';
-        $('.fill-wifi').addClass('waveStrength-1');
-        $('.fill-wifi').removeClass('waveStrength-0');
+        // resolution = '360p_10';
+        // $('.fill-wifi').addClass('waveStrength-1');
+        // $('.fill-wifi').removeClass('waveStrength-0');
       }
   } else { // for Participants
 
@@ -44,9 +44,9 @@ function checkBandwidthRule(userType, bandwidth) {
         $('.fill-wifi').removeClass('waveStrength-1');
       } else {
 
-        resolution = '360p_10';
-        $('.fill-wifi').addClass('waveStrength-1');
-        $('.fill-wifi').removeClass('waveStrength-0');
+        // resolution = '360p_10';
+        // $('.fill-wifi').addClass('waveStrength-1');
+        // $('.fill-wifi').removeClass('waveStrength-0');
       }
   }
 

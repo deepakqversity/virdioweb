@@ -93,7 +93,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
             // create local stream
             localStream = AgoraRTC.createStream({streamID: uid, audio: true, cameraId: camera, microphoneId: microphone, video: true, screen: false });
             
-            localStream.setVideoProfile('720p_3');
+            console.log('video-resolution-----', localStorage.getItem("video-resolution"));
+            //localStream.setVideoProfile('720p_3');
+            localStream.setVideoProfile(localStorage.getItem("video-resolution"));
 
             // The user has granted access to the camera and mic.
             localStream.on("accessAllowed", function() {
@@ -1653,12 +1655,10 @@ function changeImage(){
     localStorage.removeItem("load-page");
     localStorage.removeItem("channel");
     localStorage.removeItem("allloginuser");
+    localStorage.removeItem("video-resolution");
+    localStorage.removeItem("email");
+    localStorage.removeItem("chkbx");
   }
-  
-
-
-
-  
 
 
   function sessionTimer(){
@@ -3758,7 +3758,7 @@ function signalHandler(uid, signalData, userType) {
         // localStream.stop();
         //updateJoinSessionStatus();
 
-        let data_op = JSON.parse(localStorage.getItem("userData"));
+        /*let data_op = JSON.parse(localStorage.getItem("userData"));
         if(data_op.userType == 1)
         {
           $.ajax({
@@ -3779,14 +3779,12 @@ function signalHandler(uid, signalData, userType) {
                 console.log( errorThrown );
             }
           });
-        }
+        }*/
         
-        setTimeout(()=>{
-            leave_channel();
-            leave();
-            removeSession();       
-            location.href  = '/login';
-        }, 300);
+        leave_channel();
+        leave();
+        removeSession();       
+        location.href  = '/login';
         
         // location.reload();
       });

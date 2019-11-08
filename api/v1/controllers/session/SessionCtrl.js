@@ -11,8 +11,11 @@ const channelHostModel = require('../../models/ChannelHost');
 const InterestEquipmentModel = require('../../models/InterestEquipment');
 const InterestShoppingModel = require('../../models/InterestShoppingList');
 const ActivityTypeModel = require('../../models/ActivityType');
+const SessionEmojiesModel = require('../../models/SessionEmojies');
 const SessionEquipmentMappingModel = require('../../models/SessionEquipmentMapping');
 const SessionShoppingListModel = require('../../models/SessionShoppingList');
+const EmojiesModel = require('../../models/Emojies');
+const ChannelProductModel = require('../../models/ChannelProduct');
 const activityLogsModel = require('../../models/ActivityLogs');
 const clientToken = require( process.cwd() + '/util/ClientToken');
 const response = require(process.cwd() + '/util/Response');
@@ -389,6 +392,204 @@ class SessionCtrl {
 
 
 
+		async createWineSession(req, res) {
+			try {
+	
+				console.log('----------req.bodylalit111------------------',req.body)
+	
+			
+				let insertData = {	
+					interestId : 1,	
+					channelId : req.body.session.channelId,
+					name : req.body.session.name,
+					description : req.body.session.description,
+					hostId : "11",
+					scheduleDate : req.body.session.start_date,
+					duration : req.body.session.duration,
+					level : req.body.session.level,
+					//level : "2",
+					minAttendee : req.body.session.min_participants,
+					maxAttendee : req.body.session.max_participants, 
+					currency : 'USD',
+					chargeForSession  : req.body.session.amountCharge ? req.body.session.amountCharge : 0,
+					sessionChargeAllowed  : req.body.session.session_charge == true ? 1 : 0,
+					showParticipantsCount : req.body.session.show_particpants_count == true ? 1 : 0,
+					sessionProperty : req.body.session.sessionProperty == true ? 1 : 0,
+					hostReminder : req.body.reminder.host_reminder,
+					participantReminder : req.body.reminder.participants_reminder,
+					cutOffTime : req.body.reminder.cutoff_date_time,
+					minNotMetNoticeTime : req.body.reminder.min_participants_not_met,
+					participantDisableDM : req.body.privacy.allow_participants_disable_dm == true ? 1 : 0,
+					participantsPickPlaylist : req.body.privacy.allow_participants_pick_playlist == true ? 1 : 0,
+					showParticipantsPicToOtherPartcipants : req.body.privacy.show_part_pic_to_other_part == true ? 1 : 0,
+					allowGroupLocation : req.body.groups.allow_group_location == true ? 1 : 0,
+					activity : req.body.script.next_activity,
+					heartRateMonitor : req.body.script.heart_rate_monitor == true ? 1 : 0,
+					zoneTracking : req.body.script.zone_tracking == true ? 1 : 0
+				};
+	
+				console.log('----------insertData------------------',insertData)
+	
+				
+	
+				// // insert into sessions table
+
+				 let sessionId = await sessionModel.add(insertData);
+	
+				//console.log('----------sessionId1111------------------',sessionId)
+	
+				if(sessionId > 0){
+	
+	
+					console.log('----------insertData11111------------------',sessionId)
+	
+					let userId=11;
+	
+					
+					let sessionUserId;
+	
+					 sessionUserId = await sessionUserModel.addSessionUser(sessionId,userId);
+	
+					 
+				
+						let c1=2;
+						let c2=3;
+	
+						let dataval = [
+							[ sessionId, c1],
+							[ sessionId, c2],            
+						];
+				
+						console.log('----------dataval------------------',dataval)
+	
+					let sessionconfig = await sessionConfigMappingModel.addSessionConfig(dataval);
+	
+					//console.log('----------sessionId5555------------------',req.body.host_list.hostList.length)
+	
+					if(req.body.host_list.hostList.length != 0)
+					{
+						let hostlist=[];
+						 hostlist=req.body.host_list.hostList;					 
+	
+						 let sessionUserData;
+	
+						 for(let i in hostlist){
+							sessionUserData = [[sessionId,hostlist[i],3,0,1]]
+							console.log('----------sessionId23333------------------',sessionUserData)
+	
+						let sessionUserresult = await sessionUserModel.addSessionAnotherhost(sessionUserData);
+						
+	
+						 }
+	
+	
+					}
+	
+					
+	
+					if(req.body.equipment_list.equipmentList.length != 0)
+					{
+						let equipmentList=[];
+						equipmentList=req.body.equipment_list.equipmentList;
+	
+						console.log('----------equipment_list------------------',equipmentList)
+	
+						 let sessionEquipData;
+	
+						 for(let i in equipmentList){
+							sessionEquipData = [[sessionId,equipmentList[i].id,equipmentList[i].Quantity,equipmentList[i].Link]]
+							console.log('----------sessionEquipData------------------',sessionEquipData)
+	
+						let sessionEquipresult = await SessionEquipmentMappingModel.addSessionEquipment(sessionEquipData);
+						
+						 }
+	
+	
+					}
+	
+				//	console.log('----------shopping_list------------------',req.body.shopping_list.shoppingList)
+	
+					if(req.body.shopping_list.shoppingList.length != 0)
+					{
+						let shoppingList=[];
+						shoppingList=req.body.shopping_list.shoppingList;
+	
+						console.log('----------shoppingList------------------',shoppingList)
+	
+						 let sessionshopData;
+	
+						 for(let i in shoppingList){
+							sessionshopData = [[sessionId,shoppingList[i].id,shoppingList[i].Quantity,shoppingList[i].itemNote,shoppingList[i].Link]]
+							console.log('----------sessionshopData------------------',sessionshopData)
+	
+						let sessionshopresult = await SessionShoppingListModel.addSessionshoppingList(sessionshopData);
+						console.log('-------session shopping data will be inserted-------')
+						 }
+	
+	
+					}
+	console.log('------req.body.activities--------',req.body.activities);
+	
+					if(false === isEmpty(req.body.activities)){
+						
+						let activities = req.body.activities;
+	
+						console.log('----------activities------------------',activities)
+	
+						for(let i in activities){
+	
+							var attributes = [];
+	
+							let sessionScriptInsertData = {	
+												interestId : 1,			
+												name : activities[i].wineChoice,
+												description : '',
+												//userId : req.currentUser.id,
+												userId : 11,
+											}
+	
+							 // insert into session_script table
+							let sessionScriptId = await sessionScriptModel.add(sessionScriptInsertData);
+	
+							 // insert into session_script_mapping table
+							sessionScriptMappingModel.add({ sessionId: sessionId, sessionScriptId : sessionScriptId});
+
+							console.log('------activities[i].attributes----------',activities[i])
+
+								
+							let activityEmojies = activities[i].Emojies;
+							console.log('---------activityEmojies-----------------',activityEmojies);
+							for(let j in activityEmojies){
+								console.log('---------activityEmojies[j].id-----------------',activityEmojies[j].id);
+								console.log('---------activityEmojies[j].type-----------------',activityEmojies[j].type);
+								var emojiesArr = [];
+								emojiesArr.push(sessionId);
+								emojiesArr.push(sessionScriptId);							
+								emojiesArr.push(activityEmojies[j].id);
+								emojiesArr.push(activityEmojies[j].type);
+								emojiesArr.push(1);									
+								console.log('---------emojiesArr-----------------',emojiesArr);
+							let emojiesArrr=[emojiesArr];
+							let sessionEmojiesdata = SessionEmojiesModel.addSessionEmojies(emojiesArrr);
+							}							
+							
+						}
+					}
+	
+					// res.status(200).send({logId : insertedId});
+					response.resp(res, 200, {})
+				} else {
+					response.resp(res, 500, {message:"Something went wrong."})
+				} 
+	
+	
+	
+	
+			} catch(exception) {
+					response.resp(res, 500, exception);
+				}
+			}
+
 
 
 
@@ -505,6 +706,47 @@ class SessionCtrl {
 	    }
 	}
 
+	async getEmojiesList(req, res) {
+	    try {
+			console.log('------Emojies---------',req.params.interestId)
+			
+			let emojiesList = await EmojiesModel.getEmojies(req.params.interestId);
+
+			console.log('------emojies_List---------',emojiesList)
+
+			// for(let i in emojiesList){
+
+			// var emojiesArray = [];
+			// //console.log('------emojiesArray---------',emojiesList[i])
+				
+			// emojiesArray[emojiesList[i].emojies_type]=emojiesList[i];
+			// }
+			//var emojiesArray1 = JSON.stringify(emojiesArray);
+
+			//console.log('------emojiesArray11---------',emojiesArray)
+
+			response.resp(res, 200, emojiesList);
+	    } catch(exception) {
+			response.resp(res, 500, exception);
+	    }
+	}
+
+
+	async getProductList(req, res) {
+	    try {
+			console.log('------getProductList---------',req.params.channelId)
+			
+			let productList = await ChannelProductModel.getproductsByChannel(req.params.channelId);
+
+			console.log('------productList---------',productList)
+
+			response.resp(res, 200, productList);
+	    } catch(exception) {
+			response.resp(res, 500, exception);
+	    }
+	}
+
+	
 
 
 

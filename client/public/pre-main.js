@@ -440,12 +440,14 @@ if(!AgoraRTC.checkSystemRequirements()) {
     // Initialize the client and join the channel.
     console.log('-------------------------------------------ooo')
     // initialize client
-    let channelId2 = storeData.sessionData.channelId;
+    let channelId2 = 9999999999 + '' + storeData.sessionData.channelId + '' + storeData.id;
+    console.log('channelId2======', channelId2);
     localClient.init(storeData.sessionData.appId, function () {
     console.log('-------------------------------------------HHH')
           // create and join channel
       //localClient.join(storeData.sessionData.streamToken, storeData.sessionData.channelId.toString(), storeData.id, function(uid) {
-         localClient.join(storeData.sessionData.streamToken, channelId2.toString(), storeData.id, function(uid) {
+         //localClient.join(storeData.sessionData.streamToken, channelId2.toString(), storeData.id, function(uid) {
+          localClient.join(storeData.sessionData.streamDummyToken, channelId2.toString(), storeData.id, function(uid) {
         // localClient.join(null, '900001', storeData.email, function(uid) {
         console.log('-------------------------------------------uid')
           // create local stream

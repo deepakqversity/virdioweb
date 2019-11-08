@@ -566,7 +566,7 @@ class SessionCtrl {
 								emojiesArr.push(sessionId);
 								emojiesArr.push(sessionScriptId);							
 								emojiesArr.push(activityEmojies[j].id);
-								emojiesArr.push(activityEmojies[j].type);
+								emojiesArr.push(activityEmojies[j].emojies_type);
 								emojiesArr.push(1);									
 								console.log('---------emojiesArr-----------------',emojiesArr);
 							let emojiesArrr=[emojiesArr];

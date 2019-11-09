@@ -200,7 +200,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
           });
         }
         
-
         setTimeout(function(){
         if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0 && localStorage.getItem("u-subscriber-id") !== stream.getId()) {
           // if(totalScreenUsers < totalBrodcaster, storeData.default.maxUserLimit){
@@ -1656,10 +1655,7 @@ function changeImage(){
     localStorage.removeItem("channel");
     localStorage.removeItem("allloginuser");
     localStorage.removeItem("video-resolution");
-    localStorage.removeItem("email");
-    localStorage.removeItem("chkbx");
   }
-
 
   function sessionTimer(){
     

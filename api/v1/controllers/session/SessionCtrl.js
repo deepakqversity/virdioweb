@@ -15,7 +15,9 @@ const SessionEmojiesModel = require('../../models/SessionEmojies');
 const SessionEquipmentMappingModel = require('../../models/SessionEquipmentMapping');
 const SessionShoppingListModel = require('../../models/SessionShoppingList');
 const EmojiesModel = require('../../models/Emojies');
+const ChannelsModel = require('../../models/Channels');
 const ChannelProductModel = require('../../models/ChannelProduct');
+const ChannelInterestModel = require('../../models/ChannelInterest');
 const activityLogsModel = require('../../models/ActivityLogs');
 const clientToken = require( process.cwd() + '/util/ClientToken');
 const response = require(process.cwd() + '/util/Response');
@@ -825,7 +827,70 @@ class SessionCtrl {
 	}
 
 	
+	async getInterestBychannelId(req, res) {
+	    try {
+			//let inerestId = 1;
+			console.log('------channelId---------',req.params.channelId)
+			
+			let interestList = await ChannelInterestModel.getInterestBychannel(req.params.channelId);
 
+			console.log('------interestList---------',interestList)
+
+			response.resp(res, 200, interestList);
+	    } catch(exception) {
+			response.resp(res, 500, exception);
+	    }
+	}
+
+
+	async createNewChannel(req, res) {
+	    try {
+
+			console.log('-------lllt------------',req.body)
+
+			if(false === isEmpty(req.body)){
+
+			let insertData = {	
+	
+				name : req.body.channel.name,
+				description : req.body.channel.description,
+				individualOrBusiness : "1",
+				image : req.body.channel.image ? req.body.channel.image : 0,
+				userId:3,
+				phone : req.body.channel.phone,
+				//level : "2",
+				street_address1 : req.body.channel.street_address1,
+				street_address2 : req.body.channel.street_address2, 
+				charge_amount  : req.body.channel.charge_amount ? req.body.channel.charge_amount : 0,
+				chargeForSession  : req.body.channel.chargeForSession == true ? 1 : 0,
+				city : req.body.channel.city,
+				state_code : req.body.channel.state_code,
+				zip_code : req.body.channel.zip_code,
+				account_name : req.body.channel.account_name,
+				account_number : req.body.channel.account_number,
+				account_type : req.body.channel.account_type,
+				routing_number : req.body.channel.routing_number,
+				ss : req.body.channel.ss,
+				ein : req.body.channel.ein,
+				has_shopping_list : req.body.channel.has_shopping_list == true ? 1 : 0,
+				has_equipment_list : req.body.channel.has_equipment_list == true ? 1 : 0,
+				has_product_list : req.body.channel.has_product_list == true ? 1 : 0
+			};
+
+			console.log('----------insertData------------------',insertData)
+
+			
+
+			// insert into sessions table
+			var channelId = await ChannelsModel.addchannel(insertData);
+
+		}
+
+			response.resp(res, 200, channelId);
+	    } catch(exception) {
+			response.resp(res, 500, exception);
+	    }
+	}
 
 
 }

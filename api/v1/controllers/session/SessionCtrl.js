@@ -208,7 +208,7 @@ class SessionCtrl {
 				channelId : req.body.session.channelId,
 				name : req.body.session.name,
 				description : req.body.session.description,
-				hostId : "11",
+				hostId : "3",
 				scheduleDate : req.body.session.start_date,
 				duration : req.body.session.duration,
 				level : req.body.session.level,
@@ -403,7 +403,7 @@ class SessionCtrl {
 					channelId : req.body.session.channelId,
 					name : req.body.session.name,
 					description : req.body.session.description,
-					hostId : "11",
+					hostId : "1",
 					scheduleDate : req.body.session.start_date,
 					duration : req.body.session.duration,
 					level : req.body.session.level,
@@ -741,6 +741,84 @@ class SessionCtrl {
 			console.log('------productList---------',productList)
 
 			response.resp(res, 200, productList);
+	    } catch(exception) {
+			response.resp(res, 500, exception);
+	    }
+	}
+
+
+	async getAttributeList(req, res) {
+	    try {
+			//let inerestId = 1;
+			console.log('------getAttributeList---------',req.params.interestId)
+			
+			let attributeList = await scriptAttributesModel.getAttributesByInterestIds(req.params.interestId);
+
+			console.log('------getAttributeList---------',attributeList)
+
+			response.resp(res, 200, attributeList);
+	    } catch(exception) {
+			response.resp(res, 500, exception);
+	    }
+	}
+
+
+	async addNewProduct(req, res) {
+	    try {
+			//let inerestId = 1;
+			console.log('------addNewProduct---------',req.body)
+			
+			if(false === isEmpty(req.body)){
+					
+				let newproducts = req.body;
+
+				console.log('----------products------------------',newproducts)
+
+				for(let i in newproducts){
+
+					//var newproducts = [];
+					var attributesnewArr = [];
+
+					let sessionScriptInsertData = {	
+										interestId : 1,			
+										name : newproducts.name,
+										description : '',
+										//userId : req.currentUser.id,
+										userId : 11,
+									}
+					console.log('----------sessionScriptInsertData------------------',sessionScriptInsertData)
+					 // insert into session_script table
+					let sessionScriptId = await sessionScriptModel.add(sessionScriptInsertData);
+
+				
+
+					let productsAttributes = newproducts.attributes;
+					for(let j in productsAttributes){
+
+						var attributesArr = [];
+
+						attributesArr.push(sessionScriptId);
+						attributesArr.push(newproducts.attributes[j].attrKey);
+						attributesArr.push(newproducts.attributes[j].attrValue);
+						attributesArr.push(1);
+						attributesArr.push(2);
+						
+						console.log('----------attributesArr------------------',attributesArr)
+
+						attributesnewArr.push(attributesArr);
+
+						console.log('----------attributesnewArr------------------',attributesnewArr)
+
+					}
+
+					var scriptAttributeres = await scriptAttributesModel.add(attributesnewArr);
+
+					console.log('------scriptAttributeres---------',scriptAttributeres)
+				}
+			}
+
+		
+			response.resp(res, 200, scriptAttributeres);
 	    } catch(exception) {
 			response.resp(res, 500, exception);
 	    }

@@ -21,13 +21,28 @@ class ScriptAttributes{
         })
 	}
 
+	async getAttributesByInterestIds(interestId) {
+		console.log('!!!!!!!!!!!!', interestId);
+		let table = this.table;
+        return await new Promise((resolve, reject) => {
+        	
+        	db.query('SELECT  sa.attrLabel FROM script_attributes sa INNER JOIN session_script ss on ss.id = sa.sessionScriptId WHERE ss.interestId = ? AND ss.status = 1 AND sa.status = 1  GROUP BY attrLabel', [interestId], function (error, results, fields) {
+			  if (error) reject(error);
+			  // console.log('================== results ', results)
+			  // db.end();
+			  return resolve(results);
+			});
+        })
+	}
+
 	async add(data) {
 		let table = this.table;
+		console.log('---------lalitdata-------------',data)
         return await new Promise((resolve, reject) => {
         	
         	db.query('INSERT INTO ?? (sessionScriptId, attrLabel, attrValue, status, orderBy) VALUES ?', [table, data], function (error, results, fields) {
 			  if (error) reject(error);
-			  
+			  console.log('---------lalitattribute-------------',results)
 			  return resolve(isEmpty(results) ? 0 : results.insertId);
 			});
         })

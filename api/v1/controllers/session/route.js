@@ -33,5 +33,7 @@ route
   .post('/createwineSession',  SessionCtrl.createWineSession)
   .get('/:interestId/emojiesList', SessionCtrl.getEmojiesList)
   .get('/:channelId/product-list', SessionCtrl.getProductList)
+  .get('/:interestId/attributeList', SessionCtrl.getAttributeList)
+  .post('/addProduct', SessionCtrl.addNewProduct)
 
 module.exports = route;

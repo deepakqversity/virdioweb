@@ -14,14 +14,14 @@ function checkBandwidthRule(userType, bandwidth) {
         resolution = '720p_6';
         $('.fill-wifi').addClass('waveStrength-3');
         $('.fill-wifi').removeClass('waveStrength-2');
-      } else if(bandwidth > 100) {
+      } else if(bandwidth > 200) {
 
-        resolution = '480p_6';
+        resolution = '480p_4';
         $('.fill-wifi').addClass('waveStrength-2');
         $('.fill-wifi').removeClass('waveStrength-1');
-      } else {
+      } else if(bandwidth > 100) {
 
-        resolution = '360p_10';
+        resolution = '360p_8';
         $('.fill-wifi').addClass('waveStrength-1');
         $('.fill-wifi').removeClass('waveStrength-0');
       }
@@ -37,14 +37,14 @@ function checkBandwidthRule(userType, bandwidth) {
         resolution = '720p_6';
         $('.fill-wifi').addClass('waveStrength-3');
         $('.fill-wifi').removeClass('waveStrength-2');
-      } else if(bandwidth > 100) {
+      } else if(bandwidth > 200) {
 
-        resolution = '480p_6';
+        resolution = '480p_4';
         $('.fill-wifi').addClass('waveStrength-2');
         $('.fill-wifi').removeClass('waveStrength-1');
-      } else {
+      } else if(bandwidth > 100) {
 
-        resolution = '360p_10';
+        resolution = '360p_8';
         $('.fill-wifi').addClass('waveStrength-1');
         $('.fill-wifi').removeClass('waveStrength-0');
       }

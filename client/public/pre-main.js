@@ -174,10 +174,26 @@ if(!AgoraRTC.checkSystemRequirements()) {
       var dateTime = date+' '+time;
       var text="208" +sep+ dateTime;
 
-      // if(storeData.userType != 1){
-        // when user join
-        addRtmJoinOrder(peer, newDateFormat(dateTime));
-      // }
+      // when user join
+      addRtmJoinOrder(peer, newDateFormat(dateTime));
+
+      if(storeData.userType == 2){
+        let userList = getTempUsers();
+        let firstName = '';
+
+        if(userList != ''){
+          
+          for(let i= 0; i < userList.length; i++){
+              if (userList[i].userType == 1) {
+                  firstName = userList[i].firstName;
+                  break;
+              }
+          }
+        }
+
+        let welcomeMessage = "Hi " + storeData.firstName + ", this is "  + firstName + ", welcome to your 1st virtual session with us";
+        $('#newmsg').html(welcomeMessage);
+      }
 
       channel.sendMessage({text}).then(() => {  
         console.log('-------join msg llllll--------','mssages send successfully on channel');    
@@ -505,10 +521,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
           } else {
             localClient.leave(function () {
 
-                localStorage.setItem("video-resolution", '360p_11');
+                localStorage.setItem("video-resolution", '360p_4');
 
-                $('.fill-wifi').addClass('waveStrength-2');
-                $('.fill-wifi').removeClass('waveStrength-1');
+                $('.fill-wifi').addClass('waveStrength-1');
+                $('.fill-wifi').removeClass('waveStrength-0');
 
                 console.log("Leavel channel successfully");
             }, function (err) {
@@ -973,7 +989,6 @@ function attendeeScreenHeight(){
     localStorage.removeItem("allloginuser");
     localStorage.removeItem("video-resolution");
     localStorage.removeItem("swap-subscriber-id");
-    localStorage.removeItem("email");
   }
   var resetCount = '';
 
@@ -1044,7 +1059,7 @@ function signalHandler(uid, signalData, userType) {
         incrementcountAtHost(uid, "welcome");
         
         console.log('********ppppp************ resultant', joinDateTime,uid);
-        let message="Hi " +localDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your first virtual session with us  ";
+        //let message="Hi " +localDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your first virtual session with us  ";
         
         //$('#newmsg').html(message);
        // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
@@ -1098,11 +1113,11 @@ function signalHandler(uid, signalData, userType) {
       console.log('********ssssss************ resultant', joinDateTimeattendies);
       if(getUserDataFromList(uid, 'userType') == 1){
         
-        let message="Hi " +localDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your 1st virtual session with us  ";
+        /*let message="Hi " +localDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your 1st virtual session with us  ";
         
         console.log('********ssssss************ resultant', message);
         
-        $('#newmsg').html(message);
+        $('#newmsg').html(message);*/
       }
 
       console.log(' uid =================== time', uid, resultant);
@@ -1305,7 +1320,6 @@ function signalHandler(uid, signalData, userType) {
         updateHostSessionStatus(1);
 
         let newmsg="Now U can Join";
-        //$('#newmsg').html(newmsg);
         setTimeout(function(){ $('#newmsg').html(''); }, 10000);    
       }
     
@@ -1894,9 +1908,11 @@ function signalHandler(uid, signalData, userType) {
 
       function recentlyJoinedChannelUser(){
         console.log('----------recentlyJoinedChannelUser---------------');
+
         let localData = getCurrentUserData();
-        let strArray1 =  JSON.parse(localStorage.getItem('rtm-join-order'));
-        let strArray = JSON.parse(localStorage.getItem("rtm-join-order"));
+        //let strArray = JSON.parse(localStorage.getItem("rtm-join-order"));
+        let strArray = getTempUsers();
+        
         console.log('---------strArray---------',strArray);
 
         channel.getMembers().then(membersList => {
@@ -1919,9 +1935,9 @@ function signalHandler(uid, signalData, userType) {
                 console.log('---------totMember555---------', value.id);
                 //console.log('---------totMember2222---------', totMember);
                 //if(membersList[i].id == strArray[j].id && getUserDataFromList(membersList[i], 'userType') == 2){
-                if(membersList[i] == value.id && getUserDataFromList(membersList[i], 'userType') == 2){
+                if(membersList[i] == value.email && getUserDataFromList(membersList[i], 'userType') == 2){
                   //console.log('---------totMember33333---------', membersList[i],strArray[j].id);
-                  console.log('---------totMember33333---------', membersList[i], value.id);
+                  console.log('---------totMember33333---------', membersList[i], value.email);
                   if(ctr++ <= maxUserLimit){
                     //console.log('---------totMember4444---------', maxUserLimit);
                     if( $('#joinee-' + convertEmailToId(membersList[i])).length == 0 ){

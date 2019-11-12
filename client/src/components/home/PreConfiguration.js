@@ -300,9 +300,11 @@ render() {
 
   let sessionData = localstoragedata.sessionData;
  // console.log('sessionData-0---', sessionData);
-  let scheduledDate = new Date(sessionData.scheduleDate);
+  /*let scheduledDate = new Date(sessionData.scheduleDate);
   scheduledDate.setMinutes(scheduledDate.getMinutes() - 330);
-  let localDate = moment(scheduledDate).format('MM/DD/YYYY # h:mm a');
+  let localDate = moment(scheduledDate).format('MM/DD/YYYY # h:mm a');*/
+
+  let localDate = moment(sessionData.scheduleDate).format('MM/DD/YYYY # h:mm a');
   localDate = localDate.replace('#', 'at');
   let remTime = '';
   // console.log('sessionData sessionData',sessionData );

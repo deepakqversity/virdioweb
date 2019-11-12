@@ -200,7 +200,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
           });
         }
         
-        setTimeout(function(){
+        //setTimeout(function(){
         //if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0 && localStorage.getItem("u-subscriber-id") !== stream.getId()) {
         if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
           // if(totalScreenUsers < totalBrodcaster, storeData.default.maxUserLimit){
@@ -250,7 +250,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
           // totalScreenUsers++;
         }
 
-        stream.play('agora_remote_vdo' + stream.getId());
+        if ($('#subscribers-list #agora_remote'+stream.getId()).length === 1) {
+          alert('i am in----');
+          stream.play('agora_remote_vdo' + stream.getId());
+        }
 
         switchVideoSize();
 
@@ -272,7 +275,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
           }
         }, 10);
         countCurrentSubscribers();
-        }, 1000);
+        //}, 1000);
       } else {
           let subscribeUserId = getUserDataFromList(stream.getId(), 'userType');
           if(1 == subscribeUserId){

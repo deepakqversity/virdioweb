@@ -253,28 +253,31 @@ if(!AgoraRTC.checkSystemRequirements()) {
         if ($('#subscribers-list #agora_remote'+stream.getId()).length === 1) {
           console.log('i am in streamer----');
           stream.play('agora_remote_vdo' + stream.getId());
+
+
+          switchVideoSize();
+
+          checkMuteUnmute(stream.getId());
+
+          addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
+          addUserAttribute(stream.getId(), 'isSubscribe', 1);
+
+          removeAudienceInList(stream.getId())
+
+          $('#subscribers-list #agora_remote'+stream.getId()).removeClass('d-none');
+
+          // onPageResize();
+
+          let ref = setInterval(function(){
+            if($('#subscribers-list #agora_remote'+stream.getId()).hasClass('d-none') == false){
+              onPageResize();
+              clearInterval(ref);
+            }
+          }, 10);
+          countCurrentSubscribers();
         }
 
-        switchVideoSize();
-
-        checkMuteUnmute(stream.getId());
-
-        addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
-        addUserAttribute(stream.getId(), 'isSubscribe', 1);
-
-        removeAudienceInList(stream.getId())
-
-        $('#subscribers-list #agora_remote'+stream.getId()).removeClass('d-none');
-
-        // onPageResize();
-
-        let ref = setInterval(function(){
-          if($('#subscribers-list #agora_remote'+stream.getId()).hasClass('d-none') == false){
-            onPageResize();
-            clearInterval(ref);
-          }
-        }, 10);
-        countCurrentSubscribers();
+        
         //}, 1000);
       } else {
           let subscribeUserId = getUserDataFromList(stream.getId(), 'userType');

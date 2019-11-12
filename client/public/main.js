@@ -251,7 +251,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         }
 
         if ($('#subscribers-list #agora_remote'+stream.getId()).length === 1) {
-          alert('i am in----');
+          console.log('i am in streamer----');
           stream.play('agora_remote_vdo' + stream.getId());
         }
 

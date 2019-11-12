@@ -1672,6 +1672,7 @@ function changeImage(){
     localStorage.removeItem("channel");
     localStorage.removeItem("allloginuser");
     localStorage.removeItem("video-resolution");
+    localStorage.removeItem("u-subscriber-id");
   }
 
   function sessionTimer(){

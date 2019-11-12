@@ -201,7 +201,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
         }
         
         setTimeout(function(){
-        if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0 && localStorage.getItem("u-subscriber-id") !== stream.getId()) {
+        //if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0 && localStorage.getItem("u-subscriber-id") !== stream.getId()) {
+        if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
           // if(totalScreenUsers < totalBrodcaster, storeData.default.maxUserLimit){
             
             localStorage.setItem("u-subscriber-id", stream.getId());

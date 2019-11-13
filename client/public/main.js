@@ -342,11 +342,23 @@ console.log('in-- if===', stream.getId());
 
       //$('#agora_remote' + stream.getId()).remove();
       //$('#subscribers-list #agora_remote'+stream.getId()).find('.welcome-title').text('');
-      localStorage.setItem("swap-subscriber-id", stream.getId());
+
+      //prev working
+      /*localStorage.setItem("swap-subscriber-id", stream.getId());
       $('#agora_remote' + stream.getId()).find('.heart-rate-icon').remove();
       $('#agora_remote' + stream.getId()).find('.att-details').remove();
-      $('#agora_remote' + stream.getId()).addClass('removeBroadcaster');
+      $('#agora_remote' + stream.getId()).addClass('removeBroadcaster');*/
       
+      //new code     
+      if (localStorage.getItem("swap-subscriber-id") != null && localStorage.getItem("swap-subscriber-id") != '') {
+          $('#agora_remote' + stream.getId()).find('.heart-rate-icon').remove();
+          $('#agora_remote' + stream.getId()).find('.att-details').remove();
+          $('#agora_remote' + stream.getId()).addClass('removeBroadcaster');
+      } else {
+          $('#agora_remote' + stream.getId()).remove();
+      }
+
+
       countCurrentSubscribers();
 
       switchVideoSize();
@@ -2259,7 +2271,10 @@ function signalHandler(uid, signalData, userType) {
       return rule;
     }
 
-    function kickUser(id){
+    function kickUser(id) {
+      
+      localStorage.setItem("swap-subscriber-id", id);
+
       let text = "209"+sep+"kicked by host";
       console.log('############### text', text)
       sendMessage( convertIdToEmail(id), text);

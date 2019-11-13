@@ -173,7 +173,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()+'.'+today.getMilliseconds();
       var dateTime = date+' '+time;
       var text="208" +sep+ dateTime;
-
+console.log('rtm join date and time=====', dateTime);
       // when user join
       addRtmJoinOrder(peer, newDateFormat(dateTime));
 
@@ -1179,6 +1179,7 @@ function signalHandler(uid, signalData, userType) {
       if(res1[0] == "208")
       { 
       
+        console.log('rtm join sender---', senderId, res1[1]);
         // if(userType != 1)
         // {
         // if(getUserDataFromList(senderId, 'userType') != 1){

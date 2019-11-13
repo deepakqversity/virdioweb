@@ -2274,7 +2274,7 @@ function signalHandler(uid, signalData, userType) {
     function kickUser(id) {
       
       localStorage.setItem("swap-subscriber-id", id);
-
+console.log('swap-subscriber-id----', id);
       let text = "209"+sep+"kicked by host";
       console.log('############### text', text)
       sendMessage( convertIdToEmail(id), text);

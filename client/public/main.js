@@ -2341,7 +2341,9 @@ console.log('swap-subscriber-id----', id);
 
         // let audience = getAllAudience();
         let allUsers = getAllParticipent();
+        console.log('alluserParticipent====', allUsers);
         let broadcster = getAllBroadcster();
+        console.log('alluserBroadcaster====', broadcster);
 
         console.log('switchBroadcasterToAudience ***************', broadcster, allUsers);
         if(broadcster.length > 0 && allUsers.length > broadcster.length){

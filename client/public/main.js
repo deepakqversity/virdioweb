@@ -2339,6 +2339,8 @@ console.log('swap-subscriber-id----', id);
 
     function switchBroadcasterToAudience(){
 
+        let storeData = getCurrentUserData();
+        
         // let audience = getAllAudience();
         let allUsers = getAllParticipent();
         console.log('alluserParticipent====', allUsers);
@@ -2346,7 +2348,7 @@ console.log('swap-subscriber-id----', id);
         console.log('alluserBroadcaster====', broadcster);
 
         console.log('switchBroadcasterToAudience ***************', broadcster, allUsers);
-        if(broadcster.length > 0 && allUsers.length > broadcster.length){
+        if(broadcster.length > 0 && allUsers.length > broadcster.length && broadcster.length == storeData.default.maxUserLimit){
           
           for(let i in broadcster){
             if(checkKickRule({id : broadcster[i].email})){

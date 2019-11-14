@@ -148,24 +148,27 @@ if(!AgoraRTC.checkSystemRequirements()) {
     });
 
     client.on('stream-added', function (evt) {
-      var stream = evt.stream;
-      console.log("New stream added " + stream.getId());
-      if(getUserDataFromList(stream.getId(), 'userType') == 2){
-        totalBrodcaster++;
-        // remove id when unpublished
-        currentPublishedUser.push(stream.getId());
-        console.log(' @@@@@@ totalBrodcaster++ ', totalBrodcaster);
-        
+console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId());
+      if (totalBrodcaster < storeData.default.maxUserLimit) {
+          var stream = evt.stream;
+          console.log("New stream added " + stream.getId());
+          if(getUserDataFromList(stream.getId(), 'userType') == 2){
+            totalBrodcaster++;
+            // remove id when unpublished
+            currentPublishedUser.push(stream.getId());
+            console.log(' @@@@@@ totalBrodcaster++ ', totalBrodcaster);
+            
+          }
+          // add as a audience
+          addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
+          addUserAttribute(stream.getId(), 'isSubscribe', 1);
+          
+          // console.log("Subscribe ", stream);
+          
+          client.subscribe(stream, function (err) {
+            console.log("Subscribe stream failed", err);
+          });
       }
-      // add as a audience
-      addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
-      addUserAttribute(stream.getId(), 'isSubscribe', 1);
-      
-      // console.log("Subscribe ", stream);
-      
-      client.subscribe(stream, function (err) {
-        console.log("Subscribe stream failed", err);
-      });
     });
 
     var count=1;
@@ -254,12 +257,12 @@ console.log('in-- if===', stream.getId());
 
         if ($('#subscribers-list #agora_remote'+stream.getId()).length === 1) {
           console.log('i am in streamer----');
-          stream.play('agora_remote_vdo' + stream.getId());
+          stream.play('agora_remote_vdo' + stream.getId(), {muted:true});
 
 
           switchVideoSize();
 
-          checkMuteUnmute(stream.getId());
+          //checkMuteUnmute(stream.getId());
         }
 
         addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
@@ -391,22 +394,24 @@ console.log('in-- if===', stream.getId());
     });
 
     client.on('mute-audio', function (evt) {
+      console.log('audio muted for user-----', evt.uid);
       if ($('#subscribers-list #agora_remote'+evt.uid).length > 0){
         $('#subscribers-list #agora_remote'+evt.uid).find('.hand').addClass('d-none')
       }
     });
 
     client.on('unmute-audio', function (evt) {
-
+      console.log('audio un-muted for user-----', evt.uid);
       if ($('#subscribers-list #agora_remote'+evt.uid).length > 0){
-        $('#subscribers-list #agora_remote'+evt.uid).find('.hand').removeClass('d-none')
+        //$('#subscribers-list #agora_remote'+evt.uid).find('.hand').removeClass('d-none')
       }
       
     });
 
     client.on('active-speaker', function(evt) {
-       var uid = evt.uid;
-       console.log("update active speaker: client " + uid);
+        console.log('audio active speaker for user-----', evt.uid);
+        var uid = evt.uid;
+        console.log("update active speaker: client " + uid);
     });
 
    /* client.on('peer-online', function(evt) {
@@ -628,25 +633,16 @@ console.log('in-- if===', stream.getId());
       newclient = AgoraRTM.createInstance(appId1);
       newclient.login({ token: token, uid: peer }).then(() => {
 
-        
-
-        
-
             // Create channel
             channel = newclient.createChannel(channelName1);
 
             channel.join().then(() => {
 
-            
-
-              //demo();
 
               console.log('***********AgoraRTMlalit***********');
 
             // after join channel send join channel message to host
-            joinChannel();
-
-          
+            joinChannel();          
 
             console.log('************channeljoined111111**********');
 
@@ -684,8 +680,8 @@ console.log('in-- if===', stream.getId());
               })
            
               channel.on('MemberLeft', memberId => { 
-
-                removeFromRtmOrder(memberId);
+console.log('rtm remove====', memberId);
+                //removeFromRtmOrder(memberId);
           
                 var massages="208"+sep+memberId+sep+"left"+sep;  
                 channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"left"}), storeData.userType);
@@ -723,7 +719,7 @@ console.log('in-- if===', stream.getId());
             //   channelMsgHandler(msg,senderId,storeData.userType);
             // });
 
-            newclient.on('ConnectionStateChange', (newState, reason) => {
+            newclient.on('ConnectionStateChanged', (newState, reason) => {
               console.log('on connection state changed to ' + newState + ' reason: ' + reason);
             });
 
@@ -739,11 +735,6 @@ console.log('in-- if===', stream.getId());
           console.log('---------------bbbbbbbb-----client is not logedin-----');
         });
       } else {
-        // user join streaming channel
-        // if(storeData.userType == 2){
-        //   massages="1000" + sep + storeData.id;
-        //   sendMessage(storeData.sessionData.hostEmail, massages);
-        // }
        
         channel.getMembers().then(membersList => {    
           console.log('------------membersListlalit-------',membersList);       
@@ -753,41 +744,6 @@ console.log('in-- if===', stream.getId());
           displayError(error);
            console.log('*************There is an errorkkkkkkkkkk******');
         });
-          // channel log
-          // channel.on('MemberJoined', memberId => { 
-          //   console.log('------------memberjoinedlalit-------',memberId);
-
-          //   var massages="208"+sep+memberId+sep+"joined"+sep;        
-          //   channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
-
-          //   console.log('------------memberafterjoinedlalit-------',memberId);
-          // })
-       
-          // channel.on('MemberLeft', memberId => { 
-
-          //   console.log('----------lalitmemmberleft--------------------',memberId)
-      
-          //   var massages="208"+sep+memberId+sep+"left"+sep;  
-          //   channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"left"}), storeData.userType);
-          // })
-       
-          // channel.on('ChannelMessage', (message, senderId) => {         
-          //   var msg=message.text;
-          //   // msg = JSON.parse(msg);
-          //   console.log('--------ChannelMessage-----------',msg,storeData.userType);             
-          //   channelMsgHandler(msg,senderId,storeData.userType);
-          // });
-
-          // newclient.on('ConnectionStateChange', (newState, reason) => {
-          //   console.log('on connection state changed to ' + newState + ' reason: ' + reason);
-          // });
-
-          // newclient.on('MessageFromPeer', (message, peerId) => { 
-          //   console.log('********vvvvvvvvvvvvv********',message.text,'********************',peerId);
-          //   // console.log("message "+ message.text + " peerId" + peerId);
-
-          //   signalHandler(peerId, message.text, storeData.userType);
-          // });
         }
   
       }
@@ -802,7 +758,17 @@ console.log('in-- if===', stream.getId());
       function sendMessage(peerId, text)
       {
           console.log("sendPeerMessage", text, peerId);
-          newclient.sendMessageToPeer({text}, peerId);
+          newclient.sendMessageToPeer({text}, peerId).then(sendResult => {
+            console.log('sendResult---', sendResult, peerId);
+          if (sendResult.hasPeerReceived) {
+          /* Your code for handling the event that the remote user receives the message. */
+          } else {
+          /* Your code for handling the event that the message is received by the server but the remote user cannot be reached. */
+          }
+          }).catch(error => {
+            console.log('peererror=======', error);
+          /* Your code for handling the event of a message send failure. */
+          });
       }
 
       function sendMessageToChannel(channelName1, text)
@@ -964,7 +930,7 @@ console.log('in-- if===', stream.getId());
     let isUserExists = false;
 
     if(storeData.userType == 2){
-
+console.log('checuser-----');
       // check time duration to be first screen users 
       /*let sessionTime = localStorage.getItem("pre-session-time");
       console.log('sessionTime sessionTime', sessionTime);
@@ -1015,13 +981,13 @@ console.log('in-- if===', stream.getId());
   function checkUserInOrder(storeData){
 
     let userList = getOrderUser();
-    
+    console.log('rtm userListuserList====', userList);
     if(userList == '' || userList == null) return false;
 
     // let counter = userList.length >= storeData.default.maxUserLimit ? storeData.default.maxUserLimit : userList.length;
     let ctr = 0;
     for(let i=0; i < userList.length; i++){
-
+console.log('rtm order======', userList[i].id);
       if(getUserDataFromList(userList[i].id, 'userType') == 2){
 
         if(ctr < storeData.default.maxUserLimit && convertEmailToId(userList[i].id) == storeData.id){
@@ -1696,6 +1662,7 @@ function changeImage(){
     localStorage.removeItem("allloginuser");
     localStorage.removeItem("video-resolution");
     localStorage.removeItem("u-subscriber-id");
+    localStorage.removeItem("swap-subscriber-id");
   }
 
   function sessionTimer(){
@@ -2340,7 +2307,7 @@ console.log('swap-subscriber-id----', id);
     function switchBroadcasterToAudience(){
 
         let storeData = getCurrentUserData();
-        
+
         // let audience = getAllAudience();
         let allUsers = getAllParticipent();
         console.log('alluserParticipent====', allUsers);
@@ -2348,8 +2315,8 @@ console.log('swap-subscriber-id----', id);
         console.log('alluserBroadcaster====', broadcster);
 
         console.log('switchBroadcasterToAudience ***************', broadcster, allUsers);
-        if(broadcster.length > 0 && allUsers.length > broadcster.length && broadcster.length == storeData.default.maxUserLimit){
-          
+        //if(broadcster.length > 0 && allUsers.length > broadcster.length && broadcster.length == storeData.default.maxUserLimit){
+        if(broadcster.length > 0 && allUsers.length > broadcster.length){
           for(let i in broadcster){
             if(checkKickRule({id : broadcster[i].email})){
               console.log('checkKickRule ***************');
@@ -3043,7 +3010,7 @@ console.log('swap-subscriber-id----', id);
   }
 
   function removeFromRtmOrder(memberId){
-
+console.log('removed from rtm order====', memberId);
       let strArray = localStorage.getItem("rtm-join-order");
       let orderList = [];
       if(strArray != null){
@@ -3095,7 +3062,7 @@ console.log('swap-subscriber-id----', id);
     if(tempUsers != null){
       
       for(let i in tempUsers){
-        console.log('&&&&&&& 11111111', tempUsers[i]);
+        //console.log('&&&&&&& 11111111', tempUsers[i]);
         if(tempUsers[i].hasOwnProperty('isSubscribe') && parseInt(tempUsers[i].isSubscribe) == 0){
           audience.push(tempUsers[i]);          
         }

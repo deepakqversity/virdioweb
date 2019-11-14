@@ -209,7 +209,7 @@ console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId(
         if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
           // if(totalScreenUsers < totalBrodcaster, storeData.default.maxUserLimit){
 console.log('prevDivId------', prevDivId);
-            localStorage.setItem("u-subscriber-id", stream.getId());
+            //localStorage.setItem("u-subscriber-id", stream.getId());
 
           if (prevDivId === '') {
 console.log('in-- if===', stream.getId());
@@ -373,7 +373,13 @@ console.log('in-- if===', stream.getId());
       console.log('Peer leave = ', evt)
       var stream = evt.stream;
       if (stream) {
-        stream.stop();
+
+        console.log('Peer leave = isPlaying', stream.isPlaying);
+        console.log('Peer leave = getId()', stream.getId());
+
+        if (stream.isPlaying) {
+            stream.stop();
+        }
         
         removeUserAttribute(stream.getId(), 'subscribeTime');
         removeUserAttribute(stream.getId(), 'isSubscribe');
@@ -1661,7 +1667,7 @@ function changeImage(){
     localStorage.removeItem("channel");
     localStorage.removeItem("allloginuser");
     localStorage.removeItem("video-resolution");
-    localStorage.removeItem("u-subscriber-id");
+    //localStorage.removeItem("u-subscriber-id");
     localStorage.removeItem("swap-subscriber-id");
   }
 

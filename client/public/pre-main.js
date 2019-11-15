@@ -120,12 +120,12 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   }
 
-
   //var currentSession = getCurrentSession(); 
   var newclient; 
   var channel;
   var channelName1;
-  
+  var retryCounter = 0;
+
   function rtmJoin()
   {
     // var appId1 = '232f270a5aeb4e0097d8b5ceb8c24ab3';
@@ -139,8 +139,25 @@ if(!AgoraRTC.checkSystemRequirements()) {
     var peer=storeData.email;
     // newclient.login({uid: peer.toString(), token});
 
-    newclient.on('ConnectionStateChange', (newState, reason) => {
+    newclient.on('ConnectionStateChanged', (newState, reason) => {
       console.log('on connection state changed to ' + newState + ' reason: ' + reason);
+
+        if (newState == 'ABORTED' && (reason == 'LOGIN_TIMEOUT' || reason == 'INTERRUPTED' || reason == 'REMOTE_LOGIN')) {
+                    
+            console.log('connection state changed. Trying to reconnect');
+
+            newclient.logout();
+
+            newclient.login({ token: token, uid: peer }).then(() => {
+                
+                // Create channel
+                channel = newclient.createChannel(channelName1);
+                console.log('rtm channel instance==', channel);
+                channel.join().then(() => {
+                    //@todo
+                });
+            });
+        }
     });
 
     console.log('uidpeer', peer)
@@ -313,13 +330,53 @@ console.log('rtm join date and time=====', dateTime);
       function sendMessage(peerId, text)
       {
           console.log("sendPeerMessage", text, peerId);
-          newclient.sendMessageToPeer({text}, peerId);
+          newclient.sendMessageToPeer({text}, peerId).then(sendResult => {
+            console.log('sendResult---', sendResult, peerId);
+            if (sendResult.hasPeerReceived) {
+                /* Your code for handling the event that the remote user receives the message. */
+
+                console.log('retryCounter====', retryCounter);
+
+                retryCounter = 0;
+            } else {
+                /* Your code for handling the event that the message is received by the server but the remote user cannot be reached. */
+                
+                if (retryCounter <= 3) {
+                    retryCounter++;
+
+                    setTimeout(function(){
+                        sendMessage(peerId, text);
+                    }, 500);
+                } else {
+                    console.log('retryCounter====limit exceeded', retryCounter);
+                    retryCounter = 0;
+                }
+            }
+          }).catch(error => {
+              console.log('peererror=======', error);
+              retryCounter = 0;
+          });
       }
 
       function sendMessageToChannel(channelName1, text)
       {
-          channel.sendMessage({text},channelName1);
-          console.log('---------------','mssages send successfully on channel');
+          channel.sendMessage({text},channelName1).then(() => {
+              console.log('---------------','mssages send successfully on channel');
+              retryCounter = 0;
+          }).catch(error => {
+            console.log('channel message failed----', error);
+
+            if (retryCounter <= 3) {
+                retryCounter++;
+
+                setTimeout(function(){
+                    sendMessageToChannel(channelName1, text);
+                }, 500);
+            } else {
+                console.log('retryCounter====limit exceeded', retryCounter);
+                retryCounter = 0;
+            }
+          });
       }
 
       function joinChannel(){

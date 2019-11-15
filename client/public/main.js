@@ -21,7 +21,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   var sep = '~@$';
   var currentPublishedUser = [];
   var changedRole = 'audience';
-  var peerCounter = 0;
+  var retryCounter = 0;
 
   function join() {
 
@@ -321,7 +321,16 @@ console.log('in-- if===', stream.getId());
       
       var storeData = getCurrentUserData();
       var stream = evt.stream;
-      stream.stop();
+      
+      console.log('Peer leave = stream removed');
+      console.log('Peer leave = isPlaying', stream.isPlaying);
+      console.log('Peer leave = getId()', stream.getId());
+
+      if (stream.isPlaying === true) {
+          console.log('stream stopped===', stream.getId());
+          stream.stop();
+      }
+
       // check user role and decrease number
       if(getUserDataFromList(stream.getId(), 'userType') == 2){
         if(totalBrodcaster > 0){
@@ -378,7 +387,7 @@ console.log('in-- if===', stream.getId());
         console.log('Peer leave = isPlaying', stream.isPlaying);
         console.log('Peer leave = getId()', stream.getId());
 
-        if (stream.isPlaying) {
+        if (stream.isPlaying === true) {
             stream.stop();
         }
         
@@ -411,17 +420,16 @@ console.log('in-- if===', stream.getId());
       console.log('audio un-muted for user-----', evt.uid);
       if ($('#subscribers-list #agora_remote'+evt.uid).length > 0){
         //$('#subscribers-list #agora_remote'+evt.uid).find('.hand').removeClass('d-none')
-      }
-      
+      }      
     });
 
-    client.on('active-speaker', function(evt) {
+    /* client.on('active-speaker', function(evt) {
         console.log('audio active speaker for user-----', evt.uid);
         var uid = evt.uid;
         console.log("update active speaker: client " + uid);
     });
 
-   /* client.on('peer-online', function(evt) {
+    client.on('peer-online', function(evt) {
       console.log('peer-online', evt.uid);
     });
     
@@ -785,28 +793,52 @@ console.log('rtm remove====', memberId);
           newclient.sendMessageToPeer({text}, peerId).then(sendResult => {
             console.log('sendResult---', sendResult, peerId);
             if (sendResult.hasPeerReceived) {
-                console.log('peerCounter====', peerCounter);
                 /* Your code for handling the event that the remote user receives the message. */
+
+                console.log('retryCounter====', retryCounter, peerId);
+
+                retryCounter = 0;
             } else {
                 /* Your code for handling the event that the message is received by the server but the remote user cannot be reached. */
-                if (peerCounter <= 3) {
-                    peerCounter++;
-                    sendMessage(peerId, text);
+                
+                console.log('retryCounter====', retryCounter, peerId);                
+                if (retryCounter <= 3) {
+                    retryCounter++;
+
+                    setTimeout(function(){
+                        sendMessage(peerId, text);
+                    }, 500);
                 } else {
-                    console.log('peerCounter====limit exceeded', peerCounter);
-                    peerCounter = 0;
+                    console.log('retryCounter====limit exceeded', retryCounter, peerId);
+                    retryCounter = 0;
                 }
             }
           }).catch(error => {
-            console.log('peererror=======', error);
-          /* Your code for handling the event of a message send failure. */
+              console.log('peererror=======', error);
+              retryCounter = 0;
           });
       }
 
       function sendMessageToChannel(channelName1, text)
       {
           console.log('---------------','mssages send successfully on channel', channelName1, text);
-          channel.sendMessage({text},channelName1);
+          channel.sendMessage({text},channelName1).then(() => {
+              console.log('---------------','mssages send successfully on channel');
+              retryCounter = 0;
+          }).catch(error => {
+            console.log('channel message failed----', error);
+
+            if (retryCounter <= 3) {
+                retryCounter++;
+
+                setTimeout(function(){
+                    sendMessageToChannel(channelName1, text);
+                }, 500);
+            } else {
+                console.log('retryCounter====limit exceeded', retryCounter);
+                retryCounter = 0;
+            }
+          });
       }
 
 
@@ -3009,13 +3041,15 @@ console.log('swap-subscriber-id----', id);
     let tmpDt = dtTm.split(' ');
     let dt = tmpDt[0].split('/');
     let tm = tmpDt[1].split(':');
+    let ms = tm[2].split('.');
 
     // console.log('newDate =========', dt, tm);
     //new Date(2016, 6, 27, 13, 30, 0);
-    let newDate = new Date(dt[2], dt[1]-1, dt[0], tm[0], tm[1], tm[2]).getTime();
+    let newDate = new Date(dt[2], dt[1]-1, dt[0], tm[0], tm[1], tm[2], ms[1]).getTime();
     // console.log('newDate =========', newDate.getTime());
     return newDate;
   }
+
   function addRtmJoinOrder(userId, time){
 
     let currentTime = time;
@@ -4104,7 +4138,7 @@ console.log('removed from rtm order====', memberId);
     });
 
     $('.host-header .mute-unmute-local').on('click', function(){
-      
+
       let vdo = $('#agora_local video')[0];
       let ado = $('#agora_local audio')[0]; 
       console.log('vdo vdo vdo ', vdo, ado, vdo.muted, ado.muted)

@@ -21,6 +21,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   var sep = '~@$';
   var currentPublishedUser = [];
   var changedRole = 'audience';
+  var peerCounter = 0;
 
   function join() {
 
@@ -725,8 +726,25 @@ console.log('rtm remove====', memberId);
             //   channelMsgHandler(msg,senderId,storeData.userType);
             // });
 
-            newclient.on('ConnectionStateChanged', (newState, reason) => {
-              console.log('on connection state changed to ' + newState + ' reason: ' + reason);
+            newclient.on('ConnectionStateChanged', (newState, reason) => {//alert('state=='+newState+"==reason=="+reason);
+                console.log('on connection state changed to ' + newState + ' reason: ' + reason);
+
+                if (newState == 'ABORTED' && (reason == 'LOGIN_TIMEOUT' || reason == 'INTERRUPTED' || reason == 'REMOTE_LOGIN')) {
+                    
+                    console.log('connection state changed. Trying to reconnect');
+
+                    newclient.logout();
+
+                    newclient.login({ token: token, uid: peer }).then(() => {
+                        
+                        // Create channel
+                        channel = newclient.createChannel(channelName1);
+                        console.log('rtm channel instance==', channel);
+                        channel.join().then(() => {
+                            //@todo
+                        });
+                    });
+                }
             });
 
             newclient.on('MessageFromPeer', (message, peerId) => { 
@@ -766,11 +784,19 @@ console.log('rtm remove====', memberId);
           console.log("sendPeerMessage", text, peerId);
           newclient.sendMessageToPeer({text}, peerId).then(sendResult => {
             console.log('sendResult---', sendResult, peerId);
-          if (sendResult.hasPeerReceived) {
-          /* Your code for handling the event that the remote user receives the message. */
-          } else {
-          /* Your code for handling the event that the message is received by the server but the remote user cannot be reached. */
-          }
+            if (sendResult.hasPeerReceived) {
+                console.log('peerCounter====', peerCounter);
+                /* Your code for handling the event that the remote user receives the message. */
+            } else {
+                /* Your code for handling the event that the message is received by the server but the remote user cannot be reached. */
+                if (peerCounter <= 3) {
+                    peerCounter++;
+                    sendMessage(peerId, text);
+                } else {
+                    console.log('peerCounter====limit exceeded', peerCounter);
+                    peerCounter = 0;
+                }
+            }
           }).catch(error => {
             console.log('peererror=======', error);
           /* Your code for handling the event of a message send failure. */

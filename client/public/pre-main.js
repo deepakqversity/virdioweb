@@ -66,13 +66,15 @@ if(!AgoraRTC.checkSystemRequirements()) {
     let tmpDt = dtTm.split(' ');
     let dt = tmpDt[0].split('/');
     let tm = tmpDt[1].split(':');
+    let ms = tm[2].split('.');
 
-    // console.log('newDate =========', dt, tm);
+    console.log('newDate =========', ms, tm[2]);
     //new Date(2016, 6, 27, 13, 30, 0);
-    let newDate = new Date(dt[2], dt[1]-1, dt[0], tm[0], tm[1], tm[2]).getTime();
+    let newDate = new Date(dt[2], dt[1]-1, dt[0], tm[0], tm[1], tm[2], ms[1]).getTime();
     // console.log('newDate =========', newDate.getTime());
     return newDate;
   }
+
   function addRtmJoinOrder(userId, time){
 
     let currentTime = time;

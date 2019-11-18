@@ -142,7 +142,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     newclient.on('ConnectionStateChanged', (newState, reason) => {
       console.log('on connection state changed to ' + newState + ' reason: ' + reason);
 
-        if (newState == 'ABORTED' && (reason == 'LOGIN_TIMEOUT' || reason == 'INTERRUPTED' || reason == 'REMOTE_LOGIN')) {
+        if ((newState == 'ABORTED' || newState == 'DISCONNECTED') && (reason == 'LOGIN_TIMEOUT' || reason == 'INTERRUPTED' || reason == 'REMOTE_LOGIN')) {
                     
             console.log('connection state changed. Trying to reconnect');
 
@@ -524,7 +524,7 @@ console.log('rtm join date and time=====', dateTime);
          //localClient.join(storeData.sessionData.streamToken, channelId2.toString(), storeData.id, function(uid) {
           localClient.join(storeData.sessionData.streamDummyToken, channelId2.toString(), storeData.id, function(uid) {
         // localClient.join(null, '900001', storeData.email, function(uid) {
-        console.log('-------------------------------------------uid')
+        console.log('-------------------------------------------uid', uid);
           // create local stream
             let localStream1 = AgoraRTC.createStream({streamID: uid, audio: true, video: true, screen: false });
           
@@ -1170,8 +1170,10 @@ function signalHandler(uid, signalData, userType) {
      incrementcountAtAttendies(uid, "welcome");
 
       console.log('********ssssss************ resultant', joinDateTimeattendies);
-      if(getUserDataFromList(uid, 'userType') == 1){
-        
+      if(getUserDataFromList(uid, 'userType') == 1){        
+
+        $('#online_state').removeClass('d-none');
+
         /*let message="Hi " +localDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your 1st virtual session with us  ";
         
         console.log('********ssssss************ resultant', message);
@@ -1282,6 +1284,10 @@ function signalHandler(uid, signalData, userType) {
           }
 
         });
+
+        if(getUserDataFromList(convertEmailToId(senderId), 'userType') == 1){
+          $('#online_state').removeClass('d-none');
+        }
 
       }else if(res1[0] == "222")
       {

@@ -709,13 +709,55 @@ console.log('in-- if===', stream.getId());
 
                 console.log('------------memberafterjoineddeepak-------',memberId);
 
-                $('#online-users').text(parseInt($('#online-users').text())+1);
+                // get online members list
+                channel.getMembers().then(membersList => {
+                  console.log('membersList after member joined', membersList)
+
+                  if (storeData.userType == 1) {
+                    let onlineUserCount = 0;
+
+                    if (membersList.length > 0) {
+                        for(let i= 0; i < membersList.length; i++){
+                          console.log('membersList[i]', membersList[i]);
+                          if(getUserDataFromList(convertEmailToId(membersList[i]), 'userType') == 2){
+                            onlineUserCount++;
+                          }
+                        }
+                    }
+                    
+                    $('#online-users').text(onlineUserCount);
+                  }
+                }).catch(error => {
+                  console.log('******************There Is a problem to get channel members**********', error);
+                });
               })
            
               channel.on('MemberLeft', memberId => { 
 console.log('rtm remove====', memberId);
                 //removeFromRtmOrder(memberId);
           
+                // get online members list
+                channel.getMembers().then(membersList => {
+                  console.log('membersList after member joined', membersList)
+
+                  if (storeData.userType == 1) {
+                    let onlineUserCount = 0;
+
+                    if (membersList.length > 0) {
+                        for(let i= 0; i < membersList.length; i++){
+                          console.log('membersList[i]', membersList[i]);
+                          if(getUserDataFromList(convertEmailToId(membersList[i]), 'userType') == 2){
+                            onlineUserCount++;
+                          }
+                        }
+                    }
+                    
+                    $('#online-users').text(onlineUserCount);
+                  }
+                }).catch(error => {
+                  console.log('******************There Is a problem to get channel members**********', error);
+                });
+
                 var massages="208"+sep+memberId+sep+"left"+sep;  
                 channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"left"}), storeData.userType);
               })
@@ -3739,6 +3781,11 @@ console.log('removed from rtm order====', memberId);
 
     // }
     
+    let onscreenInterval = setInterval(function(){
+        let len = $('#subscribers-list .newcss').length;
+        $('#joined_users').text(len);
+    }, 2000);
+
     $(document).on('click', '#join', function(){
       join();
     })

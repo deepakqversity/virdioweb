@@ -326,7 +326,7 @@ render() {
           <th scope="row"><img src={image} /></th>
           <td className="text-left"><span className="welcome-title">{firstName.toLowerCase()} {lastName != null ? lastName.toLowerCase() : ''} {city != null ? ', '+city.toLowerCase() : ''}</span></td>
           <td><img className="mr-2 user-status" src="/images/offline.png" /><span className="user-online-status">offline</span></td>
-          <td className="visible-status"><i className="fa fa-check text-green"></i><i className="fa fa-times text-red d-none"></i></td>
+          <td className="visible-status"><i className="fa fa-check text-green d-none" id={"user-green-status-"+id}></i><i className="fa fa-times text-red" id={"user-red-status-"+id}></i></td>
           <td>5</td>
           </tr>
         );

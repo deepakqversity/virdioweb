@@ -235,6 +235,10 @@ console.log('rtm join date and time=====', dateTime);
         console.log('MemberJoined ================MemberJoined ');
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-status').attr('src', '/images/online.png');
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-online-status').html('online');
+
+        $('#user-green-status-'+convertEmailToId(memberId)).removeClass('d-none');
+        $('#user-red-status-'+convertEmailToId(memberId)).addClass('d-none');
+
         let userList = getOrderUser()
 
         if(userList != ''){
@@ -289,6 +293,12 @@ console.log('rtm join date and time=====', dateTime);
             
           }
         }
+
+        $('#online-user-row-'+convertEmailToId(memberId)).find('.user-status').attr('src', '/images/offline.png');
+        $('#online-user-row-'+convertEmailToId(memberId)).find('.user-online-status').html('offline');
+        $('#user-green-status-'+convertEmailToId(memberId)).addClass('d-none');
+        $('#user-red-status-'+convertEmailToId(memberId)).removeClass('d-none');
+
       })
      
         channel.on('ChannelMessage', (message, senderId) => {         
@@ -2282,13 +2292,20 @@ function signalHandler(uid, signalData, userType) {
             let userList = getOrderUser();
             $('#attendy-list').find('.user-status').attr('src', '/images/offline.png');
             $('#attendy-list').find('.user-online-status').html('offline');
-            $('#attendy-list').find('.visible-status .fa').addClass('fa-times').addClass('text-red').removeClass('fa-check').removeClass('text-green');
+            $('#attendy-list').find('.fa-check').addClass('d-none');
+            $('#attendy-list').find('.fa-times').removeClass('d-none');
+
+            //$('#attendy-list').find('.visible-status .fa').addClass('fa-times').addClass('text-red').removeClass('fa-check').removeClass('text-green');
             // let memCtr = 0;
             for(let i= 0; i < membersList.length; i++){
               let eleId = convertEmailToId(membersList[i]);
               $('#online-user-row-'+eleId).find('.user-status').attr('src', '/images/online.png');
               $('#online-user-row-'+eleId).find('.user-online-status').html('online');
-              $('#online-user-row-'+eleId).find('.visible-status .fa').addClass('fa-check').addClass('text-green').removeClass('fa-times').removeClass('text-red');
+              //$('#online-user-row-'+eleId).find('.visible-status .fa').addClass('fa-check').addClass('text-green').removeClass('fa-times').removeClass('text-red');
+
+              $('#user-green-status-'+eleId).removeClass('d-none');
+              $('#user-red-status-'+eleId).addClass('d-none');
+
               if(userList != ''){
                 for(let j in userList){
                   if(userList[j].id == membersList[i]){

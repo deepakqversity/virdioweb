@@ -200,7 +200,7 @@ render() {
       scriptHtml = <FitnessScript />;
     }    
     let newulength = JSON.parse(localStorage.getItem('tempUsers')).length;
-    console.log('newulength-------------', newulength);
+    //console.log('newulength-------------', newulength);
     newulength = newulength < 1 ? 0 : --newulength ;
 
 return (

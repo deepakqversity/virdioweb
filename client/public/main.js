@@ -391,6 +391,8 @@ console.log('in-- if===', stream.getId());
             stream.stop();
         }
         
+        $('#online-users').text(parseInt($('#online-users').text())-1);
+
         removeUserAttribute(stream.getId(), 'subscribeTime');
         removeUserAttribute(stream.getId(), 'isSubscribe');
         
@@ -678,6 +680,20 @@ console.log('in-- if===', stream.getId());
                     
                 channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
 
+                if (storeData.userType == 1) {
+                  let onlineUserCount = 0;
+
+                  if (membersList.length > 0) {
+                      for(let i= 0; i < membersList.length; i++){
+                        console.log('membersList[i]', membersList[i]);
+                        if(getUserDataFromList(convertEmailToId(membersList[i]), 'userType') == 2){
+                          onlineUserCount++;
+                        }
+                      }
+                  }
+                  
+                  $('#online-users').text(onlineUserCount);
+                }
               }).catch(error => {
                 displayError(error);
                 console.log('**********shiv*********There Is a problem to join a channel**********');
@@ -692,6 +708,8 @@ console.log('in-- if===', stream.getId());
                 channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
 
                 console.log('------------memberafterjoineddeepak-------',memberId);
+
+                $('#online-users').text(parseInt($('#online-users').text())+1);
               })
            
               channel.on('MemberLeft', memberId => { 
@@ -705,7 +723,7 @@ console.log('rtm remove====', memberId);
               channel.on('ChannelMessage', (message, senderId) => {         
                 var msg=message.text;
                 // msg = JSON.parse(msg);
-                             
+                 console.log('channel message received');
                 channelMsgHandler(msg,senderId,storeData.userType);
               });
        
@@ -769,7 +787,23 @@ console.log('rtm remove====', memberId);
       } else {
        
         channel.getMembers().then(membersList => {    
-          console.log('------------membersListlalit-------',membersList);       
+          console.log('------------membersListlalit-------',membersList);  
+
+          if (storeData.userType == 1) {
+            let onlineUserCount = 0;
+
+            if (membersList.length > 0) {
+                for(let i= 0; i < membersList.length; i++){
+                  console.log('membersList[i]', membersList[i]);
+                  if(getUserDataFromList(convertEmailToId(membersList[i]), 'userType') == 2){
+                    onlineUserCount++;
+                  }
+                }
+            }
+            
+            $('#online-users').text(onlineUserCount);
+          }
+
           channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
         
         }).catch(error => {
@@ -4094,15 +4128,21 @@ console.log('removed from rtm order====', memberId);
     $('#attendy-list').on('shown.bs.modal', function () {
           
       channel.getMembers().then(membersList => {
+        console.log('membersList!!!!', membersList);
         let userList = getOrderUser();
         $('#attendy-list').find('.user-status').attr('src', '/images/offline.png');
         $('#attendy-list').find('.user-online-status').text('offline');
-        $('#attendy-list').find('.visible-status .fa').addClass('fa-times').addClass('text-red').removeClass('fa-check').removeClass('text-green');
+        $('#attendy-list').find('.fa-check').addClass('d-none');
+        $('#attendy-list').find('.fa-times').removeClass('d-none');
+        //$('#attendy-list').find('.visible-status .fa').addClass('fa-times').addClass('text-red').removeClass('fa-check').removeClass('text-green');
+        
         for(let i= 0; i < membersList.length; i++){
           let eleId = convertEmailToId(membersList[i]);
           $('#online-user-row-'+eleId).find('.user-status').attr('src', '/images/online.png');
           $('#online-user-row-'+eleId).find('.user-online-status').html('online');
-          $('#online-user-row-'+eleId).find('.visible-status .fa').addClass('fa-check').addClass('text-green').removeClass('fa-times').removeClass('text-red');
+          //$('#online-user-row-'+eleId).find('.visible-status .fa').addClass('fa-check').addClass('text-green').removeClass('fa-times').removeClass('text-red');
+          $('#user-green-status-'+eleId).removeClass('d-none');
+          $('#user-red-status-'+eleId).addClass('d-none');
           if(userList != ''){
             for(let j in userList){
               if(userList[j].id == membersList[i]){
@@ -4116,7 +4156,7 @@ console.log('removed from rtm order====', memberId);
           
         }
       }).catch(error => {
-        console.log('*************There is an error******');
+        console.log('*************There is an error******', error);
       });
   })
 

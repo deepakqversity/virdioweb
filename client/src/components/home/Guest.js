@@ -184,11 +184,8 @@ render() {
     let localstoragedata = JSON.parse(localStorage.getItem('userData'));
     let sessionData = localstoragedata.sessionData;
    
-    /*let scheduledDate = new Date(sessionData.scheduleDate);
-    scheduledDate.setMinutes(scheduledDate.getMinutes() - 330);
-    let localDate = moment(scheduledDate).format('MM/DD/YYYY # h:mm a');*/
-
     let localDate = moment(sessionData.scheduleDate).format('MM/DD/YYYY # h:mm a');
+
     localDate = localDate.replace('#', 'at');
     let remTime = '';
     // console.log('scheduleDate ',localDate );
@@ -201,7 +198,7 @@ render() {
       scriptHtml = <FitnessScript />;
     }    
     let newulength = JSON.parse(localStorage.getItem('tempUsers')).length;
-    //console.log('newulength-------------', newulength);
+    console.log('newulength-------------', newulength);
     newulength = newulength < 1 ? 0 : --newulength ;
 
 return (

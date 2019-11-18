@@ -21,6 +21,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
   var sep = '~@$';
   var currentPublishedUser = [];
   var changedRole = 'audience';
+  var retryCounter = 0;
 
   function join() {
 
@@ -148,24 +149,27 @@ if(!AgoraRTC.checkSystemRequirements()) {
     });
 
     client.on('stream-added', function (evt) {
-      var stream = evt.stream;
-      console.log("New stream added " + stream.getId());
-      if(getUserDataFromList(stream.getId(), 'userType') == 2){
-        totalBrodcaster++;
-        // remove id when unpublished
-        currentPublishedUser.push(stream.getId());
-        console.log(' @@@@@@ totalBrodcaster++ ', totalBrodcaster);
-        
+console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId());
+      if (totalBrodcaster < storeData.default.maxUserLimit) {
+          var stream = evt.stream;
+          console.log("New stream added " + stream.getId());
+          if(getUserDataFromList(stream.getId(), 'userType') == 2){
+            totalBrodcaster++;
+            // remove id when unpublished
+            currentPublishedUser.push(stream.getId());
+            console.log(' @@@@@@ totalBrodcaster++ ', totalBrodcaster);
+            
+          }
+          // add as a audience
+          addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
+          addUserAttribute(stream.getId(), 'isSubscribe', 1);
+          
+          // console.log("Subscribe ", stream);
+          
+          client.subscribe(stream, function (err) {
+            console.log("Subscribe stream failed", err);
+          });
       }
-      // add as a audience
-      addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
-      addUserAttribute(stream.getId(), 'isSubscribe', 1);
-      
-      // console.log("Subscribe ", stream);
-      
-      client.subscribe(stream, function (err) {
-        console.log("Subscribe stream failed", err);
-      });
     });
 
     var count=1;
@@ -177,6 +181,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       var stream = evt.stream;
 
       console.log("Subscribe remote stream successfully: " , stream.getId() , stream);
+      
       // for host user
       if(storeData.userType == 1) {
 
@@ -200,14 +205,15 @@ if(!AgoraRTC.checkSystemRequirements()) {
           });
         }
         
-        setTimeout(function(){
-        if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0 && localStorage.getItem("u-subscriber-id") !== stream.getId()) {
+        //setTimeout(function(){
+        //if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0 && localStorage.getItem("u-subscriber-id") !== stream.getId()) {
+        if ($('#subscribers-list #agora_remote'+stream.getId()).length === 0) {
           // if(totalScreenUsers < totalBrodcaster, storeData.default.maxUserLimit){
-            
-            localStorage.setItem("u-subscriber-id", stream.getId());
+console.log('prevDivId------', prevDivId);
+            //localStorage.setItem("u-subscriber-id", stream.getId());
 
           if (prevDivId === '') {
-
+console.log('in-- if===', stream.getId());
               /*if (localStorage.getItem("swap-subscriber-id") !== '') {
                 $('#agora_remote' + localStorage.getItem("swap-subscriber-id")).remove();  
               }
@@ -219,41 +225,46 @@ if(!AgoraRTC.checkSystemRequirements()) {
               }*/
 
 
-              if (localStorage.getItem("swap-subscriber-id") !== '') {
+              if (localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') {
+                console.log('if swap-subscriber-id=====', localStorage.getItem("swap-subscriber-id"));
                 //$('#agora_remote' + localStorage.getItem("swap-subscriber-id")).remove();  
 
                   $('#agora_remote' + localStorage.getItem("swap-subscriber-id")).attr('id', 'agora_remote'+stream.getId());
                   let newStreamer = '<div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" onclick="zoomVideo(\''+stream.getId()+'\')">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute d-none" id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><small class="click-zoom d-none" onclick="zoomVideo(\''+stream.getId()+'\')"><i class="fa fa-search-plus" aria-hidden="true"></i></small><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="heart-rate-icon d-none" data-attr="'+stream.getId()+'><img src="images/red-heart.png" /><span class="heart-icon" data-attr="'+stream.getId()+'">80</span></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-like d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-dislike d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-easy d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-too-hard d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-perfect d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-awesome d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div>';
                   $('#agora_remote' + stream.getId()).html(newStreamer);
               } else {
+                  console.log('else swap-subscriber-id=====', localStorage.getItem("swap-subscriber-id"));
                   $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" onclick="zoomVideo(\''+stream.getId()+'\')">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute d-none" id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><small class="click-zoom d-none" onclick="zoomVideo(\''+stream.getId()+'\')"><i class="fa fa-search-plus" aria-hidden="true"></i></small><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="heart-rate-icon d-none" data-attr="'+stream.getId()+'"><img src="images/red-heart.png" /><span class="heart-icon" data-attr="'+stream.getId()+'">80</span></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-like d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-dislike d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-easy d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-too-hard d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-perfect d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-awesome d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
               }              
           } else {
+              console.log('in-- else===', stream.getId());
               if (localStorage.getItem("swap-subscriber-id") !== '') {
                 //$('#agora_remote' + localStorage.getItem("swap-subscriber-id")).remove();  
+
+                  $('#agora_remote' + localStorage.getItem("swap-subscriber-id")).attr('id', 'agora_remote'+stream.getId());
+                  let newStreamer = '<div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" onclick="zoomVideo(\''+stream.getId()+'\')">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute d-none" id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><small class="click-zoom d-none" onclick="zoomVideo(\''+stream.getId()+'\')"><i class="fa fa-search-plus" aria-hidden="true"></i></small><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="heart-rate-icon d-none" data-attr="'+stream.getId()+'"><img src="images/red-heart.png" /><span class="heart-icon" data-attr="'+stream.getId()+'">80</span></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-like d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-dislike d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-easy d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-too-hard d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-perfect d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-awesome d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div>';
+                  $('#agora_remote' + stream.getId()).html(newStreamer);
+              } else {
+                  $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" onclick="zoomVideo(\''+stream.getId()+'\')">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute d-none" id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><small class="click-zoom d-none" onclick="zoomVideo(\''+stream.getId()+'\')"><i class="fa fa-search-plus" aria-hidden="true"></i></small><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="heart-rate-icon d-none" data-attr="'+stream.getId()+'"><img src="images/red-heart.png" /><span class="heart-icon" data-attr="'+stream.getId()+'">80</span></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-like d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-dislike d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-easy d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-too-hard d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-perfect d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-awesome d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
               }
               
               //$('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" onclick="zoomVideo(\''+stream.getId()+'\')">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute d-none" id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><small class="click-zoom d-none" onclick="zoomVideo(\''+stream.getId()+'\')"><i class="fa fa-search-plus" aria-hidden="true"></i></small><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="heart-rate-icon"><img src="images/red-heart.png" /><span class="heart-icon" data-attr="'+stream.getId()+'">80</span></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-like d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-dislike d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-easy d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-too-hard d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-perfect d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-awesome d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');  
               //$('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" onclick="zoomVideo(\''+stream.getId()+'\')">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute d-none" id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><small class="click-zoom d-none" onclick="zoomVideo(\''+stream.getId()+'\')"><i class="fa fa-search-plus" aria-hidden="true"></i></small><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="heart-rate-icon"><img src="images/red-heart.png" /><span class="heart-icon" data-attr="'+stream.getId()+'">80</span></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-like d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-dislike d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-easy d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-too-hard d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-perfect d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-awesome d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>').insertAfter("#"+prevDivId);
-
-
-              // new implementation
-              $('#agora_remote' + localStorage.getItem("swap-subscriber-id")).attr('id', 'agora_remote'+stream.getId());
-              let newStreamer = '<div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" onclick="zoomVideo(\''+stream.getId()+'\')">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute d-none" id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><small class="click-zoom d-none" onclick="zoomVideo(\''+stream.getId()+'\')"><i class="fa fa-search-plus" aria-hidden="true"></i></small><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="heart-rate-icon d-none" data-attr="'+stream.getId()+'"><img src="images/red-heart.png" /><span class="heart-icon" data-attr="'+stream.getId()+'">80</span></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-like d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-dislike d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-easy d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-too-hard d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-perfect d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-awesome d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div>';
-              $('#agora_remote' + stream.getId()).html(newStreamer);
+              
           }
 
           localStorage.setItem("swap-subscriber-id", '');
-
-          // }
-          // totalScreenUsers++;
         }
 
-        stream.play('agora_remote_vdo' + stream.getId());
+        if ($('#subscribers-list #agora_remote'+stream.getId()).length === 1) {
+          console.log('i am in streamer----');
+          stream.play('agora_remote_vdo' + stream.getId(), {muted:true});
 
-        switchVideoSize();
 
-        checkMuteUnmute(stream.getId());
+          switchVideoSize();
+
+          //checkMuteUnmute(stream.getId());
+        }
 
         addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
         addUserAttribute(stream.getId(), 'isSubscribe', 1);
@@ -271,7 +282,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
           }
         }, 10);
         countCurrentSubscribers();
-        }, 1000);
+        //}, 1000);
       } else {
           let subscribeUserId = getUserDataFromList(stream.getId(), 'userType');
           if(1 == subscribeUserId){
@@ -310,7 +321,16 @@ if(!AgoraRTC.checkSystemRequirements()) {
       
       var storeData = getCurrentUserData();
       var stream = evt.stream;
-      stream.stop();
+      
+      console.log('Peer leave = stream removed');
+      console.log('Peer leave = isPlaying', stream.isPlaying);
+      console.log('Peer leave = getId()', stream.getId());
+
+      if (stream.isPlaying === true) {
+          console.log('stream stopped===', stream.getId());
+          stream.stop();
+      }
+
       // check user role and decrease number
       if(getUserDataFromList(stream.getId(), 'userType') == 2){
         if(totalBrodcaster > 0){
@@ -335,11 +355,23 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
       //$('#agora_remote' + stream.getId()).remove();
       //$('#subscribers-list #agora_remote'+stream.getId()).find('.welcome-title').text('');
-      localStorage.setItem("swap-subscriber-id", stream.getId());
+
+      //prev working
+      /*localStorage.setItem("swap-subscriber-id", stream.getId());
       $('#agora_remote' + stream.getId()).find('.heart-rate-icon').remove();
       $('#agora_remote' + stream.getId()).find('.att-details').remove();
-      $('#agora_remote' + stream.getId()).addClass('removeBroadcaster');
+      $('#agora_remote' + stream.getId()).addClass('removeBroadcaster');*/
       
+      //new code     
+      if (localStorage.getItem("swap-subscriber-id") != null && localStorage.getItem("swap-subscriber-id") != '') {
+          $('#agora_remote' + stream.getId()).find('.heart-rate-icon').remove();
+          $('#agora_remote' + stream.getId()).find('.att-details').remove();
+          $('#agora_remote' + stream.getId()).addClass('removeBroadcaster');
+      } else {
+          $('#agora_remote' + stream.getId()).remove();
+      }
+
+
       countCurrentSubscribers();
 
       switchVideoSize();
@@ -351,10 +383,22 @@ if(!AgoraRTC.checkSystemRequirements()) {
       console.log('Peer leave = ', evt)
       var stream = evt.stream;
       if (stream) {
-        stream.stop();
+
+        console.log('Peer leave = isPlaying', stream.isPlaying);
+        console.log('Peer leave = getId()', stream.getId());
+
+        if (stream.isPlaying === true) {
+            stream.stop();
+        }
+        
+        $('#online-users').text(parseInt($('#online-users').text())-1);
+
         removeUserAttribute(stream.getId(), 'subscribeTime');
         removeUserAttribute(stream.getId(), 'isSubscribe');
+        
         $('#agora_remote' + stream.getId()).remove();
+        localStorage.removeItem("swap-subscriber-id");
+
         switchVideoSize();
         console.log(evt.uid + " leaved from this channel");
 
@@ -368,25 +412,26 @@ if(!AgoraRTC.checkSystemRequirements()) {
     });
 
     client.on('mute-audio', function (evt) {
+      console.log('audio muted for user-----', evt.uid);
       if ($('#subscribers-list #agora_remote'+evt.uid).length > 0){
         $('#subscribers-list #agora_remote'+evt.uid).find('.hand').addClass('d-none')
       }
     });
 
     client.on('unmute-audio', function (evt) {
-
+      console.log('audio un-muted for user-----', evt.uid);
       if ($('#subscribers-list #agora_remote'+evt.uid).length > 0){
-        $('#subscribers-list #agora_remote'+evt.uid).find('.hand').removeClass('d-none')
-      }
-      
+        //$('#subscribers-list #agora_remote'+evt.uid).find('.hand').removeClass('d-none')
+      }      
     });
 
-    client.on('active-speaker', function(evt) {
-       var uid = evt.uid;
-       console.log("update active speaker: client " + uid);
+    /* client.on('active-speaker', function(evt) {
+        console.log('audio active speaker for user-----', evt.uid);
+        var uid = evt.uid;
+        console.log("update active speaker: client " + uid);
     });
 
-   /* client.on('peer-online', function(evt) {
+    client.on('peer-online', function(evt) {
       console.log('peer-online', evt.uid);
     });
     
@@ -605,25 +650,16 @@ if(!AgoraRTC.checkSystemRequirements()) {
       newclient = AgoraRTM.createInstance(appId1);
       newclient.login({ token: token, uid: peer }).then(() => {
 
-        
-
-        
-
             // Create channel
             channel = newclient.createChannel(channelName1);
 
             channel.join().then(() => {
 
-            
-
-              //demo();
 
               console.log('***********AgoraRTMlalit***********');
 
             // after join channel send join channel message to host
-            joinChannel();
-
-          
+            joinChannel();          
 
             console.log('************channeljoined111111**********');
 
@@ -644,6 +680,20 @@ if(!AgoraRTC.checkSystemRequirements()) {
                     
                 channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
 
+                if (storeData.userType == 1) {
+                  let onlineUserCount = 0;
+
+                  if (membersList.length > 0) {
+                      for(let i= 0; i < membersList.length; i++){
+                        console.log('membersList[i]', membersList[i]);
+                        if(getUserDataFromList(convertEmailToId(membersList[i]), 'userType') == 2){
+                          onlineUserCount++;
+                        }
+                      }
+                  }
+                  
+                  $('#online-users').text(onlineUserCount);
+                }
               }).catch(error => {
                 displayError(error);
                 console.log('**********shiv*********There Is a problem to join a channel**********');
@@ -658,12 +708,56 @@ if(!AgoraRTC.checkSystemRequirements()) {
                 channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
 
                 console.log('------------memberafterjoineddeepak-------',memberId);
+
+                // get online members list
+                channel.getMembers().then(membersList => {
+                  console.log('membersList after member joined', membersList)
+
+                  if (storeData.userType == 1) {
+                    let onlineUserCount = 0;
+
+                    if (membersList.length > 0) {
+                        for(let i= 0; i < membersList.length; i++){
+                          console.log('membersList[i]', membersList[i]);
+                          if(getUserDataFromList(convertEmailToId(membersList[i]), 'userType') == 2){
+                            onlineUserCount++;
+                          }
+                        }
+                    }
+                    
+                    $('#online-users').text(onlineUserCount);
+                  }
+                }).catch(error => {
+                  console.log('******************There Is a problem to get channel members**********', error);
+                });
               })
            
               channel.on('MemberLeft', memberId => { 
-
-                removeFromRtmOrder(memberId);
+console.log('rtm remove====', memberId);
+                //removeFromRtmOrder(memberId);
           
+                // get online members list
+                channel.getMembers().then(membersList => {
+                  console.log('membersList after member joined', membersList)
+
+                  if (storeData.userType == 1) {
+                    let onlineUserCount = 0;
+
+                    if (membersList.length > 0) {
+                        for(let i= 0; i < membersList.length; i++){
+                          console.log('membersList[i]', membersList[i]);
+                          if(getUserDataFromList(convertEmailToId(membersList[i]), 'userType') == 2){
+                            onlineUserCount++;
+                          }
+                        }
+                    }
+                    
+                    $('#online-users').text(onlineUserCount);
+                  }
+                }).catch(error => {
+                  console.log('******************There Is a problem to get channel members**********', error);
+                });
+
                 var massages="208"+sep+memberId+sep+"left"+sep;  
                 channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"left"}), storeData.userType);
               })
@@ -700,8 +794,25 @@ if(!AgoraRTC.checkSystemRequirements()) {
             //   channelMsgHandler(msg,senderId,storeData.userType);
             // });
 
-            newclient.on('ConnectionStateChange', (newState, reason) => {
-              console.log('on connection state changed to ' + newState + ' reason: ' + reason);
+            newclient.on('ConnectionStateChanged', (newState, reason) => {//alert('state=='+newState+"==reason=="+reason);
+                console.log('on connection state changed to ' + newState + ' reason: ' + reason);
+
+                if ((newState == 'ABORTED' || newState == 'DISCONNECTED') && (reason == 'LOGIN_TIMEOUT' || reason == 'INTERRUPTED' || reason == 'REMOTE_LOGIN')) {
+                    
+                    console.log('connection state changed. Trying to reconnect');
+
+                    newclient.logout();
+
+                    newclient.login({ token: token, uid: peer }).then(() => {
+                        
+                        // Create channel
+                        channel = newclient.createChannel(channelName1);
+                        console.log('rtm channel instance==', channel);
+                        channel.join().then(() => {
+                            //@todo
+                        });
+                    });
+                }
             });
 
             newclient.on('MessageFromPeer', (message, peerId) => { 
@@ -716,55 +827,31 @@ if(!AgoraRTC.checkSystemRequirements()) {
           console.log('---------------bbbbbbbb-----client is not logedin-----');
         });
       } else {
-        // user join streaming channel
-        // if(storeData.userType == 2){
-        //   massages="1000" + sep + storeData.id;
-        //   sendMessage(storeData.sessionData.hostEmail, massages);
-        // }
        
         channel.getMembers().then(membersList => {    
-          console.log('------------membersListlalit-------',membersList);       
+          console.log('------------membersListlalit-------',membersList);  
+
+          if (storeData.userType == 1) {
+            let onlineUserCount = 0;
+
+            if (membersList.length > 0) {
+                for(let i= 0; i < membersList.length; i++){
+                  console.log('membersList[i]', membersList[i]);
+                  if(getUserDataFromList(convertEmailToId(membersList[i]), 'userType') == 2){
+                    onlineUserCount++;
+                  }
+                }
+            }
+            
+            $('#online-users').text(onlineUserCount);
+          }
+
           channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
         
         }).catch(error => {
           displayError(error);
            console.log('*************There is an errorkkkkkkkkkk******');
         });
-          // channel log
-          // channel.on('MemberJoined', memberId => { 
-          //   console.log('------------memberjoinedlalit-------',memberId);
-
-          //   var massages="208"+sep+memberId+sep+"joined"+sep;        
-          //   channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
-
-          //   console.log('------------memberafterjoinedlalit-------',memberId);
-          // })
-       
-          // channel.on('MemberLeft', memberId => { 
-
-          //   console.log('----------lalitmemmberleft--------------------',memberId)
-      
-          //   var massages="208"+sep+memberId+sep+"left"+sep;  
-          //   channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"left"}), storeData.userType);
-          // })
-       
-          // channel.on('ChannelMessage', (message, senderId) => {         
-          //   var msg=message.text;
-          //   // msg = JSON.parse(msg);
-          //   console.log('--------ChannelMessage-----------',msg,storeData.userType);             
-          //   channelMsgHandler(msg,senderId,storeData.userType);
-          // });
-
-          // newclient.on('ConnectionStateChange', (newState, reason) => {
-          //   console.log('on connection state changed to ' + newState + ' reason: ' + reason);
-          // });
-
-          // newclient.on('MessageFromPeer', (message, peerId) => { 
-          //   console.log('********vvvvvvvvvvvvv********',message.text,'********************',peerId);
-          //   // console.log("message "+ message.text + " peerId" + peerId);
-
-          //   signalHandler(peerId, message.text, storeData.userType);
-          // });
         }
   
       }
@@ -779,13 +866,55 @@ if(!AgoraRTC.checkSystemRequirements()) {
       function sendMessage(peerId, text)
       {
           console.log("sendPeerMessage", text, peerId);
-          newclient.sendMessageToPeer({text}, peerId);
+          newclient.sendMessageToPeer({text}, peerId).then(sendResult => {
+            console.log('sendResult---', sendResult, peerId);
+            if (sendResult.hasPeerReceived) {
+                /* Your code for handling the event that the remote user receives the message. */
+
+                console.log('retryCounter====', retryCounter, peerId);
+
+                retryCounter = 0;
+            } else {
+                /* Your code for handling the event that the message is received by the server but the remote user cannot be reached. */
+                
+                console.log('retryCounter====', retryCounter, peerId);                
+                if (retryCounter <= 3) {
+                    retryCounter++;
+
+                    setTimeout(function(){
+                        sendMessage(peerId, text);
+                    }, 500);
+                } else {
+                    console.log('retryCounter====limit exceeded', retryCounter, peerId);
+                    retryCounter = 0;
+                }
+            }
+          }).catch(error => {
+              console.log('peererror=======', error);
+              retryCounter = 0;
+          });
       }
 
       function sendMessageToChannel(channelName1, text)
       {
           console.log('---------------','mssages send successfully on channel', channelName1, text);
-          channel.sendMessage({text},channelName1);
+          channel.sendMessage({text},channelName1).then(() => {
+              console.log('---------------','mssages send successfully on channel');
+              retryCounter = 0;
+          }).catch(error => {
+            console.log('channel message failed----', error);
+
+            if (retryCounter <= 3) {
+                retryCounter++;
+
+                setTimeout(function(){
+                    sendMessageToChannel(channelName1, text);
+                }, 500);
+            } else {
+                console.log('retryCounter====limit exceeded', retryCounter);
+                retryCounter = 0;
+            }
+          });
       }
 
 
@@ -941,7 +1070,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     let isUserExists = false;
 
     if(storeData.userType == 2){
-
+console.log('checuser-----');
       // check time duration to be first screen users 
       /*let sessionTime = localStorage.getItem("pre-session-time");
       console.log('sessionTime sessionTime', sessionTime);
@@ -992,13 +1121,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
   function checkUserInOrder(storeData){
 
     let userList = getOrderUser();
-    
+    console.log('rtm userListuserList====', userList);
     if(userList == '' || userList == null) return false;
 
     // let counter = userList.length >= storeData.default.maxUserLimit ? storeData.default.maxUserLimit : userList.length;
     let ctr = 0;
     for(let i=0; i < userList.length; i++){
-
+console.log('rtm order======', userList[i].id);
       if(getUserDataFromList(userList[i].id, 'userType') == 2){
 
         if(ctr < storeData.default.maxUserLimit && convertEmailToId(userList[i].id) == storeData.id){
@@ -1672,6 +1801,8 @@ function changeImage(){
     localStorage.removeItem("channel");
     localStorage.removeItem("allloginuser");
     localStorage.removeItem("video-resolution");
+    //localStorage.removeItem("u-subscriber-id");
+    localStorage.removeItem("swap-subscriber-id");
   }
 
   function sessionTimer(){
@@ -2252,7 +2383,10 @@ function signalHandler(uid, signalData, userType) {
       return rule;
     }
 
-    function kickUser(id){
+    function kickUser(id) {
+      
+      localStorage.setItem("swap-subscriber-id", id);
+console.log('swap-subscriber-id----', id);
       let text = "209"+sep+"kicked by host";
       console.log('############### text', text)
       sendMessage( convertIdToEmail(id), text);
@@ -2317,13 +2451,17 @@ function signalHandler(uid, signalData, userType) {
 
     function switchBroadcasterToAudience(){
 
+        let storeData = getCurrentUserData();
+
         // let audience = getAllAudience();
         let allUsers = getAllParticipent();
+        console.log('alluserParticipent====', allUsers);
         let broadcster = getAllBroadcster();
+        console.log('alluserBroadcaster====', broadcster);
 
         console.log('switchBroadcasterToAudience ***************', broadcster, allUsers);
+        //if(broadcster.length > 0 && allUsers.length > broadcster.length && broadcster.length == storeData.default.maxUserLimit){
         if(broadcster.length > 0 && allUsers.length > broadcster.length){
-          
           for(let i in broadcster){
             if(checkKickRule({id : broadcster[i].email})){
               console.log('checkKickRule ***************');
@@ -2984,13 +3122,15 @@ function signalHandler(uid, signalData, userType) {
     let tmpDt = dtTm.split(' ');
     let dt = tmpDt[0].split('/');
     let tm = tmpDt[1].split(':');
+    let ms = tm[2].split('.');
 
     // console.log('newDate =========', dt, tm);
     //new Date(2016, 6, 27, 13, 30, 0);
-    let newDate = new Date(dt[2], dt[1]-1, dt[0], tm[0], tm[1], tm[2]).getTime();
+    let newDate = new Date(dt[2], dt[1]-1, dt[0], tm[0], tm[1], tm[2], ms[1]).getTime();
     // console.log('newDate =========', newDate.getTime());
     return newDate;
   }
+
   function addRtmJoinOrder(userId, time){
 
     let currentTime = time;
@@ -3017,7 +3157,7 @@ function signalHandler(uid, signalData, userType) {
   }
 
   function removeFromRtmOrder(memberId){
-
+console.log('removed from rtm order====', memberId);
       let strArray = localStorage.getItem("rtm-join-order");
       let orderList = [];
       if(strArray != null){
@@ -3069,7 +3209,7 @@ function signalHandler(uid, signalData, userType) {
     if(tempUsers != null){
       
       for(let i in tempUsers){
-        console.log('&&&&&&& 11111111', tempUsers[i]);
+        //console.log('&&&&&&& 11111111', tempUsers[i]);
         if(tempUsers[i].hasOwnProperty('isSubscribe') && parseInt(tempUsers[i].isSubscribe) == 0){
           audience.push(tempUsers[i]);          
         }
@@ -3646,6 +3786,11 @@ function signalHandler(uid, signalData, userType) {
 
     // }
     
+    let onscreenInterval = setInterval(function(){
+        let len = $('#subscribers-list .newcss').length;
+        $('#joined_users').text(len);
+    }, 2000);
+
     $(document).on('click', '#join', function(){
       join();
     })
@@ -4035,15 +4180,21 @@ function signalHandler(uid, signalData, userType) {
     $('#attendy-list').on('shown.bs.modal', function () {
           
       channel.getMembers().then(membersList => {
+        console.log('membersList!!!!', membersList);
         let userList = getOrderUser();
         $('#attendy-list').find('.user-status').attr('src', '/images/offline.png');
         $('#attendy-list').find('.user-online-status').text('offline');
-        $('#attendy-list').find('.visible-status .fa').addClass('fa-times').addClass('text-red').removeClass('fa-check').removeClass('text-green');
+        $('#attendy-list').find('.fa-check').addClass('d-none');
+        $('#attendy-list').find('.fa-times').removeClass('d-none');
+        //$('#attendy-list').find('.visible-status .fa').addClass('fa-times').addClass('text-red').removeClass('fa-check').removeClass('text-green');
+        
         for(let i= 0; i < membersList.length; i++){
           let eleId = convertEmailToId(membersList[i]);
           $('#online-user-row-'+eleId).find('.user-status').attr('src', '/images/online.png');
           $('#online-user-row-'+eleId).find('.user-online-status').html('online');
-          $('#online-user-row-'+eleId).find('.visible-status .fa').addClass('fa-check').addClass('text-green').removeClass('fa-times').removeClass('text-red');
+          //$('#online-user-row-'+eleId).find('.visible-status .fa').addClass('fa-check').addClass('text-green').removeClass('fa-times').removeClass('text-red');
+          $('#user-green-status-'+eleId).removeClass('d-none');
+          $('#user-red-status-'+eleId).addClass('d-none');
           if(userList != ''){
             for(let j in userList){
               if(userList[j].id == membersList[i]){
@@ -4057,7 +4208,7 @@ function signalHandler(uid, signalData, userType) {
           
         }
       }).catch(error => {
-        console.log('*************There is an error******');
+        console.log('*************There is an error******', error);
       });
   })
 
@@ -4079,7 +4230,7 @@ function signalHandler(uid, signalData, userType) {
     });
 
     $('.host-header .mute-unmute-local').on('click', function(){
-      
+
       let vdo = $('#agora_local video')[0];
       let ado = $('#agora_local audio')[0]; 
       console.log('vdo vdo vdo ', vdo, ado, vdo.muted, ado.muted)

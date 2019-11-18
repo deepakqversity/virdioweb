@@ -190,8 +190,11 @@ render() {
     //console.log('localstoragedata=============', localstoragedata)
     let sessionData = localstoragedata.sessionData;
    
-    let localDate = moment(sessionData.scheduleDate).format('MM/DD/YYYY # h:mm a');
+    /*let scheduledDate = new Date(sessionData.scheduleDate);
+    scheduledDate.setMinutes(scheduledDate.getMinutes() - 330);
+    let localDate = moment(scheduledDate).format('MM/DD/YYYY # h:mm a');*/
 
+    let localDate = moment(sessionData.scheduleDate).format('MM/DD/YYYY # h:mm a');
     localDate = localDate.replace('#', 'at');
     let remTime = '';
     let total_limit= localstoragedata.default.maxUserLimit;
@@ -223,7 +226,7 @@ render() {
           <th scope="row"><img src={image} /></th>
           <td className="text-left"><span className="welcome-title">{firstName.toLowerCase()} {lastName != null ? lastName.toLowerCase() : ''} {city != null ? ', '+city.toLowerCase() : ''}</span></td>
           <td><img className="mr-2 user-status" src="/images/offline.png" /><span className="user-online-status">offline</span></td>
-          <td className="visible-status"><i className="fa fa-check text-green"></i><i className="fa fa-times text-red d-none"></i></td>
+          <td className="visible-status"><i className="fa fa-check text-green d-none" id={"user-green-status-"+id}></i><i className="fa fa-times text-red" id={"user-red-status-"+id}></i></td>
           <td>5</td>
           </tr>
         );
@@ -297,7 +300,7 @@ return (
       <div className="row px-0 px-sm-3 pb-2 pt-1 justify-content-between align-items-center">
         <div className="col-6 col-md-6 d-flex align-items-center">
           {/*<h4 className="title">Participant View (<span id="joined_users">0</span>/<span>{localstoragedata.default.maxUserLimit}</span>)</h4>*/}
-          <h4 className="title">Participant View (<span id="joined_users">0</span>/<span>{newulength}</span>)</h4>
+          <h4 className="title">Participant View (<span id="joined_users">0</span>/<span id="online-users">0{/*newulength*/}</span>)</h4>
           <a href="" className="move-list"  id="partlist"  data-toggle="modal" data-target="#attendy-list" className="open-list"><img src="images/move-list.png" /></a>
           <a href="" className="move-list"><img src="images/swipe-list.png" /></a>
           <div className="hand-raise-list">

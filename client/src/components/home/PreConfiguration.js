@@ -300,8 +300,11 @@ render() {
 
   let sessionData = localstoragedata.sessionData;
  // console.log('sessionData-0---', sessionData);
-  let localDate = moment(sessionData.scheduleDate).format('MM/DD/YYYY # h:mm a');
+  /*let scheduledDate = new Date(sessionData.scheduleDate);
+  scheduledDate.setMinutes(scheduledDate.getMinutes() - 330);
+  let localDate = moment(scheduledDate).format('MM/DD/YYYY # h:mm a');*/
 
+  let localDate = moment(sessionData.scheduleDate).format('MM/DD/YYYY # h:mm a');
   localDate = localDate.replace('#', 'at');
   let remTime = '';
   // console.log('sessionData sessionData',sessionData );
@@ -323,7 +326,7 @@ render() {
           <th scope="row"><img src={image} /></th>
           <td className="text-left"><span className="welcome-title">{firstName.toLowerCase()} {lastName != null ? lastName.toLowerCase() : ''} {city != null ? ', '+city.toLowerCase() : ''}</span></td>
           <td><img className="mr-2 user-status" src="/images/offline.png" /><span className="user-online-status">offline</span></td>
-          <td className="visible-status"><i className="fa fa-check text-green"></i><i className="fa fa-times text-red d-none"></i></td>
+          <td className="visible-status"><i className="fa fa-check text-green d-none" id={"user-green-status-"+id}></i><i className="fa fa-times text-red" id={"user-red-status-"+id}></i></td>
           <td>5</td>
           </tr>
         );
@@ -375,7 +378,11 @@ render() {
                 <div className="row">
                   <div className="col-lg-8">
                     <h4 className="small-heading">Your Upcoming Session</h4>
-                    <h3 className="popup-heading">{sessionData.name}<span>by <label className="welcome-title trim-text">{sessionData.hostFirstName.toLowerCase()}  {sessionData.hostLastName.toLowerCase()}</label></span><span className="green-online online-status" id="online_state"><span>ONLINE</span></span></h3>
+                    <h3 className="popup-heading">{sessionData.name}<span>by <label className="welcome-title trim-text">{sessionData.hostFirstName.toLowerCase()}  {sessionData.hostLastName.toLowerCase()}</label></span>
+                      {localstoragedata.userType == 1 ? (
+                          <span className="green-online online-status" id="online_state"><span>ONLINE</span></span>
+                        ) : (<span className="green-online online-status d-none" id="online_state"><span>ONLINE</span></span>)}
+                    </h3>
                     <div className="time py-xs-1">  
                       <span className="no-border">{localDate}</span>
                     </div>

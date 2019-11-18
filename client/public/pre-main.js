@@ -66,13 +66,15 @@ if(!AgoraRTC.checkSystemRequirements()) {
     let tmpDt = dtTm.split(' ');
     let dt = tmpDt[0].split('/');
     let tm = tmpDt[1].split(':');
+    let ms = tm[2].split('.');
 
-    // console.log('newDate =========', dt, tm);
+    console.log('newDate =========', ms, tm[2]);
     //new Date(2016, 6, 27, 13, 30, 0);
-    let newDate = new Date(dt[2], dt[1]-1, dt[0], tm[0], tm[1], tm[2]).getTime();
+    let newDate = new Date(dt[2], dt[1]-1, dt[0], tm[0], tm[1], tm[2], ms[1]).getTime();
     // console.log('newDate =========', newDate.getTime());
     return newDate;
   }
+
   function addRtmJoinOrder(userId, time){
 
     let currentTime = time;
@@ -118,12 +120,12 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   }
 
-
   //var currentSession = getCurrentSession(); 
   var newclient; 
   var channel;
   var channelName1;
-  
+  var retryCounter = 0;
+
   function rtmJoin()
   {
     // var appId1 = '232f270a5aeb4e0097d8b5ceb8c24ab3';
@@ -137,8 +139,25 @@ if(!AgoraRTC.checkSystemRequirements()) {
     var peer=storeData.email;
     // newclient.login({uid: peer.toString(), token});
 
-    newclient.on('ConnectionStateChange', (newState, reason) => {
+    newclient.on('ConnectionStateChanged', (newState, reason) => {
       console.log('on connection state changed to ' + newState + ' reason: ' + reason);
+
+        if ((newState == 'ABORTED' || newState == 'DISCONNECTED') && (reason == 'LOGIN_TIMEOUT' || reason == 'INTERRUPTED' || reason == 'REMOTE_LOGIN')) {
+                    
+            console.log('connection state changed. Trying to reconnect');
+
+            newclient.logout();
+
+            newclient.login({ token: token, uid: peer }).then(() => {
+                
+                // Create channel
+                channel = newclient.createChannel(channelName1);
+                console.log('rtm channel instance==', channel);
+                channel.join().then(() => {
+                    //@todo
+                });
+            });
+        }
     });
 
     console.log('uidpeer', peer)
@@ -173,7 +192,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()+'.'+today.getMilliseconds();
       var dateTime = date+' '+time;
       var text="208" +sep+ dateTime;
-
+console.log('rtm join date and time=====', dateTime);
       // when user join
       addRtmJoinOrder(peer, newDateFormat(dateTime));
 
@@ -216,6 +235,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
         console.log('MemberJoined ================MemberJoined ');
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-status').attr('src', '/images/online.png');
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-online-status').html('online');
+
+        $('#user-green-status-'+convertEmailToId(memberId)).removeClass('d-none');
+        $('#user-red-status-'+convertEmailToId(memberId)).addClass('d-none');
+
         let userList = getOrderUser()
 
         if(userList != ''){
@@ -270,6 +293,12 @@ if(!AgoraRTC.checkSystemRequirements()) {
             
           }
         }
+
+        $('#online-user-row-'+convertEmailToId(memberId)).find('.user-status').attr('src', '/images/offline.png');
+        $('#online-user-row-'+convertEmailToId(memberId)).find('.user-online-status').html('offline');
+        $('#user-green-status-'+convertEmailToId(memberId)).addClass('d-none');
+        $('#user-red-status-'+convertEmailToId(memberId)).removeClass('d-none');
+
       })
      
         channel.on('ChannelMessage', (message, senderId) => {         
@@ -311,13 +340,53 @@ if(!AgoraRTC.checkSystemRequirements()) {
       function sendMessage(peerId, text)
       {
           console.log("sendPeerMessage", text, peerId);
-          newclient.sendMessageToPeer({text}, peerId);
+          newclient.sendMessageToPeer({text}, peerId).then(sendResult => {
+            console.log('sendResult---', sendResult, peerId);
+            if (sendResult.hasPeerReceived) {
+                /* Your code for handling the event that the remote user receives the message. */
+
+                console.log('retryCounter====', retryCounter);
+
+                retryCounter = 0;
+            } else {
+                /* Your code for handling the event that the message is received by the server but the remote user cannot be reached. */
+                
+                if (retryCounter <= 3) {
+                    retryCounter++;
+
+                    setTimeout(function(){
+                        sendMessage(peerId, text);
+                    }, 500);
+                } else {
+                    console.log('retryCounter====limit exceeded', retryCounter);
+                    retryCounter = 0;
+                }
+            }
+          }).catch(error => {
+              console.log('peererror=======', error);
+              retryCounter = 0;
+          });
       }
 
       function sendMessageToChannel(channelName1, text)
       {
-          channel.sendMessage({text},channelName1);
-          console.log('---------------','mssages send successfully on channel');
+          channel.sendMessage({text},channelName1).then(() => {
+              console.log('---------------','mssages send successfully on channel');
+              retryCounter = 0;
+          }).catch(error => {
+            console.log('channel message failed----', error);
+
+            if (retryCounter <= 3) {
+                retryCounter++;
+
+                setTimeout(function(){
+                    sendMessageToChannel(channelName1, text);
+                }, 500);
+            } else {
+                console.log('retryCounter====limit exceeded', retryCounter);
+                retryCounter = 0;
+            }
+          });
       }
 
       function joinChannel(){
@@ -465,7 +534,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
          //localClient.join(storeData.sessionData.streamToken, channelId2.toString(), storeData.id, function(uid) {
           localClient.join(storeData.sessionData.streamDummyToken, channelId2.toString(), storeData.id, function(uid) {
         // localClient.join(null, '900001', storeData.email, function(uid) {
-        console.log('-------------------------------------------uid')
+        console.log('-------------------------------------------uid', uid);
           // create local stream
             let localStream1 = AgoraRTC.createStream({streamID: uid, audio: true, video: true, screen: false });
           
@@ -1111,8 +1180,10 @@ function signalHandler(uid, signalData, userType) {
      incrementcountAtAttendies(uid, "welcome");
 
       console.log('********ssssss************ resultant', joinDateTimeattendies);
-      if(getUserDataFromList(uid, 'userType') == 1){
-        
+      if(getUserDataFromList(uid, 'userType') == 1){        
+
+        $('#online_state').removeClass('d-none');
+
         /*let message="Hi " +localDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your 1st virtual session with us  ";
         
         console.log('********ssssss************ resultant', message);
@@ -1179,6 +1250,7 @@ function signalHandler(uid, signalData, userType) {
       if(res1[0] == "208")
       { 
       
+        console.log('rtm join sender---', senderId, res1[1]);
         // if(userType != 1)
         // {
         // if(getUserDataFromList(senderId, 'userType') != 1){
@@ -1222,6 +1294,10 @@ function signalHandler(uid, signalData, userType) {
           }
 
         });
+
+        if(getUserDataFromList(convertEmailToId(senderId), 'userType') == 1){
+          $('#online_state').removeClass('d-none');
+        }
 
       }else if(res1[0] == "222")
       {
@@ -2216,13 +2292,20 @@ function signalHandler(uid, signalData, userType) {
             let userList = getOrderUser();
             $('#attendy-list').find('.user-status').attr('src', '/images/offline.png');
             $('#attendy-list').find('.user-online-status').html('offline');
-            $('#attendy-list').find('.visible-status .fa').addClass('fa-times').addClass('text-red').removeClass('fa-check').removeClass('text-green');
+            $('#attendy-list').find('.fa-check').addClass('d-none');
+            $('#attendy-list').find('.fa-times').removeClass('d-none');
+
+            //$('#attendy-list').find('.visible-status .fa').addClass('fa-times').addClass('text-red').removeClass('fa-check').removeClass('text-green');
             // let memCtr = 0;
             for(let i= 0; i < membersList.length; i++){
               let eleId = convertEmailToId(membersList[i]);
               $('#online-user-row-'+eleId).find('.user-status').attr('src', '/images/online.png');
               $('#online-user-row-'+eleId).find('.user-online-status').html('online');
-              $('#online-user-row-'+eleId).find('.visible-status .fa').addClass('fa-check').addClass('text-green').removeClass('fa-times').removeClass('text-red');
+              //$('#online-user-row-'+eleId).find('.visible-status .fa').addClass('fa-check').addClass('text-green').removeClass('fa-times').removeClass('text-red');
+
+              $('#user-green-status-'+eleId).removeClass('d-none');
+              $('#user-red-status-'+eleId).addClass('d-none');
+
               if(userList != ''){
                 for(let j in userList){
                   if(userList[j].id == membersList[i]){

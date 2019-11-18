@@ -797,7 +797,7 @@ console.log('rtm remove====', memberId);
             newclient.on('ConnectionStateChanged', (newState, reason) => {//alert('state=='+newState+"==reason=="+reason);
                 console.log('on connection state changed to ' + newState + ' reason: ' + reason);
 
-                if (newState == 'ABORTED' && (reason == 'LOGIN_TIMEOUT' || reason == 'INTERRUPTED' || reason == 'REMOTE_LOGIN')) {
+                if ((newState == 'ABORTED' || newState == 'DISCONNECTED') && (reason == 'LOGIN_TIMEOUT' || reason == 'INTERRUPTED' || reason == 'REMOTE_LOGIN')) {
                     
                     console.log('connection state changed. Trying to reconnect');
 

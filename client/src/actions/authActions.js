@@ -44,13 +44,16 @@ export const registerUser = (userData, history) => dispatch => {
 // };
 
 // Login - get user token
+
 export const loginUser = userData => dispatch => {
+
+  console.log('--------userData-------',userData)
   axios
     .post("/api/v1/user/login", userData)
     .then(res => {
       
       // Save to localStorage
-
+      console.log('--------res.data.responseData-------',res.data.responseData)
       const  token  = res.data.responseData.token;
 
        if ($('#remember_me').is(':checked')) {

@@ -14,7 +14,7 @@ class ScriptAttributes{
         	
         	db.query('SELECT * FROM ?? WHERE sessionScriptId IN (?) AND status = 1 ORDER BY orderBy ASC', [table, sessionScriptIds], function (error, results, fields) {
 			  if (error) reject(error);
-			  // console.log('================== results ', results)
+			   console.log('=========lalirscriptattributes========= results ', error)
 			  // db.end();
 			  return resolve(results);
 			});

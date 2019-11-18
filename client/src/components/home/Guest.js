@@ -56,9 +56,10 @@ class Guest extends Component {
   }
 
 
-  // showpart = e => {
-  //   $('#newhtt').trigger('click');
-  // }
+//   showpart = e => {
+// console.log('-------lalithhhhh-----------')
+//     $('#newhtt').trigger('click');
+//   }
 
 
   loadScript = function (src) {
@@ -248,9 +249,9 @@ return (
                     {(
                         ()=>{
                             if(sessionData.interestId == 1) {
-                                return <a className="col-2 justify-content-end d-flex align-items-center" href="#" data-toggle="modal" data-target="#show-details4" className="btn btn-primary" tabIndex="1">Details</a>;
+                                return <a className="col-2 justify-content-end d-flex align-items-center" href="#" data-toggle="modal" data-target="#show-details4" className="btn btn-primary"    tabIndex="1">Details</a>;
                             } else {                      
-                                return <a className="btn  btn-primary border-right pr-20" href="#!" data-toggle="modal" data-target="#fitness-script" tabIndex="1">Details</a>;             
+                                return <a className="btn  btn-primary border-right pr-20" href="#!" data-toggle="modal" data-target="#fitness-script"  tabIndex="1">Details</a>;             
                             }
                         }
                     )()}

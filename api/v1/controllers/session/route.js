@@ -37,5 +37,6 @@ route
   .post('/addProduct', SessionCtrl.addNewProduct)
   .get('/:channelId/interest', SessionCtrl.getInterestBychannelId)
   .post('/createchannel', SessionCtrl.createNewChannel)
+  .post('/verifyuser', SessionCtrl.verifyUser)
 
 module.exports = route;

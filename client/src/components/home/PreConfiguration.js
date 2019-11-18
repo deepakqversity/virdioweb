@@ -378,7 +378,11 @@ render() {
                 <div className="row">
                   <div className="col-lg-8">
                     <h4 className="small-heading">Your Upcoming Session</h4>
-                    <h3 className="popup-heading">{sessionData.name}<span>by <label className="welcome-title trim-text">{sessionData.hostFirstName.toLowerCase()}  {sessionData.hostLastName.toLowerCase()}</label></span><span className="green-online online-status d-none" id="online_state"><span>ONLINE</span></span></h3>
+                    <h3 className="popup-heading">{sessionData.name}<span>by <label className="welcome-title trim-text">{sessionData.hostFirstName.toLowerCase()}  {sessionData.hostLastName.toLowerCase()}</label></span>
+                      {localstoragedata.userType == 1 ? (
+                          <span className="green-online online-status" id="online_state"><span>ONLINE</span></span>
+                        ) : (<span className="green-online online-status d-none" id="online_state"><span>ONLINE</span></span>)}
+                    </h3>
                     <div className="time py-xs-1">  
                       <span className="no-border">{localDate}</span>
                     </div>

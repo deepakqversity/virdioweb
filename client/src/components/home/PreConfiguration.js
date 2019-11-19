@@ -22,7 +22,8 @@ class PreConfiguration extends Component {
       timerTime: 0,
       userType:-1,
       interest:0,
-      alert10Sec:false
+      alert10Sec:false,
+      mediaAccess:false
  
     }
   }
@@ -108,6 +109,12 @@ class PreConfiguration extends Component {
         isHostJoined: true
       });
     }
+  }
+
+  checkMediaAccess = () => {
+      this.setState({
+        mediaAccess: true
+      });
   }
 
   joinSession = () => {
@@ -581,7 +588,7 @@ render() {
                   {(
                     ()=>{
                         if(localstoragedata.userType == 1) {
-                            return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-4 rounded " data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
+                            return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-4 rounded " data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)} disabled={!this.state.mediaAccess}>Join</button>;
                         } else {
                             return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded d-none" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)} disabled={!this.state.isHostJoined}>Join</button>;                     
                         }
@@ -646,6 +653,19 @@ render() {
         </div>
       </div>
 
+      <div id="media-access-alert" className="modal fade" data-backdrop="static" data-keyboard="false">
+        <div className="modal-dialog modal-confirm">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">Virdio can't access your camera and microphone</h5>  
+            </div>
+            <div className="modal-body">
+              <div>Click the X icon in the URL bar above to give Virdio access to your camera and microphone</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="modal attendy-list" id="attendy-list">
         <div className="modal-dialog">
           <div className="modal-content">
@@ -675,6 +695,7 @@ render() {
       </div>
 
       <button id="set-temp-sesstion" onClick={this.checkstatus} hidden="hidden">cccc</button>
+      <button id="set-media-access" onClick={this.checkMediaAccess} hidden="hidden">cam</button>
       
       <div className="modal attendy-list fitness-script1" id="fitness-script">
         <div className="modal-dialog">

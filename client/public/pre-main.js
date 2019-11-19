@@ -232,6 +232,28 @@ console.log('rtm join date and time=====', dateTime);
 
         addUserAttribute(convertEmailToId(memberId), 'currentStatus', 1);
 
+        // get online members list
+        channel.getMembers().then(membersList => {
+          console.log('membersList after member joined', membersList)
+
+          if (storeData.userType == 1) {
+            let onlineUserCount = 0;
+
+            if (membersList.length > 0) {
+                for(let i= 0; i < membersList.length; i++){
+                  console.log('membersList[i]', membersList[i]);
+                  if(getUserDataFromList(convertEmailToId(membersList[i]), 'userType') == 2){
+                    onlineUserCount++;
+                  }
+                }
+            }
+            
+            $('#online-users').text(onlineUserCount);
+          }
+        }).catch(error => {
+          console.log('******************There Is a problem to get channel members**********', error);
+        });
+
         console.log('MemberJoined ================MemberJoined ');
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-status').attr('src', '/images/online.png');
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-online-status').html('online');
@@ -543,9 +565,14 @@ console.log('rtm join date and time=====', dateTime);
               localClient.publish(localStream1, function (err) {
                 console.log("Publish local stream error: " + err);
               });
-           
+              
+              $('#set-media-access').click();
             }, function (err) {
               console.log("getUserMedia failed", err);
+
+              if (err.type == 'error' && err.msg === 'NotAllowedError') {
+                  $('#media-access-alert').modal('show');
+              }
             });
       }, function(err) {
         console.log("Join channel failed", err);
@@ -634,7 +661,7 @@ console.log('rtm join date and time=====', dateTime);
       // The user has granted access to the camera and mic.
         stream2.on("accessAllowed", function() {
           console.log("accessAllowed");
-
+          
           $('#audio-media-content').find('.fa-microphone').removeClass('text-success');
           $("#ado-"+micId).find('.fa-microphone').addClass('text-success');
         });
@@ -643,7 +670,6 @@ console.log('rtm join date and time=====', dateTime);
         stream2.on("accessDenied", function() {
           $('#audio-media-content').find('.fa-microphone').removeClass('text-success');
           console.log("accessDenied");
-
         });
 
       // Initialize the stream.
@@ -671,7 +697,7 @@ console.log('rtm join date and time=====', dateTime);
     AgoraRTC.getDevices(function (devices) {
       let vdoMediaHtml = '';
       let adoMediaHtml = '';
-      
+      console.log('devices====', devices)
       let cameraId = microphoneId = null;
       let mediaIds = localStorage.getItem("media-setting");
 
@@ -764,6 +790,14 @@ console.log('rtm join date and time=====', dateTime);
               video: true,
               audio: false,
               cameraId: d[l],
+          });
+
+          stream1[l].on("accessAllowed", function() {
+            console.log("video accessAllowed");
+          });
+
+          stream1[l].on("accessDenied", function() {
+            console.log("video accessDenied");
           });
 
           l++;
@@ -2268,7 +2302,7 @@ function signalHandler(uid, signalData, userType) {
     // check devices
     getDevices();
     rtmJoin(); 
-    
+
       $('#logout_button').click(function(){
         //updateJoinSessionStatus();
         leave_channel();

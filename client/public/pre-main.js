@@ -1234,9 +1234,7 @@ function signalHandler(uid, signalData, userType) {
           
           var bandwidthCheckCounter = setInterval(function() {
 
-            //alert(localStorage.getItem("video-resolution"));
-
-            if(localStorage.getItem("video-resolution") != null) {
+            if(localStorage.getItem("video-resolution") != null &&  $('#media-access-alert').hasClass('show') === false) {
 
                 clearInterval(bandwidthCheckCounter);
 
@@ -1347,19 +1345,27 @@ function signalHandler(uid, signalData, userType) {
 
                 let storeData = getCurrentUserData();
                 
-                $('#participent-stream-redirect-alert').modal('show');
-                $('#set-temp-sesstion').click();
+                var bandwidthCheckCounter = setInterval(function() {
 
-                let duration = parseInt(storeData.default.streamRedirectDuration);
+                  if(localStorage.getItem("video-resolution") != null &&  $('#media-access-alert').hasClass('show') === false) {
 
-                let ref2 = setInterval( function() {
-                    $('#stream-rem-join-timer').html(duration < 0 ? 0 : duration);
-                    if(duration <= 0){
-                      clearInterval(ref2);
-                      $('#continue-join').click();
+                      clearInterval(bandwidthCheckCounter);
+
+                      $('#participent-stream-redirect-alert').modal('show');
+                      $('#set-temp-sesstion').click();
+
+                      let duration = parseInt(storeData.default.streamRedirectDuration);
+
+                      let ref2 = setInterval( function() {
+                          $('#stream-rem-join-timer').html(duration < 0 ? 0 : duration);
+                          if(duration <= 0){
+                            clearInterval(ref2);
+                            $('#continue-join').click();
+                          }
+                          duration--;
+                      }, 1000 );
                     }
-                    duration--;
-                }, 1000 );
+                }, 1000);
 
                 // let currentUId = convertEmailToId(userList[i].id);
 

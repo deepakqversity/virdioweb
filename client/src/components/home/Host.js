@@ -106,6 +106,8 @@ class Host extends Component {
     console.log('scDate- ', scDate)
     // this.state.timerTime = scDate;// 1 sec 1000 = 1sec
     this.setState({timerTime : scDate});
+
+    this.startTimer();
   }
   componentWillMount(){
     this.startTimer();
@@ -114,12 +116,15 @@ class Host extends Component {
     
     let storeData = JSON.parse(localStorage.getItem('userData'));
     
+    console.log('---------lalitstoreData---------',storeData)
     
     let countdown = storeData.sessionData.duration * 60;
+    console.log('---------lalitcountdown---------',countdown)
     // let countdown = 60;
     $('.header svg circle').attr("style","animation-duration:"+countdown+"s !important");
     $('.header svg circle').css("stroke", "#9b51e0");
-    // console.log('countdown ======= countdown start ----', countdown)
+
+    console.log('countdown ======= countdown start ----', countdown)
     
     var resetCount1 = setInterval(function() {
       if(countdown <= 0){
@@ -138,12 +143,15 @@ class Host extends Component {
       timerStart: this.state.timerTime
     });
     this.timer = setInterval(() => {
+      console.log('------startnewTime11111------',this.state.timerTime)
       const newTime = this.state.timerTime - 10;
+      console.log('------startnewTime------',newTime)
       if (newTime >= 0) {
         this.setState({
           timerTime: newTime
         });
       } else {
+        console.log('------this.timer------',this.timer)
         clearInterval(this.timer);
         this.setState({ timerOn: false });
         $('.countdown-timer').html('Session Started');

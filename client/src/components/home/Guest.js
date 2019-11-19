@@ -100,7 +100,9 @@ class Guest extends Component {
     // console.log('scDate- ', scDate)
     this.state.timerTime = scDate;// 1 sec 1000 = 1sec
 
-    
+    this.startTimer();
+
+    this.sessionTimer();
   }
   
   componentWillMount(){
@@ -121,8 +123,11 @@ class Guest extends Component {
     
     let storeData = JSON.parse(localStorage.getItem('userData'));
     
-    
+    console.log('---------lalitstoreData---------',storeData)
+
     let countdown = storeData.sessionData.duration * 60;
+
+console.log('---------lalitcountdown---------',countdown)
 
     console.log("cn------------"+countdown);
     //console.log('attribute '+ $('.header svg circle').attr("style"));
@@ -143,13 +148,16 @@ class Guest extends Component {
   };
 
   startTimer = () => {
+    console.log('-------startTimer-----------')
     this.setState({
       timerOn: true,
       timerTime: this.state.timerTime,
       timerStart: this.state.timerTime
     });
     this.timer = setInterval(() => {
+     // console.log('------startnewTime11111------',this.state.timerTime)
       const newTime = this.state.timerTime - 10;
+     // console.log('-------startTimer123-----------',newTime)
       if (newTime >= 0) {
         this.setState({
           timerTime: newTime
@@ -157,9 +165,10 @@ class Guest extends Component {
       } else {
         clearInterval(this.timer);
         this.setState({ timerOn: false });
+        console.log('-------startTimer123-----------')
         $('.countdown-timer').html('Session Started');
         // console.log("Countdown ended");
-        //this.sessionTimer();
+        this.sessionTimer();
       }
     }, 10);
   };

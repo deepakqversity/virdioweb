@@ -57,13 +57,13 @@ class UserCtrl {
 							}
 
 							const token = await auth.createToken(userObj.id);
-							// console.log('token-------------',token);
+							 console.log('token-1111------------',token);
 							let updateUser = await tokenModel.updateToken(userObj.id, token);
-
+							
 							userObj = underscore.extend(userObj, {token:token});
 
 							let currentSession = await sessionModel.getUpcommingSession(userObj.id);
-
+							
 							let sessionData = {};
 							if(!isEmpty(currentSession)){
 								currentSession = currentSession[0];
@@ -92,7 +92,7 @@ class UserCtrl {
 								underscore.extend(currentSession, {messgae:str});
 
 								let agoraConfig = await sessionModel.getSessionAgoraConfig(currentSession.id);
-
+								
 								if(!isEmpty(agoraConfig)){
 									for(let i in agoraConfig){
 										if(agoraConfig[i].type == 1){
@@ -115,6 +115,7 @@ class UserCtrl {
 								
 
 								let scriptDetail = await sessionScriptModel.getProductDetail(currentSession.id, currentSession.hostId, currentSession.code );
+								console.log('--------scriptDetail------',scriptDetail)
 								underscore.extend(currentSession, {scriptDetail : scriptDetail});
 								
 								if(isEmpty(currentSession.hostImage)){

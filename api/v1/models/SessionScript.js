@@ -10,13 +10,15 @@ class SessionScript{
 	}
 
 	async getProductDetail(sessionId, userId, interest) {
+
+		console.log('=======lalitproductdetail111=========== error ', sessionId, userId)
 		
         return await new Promise((resolve, reject) => {
         	
         	db.query('SELECT ss.id, ss.name, ss.description, ss.image, ssm.sessionScriptId FROM session_script ss LEFT JOIN session_script_mapping ssm ON ssm.sessionScriptId = ss.id WHERE ssm.sessionId = ? AND ss.userId = ? AND status = 1', [sessionId, userId], function (error, results, fields) {
 			 	
 			 	if (error) reject(error);
-			 	console.log('================== results ', results)
+			 	console.log('=======lalitproductdetail111=========== error ', results)
 			  	
 		  		scriptAttr.getAttributesByIds(underscore.pluck(results, 'sessionScriptId'))
 			  		.then(function(attributes){
@@ -87,7 +89,7 @@ class SessionScript{
         	
         	db.query('SELECT ss.*, ssm.sessionScriptId FROM session_script ss LEFT JOIN session_script_mapping ssm ON ssm.sessionScriptId = ss.id WHERE ssm.sessionId = ? AND ss.userId = ? AND status = 1', [sessionId, userId], function (error, results, fields) {
 			  if (error) reject(error);
-			  // console.log('================== results ', results)
+			   console.log('=====lalitproduct2222============= results ', results)
 			  	
 		  		scriptAttr.getAttributesByIds(underscore.pluck(results, 'sessionScriptId'))
 			  		.then(function(attributes){

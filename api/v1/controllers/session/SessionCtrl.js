@@ -1,5 +1,6 @@
 const auth = require('../../auth/Auth');
 const isEmpty = require("is-empty");
+const bcrypt = require('bcrypt');
 const underscore = require("underscore");
 const sessionModel = require('../../models/Session');
 const sessionUserModel = require('../../models/SessionUser');
@@ -15,9 +16,12 @@ const SessionEmojiesModel = require('../../models/SessionEmojies');
 const SessionEquipmentMappingModel = require('../../models/SessionEquipmentMapping');
 const SessionShoppingListModel = require('../../models/SessionShoppingList');
 const EmojiesModel = require('../../models/Emojies');
+const ChannelsModel = require('../../models/Channels');
 const ChannelProductModel = require('../../models/ChannelProduct');
+const ChannelInterestModel = require('../../models/ChannelInterest');
 const activityLogsModel = require('../../models/ActivityLogs');
 const clientToken = require( process.cwd() + '/util/ClientToken');
+const utils = require(process.cwd() + '/util/Utils');
 const response = require(process.cwd() + '/util/Response');
 
 class SessionCtrl {
@@ -208,7 +212,7 @@ class SessionCtrl {
 				channelId : req.body.session.channelId,
 				name : req.body.session.name,
 				description : req.body.session.description,
-				hostId : "11",
+				hostId : "3",
 				scheduleDate : req.body.session.start_date,
 				duration : req.body.session.duration,
 				level : req.body.session.level,
@@ -372,12 +376,30 @@ class SessionCtrl {
 							attributes.push(attributesArr);
 						}
 
-						let scriptAttributeId = scriptAttributesModel.add(attributes);
+						let scriptAttributeId = await scriptAttributesModel.add(attributes);
 					}
 				}
 
 				// res.status(200).send({logId : insertedId});
-				response.resp(res, 200, {})
+
+				console.log('----------scriptAttributeId------------------',sessionId)
+				let sessId=sessionId+100;
+				let optcode=sessId+'#'+'virdio';
+
+				console.log('----------script------------------',optcode)
+				let resultant_code = await utils.encodedDecodedString(optcode,0);
+
+				console.log('-------resultant_code--------',resultant_code)
+
+				let urlcode=process.env.DOMAIN_URL_FOR_USER+"/"+resultant_code;
+
+				console.log('-------urlcode--------',urlcode)
+							
+			let sessionDt = await sessionModel.findSessionDetailBySessId(sessionId);
+
+			console.log('------sessionDt-----------',sessionDt)
+
+				response.resp(res, 200, {urlcode,sessionDt})
 			} else {
 				response.resp(res, 500, {message:"Something went wrong."})
 			} 
@@ -392,6 +414,35 @@ class SessionCtrl {
 
 
 
+		async verifyUser(req, res) {
+			try {
+				//let inerestId = 1;
+				console.log('-------lllt------------',req.body)
+	
+	
+				let decoded_sessid = await utils.encodedDecodedString(req.body.sessId,1);
+	
+				console.log('-------llltttttt------------',decoded_sessid)
+	
+				 let sessdta = decoded_sessid.split("#");
+	
+				 console.log('-------sessdta------------',sessdta[0])
+	
+				 let sessionId= sessdta[0]-100;
+	
+				 console.log('-------sessionId------------',sessionId)
+
+				 let sessionDta = await sessionModel.findSessionDetailBySessId(sessionId);
+					
+				console.log('------sessionDta1111---------',sessionDta)
+	
+				response.resp(res, 200, {sessionDta})
+			} catch(exception) {
+				response.resp(res, 500, exception);
+			}
+		}
+
+
 		async createWineSession(req, res) {
 			try {
 	
@@ -403,7 +454,7 @@ class SessionCtrl {
 					channelId : req.body.session.channelId,
 					name : req.body.session.name,
 					description : req.body.session.description,
-					hostId : "11",
+					hostId : "1",
 					scheduleDate : req.body.session.start_date,
 					duration : req.body.session.duration,
 					level : req.body.session.level,
@@ -746,7 +797,150 @@ class SessionCtrl {
 	    }
 	}
 
+
+	async getAttributeList(req, res) {
+	    try {
+			//let inerestId = 1;
+			console.log('------getAttributeList---------',req.params.interestId)
+			
+			let attributeList = await scriptAttributesModel.getAttributesByInterestIds(req.params.interestId);
+
+			console.log('------getAttributeList---------',attributeList)
+
+			response.resp(res, 200, attributeList);
+	    } catch(exception) {
+			response.resp(res, 500, exception);
+	    }
+	}
+
+
+	async addNewProduct(req, res) {
+	    try {
+			//let inerestId = 1;
+			console.log('------addNewProduct---------',req.body)
+			
+			if(false === isEmpty(req.body)){
+					
+				let newproducts = req.body;
+
+				console.log('----------products------------------',newproducts)
+
+				for(let i in newproducts){
+
+					//var newproducts = [];
+					var attributesnewArr = [];
+
+					let sessionScriptInsertData = {	
+										interestId : 1,			
+										name : newproducts.name,
+										description : '',
+										//userId : req.currentUser.id,
+										userId : 11,
+									}
+					console.log('----------sessionScriptInsertData------------------',sessionScriptInsertData)
+					 // insert into session_script table
+					let sessionScriptId = await sessionScriptModel.add(sessionScriptInsertData);
+
+				
+
+					let productsAttributes = newproducts.attributes;
+					for(let j in productsAttributes){
+
+						var attributesArr = [];
+
+						attributesArr.push(sessionScriptId);
+						attributesArr.push(newproducts.attributes[j].attrKey);
+						attributesArr.push(newproducts.attributes[j].attrValue);
+						attributesArr.push(1);
+						attributesArr.push(2);
+						
+						console.log('----------attributesArr------------------',attributesArr)
+
+						attributesnewArr.push(attributesArr);
+
+						console.log('----------attributesnewArr------------------',attributesnewArr)
+
+					}
+
+					var scriptAttributeres = await scriptAttributesModel.add(attributesnewArr);
+
+					console.log('------scriptAttributeres---------',scriptAttributeres)
+				}
+			}
+
+		
+			response.resp(res, 200, scriptAttributeres);
+	    } catch(exception) {
+			response.resp(res, 500, exception);
+	    }
+	}
+
 	
+	async getInterestBychannelId(req, res) {
+	    try {
+			//let inerestId = 1;
+			console.log('------channelId---------',req.params.channelId)
+			
+			let interestList = await ChannelInterestModel.getInterestBychannel(req.params.channelId);
+
+			console.log('------interestList---------',interestList)
+
+			response.resp(res, 200, interestList);
+	    } catch(exception) {
+			response.resp(res, 500, exception);
+	    }
+	}
+
+
+	async createNewChannel(req, res) {
+	    try {
+
+			console.log('-------lllt------------',req.body)
+
+			if(false === isEmpty(req.body)){
+
+			let insertData = {	
+	
+				name : req.body.channel.name,
+				description : req.body.channel.description,
+				individualOrBusiness : "1",
+				image : req.body.channel.image ? req.body.channel.image : 0,
+				userId:3,
+				phone : req.body.channel.phone,
+				//level : "2",
+				street_address1 : req.body.channel.street_address1,
+				street_address2 : req.body.channel.street_address2, 
+				charge_amount  : req.body.channel.charge_amount ? req.body.channel.charge_amount : 0,
+				chargeForSession  : req.body.channel.chargeForSession == true ? 1 : 0,
+				city : req.body.channel.city,
+				state_code : req.body.channel.state_code,
+				zip_code : req.body.channel.zip_code,
+				account_name : req.body.channel.account_name,
+				account_number : req.body.channel.account_number,
+				account_type : req.body.channel.account_type,
+				routing_number : req.body.channel.routing_number,
+				ss : req.body.channel.ss,
+				ein : req.body.channel.ein,
+				has_shopping_list : req.body.channel.has_shopping_list == true ? 1 : 0,
+				has_equipment_list : req.body.channel.has_equipment_list == true ? 1 : 0,
+				has_product_list : req.body.channel.has_product_list == true ? 1 : 0
+			};
+
+			console.log('----------insertData------------------',insertData)
+
+			
+
+			// insert into sessions table
+			var channelId = await ChannelsModel.addchannel(insertData);
+
+		}
+
+			response.resp(res, 200, channelId);
+	    } catch(exception) {
+			response.resp(res, 500, exception);
+	    }
+	}
+
 
 
 

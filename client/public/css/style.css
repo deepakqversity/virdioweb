@@ -32,3 +32,613 @@ button.show-everyone.btn.btn-outline-secondary.mb-3.mx-auto {
 }
 
 .default-btns .btn img{ max-width: 20px; }
+#show-details2 p
+{
+    color: white;
+    font-family: Avenir-Book;
+    font-size: 15px;
+}
+#show-details2 button.close-model-btn
+{
+transform: translateY(-7px);
+font-weight: inherit;
+
+}
+
+#show-details2 .border_botm_none
+{
+border-bottom: none;
+}   
+.white-text{
+color: #eee;
+font-family: Avenir-Book;
+font-size: 22px;
+padding: 0 20px;
+margin-right: 20px;
+vertical-align: middle;
+} 
+#show-details2 .clock_img
+{
+width: 20px;
+margin-right: 15px;
+}
+#show-details2 .modal-dialog, #switch-camera-popup .modal-dialog, #musicList .modal-dialog
+{
+max-width: 95%;
+
+}
+#show-details2 .modal-content
+{
+    background-color: #000000;
+}
+#show-details2 div.overflow-hidden p:nth-child(1):after
+{
+display: none;
+}
+#show-details2 .input-txt {
+color: #fff;
+font-size: 22px;
+}
+#show-details2 .switch {
+vertical-align: sub;
+margin-right: 17px;
+position: relative;
+display: inline-block;
+
+height: 20px;
+margin-bottom: .5rem;
+width: 32px;
+}
+#show-details2 .switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+#show-details2 .slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #ccc;
+-webkit-transition: .4s;
+transition: .4s;
+border-radius: 34px;
+}
+#show-details2 .slider:before {
+position: absolute;
+content: "";
+height: 14px;
+width: 14px;
+left: 4px;
+bottom: 3px;
+background-color: #BD00FF;
+-webkit-transition: .4s;
+transition: .4s;
+border-radius: 50%;
+}
+.white_hdng
+{
+color: #fff;
+font-family: Avenir-Heavy;
+font-size: 25px;
+vertical-align: middle;
+}
+.white_font
+{
+color: #fff;
+font-family: Avenir-Medium;
+font-size: 21px;
+vertical-align: middle;
+}
+.font-medium
+{
+    font-family: Avenir-Medium;
+}
+#show-details2 .fa-circle
+{
+font-size: 6px;
+color: #bd00ff;
+transform: translateY(-3px);
+}
+#show-details2 .form-radio:checked::before
+{
+color: #363636;
+}
+#show-details2 .form-radio
+{
+left: 17px;
+top: 5px;
+}
+
+/*----------show details4 CSS----------------*/
+
+.details_model p
+{
+    color: white;
+    font-family: Avenir-Book;
+    font-size: 15px;
+}
+.details_model button.close-model-btn
+{
+transform: translateY(-7px);
+font-weight: inherit;
+
+}
+
+.details_model .border_botm_none
+{
+border-bottom: none;
+}   
+.white-text{
+color: #eee;
+font-family: Avenir-Book;
+font-size: 22px;
+padding: 0 20px;
+margin-right: 20px;
+vertical-align: middle;
+} 
+.details_model .clock_img
+{
+width: 20px;
+margin-right: 15px;
+}
+.details_model .modal-dialog, #switch-camera-popup .modal-dialog, #musicList .modal-dialog
+{
+max-width: 95%;
+
+}
+.details_model .modal-content
+{
+    background-color: #000000;
+}
+.details_model div.overflow-hidden p:nth-child(1):after
+{
+display: none;
+}
+.details_model .input-txt {
+color: #fff;
+font-size: 22px;
+}
+.details_model .switch {
+vertical-align: sub;
+margin-right: 17px;
+position: relative;
+display: inline-block;
+
+height: 20px;
+margin-bottom: .5rem;
+width: 32px;
+}
+.details_model .switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+.details_model .slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #ccc;
+-webkit-transition: .4s;
+transition: .4s;
+border-radius: 34px;
+}
+.details_model .slider:before {
+position: absolute;
+content: "";
+height: 14px;
+width: 14px;
+left: 4px;
+bottom: 3px;
+background-color: #BD00FF;
+-webkit-transition: .4s;
+transition: .4s;
+border-radius: 50%;
+}
+.white_hdng
+{
+color: #fff;
+font-family: Avenir-Heavy;
+font-size: 25px;
+vertical-align: middle;
+}
+.white_font
+{
+color: #fff;
+font-family: Avenir-Medium;
+font-size: 21px;
+vertical-align: middle;
+}
+.font-medium
+{
+    font-family: Avenir-Medium;
+}
+.details_model .fa-circle
+{
+font-size: 6px;
+color: #bd00ff;
+transform: translateY(-3px);
+}
+.details_model .form-radio:checked::before
+{
+color: #363636;
+}
+.details_model .form-radio
+{
+left: 17px;
+top: 5px;
+}
+.ml-7
+{
+    margin-left: 36px;
+}
+.rgt_modal_box
+{
+    background-color: #363636;
+}
+.h-100
+{
+    height: 100%;
+}
+.camera_box
+{
+    border-radius: 15px;
+    border: 1px solid #bd00ff;
+    background-color: #363636;
+    padding: 10px 8px 10px;
+    width: 33.3%;
+}
+.camera_box img{
+    border-radius: 15px;
+}
+#switch-camera-popup .form-radio
+{
+    top: 0px;
+    border: 2px solid white;
+    
+}
+#switch-camera-popup .form-radio:checked
+{
+    background-color: white;
+}
+#switch-camera-popup .form-radio:checked::before
+{
+    color: #666;
+    left: 3px;
+    top: 1px;
+}
+.winebg-clr
+{
+    background-color: #343434;
+    margin: 0 auto;
+    border: none !important;
+}
+ul.music-playlist li:first-child a
+{
+    border-top: 2px solid #4B4C55;
+}
+ul.music-playlist li:first-child a:hover, ul.music-playlist li:first-child a:focus
+{
+    border-top: 2px solid #9b51e0;
+}
+ul.music-playlist li a:hover, ul.music-playlist li a:focus
+{
+    background-color: #3c3345;
+    border-top: 1px solid #9b51e0;
+    border-bottom: 1px solid #9b51e0;
+}
+.small_font{
+    font-family: Avenir-Book;
+    display: block;
+    font-size: 13px;
+    color: #f4f4f4;
+}
+.control-music img
+{
+    width: 33px;
+}
+.control-music img.img1
+{
+    width: 20px;
+}
+div.gray_bar
+{
+    width: 74px;
+    height: 9px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: #4b4c55;
+    position: relative;
+}
+div.gray_bar::before
+{
+    content: url(../images/active-volume.png);
+    position: absolute;
+    top: -9px;
+    left: -4px;
+}
+
+@media screen and (min-width: 1500px)
+{
+    .item-description .list-info li span:first-child, .item-description .list-info li span:last-child
+    {
+        max-width: 250px;
+    }
+    .right-sidebar{
+        width: 400px;
+        /*float: right;*/
+    }
+    .details_model .modal-dialog, #switch-camera-popup .modal-dialog, #musicList .modal-dialog
+{
+max-width: 75%;
+
+}
+.bottom-links li a
+{
+    font-size: 20px;
+}
+.shopping-btn img
+{
+    width: 25px;
+}
+.shopping-btn
+{
+    padding: 12px 20px;
+    font-size: 22px;
+    margin-right: 15px;
+}
+.joined-attendees
+{
+    height: 250px;
+}
+
+}
+@media screen and (min-width: 2000px)
+{
+    .logout-btn i
+    {
+        padding-top: 7px;
+        font-size: 25px;
+        width: 40px;
+        height: 40px;
+        font-weight: inherit;
+    }
+    .transparent-gray .btn-primary
+    {
+        height: 50px !important;
+        font-size: 21px;
+    }
+    .transparent-gray .fa-volume-up
+    {
+        font-size: 25px !important;
+        padding-top: 5px !important;
+    }
+    .default-btns .btn img, .default-btns .btn .fa-microphone
+    {
+        width: 25px !important;
+        max-width: 25px !important;
+        height: 23px !important;
+    }
+    .translatee .btn-primary, .btn-primary.border-right
+    {
+        padding: 10px 25px;
+        font-size: 21px;      
+        
+    }
+    .btn-leave, .btn-join
+    {
+        font-size: 30px;
+    }
+    .btn-join, .count-box h4
+    {
+        font-size: 25px;
+    }
+    .translatee
+    {
+        transform: translateY(-16px);
+    }
+    .fullscreen img
+    {
+        width: 35px;
+    }
+    .shopping-btn img
+{
+    width: 25px;
+}
+.shopping-btn
+{
+    padding: 15px 25px;
+    font-size: 25px;
+    margin-right: 25px;
+}
+    .bottom-links li a
+    {
+        font-size: 28px;
+    }
+    .right-sidebar
+    {
+        margin-top: 30px;
+    }
+    .mt-60
+    {
+        margin-top: 60px;
+    }
+    .font-26, .font-26 span
+    {
+        font-size: 26px !important;
+    }
+    .winesbg
+    {
+        width: 75%;
+    }
+    #show-details2 .modal-dialog, #switch-camera-popup .modal-dialog, #musicList .modal-dialog
+{
+max-width: 80%;
+
+}
+ul.music-playlist li a span:nth-child(2){
+   
+    font-size: 18px;
+}
+ul.music-playlist li a span:nth-child(3){
+font-size: 20px;
+}
+ul.music-playlist li a span:nth-child(1)
+{
+    font-size: 25px;
+}
+.music-list .close
+{
+    font-size: 60px;
+    margin-bottom: 15px !important;
+    margin-left: 10px !important;
+}
+.pt2
+{
+    padding-top: 8px;
+}
+.white_hdng
+{
+    font-size: 35px;
+}
+.small_font
+{
+    font-size: 20px;
+}
+.control-music img.img1
+{
+    width: 30px;
+}
+.control-music img
+{
+    width: 50px;
+}
+.item-name
+{
+    font-size: 20px;
+
+}
+.host-header>img {
+    width: 30px;
+}
+.font-size-16
+{
+    font-size: 25px !important;
+}
+.font-size-16 span
+{
+    font-size: 20px !important;
+}
+.item-description .list-info li
+{
+    font-size: 19px;
+}
+.script-info .carousel-control-next, 
+.script-info .carousel-control-prev
+{
+    width: 35px;
+    height: 35px;
+}
+.script-info .carousel-control-prev
+{
+    right: 128px;
+}
+.show-hide-script, .show-fitness-script
+{
+    right: 25px;
+    top: 19px;
+}
+.next-btn
+{
+    width: 35px;
+}
+.section.attendees .title
+{
+    font-size: 27px;
+}
+.play-pause-btn
+{
+    right:118px;
+
+}
+.play-pause-btn img, .stop-btn img
+{
+    width: 35px;    
+}
+.stop-btn img
+{
+    width: 35px;    
+}
+.show-hide-script, .show-fitness-script
+{
+    right: 22px;
+    width: 35px;
+}  
+.time span
+{
+    font-size: 19px;
+}
+h3.main-heading
+{
+    font-size: 30px;
+} 
+h3.main-heading span{
+    font-size: 24px;
+}
+.attendy-list .modal-dialog
+{
+    max-width: 80%;
+}
+.prescreen-popup .small-heading
+{
+    font-size: 25px;
+}
+.prescreen-popup .popup-heading
+{
+    font-size: 27px;
+}
+.prescreen-popup .signup-total, .prescreen-popup .online-total
+{
+    font-size: 21px;
+}
+.network-wifi
+{
+    width: 380px;
+}
+.fill-wifi
+{
+    bottom: 34px;
+}
+.online-streams, .heart-rate
+{
+    width: 240px;
+}
+.check-camera label
+{
+    font-size: 21px;
+}
+
+.prescreen-popup .participant-status
+{
+    width: 300px;
+}
+#agora_local
+{
+    width: 400px !important;
+    height: 250px !important;
+    margin-bottom: 30px;
+}
+/* .prescreen-popup .open-list
+{
+    width: 35px;
+}
+.target-info span, .target-info span:nth-child(2)
+{
+    font-size: 18px;
+} */
+}

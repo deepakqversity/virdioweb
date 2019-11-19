@@ -136,7 +136,7 @@ overflow:hidden;
     background-color: #9b51e0 !important;
 	border-color: #9b51e0 !important;
 	font-family: Avenir-Book;
-    font-size: 14px;
+    font-size: 17px;
 	border-radius: 50px;
 	padding:7px 20px;
 }
@@ -148,6 +148,10 @@ overflow:hidden;
 }
 img{
 	max-width:100%;
+}
+.h-50
+{
+    height: 50%;
 }
 .dark-box-shadow{
 	    box-shadow: 0px 0px 66px #000;
@@ -209,10 +213,13 @@ a.bg-primary:hover, a.bg-primary:focus, button.bg-primary:hover, button.bg-prima
     border-radius: 10px !important;
 }
 .top-rounded {
-    border-radius: 10px 10px 0 0!important;
+    border-top-right-radius: 10px !important;
+    border-top-left-radius: 10px !important;
 }
 .bottom-rounded {
-    border-radius:0 0 10px 10px !important;
+    
+    border-bottom-right-radius: 10px !important;
+    border-bottom-left-radius: 10px !important;
 }
 .fitness-script .script-info .add-remove-round.rounded .carousel-control-next{
 	    right: 190px;
@@ -451,8 +458,8 @@ h3.main-heading span span span {
     height: auto;
     padding: 10px 0px;
     z-index: 3;
-	max-height:85px;
-	height:85px;
+	max-height:100px;
+	height:100px;
     left: 0;
     right: 0;
     margin: auto;
@@ -649,7 +656,7 @@ display: block;
 	margin:1px;
 }
 .section.attendees{
-	margin-top: 105px !important;
+	margin-top: 120px !important;
 }
 .section.attendees .title{
     font-family: 'Avenir-Black';
@@ -1058,6 +1065,7 @@ position: absolute;
     justify-content: center;
     width: 26px;
     height: 26px;
+    font-weight: inherit;
 }
 .close-model-btn:hover{
 	text-decoration:none;
@@ -1572,15 +1580,26 @@ outline:0;
   animation: countdown 30s linear infinite forwards;
   animation-direction: reverse;
 }
-.footer-fitness-script .fitness-guest .swiper-slide-next svg circle{
-  stroke-dasharray: 172px;
-}
-.header svg circle{
-  stroke-dasharray: 160px;
+.count-box svg
+{
+    stroke-dasharray: 160px;
   stroke-dashoffset: 0px;
   stroke-linecap: round;
   stroke-width: 6px;
   stroke: none;
+  fill: none;
+  animation: countdown 30s linear infinite forwards;
+  animation-direction: reverse;
+}
+.footer-fitness-script .fitness-guest .swiper-slide-next svg circle{
+  stroke-dasharray: 172px;
+}
+.header svg circle{
+  stroke-dasharray: 171px;
+  stroke-dashoffset: 0px;
+  stroke-linecap: round;
+  stroke-width: 6px;
+  stroke: #9b51e0 !important;
   fill: none;
   animation: countdown 30s linear infinite forwards;
   animation-direction: reverse;
@@ -2064,6 +2083,10 @@ img.user-login{
     display: flex;
     align-items: flex-end;
     justify-content: center;
+}
+.h_auto
+{
+    height: auto;
 }
 .bpm-bar{
     width: 60px;
@@ -2793,9 +2816,7 @@ color: #7C7C7C;
 	background: rgba(0,0,0,0.8);
 	padding-left: 15px;
 }
-.modal-open .modal.music-list .modal-dialog{
-    max-width: 1600px;
-}
+
 .music-list .modal-header{
 	border: 0;
 }
@@ -2826,7 +2847,8 @@ color: #fff;
     position: relative;
     display: block;
     padding: 20px 10px;
-    border-top: 2px solid #4B4C55;
+    border-top: 1px solid #4B4C55;
+    border-bottom: 1px solid #4B4C55;
 }
 ul.music-playlist li a span:nth-child(1){
 	font-family: Avenir-Heavy;
@@ -2988,8 +3010,9 @@ text-align:left;
 	background-size: cover;
     background-position: center;
 }
-.default-btns .btn img{
-	width:20px;
+.default-btns .btn img, .default-btns .btn .fa-microphone {
+    width:20px;
+    height: 20px;
 }
 
 @media (max-width:767px){
@@ -3003,7 +3026,7 @@ text-align:left;
 .right-sidebar{
 	height: 100%;
     width: 235px;
-    float: right;
+    /*float: right;*/
 }
 .show-others{
     width: 0;
@@ -3065,6 +3088,7 @@ outline: none;
 .joined-attendees{
 	    float: left;
     width: 100%;
+    height: 170px;
     
 }
 .joined-member-list{
@@ -3366,6 +3390,8 @@ position: absolute;
     color: #BD00FF !important;
     font-size: 32px !important;
     font-weight: normal !important;
+    text-shadow: none;
+    font-size: 40px !important;
 }
 
 .suborder{
@@ -3414,7 +3440,7 @@ position: absolute;
 
     background: #343434 !important;
 
-    max-width: 1300px !important;
+    max-width: 90% !important;
 
     margin:0 auto;
 
@@ -3454,7 +3480,7 @@ background-position: right;
 
 position: absolute;
 
-left: -13px;
+left: 0px;
 
 }
 

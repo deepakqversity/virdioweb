@@ -60,4 +60,12 @@ $(document).ready(function(){
 })
 })
 </script>
+<script>
+  $(document).ready(function(){
+    $(".music_play-list a").click(function(){    
+      $(".heading_text").html($(this).find(".spantext").text())
+      // $(".heading_text").html($(this).text());
+    })
+  })
+  </script>
 </html>

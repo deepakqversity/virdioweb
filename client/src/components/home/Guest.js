@@ -112,6 +112,7 @@ class Guest extends Component {
     //console.log(1);
     // window.test();
     this.startTimer();
+    this.sessionTimer();
   }
 
   
@@ -121,12 +122,13 @@ class Guest extends Component {
     
     
     let countdown = storeData.sessionData.duration * 60;
+
     console.log("cn------------"+countdown);
     //console.log('attribute '+ $('.header svg circle').attr("style"));
-    $('.header svg circle').attr("style","animation-duration:"+countdown+"s !important");
+    $('.header svg circle').attr('style','animation-duration:'+countdown+'s !important');
     console.log('attribute '+$('.header svg circle').attr("style"));
     $('.header svg circle').css("stroke", "#9b51e0");
-    console.log('countdown ======= countdown start ----', countdown)
+     console.log('countdown ======= countdown start ----', countdown)
     
     
     var resetCount1 = setInterval(function() {
@@ -156,7 +158,7 @@ class Guest extends Component {
         this.setState({ timerOn: false });
         $('.countdown-timer').html('Session Started');
         // console.log("Countdown ended");
-        this.sessionTimer();
+        //this.sessionTimer();
       }
     }, 10);
   };
@@ -259,7 +261,7 @@ return (
                     {/* <a className="col-2 justify-content-end d-flex align-items-center" href="#" className="btn btn-primary "   tabIndex="1">Details</a> */}
                     <div className="default-btns">
                       <a href="#" className="btn btn-primary ml-2" id="mocrophone-off" onClick={this.handRaise.bind(this)} alt="Microphone" title="Microphone Off"><img src="images/hand.png" /></a>
-                      <a href="#" className="btn btn-primary ml-2 d-none" id="mocrophone-on" alt="Microphone" title="Microphone On"><i className="fa fa-microphone"></i></a>
+                      <a href="#" className="btn btn-primary ml-2 d-none" id="mocrophone-on" alt="Microphone" title="Microphone On"><i className="fa fa-microphone pt2"></i></a>
                     </div>
 
                       {/*<a className="col-2 justify-content-end d-flex align-items-center" href="#" className="btn btn-primary " tabIndex="1">Details</a>
@@ -295,11 +297,11 @@ return (
       
     </header>
     
-    <div className="d-flex justify-content-between zindex-5 position-relative flex-grow-1 attend-mid-section">
+    {/* <div className="d-flex justify-content-between zindex-5 position-relative flex-grow-1 attend-mid-section">
     
     <LeftScriptParticipant interestId={sessionData.interestId} />
     
-    <div className="col-lg-3 col-md-4 col-sm-5 col-6 max-width-300 float-right pl-0 mt-4">
+    <div className="col-lg-3 col-md-4 col-sm-5 col-6 max-width-300 float-right pl-0 mt-4 align-self-start">
         <div className="right-sidebar">
           <div className="transparent-gray slide-right-left" style={toggleList}>
             
@@ -318,8 +320,63 @@ return (
         </div>
       
     </div>
+  </div> */}
+  <div className="d-flex zindex-5 position-relative flex-grow-1 attend-mid-section flex-wrap">
+    
+    <LeftScriptParticipant interestId={sessionData.interestId} />
+   <div className="flex-grow-1">
+    <div className="d-flex justify-content-between zindex-5 h-50 flex-wrap position-relative flex-grow-1 attend-mid-section">
+    <div className="col-lg-8 col-md-6">
+    
+    </div>
+    <div className="col-lg-4 col-md-5 float-md-right pl-0 mt-4 align-self-start">
+        <div className="right-sidebar float-md-right mx-auto mx-md-0">
+          <div className="transparent-gray slide-right-left" style={toggleList}>
+            
+            <div className="joined-attendees ">
+              <h4 className="mb-2 head"><span className="title">Wine Testers</span><span className="count">(<span  id="joined_users_at_client">0</span>/<span>{newulength}</span>)</span></h4>
+              <div className="joined-member-list" id="all_joined_member_list"></div>
+              <button type="button" id="minimize-others" className="mt-2 minimize-others mx-auto d-none"></button>
+
+            </div>
+            <button type="button" id="show-everyone" className="show-others mx-auto"></button>
+          
+          
+          </div>
+          
+          
+        </div>
+      
+    </div>
   </div>
+  <div className="d-flex justify-content-between h-50 flex-wrap zindex-5 position-relative flex-grow-1 attend-mid-section">
+    <div className="col-lg-8 col-md-6 col-sm-6 col-6 align-self-end">
     <footer className="footer position-relative zindex-5 count-box mb-5 mb-lg-2 mt-4">
+      
+      <FooterScriptParticipant interestId={sessionData.interestId} />
+
+      {/* <div className="self-video1 mt-3 w-50">
+          
+          <div id="agora_local" className="video-streams guest-video" style={videoAspect}></div>
+          
+      </div> */}
+    </footer>
+    </div>
+    <div className="col-lg-4 col-md-5 col-sm-5 col-6 max-width-300 float-right pl-0 mt-4 align-self-end">
+        {/* video code */}
+        <div className="self-video1 mt-3 w-50">
+          
+          <div id="agora_local" className="video-streams guest-video" style={videoAspect}></div>
+          
+      </div>
+      
+    </div>
+  </div>
+  </div>
+  
+  </div>
+
+    {/* <footer className="footer position-relative zindex-5 count-box mb-5 mb-lg-2 mt-4">
       
       <FooterScriptParticipant interestId={sessionData.interestId} />
 
@@ -328,12 +385,194 @@ return (
           <div id="agora_local" className="video-streams guest-video" style={videoAspect}></div>
           
       </div>
-    </footer>
+    </footer> */}
     
   
     
-    <div id="show-details4" className="show-details modal fade " role="dialog">
-    <div className="modal-dialog w-100 d-flex align-items-center bg-black flex-direction-column h-100 mw-100 justify-content-center ">
+    <div id="show-details4" className="details_model modal px-0 fade " role="dialog">
+    <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content p-4 rounded-0">
+                
+                <div className="modal-body py-0">
+                    <div className="row">
+                        <div className="col-lg-6 px-0">
+                          <div className="per_pic rounded h-100">
+                            <img src="images/person_pic.png" className="w-100 rounded h-100" />
+                          </div>
+
+                        </div>
+                        <div className="col-lg-6 px-0">
+                          <div className="rgt_modal_box rounded py-5 px-4 h-100">
+                          <div className="modal-header border-0 pt-0">
+                          <p className="pl-0 mb-0">Friday May 3rd, 2019</p>
+                          <button type="button" className="close close-model-btn m-0" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div className="modal_contnt">
+                                
+                                <h3 className="white_hdng mt-4">Experience the world of Lynmar Estates</h3>
+                                <p className="white-text pl-0">By Lynn Fritz</p>
+                                <div className="mt-3">
+                                    <div className="row">
+                                        <div className="col-md-5">
+                                            <div className="overflow-hidden mr-3">
+                                                <p className="float-left"><img src="images/clock.png" className="clock_img" />Time</p>
+                                                <p className="float-right">7 PM EDT</p>
+                                            </div>
+                                        </div>
+                                        <div className="col-md-5">
+                                            <div className="overflow-hidden ml-3">
+                                                <p className="float-left"><img src="images/clock.png" className="clock_img" />Length</p>
+                                                <p className="float-right">2Hrs</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="mt-4">
+                                    <div className="row">
+                                        <div className="col-md-12">
+                                            <h3 className="white-text mb-2 ml-0 p-0"><img src="images/privacy.png" className="mr-3 mb-2" />Privacy</h3>
+                                        </div>
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7">Allow other users to see my name and picture</p>              
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-1 col-sm-2 col-2 pr-0">
+                                            <div className="form-group1 input-txt position-relative text-right">
+                                                <label className="switch mx-0">
+                                                    <input type="checkbox" />
+                                                    <span className="slider round"></span>
+                                                </label>
+                                            </div>                                        
+                                        </div>
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7">Allow other users to see my name and picture</p>              
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-1 col-sm-2 col-2 pr-0">
+                                            <div className="form-group1 input-txt position-relative text-right">
+                                                <label className="switch mx-0">
+                                                    <input type="checkbox" />
+                                                    <span className="slider round"></span>
+                                                </label>
+                                            </div>                                        
+                                        </div>
+                                    </div>
+                                       <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">                                                
+                                                <p className="my-2 ml-7">Allow other users to send me private message</p>
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-1 col-sm-2 col-2 pr-0">                                            
+                                            <div className="form-group1 input-txt position-relative text-right">
+                                                <label className="switch mx-0">
+                                                    <input type="checkbox" />
+                                                    <span className="slider round"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="mt-4">
+                                    <div className="row">
+                                        <div className="col-md-12">
+                                            <h3 className="white-text mb-2 ml-0 p-0"><img src="images/equip.png" className="mr-3 mb-2" />Equipment</h3>
+                                        </div>
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7"><i className="fa fa-circle mr-3"></i>Corkscrew Wine Opener</p>              
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-1 col-sm-2 col-2 p-0">
+                                            <label className="custom-control custom-checkbox lebelheight d-flex mb-0 pl-2">
+                                                <input type="checkbox" className="form-radio" />                                   
+                                            </label>                                   
+                                        </div>
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7"><i className="fa fa-circle mr-3"></i>4 wine glasses per taster. Preferably two white and two red</p>              
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-1 col-sm-2 col-2 p-0">
+                                            <label className="custom-control custom-checkbox lebelheight d-flex mb-0 pl-2">
+                                                <input type="checkbox" className="form-radio" />                                   
+                                            </label>                                   
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div className="mt-4">
+                                    <div className="row">
+                                        <div className="col-md-12">
+                                            <h3 className="white-text mb-2 ml-0 p-0"><img src="images/shopping-icon.png" className="mr-3 mb-2" />Shopping List</h3>
+                                        </div>
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7"><i className="fa fa-circle mr-3"></i>Lynmar Estates: 2014 Bliss Block Pinot Noir</p>              
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-1 col-sm-2 col-2 p-0">
+                                            <label className="custom-control custom-checkbox lebelheight d-flex mb-0 pl-2">
+                                                <input type="checkbox" className="form-radio" />                                   
+                                            </label>                                   
+                                        </div>
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7"><i className="fa fa-circle mr-3"></i>Lynmar Estates: 2016 Block 10 Pinot Noir</p>              
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-1 col-sm-2 col-2 p-0">
+                                            <label className="custom-control custom-checkbox lebelheight d-flex mb-0 pl-2">
+                                                <input type="checkbox" className="form-radio" />                                   
+                                            </label>                                   
+                                        </div>
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7"><i className="fa fa-circle mr-3"></i>Lynmar Estates: Quail Hill Estates Chardonnay 2016</p>              
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-1 col-sm-2 col-2 p-0">
+                                            <label className="custom-control custom-checkbox lebelheight d-flex mb-0 pl-2">
+                                                <input type="checkbox" className="form-radio" />                                   
+                                            </label>                                   
+                                        </div>
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7"><i className="fa fa-circle mr-3"></i>Lynmar Estates: Quail Hill Estates Chardonnay 2016</p>              
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-1 col-sm-2 col-2 p-0">
+                                            <label className="custom-control custom-checkbox lebelheight d-flex mb-0 pl-2">
+                                                <input type="checkbox" className="form-radio" />                                   
+                                            </label>                                   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    {/* <div className="modal-dialog w-100 d-flex align-items-center bg-black flex-direction-column h-100 mw-100 justify-content-center ">
         <div className="modal-content">
           
           <div className="modal-header">
@@ -394,7 +633,7 @@ return (
           
         </div>
 
-      </div>
+      </div> */}
     </div>
 
     <div className="modal attendy-list fitness-script1" id="fitness-script">
@@ -475,25 +714,29 @@ return (
       <div className="modal" id="cart-details">
 
           
-          <div class="modal-content winesbg">
+          <div class="modal-content winesbg p-3">
       
-              <div class="modal-header violetborder">
+              <div class="modal-header mx-3 pl-0 violetborder">
                 <h4 class="modal-title white">Order Wines that were tasted</h4>
                 {/*<button type="button" class="close white closepopup" data-dismiss="modal">&times;</button>*/}
-                <button type="button" class="close white closepopup" data-dismiss="modal">&times;</button>
+                <button type="button" class="close white closepopup px-0 pb-0" data-dismiss="modal">&times;</button>
               </div>
               
               <div class="modal-body">
-               <div class="card winesbg">
+               <div class="card winebg-clr">
                   
                   <div class="container">
 
                     <div class="row">
 
                         <div class="col-md-6">
-                          <h1 class="border-bot">Wine</h1>
-                          <h2>Purcari 2007</h2>
-                          <div class="row border-bot pb-3">
+                          <div className="row border-bot">
+                            <div className="col-md-12">
+                              <h1 class="pl-md-4 pb-2">Wine</h1>
+                              </div>
+                          </div>
+                          <h2 className="pl-md-4">Purcari 2007</h2>
+                          <div class="row border-bot pb-3 pl-md-4">
                             <div class="col-md-4">
                               <p>Appearence</p>
                               <span><img class="aroma-icon" src="images/appearance-1.png" alt="" /></span>
@@ -513,8 +756,8 @@ return (
                             </div>
                           </div>
 
-                          <h2>Poinot Noir 2005</h2>
-                          <div class="row border-bot pb-3">
+                          <h2 className="pl-md-4">Poinot Noir 2005</h2>
+                          <div class="row border-bot pb-3 pl-md-4">
                             <div class="col-md-4">
                               <p>Appearence</p>
                               <span><img class="aroma-icon" src="images/appearance-1.png" alt="" /></span>
@@ -533,8 +776,8 @@ return (
                               <span><img class="aroma-icon" src="images/aroma-4.png" alt="" /></span>
                             </div>
                           </div>
-                          <h2>Napa Valley's Finest</h2>
-                          <div class="row border-bot pb-3">
+                          <h2 className="pl-md-4">Napa Valley's Finest</h2>
+                          <div class="row border-bot pb-3 pl-md-4">
                             <div class="col-md-4">
                               <p>Appearence</p>
                               <span><img class="aroma-icon" src="images/appearance-1.png" alt="" /></span>
@@ -553,8 +796,8 @@ return (
                               <span><img class="aroma-icon" src="images/aroma-4.png" alt="" /></span>
                             </div>
                           </div>
-                          <h2>Lacrima Lui Ovidiu 2001</h2>
-                          <div class="row border-bot pb-3">
+                          <h2 className="pl-md-4">Lacrima Lui Ovidiu 2001</h2>
+                          <div class="row border-bot pb-3 pl-md-4">
                             <div class="col-md-4">
                               <p>Appearence</p>
                               <span><img class="aroma-icon" src="images/appearance-1.png" alt="" /></span>
@@ -576,7 +819,11 @@ return (
                         </div>
 
                       <div class="col-md-3">
-                          <h1 class="border-bot">Price</h1>
+                      <div className="row border-bot">
+                            <div className="col-md-12">
+                              <h1 class="pb-2">Price</h1>
+                              </div>
+                              </div>
                           <h1>$40</h1>
                           <div class="row border-bot pb-3">
                             <div class="col-md-12">
@@ -589,7 +836,7 @@ return (
                               <span><img class="aroma-icon" src="images/aroma-2.png" alt="" /></span>
                             </div>
                           </div>
-                          <h1>$40</h1>
+                          <h1 className="">$40</h1>
                           <div class="row border-bot pb-3">
                             <div class="col-md-12">
                               <p>Palate</p>
@@ -628,7 +875,11 @@ return (
                       </div>
 
                       <div class="col-md-2">
-                          <h1 class="border-bot">Enter Quantity</h1>
+                      <div className="row border-bot">
+                            <div className="col-md-12">
+                          <h1 class="pb-2">Enter Quantity</h1>
+                          </div>
+                          </div>
                           <div class="row border-bot pb-3">
                             <div class="col-md-12">
                               <div class="quantity">                  
@@ -685,33 +936,36 @@ return (
                         </div>
 
                       <div class="col-md-1">
-                          <h1 class="border-bot">Total</h1>
+                      <div className="row border-bot">
+                            <div className="col-md-12">
+                          <h1 class="text-right pb-2">Total</h1>
+                          </div></div>
                           <div class="row border-total">
                             <div class="col-md-12">
-                              <h1>$0</h1>
+                              <h1 class="text-right">$0</h1>
                             </div>
                           </div>
                           <div class="row border-total pt-4">
                             <div class="col-md-12">
-                              <h1>$0</h1>
+                              <h1 class="text-right">$0</h1>
                             </div>
                           </div>
                           <div class="row border-total pt-4">
                             <div class="col-md-12">
-                              <h1>$0</h1>
+                              <h1 class="text-right">$0</h1>
                             </div>
                           </div>
                           <div class="row border-total pt-4">
                             <div class="col-md-12">
-                              <h1>$462</h1>
+                              <h1 class="text-right">$462</h1>
                             </div>
                           </div>
                         </div>
             
                         <div class="col-md-11"></div>                                          
                         <div class="col-md-1">
-                          <p>Total</p>
-                          <div class="totalText">$462</div>
+                          <p class="text-right">Total</p>
+                          <div class="totalText text-right">$462</div>
                         </div>
                     </div>                    
                   </div>

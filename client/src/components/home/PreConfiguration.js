@@ -421,10 +421,10 @@ render() {
         <div className="prescreen-body modal-body bg-gray rounded my-2" id="media-content">
           
           <div className="row">
-            <div className="col-12"><h6 className="small-heading mb-2">Select Video Camera</h6></div>
-            <div className="row justify-content-center video-streams select-camera" id="video-media-content"></div>
+            <div className="col-12"><h6 className="small-heading mb-2">Select Video Camera</h6></div>           
             
           </div>
+          <div className="row justify-content-center video-streams select-camera" id="video-media-content"></div>
         
         </div>
         <div className="d-flex prescreen-footer">
@@ -486,7 +486,7 @@ render() {
         </div>
         
 
-        <div id="show-details2" className="show-details modal fade" role="dialog">
+        {/* <div id="show-details2" className="show-details modal fade" role="dialog">
         <div className="modal-dialog w-100 d-flex align-items-center bg-black flex-direction-column h-100 mw-100 justify-content-center ">
         <div className="modal-content">
           <div className="modal-header">
@@ -545,6 +545,190 @@ render() {
         </div>
 
       </div>
+    </div> */}
+    <div className="modal show px-0" id="show-details2">
+        <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content p-4 rounded-0">
+                
+                <div className="modal-body py-0">
+                    <div className="row">
+                        <div className="col-lg-6 px-0">
+                          <div className="per_pic rounded h-100">
+                            <img src="images/person_pic.png" className="w-100 rounded h-100" />
+                          </div>
+
+                        </div>
+                        <div className="col-lg-6 px-0">
+                          <div className="rgt_modal_box rounded py-5 px-4 h-100">
+                          <div className="modal-header">
+                          <p className="pl-0 mb-0">Friday May 3rd, 2019</p>
+                          <button type="button" className="close close-model-btn m-0" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div className="modal_contnt">
+                                
+                                <h3 className="white_hdng mt-4">Experience the world of Lynmar Estates</h3>
+                                <p className="white-text pl-0">By Lynn Fritz</p>
+                                <div className="mt-3">
+                                    <div className="row">
+                                        <div className="col-md-5">
+                                            <div className="overflow-hidden mr-3">
+                                                <p className="float-left"><img src="images/clock.png" className="clock_img" />Time</p>
+                                                <p className="float-right">7 PM EDT</p>
+                                            </div>
+                                        </div>
+                                        <div className="col-md-5">
+                                            <div className="overflow-hidden ml-3">
+                                                <p className="float-left"><img src="images/length.png" className="clock_img" />Length</p>
+                                                <p className="float-right">2Hrs</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="mt-4">
+                                    <div className="row">
+                                        <div className="col-md-12">
+                                            <h3 className="white-text mb-2 ml-0 p-0"><img src="images/privacy.png" className="mr-3 mb-2" />Privacy</h3>
+                                        </div>
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7">Allow other users to see my name and picture</p>              
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-1 col-sm-2 col-2 pr-0">
+                                            <div className="form-group1 input-txt position-relative text-right">
+                                                <label className="switch mx-0">
+                                                    <input type="checkbox" />
+                                                    <span className="slider round"></span>
+                                                </label>
+                                            </div>                                        
+                                        </div>
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7">Allow other users to see my name and picture</p>              
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-1 col-sm-2 col-2 pr-0">
+                                            <div className="form-group1 input-txt position-relative text-right">
+                                                <label className="switch mx-0">
+                                                    <input type="checkbox" />
+                                                    <span className="slider round"></span>
+                                                </label>
+                                            </div>                                        
+                                        </div>
+                                    </div>
+                                       <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">                                                
+                                                <p className="my-2 ml-7">Allow other users to send me private message</p>
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-1 col-sm-2 col-2 pr-0">                                            
+                                            <div className="form-group1 input-txt position-relative text-right">
+                                                <label className="switch mx-0">
+                                                    <input type="checkbox" />
+                                                    <span className="slider round"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="mt-4">
+                                    <div className="row">
+                                        <div className="col-md-12">
+                                            <h3 className="white-text mb-2 ml-0 p-0"><img src="images/equip.png" className="mr-3 mb-2" />Equipment</h3>
+                                        </div>
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7"><i className="fa fa-circle mr-3"></i>Corkscrew Wine Opener</p>              
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-1 col-sm-2 col-2 p-0">
+                                            <label className="custom-control custom-checkbox lebelheight d-flex mb-0 pl-2">
+                                                <input type="checkbox" className="form-radio" />                                   
+                                            </label>                                   
+                                        </div>
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7"><i className="fa fa-circle mr-3"></i>4 wine glasses per taster. Preferably two white and two red</p>              
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-1 col-sm-2 col-2 p-0">
+                                            <label className="custom-control custom-checkbox lebelheight d-flex mb-0 pl-2">
+                                                <input type="checkbox" className="form-radio" />                                   
+                                            </label>                                   
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div className="mt-4">
+                                    <div className="row">
+                                        <div className="col-md-12">
+                                            <h3 className="white-text mb-2 ml-0 p-0"><img src="images/shopping-icon.png" className="mr-3 mb-2" />Shopping List</h3>
+                                        </div>
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7"><i className="fa fa-circle mr-3"></i>Lynmar Estates: 2014 Bliss Block Pinot Noir</p>              
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-1 col-sm-2 col-2 p-0">
+                                            <label className="custom-control custom-checkbox lebelheight d-flex mb-0 pl-2">
+                                                <input type="checkbox" className="form-radio" />                                   
+                                            </label>                                   
+                                        </div>
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7"><i className="fa fa-circle mr-3"></i>Lynmar Estates: 2016 Block 10 Pinot Noir</p>              
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-1 col-sm-2 col-2 p-0">
+                                            <label className="custom-control custom-checkbox lebelheight d-flex mb-0 pl-2">
+                                                <input type="checkbox" className="form-radio" />                                   
+                                            </label>                                   
+                                        </div>
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7"><i className="fa fa-circle mr-3"></i>Lynmar Estates: Quail Hill Estates Chardonnay 2016</p>              
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-1 col-sm-2 col-2 p-0">
+                                            <label className="custom-control custom-checkbox lebelheight d-flex mb-0 pl-2">
+                                                <input type="checkbox" className="form-radio" />                                   
+                                            </label>                                   
+                                        </div>
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7"><i className="fa fa-circle mr-3"></i>Lynmar Estates: Quail Hill Estates Chardonnay 2016</p>              
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-1 col-sm-2 col-2 p-0">
+                                            <label className="custom-control custom-checkbox lebelheight d-flex mb-0 pl-2">
+                                                <input type="checkbox" className="form-radio" />                                   
+                                            </label>                                   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
         <div className="modal-footer">
             {/* <div className="">
@@ -569,12 +753,12 @@ render() {
               <div className="col-lg-3">
                 <div className="d-flex justify-content-end flex-wrap">
 
-                  <button type="submit" className="w110 mr-4 btn-cancel btn btn-large btn-leave btn-outline-secondary rounded py-1 px-4" onClick={this.callfunction.bind(this)} >Leave</button>
+                  <button type="submit" className="mr-4 btn-cancel btn btn-large btn-leave btn-outline-secondary rounded py-3 px-4" onClick={this.callfunction.bind(this)} >Leave</button>
                   
                   {(
                     ()=>{
                         if(localstoragedata.userType == 1) {
-                            return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-4 rounded " data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
+                            return <button type="button" className="btn-join btn btn-large btn-primary text-uppercase py-3 px-4 rounded " data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
                         } else {
                             return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded d-none" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)} disabled={!this.state.isHostJoined}>Join</button>;                     
                         }

@@ -36,7 +36,7 @@ class Host extends Component {
     
     this.props.addLogs(sessionId, userType, type);
   };
-
+  
   onLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();
@@ -116,9 +116,10 @@ class Host extends Component {
     
     
     let countdown = storeData.sessionData.duration * 60;
+    // let countdown = 60;
     $('.header svg circle').attr("style","animation-duration:"+countdown+"s !important");
     $('.header svg circle').css("stroke", "#9b51e0");
-    //console.log('countdown ======= countdown start ----', countdown)
+    // console.log('countdown ======= countdown start ----', countdown)
     
     var resetCount1 = setInterval(function() {
       if(countdown <= 0){
@@ -129,7 +130,7 @@ class Host extends Component {
       countdown--;
     }, 1000);
   };
-
+  
   startTimer = () => {
     this.setState({
       timerOn: true,
@@ -267,14 +268,14 @@ return (
             <div id="guestmsg" className="d-none" style={{color:'green'}}></div>
                        
             <div className="col-12 col-sm-3">
-              <div className="col-12 justify-content-end d-flex align-items-center">
+              <div className="col-12 justify-content-end d-flex align-items-center translatee">
                 
                 <div className="border-right pr-3">
 
                 {(
                     ()=>{
                         if(sessionData.interestId == 1) {
-                            return <a className="btn  btn-primary border-right pr-20" href="#" data-toggle="modal" data-target="#show-details1" tabIndex="1">Details</a>;
+                            return <a className="btn  btn-primary border-right pr-20" href="#" data-toggle="modal" data-target="#show-details2" tabIndex="1">Details</a>;
                         } else {                      
                             return <a className="btn  btn-primary border-right pr-20" href="#" data-toggle="modal" data-target="#fitness-script" tabIndex="1">Details</a>;             
                         }
@@ -337,7 +338,19 @@ return (
     <div className="row position-fixed host-script-section align-items-end justify-content-between">
       <div className=" host-section d-flex flex-direction-column h-100">
         <div className="host-local">
-          <div className="add-remove-round1 add-remove-height height-53 px-3 bg-gray pt-2 pb-2 top-rounded d-flex justify-content-between align-items-center">
+          {/* <div className="add-remove-round1 add-remove-height height-53 px-3 bg-gray pt-2 pb-2 top-rounded d-flex justify-content-between align-items-center">
+            <h3 className="main-heading font-size-16 float-left">Streaming</h3>
+            <div className="host-header">
+              <img src="images/mute-microphone.png" className="unmute-icon" id="mute-unmute-local" />
+              <img src="images/music-icon.png" className="music-icon" data-toggle="modal" data-target="#musicList" id="bg-music" />
+              <img src="images/video-icon.png" className="video-icon d-none" id="publish" />
+              <img src="images/video-close.png" className="video-icon d-none" id="unpublish" />
+              <img src="images/reverse-cam.png" className="video-icon" id="switch-camera" />
+              <img src="images/circle.png" className="circle-icon mr-0" id="record-stream" />
+            </div>
+          </div> */}
+          <div className="add-remove-round1 host-show-hide px-3 bg-gray mt--1 pt-2 pb-1 top-rounded bottom-rounded flex-grow-1">
+          <div className="add-remove-round1 add-remove-height height-53 px-3 bg-gray pt-2 pb-3 top-rounded d-flex justify-content-between align-items-center">
             <h3 className="main-heading font-size-16 float-left">Streaming</h3>
             <div className="host-header">
               <img src="images/mute-microphone.png" className="unmute-icon" id="mute-unmute-local" />
@@ -348,7 +361,6 @@ return (
               <img src="images/circle.png" className="circle-icon mr-0" id="record-stream" />
             </div>
           </div>
-          <div className="add-remove-round1 host-show-hide px-3 bg-gray mt--1 pt-2 pb-1 bottom-rounded flex-grow-1">
             <div id="agora_local" className="video-streams"></div>
           </div>
           
@@ -359,7 +371,7 @@ return (
 
     </div>
     {/* <!-- Music Player PopUp Start --> */}
-      <div className="modal music-list" id="musicList">
+      {/* <div className="modal music-list" id="musicList">
         <div className="modal-dialog  rounded">
           <div className="modal-content bg-gray">
             
@@ -417,6 +429,75 @@ return (
 
           </div>
         </div>
+      </div> */}
+      <div className="modal music-list" id="musicList">
+        <div className="modal-dialog">
+          <div className="modal-content bg-black p-3 rounded-0">
+            <div className="rounded bg-gray">
+            
+            <div className="modal-header bg-gray rounded-top pb-0 px-2">
+              <button type="button" className="close pl-1" data-dismiss="modal">&times;</button>
+              <p className="small_font pr-1">Change Playlist <img src="images/plylst.png" className="ml-2" alt="chage playlist" /></p>
+            </div>
+            
+            <div className="modal-body bg-gray rounded-bottom">
+              <div className="top_container">
+                <div className="row pb-3 mt-1">
+                  <div className="col-md-2 text-center">
+                    <img src="images/p1.png" alt="" className="img-fluid rounded" />
+                    </div>
+                    <div className="col-md-10 pt-4">
+                      <div className="d-md-flex d-block flex-wrap">
+                        <div className="flex-fill">
+                          <h5 className="white_hdng font-medium heading_text">If I Can’t Have You</h5>
+                          <span className="small_font d-block">Shawn Mendes • If I Can’t Have You</span>
+                        </div>
+                        <div className="flex-fill">
+                          <div className="d-flex justify-content-md-end control-music pr-1 flex-wrap mt-3 mt-md-0">
+                            <img src="images/volume-icon.png" className="mr-3 align-self-center" alt="volume icon" />
+                            {/* <img src="images/active-volume.png" className="align-self-center ml-1" alt="active volume icon" />
+                            <img src="images/volume-grey.png" className="mr-4 align-self-center" alt="gray icon" /> */}
+                            <div className="gray_bar mr-4 align-self-center"></div>
+                            <img src="images/prev-music.png" className="mr-4 ml-2 align-self-center img1" alt="prev icon" />
+                            <img src="images/pause-music.png" className="mx-2 align-self-center" alt="pouse icon" />
+                            <img src="images/next-music-icon.png" alt="next icon" className="align-self-center ml-4 img1" />
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+              <ul className="music-playlist mt-2">
+                <li className="music_play-list"><a href="#">
+                  <span className="spantext">If I Can’t Have You</span>
+                  <span>Shawn Mendes • If I Can’t Have You</span>
+                  <span>3:10</span>
+                </a></li>
+                <li className="music_play-list"><a href="#">
+                  <span className="spantext">Summer Days (feat Macklemore & Patrick Stump of Fall Out Boy)</span>
+                  <span>Shawn Mendes • If I Can’t Have You</span>
+                  <span>3:10</span>
+                </a></li>
+                <li className="music_play-list"><a href="#">
+                  <span className="spantext">All Around The World(La La La)</span>
+                  <span>Shawn Mendes • If I Can’t Have You</span>
+                  <span>3:10</span>
+                </a></li>
+                <li className="music_play-list"><a href="#">
+                <span className="spantext">All Around The World(La La La)</span>
+                  <span>Shawn Mendes • If I Can’t Have You</span>
+                  <span>3:10</span>
+                </a></li>
+                <li className="music_play-list"><a href="#">
+                <span className="spantext">All Around The World(La La La)</span>
+                  <span>Shawn Mendes • If I Can’t Have You</span>
+                  <span>3:10</span>
+                </a></li>            
+              </ul>
+            </div>
+            </div>         
+          </div>
+        </div>
+      </div>
       </div>
       {/* <!-- Music Player PopUp End --> */}
     <div className="modal fade" id="guest-video" role="dialog">
@@ -476,7 +557,7 @@ return (
       
 
 
-      <div id="show-details1" className="show-details modal fade " role="dialog">
+      {/* <div id="show-details1" className="show-details modal fade " role="dialog">
       <div className="modal-dialog w-100 d-flex align-items-center bg-black flex-direction-column h-100 mw-100 justify-content-center ">
         <div className="modal-content">
           
@@ -538,7 +619,192 @@ return (
         </div>
 
       </div>
+    </div> */}
+    <div className="modal show px-0 details_model" id="show-details2">
+        <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content p-4 rounded-0">
+                
+                <div className="modal-body py-0">
+                    <div className="row">
+                        <div className="col-lg-6 px-0">
+                          <div className="per_pic rounded h-100">
+                            <img src="images/person_pic.png" className="w-100 rounded h-100" />
+                          </div>
+
+                        </div>
+                        <div className="col-lg-6 px-0">
+                          <div className="rgt_modal_box rounded py-5 px-4 h-100">
+                          <div className="modal-header border-0 pt-0">
+                          <p className="pl-0 mb-0">Friday May 3rd, 2019</p>
+                          <button type="button" className="close close-model-btn m-0" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div className="modal_contnt">
+                                
+                                <h3 className="white_hdng mt-4">Experience the world of Lynmar Estates</h3>
+                                <p className="white-text pl-0">By Lynn Fritz</p>
+                                <div className="mt-3">
+                                    <div className="row">
+                                        <div className="col-md-5">
+                                            <div className="overflow-hidden mr-3">
+                                                <p className="float-left"><img src="images/clock.png" className="clock_img" />Time</p>
+                                                <p className="float-right">7 PM EDT</p>
+                                            </div>
+                                        </div>
+                                        <div className="col-md-5">
+                                            <div className="overflow-hidden ml-3">
+                                                <p className="float-left"><img src="images/clock.png" className="clock_img" />Length</p>
+                                                <p className="float-right">2Hrs</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="mt-4">
+                                    <div className="row">
+                                        <div className="col-md-12">
+                                            <h3 className="white-text mb-2 ml-0 p-0"><img src="images/privacy.png" className="mr-3 mb-2" />Privacy</h3>
+                                        </div>
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7">Allow other users to see my name and picture</p>              
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-1 col-sm-2 col-2 pr-0">
+                                            <div className="form-group1 input-txt position-relative text-right">
+                                                <label className="switch mx-0">
+                                                    <input type="checkbox" />
+                                                    <span className="slider round"></span>
+                                                </label>
+                                            </div>                                        
+                                        </div>
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7">Allow other users to see my name and picture</p>              
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-1 col-sm-2 col-2 pr-0">
+                                            <div className="form-group1 input-txt position-relative text-right">
+                                                <label className="switch mx-0">
+                                                    <input type="checkbox" />
+                                                    <span className="slider round"></span>
+                                                </label>
+                                            </div>                                        
+                                        </div>
+                                    </div>
+                                       <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">                                                
+                                                <p className="my-2 ml-7">Allow other users to send me private message</p>
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-1 col-sm-2 col-2 pr-0">                                            
+                                            <div className="form-group1 input-txt position-relative text-right">
+                                                <label className="switch mx-0">
+                                                    <input type="checkbox" />
+                                                    <span className="slider round"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="mt-4">
+                                    <div className="row">
+                                        <div className="col-md-12">
+                                            <h3 className="white-text mb-2 ml-0 p-0"><img src="images/equip.png" className="mr-3 mb-2" />Equipment</h3>
+                                        </div>
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7"><i className="fa fa-circle mr-3"></i>Corkscrew Wine Opener</p>              
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-1 col-sm-2 col-2 p-0">
+                                            <label className="custom-control custom-checkbox lebelheight d-flex mb-0 pl-2">
+                                                <input type="checkbox" className="form-radio" />                                   
+                                            </label>                                   
+                                        </div>
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7"><i className="fa fa-circle mr-3"></i>4 wine glasses per taster. Preferably two white and two red</p>              
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-1 col-sm-2 col-2 p-0">
+                                            <label className="custom-control custom-checkbox lebelheight d-flex mb-0 pl-2">
+                                                <input type="checkbox" className="form-radio" />                                   
+                                            </label>                                   
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div className="mt-4">
+                                    <div className="row">
+                                        <div className="col-md-12">
+                                            <h3 className="white-text mb-2 ml-0 p-0"><img src="images/shopping-icon.png" className="mr-3 mb-2" />Shopping List</h3>
+                                        </div>
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7"><i className="fa fa-circle mr-3"></i>Lynmar Estates: 2014 Bliss Block Pinot Noir</p>              
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-1 col-sm-2 col-2 p-0">
+                                            <label className="custom-control custom-checkbox lebelheight d-flex mb-0 pl-2">
+                                                <input type="checkbox" className="form-radio" />                                   
+                                            </label>                                   
+                                        </div>
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7"><i className="fa fa-circle mr-3"></i>Lynmar Estates: 2016 Block 10 Pinot Noir</p>              
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-1 col-sm-2 col-2 p-0">
+                                            <label className="custom-control custom-checkbox lebelheight d-flex mb-0 pl-2">
+                                                <input type="checkbox" className="form-radio" />                                   
+                                            </label>                                   
+                                        </div>
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7"><i className="fa fa-circle mr-3"></i>Lynmar Estates: Quail Hill Estates Chardonnay 2016</p>              
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-1 col-sm-2 col-2 p-0">
+                                            <label className="custom-control custom-checkbox lebelheight d-flex mb-0 pl-2">
+                                                <input type="checkbox" className="form-radio" />                                   
+                                            </label>                                   
+                                        </div>
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7"><i className="fa fa-circle mr-3"></i>Lynmar Estates: Quail Hill Estates Chardonnay 2016</p>              
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-1 col-sm-2 col-2 p-0">
+                                            <label className="custom-control custom-checkbox lebelheight d-flex mb-0 pl-2">
+                                                <input type="checkbox" className="form-radio" />                                   
+                                            </label>                                   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
       <input type="hidden" id="switch-counter" />
       <input type="hidden" id="selected-participent-id" />
       <input type="hidden" id="to-broadcast" />
@@ -647,7 +913,7 @@ return (
         </div>
       </div>
 
-      <div className="modal attendy-list" id="switch-camera-popup">
+      {/* <div className="modal attendy-list" id="switch-camera-popup">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
@@ -662,14 +928,38 @@ return (
             </div>
           </div>
         </div>
+      </div> */}
+      <div className="modal" id="switch-camera-popup">
+        <div className="modal-dialog">
+          <div className="modal-content bg-black rounded-0">
+            <div className="modal-header border-0 pb-0">
+              <h4 className="modal-title white_hdng mx-3 my-4 font-medium">Camera layout</h4>
+              <button type="button" className="close close-model-btn mx-3 my-4" data-dismiss="modal">×</button>
+            </div>
+            <div className="modal-body pb-5">
+              <div className="d-flex justify-content-center py-5" id="video-media-content">
+                <div className="camera_box">
+                  <div className="d-flex justify-content-between px-2 pt-2 pb-1">
+                    <h5 className="white_font font-medium">Camera 1</h5>
+                    <label class="custom-control custom-checkbox lebelheight d-flex mb-0 pl-2">
+                      <input type="checkbox" class="form-radio" checked />
+                    </label>
+                  </div>
+                  <div className="">
+                    <img src="images/camera.png" alt="camera image" />
+                  </div>
+              </div>      
+            </div>            
+          </div>
+        </div>
       </div>
-
+      </div>
   </div>
     );
   }
 }
 Host.propTypes = {
-  logoutUser: PropTypes.func.isRequired,
+  logoutUser:PropTypes.func.isRequired,
   addLogs: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };

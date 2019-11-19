@@ -111,7 +111,7 @@ let sessionScript = localstoragedata.sessionData.scriptDetail;
        <div>
        { this.props.interestId == 1 ? (
        
-          <div className="participent-emoji">
+          <div className="participent-emoji h_auto mb-4">
             <ul className="bottom-links flex-wrap list-group list-group-horizontal mx-auto d-md-flex justify-content-center py-xs-1">
             <div className="dropup">
               <li className="list-group-item bg-transparent border-0 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

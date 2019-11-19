@@ -22,11 +22,11 @@ render() {
   //console.log('sessionScript=', sessionScript)
 
 return (
-      <div className="col-lg-4 col-md-6 col-sm-6 col-6 max-width-300">
+      <div className="col-lg-4 col-md-4">
       { sessionData.interestId == 1 ? (
 
         
-      <div className="">
+      <div className="mt-60">
         <div id="demo" data-interval="false" className="carousel slide script-info" data-ride="carousel">
 
           <div className="carousel-inner guest-left-wine">
@@ -35,7 +35,7 @@ return (
   sessionScript.map((opt, i) =>
             <div className="carousel-item" key={i}>
             <div className="left-section">
-            <h2 className="item-name text-right"><span className="ml-md-4 font-size-16 "><span className="fitness-counter1">{i+1}</span>/{sessionScript.length} {sessionData.scriptType}</span></h2>
+            <h2 className="item-name text-right"><span className="ml-md-4 font-size-16 font-26"><span className="fitness-counter1 font-26">{i+1}</span>/{sessionScript.length} {sessionData.scriptType}</span></h2>
                 {/* <h2 className="item-name py-3">{sessionData.scriptTitle}  {sessionData.scriptType}</h2> */}
                 <h3 className="second-heading my-2">{opt.name}</h3>
                 <div className="video-holder">
@@ -66,7 +66,8 @@ return (
           {(
             ()=>{
                 if(localstoragedata.userType == 2 && sessionData.interestId == 1) {
-                  return <button type="button" className="shopping-btn"><img src="images/shopping-icon.png" />Order Wine</button>;
+                  return <div className="mt-4"><button type="button" className="shopping-btn"><img src="images/shopping-icon.png" />Order Wine</button>
+                  <button type="button" className="shopping-btn ml-2">Show Details</button></div>;
                 } else {                          
                   return <button type="button" data-toggle="modal" data-target="#show-details4" className="mt-4 btn btn-outline-secondary show-details-btn">"Show Details"</button>;
                 }

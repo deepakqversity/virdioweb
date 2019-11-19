@@ -1,5 +1,6 @@
 const auth = require('../../auth/Auth');
 const isEmpty = require("is-empty");
+const bcrypt = require('bcrypt');
 const underscore = require("underscore");
 const sessionModel = require('../../models/Session');
 const sessionUserModel = require('../../models/SessionUser');
@@ -20,6 +21,7 @@ const ChannelProductModel = require('../../models/ChannelProduct');
 const ChannelInterestModel = require('../../models/ChannelInterest');
 const activityLogsModel = require('../../models/ActivityLogs');
 const clientToken = require( process.cwd() + '/util/ClientToken');
+const utils = require(process.cwd() + '/util/Utils');
 const response = require(process.cwd() + '/util/Response');
 
 class SessionCtrl {
@@ -374,12 +376,30 @@ class SessionCtrl {
 							attributes.push(attributesArr);
 						}
 
-						let scriptAttributeId = scriptAttributesModel.add(attributes);
+						let scriptAttributeId = await scriptAttributesModel.add(attributes);
 					}
 				}
 
 				// res.status(200).send({logId : insertedId});
-				response.resp(res, 200, {})
+
+				console.log('----------scriptAttributeId------------------',sessionId)
+				let sessId=sessionId+100;
+				let optcode=sessId+'#'+'virdio';
+
+				console.log('----------script------------------',optcode)
+				let resultant_code = await utils.encodedDecodedString(optcode,0);
+
+				console.log('-------resultant_code--------',resultant_code)
+
+				let urlcode=process.env.DOMAIN_URL_FOR_USER+"/"+resultant_code;
+
+				console.log('-------urlcode--------',urlcode)
+							
+			let sessionDt = await sessionModel.findSessionDetailBySessId(sessionId);
+
+			console.log('------sessionDt-----------',sessionDt)
+
+				response.resp(res, 200, {urlcode,sessionDt})
 			} else {
 				response.resp(res, 500, {message:"Something went wrong."})
 			} 
@@ -392,6 +412,35 @@ class SessionCtrl {
 			}
 		}
 
+
+
+		async verifyUser(req, res) {
+			try {
+				//let inerestId = 1;
+				console.log('-------lllt------------',req.body)
+	
+	
+				let decoded_sessid = await utils.encodedDecodedString(req.body.sessId,1);
+	
+				console.log('-------llltttttt------------',decoded_sessid)
+	
+				 let sessdta = decoded_sessid.split("#");
+	
+				 console.log('-------sessdta------------',sessdta[0])
+	
+				 let sessionId= sessdta[0]-100;
+	
+				 console.log('-------sessionId------------',sessionId)
+
+				 let sessionDta = await sessionModel.findSessionDetailBySessId(sessionId);
+					
+				console.log('------sessionDta1111---------',sessionDta)
+	
+				response.resp(res, 200, {sessionDta})
+			} catch(exception) {
+				response.resp(res, 500, exception);
+			}
+		}
 
 
 		async createWineSession(req, res) {
@@ -891,6 +940,8 @@ class SessionCtrl {
 			response.resp(res, 500, exception);
 	    }
 	}
+
+
 
 
 }

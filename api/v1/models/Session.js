@@ -100,6 +100,18 @@ class Session{
         });
 	}	
 
+	async findSessionDetailBySessId(sessionId){
+console.log('-----sessID----------',sessionId)
+        return await new Promise((resolve, reject) => {
+        	db.query('SELECT  u.firstName, u.lastName, ses.* FROM sessions ses INNER JOIN users u ON u.id = ses.hostId WHERE u.isBanned = 0 AND ses.status = 1 AND ses.id = ?', [sessionId], function (error, results, fields) {
+			  if (error) reject(error);
+			 console.log('===========sessionId======= ************ results ', error)
+			  // db.end();
+			  return resolve(results[0]);
+			});
+        });
+	}
+
 	async findSessionUsers(sessionId){
 
         return await new Promise((resolve, reject) => {

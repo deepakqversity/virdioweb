@@ -36,7 +36,7 @@ module.exports.encodedDecodedString = function(code,type) {
 
 	
 	let result;
-
+	console.log('-------code------------',code)
 	if(type == 0){
 		
 		let buf = Buffer.from(code);		

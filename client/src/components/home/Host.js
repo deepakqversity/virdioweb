@@ -84,8 +84,11 @@ class Host extends Component {
       "click":             function() { this.closable = true; },
       "hide.bs.dropdown":  function() { return this.closable; }
     });
-    this.loadScript('/AgoraRTCSDK-2.7.1.js');
-    this.loadScript('/agora-rtm-sdk-1.0.0.js');
+    
+    //this.loadScript('/AgoraRTCSDK-2.7.1.js');
+    this.loadScript('/AgoraRTCSDK-2.9.0.js');
+    //this.loadScript('/agora-rtm-sdk-1.0.0.js');
+    this.loadScript('/agora-rtm-sdk-1.2.0.js');
     this.loadScript('/main.js');
     
     
@@ -116,15 +119,15 @@ class Host extends Component {
     
     let storeData = JSON.parse(localStorage.getItem('userData'));
     
-    console.log('---------lalitstoreData---------',storeData)
+    //console.log('---------lalitstoreData---------',storeData)
     
     let countdown = storeData.sessionData.duration * 60;
-    console.log('---------lalitcountdown---------',countdown)
+    //console.log('---------lalitcountdown---------',countdown)
     // let countdown = 60;
     $('.header svg circle').attr("style","animation-duration:"+countdown+"s !important");
     $('.header svg circle').css("stroke", "#9b51e0");
 
-    console.log('countdown ======= countdown start ----', countdown)
+    //console.log('countdown ======= countdown start ----', countdown)
     
     var resetCount1 = setInterval(function() {
       if(countdown <= 0){
@@ -143,15 +146,15 @@ class Host extends Component {
       timerStart: this.state.timerTime
     });
     this.timer = setInterval(() => {
-      console.log('------startnewTime11111------',this.state.timerTime)
+      //console.log('------startnewTime11111------',this.state.timerTime)
       const newTime = this.state.timerTime - 10;
-      console.log('------startnewTime------',newTime)
+      //console.log('------startnewTime------',newTime)
       if (newTime >= 0) {
         this.setState({
           timerTime: newTime
         });
       } else {
-        console.log('------this.timer------',this.timer)
+        //console.log('------this.timer------',this.timer)
         clearInterval(this.timer);
         this.setState({ timerOn: false });
         $('.countdown-timer').html('Session Started');

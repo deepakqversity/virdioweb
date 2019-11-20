@@ -272,9 +272,11 @@ console.log('rtm join date and time=====', dateTime);
             }
           }
         }
+
         function sort_li(a, b) {
           return parseInt($(b).attr('data-position')) < parseInt($(a).attr('data-position')) ? 1 : -1;
         }
+        
         $('#online-user-list tr').sort(sort_li).appendTo('#online-user-list');
 
         console.log('memberId============', memberId)
@@ -302,6 +304,10 @@ console.log('rtm join date and time=====', dateTime);
 
         console.log('--------lalitmemleft---------------')
         
+        if (parseInt($('#online-users').text()) > 0) {
+            $('#online-users').text(parseInt($('#online-users').text()) - 1);
+        }
+
         addUserAttribute(convertEmailToId(memberId), 'currentStatus', 0);
         removeFromRtmOrder(memberId);
 

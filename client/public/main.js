@@ -391,8 +391,6 @@ console.log('in-- if===', stream.getId());
             stream.stop();
         }
         
-        $('#online-users').text(parseInt($('#online-users').text())-1);
-
         removeUserAttribute(stream.getId(), 'subscribeTime');
         removeUserAttribute(stream.getId(), 'isSubscribe');
         
@@ -735,28 +733,10 @@ console.log('in-- if===', stream.getId());
               channel.on('MemberLeft', memberId => { 
 console.log('rtm remove====', memberId);
                 //removeFromRtmOrder(memberId);
-          
-                // get online members list
-                channel.getMembers().then(membersList => {
-                  console.log('membersList after member joined', membersList)
 
-                  if (storeData.userType == 1) {
-                    let onlineUserCount = 0;
-
-                    if (membersList.length > 0) {
-                        for(let i= 0; i < membersList.length; i++){
-                          console.log('membersList[i]', membersList[i]);
-                          if(getUserDataFromList(convertEmailToId(membersList[i]), 'userType') == 2){
-                            onlineUserCount++;
-                          }
-                        }
-                    }
-                    
-                    $('#online-users').text(onlineUserCount);
-                  }
-                }).catch(error => {
-                  console.log('******************There Is a problem to get channel members**********', error);
-                });
+                if (parseInt($('#online-users').text()) > 0) {
+                    $('#online-users').text(parseInt($('#online-users').text()) - 1);
+                }
 
                 var massages="208"+sep+memberId+sep+"left"+sep;  
                 channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"left"}), storeData.userType);
@@ -861,7 +841,6 @@ console.log('rtm remove====', memberId);
         if(channel)
           channel.leave();
        }
-
 
       function sendMessage(peerId, text)
       {
@@ -2374,9 +2353,9 @@ function signalHandler(uid, signalData, userType) {
           if(broadcster.length > 0){
             
             for(let i in broadcster){
-              console.log('========== check 30 sec', broadcster[i])
+              //console.log('========== check 30 sec', broadcster[i])
               if(broadcster[i].email == dataObj.id){
-                console.log('========== check 30 sec in side', broadcster[i])
+                //console.log('========== check 30 sec in side', broadcster[i])
 
                 let tm =  (new Date()).getTime() - parseInt(broadcster[i].subscribeTime);
                 if((tm / 1000) >= storeData.default.switchDuration){
@@ -2394,7 +2373,7 @@ function signalHandler(uid, signalData, userType) {
     function kickUser(id) {
       
       localStorage.setItem("swap-subscriber-id", id);
-console.log('swap-subscriber-id----', id);
+// console.log('swap-subscriber-id----', id);
       let text = "209"+sep+"kicked by host";
       console.log('############### text', text)
       sendMessage( convertIdToEmail(id), text);
@@ -3266,13 +3245,13 @@ console.log('removed from rtm order====', memberId);
   
   
   function removeUserAttribute(id, key){
+
       let tempUsers = getTempUsers();
-      console.log('remove =========== tempUsers', tempUsers)
-      let newTempUsers = {};
+
       if(tempUsers != null){
         for(let i in tempUsers){
           if(tempUsers[i].hasOwnProperty(key) && tempUsers[i].id == id){
-            delete tempUsers[i].key;
+            delete tempUsers[i][key];
           }
         }
       }

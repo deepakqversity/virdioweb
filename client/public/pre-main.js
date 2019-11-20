@@ -142,7 +142,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     newclient.on('ConnectionStateChanged', (newState, reason) => {
       console.log('on connection state changed to ' + newState + ' reason: ' + reason);
 
-        if ((newState == 'ABORTED' || newState == 'DISCONNECTED') && (reason == 'LOGIN_TIMEOUT' || reason == 'INTERRUPTED' || reason == 'REMOTE_LOGIN')) {
+        if ((newState == 'ABORTED' || newState == 'DISCONNECTED') && (reason == 'LOGIN_TIMEOUT' || reason == 'INTERRUPTED' || reason == 'REMOTE_LOGIN' || reason == 'LOGIN_FAILURE')) {
                     
             console.log('connection state changed. Trying to reconnect');
 

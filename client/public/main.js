@@ -777,7 +777,7 @@ console.log('rtm remove====', memberId);
             newclient.on('ConnectionStateChanged', (newState, reason) => {//alert('state=='+newState+"==reason=="+reason);
                 console.log('on connection state changed to ' + newState + ' reason: ' + reason);
 
-                if ((newState == 'ABORTED' || newState == 'DISCONNECTED') && (reason == 'LOGIN_TIMEOUT' || reason == 'INTERRUPTED' || reason == 'REMOTE_LOGIN')) {
+                if ((newState == 'ABORTED' || newState == 'DISCONNECTED') && (reason == 'LOGIN_TIMEOUT' || reason == 'INTERRUPTED' || reason == 'REMOTE_LOGIN' || reason == 'LOGIN_FAILURE')) {
                     
                     console.log('connection state changed. Trying to reconnect');
 
@@ -1026,7 +1026,7 @@ console.log('rtm remove====', memberId);
   function publishAfterKick(){
     let storeData = getCurrentUserData();
     if(storeData.userType == 2){
-
+console.log('------lalitpublish--------')
       client.publish(localStream, function (err) {
         console.log("Publish local stream error: " + err);
       });
@@ -2325,8 +2325,10 @@ function signalHandler(uid, signalData, userType) {
         $('#to-broadcast').val(uId);
 
         if($('#subscribers-list .video-holder').length > 0) {
+          console.log('----changeUserToBroadcaster----------')
           pullFromSessionByHost(1);
         } else {
+          console.log('----changeUserToBroadcaster111111----------')
           pushIntoSessionByHost();
           removeAudienceInList(uId);
         }
@@ -2394,6 +2396,8 @@ function signalHandler(uid, signalData, userType) {
         let id = convertEmailToId(userList[i].id);
         if( $('#subscribers-list #agora_remote'+id).length > 0 ){
 
+          console.log('-----pullFromSessionByHost----------');
+
           if(ctr < limit && checkKickRule(userList[i])){
             kickUser(id);
             if($('#to-broadcast').val().trim() != ''){
@@ -2405,6 +2409,7 @@ function signalHandler(uid, signalData, userType) {
       }
     }
     function sendPushIntoSessionMessage(uid){
+      console.log('-------sendPushIntoSessionMessage--------------',uid)
         let text = "200"+sep+" in session";
         sendMessage(convertIdToEmail(uid), text);
     }
@@ -2483,6 +2488,7 @@ function signalHandler(uid, signalData, userType) {
       if($('#to-broadcast').length > 0 && $('#to-broadcast').val().trim() != ''){
 
         uid = $('#to-broadcast').val();
+        console.log('-----------pushIntoSessionByHost------------',uid)
         sendPushIntoSessionMessage(uid);        
 
         $('#audience-'+uid).remove();

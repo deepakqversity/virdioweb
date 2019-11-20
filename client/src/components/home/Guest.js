@@ -96,10 +96,12 @@ class Guest extends Component {
 
     // console.log('scDate= ',scDate, new Date(scDate).getTime(), new Date().getTime())
 
-    let currDate = new Date();
+    /*let currDate = new Date();
     currDate.setMinutes(currDate.getMinutes() + 330); // adding 330 minutes for matching IST time
-    scDate = (new Date(scDate).getTime()) - (new Date(currDate).getTime());
+    scDate = (new Date(scDate).getTime()) - (new Date(currDate).getTime());*/
     // console.log('scDate- ', scDate)
+
+    scDate = (new Date(scDate).getTime()) - (new Date().getTime());
     this.state.timerTime = scDate;// 1 sec 1000 = 1sec
 
     this.startTimer();

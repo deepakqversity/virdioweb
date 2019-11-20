@@ -644,7 +644,6 @@ console.log('in-- if===', stream.getId());
     console.log('newclient , channel =========== ', newclient , channel)
     if(newclient == undefined || channel == undefined){
 
-     
       newclient = AgoraRTM.createInstance(appId1);
       newclient.login({ token: token, uid: peer }).then(() => {
 
@@ -656,10 +655,10 @@ console.log('in-- if===', stream.getId());
 
               console.log('***********AgoraRTMlalit***********');
 
-            // after join channel send join channel message to host
-            joinChannel();          
+              // after join channel send join channel message to host
+              joinChannel();          
 
-            console.log('************channeljoined111111**********');
+              console.log('************channeljoined111111**********');
 
              // var today = new Date();
              // var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
@@ -750,8 +749,8 @@ console.log('rtm remove====', memberId);
               });
        
             }).catch(error => {
-              displayError(error);
-              console.log('**********shiv*********There Is a problem to join a channel**********');
+              //displayError(error);
+              console.log('**********shiv*********There Is a problem to join a channel**********', error);
             });
 
             // channel log
@@ -777,7 +776,7 @@ console.log('rtm remove====', memberId);
             newclient.on('ConnectionStateChanged', (newState, reason) => {//alert('state=='+newState+"==reason=="+reason);
                 console.log('on connection state changed to ' + newState + ' reason: ' + reason);
 
-                if ((newState == 'ABORTED' || newState == 'DISCONNECTED') && (reason == 'LOGIN_TIMEOUT' || reason == 'INTERRUPTED' || reason == 'REMOTE_LOGIN')) {
+                if ((newState == 'ABORTED' || newState == 'DISCONNECTED') && (reason == 'LOGIN_TIMEOUT' || reason == 'INTERRUPTED' || reason == 'REMOTE_LOGIN' || reason == 'LOGIN_FAILURE')) {
                     
                     console.log('connection state changed. Trying to reconnect');
 
@@ -803,8 +802,8 @@ console.log('rtm remove====', memberId);
             });
 
         }).catch(err => {
-          displayError(err);
-          console.log('---------------bbbbbbbb-----client is not logedin-----');
+          //displayError(err);
+          console.log('---------------bbbbbbbb-----client is not logedin-----', err);
         });
       } else {
        
@@ -862,7 +861,7 @@ console.log('rtm remove====', memberId);
 
                     setTimeout(function(){
                         sendMessage(peerId, text);
-                    }, 500);
+                    }, 1000);
                 } else {
                     console.log('retryCounter====limit exceeded', retryCounter, peerId);
                     retryCounter = 0;

@@ -123,23 +123,23 @@ class Guest extends Component {
     
     let storeData = JSON.parse(localStorage.getItem('userData'));
     
-    console.log('---------lalitstoreData---------',storeData)
+    //console.log('---------lalitstoreData---------',storeData)
 
     let countdown = storeData.sessionData.duration * 60;
 
-console.log('---------lalitcountdown---------',countdown)
+//console.log('---------lalitcountdown---------',countdown)
 
-    console.log("cn------------"+countdown);
+   // console.log("cn------------"+countdown);
     //console.log('attribute '+ $('.header svg circle').attr("style"));
     $('.header svg circle').attr('style','animation-duration:'+countdown+'s !important');
-    console.log('attribute '+$('.header svg circle').attr("style"));
+   // console.log('attribute '+$('.header svg circle').attr("style"));
     $('.header svg circle').css("stroke", "#9b51e0");
-     console.log('countdown ======= countdown start ----', countdown)
+     //console.log('countdown ======= countdown start ----', countdown)
     
-    
+  
     var resetCount1 = setInterval(function() {
       if(countdown <= 0){
-        console.log('=========== **********', countdown)
+       // console.log('=========== **********', countdown)
         $('.header svg circle').removeAttr("style");
         clearInterval(resetCount1);
       }

@@ -116,15 +116,15 @@ class Host extends Component {
     
     let storeData = JSON.parse(localStorage.getItem('userData'));
     
-    console.log('---------lalitstoreData---------',storeData)
+    //console.log('---------lalitstoreData---------',storeData)
     
     let countdown = storeData.sessionData.duration * 60;
-    console.log('---------lalitcountdown---------',countdown)
+    //console.log('---------lalitcountdown---------',countdown)
     // let countdown = 60;
     $('.header svg circle').attr("style","animation-duration:"+countdown+"s !important");
     $('.header svg circle').css("stroke", "#9b51e0");
 
-    console.log('countdown ======= countdown start ----', countdown)
+    //console.log('countdown ======= countdown start ----', countdown)
     
     var resetCount1 = setInterval(function() {
       if(countdown <= 0){
@@ -143,9 +143,9 @@ class Host extends Component {
       timerStart: this.state.timerTime
     });
     this.timer = setInterval(() => {
-      console.log('------startnewTime11111------',this.state.timerTime)
+     // console.log('------startnewTime11111------',this.state.timerTime)
       const newTime = this.state.timerTime - 10;
-      console.log('------startnewTime------',newTime)
+      //console.log('------startnewTime------',newTime)
       if (newTime >= 0) {
         this.setState({
           timerTime: newTime

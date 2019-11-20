@@ -390,8 +390,13 @@ console.log('in-- if===', stream.getId());
         if (stream.isPlaying === true) {
             stream.stop();
         }
-        
+        if(parseInt($('#online-users').text()) > 0)
+        {
         $('#online-users').text(parseInt($('#online-users').text())-1);
+        }else 
+        {
+          $('#online-users').text(parseInt($('#online-users').text()));
+        }
 
         removeUserAttribute(stream.getId(), 'subscribeTime');
         removeUserAttribute(stream.getId(), 'isSubscribe');

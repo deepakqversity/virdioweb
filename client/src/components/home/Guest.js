@@ -74,8 +74,10 @@ class Guest extends Component {
   componentDidMount(){
     
     
-    this.loadScript('/AgoraRTCSDK-2.7.1.js');
-    this.loadScript('/agora-rtm-sdk-1.0.0.js');
+    //this.loadScript('/AgoraRTCSDK-2.7.1.js');
+    this.loadScript('/AgoraRTCSDK-2.9.0.js');
+    //this.loadScript('/agora-rtm-sdk-1.0.0.js');
+    this.loadScript('/agora-rtm-sdk-1.2.0.js');
     this.loadScript('/main.js');
 
     // if(localStorage.getItem('load-page') != 1){  
@@ -334,7 +336,7 @@ return (
   <div className="d-flex zindex-5 position-relative flex-grow-1 attend-mid-section flex-wrap">
     
     <LeftScriptParticipant interestId={sessionData.interestId} />
-   <div className="flex-grow-1">
+   <div className="flex-grow-1 w-100">
     <div className="d-flex justify-content-between zindex-5 h-50 flex-wrap position-relative flex-grow-1 attend-mid-section">
     <div className="col-lg-8 col-md-6">
     

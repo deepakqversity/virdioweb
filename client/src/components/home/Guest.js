@@ -221,7 +221,7 @@ return (
               <div className="count-box position-relative countdown-logo">
                 <div className="countdown">
                   <svg>
-                    <circle r="26" cx="30" cy="30"></circle>
+                    <circle r="30" cx="33" cy="33"></circle>
                   </svg>
                   <a href="#" className="host-logo logo">
                     <img src="images/v-logo.png" />
@@ -326,12 +326,31 @@ return (
       
     </div>
   </div> */}
-  <div className="d-flex zindex-5 position-relative flex-grow-1 attend-mid-section flex-wrap">
+  <div className="d-flex zindex-5 position-relative flex-grow-1 attend-mid-section flex-wrap justify-content-between">
     
     <LeftScriptParticipant interestId={sessionData.interestId} />
+    <div className="col-lg-4 col-md-5 float-md-right pl-0 mt-4 align-self-start">
+        <div className="right-sidebar float-md-right mx-auto mx-md-0">
+          <div className="transparent-gray slide-right-left" style={toggleList}>
+            
+            <div className="joined-attendees ">
+              <h4 className="mb-2 head"><span className="title">Wine Testers</span><span className="count">(<span  id="joined_users_at_client">0</span>/<span>{newulength}</span>)</span></h4>
+              <div className="joined-member-list" id="all_joined_member_list"></div>
+              <button type="button" id="minimize-others" className="mt-2 minimize-others mx-auto d-none"></button>
+
+            </div>
+            <button type="button" id="show-everyone" className="show-others mx-auto"></button>
+          
+          </div>
+          
+          
+        </div>
+      
+    </div>
+ 
     
    <div className="flex-grow-1 w-100">
-    <div className="d-flex justify-content-between zindex-5 h-50 flex-wrap position-relative flex-grow-1 attend-mid-section">
+    {/* <div className="d-flex justify-content-between zindex-5 h-50 flex-wrap position-relative flex-grow-1 attend-mid-section">
     <div className="col-lg-8 col-md-6">
     
     </div>
@@ -353,7 +372,7 @@ return (
         </div>
       
     </div>
-  </div>
+  </div> */}
   <div className="d-flex justify-content-between h-50 flex-wrap zindex-5 position-relative flex-grow-1 attend-mid-section">
     <div className="col-lg-8 col-md-6 col-sm-6 col-6 align-self-end">
     <footer className="footer position-relative zindex-5 count-box mb-5 mb-lg-2 mt-4">

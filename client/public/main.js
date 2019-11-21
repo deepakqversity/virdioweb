@@ -1532,10 +1532,10 @@ function changeImage(){
 
    
       if ($(window).width() > 1500) {
-        $(".script-info .carousel-inner.guest-left-wine").css("max-height", `${winHeight - 350}px`);
+        $(".script-info .carousel-inner.guest-left-wine").css("max-height", `${winHeight - 450}px`);
       }
       else{
-        $(".script-info .carousel-inner.guest-left-wine").css("max-height", `${winHeight - 270}px`);
+        $(".script-info .carousel-inner.guest-left-wine").css("max-height", `${winHeight - 290}px`);
       }
   
     

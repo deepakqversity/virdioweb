@@ -1343,7 +1343,7 @@ display:none;
 	margin-bottom: 0;
 }
 .max-h200{
-	max-height:190px;
+	max-height:175px;
 	overflow-y:auto;
 	overflow-x:hidden;
 }
@@ -2423,7 +2423,7 @@ img.user-login{
 	    margin-right: 9px;
 }
 .video-streams.select-camera{
-	min-height:170px;
+	min-height:160px;
 }
 .video-streams.select-camera div{
 	background: transparent !Important;
@@ -2444,14 +2444,14 @@ img.user-login{
 	font-size:20px !important;
 }
 .network-wifi{
-	width: 300px;
+	width: 30%;
 }
 .heart-rate{
 	width:160px;
 	margin-left: 0.5rem !important;
 }
 .network-wifi .signup-number{
-	    font-size: 28px;
+	font-size: 22px;
     float: right;
     width: 60px;
     text-align: center;
@@ -2573,14 +2573,14 @@ display: inline-block;
 	}
 }
 .online-streams{
-    width: 185px;
+    width: 75%;
     justify-content: space-between;
     display: flex;
 }
 .online-streams .online-total{
-    width: 145px;
+
     float: left;
-    margin-left: 17px;
+    /* margin-left: 17px; */
 }
 .select-audio{
 	margin-right: 0 !important;

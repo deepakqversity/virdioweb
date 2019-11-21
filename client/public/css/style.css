@@ -379,6 +379,10 @@ div.gray_bar::before
 {
     height: 80%;
 }
+.translate1
+{
+    transform: translateY(-5px);
+}
 
 @media screen and (min-width: 1500px)
 {

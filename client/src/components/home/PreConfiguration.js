@@ -460,8 +460,8 @@ render() {
         
         </div>
         <div className="d-flex prescreen-footer">
-          <div className=" network-wifi mb-2 mb-md-0">
-            <div className="bg-gray h-100 position-relative pad15 rounded">
+          <div className=" network-wifi mb-2 mb-md-0 pb-0">
+            <div className="bg-gray h-100 position-relative pad15 pb-0 rounded">
               <h6 className="small-heading mb-3">Network Reliability</h6>
                 
               <div className="fill-wifi waveStrength-0">
@@ -475,11 +475,11 @@ render() {
                 </div>
               </div>
               {localstoragedata.userType == 1 ? (<div className="row">
-                  <div className="online-streams">
+                  <div className="online-streams d-flex justify-content-between">
                     <span className="online-total">Online streams on screen</span>
                     {/* <span className="signup-number" >{localstoragedata.default.maxUserLimit}</span> */}
 
-                    <span className="signup-number" >
+                    <span className="signup-number translate1" >
 
                       {(
                           ()=>{
@@ -769,7 +769,7 @@ render() {
              
               <div className="col-lg-9">
               
-                <h6 className="small-heading mb-2 no-border">Joined</h6>
+                <h6 className="small-heading mb-0 no-border">Joined</h6>
                 <span id='newmsg' className="welcome-msg"></span>
                 <div className="">
                   <div className="joiners d-flex flex-wrap">
@@ -790,7 +790,8 @@ render() {
                   {(
                     ()=>{
                         if(localstoragedata.userType == 1) {
-                            return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-4 rounded " data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)} disabled={!this.state.mediaAccess}>Join</button>;
+                            //return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-4 rounded " data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)} disabled={!this.state.mediaAccess}>Join</button>;
+                            return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-4 rounded " data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
                         } else {
                             return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded d-none" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)} disabled={!this.state.isHostJoined}>Join</button>;                     
                         }

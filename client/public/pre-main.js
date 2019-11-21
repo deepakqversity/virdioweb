@@ -1473,6 +1473,7 @@ function signalHandler(uid, signalData, userType) {
           showHandAtHost();
         }
      }
+     
      function showHandAtHost(){
         let audienceList = JSON.parse(localStorage.getItem("audience-list"));
         console.log('audienceList', audienceList);

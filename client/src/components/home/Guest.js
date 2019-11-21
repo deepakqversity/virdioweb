@@ -75,9 +75,7 @@ class Guest extends Component {
     
     
     this.loadScript('/AgoraRTCSDK-2.7.1.js');
-    // this.loadScript('/AgoraRTCSDK-2.9.0.js');
     this.loadScript('/agora-rtm-sdk-1.0.0.js');
-    // this.loadScript('/agora-rtm-sdk-1.2.0.js');
     this.loadScript('/main.js');
 
     // if(localStorage.getItem('load-page') != 1){  
@@ -127,23 +125,16 @@ class Guest extends Component {
     
     let storeData = JSON.parse(localStorage.getItem('userData'));
     
-    console.log('---------lalitstoreData---------',storeData)
-
     let countdown = storeData.sessionData.duration * 60;
-
-console.log('---------lalitcountdown---------',countdown)
 
     console.log("cn------------"+countdown);
     //console.log('attribute '+ $('.header svg circle').attr("style"));
     $('.header svg circle').attr('style','animation-duration:'+countdown+'s !important');
-    console.log('attribute '+$('.header svg circle').attr("style"));
-    $('.header svg circle').css("stroke", "#9b51e0");
-     console.log('countdown ======= countdown start ----', countdown)
     
+    $('.header svg circle').css("stroke", "#9b51e0");
     
     var resetCount1 = setInterval(function() {
       if(countdown <= 0){
-        console.log('=========== **********', countdown)
         $('.header svg circle').removeAttr("style");
         clearInterval(resetCount1);
       }
@@ -152,7 +143,6 @@ console.log('---------lalitcountdown---------',countdown)
   };
 
   startTimer = () => {
-    console.log('-------startTimer-----------')
     this.setState({
       timerOn: true,
       timerTime: this.state.timerTime,

@@ -76,9 +76,7 @@ class PreConfiguration extends Component {
     })
 
     this.loadScript('/AgoraRTCSDK-2.7.1.js');
-    // this.loadScript('/AgoraRTCSDK-2.9.0.js');
     this.loadScript('/agora-rtm-sdk-1.0.0.js');
-    // this.loadScript('/agora-rtm-sdk-1.2.0.js');
     this.loadScript('/pre-main.js');
     this.loadScript('/check-rule.js');
 

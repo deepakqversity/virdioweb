@@ -86,16 +86,8 @@ class Host extends Component {
     });
 
     this.loadScript('/AgoraRTCSDK-2.7.1.js');
-    // this.loadScript('/AgoraRTCSDK-2.9.0.js');
     this.loadScript('/agora-rtm-sdk-1.0.0.js');
-    // this.loadScript('/agora-rtm-sdk-1.2.0.js');
     this.loadScript('/main.js');
-    
-    
-    // if(localStorage.getItem('load-page') != 1){  
-    //     window.loadPopup();
-    //   localStorage.setItem("load-page", 1);
-    // }
 
     let localstoragedata = JSON.parse(localStorage.getItem('userData'));
     this.setState({sessionScript: localstoragedata.sessionData.interestId});

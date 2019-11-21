@@ -2255,11 +2255,11 @@ function signalHandler(uid, signalData, userType) {
 
         if($('#subscribers-list .video-holder').length > 0) {
 
-          console.log('----changeUserToBroadcaster----------')
+          console.log('----changeUserToBroadcaster----------',uId)
 
           pullFromSessionByHost(1);
         } else {
-          console.log('----changeUserToBroadcaster111111----------')
+          console.log('----changeUserToBroadcaster111111----------',uId)
           pushIntoSessionByHost();
           removeAudienceInList(uId);
         }
@@ -2307,6 +2307,7 @@ function signalHandler(uid, signalData, userType) {
       
       //localStorage.setItem("swap-subscriber-id", id);
 
+      pushIntoSessionByHost();
       let text = "209"+sep+"kicked by host";
       console.log('-----changeUserToBroadcaster5555----------',text);
       console.log('############### text', text)

@@ -339,7 +339,7 @@ return (
               <button type="button" id="minimize-others" className="mt-2 minimize-others mx-auto d-none"></button>
 
             </div>
-            <button type="button" id="show-everyone" className="show-others mx-auto"></button>
+            {/* <button type="button" id="show-everyone" className="show-others mx-auto"></button> */}
           
           </div>
           

@@ -34,13 +34,13 @@ button.show-everyone.btn.btn-outline-secondary.mb-3.mx-auto {
 .default-btns .btn img{ max-width: 20px; }
 #show-details2 p
 {
-    color: white;
+    color: #eee;
     font-family: Avenir-Book;
     font-size: 15px;
 }
 #show-details2 button.close-model-btn
 {
-transform: translateY(-7px);
+transform: translateY(-17px);
 font-weight: inherit;
 
 }
@@ -156,15 +156,19 @@ top: 5px;
 
 .details_model p
 {
-    color: white;
+    color: #eee;
     font-family: Avenir-Book;
     font-size: 15px;
 }
 .details_model button.close-model-btn
 {
-transform: translateY(-7px);
+transform: translateY(-17px);
 font-weight: inherit;
 
+}
+.prescreen-popup .open-list
+{
+    width: 35px;
 }
 
 .details_model .border_botm_none
@@ -182,6 +186,11 @@ vertical-align: middle;
 .details_model .clock_img
 {
 width: 20px;
+margin-right: 15px;
+}
+.details_model .clock_img1
+{
+width: 12px;
 margin-right: 15px;
 }
 .details_model .modal-dialog, #switch-camera-popup .modal-dialog, #musicList .modal-dialog
@@ -362,12 +371,32 @@ div.gray_bar::before
     top: -9px;
     left: -4px;
 }
+.ht-20
+{
+    height: 20%;
+}
+.ht-80
+{
+    height: 80%;
+}
+.translate1
+{
+    transform: translateY(-5px);
+}
 
 @media screen and (min-width: 1500px)
 {
     .item-description .list-info li span:first-child, .item-description .list-info li span:last-child
     {
         max-width: 250px;
+    }
+    .details_model button.close-model-btn, .modal-header .close, .music-list .close
+    {
+        font-size: 2.5vw;
+    }
+    .white-text
+    {
+        font-size: 1.3vw;
     }
     .right-sidebar{
         width: 400px;
@@ -396,10 +425,20 @@ max-width: 75%;
 {
     height: 250px;
 }
-
-}
-@media screen and (min-width: 2000px)
+.details_model p, #show-details2 p
 {
+    font-size: .9vw;
+}
+.translatee
+{
+    transform: translateY(-16px);
+}
+.translatee .btn-primary, .btn-primary.border-right
+    {
+        padding: 10px 25px;
+        font-size: 21px;      
+        
+    }
     .logout-btn i
     {
         padding-top: 7px;
@@ -408,10 +447,37 @@ max-width: 75%;
         height: 40px;
         font-weight: inherit;
     }
-    .transparent-gray .btn-primary
+    h3.main-heading
+{
+    font-size: 1.5vw;
+}
+.section.attendees .title
+{
+    font-size: 1.3vw;
+}
+.time span
+{
+    font-size: 1vw;
+}
+h3.main-heading span{
+    font-size: 1.2vw;
+}
+.prescreen-popup .participant-status
+{
+    width: 20%;
+}
+}
+@media screen and (min-width: 2000px)
+{
+    .max-h200
     {
-        height: 50px !important;
-        font-size: 21px;
+        max-height: 300px;
+    }
+    
+    .transparent-gray .btn-primary, .time-session .btn-primary
+    {
+        height: 55px !important;
+        font-size: 1vw;
     }
     .transparent-gray .fa-volume-up
     {
@@ -424,12 +490,7 @@ max-width: 75%;
         max-width: 25px !important;
         height: 23px !important;
     }
-    .translatee .btn-primary, .btn-primary.border-right
-    {
-        padding: 10px 25px;
-        font-size: 21px;      
-        
-    }
+    
     .btn-leave, .btn-join
     {
         font-size: 30px;
@@ -438,10 +499,7 @@ max-width: 75%;
     {
         font-size: 25px;
     }
-    .translatee
-    {
-        transform: translateY(-16px);
-    }
+  
     .fullscreen img
     {
         width: 35px;
@@ -494,7 +552,7 @@ ul.music-playlist li a span:nth-child(1)
 }
 .music-list .close
 {
-    font-size: 60px;
+   
     margin-bottom: 15px !important;
     margin-left: 10px !important;
 }
@@ -557,10 +615,7 @@ ul.music-playlist li a span:nth-child(1)
 {
     width: 35px;
 }
-.section.attendees .title
-{
-    font-size: 27px;
-}
+
 .play-pause-btn
 {
     right:118px;
@@ -579,28 +634,18 @@ ul.music-playlist li a span:nth-child(1)
     right: 22px;
     width: 35px;
 }  
-.time span
-{
-    font-size: 19px;
-}
-h3.main-heading
-{
-    font-size: 30px;
-} 
-h3.main-heading span{
-    font-size: 24px;
-}
+
 .attendy-list .modal-dialog
 {
     max-width: 80%;
 }
 .prescreen-popup .small-heading
 {
-    font-size: 25px;
+    font-size: 1.1vw;
 }
 .prescreen-popup .popup-heading
 {
-    font-size: 27px;
+    font-size: 1.2vw;
 }
 .prescreen-popup .signup-total, .prescreen-popup .online-total
 {
@@ -612,7 +657,7 @@ h3.main-heading span{
 }
 .fill-wifi
 {
-    bottom: 34px;
+    bottom: 24px;
 }
 .online-streams, .heart-rate
 {
@@ -623,10 +668,6 @@ h3.main-heading span{
     font-size: 21px;
 }
 
-.prescreen-popup .participant-status
-{
-    width: 300px;
-}
 #agora_local
 {
     width: 400px !important;

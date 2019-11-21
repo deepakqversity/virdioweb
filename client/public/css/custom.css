@@ -98,7 +98,7 @@ overflow:hidden;
 .container, .header, .host-script-section{
     width: 98% !important;
     padding: 0;
-	max-width: 1400px;
+	max-width: 95%;
 }
 }
 .border-right {
@@ -122,9 +122,9 @@ overflow:hidden;
 .pad15{
 	padding:15px;
 }
-.mt-76.section.attendees{
+/* .mt-76.section.attendees{
 	margin-top:76px !important;
-}
+} */
 .top-0{
 	top:0 !important;
 }
@@ -458,8 +458,8 @@ h3.main-heading span span span {
     height: auto;
     padding: 10px 0px;
     z-index: 3;
-	max-height:100px;
-	height:100px;
+	/* max-height:100px; */
+	height:auto;
     left: 0;
     right: 0;
     margin: auto;
@@ -655,9 +655,9 @@ display: block;
 #subscribers-list .newcss{
 	margin:1px;
 }
-.section.attendees{
+/* .section.attendees{
 	margin-top: 120px !important;
-}
+} */
 .section.attendees .title{
     font-family: 'Avenir-Black';
     font-size: 16px;
@@ -1054,17 +1054,17 @@ position: absolute;
 .close-model-btn{
 	margin: 20px;
     color: #964DD9;
-    z-index: 4;
+    z-index: 99;
     text-shadow: none;
     opacity: 1;
     font-size: 36px;
-    line-height: 20px;
+    /* line-height: 20px; */
     padding: 0 !important;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 26px;
-    height: 26px;
+    /* width: 26px;
+    height: 26px; */
     font-weight: inherit;
 }
 .close-model-btn:hover{
@@ -1343,7 +1343,7 @@ display:none;
 	margin-bottom: 0;
 }
 .max-h200{
-	max-height:190px;
+	max-height:175px;
 	overflow-y:auto;
 	overflow-x:hidden;
 }
@@ -2423,7 +2423,7 @@ img.user-login{
 	    margin-right: 9px;
 }
 .video-streams.select-camera{
-	min-height:170px;
+	min-height:160px;
 }
 .video-streams.select-camera div{
 	background: transparent !Important;
@@ -2444,14 +2444,14 @@ img.user-login{
 	font-size:20px !important;
 }
 .network-wifi{
-	width: 300px;
+	width: 30%;
 }
 .heart-rate{
 	width:160px;
 	margin-left: 0.5rem !important;
 }
 .network-wifi .signup-number{
-	    font-size: 28px;
+	font-size: 22px;
     float: right;
     width: 60px;
     text-align: center;
@@ -2573,14 +2573,14 @@ display: inline-block;
 	}
 }
 .online-streams{
-    width: 185px;
+    width: 75%;
     justify-content: space-between;
     display: flex;
 }
 .online-streams .online-total{
-    width: 145px;
+
     float: left;
-    margin-left: 17px;
+    /* margin-left: 17px; */
 }
 .select-audio{
 	margin-right: 0 !important;
@@ -3300,7 +3300,7 @@ body.coming-soon{
 }
 @media (min-width: 1200px){
 	.black-coming-bg  .container {
-    max-width: 1366px;
+    max-width: 95%;
 }
 }
 

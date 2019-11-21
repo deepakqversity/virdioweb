@@ -36,7 +36,6 @@ class UserCtrl {
 	    	let password = req.body.password;
 	    	let userObj = await userModel.getUserByEmail(email);
 	    	let currentTS = Date.now();
-	    	console.log('ts====', currentTS);
 
 			if(!isEmpty(userObj)){
 

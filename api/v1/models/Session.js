@@ -58,7 +58,7 @@ class Session{
         return await new Promise((resolve, reject) => {
         	db.query('SELECT s.*, su.type, su.sessionType, su.userId  FROM session_users su LEFT JOIN sessions s ON s.id = su.sessionId  WHERE su.status = 1 AND su.sessionId = ? AND su.userId = ?', [sessionId, userId], function (error, results, fields) {
 			  if (error) reject(error);
-			   console.log('=======lalittiwari=========== ************ results ', results)
+			   //console.log('=======lalittiwari=========== ************ results ', results)
 			  // db.end();
 			  return resolve(results[0]);
 
@@ -101,7 +101,7 @@ class Session{
 	}	
 
 	async findSessionDetailBySessId(sessionId){
-console.log('-----sessID----------',sessionId)
+// console.log('-----sessID----------',sessionId)
         return await new Promise((resolve, reject) => {
         	db.query('SELECT  u.firstName, u.lastName, ses.* FROM sessions ses INNER JOIN users u ON u.id = ses.hostId WHERE u.isBanned = 0 AND ses.status = 1 AND ses.id = ?', [sessionId], function (error, results, fields) {
 			  if (error) reject(error);
@@ -128,7 +128,7 @@ console.log('-----sessID----------',sessionId)
 		return await new Promise((resolve, reject) => {
         	db.query('SELECT ac.* FROM agora_config ac LEFT JOIN session_config_mapping acm ON ac.id = acm.configId WHERE ac.status = 1 AND acm.sessionId = ?', [sessionId], function (error, results, fields) {
 			  if (error) reject(error);
-			  console.log('================== ************ results ', results)
+			  //console.log('================== ************ results ', results)
 			  // db.end();
 			  return resolve(results);
 			});
@@ -164,7 +164,7 @@ console.log('-----sessID----------',sessionId)
         return await new Promise((resolve, reject) => {
         	db.query('SELECT ss.*  FROM session_script ss  WHERE ss.status = 1 AND userId = ?' , [userId], function (error, results, fields) {
 			  if (error) reject(error);
-			   console.log('=======lalittiwari123=========== ************ results ', results)
+			   //console.log('=======lalittiwari123=========== ************ results ', results)
 			  // db.end();
 			  return resolve(results);
 			});

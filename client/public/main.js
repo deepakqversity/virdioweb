@@ -254,8 +254,10 @@ console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId(
           }
         }, 10);
 
-        kickUser(localStorage.getItem("swap-subscriber-id"));
-        localStorage.setItem("swap-subscriber-id", '');
+        if (localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') {
+            kickUser(localStorage.getItem("swap-subscriber-id"));
+            localStorage.setItem("swap-subscriber-id", '');
+        }
       } else {
           let subscribeUserId = getUserDataFromList(stream.getId(), 'userType');
           if(1 == subscribeUserId){
@@ -658,6 +660,9 @@ console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId(
               channel.on('MemberLeft', memberId => { 
 console.log('rtm remove====', memberId);
                 //removeFromRtmOrder(memberId);
+
+                removeUserAttribute(convertEmailToId(memberId), 'subscribeTime');
+                removeUserAttribute(convertEmailToId(memberId), 'isSubscribe');
 
                 if (parseInt($('#online-users').text()) > 0) {
                     $('#online-users').text(parseInt($('#online-users').text()) - 1);
@@ -2296,9 +2301,6 @@ function signalHandler(uid, signalData, userType) {
 
     function kickUser(id) {
       
-      //localStorage.setItem("swap-subscriber-id", id);
-
-      pushIntoSessionByHost();
       let text = "209"+sep+"kicked by host";
       console.log('-----changeUserToBroadcaster5555----------',text);
       console.log('############### text', text)
@@ -2326,7 +2328,15 @@ function signalHandler(uid, signalData, userType) {
 
           if(ctr < limit && checkKickRule(userList[i])){
             console.log('-----changeUserToBroadcaster44444----------',id);
-            kickUser(id);
+            //kickUser(id);
+
+            localStorage.setItem("swap-subscriber-id", id);
+
+            pushIntoSessionByHost();
+
+            // switch user every specific time duration
+            //switchAudienceToBroadcaster();
+
             if($('#to-broadcast').val().trim() != ''){
               removeAudienceInList($('#to-broadcast').val());
             }

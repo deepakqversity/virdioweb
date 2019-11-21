@@ -254,8 +254,10 @@ console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId(
           }
         }, 10);
 
-        kickUser(localStorage.getItem("swap-subscriber-id"));
-        localStorage.setItem("swap-subscriber-id", '');
+        if (localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') {
+            kickUser(localStorage.getItem("swap-subscriber-id"));
+            localStorage.setItem("swap-subscriber-id", '');
+        }
       } else {
           let subscribeUserId = getUserDataFromList(stream.getId(), 'userType');
           if(1 == subscribeUserId){

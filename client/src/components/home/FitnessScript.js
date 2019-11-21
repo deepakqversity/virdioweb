@@ -113,7 +113,7 @@ return (
             <div className="h-100">
               
             { localstoragedata.sessionData.displayScript == 1 ? (<div className="d-flex height-script h-100 justify-content-end flex-direction-column position-relative">
-                <div className="animate-display bg-gray position-relative top-rounded d-md-flex justify-content-between align-items-center px-3 py-3 add-remove-round ">
+                <div className="animate-display ht-20 bg-gray position-relative top-rounded d-md-flex justify-content-between align-items-center px-3 py-3 add-remove-round ">
                   <h3 className="main-heading font-size-16">Fitness Script <span className="ml-md-4 font-size-16"><span id="fitness-counter">0</span>/{sessionScript.length} {localstoragedata.sessionData.scriptType}</span><span id="script_name" className="script_name d-none"></span><span id="script_time" className="script_time d-none"></span></h3>
                   
                   <a href="javascript:void(0)" className=" mr-2 play-pause-btn" id="play-slider" onClick={this.fitnessScriptPlay.bind(this)}><img src="images/play.png" /></a>
@@ -124,7 +124,7 @@ return (
                   <a href="javascript:void(0)" data-toggle="modal" data-target="#fitness-script" tabIndex="1" className="mr-5 show-fitness-script" id="fitnesScript"><img src="images/showscript.png" /></a>
                 </div>
               
-              <div className="bg-gray bottom-rounded px-3 pb-2 item-description d-block script-section mt--1 flex-grow-1">
+              <div className="bg-gray ht-80 bottom-rounded px-3 pb-2 item-description d-block script-section mt--1 flex-grow-1">
                 <div className="h-100">
                   <div className="row">
                   <div className="swiper-container swiper-container-host">

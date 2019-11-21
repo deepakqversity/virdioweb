@@ -1431,7 +1431,7 @@ console.log('rtm order======', userList[i].id);
 
     console.log('continueJoin =continueJoin =continueJoin 222')
 
-    $(".host-script-section").height("300px");
+    $(".host-script-section").height("40%");
     $(".host-section").css({"min-width": "30%", "max-width": "30%"});
 
     let data_res = JSON.parse(localStorage.getItem("userData"));
@@ -1637,6 +1637,7 @@ function changeImage(){
     // $(".joined-member-list").css({"max-height": `${guestLeftWine}px`, "height": guestLeftWine});
 
     $("#subscribers-list").height(`${sectionHeights - 115}px`);
+    $(".section.attendees").css("margin-top", `${headerHeight+40}px`);
     
     let sub_list_y = $("#subscribers-list").height(); 
     let sub_list_x = $("#subscribers-list").width(); 
@@ -3692,7 +3693,7 @@ console.log('removed from rtm order====', memberId);
         $(".show-hide-title").addClass("d-none").removeClass("d-block");
         $(".header").height("auto");
         $(".countdown-logo").hide();
-        $(".section.attendees").css("margin-top", "77px !important" );
+        // $(".section.attendees").css("margin-top", "77px !important" );
         $("#fullscreen img").attr("src", "images/exit-screen.png"); 
         $("#fullscreen img").addClass("exit-screen");
       }
@@ -3700,7 +3701,7 @@ console.log('removed from rtm order====', memberId);
         $(".show-hide-title").addClass("d-block").removeClass("d-none");
         $(".header").height("85px");
         $(".countdown-logo").show();
-        $(".section.attendees").css("margin-top", "105px !important" );
+        // $(".section.attendees").css("margin-top", "105px !important" );
         $("#fullscreen img").attr("src", "images/full-screen.png"); 
         $("#fullscreen img").removeClass("exit-screen");
         

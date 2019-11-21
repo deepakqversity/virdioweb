@@ -422,7 +422,7 @@ return (
                                         </div>
                                         <div className="col-md-5">
                                             <div className="overflow-hidden ml-3">
-                                                <p className="float-left"><img src="images/clock.png" className="clock_img" />Length</p>
+                                                <p className="float-left"><img src="images/length.png" className="clock_img" />Length</p>
                                                 <p className="float-right">2Hrs</p>
                                             </div>
                                         </div>
@@ -637,7 +637,7 @@ return (
       </div> */}
     </div>
 
-    <div className="modal attendy-list fitness-script1" id="fitness-script">
+    {/* <div className="modal attendy-list fitness-script1" id="fitness-script">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
@@ -709,7 +709,182 @@ return (
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
+      <div id="fitness-script" className="details_model modal px-0 fade " role="dialog">
+    <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content p-4 rounded-0">
+                
+                <div className="modal-body py-0">
+                    <div className="row">
+                        <div className="col-lg-6 px-0">
+                          <div className="per_pic rounded h-100">
+                            <img src="images/fitness.png" className="w-100 rounded h-100" />
+                          </div>
+
+                        </div>
+                        <div className="col-lg-6 px-0">
+                          <div className="rgt_modal_box rounded py-5 px-4 h-100">
+                          <div className="modal-header pl-0 border-0 pt-0">
+                          <p className="pl-0 mb-0">Friday May 3rd, 2019</p>
+                          <button type="button" className="close close-model-btn m-0" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div className="modal_contnt">
+                                
+                                <h3 className="white_hdng mt-1">A long title that can come here</h3>
+                                <p className="white-text pl-0">By Fitness Coach Match</p>
+                                <div className="mt-3">
+                                    <div className="row">
+                                        <div className="col-md-5">
+                                            <div className="overflow-hidden mr-3">
+                                                <p className="float-left"><img src="images/clock.png" className="clock_img" /><b>Time</b></p>
+                                                <p className="float-right">7 PM EDT</p>
+                                            </div>
+                                        </div>
+                                        <div className="col-md-5">
+                                            <div className="overflow-hidden ml-3">
+                                                <p className="float-left"><img src="images/length.png" className="clock_img" /><b>Length</b></p>
+                                                <p className="float-right">2Hrs</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="row mt-2">
+                                        <div className="col-md-5">
+                                            <div className="overflow-hidden mr-3">
+                                                <p className="float-left"><img src="images/user.png" className="clock_img" /><b>Signed Up</b></p>
+                                                <p className="float-right">3</p>
+                                            </div>
+                                        </div>
+                                        <div className="col-md-5">
+                                            <div className="overflow-hidden ml-3">
+                                                <p className="float-left"><img src="images/white-dollar.png" className="clock_img1" /><b>Revenue</b></p>
+                                                <p className="float-right">$2,000</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="mt-4">
+                                    <div className="row">
+                                        <div className="col-md-12">
+                                            <h3 className="white-text mb-2 ml-0 p-0"><img src="images/privacy.png" className="mr-3 mb-2" />Attendee Privacy</h3>
+                                        </div>
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7">Allow attendees to block video stream to other attendees</p>              
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-1 col-sm-2 col-2 pr-0">
+                                            <div className="form-group1 input-txt position-relative text-right">
+                                                <label className="switch mx-0">
+                                                    <input type="checkbox" />
+                                                    <span className="slider round"></span>
+                                                </label>
+                                            </div>                                        
+                                        </div>
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7">Allow attendees to block direct message to other attendees</p>              
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-1 col-sm-2 col-2 pr-0">
+                                            <div className="form-group1 input-txt position-relative text-right">
+                                                <label className="switch mx-0">
+                                                    <input type="checkbox" />
+                                                    <span className="slider round"></span>
+                                                </label>
+                                            </div>                                        
+                                        </div>
+                                    </div>
+                                       <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">                                                
+                                                <p className="my-2 ml-7">Allow attendees to select their own playlist</p>
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-1 col-sm-2 col-2 pr-0">                                            
+                                            <div className="form-group1 input-txt position-relative text-right">
+                                                <label className="switch mx-0">
+                                                    <input type="checkbox" />
+                                                    <span className="slider round"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="mt-4">
+                                    <div className="row">
+                                        <div className="col-md-12">
+                                            <h3 className="white-text mb-2 ml-0 p-0"><img src="images/equip.png" className="mr-3 mb-2" />Equipment</h3>
+                                        </div>
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7"><i className="fa fa-circle mr-3"></i>Dumbbell 2kg, 5kg</p>              
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7"><i className="fa fa-circle mr-3"></i>stretching Belt, 1.5m</p>              
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                 <div className="mt-4">
+                                    <div className="row">
+                                        <div className="col-md-12">
+                                            <h3 className="white-text mb-2 ml-0 p-0"><img src="images/shopping-icon.png" className="mr-3 mb-2" />Shopping List</h3>
+                                        </div>
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7"><i className="fa fa-circle mr-3"></i>Ironcast Dumbell, 10kg, 5kg, 3kg and more</p>              
+                                            </div>
+                                        </div>
+                                       
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7"><i className="fa fa-circle mr-3"></i>Stretching rubber belt, 1.5m, 2m, 3m</p>              
+                                            </div>
+                                        </div>
+                                       
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7"><i className="fa fa-circle mr-3"></i>Uppercast support for back</p>              
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div className="row mr-2">
+                                        <div className="col-lg-11 col-sm-10 col-10">
+                                            <div className="mr-3">
+                                                <p className="my-2 ml-7"><i className="fa fa-circle mr-3"></i>Ancle bands sizes M, S, XL, XS</p>              
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
       <div className="modal" id="cart-details">

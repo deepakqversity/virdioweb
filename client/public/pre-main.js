@@ -77,7 +77,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
   function addRtmJoinOrder(userId, time){
 
-    let currentTime = time;
     let strArray = localStorage.getItem("rtm-join-order");
     console.log('userId, time =========== strArray', userId, time, strArray)
     let orderList = [];
@@ -87,14 +86,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
       for(let i in strArray){
         if(strArray[i].id == userId){
           f = 1;
-          // strArray[i].joinAt = currentTime;
         }
       }
       orderList = strArray;
     }
 
     if(f == 0){
-      orderList.push({ id:userId, joinAt:currentTime });  
+      orderList.push({ id:userId, joinAt:time });  
     }
       
     localStorage.setItem("rtm-join-order", JSON.stringify(orderList));
@@ -114,10 +112,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
       }
 
       localStorage.setItem("rtm-join-order", JSON.stringify(orderList));
-  }
-
-  function getRtmJoinOrder(){
-
   }
 
   //var currentSession = getCurrentSession(); 
@@ -187,14 +181,16 @@ if(!AgoraRTC.checkSystemRequirements()) {
       setTimeout(function(){}, 1000);
       console.log('**********shiv*********channel joined successfully**********');
 
-      var today = new Date();
+      /*var today = new Date();
       var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
       var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()+'.'+today.getMilliseconds();
       var dateTime = date+' '+time;
-      var text="208" +sep+ dateTime;
-console.log('rtm join date and time=====', dateTime);
+      var text="208" +sep+ dateTime;*/
+
+      var text = "208" + sep + storeData.serverTimestamp;
+
       // when user join
-      addRtmJoinOrder(peer, newDateFormat(dateTime));
+      addRtmJoinOrder(peer, storeData.serverTimestamp);
 
       if(storeData.userType == 2){
         let userList = getTempUsers();
@@ -1167,14 +1163,8 @@ function signalHandler(uid, signalData, userType) {
 
         incrementcountAtHost(uid, "welcome");
         
-        console.log('********ppppp************ resultant', joinDateTime,uid);
-        //let message="Hi " +localDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your first virtual session with us  ";
-        
-        //$('#newmsg').html(message);
-       // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
-       addRtmJoinOrder(uid, resultant[1]);
-       addUserAttribute(convertEmailToId(uid), 'currentStatus', 1);
-             
+        addRtmJoinOrder(uid, resultant[1]);
+        addUserAttribute(convertEmailToId(uid), 'currentStatus', 1);
       }else if(resultant[0] == "237")
       {
         console.log('---------237---------------')
@@ -1184,8 +1174,6 @@ function signalHandler(uid, signalData, userType) {
         // rtmAction(scrnId);
         $(".check-camera.form-radio:eq("+num+")").trigger('click');
       }
-     
-
   } else { // Attendy
 
     
@@ -1213,13 +1201,8 @@ function signalHandler(uid, signalData, userType) {
     {
       console.log('********gggg************ resultant', resultant[1]);
 
-      let joinDateTimeattendies = convertUnixTimestamp(resultant[1]);
+      incrementcountAtAttendies(uid, "welcome");
 
-     // incrementcountOnPreStreming(uid, "welcome");
-
-     incrementcountAtAttendies(uid, "welcome");
-
-      console.log('********ssssss************ resultant', joinDateTimeattendies);
       if(getUserDataFromList(uid, 'userType') == 1){        
 
         $('#online_state').removeClass('d-none');
@@ -1292,7 +1275,8 @@ function signalHandler(uid, signalData, userType) {
         // if(userType != 1)
         // {
         // if(getUserDataFromList(senderId, 'userType') != 1){
-          addRtmJoinOrder(senderId, newDateFormat(res1[1]));
+          //addRtmJoinOrder(senderId, newDateFormat(res1[1]));
+          addRtmJoinOrder(senderId, res1[1]);
         // }
         let message="User " + getUserDataFromList(senderId, 'firstName') + " has joined on  "+ res1[1];
         //$('#newmsg').html(message);
@@ -1326,7 +1310,7 @@ function signalHandler(uid, signalData, userType) {
               let ts = (new Date()).getTime();
               let text ="216"+sep+ts;
             }
-            let text ="216"+sep+ele.joinAt+sep+0;
+            let text = "216"+sep+ele.joinAt+sep+0;
             // console.log('-------------text=== ', text)
              sendMessage(senderId, text);
           }

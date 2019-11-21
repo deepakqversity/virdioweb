@@ -233,7 +233,6 @@ console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId(
           }
 
           $('#agora_remote' + stream.getId()).removeClass('removeBroadcaster');
-          //localStorage.setItem("swap-subscriber-id", '');
         }
 
         if ($('#subscribers-list #agora_remote'+stream.getId()).length === 1) {
@@ -331,7 +330,7 @@ console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId(
           $('#agora_remote' + stream.getId()).remove();
       }*/
 
-      //countCurrentSubscribers();
+      $('#agora_remote' + stream.getId()).remove();
 
       switchVideoSize();
     });
@@ -1784,15 +1783,8 @@ function signalHandler(uid, signalData, userType) {
         addAudienceInList(resultant);
       }
       else if(resultant[0] == '216')
-      {
-       
-        let joinDateTime = convertUnixTimestamp(resultant[1]);
-     
-        let message="Hi " +nlocalDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your 1st virtual session with us  ";
-        
-        //$('#newmsg').html(message);
-       // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
-       addRtmJoinOrder(uid, resultant[1]);
+      {       
+          addRtmJoinOrder(uid, resultant[1]);
       } else if(resultant[0] == '211') {   
         
         playSlider();
@@ -1981,14 +1973,14 @@ function signalHandler(uid, signalData, userType) {
     else if(resultant[0] == '216')
     {
 
-      let joinDateTimeattendies = convertUnixTimestamp(resultant[1]);
+      //let joinDateTimeattendies = convertUnixTimestamp(resultant[1]);
       if(getUserDataFromList(uid, 'userType') == 1){
 
-        let message="Hi " +nlocalDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your 1st virtual session with us  ";        
+        let message = "Hi " +nlocalDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your 1st virtual session with us  ";        
        
         $('#newmsg').html(message);
       }
-     // setTimeout(function(){ $('#newmsg').html(''); }, 10000);
+
       addRtmJoinOrder(uid, resultant[1]);
     }
 
@@ -2056,13 +2048,11 @@ function signalHandler(uid, signalData, userType) {
       
         // if(userType == 2)
         // {
-        addRtmJoinOrder(senderId, newDateFormat(res1[1]));
-        let message="User "+senderId+" has joined on  "+ res1[1];
-        //$('#newmsg').html(message);
+        //addRtmJoinOrder(senderId, newDateFormat(res1[1]));
+        addRtmJoinOrder(senderId, res1[1]);
+        let message = "User " + senderId+" has joined on  " + res1[1];
 
-        console.log('********Deepak************** signalData ', senderId);
         let rtmJoinOrder = JSON.parse(localStorage.getItem("rtm-join-order"));
-        console.log('********Deepak************** signalData ', rtmJoinOrder);
         let localUserDta= JSON.parse(localStorage.getItem("userData"));
 
         rtmJoinOrder.forEach(ele => {
@@ -2386,7 +2376,8 @@ function signalHandler(uid, signalData, userType) {
         let allUsers = getAllParticipent();
         let broadcster = getAllBroadcster();
 
-        console.log('allBroadcasterallParticipants ***************', broadcster, allUsers);
+        console.log('allBroadcaster ***************', broadcster);
+        console.log('allParticipants ***************', allUsers);
         //if(broadcster.length > 0 && allUsers.length > broadcster.length && broadcster.length == storeData.default.maxUserLimit){
         if(broadcster.length > 0 && allUsers.length > broadcster.length){
           for(let i in broadcster){
@@ -2441,8 +2432,6 @@ function signalHandler(uid, signalData, userType) {
         }
       }
     }
-
-
 
     function channelSignalHandler(signalData, userType) {
 
@@ -4112,7 +4101,9 @@ console.log('removed from rtm order====', memberId);
           
       channel.getMembers().then(membersList => {
         console.log('membersList!!!!', membersList);
+        
         let userList = getOrderUser();
+
         $('#attendy-list').find('.user-status').attr('src', '/images/offline.png');
         $('#attendy-list').find('.user-online-status').text('offline');
         $('#attendy-list').find('.fa-check').addClass('d-none');
@@ -4120,12 +4111,15 @@ console.log('removed from rtm order====', memberId);
         //$('#attendy-list').find('.visible-status .fa').addClass('fa-times').addClass('text-red').removeClass('fa-check').removeClass('text-green');
         
         for(let i= 0; i < membersList.length; i++){
+
           let eleId = convertEmailToId(membersList[i]);
+          
           $('#online-user-row-'+eleId).find('.user-status').attr('src', '/images/online.png');
           $('#online-user-row-'+eleId).find('.user-online-status').html('online');
           //$('#online-user-row-'+eleId).find('.visible-status .fa').addClass('fa-check').addClass('text-green').removeClass('fa-times').removeClass('text-red');
           $('#user-green-status-'+eleId).removeClass('d-none');
           $('#user-red-status-'+eleId).addClass('d-none');
+          
           if(userList != ''){
             for(let j in userList){
               if(userList[j].id == membersList[i]){

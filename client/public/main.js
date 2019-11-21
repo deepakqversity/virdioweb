@@ -347,6 +347,9 @@ console.log('in-- if===', stream.getId());
       
       if(storeData.userType == 1){
         // add stream after leaving current stream on hand raise event
+
+        console.log('-----changeUserToBroadcaster7777----------');
+
         pushIntoSessionByHost();
         
         // switch user every specific time duration
@@ -1025,7 +1028,7 @@ console.log('rtm remove====', memberId);
   function publishAfterKick(){
     let storeData = getCurrentUserData();
     if(storeData.userType == 2){
-console.log('------lalitpublish--------')
+      console.log('-----changeUserToBroadcaster2000----------');
       client.publish(localStream, function (err) {
         console.log("Publish local stream error: " + err);
       });
@@ -1087,6 +1090,8 @@ console.log('checuser-----');
 
   function unpublish() {
     console.log('============unpublish stream=====', localStream)
+
+    console.log('-----changeUserToBroadcaster6666----------',localStream);
     if(localStream != undefined){
 
       client.unpublish(localStream, function (err) {
@@ -2088,6 +2093,7 @@ function signalHandler(uid, signalData, userType) {
       // console.log('********ggggggggggggg************** signalData ', signalData.message); 
       // $('#hostmsg').html('Now you are became a broadcaster.');
       // publish();
+      console.log('-----changeUserToBroadcaster1000----------');
       publishAfterKick();
       $('#mocrophone-on').addClass('d-none');
       $('#mocrophone-off').removeClass('d-none');
@@ -2324,7 +2330,9 @@ function signalHandler(uid, signalData, userType) {
         $('#to-broadcast').val(uId);
 
         if($('#subscribers-list .video-holder').length > 0) {
+
           console.log('----changeUserToBroadcaster----------')
+
           pullFromSessionByHost(1);
         } else {
           console.log('----changeUserToBroadcaster111111----------')
@@ -2375,7 +2383,9 @@ function signalHandler(uid, signalData, userType) {
       
       localStorage.setItem("swap-subscriber-id", id);
 // console.log('swap-subscriber-id----', id);
+
       let text = "209"+sep+"kicked by host";
+      console.log('-----changeUserToBroadcaster5555----------',text);
       console.log('############### text', text)
       sendMessage( convertIdToEmail(id), text);
     }
@@ -2386,6 +2396,8 @@ function signalHandler(uid, signalData, userType) {
       let userList = getOrderUser();
 
       console.log(' @@@@@@@ userList @@@ ', userList);
+
+      console.log('----changeUserToBroadcaster333333----------',userList)
       
       if(userList == '') return false;
 
@@ -2395,9 +2407,10 @@ function signalHandler(uid, signalData, userType) {
         let id = convertEmailToId(userList[i].id);
         if( $('#subscribers-list #agora_remote'+id).length > 0 ){
 
-          console.log('-----pullFromSessionByHost----------');
+          console.log('-----changeUserToBroadcaster44444----------');
 
           if(ctr < limit && checkKickRule(userList[i])){
+            console.log('-----changeUserToBroadcaster44444----------',id);
             kickUser(id);
             if($('#to-broadcast').val().trim() != ''){
               removeAudienceInList($('#to-broadcast').val());
@@ -2408,7 +2421,10 @@ function signalHandler(uid, signalData, userType) {
       }
     }
     function sendPushIntoSessionMessage(uid){
-      console.log('-------sendPushIntoSessionMessage--------------',uid)
+     // console.log('-------sendPushIntoSessionMessage--------------',uid)
+
+     console.log('-----changeUserToBroadcaster9999999----------',uid);
+
         let text = "200"+sep+" in session";
         sendMessage(convertIdToEmail(uid), text);
     }
@@ -2488,6 +2504,8 @@ function signalHandler(uid, signalData, userType) {
 
         uid = $('#to-broadcast').val();
         console.log('-----------pushIntoSessionByHost------------',uid)
+
+        console.log('-----changeUserToBroadcaster8888----------',uid);
         sendPushIntoSessionMessage(uid);        
 
         $('#audience-'+uid).remove();

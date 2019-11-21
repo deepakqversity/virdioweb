@@ -338,6 +338,7 @@ return (
   <div className="d-flex zindex-5 position-relative flex-grow-1 attend-mid-section flex-wrap">
     
     <LeftScriptParticipant interestId={sessionData.interestId} />
+    
    <div className="flex-grow-1 w-100">
     <div className="d-flex justify-content-between zindex-5 h-50 flex-wrap position-relative flex-grow-1 attend-mid-section">
     <div className="col-lg-8 col-md-6">
@@ -354,7 +355,6 @@ return (
 
             </div>
             <button type="button" id="show-everyone" className="show-others mx-auto"></button>
-          
           
           </div>
           

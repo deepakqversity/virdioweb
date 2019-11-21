@@ -659,6 +659,9 @@ console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId(
 console.log('rtm remove====', memberId);
                 //removeFromRtmOrder(memberId);
 
+                removeUserAttribute(convertEmailToId(memberId), 'subscribeTime');
+                removeUserAttribute(convertEmailToId(memberId), 'isSubscribe');
+
                 if (parseInt($('#online-users').text()) > 0) {
                     $('#online-users').text(parseInt($('#online-users').text()) - 1);
                 }
@@ -2295,9 +2298,6 @@ function signalHandler(uid, signalData, userType) {
 
     function kickUser(id) {
       
-      //localStorage.setItem("swap-subscriber-id", id);
-
-      pushIntoSessionByHost();
       let text = "209"+sep+"kicked by host";
       console.log('-----changeUserToBroadcaster5555----------',text);
       console.log('############### text', text)
@@ -2325,7 +2325,15 @@ function signalHandler(uid, signalData, userType) {
 
           if(ctr < limit && checkKickRule(userList[i])){
             console.log('-----changeUserToBroadcaster44444----------',id);
-            kickUser(id);
+            //kickUser(id);
+
+            localStorage.setItem("swap-subscriber-id", id);
+
+            pushIntoSessionByHost();
+
+            // switch user every specific time duration
+            //switchAudienceToBroadcaster();
+
             if($('#to-broadcast').val().trim() != ''){
               removeAudienceInList($('#to-broadcast').val());
             }

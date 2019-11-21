@@ -318,6 +318,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
           }
         }
 
+        removeUserAttribute(convertEmailToId(memberId), 'subscribeTime');
+        removeUserAttribute(convertEmailToId(memberId), 'isSubscribe');
+                
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-status').attr('src', '/images/offline.png');
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-online-status').html('offline');
         $('#user-green-status-'+convertEmailToId(memberId)).addClass('d-none');

@@ -94,13 +94,17 @@ class Guest extends Component {
 
     // console.log('scDate= ',scDate, new Date(scDate).getTime(), new Date().getTime())
 
-    let currDate = new Date();
+    /*let currDate = new Date();
     currDate.setMinutes(currDate.getMinutes() + 330); // adding 330 minutes for matching IST time
-    scDate = (new Date(scDate).getTime()) - (new Date(currDate).getTime());
+    scDate = (new Date(scDate).getTime()) - (new Date(currDate).getTime());*/
     // console.log('scDate- ', scDate)
+
+    scDate = (new Date(scDate).getTime()) - (new Date().getTime());
     this.state.timerTime = scDate;// 1 sec 1000 = 1sec
 
-    
+    this.startTimer();
+
+    this.sessionTimer();
   }
   
   componentWillMount(){
@@ -121,20 +125,17 @@ class Guest extends Component {
     
     let storeData = JSON.parse(localStorage.getItem('userData'));
     
-    
     let countdown = storeData.sessionData.duration * 60;
 
     console.log("cn------------"+countdown);
     //console.log('attribute '+ $('.header svg circle').attr("style"));
     $('.header svg circle').attr('style','animation-duration:'+countdown+'s !important');
-    console.log('attribute '+$('.header svg circle').attr("style"));
+    
     $('.header svg circle').css("stroke", "#9b51e0");
-     console.log('countdown ======= countdown start ----', countdown)
     
-    
+  
     var resetCount1 = setInterval(function() {
       if(countdown <= 0){
-        console.log('=========== **********', countdown)
         $('.header svg circle').removeAttr("style");
         clearInterval(resetCount1);
       }
@@ -149,7 +150,9 @@ class Guest extends Component {
       timerStart: this.state.timerTime
     });
     this.timer = setInterval(() => {
+     // console.log('------startnewTime11111------',this.state.timerTime)
       const newTime = this.state.timerTime - 10;
+     // console.log('-------startTimer123-----------',newTime)
       if (newTime >= 0) {
         this.setState({
           timerTime: newTime
@@ -157,9 +160,10 @@ class Guest extends Component {
       } else {
         clearInterval(this.timer);
         this.setState({ timerOn: false });
+        console.log('-------startTimer123-----------')
         $('.countdown-timer').html('Session Started');
         // console.log("Countdown ended");
-        //this.sessionTimer();
+        this.sessionTimer();
       }
     }, 10);
   };
@@ -325,7 +329,8 @@ return (
   <div className="d-flex zindex-5 position-relative flex-grow-1 attend-mid-section flex-wrap">
     
     <LeftScriptParticipant interestId={sessionData.interestId} />
-   <div className="flex-grow-1">
+    
+   <div className="flex-grow-1 w-100">
     <div className="d-flex justify-content-between zindex-5 h-50 flex-wrap position-relative flex-grow-1 attend-mid-section">
     <div className="col-lg-8 col-md-6">
     
@@ -341,7 +346,6 @@ return (
 
             </div>
             <button type="button" id="show-everyone" className="show-others mx-auto"></button>
-          
           
           </div>
           

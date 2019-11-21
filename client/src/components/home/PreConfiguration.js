@@ -74,6 +74,7 @@ class PreConfiguration extends Component {
             $("body").removeClass("modal-open");
     })
     })
+
     this.loadScript('/AgoraRTCSDK-2.7.1.js');
     this.loadScript('/agora-rtm-sdk-1.0.0.js');
     this.loadScript('/pre-main.js');
@@ -87,9 +88,11 @@ class PreConfiguration extends Component {
 
     // console.log('scDate= ',scDate, new Date(scDate).getTime(), new Date().getTime())
 
-    let currDate = new Date();
+    /*let currDate = new Date();
     currDate.setMinutes(currDate.getMinutes() + 330); // adding 330 minutes for matching IST time
-    scDate = (new Date(scDate).getTime()) - (new Date(currDate).getTime());
+    scDate = (new Date(scDate).getTime()) - (new Date(currDate).getTime());*/
+
+    scDate = (new Date(scDate).getTime()) - (new Date().getTime());
     this.setState({timerTime: scDate}); // 1 sec 1000 = 1sec
     this.setState({interest:localstoragedata.sessionData.code});
   }
@@ -300,7 +303,6 @@ render() {
   //console.log('seconds, minutes, hours====== ', seconds, minutes, hours);
   //const  {user}  = this.props.auth;
 
- 
   //console.log('------virender----users ', this.state.isHostJoined)
 
   let localstoragedata = JSON.parse(localStorage.getItem('userData'));
@@ -314,10 +316,26 @@ render() {
   let localDate = moment(sessionData.scheduleDate).format('MM/DD/YYYY # h:mm a');
   localDate = localDate.replace('#', 'at');
   let remTime = '';
+
+  let sessionStartDate = moment(sessionData.scheduleDate).format('dddd MMM Do, YYYY');
+  let sessionStartTime = moment(sessionData.scheduleDate).format('h:mm A');
+
   // console.log('sessionData sessionData',sessionData );
   let logo = sessionData.logo;
   
-  //console.log('------hhhhhhhh----users ', this.state.users)
+  var totalTime = sessionData.duration;
+  var totalhours = Math.floor(totalTime / 60);          
+  var totalMinutes = totalTime % 60;
+  var sessionDuration = '';
+
+  if (totalhours >= 1) {
+      sessionDuration = sessionDuration + '' + totalhours + ' Hr';
+  }
+
+  if (totalMinutes >= 1) {
+      sessionDuration = sessionDuration + ' ' + totalMinutes + ' mins';
+  }
+
   let onlineUsers = '';
   let participent = '';
   let participentTimerPopup = '';
@@ -575,25 +593,25 @@ render() {
                         <div className="col-lg-6 px-0">
                           <div className="rgt_modal_box rounded py-5 px-4 h-100">
                           <div className="modal-header">
-                          <p className="pl-0 mb-0">Friday May 3rd, 2019</p>
+                          <p className="pl-0 mb-0">{sessionStartDate}</p>
                           <button type="button" className="close close-model-btn m-0" data-dismiss="modal">&times;</button>
                             </div>
                             <div className="modal_contnt">
                                 
-                                <h3 className="white_hdng mt-4">Experience the world of Lynmar Estates</h3>
-                                <p className="white-text pl-0">By Lynn Fritz</p>
+                                <h3 className="white_hdng mt-4">{sessionData.name}</h3>
+                                <p className="white-text pl-0">By {sessionData.hostFirstName + ' ' + sessionData.hostLastName}</p>
                                 <div className="mt-3">
                                     <div className="row">
                                         <div className="col-md-5">
                                             <div className="overflow-hidden mr-3">
                                                 <p className="float-left"><img src="images/clock.png" className="clock_img" />Time</p>
-                                                <p className="float-right">7 PM EDT</p>
+                                                <p className="float-right">{sessionStartTime} EDT</p>
                                             </div>
                                         </div>
                                         <div className="col-md-5">
                                             <div className="overflow-hidden ml-3">
                                                 <p className="float-left"><img src="images/length.png" className="clock_img" />Length</p>
-                                                <p className="float-right">2Hrs</p>
+                                                <p className="float-right">{sessionDuration}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -622,7 +640,7 @@ render() {
                                     <div className="row mr-2">
                                         <div className="col-lg-11 col-sm-10 col-10">
                                             <div className="mr-3">
-                                                <p className="my-2 ml-7">Allow other users to see my name and picture</p>              
+                                                <p className="my-2 ml-7">Allow other users to contact me</p>              
                                             </div>
                                         </div>
                                         <div className="col-lg-1 col-sm-2 col-2 pr-0">

@@ -142,7 +142,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     newclient.on('ConnectionStateChanged', (newState, reason) => {
       console.log('on connection state changed to ' + newState + ' reason: ' + reason);
 
-        if ((newState == 'ABORTED' || newState == 'DISCONNECTED') && (reason == 'LOGIN_TIMEOUT' || reason == 'INTERRUPTED' || reason == 'REMOTE_LOGIN')) {
+        if ((newState == 'ABORTED' || newState == 'DISCONNECTED') && (reason == 'LOGIN_TIMEOUT' || reason == 'INTERRUPTED' || reason == 'REMOTE_LOGIN' || reason == 'LOGIN_FAILURE')) {
                     
             console.log('connection state changed. Trying to reconnect');
 
@@ -272,9 +272,11 @@ console.log('rtm join date and time=====', dateTime);
             }
           }
         }
+
         function sort_li(a, b) {
           return parseInt($(b).attr('data-position')) < parseInt($(a).attr('data-position')) ? 1 : -1;
         }
+        
         $('#online-user-list tr').sort(sort_li).appendTo('#online-user-list');
 
         console.log('memberId============', memberId)
@@ -302,6 +304,10 @@ console.log('rtm join date and time=====', dateTime);
 
         console.log('--------lalitmemleft---------------')
         
+        if (parseInt($('#online-users').text()) > 0) {
+            $('#online-users').text(parseInt($('#online-users').text()) - 1);
+        }
+
         addUserAttribute(convertEmailToId(memberId), 'currentStatus', 0);
         removeFromRtmOrder(memberId);
 
@@ -1234,9 +1240,7 @@ function signalHandler(uid, signalData, userType) {
           
           var bandwidthCheckCounter = setInterval(function() {
 
-            //alert(localStorage.getItem("video-resolution"));
-
-            if(localStorage.getItem("video-resolution") != null) {
+            if(localStorage.getItem("video-resolution") != null &&  $('#media-access-alert').hasClass('show') === false) {
 
                 clearInterval(bandwidthCheckCounter);
 
@@ -1347,19 +1351,27 @@ function signalHandler(uid, signalData, userType) {
 
                 let storeData = getCurrentUserData();
                 
-                $('#participent-stream-redirect-alert').modal('show');
-                $('#set-temp-sesstion').click();
+                var bandwidthCheckCounter = setInterval(function() {
 
-                let duration = parseInt(storeData.default.streamRedirectDuration);
+                  if(localStorage.getItem("video-resolution") != null &&  $('#media-access-alert').hasClass('show') === false) {
 
-                let ref2 = setInterval( function() {
-                    $('#stream-rem-join-timer').html(duration < 0 ? 0 : duration);
-                    if(duration <= 0){
-                      clearInterval(ref2);
-                      $('#continue-join').click();
+                      clearInterval(bandwidthCheckCounter);
+
+                      $('#participent-stream-redirect-alert').modal('show');
+                      $('#set-temp-sesstion').click();
+
+                      let duration = parseInt(storeData.default.streamRedirectDuration);
+
+                      let ref2 = setInterval( function() {
+                          $('#stream-rem-join-timer').html(duration < 0 ? 0 : duration);
+                          if(duration <= 0){
+                            clearInterval(ref2);
+                            $('#continue-join').click();
+                          }
+                          duration--;
+                      }, 1000 );
                     }
-                    duration--;
-                }, 1000 );
+                }, 1000);
 
                 // let currentUId = convertEmailToId(userList[i].id);
 
@@ -1461,6 +1473,7 @@ function signalHandler(uid, signalData, userType) {
           showHandAtHost();
         }
      }
+     
      function showHandAtHost(){
         let audienceList = JSON.parse(localStorage.getItem("audience-list"));
         console.log('audienceList', audienceList);

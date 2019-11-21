@@ -3,8 +3,8 @@ import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 import $ from 'jquery';
-import React from 'react'
-import  { Redirect } from 'react-router-dom'
+//import React from 'react'
+//import  { Redirect } from 'react-router-dom'
 //import AgoraRTC from "agora-rtc-sdk";
 
 import {
@@ -156,7 +156,7 @@ export const addLogs = (sessionId, userType, type) => dispatch => {
     userType : userType,
     type : type
   };
-  var userData = JSON.parse(localStorage.getItem("userData"));
+  let userData = JSON.parse(localStorage.getItem("userData"));
 
   // fetch("/api/v1/session/activity-log", {
   //   method: 'POST',

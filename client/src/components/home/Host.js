@@ -84,15 +84,10 @@ class Host extends Component {
       "click":             function() { this.closable = true; },
       "hide.bs.dropdown":  function() { return this.closable; }
     });
+
     this.loadScript('/AgoraRTCSDK-2.7.1.js');
     this.loadScript('/agora-rtm-sdk-1.0.0.js');
     this.loadScript('/main.js');
-    
-    
-    // if(localStorage.getItem('load-page') != 1){  
-    //     window.loadPopup();
-    //   localStorage.setItem("load-page", 1);
-    // }
 
     let localstoragedata = JSON.parse(localStorage.getItem('userData'));
     this.setState({sessionScript: localstoragedata.sessionData.interestId});
@@ -100,12 +95,16 @@ class Host extends Component {
 
     // console.log('scDate= ',scDate, new Date(scDate).getTime(), new Date().getTime())
 
-    let currDate = new Date();
+    /*let currDate = new Date();
     currDate.setMinutes(currDate.getMinutes() + 330); // adding 330 minutes for matching IST time
-    scDate = (new Date(scDate).getTime()) - (new Date(currDate).getTime());
+    scDate = (new Date(scDate).getTime()) - (new Date(currDate).getTime());*/
+
+    scDate = (new Date(scDate).getTime()) - (new Date().getTime());
     console.log('scDate- ', scDate)
     // this.state.timerTime = scDate;// 1 sec 1000 = 1sec
     this.setState({timerTime : scDate});
+
+    this.startTimer();
   }
   componentWillMount(){
     this.startTimer();
@@ -114,12 +113,15 @@ class Host extends Component {
     
     let storeData = JSON.parse(localStorage.getItem('userData'));
     
+    //console.log('---------lalitstoreData---------',storeData)
     
     let countdown = storeData.sessionData.duration * 60;
+    //console.log('---------lalitcountdown---------',countdown)
     // let countdown = 60;
     $('.header svg circle').attr("style","animation-duration:"+countdown+"s !important");
     $('.header svg circle').css("stroke", "#9b51e0");
-    // console.log('countdown ======= countdown start ----', countdown)
+
+    //console.log('countdown ======= countdown start ----', countdown)
     
     var resetCount1 = setInterval(function() {
       if(countdown <= 0){
@@ -138,12 +140,15 @@ class Host extends Component {
       timerStart: this.state.timerTime
     });
     this.timer = setInterval(() => {
+      //console.log('------startnewTime11111------',this.state.timerTime)
       const newTime = this.state.timerTime - 10;
+      //console.log('------startnewTime------',newTime)
       if (newTime >= 0) {
         this.setState({
           timerTime: newTime
         });
       } else {
+        //console.log('------this.timer------',this.timer)
         clearInterval(this.timer);
         this.setState({ timerOn: false });
         $('.countdown-timer').html('Session Started');

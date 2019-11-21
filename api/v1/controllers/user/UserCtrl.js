@@ -35,13 +35,17 @@ class UserCtrl {
 	    	let email = req.body.email;
 	    	let password = req.body.password;
 	    	let userObj = await userModel.getUserByEmail(email);
-	    	
+	    	let currentTS = Date.now();
+	    	console.log('ts====', currentTS);
+
 			if(!isEmpty(userObj)){
 
     			if(userObj.status == 0){
     				// res.status(400).send({message:"user already exists but inactive."})
     				response.resp(res, 400, {message:"user already exists but inactive."})
     			} else {
+
+    				userObj = underscore.extend(userObj, {serverTimestamp:currentTS});
 
 	        		let t = await bcrypt.compare(password, userObj.password);
 					if(t){

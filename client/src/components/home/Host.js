@@ -299,11 +299,11 @@ return (
           <a href="" className="move-list"  id="partlist"  data-toggle="modal" data-target="#attendy-list" className="open-list"><img src="images/move-list.png" /></a>
           <a href="" className="move-list"><img src="images/swipe-list.png" /></a>
           <div className="hand-raise-list">
-            <div className="dropdown keep-open">
+            <div className="dropdown">
               <button className="dropdown-toggle circle-ripple d-none" type="button" id="dropdownMenuButton" data-toggle="dropdown">
                 <img src="images/hand-raise.png" />
               </button>
-              <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <div className="dropdown-menu d-none" id="dropdownmenuitem11" aria-labelledby="dropdownMenuButton">
                 <div className="raised-hands">
                   <h4>Raised Hands (<span id="total-raised-hands">3</span>)</h4>
                   <a href="#"><i className="fa fa-times"></i></a>

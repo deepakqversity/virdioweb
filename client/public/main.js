@@ -2222,7 +2222,7 @@ function signalHandler(uid, signalData, userType) {
           });
           localStorage.setItem("audience-list", JSON.stringify(audienceList));
           $('#dropdownMenuButton').removeClass('d-none');
-          $('.hand-raise-list .dropdown-menu').addClass('show');
+         // $('.hand-raise-list .dropdown-menu').addClass('show');
           showHandAtHost();
         }
      }
@@ -2295,12 +2295,14 @@ function signalHandler(uid, signalData, userType) {
           $('#total-raised-hands').html(audienceList.length);
           $('#raised-list').append(list);
           $('#dropdownMenuButton').removeClass('d-none');
-          $('.hand-raise-list .dropdown-menu').addClass('show');
+          $('.hand-raise-list .dropdown-menu').removeClass('d-none');
         } else {
           $('#dropdownMenuButton').addClass('d-none');
           $('#raised-list').html('');
           $('#total-raised-hands').html(0);
           $('.hand-raise-list .dropdown-menu').removeClass('show');
+         // $('.hand-raise-list .dropdown-menu').addClass('hide');
+          $('.hand-raise-list .dropdown-menu').addClass('d-none');
         }
     }
 
@@ -3520,6 +3522,10 @@ console.log('removed from rtm order====', memberId);
     }
 
     $(document).ready(function(){
+
+      $('#dropdownMenuButton').on('click', function(){
+        $('.hand-raise-list .dropdown-menu').slideToggle();
+      });
 
       $('#switch-camera').on('click', function(){
         getDevices();

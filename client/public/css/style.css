@@ -44,7 +44,10 @@ transform: translateY(-17px);
 font-weight: inherit;
 
 }
-
+.b-0
+{
+    bottom:10px;
+}
 #show-details2 .border_botm_none
 {
 border-bottom: none;
@@ -371,6 +374,10 @@ div.gray_bar::before
     top: -9px;
     left: -4px;
 }
+.b-10
+{
+    bottom:10px;
+}
 .ht-20
 {
     height: 20%;
@@ -390,10 +397,18 @@ div.gray_bar::before
     {
         max-width: 250px;
     }
+    .b-0
+{
+    bottom:20px;
+}
     .details_model button.close-model-btn, .modal-header .close, .music-list .close
     {
         font-size: 2.5vw;
     }
+    .b-10
+{
+    bottom:20px;
+}
     .white-text
     {
         font-size: 1.3vw;

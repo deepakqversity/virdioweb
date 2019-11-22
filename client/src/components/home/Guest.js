@@ -341,7 +341,7 @@ return (
             
             <div className="joined-attendees ">
               <h4 className="mb-2 head"><span className="title">Wine Testers</span><span className="count">(<span  id="joined_users_at_client">0</span>/<span>{newulength}</span>)</span></h4>
-              <div className="joined-member-list" id="all_joined_member_list"></div>
+              <div className="joined-member-list scroller" id="all_joined_member_list"></div>
               <button type="button" id="minimize-others" className="mt-2 minimize-others mx-auto d-none"></button>
 
             </div>

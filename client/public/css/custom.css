@@ -78,7 +78,7 @@ body{
 	padding: 0px;
 	position: relative;
 height:100vh;
-overflow:hidden;
+/* overflow:hidden; */
 }
 /*@media (max-width:767px){
 	body{
@@ -1347,6 +1347,10 @@ display:none;
 	overflow-y:auto;
 	overflow-x:hidden;
 }
+.scroller {
+    scrollbar-color: rgba(189,0,255, 0.53) #f1f1f1;
+    scrollbar-width: thin;
+  }
 .max-h200::-webkit-scrollbar {
   width: 6px;
 }
@@ -1660,7 +1664,8 @@ outline:0;
 	overflow:inherit !important;
 }
 .swiper-container{
-	width:100% !important;
+    width:100% !important;
+    height: 100%;
 }
 .swiper-container-horizontal>.swiper-pagination .swiper-pagination-bullet {
     display: inline-block;
@@ -1784,6 +1789,7 @@ outline:0;
 .fitness-guest .swiper-slide{
 	display: flex;
     align-items: center;
+    width: 280.33px !important;
 }
 .fitness-guest .swiper-slide:nth-child(1){
 	display:block;
@@ -2447,7 +2453,7 @@ img.user-login{
 	width: 30%;
 }
 .heart-rate{
-	width:160px;
+	width:20%;
 	margin-left: 0.5rem !important;
 }
 .network-wifi .signup-number{
@@ -2459,7 +2465,7 @@ img.user-login{
 .fill-wifi{
     position: absolute;
     right: -20px;
-    bottom: 10px;
+    bottom: 3px;
     height: 91px;
 }
 .wave {

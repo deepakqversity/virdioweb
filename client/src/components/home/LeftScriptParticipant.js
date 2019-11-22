@@ -29,7 +29,7 @@ return (
       <div className="mt-60">
         <div id="demo" data-interval="false" className="carousel slide script-info" data-ride="carousel">
 
-          <div className="carousel-inner guest-left-wine">
+          <div className="carousel-inner guest-left-wine scroller">
 
 {
   sessionScript.map((opt, i) =>

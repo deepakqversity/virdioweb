@@ -1389,8 +1389,17 @@ console.log('rtm order======', userList[i].id);
     join();
 
     console.log('continueJoin =continueJoin =continueJoin 222')
-
-    $(".host-script-section").height("40%");
+    if ($(window).width() > 1500) {
+      $(".host-script-section").height("20%");
+    }
+    else if ($(window).width() <= 768){
+      $(".host-script-section").height("20%");
+    }
+    else {
+      $(".host-script-section").height("36%");
+    }
+    
+      //  $(".host-script-section").height("240px");
     $(".host-section").css({"min-width": "30%", "max-width": "30%"});
 
     let data_res = JSON.parse(localStorage.getItem("userData"));

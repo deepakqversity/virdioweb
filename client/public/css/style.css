@@ -683,3 +683,11 @@ ul.music-playlist li a span:nth-child(1)
     font-size: 18px;
 } */
 }
+@media screen and (max-width: 1500px)
+{
+.count-box .countdown
+{
+    margin-top: 6px;
+  margin-bottom: 10px;
+}
+}

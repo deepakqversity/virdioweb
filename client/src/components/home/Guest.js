@@ -99,7 +99,11 @@ class Guest extends Component {
     scDate = (new Date(scDate).getTime()) - (new Date(currDate).getTime());*/
     // console.log('scDate- ', scDate)
 
-    scDate = (new Date(scDate).getTime()) - (new Date().getTime());
+    let currDate = new Date(scDate);
+    currDate.setMinutes(currDate.getMinutes() + localstoragedata.sessionData.duration); // adding 330 minutes for matching IST time
+    scDate = (new Date(currDate).getTime()) - (new Date().getTime());
+
+    //scDate = (new Date(scDate).getTime()) - (new Date().getTime());
     this.state.timerTime = scDate;// 1 sec 1000 = 1sec
 
     this.startTimer();
@@ -133,7 +137,6 @@ class Guest extends Component {
     
     $('.header svg circle').css("stroke", "#9b51e0");
     
-  
     var resetCount1 = setInterval(function() {
       if(countdown <= 0){
         $('.header svg circle').removeAttr("style");
@@ -161,7 +164,7 @@ class Guest extends Component {
         clearInterval(this.timer);
         this.setState({ timerOn: false });
         console.log('-------startTimer123-----------')
-        $('.countdown-timer').html('Session Started');
+        $('.countdown-timer').html('Session Ended');
         // console.log("Countdown ended");
         this.sessionTimer();
       }

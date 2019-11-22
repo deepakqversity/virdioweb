@@ -60,7 +60,7 @@ class UserCtrl {
 							}
 
 							const token = await auth.createToken(userObj.id);
-							 console.log('token-1111------------',token);
+							 //console.log('token-1111------------',token);
 							let updateUser = await tokenModel.updateToken(userObj.id, token);
 							
 							userObj = underscore.extend(userObj, {token:token});
@@ -118,7 +118,7 @@ class UserCtrl {
 								
 
 								let scriptDetail = await sessionScriptModel.getProductDetail(currentSession.id, currentSession.hostId, currentSession.code );
-								console.log('--------scriptDetail------',scriptDetail)
+								//console.log('--------scriptDetail------',scriptDetail)
 								underscore.extend(currentSession, {scriptDetail : scriptDetail});
 								
 								if(isEmpty(currentSession.hostImage)){

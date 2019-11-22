@@ -318,6 +318,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
           }
         }
 
+        removeUserAttribute(convertEmailToId(memberId), 'subscribeTime');
+        removeUserAttribute(convertEmailToId(memberId), 'isSubscribe');
+
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-status').attr('src', '/images/offline.png');
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-online-status').html('offline');
         $('#user-green-status-'+convertEmailToId(memberId)).addClass('d-none');
@@ -2253,28 +2256,25 @@ function signalHandler(uid, signalData, userType) {
     }
   }
   
-  // function removeUserAttribute(id, key){
-  //     let tempUsers = getTempUsers();
-  //     console.log('tempUsers =========== tempUsers', tempUsers)
-  //     let newTempUsers = {};
-  //     if(tempUsers != null){
-  //       // tempUsers = JSON.parse(tempUsers);
-  //       for(let i in tempUsers){
-  //         //tempUsers[i].hasOwnProperty(key)
-  //         if(tempUsers[i].id != id){
-  //           newTempUsers[i] = tempUsers[i];
-  //         }
-  //       }
-  //     }
-        
-  //     localStorage.setItem("tempUsers", JSON.stringify(newTempUsers));
-  // }
-
   function displayError(err){
     $('#exptn-errors').html('<pre>'+err+'</pre>');
   }
 
-  
+  function removeUserAttribute(id, key){
+
+      let tempUsers = getTempUsers();
+
+      if(tempUsers != null){
+        for(let i in tempUsers){
+          if(tempUsers[i].hasOwnProperty(key) && tempUsers[i].id == id){
+            delete tempUsers[i][key];
+          }
+        }
+      }
+        
+      localStorage.setItem("tempUsers", JSON.stringify(tempUsers));
+  }
+
       
   $(document).ready(function(){
 

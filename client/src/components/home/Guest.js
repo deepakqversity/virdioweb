@@ -99,7 +99,11 @@ class Guest extends Component {
     scDate = (new Date(scDate).getTime()) - (new Date(currDate).getTime());*/
     // console.log('scDate- ', scDate)
 
-    scDate = (new Date(scDate).getTime()) - (new Date().getTime());
+    let currDate = new Date(scDate);
+    currDate.setMinutes(currDate.getMinutes() + localstoragedata.sessionData.duration); // adding 330 minutes for matching IST time
+    scDate = (new Date(currDate).getTime()) - (new Date().getTime());
+
+    //scDate = (new Date(scDate).getTime()) - (new Date().getTime());
     this.state.timerTime = scDate;// 1 sec 1000 = 1sec
 
     this.startTimer();
@@ -133,7 +137,6 @@ class Guest extends Component {
     
     $('.header svg circle').css("stroke", "#9b51e0");
     
-  
     var resetCount1 = setInterval(function() {
       if(countdown <= 0){
         $('.header svg circle').removeAttr("style");
@@ -161,7 +164,7 @@ class Guest extends Component {
         clearInterval(this.timer);
         this.setState({ timerOn: false });
         console.log('-------startTimer123-----------')
-        $('.countdown-timer').html('Session Started');
+        $('.countdown-timer').html('Session Ended');
         // console.log("Countdown ended");
         this.sessionTimer();
       }
@@ -311,12 +314,15 @@ return (
           <div className="transparent-gray slide-right-left" style={toggleList}>
             
             <div className="joined-attendees ">
-              <h4 className="mb-2 head"><span className="title">Wine Testers</span><span className="count">(<span  id="joined_users_at_client">0</span>/<span>{newulength}</span>)</span></h4>
+              <h4 className="mb-2 head"><span className="title">Wine Testers</span>
+              <span className="count">(<span  id="joined_users_at_client">0</span>/<span>{newulength}</span>)</span></h4>
               <div className="joined-member-list" id="all_joined_member_list"></div>
-              <button type="button" id="minimize-others" className="mt-2 minimize-others mx-auto d-none"></button>
+              // <button type="button" id="minimize-others" className="mt-2 minimize-others mx-auto d-none"></button>
 
             </div>
-            <button type="button" id="show-everyone" className="show-others mx-auto"></button>
+            <button type="button" id="minimize-others" className="position-relative mt-2 minimize-others mx-auto d-none"></button>
+
+            <button type="button" id="show-everyone" className="position-relative show-others mx-auto"></button>
           
           
           </div>
@@ -339,7 +345,7 @@ return (
               <button type="button" id="minimize-others" className="mt-2 minimize-others mx-auto d-none"></button>
 
             </div>
-            <button type="button" id="show-everyone" className="show-others mx-auto"></button>
+            {/* <button type="button" id="show-everyone" className="show-others mx-auto"></button> */}
           
           </div>
           

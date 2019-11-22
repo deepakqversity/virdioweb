@@ -345,7 +345,7 @@ return (
               <button type="button" id="minimize-others" className="mt-2 minimize-others mx-auto d-none"></button>
 
             </div>
-            {/* <button type="button" id="show-everyone" className="show-others mx-auto"></button> */}
+            <button type="button" id="show-everyone" className="show-others mx-auto"></button>
           
           </div>
           
@@ -379,7 +379,7 @@ return (
       
     </div>
   </div> */}
-  <div className="d-flex justify-content-between h-50 flex-wrap zindex-5 position-relative flex-grow-1 attend-mid-section">
+  <div className="d-flex justify-content-between flex-wrap zindex-5 position-relative flex-grow-1 h-100 attend-mid-section">
     <div className="col-lg-8 col-md-6 col-sm-6 col-6 align-self-end">
     <footer className="footer position-relative zindex-5 count-box mb-5 mb-lg-2 mt-4">
       

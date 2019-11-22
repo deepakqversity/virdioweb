@@ -20,8 +20,6 @@ class Host extends Component {
       timerTime: 0,
       camera:'',
       microphone:'',
-
-
       type : '',
       duration : '',
       counts : '',
@@ -99,10 +97,14 @@ class Host extends Component {
     currDate.setMinutes(currDate.getMinutes() + 330); // adding 330 minutes for matching IST time
     scDate = (new Date(scDate).getTime()) - (new Date(currDate).getTime());*/
 
-    scDate = (new Date(scDate).getTime()) - (new Date().getTime());
+    let currDate = new Date(scDate);
+    currDate.setMinutes(currDate.getMinutes() + localstoragedata.sessionData.duration); // adding 330 minutes for matching IST time
+    scDate = (new Date(currDate).getTime()) - (new Date().getTime());
+
+    // scDate = (new Date(scDate).getTime()) - (new Date().getTime());
     console.log('scDate- ', scDate)
-    // this.state.timerTime = scDate;// 1 sec 1000 = 1sec
-    this.setState({timerTime : scDate});
+    this.state.timerTime = scDate;// 1 sec 1000 = 1sec
+    // this.setState({timerTime : scDate});
 
     this.startTimer();
   }
@@ -151,8 +153,8 @@ class Host extends Component {
         //console.log('------this.timer------',this.timer)
         clearInterval(this.timer);
         this.setState({ timerOn: false });
-        $('.countdown-timer').html('Session Started');
-        //alert("Countdown ended");
+        $('.countdown-timer').html('Session Ended');
+
         this.sessionTimer();
       }
     }, 10);

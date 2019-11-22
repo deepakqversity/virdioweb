@@ -53,7 +53,7 @@ return (
                 </div>
                        
                         <div className="bg-gray bottom-rounded px-3 pb-2 item-description script-section d-block flex-grow-1">
-                        <div className="max-h200">
+                        <div className="max-h200 scroller">
                           <h4 className="item-name">{opt.name}</h4>
                           <div className="row">
                          

@@ -126,7 +126,7 @@ return (
               
               <div className="bg-gray ht-80 bottom-rounded px-3 pb-2 item-description d-block script-section mt--1 flex-grow-1">
                 <div className="h-100">
-                  <div className="row">
+                  <div className="row h-100">
                   <div className="swiper-container swiper-container-host">
                       <div className="swiper-wrapper">
                         <div className="swiper-slide start">

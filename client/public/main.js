@@ -2273,6 +2273,7 @@ function signalHandler(uid, signalData, userType) {
         if(audienceList.length > 0){
           
           let list='';
+          
           for(let i in audienceList){
             if($('#audience-'+audienceList[i].id).length != 0){
               $('#audience-'+audienceList[i].id).remove();

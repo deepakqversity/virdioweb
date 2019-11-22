@@ -376,7 +376,11 @@ div.gray_bar::before
 }
 .b-10
 {
-    bottom:10px;
+    bottom:20px;
+}
+.w-95
+{
+    width: 95%;
 }
 .ht-20
 {

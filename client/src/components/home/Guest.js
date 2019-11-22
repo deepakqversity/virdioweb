@@ -380,7 +380,7 @@ return (
     </div>
   </div> */}
   <div className="d-flex justify-content-between flex-wrap zindex-5 position-relative flex-grow-1 h-100 attend-mid-section">
-    <div className="col-lg-9 col-md-7 col-sm-6 col-6 align-self-end">
+    <div className="col-lg-10 col-md-8 col-sm-6 col-6 align-self-end">
     <footer className="footer position-relative zindex-5 count-box mb-5 mb-lg-2 mt-4">
       
       <FooterScriptParticipant interestId={sessionData.interestId} />
@@ -392,7 +392,7 @@ return (
       </div> */}
     </footer>
     </div>
-    <div className="col-lg-3 col-md-5 col-sm-5 col-6 max-width-300 float-right pl-0 mt-4 align-self-end">
+    <div className="col-lg-2 col-md-4 col-sm-6 col-6 max-width-300 float-right pl-0 mt-4 align-self-end">
         {/* video code */}
         <div className="self-video1 mt-3 w-50">
           

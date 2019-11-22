@@ -107,9 +107,11 @@ class Host extends Component {
     // this.setState({timerTime : scDate});
 
     this.startTimer();
+    this.sessionTimer();
   }
   componentWillMount(){
     this.startTimer();
+    this.sessionTimer();
   }
   sessionTimer = () => {
     
@@ -164,20 +166,6 @@ class Host extends Component {
     window.subscribe()
   };
 
-  // startTimer = () => {
-  //   this.setState({
-  //     timerOn: true,
-  //     timerTime: this.state.timerTime,
-  //     timerStart: Date.now() - this.state.timerTime
-  //   });
-  //   this.timer = setInterval(() => {
-  //     this.setState({
-  //       timerTime: Date.now() - this.state.timerStart
-  //     });
-  //   }, 10);
-  // };
-
-
 render() {
     const { timerTime, timerStart, timerOn, sessionScript } = this.state;
 
@@ -195,7 +183,6 @@ render() {
     const  {user}  = this.props.auth;
 
     let localstoragedata = JSON.parse(localStorage.getItem('userData'));
-    //console.log('localstoragedata=============', localstoragedata)
     let sessionData = localstoragedata.sessionData;
    
     /*let scheduledDate = new Date(sessionData.scheduleDate);

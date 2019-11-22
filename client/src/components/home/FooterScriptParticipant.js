@@ -160,7 +160,7 @@ let sessionScript = localstoragedata.sessionData.scriptDetail;
          </div>
       ) : (
       this.props.interestId == 2 ? (
-        <div className="w-75 swiper-fitness-container float-left position-relative">
+        <div className="w-95 swiper-fitness-container float-left position-relative">
           <div className="fitness-emoji d-none">
             <h3>How are you feeling?</h3>
               <div className="d-flex justify-content-between a3">

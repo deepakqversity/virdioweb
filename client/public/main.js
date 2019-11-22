@@ -258,6 +258,11 @@ console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId(
             kickUser(localStorage.getItem("swap-subscriber-id"));
             localStorage.setItem("swap-subscriber-id", '');
         }
+
+        if (localStorage.getItem("handraise-swap-subscriber-id") !== null && localStorage.getItem("handraise-swap-subscriber-id") !== '') {
+          addUserSelectionAndAudio(localStorage.getItem("handraise-swap-subscriber-id"));
+          localStorage.setItem("handraise-swap-subscriber-id", '');
+      }
       } else {
           let subscribeUserId = getUserDataFromList(stream.getId(), 'userType');
           if(1 == subscribeUserId){
@@ -902,10 +907,51 @@ console.log('rtm remove====', memberId);
 
     $('#subscribers-list #agora_remote'+ audienceID).find('.hand-icon').addClass('d-none');
     $('#subscribers-list #agora_remote'+ audienceID).find('.microphone-icon').addClass('d-none');
+    $('#subscribers-list #agora_remote'+audienceID).find('video').removeClass('video-selected');
+    // $('#subscribers-list #agora_remote'+convertEmailToId(uid)).find('video').addClass('video-selected');
+    $('#subscribers-list #agora_remote'+audienceID).find(".click-zoom").removeClass("d-block").addClass("d-none");
 
     let massages='204'+sep
     sendMessage(audienceEmail, massages);
   }
+
+    // After handraise div will be automatic get selected and audio is on
+
+    function addUserSelectionAndAudio(participentId)
+    {
+
+      let participentEmail = convertIdToEmail(participentId);
+      var massages="203"+sep; 
+      sendMessage(participentEmail, massages);
+  
+      let allVdo = $('#subscribers-list video');   
+      let allAdo = $('#subscribers-list audio');   
+  
+      let vdo = $('#subscribers-list #agora_remote'+ participentId + ' video' )[0];   
+      let ado = $('#subscribers-list #agora_remote'+ participentId + ' audio' )[0];   
+  
+      $.each(allVdo, function (index, value) {
+        allVdo[index].muted = true;
+        allAdo[index].muted = true;
+      });
+  
+      if(vdo.muted || ado.muted){
+        console.log('unmute successfully')
+        vdo.muted = false;
+        ado.muted = false;
+      }
+
+      $('#agora_remote'+ participentId + ' .hand-icon').addClass("d-none");
+
+      $('#subscribers-list #agora_remote'+ participentId).find('.microphone-icon').removeClass('d-none');
+
+      // $('#errmsg').html('Client HandRaise');
+      // setTimeout(function(){ $('#errmsg').html(''); }, 10000);
+
+      $('#selected-participent-id').val(participentId );
+      $('#subscribers-list #agora_remote'+participentId).find('video').addClass('video-selected');
+      $('#subscribers-list #agora_remote'+participentId).find(".click-zoom").addClass("d-block").removeClass("d-none");
+    }
 
   function onclickhandRaise(receiverId)
   {   
@@ -1763,6 +1809,7 @@ function signalHandler(uid, signalData, userType) {
   if(userType == 1) { // Host
 
     if(resultant[0] == '201'){
+        console.log('------lalituid-----------',uid);
 
       $('#agora_remote'+ convertEmailToId(uid) + ' .hand-icon').removeClass("d-none");
       $('#errmsg').html('Client HandRaise');
@@ -2248,6 +2295,7 @@ function signalHandler(uid, signalData, userType) {
 
     function changeUserToBroadcaster(uId){
         $('#to-broadcast').val(uId);
+        localStorage.setItem("handraise-swap-subscriber-id", uId);
 
         if($('#subscribers-list .video-holder').length > 0) {
 
@@ -2299,6 +2347,46 @@ function signalHandler(uid, signalData, userType) {
       return rule;
     }
 
+
+    function checkKickRuleInHandraise(dataObj){
+      
+      let rule = false
+      console.log('=========== dataObj', dataObj)
+      //let id = convertEmailToId(dataObj.id);
+      let id = dataObj.id;
+      let vdo = $('#subscribers-list #agora_remote'+ id + ' video' )[0];  
+      console.log('subscribers-list video = ', vdo);
+      let storeData = getCurrentUserData();
+
+      // check current user in mute state
+      if(vdo != undefined && vdo.muted){
+
+        let selectedParticipentId = $('#selected-participent-id').val();
+        console.log('selectedParticipentId , id', id, selectedParticipentId)
+        if(id != selectedParticipentId){
+           rule = true;
+        
+          // let broadcster = getAllBroadcster();
+          // if(broadcster.length > 0){
+            
+          //   for(let i in broadcster){
+          //     //console.log('========== check 30 sec', broadcster[i])
+          //     if(broadcster[i].email == dataObj.id){
+          //       //console.log('========== check 30 sec in side', broadcster[i])
+
+          //       let tm =  (new Date()).getTime() - parseInt(broadcster[i].subscribeTime);
+          //       if((tm / 1000) >= storeData.default.switchDuration){
+          //         rule = true;
+          //       }
+          //     }
+          //   }
+          // }
+        }
+      }
+
+      return rule;
+    }
+
     function kickUser(id) {
       
       let text = "209"+sep+"kicked by host";
@@ -2312,26 +2400,35 @@ function signalHandler(uid, signalData, userType) {
       
       let userList = getOrderUser();
 
+      let broadcster = getAllBroadcster();
+
       console.log(' @@@@@@@ userList @@@ ', userList);
 
-      console.log('----changeUserToBroadcaster333333----------',userList)
-      
-      if(userList == '') return false;
+      console.log('----changeUserToBroadcaster333333----------',broadcster)
 
-      let ctr = 0;
-      for(let i=0; i < userList.length; i++){
+     // console.log('----changeUserToBroadcasterlegth----------',broadcster.length)
+      
+     // if(userList == '') return false;      
+      if(broadcster == '') return false;
+
+     // let ctr = 0;
+      for(let i=0; i < broadcster.length; i++){
         
-        let id = convertEmailToId(userList[i].id);
+       // let id = convertEmailToId(broadcster[i].id);
+        let id = broadcster[i].id;
+        console.log('-----changeUserToBroadcaster4444422----------',broadcster[i].id);
         if( $('#subscribers-list #agora_remote'+id).length > 0 ){
 
-          console.log('-----changeUserToBroadcaster44444----------');
+          //console.log('-----changeUserToBroadcaster444441----------',broadcster[i]);
+          
+          //if(ctr < limit && checkKickRule(userList[i])){
+            if(checkKickRuleInHandraise(broadcster[i])){
 
-          if(ctr < limit && checkKickRule(userList[i])){
             console.log('-----changeUserToBroadcaster44444----------',id);
             //kickUser(id);
 
             localStorage.setItem("swap-subscriber-id", id);
-
+           
             pushIntoSessionByHost();
 
             // switch user every specific time duration
@@ -2340,8 +2437,9 @@ function signalHandler(uid, signalData, userType) {
             if($('#to-broadcast').val().trim() != ''){
               removeAudienceInList($('#to-broadcast').val());
             }
+            break;
           }
-          ctr++;
+          //ctr++;
         }
       }
     }

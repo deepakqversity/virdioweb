@@ -274,7 +274,7 @@ return (
                         if(sessionData.interestId == 1) {
                             return <a className="btn  btn-primary border-right pr-20" href="#" data-toggle="modal" data-target="#show-details2" tabIndex="1">Details</a>;
                         } else {                      
-                            return <a className="btn  btn-primary border-right pr-20" href="#" data-toggle="modal" data-target="#fitness-script" tabIndex="1">Details</a>;             
+                            return <a className="btn  btn-primary border-right pr-20" href="#" data-toggle="modal" data-target="#fitness-ssession-details" tabIndex="1">Details</a>;             
                         }
                     }
                 )()}
@@ -808,7 +808,7 @@ return (
       <input type="hidden" id="current-camera" />
       <input type="hidden" id="current-microphone" />
 
-      {/* <div className="modal attendy-list fitness-script1" id="fitness-script">
+      <div className="modal attendy-list fitness-script1" id="fitness-script">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
@@ -879,9 +879,9 @@ return (
             </div>
           </div>
         </div>
-      </div> */}
-        <div id="fitness-script" className="details_model modal px-0 fade " role="dialog">
-    <div className="modal-dialog modal-dialog-centered">
+      </div>
+        <div id="fitness-ssession-details" className="details_model modal px-0 fade " role="dialog">
+          <div className="modal-dialog modal-dialog-centered">
             <div className="modal-content p-4 rounded-0">
                 
                 <div className="modal-body py-0">

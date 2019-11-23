@@ -19,7 +19,8 @@ function startSlider(){
 
   var countdown = 0;
   var resetCount = null;
- var isPaused = "false";
+  var isPaused = "false";
+  var scriptDuration = 0;
 
   function countDown(){
 
@@ -58,40 +59,29 @@ function startSlider(){
     // var countdown = 30;
     // countdown = parseInt(countdownNumberEl.attr("data-number"));
     countdown = parseInt(countdownNumberEl.html());
+    scriptDuration = countdown;
 
-    
-
-    console.log('------countdown--------',countdown)
-
-    activeEle.find('svg circle').attr("style","animation-duration:"+countdown+"s !important");
-
-    // countdownNumberEl.html(countdown + '\ SEC') ;
-    
-    // console.log('countdown ======= countdown start ----', countdown)
-
-   // console.log('------isPaused1112222--------',isPaused)
+    activeEle.find('svg circle').css({"animation":"countdown "+countdown+"s linear infinite forwards", "animation-direction": "reverse"});
+    // activeEle.find('svg').css({"animation":"countdown "+countdown+"s linear infinite forwards", "animation-direction": "reverse"});
 
     var ctrflag = 0;
     resetCount = setInterval(function() {
      
       if(isPaused != true) {
-        //console.log('------countdown11111--------',countdown)
 
-        activeEle.find('svg circle').attr("style","animation-play-state:running");
+      //activeEle.find('svg circle').attr("style","animation-play-state:running");
+      activeEle.find('svg circle').css({"animation-play-state":"running"});
 
-
-      // countdown = countdown;
       countdown--;
-    //  console.log('countdown ======= countdown----', countdown, $('.swiper-slide .data-slide').length , indexNum)
+
       countdownNumberEl.html((countdown > 0 ? countdown : 0) + '\ SEC') ;
       $('#script_time').html((countdown > 0 ? countdown : 0) + '\ SEC') ;
-     // console.log('------countdown--------',countdown)
-      
+
       if(countdown < 1){
 
-       // console.log('=========== **********', $('.swiper-slide .data-slide').length, indexNum)
-
         activeEle.find('svg circle').removeAttr("style");
+        activeEle.find('svg').removeAttr("style");
+
         clearInterval(resetCount);
 
         if( $('.swiper-slide .data-slide').length != indexNum ) {
@@ -103,10 +93,9 @@ function startSlider(){
         }
         
       }
-    } else {
-
-      
-      activeEle.find('svg circle').attr("style","animation-play-state:paused");
+    } else {      
+      //activeEle.find('svg circle').attr("style","animation-play-state:paused");
+      activeEle.find('svg circle').css({"animation-play-state":"paused"});
     }
     }, 1000);
   }

@@ -3482,7 +3482,6 @@ console.log('removed from rtm order====', memberId);
         
       }
 
-     
       let storeData = getCurrentUserData();
       if(isPaused != true)
       {
@@ -3503,7 +3502,6 @@ console.log('removed from rtm order====', memberId);
       }
 
       isPaused = false;
-
     }
 
     function pauseSlider(){

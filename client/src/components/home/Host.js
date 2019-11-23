@@ -347,7 +347,7 @@ return (
             </div>
           </div> */}
           <div className="add-remove-round1 host-show-hide px-3 bg-gray mt--1 pt-2 pb-1 h-100 top-rounded bottom-rounded flex-grow-1">
-          <div className="add-remove-round1 add-remove-height height-53 px-3 bg-gray pt-2 pb-3 top-rounded d-flex flex-wrap justify-content-between align-items-center">
+          <div className="add-remove-round1 add-remove-height height-53 px-3 bg-gray ht-20 top-rounded d-flex flex-wrap justify-content-between align-items-center">
             <h3 className="main-heading font-size-16 float-left">Streaming</h3>
             <div className="host-header">
               <img src="images/mute-microphone.png" className="unmute-icon" id="mute-unmute-local" />

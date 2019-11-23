@@ -1396,7 +1396,7 @@ console.log('rtm order======', userList[i].id);
       $(".host-script-section").height("20%");
     }
     else {
-      $(".host-script-section").height("36%");
+      $(".host-script-section").height("38%");
     }
     
       //  $(".host-script-section").height("240px");
@@ -2167,8 +2167,8 @@ function signalHandler(uid, signalData, userType) {
       }else if(res1[0] == "211")
       {
         console.log('-------------------fitscript has Started-------------');
-       // $('#hostFtnsScript').trigger('click');
-        //$(".swiper-guest.swiper-slide.start.swiper-start span a").trigger('click');
+       $('#hostFtnsScript').trigger('click');
+        $(".swiper-guest.swiper-slide.start.swiper-start span a").trigger('click');
         window.startSlider();
 
       }else if(res1[0] == "212")

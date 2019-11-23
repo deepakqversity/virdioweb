@@ -575,6 +575,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
             }, function (err) {
               console.log("getUserMedia failed", err);
 
+              //if (err.type == 'error' && (err.msg === 'NotAllowedError' || err.msg === 'NotFoundError')) {
               if (err.type == 'error' && err.msg === 'NotAllowedError') {
                   $('#media-access-alert').modal('show');
               }

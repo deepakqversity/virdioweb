@@ -210,7 +210,6 @@ console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId(
 
               if (localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') {
                 console.log('if swap-subscriber-id=====', localStorage.getItem("swap-subscriber-id"));
-                //$('#agora_remote' + localStorage.getItem("swap-subscriber-id")).remove();  
 
                   $('#agora_remote' + localStorage.getItem("swap-subscriber-id")).attr('id', 'agora_remote'+stream.getId());
                   let newStreamer = '<div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" onclick="zoomVideo(\''+stream.getId()+'\')">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute d-none" id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><small class="click-zoom d-none" onclick="zoomVideo(\''+stream.getId()+'\')"><i class="fa fa-search-plus" aria-hidden="true"></i></small><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="heart-rate-icon d-none" data-attr="'+stream.getId()+'><img src="images/red-heart.png" /><span class="heart-icon" data-attr="'+stream.getId()+'">80</span></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-like d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-dislike d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-easy d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-too-hard d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-perfect d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-awesome d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div>';
@@ -219,7 +218,6 @@ console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId(
                   console.log('else swap-subscriber-id=====', localStorage.getItem("swap-subscriber-id"));
                   $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" onclick="zoomVideo(\''+stream.getId()+'\')">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute d-none" id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><small class="click-zoom d-none" onclick="zoomVideo(\''+stream.getId()+'\')"><i class="fa fa-search-plus" aria-hidden="true"></i></small><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="heart-rate-icon d-none" data-attr="'+stream.getId()+'"><img src="images/red-heart.png" /><span class="heart-icon" data-attr="'+stream.getId()+'">80</span></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-like d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-dislike d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-easy d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-too-hard d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-perfect d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-awesome d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
               }
-
 
           } else {
               console.log('in-- else===', stream.getId());
@@ -2063,10 +2061,8 @@ function signalHandler(uid, signalData, userType) {
       // console.log('********ggggggggggggg************** signalData ', signalData.message); 
       unpublish();
       // $('#hostmsg').html('Now you are became a audience.');
-
-      // $('#mocrophone-on').removeClass('d-none');
-      // $('#mocrophone-off').addClass('d-none');
-
+      $('#mocrophone-on').removeClass('d-none');
+      $('#mocrophone-off').addClass('d-none');
       // setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
     
 
@@ -2077,10 +2073,8 @@ function signalHandler(uid, signalData, userType) {
       // publish();
       console.log('-----changeUserToBroadcaster1000----------');
       publishAfterKick();
-
-      // $('#mocrophone-on').addClass('d-none');
-      // $('#mocrophone-off').removeClass('d-none');
-
+      $('#mocrophone-on').addClass('d-none');
+      $('#mocrophone-off').removeClass('d-none');
       // setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
     }
 
@@ -2226,7 +2220,7 @@ function signalHandler(uid, signalData, userType) {
           });
           localStorage.setItem("audience-list", JSON.stringify(audienceList));
           $('#dropdownMenuButton').removeClass('d-none');
-         // $('.hand-raise-list .dropdown-menu').addClass('show');
+          $('.hand-raise-list .dropdown-menu').addClass('show');
           showHandAtHost();
         }
      }
@@ -2237,26 +2231,22 @@ function signalHandler(uid, signalData, userType) {
 
       let audienceList = JSON.parse(localStorage.getItem("audience-list"));
 
-     // console.log('------dropdownMenuButton7777----------',id,'------',audienceList)
-
       let newAudienceList = [];
 
-      if(audienceList.length > 0){       
+      if(audienceList.length > 0){
         for(let i in audienceList){
-        //  console.log('-------dropdownMenuButton000----- = ', audienceList[i].id, id);
+          console.log('removeAudienceInList = ', audienceList[i].id, id);
           if(audienceList[i].id != id){
-            //console.log('-------dropdownMenuButton999999----- = ', audienceList[i]);
             newAudienceList[i] = audienceList[i];
           }
         }
       }
 
       if(newAudienceList.length <= 0){
-console.log('------dropdownMenuButton3333----------',newAudienceList.length)
+
         // $('#dropdownMenuButton').click();
         $('#dropdownMenuButton').addClass('d-none');
-       // $('.hand-raise-list .dropdown-menu').removeClass('show')
-        $('#dropdownmenuitem11').addClass('d-none');
+        $('.hand-raise-list .dropdown-menu').removeClass('show')
       }
       
       localStorage.setItem("audience-list", JSON.stringify(newAudienceList));
@@ -2290,7 +2280,6 @@ console.log('------dropdownMenuButton3333----------',newAudienceList.length)
         if(audienceList.length > 0){
           
           let list='';
-          
           for(let i in audienceList){
             if($('#audience-'+audienceList[i].id).length != 0){
               $('#audience-'+audienceList[i].id).remove();
@@ -2303,16 +2292,12 @@ console.log('------dropdownMenuButton3333----------',newAudienceList.length)
           $('#total-raised-hands').html(audienceList.length);
           $('#raised-list').append(list);
           $('#dropdownMenuButton').removeClass('d-none');
-          $('.hand-raise-list .dropdown-menu').removeClass('d-none');
-          console.log('-------dropdownMenuButton666666-------------')
+          $('.hand-raise-list .dropdown-menu').addClass('show');
         } else {
           $('#dropdownMenuButton').addClass('d-none');
-          console.log('-------dropdownMenuButton55555-------------')
           $('#raised-list').html('');
           $('#total-raised-hands').html(0);
           $('.hand-raise-list .dropdown-menu').removeClass('show');
-         // $('.hand-raise-list .dropdown-menu').addClass('hide');
-          $('#dropdownmenuitem11').addClass('d-none');
         }
     }
 
@@ -2561,13 +2546,8 @@ console.log('------dropdownMenuButton3333----------',newAudienceList.length)
         let len = parseInt($('#total-raised-hands').html());
         $('#total-raised-hands').html(len > 0 ? (len-1) : 0);
         if(len <= 0){
-
-          console.log('--------dropdownMenuButton7777777--------',len)
-          
           $('#dropdownMenuButton').addClass('d-none');
           $('.hand-raise-list .dropdown-menu').removeClass('show');
-          //$('.hand-raise-list .dropdown-menu').addClass('d-none');
-          $('#dropdownmenuitem11').addClass('d-none');
         }
       }
     }
@@ -3536,10 +3516,6 @@ console.log('removed from rtm order====', memberId);
 
     $(document).ready(function(){
 
-      $('#dropdownMenuButton').on('click', function(){
-        $('.hand-raise-list .dropdown-menu').slideToggle();
-      });
-
       $('#switch-camera').on('click', function(){
         getDevices();
         $('#switch-camera-popup').modal('show');
@@ -3650,10 +3626,8 @@ console.log('removed from rtm order====', memberId);
         $(".host-show-hide .video-streams").height("80%");
         
         $('#dropdownMenuButton').on('click', function (e) {
-          console.log('------dropdownMenuButton111--------')
           // alert($('.hand-raise-list .dropdown-menu').hasClass('show'))
             if($('.hand-raise-list .dropdown-menu').hasClass('show') != true){
-              console.log('------dropdownMenuButton2222--------')
               showHandAtHost();
             }
         });
@@ -4253,6 +4227,15 @@ console.log('removed from rtm order====', memberId);
         $('#attendy-list').find('.fa-times').removeClass('d-none');
         //$('#attendy-list').find('.visible-status .fa').addClass('fa-times').addClass('text-red').removeClass('fa-check').removeClass('text-green');
         
+        let len = $('#subscribers-list .newcss').length;
+        let onscreenUsers = [];
+
+        if (len > 0) {
+          $('#subscribers-list .newcss').each(function (index, value) {
+              onscreenUsers.push(parseInt($(this).attr('id')));
+          });
+        }
+
         for(let i= 0; i < membersList.length; i++){
 
           let eleId = convertEmailToId(membersList[i]);
@@ -4260,8 +4243,11 @@ console.log('removed from rtm order====', memberId);
           $('#online-user-row-'+eleId).find('.user-status').attr('src', '/images/online.png');
           $('#online-user-row-'+eleId).find('.user-online-status').html('online');
           //$('#online-user-row-'+eleId).find('.visible-status .fa').addClass('fa-check').addClass('text-green').removeClass('fa-times').removeClass('text-red');
-          $('#user-green-status-'+eleId).removeClass('d-none');
-          $('#user-red-status-'+eleId).addClass('d-none');
+          
+          if (onscreenUsers.indexOf(eleId) !== -1) {
+              $('#user-green-status-'+eleId).removeClass('d-none');
+              $('#user-red-status-'+eleId).addClass('d-none');
+          }
           
           if(userList != ''){
             for(let j in userList){

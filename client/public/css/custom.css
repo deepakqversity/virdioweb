@@ -1575,25 +1575,25 @@ outline:0;
 }
 .swiper-slide-next .count-box svg circle, 
 .footer-fitness-script .fitness-guest .swiper-slide-next svg circle{
-  stroke-dasharray: 171px;
-  stroke-dashoffset: 0px;
+  stroke-dasharray: 174px;
+  stroke-dashoffset: 280px;
   stroke-linecap: round;
   stroke-width: 6px;
   stroke: #9b51e0;
   fill: none;
-  animation: countdown 30s linear infinite forwards;
-  animation-direction: reverse;
+  /*animation: linear infinite forwards;
+  animation-direction: reverse;*/
 }
 .count-box svg
 {
-    stroke-dasharray: 160px;
+    stroke-dasharray: 174px;
   stroke-dashoffset: 0px;
   stroke-linecap: round;
   stroke-width: 6px;
   stroke: none;
   fill: none;
-  animation: countdown 30s linear infinite forwards;
-  animation-direction: reverse;
+  /*animation: linear infinite forwards;
+  animation-direction: reverse;*/
 }
 .footer-fitness-script .fitness-guest .swiper-slide-next svg circle{
   stroke-dasharray: 172px;

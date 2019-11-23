@@ -78,7 +78,7 @@ body{
 	padding: 0px;
 	position: relative;
 height:100vh;
-overflow:hidden;
+/* overflow:hidden; */
 }
 /*@media (max-width:767px){
 	body{
@@ -1789,7 +1789,7 @@ outline:0;
 .fitness-guest .swiper-slide{
 	display: flex;
     align-items: center;
-    width: 280.33px !important;
+    max-width: 280.33px !important;
 }
 .fitness-guest .swiper-slide:nth-child(1){
 	display:block;

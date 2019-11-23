@@ -22,7 +22,7 @@ render() {
   //console.log('sessionScript=', sessionScript)
 
 return (
-      <div className="col-lg-4 col-md-4">
+      <div className="col-lg-4 col-sm-5 col-6">
       { sessionData.interestId == 1 ? (
 
         

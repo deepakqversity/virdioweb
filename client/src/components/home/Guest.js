@@ -335,7 +335,7 @@ return (
   <div className="d-flex zindex-5 position-relative flex-grow-1 attend-mid-section flex-wrap justify-content-between">
     
     <LeftScriptParticipant interestId={sessionData.interestId} />
-    <div className="col-lg-4 col-md-5 float-md-right pl-0 mt-4 align-self-start">
+    <div className="col-lg-4 col-sm-5 col-6 float-md-right pl-0 mt-4 align-self-start">
         <div className="right-sidebar float-md-right mx-auto mx-md-0">
           <div className="transparent-gray slide-right-left" style={toggleList}>
             

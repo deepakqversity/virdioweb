@@ -103,16 +103,19 @@ function startSlider(){
 
   function loadSwiperSlide(){
     let activeEle = $('.swiper-slide .countdown');
+
     console.log('-------loadSwiperSlide3333-----------',activeEle.length)
     //let indexNum = parseInt(activeEle.find('.data-slide').find('.countdown-number').attr('data-number'));
      //activeEle.find('.data-slide').find('.countdown-number').html(indexNum + '\ SEC');
     activeEle.find('.countdown-number').each(function(i, val){
-      
-     // console.log('-----------loadSwiperSlide------------------',parseInt($(this).attr('data-number')))
+
       $(this).html( parseInt($(this).attr('data-number')) + '\ SEC')
     });
-    clearInterval(resetCount);
 
+    let activeEle1 = $('.swiper-slide.swiper-slide-next');
+    activeEle1.find('svg circle').removeAttr("style");
+
+    clearInterval(resetCount);
   }
 
   function loadSwiperSlide1(){

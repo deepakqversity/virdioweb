@@ -131,7 +131,7 @@ class Guest extends Component {
     
     let countdown = storeData.sessionData.duration * 60;
 
-    console.log("cn------------"+countdown);
+    //console.log("cn------------"+countdown);
     //console.log('attribute '+ $('.header svg circle').attr("style"));
     $('.header svg circle').attr('style','animation-duration:'+countdown+'s !important');
     
@@ -163,7 +163,7 @@ class Guest extends Component {
       } else {
         clearInterval(this.timer);
         this.setState({ timerOn: false });
-        console.log('-------startTimer123-----------')
+        //console.log('-------startTimer123-----------')
         $('.countdown-timer').html('Session Ended');
         // console.log("Countdown ended");
         this.sessionTimer();
@@ -207,7 +207,7 @@ render() {
       scriptHtml = <FitnessScript />;
     }    
     let newulength = JSON.parse(localStorage.getItem('tempUsers')).length;
-    console.log('newulength-------------', newulength);
+    //console.log('newulength-------------', newulength);
     newulength = newulength < 1 ? 0 : --newulength ;
 
 return (

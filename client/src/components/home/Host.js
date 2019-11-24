@@ -1111,8 +1111,8 @@ return (
                 <div className="camera_box">
                   <div className="d-flex justify-content-between px-2 pt-2 pb-1">
                     <h5 className="white_font font-medium">Camera 1</h5>
-                    <label class="custom-control custom-checkbox lebelheight d-flex mb-0 pl-2">
-                      <input type="checkbox" class="form-radio" checked />
+                    <label className="custom-control custom-checkbox lebelheight d-flex mb-0 pl-2">
+                      <input type="checkbox" className="form-radio" defaultChecked />
                     </label>
                   </div>
                   <div className="">

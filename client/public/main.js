@@ -4232,9 +4232,11 @@ console.log('removed from rtm order====', memberId);
 
         if (len > 0) {
           $('#subscribers-list .newcss').each(function (index, value) {
-              onscreenUsers.push(parseInt($(this).attr('id')));
+              onscreenUsers.push(parseInt($(this).find('.video-holder').attr('id')));
           });
         }
+
+console.log('onscreenUsers===', onscreenUsers);
 
         for(let i= 0; i < membersList.length; i++){
 
@@ -4248,7 +4250,7 @@ console.log('removed from rtm order====', memberId);
               $('#user-green-status-'+eleId).removeClass('d-none');
               $('#user-red-status-'+eleId).addClass('d-none');
           }
-          
+
           if(userList != ''){
             for(let j in userList){
               if(userList[j].id == membersList[i]){

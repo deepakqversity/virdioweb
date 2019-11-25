@@ -185,7 +185,7 @@ let sessionScript = localstoragedata.sessionData.scriptDetail;
               </div>
             </div>
            
-          <div className="d-flex position-absolute b-10 justify-content-between arrow-after align-items-center footer-fitness-script">
+          <div className="d-flex position-absolute b-10 w-100 justify-content-between arrow-after align-items-center footer-fitness-script">
            <div className="swiper-container">
            <button  id="stop1-script"  onClick={this.handleButtonClick1} className="mr-2 stop-btn" hidden="hidden">fitnessStop</button>
             {/* <a href="#" onClick={this.handleButtonClick1} className="mr-2 stop-btn" id="stop1-script" hidden="hidden">fitnessStop</a> */}

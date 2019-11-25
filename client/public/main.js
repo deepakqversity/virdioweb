@@ -150,25 +150,44 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
     client.on('stream-added', function (evt) {
 console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId());
-      //if (totalBrodcaster < storeData.default.maxUserLimit) {
-          var stream = evt.stream;
 
-          if(getUserDataFromList(stream.getId(), 'userType') == 2){
-            totalBrodcaster--;
-            totalBrodcaster++;
+        let storeData = getCurrentUserData();
+        let allBroadcasters = getAllBroadcster();
+        var stream = evt.stream;
 
-            // remove id when unpublished
-            currentPublishedUser.push(stream.getId());
-            console.log(' @@@@@@ totalBrodcaster++ ', totalBrodcaster);
-          }
+        if(storeData.userType == 1) {
+            console.log('in host--');
+            console.log('all broadcasters===', allBroadcasters);
 
-          addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
-          addUserAttribute(stream.getId(), 'isSubscribe', 1);
+            if ((localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') || allBroadcasters.length < storeData.default.maxUserLimit) {
 
-          client.subscribe(stream, function (err) {
-            console.log("Subscribe stream failed", err);
-          });
-      //}
+                addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
+                addUserAttribute(stream.getId(), 'isSubscribe', 1);
+
+                client.subscribe(stream, function (err) {
+                  console.log("Subscribe stream failed", err);
+                });
+            } else {
+                console.log('extra participant trying to enter, kick him', stream.getId());
+                kickUser(stream.getId());
+            }
+        } else {
+            console.log('in participant--');
+            if(getUserDataFromList(stream.getId(), 'userType') == 2){
+              totalBrodcaster++;
+
+              // remove id when unpublished
+              currentPublishedUser.push(stream.getId());
+              console.log(' @@@@@@ totalBrodcaster++ ', totalBrodcaster);
+            }
+
+            addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
+            addUserAttribute(stream.getId(), 'isSubscribe', 1);
+
+            client.subscribe(stream, function (err) {
+              console.log("Subscribe stream failed", err);
+            });
+        }
     });
 
     var count=1;
@@ -255,6 +274,7 @@ console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId(
         }, 10);
 
         if (localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') {
+            totalBrodcaster--;
             kickUser(localStorage.getItem("swap-subscriber-id"));
             localStorage.setItem("swap-subscriber-id", '');
         }
@@ -1038,8 +1058,9 @@ console.log('rtm remove====', memberId);
     console.log('checkUserTime , isUserExists', checkUserTime , isUserExists)    
 
     // host publish their stream always. check for particiepant
-    if(storeData.userType == 1  || (storeData.userType == 2 && checkUserTime && isUserExists && totalBrodcaster < parseInt(storeData.default.maxUserLimit)) ) {
-        
+    //if(storeData.userType == 1  || (storeData.userType == 2 && checkUserTime && isUserExists && totalBrodcaster < parseInt(storeData.default.maxUserLimit)) ) {
+    if(storeData.userType == 1  || (storeData.userType == 2 && checkUserTime && isUserExists) ) {
+        console.log('in if stream---');
       client.publish(localStream, function (err) {
         console.log("Publish local stream error: " + err);
       });

@@ -897,6 +897,8 @@ console.log('rtm remove====', memberId);
 
   function onclickaudioOn(audienceID)
   {
+
+    console.log('changeUserToBroadcaster------selected-participent-id999999')
     let audienceEmail = convertIdToEmail(audienceID);
 
     let vdo = $('#subscribers-list #agora_remote'+ audienceID + ' video' )[0];   
@@ -904,7 +906,7 @@ console.log('rtm remove====', memberId);
 
     vdo.muted = true;
     ado.muted = true;
-
+    $('#selected-participent-id').val('');
     $('#subscribers-list #agora_remote'+ audienceID).find('.hand-icon').addClass('d-none');
     $('#subscribers-list #agora_remote'+ audienceID).find('.microphone-icon').addClass('d-none');
     $('#subscribers-list #agora_remote'+audienceID).find('video').removeClass('video-selected');
@@ -2363,18 +2365,29 @@ function signalHandler(uid, signalData, userType) {
       
       let rule = false
       console.log('=========== dataObj', dataObj)
+
+      console.log('-----changeUserToBroadcaster444445----------',dataObj);
       //let id = convertEmailToId(dataObj.id);
       let id = dataObj.id;
       let vdo = $('#subscribers-list #agora_remote'+ id + ' video' )[0];  
       console.log('subscribers-list video = ', vdo);
+
+      console.log('-----changeUserToBroadcaster444446-----subscribers-list video = -----',vdo);
       let storeData = getCurrentUserData();
 
       // check current user in mute state
       if(vdo != undefined && vdo.muted){
 
+        console.log('-----changeUserToBroadcaster44444777----------',vdo.muted);
+
         let selectedParticipentId = $('#selected-participent-id').val();
+
+        console.log('--changeUserToBroadcaster44444888---',selectedParticipentId,'---dataObj----',id);
+
         console.log('selectedParticipentId , id', id, selectedParticipentId)
         if(id != selectedParticipentId){
+
+          console.log('-----changeUserToBroadcaster444449999----------',id,'---selectparticipent-----',selectedParticipentId);
            rule = true;
         
           // let broadcster = getAllBroadcster();
@@ -2394,7 +2407,7 @@ function signalHandler(uid, signalData, userType) {
           // }
         }
       }
-
+      console.log('-----changeUserToBroadcaster444447778888----------',rule);
       return rule;
     }
 
@@ -2428,9 +2441,12 @@ function signalHandler(uid, signalData, userType) {
        // let id = convertEmailToId(broadcster[i].id);
         let id = broadcster[i].id;
         console.log('-----changeUserToBroadcaster4444422----------',broadcster[i].id);
+
+        console.log('-----changeUserToBroadcaster444443333----------',$('#subscribers-list #agora_remote'+id).length);
+
         if( $('#subscribers-list #agora_remote'+id).length > 0 ){
 
-          //console.log('-----changeUserToBroadcaster444441----------',broadcster[i]);
+        console.log('-----changeUserToBroadcaster444441----------',broadcster[i]);
           
           //if(ctr < limit && checkKickRule(userList[i])){
             if(checkKickRuleInHandraise(broadcster[i])){
@@ -3352,10 +3368,15 @@ console.log('removed from rtm order====', memberId);
 
         let vdo1 = $('#subscribers-list #agora_remote'+id).find('video')[0];
         let ado1 = $('#subscribers-list #agora_remote'+id).find('audio')[0];
-        
+        console.log('changeUserToBroadcaster------selected-participent-id')
         if(vdo1.muted || ado1.muted){
+
+          console.log('changeUserToBroadcaster------selected-participent-id555555')
+
           if($('#subscribers-list #agora_remote'+id).find('.hand-icon').hasClass("d-none") == false) {
           
+            console.log('changeUserToBroadcaster------selected-participent-id0000')
+
             vdo1.muted = false;
             ado1.muted = false;
             
@@ -3364,24 +3385,33 @@ console.log('removed from rtm order====', memberId);
             $('#subscribers-list #agora_remote'+id).find('video').addClass('video-selected');
             $('#subscribers-list #agora_remote'+id).find(".click-zoom").addClass("d-block").removeClass("d-none");
           } else {
+
+            console.log('changeUserToBroadcaster------selected-participent-id11111')
   
             if($('#subscribers-list #agora_remote'+id).find('video').hasClass('video-selected')){
+
+              console.log('changeUserToBroadcaster------selected-participent-id2222')
+
               $('#selected-participent-id').val('');
               $('#subscribers-list #agora_remote'+id).find(".click-zoom").removeClass("d-block").addClass("d-none");
               $('#subscribers-list #agora_remote'+id).find('video').removeClass('video-selected');
             } else {
+
+              console.log('changeUserToBroadcaster------selected-participent-id33333')
               $('#selected-participent-id').val( id );
               $('#subscribers-list #agora_remote'+id).find('video').addClass('video-selected');
               $('#subscribers-list #agora_remote'+id).find(".click-zoom").addClass("d-block").removeClass("d-none");
             }
           }
         } else {
+          console.log('changeUserToBroadcaster------selected-participent-id77777')
           vdo1.muted = true;
           ado1.muted = true;
           onclickaudioOn(id)
-          $('#selected-participent-id').val( id );
-          $(this).find('video').addClass('video-selected');
-          $(this).find(".click-zoom").addClass("d-block").removeClass("d-none");
+         // $('#selected-participent-id').val( id );
+          $('#selected-participent-id').val('');
+          // $(this).find('video').addClass('video-selected');
+          // $(this).find(".click-zoom").addClass("d-block").removeClass("d-none");
         }
       }
     function showHideWineScript(){

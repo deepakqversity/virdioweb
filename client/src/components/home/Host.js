@@ -358,7 +358,7 @@ return (
               <img src="images/circle.png" className="circle-icon mr-0" id="record-stream" />
             </div>
           </div>
-            <div id="agora_local" className="video-streams"></div>
+            <div id="agora_local" className="video-streams ht-80"></div>
           </div>
           
         </div>

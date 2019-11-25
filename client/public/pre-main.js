@@ -129,7 +129,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
     var token=null;
     newclient = AgoraRTM.createInstance(appId1);
     // appId1 = storeData.sessionData.appId;
-    localStorage.removeItem("isPublished");
     var peer=storeData.email;
     // newclient.login({uid: peer.toString(), token});
 

@@ -1036,7 +1036,7 @@ console.log('rtm remove====', memberId);
     console.log('checkUserTime , isUserExists', checkUserTime , isUserExists)    
 
     // host publish their stream always. check for particiepant
-    /*if(storeData.userType == 1  || (storeData.userType == 2 && checkUserTime && isUserExists && totalBrodcaster < parseInt(storeData.default.maxUserLimit)) ) {
+    if(storeData.userType == 1  || (storeData.userType == 2 && checkUserTime && isUserExists && totalBrodcaster < parseInt(storeData.default.maxUserLimit)) ) {
         
       client.publish(localStream, function (err) {
         console.log("Publish local stream error: " + err);
@@ -1049,35 +1049,6 @@ console.log('rtm remove====', memberId);
         }
 
       });
-    }*/
-
-    if(storeData.userType == 1) {
-        client.publish(localStream, function (err) {
-          console.log("Publish local stream error: " + err);
-        });
-
-        client.on('stream-published', function (evt) {
-          if(storeData.userType == 2){
-            $('#strm-unpublish').removeClass('d-none');
-            $('#strm-publish').addClass('d-none');
-          }
-
-        });
-    } else if (storeData.userType == 2 && checkUserTime && isUserExists && totalBrodcaster < parseInt(storeData.default.maxUserLimit) && (localStorage.getItem("isPublished") == "false" || localStorage.getItem("isPublished") == null)) {
-
-        localStorage.setItem("isPublished", true);
-
-        client.publish(localStream, function (err) {
-          console.log("Publish local stream error: " + err);
-        });
-
-        client.on('stream-published', function (evt) {
-          console.log('client ============', client);
-          if(storeData.userType == 2){
-            $('#strm-unpublish').removeClass('d-none');
-            $('#strm-publish').addClass('d-none');
-          }
-        });
     }
   }
 

@@ -34,6 +34,14 @@ $(document).ready(function(){
         //return true;
     //}
   });
+  var swiper = new Swiper('.swiper-container', {
+    slidesPerView: 3,
+    spaceBetween: 0,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+  });
   mySwiper = document.querySelector('.swiper-container').swiper
   $(".swiper-slide:nth-child(2)").addClass("remove-slider-bg");
   $(".swiper-slide:nth-child(1)").addClass("swiper-start");

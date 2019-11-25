@@ -1025,17 +1025,6 @@ console.log('rtm remove====', memberId);
     let isUserExists = false;
 
     if(storeData.userType == 2){
-console.log('checuser-----');
-      // check time duration to be first screen users 
-      /*let sessionTime = localStorage.getItem("pre-session-time");
-      console.log('sessionTime sessionTime', sessionTime);
-      if(sessionTime != null){
-        sessionTime = JSON.parse(sessionTime);
-        // console.log('sessionTime sessionTime ====', (sessionTime.joinTime - sessionTime.startTime));
-        if((sessionTime.joinTime - sessionTime.startTime)/1000 <= storeData.default.maxJoinDuration ){
-          checkUserTime = true;
-        }
-      }*/
 
       // check user exists in list of first order
       isUserExists = checkUserInOrder(storeData);
@@ -1043,6 +1032,7 @@ console.log('checuser-----');
         checkUserTime = true;
       }
     }
+
     console.log('checkUserTime , isUserExists', checkUserTime , isUserExists)    
 
     // host publish their stream always. check for particiepant
@@ -2061,8 +2051,8 @@ function signalHandler(uid, signalData, userType) {
       // console.log('********ggggggggggggg************** signalData ', signalData.message); 
       unpublish();
       // $('#hostmsg').html('Now you are became a audience.');
-      $('#mocrophone-on').removeClass('d-none');
-      $('#mocrophone-off').addClass('d-none');
+      // $('#mocrophone-on').removeClass('d-none');
+      // $('#mocrophone-off').addClass('d-none');
       // setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
     
 
@@ -2073,8 +2063,8 @@ function signalHandler(uid, signalData, userType) {
       // publish();
       console.log('-----changeUserToBroadcaster1000----------');
       publishAfterKick();
-      $('#mocrophone-on').addClass('d-none');
-      $('#mocrophone-off').removeClass('d-none');
+      // $('#mocrophone-on').addClass('d-none');
+      // $('#mocrophone-off').removeClass('d-none');
       // setTimeout(function(){ $('#hostmsg').html(''); }, 10000);
     }
 

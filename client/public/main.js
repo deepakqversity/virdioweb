@@ -1025,17 +1025,6 @@ console.log('rtm remove====', memberId);
     let isUserExists = false;
 
     if(storeData.userType == 2){
-console.log('checuser-----');
-      // check time duration to be first screen users 
-      /*let sessionTime = localStorage.getItem("pre-session-time");
-      console.log('sessionTime sessionTime', sessionTime);
-      if(sessionTime != null){
-        sessionTime = JSON.parse(sessionTime);
-        // console.log('sessionTime sessionTime ====', (sessionTime.joinTime - sessionTime.startTime));
-        if((sessionTime.joinTime - sessionTime.startTime)/1000 <= storeData.default.maxJoinDuration ){
-          checkUserTime = true;
-        }
-      }*/
 
       // check user exists in list of first order
       isUserExists = checkUserInOrder(storeData);
@@ -1043,10 +1032,11 @@ console.log('checuser-----');
         checkUserTime = true;
       }
     }
+
     console.log('checkUserTime , isUserExists', checkUserTime , isUserExists)    
 
     // host publish their stream always. check for particiepant
-    if(storeData.userType == 1  || (storeData.userType == 2 && checkUserTime && isUserExists && totalBrodcaster < parseInt(storeData.default.maxUserLimit)) ) {
+    /*if(storeData.userType == 1  || (storeData.userType == 2 && checkUserTime && isUserExists && totalBrodcaster < parseInt(storeData.default.maxUserLimit)) ) {
         
       client.publish(localStream, function (err) {
         console.log("Publish local stream error: " + err);
@@ -1059,6 +1049,35 @@ console.log('checuser-----');
         }
 
       });
+    }*/
+
+    if(storeData.userType == 1) {
+        client.publish(localStream, function (err) {
+          console.log("Publish local stream error: " + err);
+        });
+
+        client.on('stream-published', function (evt) {
+          if(storeData.userType == 2){
+            $('#strm-unpublish').removeClass('d-none');
+            $('#strm-publish').addClass('d-none');
+          }
+
+        });
+    } else if (storeData.userType == 2 && checkUserTime && isUserExists && totalBrodcaster < parseInt(storeData.default.maxUserLimit) && (localStorage.getItem("isPublished") == "false" || localStorage.getItem("isPublished") == null)) {
+
+        localStorage.setItem("isPublished", true);
+
+        client.publish(localStream, function (err) {
+          console.log("Publish local stream error: " + err);
+        });
+
+        client.on('stream-published', function (evt) {
+          console.log('client ============', client);
+          if(storeData.userType == 2){
+            $('#strm-unpublish').removeClass('d-none');
+            $('#strm-publish').addClass('d-none');
+          }
+        });
     }
   }
 

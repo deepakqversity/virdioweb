@@ -150,11 +150,14 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
     client.on('stream-added', function (evt) {
 console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId());
-      //if (totalBrodcaster < storeData.default.maxUserLimit) {
+
+        let storeData = getCurrentUserData();
+        let allBroadcasters = getAllBroadcster();
+
+        //if ((localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') || allBroadcasters.length < storeData.default.maxUserLimit) {
           var stream = evt.stream;
 
           if(getUserDataFromList(stream.getId(), 'userType') == 2){
-            totalBrodcaster--;
             totalBrodcaster++;
 
             // remove id when unpublished
@@ -168,7 +171,7 @@ console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId(
           client.subscribe(stream, function (err) {
             console.log("Subscribe stream failed", err);
           });
-      //}
+        //}
     });
 
     var count=1;
@@ -255,6 +258,7 @@ console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId(
         }, 10);
 
         if (localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') {
+            totalBrodcaster--;
             kickUser(localStorage.getItem("swap-subscriber-id"));
             localStorage.setItem("swap-subscriber-id", '');
         }

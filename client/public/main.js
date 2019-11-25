@@ -2239,7 +2239,7 @@ function signalHandler(uid, signalData, userType) {
           });
           localStorage.setItem("audience-list", JSON.stringify(audienceList));
           $('#dropdownMenuButton').removeClass('d-none');
-          $('.hand-raise-list .dropdown-menu').addClass('show');
+          //$('.hand-raise-list .dropdown-menu').addClass('show');
           showHandAtHost();
         }
      }
@@ -2250,12 +2250,16 @@ function signalHandler(uid, signalData, userType) {
 
       let audienceList = JSON.parse(localStorage.getItem("audience-list"));
 
+      // console.log('------dropdownMenuButton7777----------',id,'------',audienceList)
+
       let newAudienceList = [];
 
       if(audienceList.length > 0){
         for(let i in audienceList){
           console.log('removeAudienceInList = ', audienceList[i].id, id);
+          console.log('-------dropdownMenuButton000----- = ', audienceList[i].id, id);
           if(audienceList[i].id != id){
+            console.log('-------dropdownMenuButton999999----- = ', audienceList[i]);
             newAudienceList[i] = audienceList[i];
           }
         }
@@ -2263,9 +2267,12 @@ function signalHandler(uid, signalData, userType) {
 
       if(newAudienceList.length <= 0){
 
-        // $('#dropdownMenuButton').click();
-        $('#dropdownMenuButton').addClass('d-none');
-        $('.hand-raise-list .dropdown-menu').removeClass('show')
+        console.log('------dropdownMenuButton3333----------',newAudienceList.length)
+       // $('#dropdownMenuButton').click();
+       $('#dropdownMenuButton').addClass('d-none');
+       $('.hand-raise-list .dropdown-menu').removeClass('show')
+      // $('.hand-raise-list .dropdown-menu').removeClass('show')
+       $('#dropdownmenuitem11').addClass('d-none');
       }
       
       localStorage.setItem("audience-list", JSON.stringify(newAudienceList));
@@ -2311,12 +2318,17 @@ function signalHandler(uid, signalData, userType) {
           $('#total-raised-hands').html(audienceList.length);
           $('#raised-list').append(list);
           $('#dropdownMenuButton').removeClass('d-none');
-          $('.hand-raise-list .dropdown-menu').addClass('show');
+          $('.hand-raise-list .dropdown-menu').removeClass('d-none');
+          console.log('-------dropdownMenuButton666666-------------')
         } else {
           $('#dropdownMenuButton').addClass('d-none');
+          console.log('-------dropdownMenuButton55555-------------')
           $('#raised-list').html('');
           $('#total-raised-hands').html(0);
           $('.hand-raise-list .dropdown-menu').removeClass('show');
+         // $('.hand-raise-list .dropdown-menu').addClass('hide');
+          $('.hand-raise-list .dropdown-menu').addClass('d-none');
+          $('#dropdownmenuitem11').addClass('d-none');
         }
     }
 
@@ -2565,8 +2577,13 @@ function signalHandler(uid, signalData, userType) {
         let len = parseInt($('#total-raised-hands').html());
         $('#total-raised-hands').html(len > 0 ? (len-1) : 0);
         if(len <= 0){
+
+          console.log('--------dropdownMenuButton7777777--------',len)
+
           $('#dropdownMenuButton').addClass('d-none');
           $('.hand-raise-list .dropdown-menu').removeClass('show');
+           //$('.hand-raise-list .dropdown-menu').addClass('d-none');
+           $('#dropdownmenuitem11').addClass('d-none');
         }
       }
     }
@@ -3535,6 +3552,11 @@ console.log('removed from rtm order====', memberId);
 
     $(document).ready(function(){
 
+      $('#dropdownMenuButton').on('click', function(){
+       console.log('-----changeUserToBroadcaster1222221-------')
+        $('#dropdownmenuitem11').slideToggle();
+      });
+
       $('#switch-camera').on('click', function(){
         getDevices();
         $('#switch-camera-popup').modal('show');
@@ -3645,8 +3667,10 @@ console.log('removed from rtm order====', memberId);
         $(".host-show-hide .video-streams").height("80%");
         
         $('#dropdownMenuButton').on('click', function (e) {
+          console.log('------dropdownMenuButton111--------')
           // alert($('.hand-raise-list .dropdown-menu').hasClass('show'))
             if($('.hand-raise-list .dropdown-menu').hasClass('show') != true){
+              console.log('------dropdownMenuButton2222--------')
               showHandAtHost();
             }
         });

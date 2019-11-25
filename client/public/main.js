@@ -3386,7 +3386,6 @@ console.log('removed from rtm order====', memberId);
       }
 
       function rtmAction(id) {
-
         let vdo1 = $('#subscribers-list #agora_remote'+id).find('video')[0];
         let ado1 = $('#subscribers-list #agora_remote'+id).find('audio')[0];
         console.log('changeUserToBroadcaster------selected-participent-id')

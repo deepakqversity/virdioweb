@@ -94,13 +94,13 @@ overflow:hidden;
     padding: 0;
 	max-width: 98%;
 }
-@media (max-width:1600px){
+/* @media (max-width:1600px){
 .container, .header, .host-script-section{
     width: 98% !important;
     padding: 0;
 	max-width: 95%;
 }
-}
+} */
 .border-right {
     border-right: 1px solid #9b51e0 !important;
 }
@@ -1246,7 +1246,7 @@ display:none;
 
 /* 5. Host Section */
 .host-script-section{
-	bottom: 10px;
+	/* bottom: 10px; */
     left: 0;
         width: 98%;
     margin: auto;
@@ -1738,13 +1738,14 @@ outline:0;
     text-transform: uppercase;
     font-size: 12px;
     text-align: center;
-    display: block;
-    width: 100%;
+    /* display: block;
+    width: 100%; */
     float: left;
 }
 .target-info span:nth-child(2){
-	font-size: 14px;
-	    margin-top: 5px;
+    font-size: 13px;
+    margin-left: 10px;
+	   
 }
 @media screen and (max-width:992px){
 	.footer-fitness-script{
@@ -2175,6 +2176,10 @@ img.user-login{
 .count-box .arrow-after .countdown {
     margin: 0 15px;
     font-family: Avenir-Medium;
+}
+.count-box h4
+{
+    font-size: 13px;
 }
 }
 @media (max-width:576px){

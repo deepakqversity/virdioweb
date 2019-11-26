@@ -355,8 +355,44 @@ return (
     <div className="row one-gutters justify-content-center align-items-center subsc" id="subscribers-list"></div>
 
     </section>
-    <div className="row position-fixed host-script-section align-items-end justify-content-between">
+    {/* <div className="row position-fixed host-script-section align-items-end justify-content-between">
       <div className=" host-section d-flex flex-direction-column h-100">
+        <div className="host-local"> */}
+          {/* <div className="add-remove-round1 add-remove-height height-53 px-3 bg-gray pt-2 pb-2 top-rounded d-flex justify-content-between align-items-center">
+            <h3 className="main-heading font-size-16 float-left">Streaming</h3>
+            <div className="host-header">
+              <img src="images/mute-microphone.png" className="unmute-icon" id="mute-unmute-local" />
+              <img src="images/music-icon.png" className="music-icon" data-toggle="modal" data-target="#musicList" id="bg-music" />
+              <img src="images/video-icon.png" className="video-icon d-none" id="publish" />
+              <img src="images/video-close.png" className="video-icon d-none" id="unpublish" />
+              <img src="images/reverse-cam.png" className="video-icon" id="switch-camera" />
+              <img src="images/circle.png" className="circle-icon mr-0" id="record-stream" />
+            </div>
+          </div> */}
+          {/* <div className="add-remove-round1 host-show-hide px-3 bg-gray mt--1 pt-2 pb-1 h-100 top-rounded bottom-rounded flex-grow-1">
+          <div className="add-remove-round1 add-remove-height height-53 px-3 bg-gray ht-20 top-rounded d-flex flex-wrap justify-content-between align-items-center">
+            <h3 className="main-heading font-size-16 float-left">Streaming</h3>
+            <div className="host-header">
+              <img src="images/mute-microphone.png" className="unmute-icon" id="mute-unmute-local" />
+              <img src="images/music-icon.png" className="music-icon" data-toggle="modal" data-target="#musicList" id="bg-music" />
+              <img src="images/video-icon.png" className="video-icon d-none" id="publish" />
+              <img src="images/video-close.png" className="video-icon d-none" id="unpublish" />
+              <img src="images/reverse-cam.png" className="video-icon" id="switch-camera" />
+              <img src="images/circle.png" className="circle-icon mr-0" id="record-stream" />
+            </div>
+          </div>
+            <div id="agora_local" className="video-streams ht-80"></div>
+          </div>
+          
+        </div>
+      </div>
+
+      {scriptHtml}
+
+    </div> */}
+ 
+    <div className="row w-100 position-relative mx-0 host-script-section align-items-end justify-content-between">
+      <div className="h-100 mr-2">
         <div className="host-local">
           {/* <div className="add-remove-round1 add-remove-height height-53 px-3 bg-gray pt-2 pb-2 top-rounded d-flex justify-content-between align-items-center">
             <h3 className="main-heading font-size-16 float-left">Streaming</h3>
@@ -390,6 +426,7 @@ return (
       {scriptHtml}
 
     </div>
+   
     {/* <!-- Music Player PopUp Start --> */}
       {/* <div className="modal music-list" id="musicList">
         <div className="modal-dialog  rounded">

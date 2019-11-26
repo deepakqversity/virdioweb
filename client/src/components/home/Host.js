@@ -297,7 +297,8 @@ return (
                         if(sessionData.interestId == 1) {
                             return <a className="btn  btn-primary border-right pr-20" href="#" data-toggle="modal" data-target="#show-details2" tabIndex="1">Details</a>;
                         } else {                      
-                            return <a className="btn  btn-primary border-right pr-20" href="#" data-toggle="modal" data-target="#fitness-ssession-details" tabIndex="1">Details</a>;             
+                            {/*return <a className="btn  btn-primary border-right pr-20" href="#" data-toggle="modal" data-target="#fitness-ssession-details" tabIndex="1">Details</a>;*/}
+                            return <a className="btn  btn-primary border-right pr-20" href="javascript:void(0)" tabIndex="1">Details</a>;
                         }
                     }
                 )()}

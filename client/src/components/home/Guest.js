@@ -109,6 +109,8 @@ class Guest extends Component {
     this.startTimer();
 
     this.sessionTimer();
+
+    this.countdownTimer(currDate);
   }
   
   componentWillMount(){
@@ -118,28 +120,25 @@ class Guest extends Component {
     if(mediaIds == undefined){
       this.props.history.push('pre-screen');
     }
-    //console.log(1);
+
     // window.test();
     this.startTimer();
     this.sessionTimer();
   }
 
-  
   sessionTimer = () => {
     
-    let storeData = JSON.parse(localStorage.getItem('userData'));
-    
+    let storeData = JSON.parse(localStorage.getItem('userData'));    
     let countdown = storeData.sessionData.duration * 60;
 
-    //console.log("cn------------"+countdown);
-    //console.log('attribute '+ $('.header svg circle').attr("style"));
     $('.header svg circle').attr('style','animation-duration:'+countdown+'s !important');
     
     $('.header svg circle').css("stroke", "#9b51e0");
     
     var resetCount1 = setInterval(function() {
       if(countdown <= 0){
-        $('.header svg circle').removeAttr("style");
+        //$('.header svg circle').removeAttr("style");
+        $('.header svg circle').attr("style","animation-play-state:paused");
         clearInterval(resetCount1);
       }
       countdown--;
@@ -152,7 +151,8 @@ class Guest extends Component {
       timerTime: this.state.timerTime,
       timerStart: this.state.timerTime
     });
-    this.timer = setInterval(() => {
+
+    /*this.timer = setInterval(() => {
      // console.log('------startnewTime11111------',this.state.timerTime)
       const newTime = this.state.timerTime - 10;
      // console.log('-------startTimer123-----------',newTime)
@@ -168,16 +168,43 @@ class Guest extends Component {
         // console.log("Countdown ended");
         this.sessionTimer();
       }
-    }, 10);
+    }, 10);*/
   };
 
+  countdownTimer(sessionDate) {
+
+      var deadline = new Date(sessionDate).getTime();
+
+      var x = setInterval(function() {
+            var now = new Date().getTime(); 
+            var t = deadline - now;
+
+            var seconds = ("0" + (Math.floor((t / 1000) % 60) % 60)).slice(-2);
+            var minutes = ("0" + Math.floor((t / 60000) % 60)).slice(-2);
+            var hours = Math.floor((t / 3600000));
+            
+            if(hours >= 100) {
+              hours = ("0" + hours).slice(-3);
+            } else {
+              hours = ("0" + hours).slice(-2);
+            }
+
+            let time = hours + ' : ' + minutes + ' : ' + seconds;
+            $('#countdown-timer-inner').html(time);
+
+            if (t < 0) { 
+                clearInterval(x);
+                $('#countdown-timer-inner').html('Session Ended');
+            }
+      }, 1000); 
+  }
 render() {
 
   //const  {user}  = this.props.auth;
 
     const { timerTime, timerStart, timerOn, sessionScript } = this.state;
 
-    let seconds = ("0" + (Math.floor((timerTime / 1000) % 60) % 60)).slice(-2);
+    /*let seconds = ("0" + (Math.floor((timerTime / 1000) % 60) % 60)).slice(-2);
     let minutes = ("0" + Math.floor((timerTime / 60000) % 60)).slice(-2);
     //let hours = ("0" + Math.floor((timerTime / 3600000))).slice(-2);
     let hours = Math.floor((timerTime / 3600000));
@@ -186,7 +213,7 @@ render() {
       hours = ("0" + hours).slice(-3);
     } else {
       hours = ("0" + hours).slice(-2);
-    }
+    }*/
 
     const  {user}  = this.props.auth;
 
@@ -246,7 +273,8 @@ return (
                 <div className="row justify-content-between align-items-center">
                   <div className="col-12 col-lg-9 col-md-6 text-center text-md-left col-sm-12">
                     <div className="time py-xs-1">  <span>{localDate}</span>
-                    <span className="countdown-timer">Time Remaining: {hours} : {minutes} : {seconds}</span>
+                    {/*<span className="countdown-timer">Time Remaining: {hours} : {minutes} : {seconds}</span>*/}
+                    <span className="countdown-timer">Time Remaining: <span id="countdown-timer-inner"></span></span>
                     </div>
                     <div id="hostmsg" className="d-none" style={{color:'green'}}></div>
                   </div>

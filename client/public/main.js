@@ -264,7 +264,36 @@ console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId(
         addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
         addUserAttribute(stream.getId(), 'isSubscribe', 1);
 
-        removeAudienceInList(stream.getId());
+       // removeAudienceInList(stream.getId());
+
+
+         // code for audience handraise list---------------------------------
+
+         console.log('-----dropdownMenuButtonnormalswap = ',stream.getId())
+        let audienceList111 = JSON.parse(localStorage.getItem("audience-list"));
+
+        //   if(localStorage.getItem("audience-list") == null) return false;
+        
+        console.log('-----dropdownMenuButtonnormalswap0000 = ',audienceList111)
+
+     
+           if(audienceList111.length > 0){
+             for(let i in audienceList111){
+                                                                  
+                 if(audienceList111[i].id == stream.getId()){
+
+                  localStorage.setItem("handraise-swap-subscriber-id", stream.getId());
+
+                  console.log('-----dropdownMenuButtonnormalswap22222 = ',stream.getId())
+    
+                  removeAudienceInList(stream.getId());
+
+                 }
+             }
+             
+           }
+
+
 
         let ref = setInterval(function(){
           if($('#subscribers-list #agora_remote'+stream.getId()).hasClass('d-none') == false){
@@ -948,6 +977,8 @@ console.log('rtm remove====', memberId);
 
     function addUserSelectionAndAudio(participentId)
     {
+
+      console.log('-----dropdownMenuButtonnormalswap22222 = ',participentId)
 
       let participentEmail = convertIdToEmail(participentId);
       var massages="203"+sep; 
@@ -2220,6 +2251,7 @@ function signalHandler(uid, signalData, userType) {
      function addAudienceInList(strArray) {
       console.log('-----------------str array ',strArray)
         let audienceList = [];
+        let audienceListId = [];
         let f = true;
 
         if(audienceList.length > 0){
@@ -2248,6 +2280,8 @@ function signalHandler(uid, signalData, userType) {
      function removeAudienceInList(id) {
       
       if(localStorage.getItem("audience-list") == null) return false;
+
+      console.log('-----dropdownMenuButtonnormalswap4444 = ',id)
 
       let audienceList = JSON.parse(localStorage.getItem("audience-list"));
 

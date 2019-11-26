@@ -411,7 +411,11 @@ div.gray_bar::before
     }
     .b-10
 {
-    bottom:20px;
+    bottom:25px;
+}
+.footer-fitness-script .swiper-slide.swiper-slide-next .count-timer h4
+{
+    font-size: 18px;
 }
     .white-text
     {
@@ -516,7 +520,7 @@ h3.main-heading span{
     }
     .btn-join, .count-box h4
     {
-        font-size: 25px;
+        font-size: 18px;
     }
   
     .fullscreen img

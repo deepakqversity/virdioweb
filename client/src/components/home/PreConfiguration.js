@@ -95,6 +95,8 @@ class PreConfiguration extends Component {
     scDate = (new Date(scDate).getTime()) - (new Date().getTime());
     this.setState({timerTime: scDate}); // 1 sec 1000 = 1sec
     this.setState({interest:localstoragedata.sessionData.code});
+
+    this.countdownTimer(localstoragedata.sessionData.scheduleDate);
   }
 
   componentWillMount(){
@@ -205,7 +207,7 @@ class PreConfiguration extends Component {
     });
 
         
-    this.timer = setInterval(() => {
+    /*this.timer = setInterval(() => {
       const newTime = this.state.timerTime - 10;
 
       let remSec = Math.floor(newTime / 1000);
@@ -230,13 +232,46 @@ class PreConfiguration extends Component {
         this.setState({ timerOn: false });
         $('.countdown-timer').html('Session Started')
       }
-    }, 10);
+    }, 10);*/
   };
 
   userList(userList) {
       console.log('tempUsers',localStorage.getItem("tempUsers"))
       localStorage.setItem("tempUsers", JSON.stringify(userList));
     // }
+  }
+
+  countdownTimer(sessionDate) {
+
+    var deadline = new Date(sessionDate).getTime();
+
+    var x = setInterval(function() {
+          var now = new Date().getTime(); 
+          var t = deadline - now;
+
+          var seconds = ("0" + (Math.floor((t / 1000) % 60) % 60)).slice(-2);
+          var minutes = ("0" + Math.floor((t / 60000) % 60)).slice(-2);
+          var hours = Math.floor((t / 3600000));
+          
+          if(hours >= 100) {
+            hours = ("0" + hours).slice(-3);
+          } else {
+            hours = ("0" + hours).slice(-2);
+          }
+
+          let time = hours + ' : ' + minutes + ' : ' + seconds;
+          $('.countdown-timer').html(time);
+
+          if (t < 0) { 
+              clearInterval(x);
+              $('.countdown-timer').html('Session Started');
+
+              let userData = JSON.parse(localStorage.getItem("userData"));
+              if(userData.userType == 1) {
+                  $('#continue-join').trigger('click');
+              }
+          }
+    }, 1000); 
   }
 
   fetchUsers() {
@@ -289,16 +324,16 @@ render() {
 
   const { timerTime, timerStart, timerOn, sessionScript, interest } = this.state;
 
-  let seconds = ("0" + (Math.floor((timerTime / 1000) % 60) % 60)).slice(-2);
-  let minutes = ("0" + Math.floor((timerTime / 60000) % 60)).slice(-2);
-  //let hours = ("0" + Math.floor((timerTime / 3600000))).slice(-2);
-  let hours = Math.floor((timerTime / 3600000));
-  
-  if(hours >= 100) {
-    hours = ("0" + hours).slice(-3);
-  } else {
-    hours = ("0" + hours).slice(-2);
-  }
+    /*let seconds = ("0" + (Math.floor((timerTime / 1000) % 60) % 60)).slice(-2);
+    let minutes = ("0" + Math.floor((timerTime / 60000) % 60)).slice(-2);
+    //let hours = ("0" + Math.floor((timerTime / 3600000))).slice(-2);
+    let hours = Math.floor((timerTime / 3600000));
+    
+    if(hours >= 100) {
+      hours = ("0" + hours).slice(-3);
+    } else {
+      hours = ("0" + hours).slice(-2);
+    }*/
 
   //console.log('seconds, minutes, hours====== ', seconds, minutes, hours);
   //const  {user}  = this.props.auth;
@@ -413,7 +448,8 @@ render() {
                     </div>
                   </div>
                   <div className="col-lg-4 float-right time-session">
-                    <span className="countdown-timer">{hours} : {minutes} : {seconds}</span>
+                    {/*<span className="countdown-timer">{hours} : {minutes} : {seconds}</span>*/}
+                    <span className="countdown-timer"></span>
                     
                     {(
                         ()=>{

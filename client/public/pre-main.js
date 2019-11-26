@@ -1097,7 +1097,9 @@ function attendeeScreenHeight(){
     localStorage.removeItem("allloginuser");
     localStorage.removeItem("video-resolution");
     localStorage.removeItem("swap-subscriber-id");
+    localStorage.removeItem("hostStreamMuted");
   }
+  
   var resetCount = '';
 
   function countDown(){

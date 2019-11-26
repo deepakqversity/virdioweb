@@ -67,8 +67,6 @@ class Host extends Component {
 
   componentDidMount(){
 
-
-    
     // if any exception if user has no device on streaming page in any case
     let mediaIds = localStorage.getItem('media-setting');
 
@@ -102,35 +100,32 @@ class Host extends Component {
     scDate = (new Date(currDate).getTime()) - (new Date().getTime());
 
     // scDate = (new Date(scDate).getTime()) - (new Date().getTime());
-    console.log('scDate- ', scDate)
     this.state.timerTime = scDate;// 1 sec 1000 = 1sec
     // this.setState({timerTime : scDate});
 
     this.startTimer();
     this.sessionTimer();
+
+    this.countdownTimer(currDate);
   }
+
   componentWillMount(){
     this.startTimer();
     this.sessionTimer();
   }
+
   sessionTimer = () => {
     
-    let storeData = JSON.parse(localStorage.getItem('userData'));
-    
-    //console.log('---------lalitstoreData---------',storeData)
-    
+    let storeData = JSON.parse(localStorage.getItem('userData'));    
     let countdown = storeData.sessionData.duration * 60;
-    //console.log('---------lalitcountdown---------',countdown)
-    // let countdown = 60;
+
     $('.header svg circle').attr("style","animation-duration:"+countdown+"s !important");
     $('.header svg circle').css("stroke", "#9b51e0");
-
-    //console.log('countdown ======= countdown start ----', countdown)
     
     var resetCount1 = setInterval(function() {
       if(countdown <= 0){
-        //console.log('=========== **********', countdown)
-        $('.header svg circle').removeAttr("style");
+        //$('.header svg circle').removeAttr("style");
+        $('.header svg circle').attr("style","animation-play-state:paused");
         clearInterval(resetCount1);
       }
       countdown--;
@@ -143,7 +138,8 @@ class Host extends Component {
       timerTime: this.state.timerTime,
       timerStart: this.state.timerTime
     });
-    this.timer = setInterval(() => {
+
+    /*this.timer = setInterval(() => {
       //console.log('------startnewTime11111------',this.state.timerTime)
       const newTime = this.state.timerTime - 10;
       //console.log('------startnewTime------',newTime)
@@ -159,17 +155,45 @@ class Host extends Component {
 
         this.sessionTimer();
       }
-    }, 10);
+    }, 10);*/
   };
 
   testButn =() => {
     window.subscribe()
   };
 
+  countdownTimer(sessionDate) {
+
+      var deadline = new Date(sessionDate).getTime();
+
+      var x = setInterval(function() {
+            var now = new Date().getTime(); 
+            var t = deadline - now;
+
+            var seconds = ("0" + (Math.floor((t / 1000) % 60) % 60)).slice(-2);
+            var minutes = ("0" + Math.floor((t / 60000) % 60)).slice(-2);
+            var hours = Math.floor((t / 3600000));
+            
+            if(hours >= 100) {
+              hours = ("0" + hours).slice(-3);
+            } else {
+              hours = ("0" + hours).slice(-2);
+            }
+
+            let time = hours + ' : ' + minutes + ' : ' + seconds;
+            $('#countdown-timer-inner').html(time);
+
+            if (t < 0) { 
+                clearInterval(x);
+                $('#countdown-timer-inner').html('Session Ended');
+            }
+      }, 1000); 
+  }
+
 render() {
     const { timerTime, timerStart, timerOn, sessionScript } = this.state;
 
-    let seconds = ("0" + (Math.floor((timerTime / 1000) % 60) % 60)).slice(-2);
+    /*let seconds = ("0" + (Math.floor((timerTime / 1000) % 60) % 60)).slice(-2);
     let minutes = ("0" + Math.floor((timerTime / 60000) % 60)).slice(-2);
     //let hours = ("0" + Math.floor((timerTime / 3600000))).slice(-2);
     let hours = Math.floor((timerTime / 3600000));
@@ -178,7 +202,7 @@ render() {
       hours = ("0" + hours).slice(-3);
     } else {
       hours = ("0" + hours).slice(-2);
-    }
+    }*/
 
     const  {user}  = this.props.auth;
 
@@ -193,11 +217,9 @@ render() {
     localDate = localDate.replace('#', 'at');
     let remTime = '';
     let total_limit= localstoragedata.default.maxUserLimit;
-    //console.log('--------total_limit------------',total_limit)
-    // console.log('scheduleDate ',localDate );
-    // console.log('------------------------------', user);
+
     let scriptHtml = '';
-    // sessionScript = sessionScriptt;
+
     if (sessionScript == 1) {
       scriptHtml = <WineScript />;
     } else if(sessionScript == 2) {
@@ -257,7 +279,8 @@ return (
           <div className="row justify-content-between align-items-center mt-0">
             <div className="col-12 col-sm-7">
               <div className="time">  <span>{localDate}</span>
-                <span className="countdown-timer">Time Remaining: {hours} : {minutes} : {seconds}</span>
+                {/*<span className="countdown-timer">Time Remaining: {hours} : {minutes} : {seconds}</span>*/}
+                <span className="countdown-timer">Time Remaining: <span id="countdown-timer-inner"></span></span>
                 <div id="errmsg"  className="d-none" style={{color:'green'}}></div>
                 <div id ="all_attendies_list"></div>
               </div>

@@ -293,8 +293,7 @@ console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId(
              
            }
 
-
-
+          
         let ref = setInterval(function(){
           if($('#subscribers-list #agora_remote'+stream.getId()).hasClass('d-none') == false){
             onPageResize();
@@ -3813,12 +3812,14 @@ console.log('removed from rtm order====', memberId);
      
       $(".host-script-section").height() < 255 ? $(".host-script-section").height("255px") : $(".host-script-section").height("auto");
       
-      $(".show-hide-v").hasClass("d-none") ? $(".show-hide-v").removeClass("d-none").addClass("d-block") : $(".show-hide-v").addClass("d-none").removeClass("d-block");
+    //  $(".show-hide-v").hasClass("d-none") ? $(".show-hide-v").removeClass("d-none").addClass("d-block") : $(".show-hide-v").addClass("d-none").removeClass("d-block");
+
+      $(".show-hide-v").hasClass("d-none") ? $(".show-hide-v").addClass("d-none") : $(".show-hide-v").addClass("d-none");
       
       if($(".show-hide-title").hasClass("d-block")){
         $(".show-hide-title").addClass("d-none").removeClass("d-block");
         $(".header").height("auto");
-        $(".countdown-logo").hide();
+       // $(".countdown-logo").hide();
         // $(".section.attendees").css("margin-top", "77px !important" );
         $("#fullscreen img").attr("src", "images/exit-screen.png"); 
         $("#fullscreen img").addClass("exit-screen");
@@ -3855,13 +3856,12 @@ console.log('removed from rtm order====', memberId);
         $(".add-remove-height").removeClass("h53");
       }
      // $(this).text($(this).text() == '"Show Attendees"' ? '"Hide Attendees"' : '"Show Attendees"');
-      
+     
 
       $(".host-show-hide").slideToggle();
+      //$(".video-streams ht-80").slideToggle();
       //$(".script-section").slideToggle();
       
-
-
 
     });
 

@@ -260,11 +260,11 @@ class PreConfiguration extends Component {
           }
 
           let time = hours + ' : ' + minutes + ' : ' + seconds;
-          $('.countdown-timer').html(time);
+          $('.countdown-timer').text(time);
 
           if (t < 0) { 
               clearInterval(x);
-              $('.countdown-timer').html('Session Started');
+              $('.countdown-timer').text('Session Started');
 
               let userData = JSON.parse(localStorage.getItem("userData"));
               if(userData.userType == 1) {

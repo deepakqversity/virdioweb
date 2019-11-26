@@ -277,6 +277,7 @@ console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId(
         console.log('-----dropdownMenuButtonnormalswap0000 = ',audienceList111)
 
      
+        if (audienceList111 !== null && audienceList111 !== '') {
            if(audienceList111.length > 0){
              for(let i in audienceList111){
                                                                   
@@ -290,9 +291,8 @@ console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId(
 
                  }
              }
-             
            }
-
+         }
 
 
         let ref = setInterval(function(){

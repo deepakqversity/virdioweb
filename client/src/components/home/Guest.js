@@ -190,11 +190,11 @@ class Guest extends Component {
             }
 
             let time = hours + ' : ' + minutes + ' : ' + seconds;
-            $('#countdown-timer-inner').html(time);
+            $('#countdown-timer-inner').text(time);
 
             if (t < 0) { 
                 clearInterval(x);
-                $('#countdown-timer-inner').html('Session Ended');
+                $('#countdown-timer-inner').text('Session Ended');
             }
       }, 1000); 
   }
@@ -274,7 +274,7 @@ return (
                   <div className="col-12 col-lg-9 col-md-6 text-center text-md-left col-sm-12">
                     <div className="time py-xs-1">  <span>{localDate}</span>
                     {/*<span className="countdown-timer">Time Remaining: {hours} : {minutes} : {seconds}</span>*/}
-                    <span className="countdown-timer">Time Remaining: <span id="countdown-timer-inner"></span></span>
+                    <span className="countdown-timerr">Time Remaining: <span id="countdown-timer-inner"></span></span>
                     </div>
                     <div id="hostmsg" className="d-none" style={{color:'green'}}></div>
                   </div>

@@ -689,9 +689,9 @@ ul.music-playlist li a span:nth-child(1)
 
 #agora_local
 {
-    width: 400px !important;
+    /* width: 400px !important;
     height: 250px !important;
-    margin-bottom: 30px;
+    margin-bottom: 30px; */
 }
 /* .prescreen-popup .open-list
 {

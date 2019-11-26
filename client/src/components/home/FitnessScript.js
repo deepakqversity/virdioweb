@@ -161,10 +161,10 @@ return (
                                 {opt.attribute.map(function(attrb, index){
                                   if(attrb.attrLabel != 'counter' && attrb.attrLabel.toLowerCase() == 'target bpm'){
 
-                                  return <div className={opt.attribute.length != 3 ? 'no-border-right' : ''} key={index}>
-                                    <div className="target-info">
-                                      <span>{attrb.attrLabel}</span>
-                                      <span>{attrb.attrValue}</span>
+                                  return <div className={opt.attribute.length != 3 ? 'no-border-right w-100' : ''} key={index}>
+                                    <div className="target-info d-flex justify-content-center align-item-center">
+                                      <span className="">{attrb.attrLabel}</span><span className="mt-0">{attrb.attrValue}</span>
+                                      {/* <span>{attrb.attrValue}</span> */}
                                     </div>
                                   </div>;
                                 }

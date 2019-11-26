@@ -321,17 +321,21 @@ console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId(
               $('#agora_host').append('<div id="agora_remote'+stream.getId()+'"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div></div>');
 
             }
+
             stream.play('agora_remote_vdo' + stream.getId());
 
+            console.log('hostStreamMuted===', typeof localStorage.getItem('hostStreamMuted'));
             if (localStorage.getItem('hostStreamMuted') !== null && localStorage.getItem('hostStreamMuted') == "true") {
                 let ado = $('#agora_host audio')[0];
                 ado.muted = true;
 
+                stream.muteAudio();
+
+                console.log('local stream muted of host by participant');
                 $('#mute-unmute').find('.fa').addClass('fa-volume-down').removeClass('fa-volume-up');
             }
 
-            if(checkUserRole() == 1){
-
+            if(checkUserRole() == 1) {
               massages="1000" + sep + storeData.id;
               sendMessage(storeData.sessionData.hostEmail, massages);
             }

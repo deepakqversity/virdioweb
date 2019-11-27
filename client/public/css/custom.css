@@ -89,18 +89,24 @@ overflow:hidden;
 #root, .App{
 	height:100%;
 }
+.my_custom_cont
+{
+    padding: 14px 10px;
+}
+
 .container{
     width: 98% !important;
     padding: 0;
 	max-width: 98%;
 }
-/* @media (max-width:1600px){
+
+ @media (max-width:1600px){
 .container, .header, .host-script-section{
     width: 98% !important;
     padding: 0;
 	max-width: 95%;
 }
-} */
+} 
 .border-right {
     border-right: 1px solid #9b51e0 !important;
 }
@@ -1246,7 +1252,7 @@ display:none;
 
 /* 5. Host Section */
 .host-script-section{
-	/* bottom: 10px; */
+	bottom: 10px;
     left: 0;
         width: 98%;
     margin: auto;

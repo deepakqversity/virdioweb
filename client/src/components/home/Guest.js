@@ -190,11 +190,11 @@ class Guest extends Component {
             }
 
             let time = hours + ' : ' + minutes + ' : ' + seconds;
-            $('#countdown-timer-inner').html(time);
+            $('#countdown-timer-inner').text(time);
 
             if (t < 0) { 
                 clearInterval(x);
-                $('#countdown-timer-inner').html('Session Ended');
+                $('#countdown-timer-inner').text('Session Ended');
             }
       }, 1000); 
   }
@@ -274,7 +274,7 @@ return (
                   <div className="col-12 col-lg-9 col-md-6 text-center text-md-left col-sm-12">
                     <div className="time py-xs-1">  <span>{localDate}</span>
                     {/*<span className="countdown-timer">Time Remaining: {hours} : {minutes} : {seconds}</span>*/}
-                    <span className="countdown-timer">Time Remaining: <span id="countdown-timer-inner"></span></span>
+                    <span className="countdown-timerr">Time Remaining: <span id="countdown-timer-inner"></span></span>
                     </div>
                     <div id="hostmsg" className="d-none" style={{color:'green'}}></div>
                   </div>
@@ -288,7 +288,8 @@ return (
                             if(sessionData.interestId == 1) {
                                 return <a className="col-2 justify-content-end d-flex align-items-center" href="#" data-toggle="modal" data-target="#show-details4" className="btn btn-primary"    tabIndex="1">Details</a>;
                             } else {                      
-                                return <a className="btn  btn-primary border-right pr-20" href="#!" data-toggle="modal" data-target="#fitness-script"  tabIndex="1">Details</a>;             
+                                {/*return <a className="btn  btn-primary border-right pr-20" href="#!" data-toggle="modal" data-target="#fitness-script"  tabIndex="1">Details</a>;*/}
+                                return <a className="btn  btn-primary border-right pr-20" href="javascript:void(0)" tabIndex="1">Details</a>;
                             }
                         }
                     )()}

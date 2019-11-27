@@ -323,20 +323,20 @@ class PreConfiguration extends Component {
                   }, 1000);
               }
 
-            if(userData.userType == 2) {
+            // if(userData.userType == 2) {
 
-              let host_online_state = localStorage.getItem("set_host_online_state");
+            //   let host_online_state = localStorage.getItem("set_host_online_state");
 
-             // console.log('------set_host_online_state33333-------',host_online_state)
+            //  // console.log('------set_host_online_state33333-------',host_online_state)
 
-            if(host_online_state != 1)  
-            {
-              $("#participent_host_alert").attr({'style':'display:block'});
-            }
+            // if(host_online_state != 1)  
+            // {
+            //   $("#participent_host_alert").attr({'style':'display:block'});
+            // }
 
-            $('.countdown-timer').text('Session Is Started After Host Join');
+            // $('.countdown-timer').text('Session Is Started After Host Join');
        
-            }
+            // }
 
           }
     }, 1000); 

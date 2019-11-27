@@ -563,19 +563,21 @@ if(!AgoraRTC.checkSystemRequirements()) {
         console.log('-------------------------------------------uid', uid);
           // create local stream
             let localStream1 = AgoraRTC.createStream({streamID: uid, audio: true, video: true, screen: false });
-          
+
             localStream1.init(function() {
 
               localClient.publish(localStream1, function (err) {
                 console.log("Publish local stream error: " + err);
               });
               
+              localStorage.setItem('mediaAccessAllowed', true);
               $('#set-media-access').click();
             }, function (err) {
+              localStorage.setItem('mediaAccessAllowed', false);
               console.log("getUserMedia failed", err);
 
-              //if (err.type == 'error' && (err.msg === 'NotAllowedError' || err.msg === 'NotFoundError')) {
-              if (err.type == 'error' && err.msg === 'NotAllowedError') {
+              if (err.type == 'error' && (err.msg === 'NotAllowedError' || err.msg === 'NotFoundError')) {
+              // if (err.type == 'error' && err.msg === 'NotAllowedError') {
                   $('#media-access-alert').modal('show');
               }
             });
@@ -1098,6 +1100,7 @@ function attendeeScreenHeight(){
     localStorage.removeItem("video-resolution");
     localStorage.removeItem("swap-subscriber-id");
     localStorage.removeItem("hostStreamMuted");
+    localStorage.removeItem("mediaAccessAllowed");
   }
   
   var resetCount = '';
@@ -1228,7 +1231,8 @@ function signalHandler(uid, signalData, userType) {
           
           var bandwidthCheckCounter = setInterval(function() {
 
-            if(localStorage.getItem("video-resolution") != null &&  $('#media-access-alert').hasClass('show') === false) {
+            //if(localStorage.getItem("video-resolution") != null &&  $('#media-access-alert').hasClass('show') === false) {
+            if(localStorage.getItem("video-resolution") != null && localStorage.getItem('mediaAccessAllowed')  !== null && localStorage.getItem('mediaAccessAllowed')  == "true") {
 
                 clearInterval(bandwidthCheckCounter);
 
@@ -1342,8 +1346,8 @@ function signalHandler(uid, signalData, userType) {
                 
                 var bandwidthCheckCounter = setInterval(function() {
 
-                  if(localStorage.getItem("video-resolution") != null &&  $('#media-access-alert').hasClass('show') === false) {
-
+                  //if(localStorage.getItem("video-resolution") != null &&  $('#media-access-alert').hasClass('show') === false) {
+                  if(localStorage.getItem("video-resolution") != null && localStorage.getItem('mediaAccessAllowed') !== null && localStorage.getItem('mediaAccessAllowed') == "true") {
                       clearInterval(bandwidthCheckCounter);
 
                       $('#participent-stream-redirect-alert').modal('show');

@@ -1832,6 +1832,7 @@ function changeImage(){
     localStorage.removeItem("video-resolution");
     localStorage.removeItem("swap-subscriber-id");
     localStorage.removeItem("hostStreamMuted");
+    localStorage.removeItem("mediaAccessAllowed");
   }
 
   function sessionTimer(){

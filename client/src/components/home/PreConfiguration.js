@@ -273,6 +273,7 @@ class PreConfiguration extends Component {
       this.setState({
         remaining_time: totalm
       });
+      
       $("#sessionAlert").attr({'style':'display:block'});
     }
   }

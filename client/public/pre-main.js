@@ -1239,19 +1239,23 @@ function signalHandler(uid, signalData, userType) {
 
                 clearInterval(bandwidthCheckCounter);
 
-                $('#participent-stream-redirect-alert').modal('show');
-                $('#set-temp-sesstion').click();
-                
-                let duration = parseInt(storeData.default.streamRedirectDuration);
+                if($('#video-media-content .col-md-3').length > 1 || $('#audio-media-content div').length > 1) {
+                    window.multimediaAccessAlert();
+                } else {
+                    $('#participent-stream-redirect-alert').modal('show');
+                    $('#set-temp-sesstion').click();
+                    
+                    let duration = parseInt(storeData.default.streamRedirectDuration);
 
-                let ref2 = setInterval( function() {
-                    $('#stream-rem-join-timer').html(duration < 0 ? 0 : duration);
-                    if(duration <= 0){
-                      clearInterval(ref2);
-                      $('#continue-join').click();
-                    }
-                    duration--;
-                }, 1000 );
+                    let ref2 = setInterval( function() {
+                        $('#stream-rem-join-timer').html(duration < 0 ? 0 : duration);
+                        if(duration <= 0){
+                          clearInterval(ref2);
+                          $('#continue-join').click();
+                        }
+                        duration--;
+                    }, 1000 );
+                }
             }
           }, 1000);
       }
@@ -1352,21 +1356,26 @@ function signalHandler(uid, signalData, userType) {
 
                   //if(localStorage.getItem("video-resolution") != null &&  $('#media-access-alert').hasClass('show') === false) {
                   if(localStorage.getItem("video-resolution") != null && localStorage.getItem('mediaAccessAllowed') !== null && localStorage.getItem('mediaAccessAllowed') == "true") {
+                      
                       clearInterval(bandwidthCheckCounter);
 
-                      $('#participent-stream-redirect-alert').modal('show');
-                      $('#set-temp-sesstion').click();
+                      if($('#video-media-content .col-md-3').length > 1 || $('#audio-media-content div').length > 1) {
+                          window.multimediaAccessAlert();
+                      } else {
+                          $('#participent-stream-redirect-alert').modal('show');
+                          $('#set-temp-sesstion').click();
 
-                      let duration = parseInt(storeData.default.streamRedirectDuration);
+                          let duration = parseInt(storeData.default.streamRedirectDuration);
 
-                      let ref2 = setInterval( function() {
-                          $('#stream-rem-join-timer').html(duration < 0 ? 0 : duration);
-                          if(duration <= 0){
-                            clearInterval(ref2);
-                            $('#continue-join').click();
-                          }
-                          duration--;
-                      }, 1000 );
+                          let ref2 = setInterval( function() {
+                              $('#stream-rem-join-timer').html(duration < 0 ? 0 : duration);
+                              if(duration <= 0){
+                                clearInterval(ref2);
+                                $('#continue-join').click();
+                              }
+                              duration--;
+                          }, 1000 );
+                      }
                     }
                 }, 1000);
 
@@ -2146,6 +2155,10 @@ function signalHandler(uid, signalData, userType) {
         }
       }
 
+      function multimediaAccessAlert(){
+          $('#multi-media-access-alert').modal('show');
+      }
+
       function participentTimerAlertClose(){
         if($('#participent-timer-alert').length > 0){
 
@@ -2366,5 +2379,15 @@ function signalHandler(uid, signalData, userType) {
             console.log('*************There is an error******=============', error);
           });
       })
+
+      $('#proceed').on('click', function(){
+          $('#multi-media-access-alert').modal('hide');
+          $('#continue-join').click();
+      });
+
+      $('#change-setting').on('click', function(){
+          $('#multi-media-access-alert').modal('hide');
+          $('#continue-join').removeClass('d-none');
+      });
   });
  

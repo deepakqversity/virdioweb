@@ -1851,7 +1851,7 @@ position: absolute;
 .fitness-emoji{
 	position: absolute;
     top: -140px;
-    left: 25%;
+    left: 31%;
     background: rgba(0,0,0,0.4);
     padding: 20px;
     border-radius: 10px;
@@ -1877,6 +1877,7 @@ position: absolute;
     left: 50%;
     margin-left: -5px;
     font-size: 22px;
+    transform: translateX(-50%);
 }
 .fitness-emoji a img{
     width: 30px;

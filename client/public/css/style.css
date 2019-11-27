@@ -418,7 +418,7 @@ div.gray_bar::before
         font-size: 1.3vw;
     }
     .right-sidebar{
-        width: 400px;
+        /*width: 400px;*/
         /*float: right;*/
     }
     .details_model .modal-dialog, #switch-camera-popup .modal-dialog, #musicList .modal-dialog

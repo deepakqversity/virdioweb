@@ -161,7 +161,7 @@ let sessionScript = localstoragedata.sessionData.scriptDetail;
       ) : (
       this.props.interestId == 2 ? (
         <div className="w-95 swiper-fitness-container float-left position-relative">
-          <div className="fitness-emoji d-none">
+          {/*<div className="fitness-emoji d-none">
             <h3>How are you feeling?</h3>
               <div className="d-flex justify-content-between a3">
                 <a href="#" id="like"><img src="images/like.png" />
@@ -183,7 +183,7 @@ let sessionScript = localstoragedata.sessionData.scriptDetail;
                   <span>awesome</span>
                 </a>
               </div>
-            </div>
+            </div>*/}
            
           <div className="d-flex position-absolute b-10 w-100 justify-content-between arrow-after align-items-center footer-fitness-script">
            <div className="swiper-container">

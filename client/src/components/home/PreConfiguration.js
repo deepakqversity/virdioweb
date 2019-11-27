@@ -138,14 +138,10 @@ class PreConfiguration extends Component {
       }
 
       console.log('#####join####button########');
-
-      //alert('hello');
       
       window.joinChannel();
 
       console.log('#####joinchannel########');
-
-      // setTimeout(function(){ }, 1000);
       
       window.removePreScreenSession();
 
@@ -262,13 +258,22 @@ class PreConfiguration extends Component {
           let time = hours + ' : ' + minutes + ' : ' + seconds;
           $('.countdown-timer').text(time);
 
-          if (t < 0) { 
+          if (t < 0) {
               clearInterval(x);
               $('.countdown-timer').text('Session Started');
 
               let userData = JSON.parse(localStorage.getItem("userData"));
+
               if(userData.userType == 1) {
-                  $('#continue-join').trigger('click');
+                  var redirectCounter = setInterval(function() {
+
+                    if(localStorage.getItem("video-resolution") != null && localStorage.getItem('mediaAccessAllowed')  !== null && localStorage.getItem('mediaAccessAllowed')  == "true") {
+
+                        clearInterval(redirectCounter);
+                        
+                        $('#continue-join').click();
+                    }
+                  }, 1000);
               }
           }
     }, 1000); 
@@ -828,7 +833,12 @@ render() {
                     ()=>{
                         if(localstoragedata.userType == 1) {
                             //return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-4 rounded " data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)} disabled={!this.state.mediaAccess}>Join</button>;
-                            return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-4 rounded " data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
+
+                            if (localstoragedata.default.showJoinButton == 1) {
+                                return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-4 rounded" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
+                            } else {
+                                return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-4 rounded d-none" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
+                            }
                         } else {
                             return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded d-none" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)} disabled={!this.state.isHostJoined}>Join</button>;                     
                         }

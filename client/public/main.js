@@ -1642,7 +1642,9 @@ function changeImage(){
     let winHeight = $( window ).height();
     let headerHeight = $(".header.bg-gray").height();
     let hostHeight = $(".host-script-section").height();
+    let hostHeight1 = $(".uper_containr").height();
     let sectionHeights = winHeight - (hostHeight + headerHeight);
+    let sectionHeights1 = winHeight - (hostHeight + headerHeight + hostHeight1);
 
    
       if ($(window).width() > 1500) {
@@ -1657,7 +1659,8 @@ function changeImage(){
     // let guestLeftWine = $(".script-info .carousel-inner.guest-left-wine").height();
     // $(".joined-member-list").css({"max-height": `${guestLeftWine}px`, "height": guestLeftWine});
 
-    $("#subscribers-list").height(`${sectionHeights - 110}px`);
+    // $("#subscribers-list").height(`${sectionHeights - 110}px`);
+    $("#subscribers-list").height(`${sectionHeights1 - 80}px`);
     $(".section.attendees").css("margin-top", `${headerHeight+40}px`);
     
     let sub_list_y = $("#subscribers-list").height(); 
@@ -3803,10 +3806,27 @@ console.log('removed from rtm order====', memberId);
     
     $(".fullscreen, .back-btn").click(function(){
 
+      // if($(".host-script-section").hasClass("het")){
+      //   $(".host-script-section").height("50px");
+      //   $(".host-script-section").removeClass("het");
+      //   $(".animate-display").removeClass("ht-20");
+
+      // }else{
+      //   $(".host-script-section").height("180px");
+      //   $(".host-script-section").addClass("het");
+      //   $(".animate-display").addClass("ht-20");
+      // }
       if($(".host-script-section").hasClass("het")){
-        $(".host-script-section").height("50px");
+        
         $(".host-script-section").removeClass("het");
         $(".animate-display").removeClass("ht-20");
+        if ($(window).width() > 2000) {
+          $(".host-script-section").height("63px");
+           }
+           else{
+            $(".host-script-section").height("50px");
+           }
+        
       }else{
         $(".host-script-section").height("180px");
         $(".host-script-section").addClass("het");

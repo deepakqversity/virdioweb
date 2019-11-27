@@ -316,7 +316,7 @@ return (
       </div>
     </header>
     <section className="bg-gray px-0 py-1 rounded section attendees mysec" id="">
-      <div className="row px-0 px-sm-3 pb-2 pt-1 justify-content-between align-items-center">
+      <div className="row px-0 px-sm-3 pb-2 pt-1 justify-content-between align-items-center uper_containr">
         <div className="col-6 col-md-6 d-flex align-items-center">
           {/*<h4 className="title">Participant View (<span id="joined_users">0</span>/<span>{localstoragedata.default.maxUserLimit}</span>)</h4>*/}
           <h4 className="title">Participant View (<span id="joined_users">0</span>/<span id="online-users">0{/*newulength*/}</span>)</h4>
@@ -386,9 +386,9 @@ return (
           </div>
 
 
-          <div className="my_custom_cont height-53 px-3 bg-gray top-rounded flex-wrap justify-content-between align-items-center d-none">
+          <div className="my_custom_cont height-53 h-100 overflow-hidden px-3 bg-gray top-rounded flex-wrap justify-content-between align-items-center d-none">
             <h3 className="main-heading font-size-16 float-left">Streaming</h3>
-            <div className="host-header">
+            <div className="host-header float-right">
               <img src="images/mute-microphone.png" className="unmute-icon" id="mute-unmute-local" />
               <img src="images/music-icon.png" className="music-icon" data-toggle="modal" data-target="#musicList" id="bg-music" />
               <img src="images/video-icon.png" className="video-icon d-none" id="publish" />

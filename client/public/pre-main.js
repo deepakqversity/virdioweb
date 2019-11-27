@@ -1101,6 +1101,7 @@ function attendeeScreenHeight(){
     localStorage.removeItem("swap-subscriber-id");
     localStorage.removeItem("hostStreamMuted");
     localStorage.removeItem("mediaAccessAllowed");
+    localStorage.removeItem("set_host_online_state");
   }
   
   var resetCount = '';
@@ -1215,6 +1216,8 @@ function signalHandler(uid, signalData, userType) {
 
         $('#online_state').removeClass('d-none');
 
+        localStorage.setItem("set_host_online_state",1);
+
         /*let message="Hi " +localDta.firstName+ ", this is "  + getUserDataFromList(uid, 'firstName') + ", welcome to your 1st virtual session with us  ";
         
         console.log('********ssssss************ resultant', message);
@@ -1328,6 +1331,7 @@ function signalHandler(uid, signalData, userType) {
 
         if(getUserDataFromList(convertEmailToId(senderId), 'userType') == 1){
           $('#online_state').removeClass('d-none');
+          localStorage.setItem("set_host_online_state",1);
         }
 
       }else if(res1[0] == "222")
@@ -2134,6 +2138,7 @@ function signalHandler(uid, signalData, userType) {
         }
       }
 
+   
       function participentTimerAlert(){
         if($('#participent-timer-alert').length > 0){
 

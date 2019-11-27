@@ -22,6 +22,7 @@ class PreConfiguration extends Component {
       timerTime: 0,
       userType:-1,
       interest:0,
+      remaining_time:'',
       alert10Sec:false,
       mediaAccess:false
  
@@ -65,6 +66,7 @@ class PreConfiguration extends Component {
 
   }
 
+
   componentDidMount(){
     $(document).ready(function(){
       $(".close-model-btn").click(function(){
@@ -97,6 +99,7 @@ class PreConfiguration extends Component {
     this.setState({interest:localstoragedata.sessionData.code});
 
     this.countdownTimer(localstoragedata.sessionData.scheduleDate);
+    this.sessionTimer(localstoragedata.sessionData.scheduleDate);
   }
 
   componentWillMount(){
@@ -237,6 +240,43 @@ class PreConfiguration extends Component {
     // }
   }
 
+  modalClose = e => {
+    window.leaveLogout();
+    $("#sessionAlert").attr({'style':'display:none'});
+  }
+
+
+  partmodalClose = e => {
+    $("#participent_host_alert").attr({'style':'display:none'});
+    localStorage.setItem("set_host_online_state", '');
+  }
+
+  sessionTimer(sessionDateTime) {
+    var sessionTime = new Date(sessionDateTime).getTime();
+
+    //var sessionDate = new Date(sessionDateTime).getDate();
+    
+    var now1 = new Date().getTime();
+    var t12 = sessionTime - now1;
+
+   let minte= Math.floor((t12 / 60000) % 60);
+
+   let hours = Math.floor((t12 / 3600000));
+    let hrs=hours*60;
+    let totalminute=hrs+minte;
+
+     //alert(totalminute);
+    if(totalminute > 30)
+    {    
+      let totalm=totalminute-29;
+
+      this.setState({
+        remaining_time: totalm
+      });
+      $("#sessionAlert").attr({'style':'display:block'});
+    }
+  }
+
   countdownTimer(sessionDate) {
 
     var deadline = new Date(sessionDate).getTime();
@@ -256,6 +296,8 @@ class PreConfiguration extends Component {
           }
 
           let time = hours + ' : ' + minutes + ' : ' + seconds;
+     
+        //  alert(time);
           $('.countdown-timer').text(time);
 
           if (t < 0) {
@@ -263,6 +305,8 @@ class PreConfiguration extends Component {
               $('.countdown-timer').text('Session Started');
 
               let userData = JSON.parse(localStorage.getItem("userData"));
+
+         
 
               if(userData.userType == 1) {
                   var redirectCounter = setInterval(function() {
@@ -275,6 +319,22 @@ class PreConfiguration extends Component {
                     }
                   }, 1000);
               }
+
+            if(userData.userType == 2) {
+
+              let host_online_state = localStorage.getItem("set_host_online_state");
+
+             // console.log('------set_host_online_state33333-------',host_online_state)
+
+            if(host_online_state != 1)  
+            {
+              $("#participent_host_alert").attr({'style':'display:block'});
+            }
+
+            $('.countdown-timer').text('Session Is Started After Host Join');
+       
+            }
+
           }
     }, 1000); 
   }
@@ -946,6 +1006,65 @@ render() {
           </div>
         </div>
       </div>
+
+
+
+  <div className="modal" id="sessionAlert">
+  <div className="modal-dialog">
+    <div className="modal-content equipmodalbg">
+
+      <div className="modal-header headerborder">
+        <h4 className="modal-title white">Session Alert</h4>
+        <button type="button" className="close white closepopup" onClick={this.modalClose.bind(this)} data-dismiss="modal">&times;</button>
+      </div>
+
+      <div className="modal-body">
+        <p>
+          Hey, You Don't Have Any Session Within 30 Minute. You Can Login To Join Your Session After {this.state.remaining_time} Minutes Only.
+        
+        </p>
+
+      
+      </div>
+
+
+      {/* <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div> */}
+
+    </div>
+  </div>
+</div> 
+
+
+
+
+<div className="modal" id="participent_host_alert">
+  <div className="modal-dialog">
+    <div className="modal-content equipmodalbg">
+
+      <div className="modal-header headerborder">
+        <h4 className="modal-title white">Session Alert</h4>
+        <button type="button" className="close white closepopup" onClick={this.partmodalClose.bind(this)} data-dismiss="modal">&times;</button>
+      </div>
+
+      <div className="modal-body">
+        <p>
+          Your Host Is Not Yet Login Kindly Wait For Host Login!!!!!
+        </p>
+
+      
+      </div>
+
+
+      {/* <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div> */}
+
+    </div>
+  </div>
+</div>
+
 
       <button id="set-temp-sesstion" onClick={this.checkstatus} hidden="hidden">cccc</button>
       <button id="set-media-access" onClick={this.checkMediaAccess} hidden="hidden">cam</button>

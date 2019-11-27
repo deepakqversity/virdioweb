@@ -278,9 +278,9 @@ console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId(
                  for(let i in audienceList111){
                                                                       
                      if(audienceList111[i].id == stream.getId()){
-
+                      $('#selected-participent-id').val(stream.getId());
                       localStorage.setItem("handraise-swap-subscriber-id", stream.getId());
-
+                      
                       console.log('-----dropdownMenuButtonnormalswap22222 = ',stream.getId())
         
                       removeAudienceInList(stream.getId());

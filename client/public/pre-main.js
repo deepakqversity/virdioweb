@@ -213,7 +213,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         console.log('-------join msg llllll--------','mssages send successfully on channel');    
       }).catch(error => {
         displayError(error);
-        console.log('-------There is error in joining a channel------')
+        console.log('-------There is error in joining a channel------', error)
       });
 
       // channel.getMembers().then(membersList => {    

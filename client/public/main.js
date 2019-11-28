@@ -400,6 +400,12 @@ console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId(
       $('#agora_remote' + stream.getId()).remove();
 
       switchVideoSize();
+
+      //if stream is removed due to network conjetion
+      let len = $('#subscribers-list .newcss').length;
+      if(len < storeData.default.maxUserLimit) {
+          switchAudienceToBroadcaster();
+      }
     });
 
     client.on('peer-leave', function (evt) {
@@ -729,6 +735,10 @@ console.log('rtm remove====', memberId);
                 removeUserAttribute(convertEmailToId(memberId), 'subscribeTime');
                 removeUserAttribute(convertEmailToId(memberId), 'isSubscribe');
 
+                $('#agora_remote' + convertEmailToId(memberId)).remove();
+
+                switchAudienceToBroadcaster();
+
                 if (parseInt($('#online-users').text()) > 0) {
                     $('#online-users').text(parseInt($('#online-users').text()) - 1);
                 }
@@ -784,7 +794,7 @@ console.log('rtm remove====', memberId);
                         channel = newclient.createChannel(channelName1);
                         console.log('rtm channel instance==', channel);
                         channel.join().then(() => {
-                            //@todo
+                            publish();
                         });
                     });
                 }
@@ -1069,6 +1079,9 @@ console.log('rtm remove====', memberId);
       console.log('-----changeUserToBroadcaster2000----------');
       client.publish(localStream, function (err) {
         console.log("Publish local stream error: " + err);
+        if (err == 'STREAM_ALREADY_PUBLISHED') {
+            unpublish();
+        }
       });
       client.on('stream-published', function (evt) {
         console.log('client ============', client);
@@ -2605,11 +2618,19 @@ function signalHandler(uid, signalData, userType) {
         let audience = getAllAudience();
         if(audience != null) {
             for(let i in audience){
+
+              let handraiseUserId = 0;
+
+              console.log('==@@@', typeof $('#to-broadcast').val());
+              if ($('#to-broadcast').val() != undefined) {
+                  handraiseUserId = $('#to-broadcast').val().trim();
+              }
               // if user already select from audience dropdown then not need to initialize
-              if(audience[i].id != $('#to-broadcast').val().trim()){
-                console.log('switchAudienceToBroadcaster ***************', audience);
-                sendPushIntoSessionMessage(audience[i].id)
-                break;
+              //if(audience[i].id != $('#to-broadcast').val().trim()){
+              if(audience[i].id != handraiseUserId) {
+                  console.log('switchAudienceToBroadcaster ***************', audience);
+                  sendPushIntoSessionMessage(audience[i].id)
+                  break;
               }
             }
         }

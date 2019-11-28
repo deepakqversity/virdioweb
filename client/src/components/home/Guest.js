@@ -369,7 +369,7 @@ return (
           <div className="transparent-gray slide-right-left" style={toggleList}>
             
             <div className="joined-attendees ">
-              <h4 className="mb-2 head"><span className="title">Wine Testers</span><span className="count">(<span  id="joined_users_at_client">0</span>/<span>{newulength}</span>)</span></h4>
+              <h4 className="mb-2 head"><span className="title">Participants</span><span className="count">(<span  id="joined_users_at_client">0</span>/<span>{newulength}</span>)</span></h4>
               <div className="joined-member-list scroller" id="all_joined_member_list"></div>
               <button type="button" id="minimize-others" className="mt-2 minimize-others mx-auto d-none"></button>
 
@@ -412,6 +412,30 @@ return (
     <div className="col-lg-10 col-md-8 col-sm-6 col-6 align-self-end">
     <footer className="footer position-relative zindex-5 count-box mb-5 mb-lg-2 mt-4">
       
+      <div className="fitness-emoji d-none">
+        <h3>How are you feeling?</h3>
+          <div className="d-flex justify-content-between a3">
+            <a href="#" id="like"><img src="images/like.png" />
+              <span>like</span>
+            </a>
+            <a href="#" id="dislike"><img src="images/dislike.png" />
+            <span>dislike</span>
+            </a>
+            <a href="#" id="easy"><img src="images/easy.png" />
+              <span>easy</span>
+            </a>
+            <a href="#" id="too-hard"><img src="images/too-hard.png" />
+              <span>TooHard</span>
+            </a>
+            <a href="#" id="perfect"><img src="images/perfect.png" />
+              <span>perfect</span>
+            </a>
+            <a href="#" id="awesome"><img src="images/awesome.png" />
+              <span>awesome</span>
+            </a>
+          </div>
+      </div>
+
       <FooterScriptParticipant interestId={sessionData.interestId} />
 
       {/* <div className="self-video1 mt-3 w-50">

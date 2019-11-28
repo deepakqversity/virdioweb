@@ -22,6 +22,7 @@ class PreConfiguration extends Component {
       timerTime: 0,
       userType:-1,
       interest:0,
+      remaining_time:'',
       alert10Sec:false,
       mediaAccess:false
  
@@ -65,6 +66,7 @@ class PreConfiguration extends Component {
 
   }
 
+
   componentDidMount(){
     $(document).ready(function(){
       $(".close-model-btn").click(function(){
@@ -97,6 +99,7 @@ class PreConfiguration extends Component {
     this.setState({interest:localstoragedata.sessionData.code});
 
     this.countdownTimer(localstoragedata.sessionData.scheduleDate);
+    this.sessionTimer(localstoragedata.sessionData.scheduleDate);
   }
 
   componentWillMount(){
@@ -123,9 +126,7 @@ class PreConfiguration extends Component {
   }
 
   joinSession = () => {
-   
-   //   this.checkHostSession();
-    
+       
       if(JSON.parse(localStorage.getItem('userData')).userType == 2) {
 
         let sessionTime = localStorage.getItem("pre-session-time");
@@ -237,6 +238,44 @@ class PreConfiguration extends Component {
     // }
   }
 
+  modalClose = e => {
+    window.leaveLogout();
+    $("#sessionAlert").attr({'style':'display:none'});
+  }
+
+
+  partmodalClose = e => {
+    $("#participent_host_alert").attr({'style':'display:none'});
+    localStorage.setItem("set_host_online_state", '');
+  }
+
+  sessionTimer(sessionDateTime) {
+    var sessionTime = new Date(sessionDateTime).getTime();
+
+    //var sessionDate = new Date(sessionDateTime).getDate();
+    
+    var now1 = new Date().getTime();
+    var t12 = sessionTime - now1;
+
+   let minte= Math.floor((t12 / 60000) % 60);
+
+   let hours = Math.floor((t12 / 3600000));
+    let hrs=hours*60;
+    let totalminute=hrs+minte;
+
+     //alert(totalminute);
+    if(totalminute > 30)
+    {    
+      let totalm=totalminute-29;
+
+      this.setState({
+        remaining_time: totalm
+      });
+      
+      $("#sessionAlert").attr({'style':'display:block'});
+    }
+  }
+
   countdownTimer(sessionDate) {
 
     var deadline = new Date(sessionDate).getTime();
@@ -256,6 +295,8 @@ class PreConfiguration extends Component {
           }
 
           let time = hours + ' : ' + minutes + ' : ' + seconds;
+     
+        //  alert(time);
           $('.countdown-timer').text(time);
 
           if (t < 0) {
@@ -264,17 +305,39 @@ class PreConfiguration extends Component {
 
               let userData = JSON.parse(localStorage.getItem("userData"));
 
+         
+
               if(userData.userType == 1) {
                   var redirectCounter = setInterval(function() {
 
                     if(localStorage.getItem("video-resolution") != null && localStorage.getItem('mediaAccessAllowed')  !== null && localStorage.getItem('mediaAccessAllowed')  == "true") {
 
                         clearInterval(redirectCounter);
-                        
-                        $('#continue-join').click();
+
+                        if($('#video-media-content .col-md-3').length > 1 || $('#audio-media-content div').length > 1) {
+                            window.multimediaAccessAlert();
+                        } else {
+                            $('#continue-join').click();
+                        }
                     }
                   }, 1000);
               }
+
+            // if(userData.userType == 2) {
+
+            //   let host_online_state = localStorage.getItem("set_host_online_state");
+
+            //  // console.log('------set_host_online_state33333-------',host_online_state)
+
+            // if(host_online_state != 1)  
+            // {
+            //   $("#participent_host_alert").attr({'style':'display:block'});
+            // }
+
+            // $('.countdown-timer').text('Session Is Started After Host Join');
+       
+            // }
+
           }
     }, 1000); 
   }
@@ -842,12 +905,10 @@ render() {
                         } else {
                             return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded d-none" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)} disabled={!this.state.isHostJoined}>Join</button>;                     
                         }
-                      //   if(localstoragedata.userType == 1) {
-                      //     return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-4 rounded " data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
-                      // }
                     }
                   )()}
 
+                  <p className="d-none" id="change-setting-timer"></p>
                 </div>
               </div>
             
@@ -919,6 +980,22 @@ render() {
         </div>
       </div>
 
+      <div id="multi-media-access-alert" className="modal fade" data-backdrop="static" data-keyboard="false">
+        <div className="modal-dialog modal-confirm">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">Camera & Microphone</h5>
+            </div>
+            <div className="modal-body">
+              <div>
+                <p>Have you selected the camera and microphone you want to use during the Session?</p>
+                 <p><a href="javascript:void(0)" id="change-setting">No</a><a href="javascript:void(0)" id="proceed">Yes</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="modal attendy-list" id="attendy-list">
         <div className="modal-dialog">
           <div className="modal-content">
@@ -946,6 +1023,65 @@ render() {
           </div>
         </div>
       </div>
+
+
+
+  <div className="modal" id="sessionAlert">
+  <div className="modal-dialog">
+    <div className="modal-content equipmodalbg">
+
+      <div className="modal-header headerborder">
+        <h4 className="modal-title white">Session Alert</h4>
+        <button type="button" className="close white closepopup" onClick={this.modalClose.bind(this)} data-dismiss="modal">&times;</button>
+      </div>
+
+      <div className="modal-body">
+        <p>
+          Hey, You Don't Have Any Session Within 30 Minute. You Can Login To Join Your Session After {this.state.remaining_time} Minutes Only.
+        
+        </p>
+
+      
+      </div>
+
+
+      {/* <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div> */}
+
+    </div>
+  </div>
+</div> 
+
+
+
+
+<div className="modal" id="participent_host_alert">
+  <div className="modal-dialog">
+    <div className="modal-content equipmodalbg">
+
+      <div className="modal-header headerborder">
+        <h4 className="modal-title white">Session Alert</h4>
+        <button type="button" className="close white closepopup" onClick={this.partmodalClose.bind(this)} data-dismiss="modal">&times;</button>
+      </div>
+
+      <div className="modal-body">
+        <p>
+          Your Host Is Not Yet Login Kindly Wait For Host Login!!!!!
+        </p>
+
+      
+      </div>
+
+
+      {/* <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div> */}
+
+    </div>
+  </div>
+</div>
+
 
       <button id="set-temp-sesstion" onClick={this.checkstatus} hidden="hidden">cccc</button>
       <button id="set-media-access" onClick={this.checkMediaAccess} hidden="hidden">cam</button>

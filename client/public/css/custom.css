@@ -1851,7 +1851,7 @@ position: absolute;
 .fitness-emoji{
 	position: absolute;
     top: -140px;
-    left: 25%;
+    left: 31%;
     background: rgba(0,0,0,0.4);
     padding: 20px;
     border-radius: 10px;
@@ -1877,6 +1877,7 @@ position: absolute;
     left: 50%;
     margin-left: -5px;
     font-size: 22px;
+    transform: translateX(-50%);
 }
 .fitness-emoji a img{
     width: 30px;
@@ -2088,6 +2089,14 @@ img.user-login{
 	font-family: Avenir-Medium;
 	    margin: 40px auto 20px auto;
     width: 280px;
+}
+#change-setting-timer
+{
+    color: white;
+    margin-left: 10px;
+    font-size: 27px;
+    transform: translateY(5px);
+    font-weight: bold;
 }
 
 /* -------------  10. Attendee Screen ----------- */
@@ -2324,7 +2333,32 @@ img.user-login{
     background-color: #BD00FF!important;
     border-color: #BD00FF !important;
 }
-
+a#proceed
+{
+    font-size: 22px;
+    display: inline-block;
+    padding: 5px 12px;
+    font-weight: bold;
+    border-radius: 5px;
+    color: white;
+    background: #6DD400;
+    float: right;
+    text-decoration: none;
+    margin-right: 10px;
+}
+a#change-setting
+{
+    font-size: 22px;
+    display: inline-block;
+    padding: 5px 12px;
+    font-weight: bold;
+    border-radius: 5px;
+    color: white;
+    background: #BD00FF;
+    float: right;
+    
+    text-decoration: none;
+}
 .prescreen-popup .online-status{
 	font-size:12px !important;
 	padding-left: 15px;

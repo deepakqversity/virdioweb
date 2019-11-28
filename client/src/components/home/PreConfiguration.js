@@ -286,6 +286,7 @@ class PreConfiguration extends Component {
       let totalm=totalminute-streamJoinDefaultTime1;
 
       this.setState({
+        
         remaining_time: totalm,
         sessionDate: date,
         userName: userName,

@@ -1344,7 +1344,7 @@ function signalHandler(uid, signalData, userType) {
 
       }else if(res1[0] == "222")
       {
-
+alert('get 222');
         let userList = getOrderUser();
         let storeData = getCurrentUserData();
 
@@ -2395,11 +2395,13 @@ function signalHandler(uid, signalData, userType) {
       })
 
       $('#proceed').on('click', function(){
+          alert('1122== proceed');
           $('#multi-media-access-alert').modal('hide');
           $('#continue-join').click();
       });
 
       $('#change-setting').on('click', function(){
+        alert('1122-- change setting');
           $('#multi-media-access-alert').modal('hide');
           $('#continue-join').removeClass('d-none');
 

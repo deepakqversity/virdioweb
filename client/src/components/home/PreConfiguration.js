@@ -102,7 +102,7 @@ class PreConfiguration extends Component {
     this.setState({interest:localstoragedata.sessionData.code});
 
     this.countdownTimer(localstoragedata.sessionData.scheduleDate);
-    this.sessionTimer(localstoragedata.sessionData.scheduleDate);
+    //this.sessionTimer(localstoragedata.sessionData.scheduleDate);
   }
 
   componentWillMount(){

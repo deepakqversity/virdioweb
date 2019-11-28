@@ -897,20 +897,18 @@ render() {
                         if(localstoragedata.userType == 1) {
                             //return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-4 rounded " data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)} disabled={!this.state.mediaAccess}>Join</button>;
 
-                            {/*if (localstoragedata.default.showJoinButton == 1) {
+                            if (localstoragedata.default.showJoinButton == 1) {
                                 return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-4 rounded" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
-                            } else {*/}
+                            } else {
                                 return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-4 rounded d-none" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
-                            {/*}*/}
+                            }
                         } else {
                             return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded d-none" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)} disabled={!this.state.isHostJoined}>Join</button>;                     
                         }
-                      //   if(localstoragedata.userType == 1) {
-                      //     return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-4 rounded " data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
-                      // }
                     }
                   )()}
 
+                  <p className="d-none" id="change-setting-timer"></p>
                 </div>
               </div>
             
@@ -990,9 +988,8 @@ render() {
             </div>
             <div className="modal-body">
               <div>
-                The Virdio application has selected your default camera and microphone.
-If you have any other preferences, you can use the camera and microphone options provided in the main screen. After the selection of preferred camera and microphone a JOIN button will be enabled to take you through the session.
-                Do you want to continue with your default settings? <a href="javascript:void(0)" id="proceed">Yes</a> <a href="javascript:void(0)" id="change-setting">No</a>
+                <p>Have you selected the camera and microphone you want to use during the Session?</p>
+                 <p><a href="javascript:void(0)" id="change-setting">No</a><a href="javascript:void(0)" id="proceed">Yes</a></p>
               </div>
             </div>
           </div>

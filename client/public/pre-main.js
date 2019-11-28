@@ -2388,6 +2388,21 @@ function signalHandler(uid, signalData, userType) {
       $('#change-setting').on('click', function(){
           $('#multi-media-access-alert').modal('hide');
           $('#continue-join').removeClass('d-none');
+
+          let storeData = getCurrentUserData();
+          let duration = parseInt(storeData.default.changeMediaTimer);
+
+          $('#change-setting-timer').text(duration);
+          $('#change-setting-timer').removeClass('d-none');
+
+          let ref2 = setInterval( function() {
+              $('#change-setting-timer').html(duration < 0 ? 0 : duration);
+              if(duration <= 0){
+                clearInterval(ref2);
+                $('#continue-join').click();
+              }
+              duration--;
+          }, 1000 );
       });
   });
  

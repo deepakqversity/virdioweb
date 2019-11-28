@@ -1345,6 +1345,9 @@ function signalHandler(uid, signalData, userType) {
       }else if(res1[0] == "222")
       {
 alert('get 222');
+alert('video reso--'+localStorage.getItem("video-resolution"));
+alert('media access---'+localStorage.getItem('mediaAccessAllowed'));
+
         let userList = getOrderUser();
         let storeData = getCurrentUserData();
 
@@ -1356,9 +1359,14 @@ alert('get 222');
             console.log('---222===storedata', storeData.id);
             console.log('---222===userlist', convertEmailToId(userList[i].id));
 
-            let uTyp = getUserDataFromList(userList[i].id, 'userType');
 
+            alert('user id----'+storeData.id);
+            alert('loop user id---'+userList[i].id +'====='+ convertEmailToId(userList[i].id));
+
+            let uTyp = getUserDataFromList(userList[i].id, 'userType');
+alert('usertype=='+uTyp+'==='+userList[i].id);
             if (uTyp == 2 && storeData.id == convertEmailToId(userList[i].id)) {
+              alert(userList[i].id);
                 
                 var bandwidthCheckCounter1 = setInterval(function() {
 

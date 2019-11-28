@@ -535,7 +535,8 @@ console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId(
       
       for(let i= 0; i < userList.length; i++){
         if(userList[i].id == id){
-          return userList[i].firstName.toLowerCase() +(userList[i].lastName != null ? ' '+ userList[i].lastName.toLowerCase() : '') +', '+ (userList[i].city != null ? userList[i].city.toLowerCase() : '');
+         // return userList[i].firstName.toLowerCase() +(userList[i].lastName != null ? ' '+ userList[i].lastName.toLowerCase() : '') +', '+ (userList[i].city != null ? userList[i].city.toLowerCase() : '');
+          return userList[i].firstName.toLowerCase();
         }
       }
     } else {
@@ -4293,7 +4294,8 @@ console.log('removed from rtm order====', memberId);
 
 
       $( '#newhtt').bind( "click", function(event) {
-      let message = "206"+sep;
+      //let message = "206"+sep;
+      let message ="456"+sep+"4"+sep+"20";
       let attendiesID='arjun.rishi@virdio.com';
       console.log('--------newhtt-----------------',message,attendiesID)
       sendMessageToChannel(channelName1, message);

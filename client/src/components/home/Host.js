@@ -109,6 +109,12 @@ class Host extends Component {
     this.countdownTimer(currDate);
   }
 
+
+//     showpart = e => {
+// alert('httt');
+//     $('#newhtt').trigger('click');
+//   }
+
   componentWillMount(){
     this.startTimer();
     this.sessionTimer();
@@ -321,6 +327,7 @@ return (
           {/*<h4 className="title">Participant View (<span id="joined_users">0</span>/<span>{localstoragedata.default.maxUserLimit}</span>)</h4>*/}
           <h4 className="title">Participant View (<span id="joined_users">0</span>/<span id="online-users">0{/*newulength*/}</span>)</h4>
           <a href="" className="move-list"  id="partlist"  data-toggle="modal" data-target="#attendy-list" className="open-list"><img src="images/move-list.png" /></a>
+          {/* <a href="" className="move-list1" onClick={this.showpart.bind(this)}><img src="images/swipe-list.png" /></a> */}
           <a href="" className="move-list"><img src="images/swipe-list.png" /></a>
           <div className="hand-raise-list">
             <div className="dropdown">

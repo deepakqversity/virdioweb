@@ -1383,7 +1383,7 @@ display:none;
 position: absolute;
     right: 10px;
     z-index: 6;
-    top: 13px;
+    top: 10px;
     width: 24px;
 	    outline: none;
 }
@@ -1422,12 +1422,12 @@ outline:0;
     opacity: 1;
 }
 .script-info .carousel-control-next{
-	top: 0px;
+	top: 13px;
     z-index: 5;
-    right: 3px;
+    right: 16px;
 }
 .script-info .carousel-control-prev{
-	top: 17px;
+	top: 13px;
     z-index: 5;
     right: 105px;
     left: auto;
@@ -3031,7 +3031,7 @@ text-align:left;
       position: relative;
     z-index: 4;
     overflow: hidden;
-	height: 100%;
+	height: 305px;
 }
 .v-logo img{
 	width: 22px;

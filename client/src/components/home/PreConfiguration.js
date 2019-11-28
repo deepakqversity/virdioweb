@@ -305,11 +305,12 @@ class PreConfiguration extends Component {
 
               let userData = JSON.parse(localStorage.getItem("userData"));
 
-         
+            console.log('11--');
 
               if(userData.userType == 1) {
+                console.log('22--');
                   var redirectCounter = setInterval(function() {
-
+                    console.log('33--', typeof localStorage.getItem('mediaAccessAllowed'));
                     if(localStorage.getItem("video-resolution") != null && localStorage.getItem('mediaAccessAllowed')  !== null && localStorage.getItem('mediaAccessAllowed')  == "true") {
 
                         clearInterval(redirectCounter);

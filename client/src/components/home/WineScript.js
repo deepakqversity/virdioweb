@@ -41,19 +41,19 @@ return (
 {
   sessionScript.map((opt, i) =>
             <div className="carousel-item  h-100 d-flex justify-content-end flex-direction-column" key={i}>
-                <div className="bg-gray position-relative top-rounded d-md-flex justify-content-between align-items-center px-3 py-3 add-remove-round">
+                <div className="bg-gray position-relative carousl_uppr h-25 top-rounded d-md-flex justify-content-between align-items-center px-3 py-3 add-remove-round">
                   <h3 className="main-heading font-size-16"><span className="ml-md-4 font-size-16 "><span className="fitness-counter1">{i+1}</span>/{sessionScript.length} {sessionData.scriptType}</span></h3>
                   <a className="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev" onClick={this.getPrev.bind(this)} >
                     <img src="images/prev-icon.png" className="next-btn" />
                   </a>
                   <a href="#" className=" mr-5 show-full-script show-hide-script"><img src="images/showscript.png" /></a>
-                  <a className="carousel-control-next position-relative" href="#carouselExampleControls" role="button" data-slide="next" id="winscript"  onClick={this.getNext.bind(this)}>
+                  <a className="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next" id="winscript"  onClick={this.getNext.bind(this)}>
                     <img src="images/next-icon.png" className="next-btn" />
                   </a>
                 </div>
                        
-                        <div className="bg-gray bottom-rounded px-3 pb-2 item-description script-section d-block flex-grow-1">
-                        <div className="max-h200 scroller">
+                        <div className="bg-gray bottom-rounded h-75 px-3 pb-2 item-description script-section d-block flex-grow-1">
+                        <div className="max-h200 h-100 scroller">
                           <h4 className="item-name">{opt.name}</h4>
                           <div className="row">
                          

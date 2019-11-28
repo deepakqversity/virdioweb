@@ -3821,9 +3821,14 @@ console.log('removed from rtm order====', memberId);
       
     });
 
-    
+    if ($(window).width() > 1500) {
+      $(".host-script-section").height("210px");
+    }
+    else{
+      $(".host-script-section").height("180px");
+    }
 
-    $(".host-script-section").height("180px");
+   
     $(".host-section").css({"min-width": "30%", "max-width": "30%px"});
     
     $(".fullscreen, .back-btn").click(function(){
@@ -3842,17 +3847,22 @@ console.log('removed from rtm order====', memberId);
         
         $(".host-script-section").removeClass("het");
         $(".animate-display").removeClass("ht-20");
+        $(".carousl_uppr").removeClass("h-25");
+        $(".carousl_uppr").addClass("h-100");
         if ($(window).width() > 2000) {
           $(".host-script-section").height("63px");
            }
            else{
             $(".host-script-section").height("50px");
+
            }
         
       }else{
         $(".host-script-section").height("180px");
         $(".host-script-section").addClass("het");
         $(".animate-display").addClass("ht-20");
+        $(".carousl_uppr").addClass("h-25");
+        $(".carousl_uppr").removeClass("h-100");
       }
 
       console.log('---------fullscreen--------------')

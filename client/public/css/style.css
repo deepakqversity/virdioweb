@@ -458,8 +458,8 @@ max-width: 75%;
 }
 .translatee .btn-primary, .btn-primary.border-right
     {
-        padding: 10px 25px;
-        font-size: 21px;      
+        padding: 10px 30px;
+        font-size: 25px;      
         
     }
     .logout-btn i
@@ -499,8 +499,8 @@ h3.main-heading span{
     
     .transparent-gray .btn-primary, .time-session .btn-primary
     {
-        height: 55px !important;
-        font-size: 1vw;
+        padding: 10px 35px;
+        font-size: 0.9vw;
     }
     .transparent-gray .fa-volume-up
     {
@@ -664,7 +664,7 @@ ul.music-playlist li a span:nth-child(1)
 }
 .prescreen-popup .small-heading
 {
-    font-size: 1.1vw;
+    font-size: 1vw;
 }
 .prescreen-popup .popup-heading
 {
@@ -680,7 +680,7 @@ ul.music-playlist li a span:nth-child(1)
 }
 .fill-wifi
 {
-    bottom: 24px;
+    bottom: 12px;
 }
 .online-streams, .heart-rate
 {

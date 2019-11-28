@@ -573,7 +573,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
               localStorage.setItem('mediaAccessAllowed', true);
               $('#set-media-access').click();
             }, function (err) {
-              alert('err media=='+err.type+'===='+err.msg);
+              alert('err media=='+err.type+'===='+err.msg+'====='+err.info);
               localStorage.setItem('mediaAccessAllowed', false);
               console.log("getUserMedia failed", err);
 

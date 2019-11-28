@@ -102,7 +102,7 @@ class PreConfiguration extends Component {
     this.setState({interest:localstoragedata.sessionData.code});
 
     this.countdownTimer(localstoragedata.sessionData.scheduleDate);
-    this.sessionTimer(localstoragedata.sessionData.scheduleDate);
+    //this.sessionTimer(localstoragedata.sessionData.scheduleDate);
   }
 
   componentWillMount(){
@@ -929,7 +929,7 @@ render() {
                                 return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-4 rounded d-none" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
                             }
                         } else {
-                            return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded d-none" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)} disabled={!this.state.isHostJoined}>Join</button>;                     
+                            return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded d-none" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;                     
                         }
                     }
                   )()}

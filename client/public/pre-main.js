@@ -213,7 +213,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         console.log('-------join msg llllll--------','mssages send successfully on channel');    
       }).catch(error => {
         displayError(error);
-        console.log('-------There is error in joining a channel------')
+        console.log('-------There is error in joining a channel------', error)
       });
 
       // channel.getMembers().then(membersList => {    
@@ -573,6 +573,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
               localStorage.setItem('mediaAccessAllowed', true);
               $('#set-media-access').click();
             }, function (err) {
+              alert('err media=='+err.type+'===='+err.msg+'====='+err.info);
               localStorage.setItem('mediaAccessAllowed', false);
               console.log("getUserMedia failed", err);
 
@@ -1344,6 +1345,9 @@ function signalHandler(uid, signalData, userType) {
 
       }else if(res1[0] == "222")
       {
+alert('get 222');
+alert('video reso--'+localStorage.getItem("video-resolution"));
+alert('media access---'+localStorage.getItem('mediaAccessAllowed'));
 
         let userList = getOrderUser();
         let storeData = getCurrentUserData();
@@ -1356,9 +1360,14 @@ function signalHandler(uid, signalData, userType) {
             console.log('---222===storedata', storeData.id);
             console.log('---222===userlist', convertEmailToId(userList[i].id));
 
-            let uTyp = getUserDataFromList(userList[i].id, 'userType');
 
+            alert('user id----'+storeData.id);
+            alert('loop user id---'+userList[i].id +'====='+ convertEmailToId(userList[i].id));
+
+            let uTyp = getUserDataFromList(userList[i].id, 'userType');
+alert('usertype=='+uTyp+'==='+userList[i].id);
             if (uTyp == 2 && storeData.id == convertEmailToId(userList[i].id)) {
+              alert(userList[i].id);
                 
                 var bandwidthCheckCounter1 = setInterval(function() {
 

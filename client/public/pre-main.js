@@ -1344,17 +1344,21 @@ function signalHandler(uid, signalData, userType) {
 
       }else if(res1[0] == "222")
       {
-        //console.log('2222222222222222222222222')
+
         let userList = getOrderUser();
+        let storeData = getCurrentUserData();
+
         if(userList != ''){
-          //console.log('22222222222  77777777777 ----------',userList)
+
           let ct = 0;
           for(let i=0; i < userList.length; i++){
+
+            console.log('---222===storedata', storeData.id);
+            console.log('---222===userlist', convertEmailToId(userList[i].id));
+
             let uTyp = getUserDataFromList(userList[i].id, 'userType');
 
-            if (uTyp == 2) {
-
-                let storeData = getCurrentUserData();
+            if (uTyp == 2 && storeData.id == convertEmailToId(userList[i].id)) {
                 
                 var bandwidthCheckCounter1 = setInterval(function() {
 
@@ -1364,6 +1368,8 @@ function signalHandler(uid, signalData, userType) {
                       console.log('inside 222--');
                       console.log('inside 222 video count --', $('#video-media-content .col-md-3').length);
                       console.log('inside 222 audio count --', $('#audio-media-content div').length);
+                      console.log('inside 222--current user id', storeData.id);
+                      console.log('inside 222--list user id', userList[i].id, convertEmailToId(userList[i].id));
 
                       clearInterval(bandwidthCheckCounter1);
 

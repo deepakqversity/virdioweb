@@ -312,6 +312,10 @@ class PreConfiguration extends Component {
 
                     if(localStorage.getItem("video-resolution") != null && localStorage.getItem('mediaAccessAllowed')  !== null && localStorage.getItem('mediaAccessAllowed')  == "true") {
 
+                        console.log('inside premain--');
+                        console.log('inside premain video count --', $('#video-media-content .col-md-3').length);
+                        console.log('inside premain audio count --', $('#audio-media-content div').length);
+
                         clearInterval(redirectCounter);
 
                         if($('#video-media-content .col-md-3').length > 1 || $('#audio-media-content div').length > 1) {

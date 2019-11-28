@@ -1237,10 +1237,14 @@ function signalHandler(uid, signalData, userType) {
             //if(localStorage.getItem("video-resolution") != null &&  $('#media-access-alert').hasClass('show') === false) {
             if(localStorage.getItem("video-resolution") != null && localStorage.getItem('mediaAccessAllowed')  !== null && localStorage.getItem('mediaAccessAllowed')  == "true") {
 
+                console.log('inside 216--');
+                console.log('inside 216 video count --', $('#video-media-content .col-md-3').length);
+                console.log('inside 216 audio count --', $('#audio-media-content div').length);
+
                 clearInterval(bandwidthCheckCounter);
 
                 if($('#video-media-content .col-md-3').length > 1 || $('#audio-media-content div').length > 1) {
-                    window.multimediaAccessAlert();
+                    multimediaAccessAlert();
                 } else {
                     $('#participent-stream-redirect-alert').modal('show');
                     $('#set-temp-sesstion').click();
@@ -1357,10 +1361,14 @@ function signalHandler(uid, signalData, userType) {
                   //if(localStorage.getItem("video-resolution") != null &&  $('#media-access-alert').hasClass('show') === false) {
                   if(localStorage.getItem("video-resolution") != null && localStorage.getItem('mediaAccessAllowed') !== null && localStorage.getItem('mediaAccessAllowed') == "true") {
                       
+                      console.log('inside 222--');
+                      console.log('inside 216 video count --', $('#video-media-content .col-md-3').length);
+                      console.log('inside 216 audio count --', $('#audio-media-content div').length);
+
                       clearInterval(bandwidthCheckCounter);
 
                       if($('#video-media-content .col-md-3').length > 1 || $('#audio-media-content div').length > 1) {
-                          window.multimediaAccessAlert();
+                          multimediaAccessAlert();
                       } else {
                           $('#participent-stream-redirect-alert').modal('show');
                           $('#set-temp-sesstion').click();

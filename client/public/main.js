@@ -1080,7 +1080,7 @@ console.log('rtm remove====', memberId);
       client.publish(localStream, function (err) {
         console.log("Publish local stream error: " + err);
         if (err == 'STREAM_ALREADY_PUBLISHED') {
-            unpublish();
+            //unpublish();
         }
       });
       client.on('stream-published', function (evt) {

@@ -573,6 +573,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
               localStorage.setItem('mediaAccessAllowed', true);
               $('#set-media-access').click();
             }, function (err) {
+              alert('err media=='+err.type+'===='+err.msg);
               localStorage.setItem('mediaAccessAllowed', false);
               console.log("getUserMedia failed", err);
 
@@ -2403,13 +2404,11 @@ alert('usertype=='+uTyp+'==='+userList[i].id);
       })
 
       $('#proceed').on('click', function(){
-          alert('1122== proceed');
           $('#multi-media-access-alert').modal('hide');
           $('#continue-join').click();
       });
 
       $('#change-setting').on('click', function(){
-        alert('1122-- change setting');
           $('#multi-media-access-alert').modal('hide');
           $('#continue-join').removeClass('d-none');
 

@@ -55,6 +55,9 @@ class Login extends Component {
           this.setState({email:''})
       }
     }
+
+    localStorage.removeItem("mediaAccessAllowed");
+    localStorage.removeItem("video-resolution");
   }
 
   componentWillReceiveProps(nextProps) {

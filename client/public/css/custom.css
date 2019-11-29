@@ -3458,7 +3458,10 @@ position: absolute;
     text-shadow: none;
     font-size: 40px !important;
 }
-
+#sessionAlert
+{
+    background: black !important;
+}
 .suborder{
 
     margin: 0 auto;

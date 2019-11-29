@@ -243,7 +243,7 @@ class PreConfiguration extends Component {
 
   modalClose = e => {
     window.leaveLogout();
-    $("#sessionAlert").attr({'style':'display:none'});
+    //$("#sessionAlert").attr({'style':'display:none'});
   }
 
 
@@ -261,9 +261,17 @@ class PreConfiguration extends Component {
     let day=new Date(sessionDateTime).getDate();
     let hrs1=new Date(sessionDateTime).getHours();
     let minute= "0" +new Date(sessionDateTime).getMinutes();
-    let second= "0" +new Date(sessionDateTime).getSeconds();
-   
-   let date= year+'-'+month+'-'+day+' '+hrs1 + ':' + minute.substr(-2) + ':' + second.substr(-2);
+    //let second= "0" +new Date(sessionDateTime).getSeconds();
+                   
+    // Check whether AM or PM 
+    let newformat = hrs1 >= 12 ? 'PM' : 'AM';                 
+    // Find current hour in AM-PM Format 
+    hrs1 = hrs1 % 12;                 
+    // To display "0" as "12" 
+    hrs1 = hrs1 ? hrs1 : 12;  
+    //minutes = minutes < 10 ? '0' + minutes : minutes; 
+                
+   let date= month+'/'+day+'/'+year+' '+hrs1 + ':' + minute.substr(-2) + ' ' + newformat;
 
    //alert(date);
 
@@ -1063,14 +1071,14 @@ render() {
 
       <div className="modal-body">
         <p>
-          Hey  {this.state.userName}, You don't have any session in next {this.state.defaultsessionjointime} minute. Your next session  will be at {this.state.sessionDate}. You are allowed to login  {this.state.defaultsessionjointime} minutes before the session.         
+          Hi  {this.state.userName}, your next session is on {this.state.sessionDate}.Please login up to {this.state.defaultsessionjointime} minutes prior to the session.         
         </p>
      
       </div>
  
-      {/* <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div> */}
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger"  onClick={this.modalClose.bind(this)} data-dismiss="modal">OK</button>
+      </div> 
 
     </div>
   </div>

@@ -23,6 +23,9 @@ class PreConfiguration extends Component {
       userType:-1,
       interest:0,
       remaining_time:'',
+      sessionDate:'',
+      defaultsessionjointime:'',
+      userName:'',
       alert10Sec:false,
       mediaAccess:false
  
@@ -252,9 +255,20 @@ class PreConfiguration extends Component {
   sessionTimer(sessionDateTime) {
     var sessionTime = new Date(sessionDateTime).getTime();
 
-    //var sessionDate = new Date(sessionDateTime).getDate();
-    
+    let year=new Date(sessionDateTime).getFullYear();
+    let mnth=new Date(sessionDateTime).getMonth();
+    let month=mnth+1;
+    let day=new Date(sessionDateTime).getDate();
+    let hrs1=new Date(sessionDateTime).getHours();
+    let minute= "0" +new Date(sessionDateTime).getMinutes();
+    let second= "0" +new Date(sessionDateTime).getSeconds();
+   
+   let date= year+'-'+month+'-'+day+' '+hrs1 + ':' + minute.substr(-2) + ':' + second.substr(-2);
+
+   //alert(date);
+
     var now1 = new Date().getTime();
+
     var t12 = sessionTime - now1;
 
    let minte= Math.floor((t12 / 60000) % 60);
@@ -263,13 +277,20 @@ class PreConfiguration extends Component {
     let hrs=hours*60;
     let totalminute=hrs+minte;
 
-     //alert(totalminute);
-    if(totalminute > 30)
+    let joinDefaultTime= JSON.parse(localStorage.getItem("userData"));
+    let streamJoinDefaultTime=joinDefaultTime.default.streamJoiningDefaultTime;
+   let userName=joinDefaultTime.firstName;
+    if(totalminute > streamJoinDefaultTime)
     {    
-      let totalm=totalminute-29;
+      let streamJoinDefaultTime1=streamJoinDefaultTime-1;
+      let totalm=totalminute-streamJoinDefaultTime1;
 
       this.setState({
-        remaining_time: totalm
+        
+        remaining_time: totalm,
+        sessionDate: date,
+        userName: userName,
+        defaultsessionjointime: streamJoinDefaultTime
       });
       
       $("#sessionAlert").attr({'style':'display:block'});
@@ -312,6 +333,10 @@ class PreConfiguration extends Component {
 
                     if(localStorage.getItem("video-resolution") != null && localStorage.getItem('mediaAccessAllowed')  !== null && localStorage.getItem('mediaAccessAllowed')  == "true") {
 
+                        console.log('inside premain--');
+                        console.log('inside premain video count --', $('#video-media-content .col-md-3').length);
+                        console.log('inside premain audio count --', $('#audio-media-content div').length);
+
                         clearInterval(redirectCounter);
 
                         if($('#video-media-content .col-md-3').length > 1 || $('#audio-media-content div').length > 1) {
@@ -323,7 +348,8 @@ class PreConfiguration extends Component {
                   }, 1000);
               }
 
-            // if(userData.userType == 2) {
+            if(userData.userType == 2) {
+              
 
             //   let host_online_state = localStorage.getItem("set_host_online_state");
 
@@ -334,9 +360,9 @@ class PreConfiguration extends Component {
             //   $("#participent_host_alert").attr({'style':'display:block'});
             // }
 
-            // $('.countdown-timer').text('Session Is Started After Host Join');
+            $('.countdown-timer').text('Session Is Started After Host Join');
        
-            // }
+            }
 
           }
     }, 1000); 
@@ -903,7 +929,7 @@ render() {
                                 return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-4 rounded d-none" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;
                             }
                         } else {
-                            return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded d-none" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)} disabled={!this.state.isHostJoined}>Join</button>;                     
+                            return <button type="button" className="w110 btn-join btn btn-large btn-primary text-uppercase py-1 px-3 rounded d-none" data-attr={localstoragedata.userType} id="continue-join" onClick={this.joinSession.bind(this)}>Join</button>;                     
                         }
                     }
                   )()}
@@ -1037,14 +1063,11 @@ render() {
 
       <div className="modal-body">
         <p>
-          Hey, You Don't Have Any Session Within 30 Minute. You Can Login To Join Your Session After {this.state.remaining_time} Minutes Only.
-        
+          Hey  {this.state.userName}, You don't have any session in next {this.state.defaultsessionjointime} minute. Your next session  will be at {this.state.sessionDate}. You are allowed to login  {this.state.defaultsessionjointime} minutes before the session.         
         </p>
-
-      
+     
       </div>
-
-
+ 
       {/* <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
       </div> */}

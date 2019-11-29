@@ -149,7 +149,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
     });
 
     client.on('stream-added', function (evt) {
-console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId());
 
         let storeData = getCurrentUserData();
         let allBroadcasters = getAllBroadcster();
@@ -401,16 +400,21 @@ console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId(
 
       switchVideoSize();
 
-      //if stream is removed due to network conjetion
-      let len = $('#subscribers-list .newcss').length;
-      if(len < storeData.default.maxUserLimit) {
-          switchAudienceToBroadcaster();
+      if(storeData.userType == 1){
+          //if stream is removed due to network conjetion
+          let len = $('#subscribers-list .newcss').length;
+          if(len < storeData.default.maxUserLimit) {
+              switchAudienceToBroadcaster();
+          }
       }
     });
 
     client.on('peer-leave', function (evt) {
-      console.log('Peer leave = ', evt)
+      console.log('Peer leave === ', evt)
+
+      var storeData = getCurrentUserData();
       var stream = evt.stream;
+
       if (stream) {
 
         console.log('Peer leave = isPlaying', stream.isPlaying);
@@ -422,6 +426,7 @@ console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId(
         
         removeUserAttribute(stream.getId(), 'subscribeTime');
         removeUserAttribute(stream.getId(), 'isSubscribe');
+        removeUserAttribute(stream.getId(), 'currentStatus');
         
         $('#agora_remote' + stream.getId()).remove();
         localStorage.removeItem("swap-subscriber-id");
@@ -430,10 +435,10 @@ console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId(
         console.log(evt.uid + " leaved from this channel");
 
         if(storeData.userType == 1){
-          // // add stream after leaving current stream on hand raise event
-          // pushIntoSessionByHost();
-          // switch user every specific time duration
-          switchAudienceToBroadcaster();
+            switchAudienceToBroadcaster();
+
+            let onlineUserCount = getOnlineUserCount('currentStatus');
+            $('#online-users').text(onlineUserCount);
         }
       }
     });
@@ -477,11 +482,20 @@ console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId(
     });
 
     client.on("peer-online", function (evt) {
-      console.log('peer-online = ', evt)
+      console.log('peer-online ====== ', evt.uid)
       // var stream = evt.stream;
       // if (stream) {
       //   console.log(evt.uid + " ===> peer online");
       // }
+
+      addUserAttribute(evt.uid, 'currentStatus', 1);
+
+      var storeData = getCurrentUserData();
+
+      if (storeData.userType == 1) {
+          let onlineUserCount = getOnlineUserCount('currentStatus');
+          $('#online-users').text(onlineUserCount);
+      }
     });
 
   }
@@ -498,6 +512,21 @@ console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId(
   function getTempUsers(){
     return localStorage.getItem("tempUsers") != undefined ? JSON.parse(localStorage.getItem("tempUsers")) : [];
   }    
+
+  function getOnlineUserCount(key) {
+    let userList = getTempUsers();
+    let onlineUsers = 0;
+
+    if(userList != '') {
+      for(let i= 0; i < userList.length; i++){
+        if(userList[i].hasOwnProperty(key) && userList[i][key] == 1 && userList[i]['userType'] != 1){
+          onlineUsers++
+        }
+      }
+    }
+
+    return onlineUsers;
+  }
 
   function convertIdToEmail(id){
     let userList = getTempUsers();
@@ -672,61 +701,36 @@ console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId(
              //    console.log('-------There is error in joining a channel------')
              //  });
 
+              if (storeData.userType == 1) {                  
+                  let onlineUserCount = getOnlineUserCount('currentStatus');
+                  $('#online-users').text(parseInt(onlineUserCount));
+              }
+
               channel.getMembers().then(membersList => {    
                 console.log('membersList', membersList)
                     
                 channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
-
-                if (storeData.userType == 1) {
-                  let onlineUserCount = 0;
-
-                  if (membersList.length > 0) {
-                      for(let i= 0; i < membersList.length; i++){
-                        console.log('membersList[i]', membersList[i]);
-                        if(getUserDataFromList(convertEmailToId(membersList[i]), 'userType') == 2){
-                          onlineUserCount++;
-                        }
-                      }
-                  }
-                  
-                  $('#online-users').text(onlineUserCount);
-                }
               }).catch(error => {
-                displayError(error);
-                console.log('**********shiv*********There Is a problem to join a channel**********');
+                //displayError(error);
+                console.log('**********shiv*********There Is a problem to join a channel**********', error);
               });
 
-              // channel log
+
               channel.on('MemberJoined', memberId => { 
 
                 console.log('------------memberjoineddeepak-------',memberId);
-               
+
+                addUserAttribute(convertEmailToId(memberId), 'currentStatus', 1);
+
                 var massages="208"+sep+memberId+sep+"joined"+sep;        
                 channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
 
                 console.log('------------memberafterjoineddeepak-------',memberId);
 
-                // get online members list
-                channel.getMembers().then(membersList => {
-                  console.log('membersList after member joined', membersList)
-
-                  if (storeData.userType == 1) {
-                    let onlineUserCount = 0;
-
-                    if (membersList.length > 0) {
-                        for(let i= 0; i < membersList.length; i++){
-                          console.log('membersList[i]', membersList[i]);
-                          if(getUserDataFromList(convertEmailToId(membersList[i]), 'userType') == 2){
-                            onlineUserCount++;
-                          }
-                        }
-                    }
-                    
-                    $('#online-users').text(onlineUserCount);
-                  }
-                }).catch(error => {
-                  console.log('******************There Is a problem to get channel members**********', error);
-                });
+                if (storeData.userType == 1) {
+                    let onlineUserCount = getOnlineUserCount('currentStatus');
+                    $('#online-users').text(parseInt(onlineUserCount));
+                }
               })
            
               channel.on('MemberLeft', memberId => { 
@@ -735,13 +739,16 @@ console.log('rtm remove====', memberId);
 
                 removeUserAttribute(convertEmailToId(memberId), 'subscribeTime');
                 removeUserAttribute(convertEmailToId(memberId), 'isSubscribe');
+                removeUserAttribute(convertEmailToId(memberId), 'currentStatus');
 
                 $('#agora_remote' + convertEmailToId(memberId)).remove();
 
-                switchAudienceToBroadcaster();
+                if (storeData.userType == 1) {
+                    if (parseInt($('#online-users').text()) > 0) {
+                        $('#online-users').text(parseInt($('#online-users').text()) - 1);
+                    }
 
-                if (parseInt($('#online-users').text()) > 0) {
-                    $('#online-users').text(parseInt($('#online-users').text()) - 1);
+                    switchAudienceToBroadcaster();
                 }
 
                 var massages="208"+sep+memberId+sep+"left"+sep;  
@@ -749,36 +756,16 @@ console.log('rtm remove====', memberId);
               })
            
               channel.on('ChannelMessage', (message, senderId) => {         
-                var msg=message.text;
-                // msg = JSON.parse(msg);
-                          console.log('------channelMsgHandler---------',msg,senderId,storeData.userType)   
-                channelMsgHandler(msg,senderId,storeData.userType);
+                  var msg=message.text;
+                  
+                  console.log('------channelMsgHandler---------',msg,senderId,storeData.userType)   
+                  channelMsgHandler(msg,senderId,storeData.userType);
               });
        
             }).catch(error => {
               //displayError(error);
               console.log('**********shiv*********There Is a problem to join a channel**********', error);
             });
-
-            // channel log
-            // channel.on('MemberJoined', memberId => { 
-             
-            //   var massages="208"+sep+memberId+sep+"joined"+sep;        
-            //   channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
-            // })
-         
-            // channel.on('MemberLeft', memberId => { 
-        
-            //   var massages="208"+sep+memberId+sep+"left"+sep;  
-            //   channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"left"}), storeData.userType);
-            // })
-         
-            // channel.on('ChannelMessage', (message, senderId) => {         
-            //   var msg=message.text;
-            //   // msg = JSON.parse(msg);
-            //   console.log('--------emojies-----------',msg,storeData.userType);             
-            //   channelMsgHandler(msg,senderId,storeData.userType);
-            // });
 
             newclient.on('ConnectionStateChanged', (newState, reason) => {//alert('state=='+newState+"==reason=="+reason);
                 console.log('on connection state changed to ' + newState + ' reason: ' + reason);
@@ -803,7 +790,6 @@ console.log('rtm remove====', memberId);
 
             newclient.on('MessageFromPeer', (message, peerId) => { 
               console.log('********vvvvvvvvvvvvv********',message.text,'********************',peerId);
-              // console.log("message "+ message.text + " peerId" + peerId);
 
               signalHandler(peerId, message.text, storeData.userType);
             });
@@ -813,34 +799,23 @@ console.log('rtm remove====', memberId);
           console.log('---------------bbbbbbbb-----client is not logedin-----', err);
         });
       } else {
-       
+        
+        if (storeData.userType == 1) {
+            let onlineUserCount = getOnlineUserCount('currentStatus');
+            $('#online-users').text(parseInt(onlineUserCount));
+        }
+
         channel.getMembers().then(membersList => {    
           console.log('------------membersListlalit-------',membersList);  
-
-          if (storeData.userType == 1) {
-            let onlineUserCount = 0;
-
-            if (membersList.length > 0) {
-                for(let i= 0; i < membersList.length; i++){
-                  console.log('membersList[i]', membersList[i]);
-                  if(getUserDataFromList(convertEmailToId(membersList[i]), 'userType') == 2){
-                    onlineUserCount++;
-                  }
-                }
-            }
-            
-            $('#online-users').text(onlineUserCount);
-          }
 
           channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
         
         }).catch(error => {
-          displayError(error);
-           console.log('*************There is an errorkkkkkkkkkk******');
+            //displayError(error);
+            console.log('*************There is an errorkkkkkkkkkk******', error);
         });
-        }
-  
       }
+    }
 
       function leave_channel() {
         console.log('============= channel leave ============');
@@ -1099,6 +1074,7 @@ console.log('rtm remove====', memberId);
     setTimeout(function(){ console.log('%%%%%%%%%%%%%%%%%%%%');}, 1000);
 
     console.log(' @@@@@@@ totalBrodcaster @@@@@@@ ', totalBrodcaster, storeData.default.maxUserLimit);
+
     let checkUserTime = false;
     let isUserExists = false;
 
@@ -1106,6 +1082,7 @@ console.log('rtm remove====', memberId);
 
       // check user exists in list of first order
       isUserExists = checkUserInOrder(storeData);
+
       if(isUserExists && totalBrodcaster < parseInt(storeData.default.maxUserLimit)){
         checkUserTime = true;
       }
@@ -1117,17 +1094,19 @@ console.log('rtm remove====', memberId);
     //if(storeData.userType == 1  || (storeData.userType == 2 && checkUserTime && isUserExists && totalBrodcaster < parseInt(storeData.default.maxUserLimit)) ) {
     if(storeData.userType == 1  || (storeData.userType == 2 && checkUserTime && isUserExists) ) {
         console.log('in if stream---');
-      client.publish(localStream, function (err) {
-        console.log("Publish local stream error: " + err);
-      });
-      client.on('stream-published', function (evt) {
-        console.log('client ============', client);
-        if(storeData.userType == 2){
-          $('#strm-unpublish').removeClass('d-none');
-          $('#strm-publish').addClass('d-none');
-        }
 
-      });
+        client.publish(localStream, function (err) {
+          console.log("Publish local stream error: " + err);
+        });
+
+        client.on('stream-published', function (evt) {
+          console.log('client ============', client);
+          if(storeData.userType == 2){
+            $('#strm-unpublish').removeClass('d-none');
+            $('#strm-publish').addClass('d-none');
+          }
+
+        });
     }
   }
 
@@ -1533,7 +1512,7 @@ console.log('rtm order======', userList[i].id);
     {     
       var text ="222"+sep;
       sendMessageToChannel(channelName1, text);
-      getMemberList();
+      //getMemberList();
     }
   }
 
@@ -4377,9 +4356,12 @@ console.log('removed from rtm order====', memberId);
 
     $('#attendy-list').on('shown.bs.modal', function () {
           
-      channel.getMembers().then(membersList => {
-        console.log('membersList!!!!', membersList);
+      //channel.getMembers().then(membersList => {
+        //console.log('membersList!!!!', membersList);
         
+        let membersList = getTempUsers();
+        console.log('membersList!!!!', membersList);
+
         let userList = getOrderUser();
 
         $('#attendy-list').find('.user-status').attr('src', '/images/offline.png');
@@ -4401,11 +4383,14 @@ console.log('onscreenUsers===', onscreenUsers);
 
         for(let i= 0; i < membersList.length; i++){
 
-          let eleId = convertEmailToId(membersList[i]);
+          console.log('membersList!!!!----', membersList[i].id, membersList[i].firstName, membersList[i].email);
+          //let eleId = convertEmailToId(membersList[i]);
+          let eleId = membersList[i].id;
           
-          $('#online-user-row-'+eleId).find('.user-status').attr('src', '/images/online.png');
-          $('#online-user-row-'+eleId).find('.user-online-status').html('online');
-          //$('#online-user-row-'+eleId).find('.visible-status .fa').addClass('fa-check').addClass('text-green').removeClass('fa-times').removeClass('text-red');
+          if (membersList[i].currentStatus != undefined && membersList[i].currentStatus == 1) {
+              $('#online-user-row-'+eleId).find('.user-status').attr('src', '/images/online.png');
+              $('#online-user-row-'+eleId).find('.user-online-status').html('online');
+          }
           
           if (onscreenUsers.indexOf(eleId) !== -1) {
               $('#user-green-status-'+eleId).removeClass('d-none');
@@ -4414,7 +4399,7 @@ console.log('onscreenUsers===', onscreenUsers);
 
           if(userList != ''){
             for(let j in userList){
-              if(userList[j].id == membersList[i]){
+              if(userList[j].id == membersList[i].email){
 
                   $('#online-user-row-'+eleId).attr('data-position', userList[j].joinAt );
                   break;
@@ -4424,9 +4409,9 @@ console.log('onscreenUsers===', onscreenUsers);
           $('#online-user-list tr').sort(sort_li).appendTo('#online-user-list');
           
         }
-      }).catch(error => {
-        console.log('*************There is an error******', error);
-      });
+      // }).catch(error => {
+      //   console.log('*************There is an error******', error);
+      // });
   })
 
     $('#mute-unmute').on('click', function(){

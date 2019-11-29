@@ -152,7 +152,7 @@ class PreConfiguration extends Component {
       this.removeScript('/AgoraRTCSDK-2.7.1.js');
       this.removeScript('/agora-rtm-sdk-1.0.0.js');
       this.removeScript('/pre-main.js');
-      this.loadScript('/check-rule.js');
+      this.removeScript('/check-rule.js');
 
       window.participentTimerAlertClose();
       window.participentStreamTimerAlertClose();

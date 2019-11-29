@@ -29,6 +29,21 @@ if(!AgoraRTC.checkSystemRequirements()) {
     return localStorage.getItem("tempUsers") != undefined ? JSON.parse(localStorage.getItem("tempUsers")) : [];
   }    
 
+  function getOnlineUserCount(key) {
+    let userList = getTempUsers();
+    let onlineUsers = 0;
+
+    if(userList != '') {
+      for(let i= 0; i < userList.length; i++){
+        if(userList[i].hasOwnProperty(key) && userList[i][key] == 1 && userList[i]['userType'] != 1){
+          onlineUsers++
+        }
+      }
+    }
+
+    return onlineUsers;
+  }
+
   function convertIdToEmail(id){
     let userList = getTempUsers();
     if(userList != ''){
@@ -227,29 +242,12 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
         addUserAttribute(convertEmailToId(memberId), 'currentStatus', 1);
 
-        // get online members list
-        channel.getMembers().then(membersList => {
-          console.log('membersList after member joined', membersList)
-
-          if (storeData.userType == 1) {
-            let onlineUserCount = 0;
-
-            if (membersList.length > 0) {
-                for(let i= 0; i < membersList.length; i++){
-                  console.log('membersList[i]', membersList[i]);
-                  if(getUserDataFromList(convertEmailToId(membersList[i]), 'userType') == 2){
-                    onlineUserCount++;
-                  }
-                }
-            }
-            
+        if (storeData.userType == 1) {
+            let onlineUserCount = getOnlineUserCount('currentStatus');
             $('#online-users').text(onlineUserCount);
-          }
-        }).catch(error => {
-          console.log('******************There Is a problem to get channel members**********', error);
-        });
+        }
 
-        console.log('MemberJoined ================MemberJoined ');
+        console.log('MemberJoined ================MemberJoined ', memberId);
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-status').attr('src', '/images/online.png');
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-online-status').html('online');
 
@@ -297,7 +295,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
      
        channel.on('MemberLeft', memberId => { 
 
-        console.log('--------lalitmemleft---------------')
+        console.log('--------lalitmemleft---------------', memberId)
         
         if (parseInt($('#online-users').text()) > 0) {
             $('#online-users').text(parseInt($('#online-users').text()) - 1);
@@ -577,7 +575,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
               localStorage.setItem('mediaAccessAllowed', false);
               console.log("getUserMedia failed", err);
 
-              if (err.type == 'error' && (err.msg === 'NotAllowedError' || err.msg === 'NotFoundError')) {
+              if (err.type == 'error' && (err.msg === 'NotAllowedError' || err.msg === 'NotFoundError' || err.msg === 'NotReadableError')) {
               // if (err.type == 'error' && err.msg === 'NotAllowedError') {
                   $('#media-access-alert').modal('show');
               }

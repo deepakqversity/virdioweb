@@ -573,11 +573,11 @@ if(!AgoraRTC.checkSystemRequirements()) {
               localStorage.setItem('mediaAccessAllowed', true);
               $('#set-media-access').click();
             }, function (err) {
-              localStorage.setItem('mediaAccessAllowed', true);
+              localStorage.setItem('mediaAccessAllowed', false);
               console.log("getUserMedia failed", err);
 
-              //if (err.type == 'error' && (err.msg === 'NotAllowedError' || err.msg === 'NotFoundError')) {
-              if (err.type == 'error' && err.msg === 'NotAllowedError') {
+              if (err.type == 'error' && (err.msg === 'NotAllowedError' || err.msg === 'NotFoundError')) {
+              //if (err.type == 'error' && err.msg === 'NotAllowedError') {
                   $('#media-access-alert').modal('show');
               }
             });

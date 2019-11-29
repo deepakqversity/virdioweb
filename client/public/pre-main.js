@@ -296,10 +296,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
        channel.on('MemberLeft', memberId => { 
 
         console.log('--------lalitmemleft---------------', memberId)
-        
-        if (parseInt($('#online-users').text()) > 0) {
-            $('#online-users').text(parseInt($('#online-users').text()) - 1);
-        }
 
         addUserAttribute(convertEmailToId(memberId), 'currentStatus', 0);
         removeFromRtmOrder(memberId);
@@ -313,6 +309,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
             addNewAfterRemove(memberId);
             
           }
+
+          let onlineUserCount = getOnlineUserCount('currentStatus');
+          $('#online-users').text(onlineUserCount);
         }
 
         removeUserAttribute(convertEmailToId(memberId), 'subscribeTime');

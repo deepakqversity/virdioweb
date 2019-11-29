@@ -744,9 +744,8 @@ console.log('rtm remove====', memberId);
                 $('#agora_remote' + convertEmailToId(memberId)).remove();
 
                 if (storeData.userType == 1) {
-                    if (parseInt($('#online-users').text()) > 0) {
-                        $('#online-users').text(parseInt($('#online-users').text()) - 1);
-                    }
+                    let onlineUserCount = getOnlineUserCount('currentStatus');
+                    $('#online-users').text(onlineUserCount);
 
                     switchAudienceToBroadcaster();
                 }

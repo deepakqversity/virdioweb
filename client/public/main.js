@@ -260,9 +260,12 @@ console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId(
 
             if ($('#subscribers-list #agora_remote'+stream.getId()).length === 1) {
               console.log('i am in streamer----');
-              stream.play('agora_remote_vdo' + stream.getId(), {muted:true});
+             // stream.play('agora_remote_vdo' + stream.getId(), {muted:true});
+
+              stream.play('agora_remote_vdo' + stream.getId());
 
               switchVideoSize();
+              checkMuteUnmute(stream.getId());
             }
 
             addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
@@ -329,7 +332,7 @@ console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId(
                 let ado = $('#agora_host audio')[0];
                 ado.muted = true;
 
-                stream.muteAudio();
+               stream.muteAudio();
 
                 console.log('local stream muted of host by participant');
                 $('#mute-unmute').find('.fa').addClass('fa-volume-down').removeClass('fa-volume-up');
@@ -439,18 +442,23 @@ console.log('======jagattotalBrodcaster====', totalBrodcaster, evt.stream.getId(
     });
 
     client.on('mute-audio', function (evt) {
-      console.log('audio muted for user-----', evt.uid);
+      console.log('-----lalit-------audio muted for user-----', evt.uid);
       if ($('#subscribers-list #agora_remote'+evt.uid).length > 0){
         $('#subscribers-list #agora_remote'+evt.uid).find('.hand').addClass('d-none')
       }
     });
 
     client.on('unmute-audio', function (evt) {
-      console.log('audio un-muted for user-----', evt.uid);
+      console.log('-----lalit-------audio un-muted for user-----', evt.uid);
       if ($('#subscribers-list #agora_remote'+evt.uid).length > 0){
-        //$('#subscribers-list #agora_remote'+evt.uid).find('.hand').removeClass('d-none')
+       // $('#subscribers-list #agora_remote'+evt.uid).find('.hand').removeClass('d-none')
       }      
     });
+
+    client.on('active-speaker', function(evt) {
+      var uid = evt.uid;
+      console.log("update active speaker: client " + uid);
+   });
 
     client.getRemoteAudioStats((remoteAudioStatsMap) => {
         for(var uid in remoteAudioStatsMap){
@@ -1003,7 +1011,9 @@ console.log('rtm remove====', memberId);
       let allAdo = $('#subscribers-list audio');   
   
       let vdo = $('#subscribers-list #agora_remote'+ participentId + ' video' )[0];   
-      let ado = $('#subscribers-list #agora_remote'+ participentId + ' audio' )[0];   
+      let ado = $('#subscribers-list #agora_remote'+ participentId + ' audio' )[0];
+      
+      
   
       $.each(allVdo, function (index, value) {
         allVdo[index].muted = true;
@@ -1040,19 +1050,35 @@ console.log('rtm remove====', memberId);
     let allAdo = $('#subscribers-list audio');   
 
     let vdo = $('#subscribers-list #agora_remote'+ receiverId + ' video' )[0];   
-    let ado = $('#subscribers-list #agora_remote'+ receiverId + ' audio' )[0];   
+    let ado = $('#subscribers-list #agora_remote'+ receiverId + ' audio' )[0];
+
+   // 'agora_remote_vdo' + stream.getId(), {muted:true}
+    
+    console.log('---vdo.muted---------',vdo.muted,'-----ado.muted----------',ado.muted,'------------',receiverId,'----vdo----',vdo,'--------ado-------',ado)
 
     $.each(allVdo, function (index, value) {
       allVdo[index].muted = true;
       allAdo[index].muted = true;
     });
 
+    console.log('---vdo.muted---------',vdo.muted,'-----ado.muted----------',ado.muted,'------------',receiverId,'----vdo----',vdo,'--------ado-------',ado)
+
     if(vdo.muted || ado.muted){
       console.log('unmute successfully')
+    
       vdo.muted = false;
       ado.muted = false;
-    }
 
+      // $("#video"+receiverId).attr({muted: false});
+      // $("#audio"+receiverId).attr({muted: false});
+
+
+      // $("#video"+receiverId).removeAttr('muted');
+      // $("#audio"+receiverId).removeAttr('muted');
+
+      //console.log('---vdo.muted---------',vdo.muted,'-----ado.muted----------',ado.muted,'------------',receiverId,'----vdo----',vdo,'--------ado-------',ado)
+    }
+    console.log('---vdo.muted---------',vdo.muted,'-----ado.muted----------',ado.muted,'------------',receiverId,'----vdo----',vdo,'--------ado-------',ado)
 
   }
 
@@ -2062,7 +2088,7 @@ function signalHandler(uid, signalData, userType) {
 
         console.log('-------newlocalstorageDta-------------',newlocalstorageDta,newlocalstorageDta.id)
 
-        checkMuteSelfAudio(newlocalstorageDta.id);           
+        //checkMuteSelfAudio(newlocalstorageDta.id);           
       }else if(resultant[0] == "226")
       {
         console.log('---------226---------------')
@@ -2171,7 +2197,7 @@ function signalHandler(uid, signalData, userType) {
     function channelMsgHandler(msg,senderId, userType)
     {
       
-      //console.log('********lalit3456************** signalData ', msg);
+      console.log('********newhtt1111************** signalData ', msg);
 
       let res1=msg.split(sep);
     
@@ -2263,8 +2289,22 @@ function signalHandler(uid, signalData, userType) {
         console.log('---------206sssssssss---------------',senderId, res1[1], userType) 
 
         setBPMAtHost(senderId, res1[1], userType);
+      }else if(res1[0] == "456")
+      {
+        console.log('---------newhtt2222222---------------',senderId, res1[1], userType,res1[2]) 
+
+        setFitnessScriptAtParticipent(res1[1],res1[2]);
       }
     
+     }
+
+
+     function setFitnessScriptAtParticipent(script_no,pass_time)
+     {
+      //$(".swiper-guest.swiper-slide.start.swiper-start span a").trigger('click');
+     // var isparticipentrestart = "true";
+     // window.startSlider();
+     window.participentrestart();
      }
 
      function addAudienceInList(strArray) {
@@ -4096,6 +4136,7 @@ console.log('removed from rtm order====', memberId);
         let attendieID=storeData.name;
         let hostid = storeData.sessionData.hostId;
         let hostname = storeData.sessionData.hostName;
+        let loacal_id=storeData.id;
         console.log('storeData hostid', storeData, hostid );
        // alert(hostname);return false;      
         //var massages="201~@$"+attendieID+"~@$clientHandRaise~@$"+attendiesName; 
@@ -4104,6 +4145,7 @@ console.log('removed from rtm order====', memberId);
         let handraiseCode=storeData.rtm.handRaise.code;
         var massages=handraiseCode+sep;
         
+        //checkMuteUnmutepart(loacal_id);
         // 1=audiencs
 
         if(role == 1){
@@ -4533,7 +4575,26 @@ console.log('onscreenUsers===', onscreenUsers);
       // $('#agora_remote'+id).find('.mute-unmute').addClass('mute');
      // $('#agora_remote'+id).find('.mute-unmute .fa').addClass('fa-volume-off');
 
-  }    
+  } 
+  
+  function checkMuteUnmutepart(id) {
+
+    console.log('----------checkMuteUnmute-------------',id)
+
+      let vdo = $('#video'+ id )[0];   
+      let ado = $('#audio'+ id )[0];   
+      console.log('----------vdo.muted-------------',vdo.muted,'-----ado.muted-----',ado.muted,'-------',vdo,'--------',ado)
+      vdo.muted = false;
+      ado.muted = false;
+     // localStream.unmuteAudio();
+
+     $("#video"+id).removeAttr('muted');
+     $("#audio"+id).removeAttr('muted');
+      console.log('----------vdo.muted-------------',vdo.muted,'-----ado.muted-----',ado.muted,'-------',vdo,'--------',ado)
+      // $('#agora_remote'+id).find('.mute-unmute').addClass('mute');
+     // $('#agora_remote'+id).find('.mute-unmute .fa').addClass('fa-volume-off');
+
+  } 
 
   function checkMuteSelfAudio(id) {
 

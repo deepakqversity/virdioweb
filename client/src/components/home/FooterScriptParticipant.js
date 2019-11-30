@@ -202,7 +202,7 @@ let sessionScript = localstoragedata.sessionData.scriptDetail;
                         sessionScript.map((opt, i) =>
                         
                          
-                              <div className="swiper-slide newcounter" data-index={i+1} key={i}>
+                              <div className="swiper-slide newcounter" data1-index={i+1} data-index={i+1} key={i}>
                                   
                                   <div id="countdown" className="count-timer data-slide" data-index={i+1}>
                                   {opt.attribute.map(function(attrb, index){

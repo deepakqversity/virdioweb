@@ -47,15 +47,6 @@ class PreConfiguration extends Component {
   }
 
   removeScript = function (src) {
-    console.log('src========', src)
-    // let scpt = $('script');
-    // $('script').each(function(i){
-    //   console.log('_________________',$(this).attr('src'),src);
-    //   if($(this).attr('src').indexOf(src) !== -1){
-    //     $(this).remove();
-    //     return '';
-    //   }
-    // })
 
     // function removejscssfile(filename, filetype){
     var targetelement="script" //determine element type to create nodelist from
@@ -65,8 +56,6 @@ class PreConfiguration extends Component {
     if (allsuspects[i] && allsuspects[i].getAttribute(targetattr)!=null && allsuspects[i].getAttribute(targetattr).indexOf(src)!=-1)
         allsuspects[i].parentNode.removeChild(allsuspects[i]) //remove element by calling parentNode.removeChild()
     }
-    // }
-
   }
 
 
@@ -152,7 +141,7 @@ class PreConfiguration extends Component {
       this.removeScript('/AgoraRTCSDK-2.7.1.js');
       this.removeScript('/agora-rtm-sdk-1.0.0.js');
       this.removeScript('/pre-main.js');
-      this.loadScript('/check-rule.js');
+      this.removeScript('/check-rule.js');
 
       window.participentTimerAlertClose();
       window.participentStreamTimerAlertClose();
@@ -1005,7 +994,8 @@ render() {
         <div className="modal-dialog modal-confirm">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title">Virdio can't access your camera and microphone</h5>  
+              <h5 className="modal-title">Virdio can't access your camera and microphone</h5>
+              <button type="button" className="close white closepopup" onClick={this.modalClose.bind(this)} data-dismiss="modal">&times;</button>
             </div>
             <div className="modal-body">
               <div>Click the X icon in the URL bar above to give Virdio access to your camera and microphone</div>

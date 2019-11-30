@@ -71,9 +71,22 @@ class Guest extends Component {
     body.appendChild(tag);
   }
 
+  removeScript = function (src) {
+    // function removejscssfile(filename, filetype){
+    var targetelement="script" //determine element type to create nodelist from
+    var targetattr="src" //determine corresponding attribute to test for
+
+    var allsuspects=document.getElementsByTagName(targetelement);
+    
+    for (var i=allsuspects.length; i>=0; i--){ //search backwards within nodelist for matching elements to remove
+    if (allsuspects[i] && allsuspects[i].getAttribute(targetattr)!=null && allsuspects[i].getAttribute(targetattr).indexOf(src)!=-1)
+        allsuspects[i].parentNode.removeChild(allsuspects[i]) //remove element by calling parentNode.removeChild()
+    }
+  }
+
   componentDidMount(){
     
-    
+    this.removeScript('/pre-main.js');
     this.loadScript('/AgoraRTCSDK-2.7.1.js');
     this.loadScript('/agora-rtm-sdk-1.0.0.js');
     this.loadScript('/main.js');
@@ -108,12 +121,13 @@ class Guest extends Component {
 
     this.startTimer();
 
-    this.sessionTimer();
+    this.sessionTimer(currDate);
 
     this.countdownTimer(currDate);
   }
   
   componentWillMount(){
+    this.removeScript('/pre-main.js');
     // if any exception if user has no device on streaming page in any case
     let mediaIds = localStorage.getItem('media-setting');
 
@@ -123,22 +137,29 @@ class Guest extends Component {
 
     // window.test();
     this.startTimer();
-    this.sessionTimer();
+    //this.sessionTimer();
   }
 
-  sessionTimer = () => {
+  sessionTimer = (sessionDate) => {
     
     let storeData = JSON.parse(localStorage.getItem('userData'));    
-    let countdown = storeData.sessionData.duration * 60;
+    //let countdown = storeData.sessionData.duration * 60;
 
-    $('.header svg circle').attr('style','animation-duration:'+countdown+'s !important');
-    
+    var t1 = new Date(sessionDate);
+    var t2 = new Date();
+    var diff = t1.getTime() - t2.getTime();
+
+    var countdown = Math.floor(diff / 1000);
+
+    //$('.header svg circle').attr('style','animation-duration:'+countdown+'s !important');  
+    $('.header svg circle').css({"animation":"countdown "+countdown+"s linear infinite forwards", "animation-direction": "reverse"});  
     $('.header svg circle').css("stroke", "#9b51e0");
     
     var resetCount1 = setInterval(function() {
       if(countdown <= 0){
         //$('.header svg circle').removeAttr("style");
-        $('.header svg circle').attr("style","animation-play-state:paused");
+        //$('.header svg circle').attr("style","animation-play-state:paused");
+        $('.header svg circle').css({"animation-play-state":"paused"});
         clearInterval(resetCount1);
       }
       countdown--;

@@ -116,7 +116,7 @@ class Host extends Component {
     // this.setState({timerTime : scDate});
 
     this.startTimer();
-    this.sessionTimer();
+    this.sessionTimer(currDate);
 
     this.countdownTimer(currDate);
   }
@@ -130,21 +130,29 @@ class Host extends Component {
   componentWillMount(){
     this.removeScript('/pre-main.js');
     this.startTimer();
-    this.sessionTimer();
+    //this.sessionTimer();
   }
 
-  sessionTimer = () => {
+  sessionTimer = (sessionDate) => {
     
     let storeData = JSON.parse(localStorage.getItem('userData'));    
-    let countdown = storeData.sessionData.duration * 60;
+    //let countdown = storeData.sessionData.duration * 60;
 
-    $('.header svg circle').attr("style","animation-duration:"+countdown+"s !important");
+    var t1 = new Date(sessionDate);
+    var t2 = new Date();
+    var diff = t1.getTime() - t2.getTime();
+
+    var countdown = Math.floor(diff / 1000);
+
+    //$('.header svg circle').attr("style","animation-duration:"+countdown+"s !important");
+    $('.header svg circle').css({"animation":"countdown "+countdown+"s linear infinite forwards", "animation-direction": "reverse"});
     $('.header svg circle').css("stroke", "#9b51e0");
     
     var resetCount1 = setInterval(function() {
       if(countdown <= 0){
         //$('.header svg circle').removeAttr("style");
-        $('.header svg circle').attr("style","animation-play-state:paused");
+        //$('.header svg circle').attr("style","animation-play-state:paused");
+        $('.header svg circle').css({"animation-play-state":"paused"});
         clearInterval(resetCount1);
       }
       countdown--;

@@ -418,6 +418,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
       var storeData = getCurrentUserData();
       var stream = evt.stream;
 
+      removeUserAttribute(stream.getId(), 'subscribeTime');
+      removeUserAttribute(stream.getId(), 'isSubscribe');
+      removeUserAttribute(stream.getId(), 'currentStatus');
+
       if (stream) {
 
         console.log('Peer leave = isPlaying', stream.isPlaying);
@@ -427,18 +431,18 @@ if(!AgoraRTC.checkSystemRequirements()) {
             stream.stop();
         }
         
-        removeUserAttribute(stream.getId(), 'subscribeTime');
-        removeUserAttribute(stream.getId(), 'isSubscribe');
-        removeUserAttribute(stream.getId(), 'currentStatus');
-        
         $('#agora_remote' + stream.getId()).remove();
-        localStorage.removeItem("swap-subscriber-id");
+        //localStorage.removeItem("swap-subscriber-id");
 
         switchVideoSize();
         console.log(evt.uid + " leaved from this channel");
 
         if(storeData.userType == 1){
-            switchAudienceToBroadcaster();
+
+            let len = $('#subscribers-list .newcss').length;
+            if(len < storeData.default.maxUserLimit) {
+                switchAudienceToBroadcaster();
+            }
 
             let onlineUserCount = getOnlineUserCount('currentStatus');
             $('#online-users').text(onlineUserCount);
@@ -755,7 +759,10 @@ console.log('rtm remove====', memberId);
                     let onlineUserCount = getOnlineUserCount('currentStatus');
                     $('#online-users').text(onlineUserCount);
 
-                    switchAudienceToBroadcaster();
+                    let len = $('#subscribers-list .newcss').length;
+                    if(len < storeData.default.maxUserLimit) {
+                        switchAudienceToBroadcaster();
+                    }
                 }
 
                 var massages="208"+sep+memberId+sep+"left"+sep;  

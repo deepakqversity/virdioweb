@@ -297,7 +297,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
         console.log('--------lalitmemleft---------------', memberId)
 
-        addUserAttribute(convertEmailToId(memberId), 'currentStatus', 0);
         removeFromRtmOrder(memberId);
 
         var massages="208"+sep+memberId+sep+"left"+sep;  
@@ -316,6 +315,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
         removeUserAttribute(convertEmailToId(memberId), 'subscribeTime');
         removeUserAttribute(convertEmailToId(memberId), 'isSubscribe');
+        removeUserAttribute(convertEmailToId(memberId), 'currentStatus');
 
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-status').attr('src', '/images/offline.png');
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-online-status').html('offline');

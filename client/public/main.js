@@ -274,6 +274,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
             let audienceList111 = JSON.parse(localStorage.getItem("audience-list"));
             
             console.log('-----dropdownMenuButtonnormalswap0000 = ',audienceList111)
+
+            console.log('-----changeUserToBroadcaster2000----------audienceList111-----',audienceList111);
          
             if (audienceList111 !== null && audienceList111 !== '') {
                if(audienceList111.length > 0){
@@ -283,7 +285,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
                       $('#selected-participent-id').val(stream.getId());
                       localStorage.setItem("handraise-swap-subscriber-id", stream.getId());
                       
-                      console.log('-----dropdownMenuButtonnormalswap22222 = ',stream.getId())
+                      console.log('-------changeUserToBroadcaster---dropdownMenuButtonnormalswap22222 = ',stream.getId())
         
                       removeAudienceInList(stream.getId());
 
@@ -307,7 +309,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
             }
 
             if (localStorage.getItem("handraise-swap-subscriber-id") !== null && localStorage.getItem("handraise-swap-subscriber-id") !== '') {
-              addUserSelectionAndAudio(localStorage.getItem("handraise-swap-subscriber-id"));
+              addUserSelectionAndAudio1(localStorage.getItem("handraise-swap-subscriber-id"));
               localStorage.setItem("handraise-swap-subscriber-id", '');
           }
         } else {
@@ -1022,6 +1024,46 @@ console.log('rtm remove====', memberId);
 
     // After handraise div will be automatic get selected and audio is on
 
+    function addUserSelectionAndAudio1(participentId)
+    {
+
+      console.log('-----dropdownMenuButtonnormalswap22222 = ',participentId)
+
+      let participentEmail = convertIdToEmail(participentId);
+      var massages="203"+sep; 
+      sendMessage(participentEmail, massages);
+  
+      let allVdo = $('#subscribers-list video');   
+      let allAdo = $('#subscribers-list audio');   
+  
+      let vdo = $('#subscribers-list #agora_remote'+ participentId + ' video' )[0];   
+      let ado = $('#subscribers-list #agora_remote'+ participentId + ' audio' )[0];
+      
+      
+  
+      // $.each(allVdo, function (index, value) {
+      //   allVdo[index].muted = true;
+      //   allAdo[index].muted = true;
+      // });
+  
+      // if(vdo.muted || ado.muted){
+      //   console.log('unmute successfully')
+      //   vdo.muted = false;
+      //   ado.muted = false;
+      // }
+      
+      $('#agora_remote'+ participentId + ' .microphone-icon').addClass("d-none");
+
+      $('#subscribers-list #agora_remote'+ participentId).find('.hand-icon').removeClass('d-none');
+
+      // $('#errmsg').html('Client HandRaise');
+      // setTimeout(function(){ $('#errmsg').html(''); }, 10000);
+
+      $('#selected-participent-id').val(participentId );
+      $('#subscribers-list #agora_remote'+participentId).find('video').addClass('video-selected');
+      $('#subscribers-list #agora_remote'+participentId).find(".click-zoom").addClass("d-block").removeClass("d-none");
+    }
+
     function addUserSelectionAndAudio(participentId)
     {
 
@@ -1127,7 +1169,7 @@ console.log('rtm remove====', memberId);
   function publishAfterKick(){
     let storeData = getCurrentUserData();
     if(storeData.userType == 2){
-      console.log('-----changeUserToBroadcaster2000----------');
+      console.log('-----changeUserToBroadcaster2000----------publishAfterKick-----');
       client.publish(localStream, function (err) {
         console.log("Publish local stream error: " + err);
         if (err == 'STREAM_ALREADY_PUBLISHED') {
@@ -1136,6 +1178,7 @@ console.log('rtm remove====', memberId);
       });
       client.on('stream-published', function (evt) {
         console.log('client ============', client);
+        console.log('-----changeUserToBroadcaster2000----------stream-published-----');
         $('#strm-unpublish').removeClass('d-none');
         $('#strm-publish').addClass('d-none');
 
@@ -2201,7 +2244,7 @@ function signalHandler(uid, signalData, userType) {
       // console.log('********ggggggggggggg************** signalData ', signalData.message); 
       // $('#hostmsg').html('Now you are became a broadcaster.');
       // publish();
-      console.log('-----changeUserToBroadcaster1000----------');
+      console.log('-----changeUserToBroadcaster1000------publish----');
       publishAfterKick();
       // $('#mocrophone-on').addClass('d-none');
       // $('#mocrophone-off').removeClass('d-none');
@@ -2342,12 +2385,14 @@ function signalHandler(uid, signalData, userType) {
      }
 
      function addAudienceInList(strArray) {
-      console.log('-----------------str array ',strArray)
+      console.log('-------changeUserToBroadcaster----------str array ',strArray)
         let audienceList = [];
         let audienceListId = [];
         let f = true;
 
         if(audienceList.length > 0){
+          console.log('-------changeUserToBroadcaster----------audienceList.length ',audienceList.length)
+        let audienceList = [];
           for(let i in audienceList){
             if(audienceList[i].id == strArray[1]){
               f = false;
@@ -2364,6 +2409,7 @@ function signalHandler(uid, signalData, userType) {
             //handRaisedAt : strArray[4]
             handRaisedAt : new Date().getTime()
           });
+          console.log('-------changeUserToBroadcaster----------audienceList---- ',audienceList)
           localStorage.setItem("audience-list", JSON.stringify(audienceList));
           $('#dropdownMenuButton').removeClass('d-none');
           //$('.hand-raise-list .dropdown-menu').addClass('show');
@@ -2375,20 +2421,20 @@ function signalHandler(uid, signalData, userType) {
       
       if(localStorage.getItem("audience-list") == null) return false;
 
-      console.log('-----dropdownMenuButtonnormalswap4444 = ',id)
+      console.log('--changeUserToBroadcaster---dropdownMenuButtonnormalswap4444 = ',id)
 
       let audienceList = JSON.parse(localStorage.getItem("audience-list"));
 
-      // console.log('------dropdownMenuButton7777----------',id,'------',audienceList)
+       console.log('----changeUserToBroadcaster------dropdownMenuButton7777----------',id,'------',audienceList)
 
       let newAudienceList = [];
 
       if(audienceList.length > 0){
         for(let i in audienceList){
           console.log('removeAudienceInList = ', audienceList[i].id, id);
-          console.log('-------dropdownMenuButton000----- = ', audienceList[i].id, id);
+          console.log('----changeUserToBroadcaster---dropdownMenuButton000----- = ', audienceList[i].id, id);
           if(audienceList[i].id != id){
-            console.log('-------dropdownMenuButton999999----- = ', audienceList[i]);
+            console.log('---changeUserToBroadcaster----dropdownMenuButton999999----- = ', audienceList[i]);
             newAudienceList[i] = audienceList[i];
           }
         }
@@ -2396,7 +2442,7 @@ function signalHandler(uid, signalData, userType) {
 
       if(newAudienceList.length <= 0){
 
-        console.log('------dropdownMenuButton3333----------',newAudienceList.length)
+        console.log('---changeUserToBroadcaster---dropdownMenuButton3333----------',newAudienceList.length)
        // $('#dropdownMenuButton').click();
        $('#dropdownMenuButton').addClass('d-none');
        $('.hand-raise-list .dropdown-menu').removeClass('show')
@@ -2425,7 +2471,7 @@ function signalHandler(uid, signalData, userType) {
      }
 
      function showHandAtHost(){
-      console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+      console.log('!!!!!!!!!!!changeUserToBroadcaster!!!!!!!!!!!!!showHandAtHost!!!!!')
         let audienceList = localStorage.getItem("audience-list");
         
         if(audienceList == null) return '';
@@ -2448,10 +2494,10 @@ function signalHandler(uid, signalData, userType) {
           $('#raised-list').append(list);
           $('#dropdownMenuButton').removeClass('d-none');
           $('.hand-raise-list .dropdown-menu').removeClass('d-none');
-          console.log('-------dropdownMenuButton666666-------------')
+          console.log('---changeUserToBroadcaster----dropdownMenuButton666666-------------')
         } else {
           $('#dropdownMenuButton').addClass('d-none');
-          console.log('-------dropdownMenuButton55555-------------')
+          console.log('---changeUserToBroadcaster----dropdownMenuButton55555-------------')
           $('#raised-list').html('');
           $('#total-raised-hands').html(0);
           $('.hand-raise-list .dropdown-menu').removeClass('show');
@@ -2472,7 +2518,7 @@ function signalHandler(uid, signalData, userType) {
 
           pullFromSessionByHost(1);
         } else {
-          console.log('----changeUserToBroadcaster111111----------',uId)
+          console.log('----changeUserToBroadcasteraaaaaaaa----------',uId)
           pushIntoSessionByHost();
           removeAudienceInList(uId);
         }
@@ -2583,7 +2629,7 @@ function signalHandler(uid, signalData, userType) {
 
       console.log(' @@@@@@@ userList @@@ ', userList);
 
-      console.log('----changeUserToBroadcaster333333----------',broadcster)
+      console.log('----changeUserToBroadcaster333333-------pullFromSessionByHost------',broadcster)
 
      // console.log('----changeUserToBroadcasterlegth----------',broadcster.length)
       
@@ -2629,7 +2675,7 @@ function signalHandler(uid, signalData, userType) {
     function sendPushIntoSessionMessage(uid){
      // console.log('-------sendPushIntoSessionMessage--------------',uid)
 
-     console.log('-----changeUserToBroadcaster9999999----------',uid);
+     console.log('-----changeUserToBroadcaster9999999----------sendPushIntoSessionMessage-----',uid);
 
         let text = "200"+sep+" in session";
         sendMessage(convertIdToEmail(uid), text);
@@ -2756,7 +2802,7 @@ function signalHandler(uid, signalData, userType) {
         uid = $('#to-broadcast').val();
         console.log('-----------pushIntoSessionByHost------------',uid)
 
-        console.log('-----changeUserToBroadcaster8888----------',uid);
+        console.log('-----changeUserToBroadcaster8888---- pushIntoSessionByHost------',uid);
         sendPushIntoSessionMessage(uid);        
 
         $('#audience-'+uid).remove();
@@ -2766,7 +2812,7 @@ function signalHandler(uid, signalData, userType) {
         $('#total-raised-hands').html(len > 0 ? (len-1) : 0);
         if(len <= 0){
 
-          console.log('--------dropdownMenuButton7777777--------',len)
+          console.log('-----changeUserToBroadcaster--------dropdownMenuButton7777777--------',len)
 
           $('#dropdownMenuButton').addClass('d-none');
           $('.hand-raise-list .dropdown-menu').removeClass('show');

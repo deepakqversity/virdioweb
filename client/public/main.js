@@ -2499,9 +2499,8 @@ function signalHandler(uid, signalData, userType) {
           if(broadcster.length > 0){
             
             for(let i in broadcster){
-              //console.log('========== check 30 sec', broadcster[i])
+
               if(broadcster[i].email == dataObj.id){
-                //console.log('========== check 30 sec in side', broadcster[i])
 
                 let tm =  (new Date()).getTime() - parseInt(broadcster[i].subscribeTime);
                 if((tm / 1000) >= storeData.default.switchDuration){
@@ -2659,7 +2658,8 @@ function signalHandler(uid, signalData, userType) {
         //console.log('switchUsers ***************');
         var switchRef = setInterval( function(){
           switchBroadcasterToAudience();
-        } , 1000 * storeData.default.switchDuration); 
+        //} , 1000 * storeData.default.switchDuration); 
+        } , 1000);
       }
     }
 
@@ -2675,7 +2675,6 @@ function signalHandler(uid, signalData, userType) {
         if(broadcster.length > 0 && allUsers.length > broadcster.length){
           for(let i in broadcster){
             if(checkKickRule({id : broadcster[i].email})){
-              //kickUser(broadcster[i].id);
 
               localStorage.setItem("swap-subscriber-id", broadcster[i].id);
               $('#agora_remote' + broadcster[i].id).addClass('removeBroadcaster');
@@ -2687,7 +2686,7 @@ function signalHandler(uid, signalData, userType) {
         }
     }
 
-    function switchAudienceToBroadcaster(){
+    /*function switchAudienceToBroadcaster(){
         let audience = getAllAudience();
         if(audience != null) {
             for(let i in audience){
@@ -2704,6 +2703,44 @@ function signalHandler(uid, signalData, userType) {
                   console.log('switchAudienceToBroadcaster ***************', audience);
                   sendPushIntoSessionMessage(audience[i].id)
                   break;
+              }
+            }
+        }
+    }*/
+
+    function switchAudienceToBroadcaster(){
+        let audience = getAllAudience();
+        if(audience != null) {
+
+            let len = $('#subscribers-list .newcss').length;
+            let onscreenUsers = [];
+
+            if (len > 0) {
+                $('#subscribers-list .newcss').each(function (index, value) {
+                    onscreenUsers.push(parseInt($(this).find('.video-holder').attr('id')));
+                });
+            }
+
+            let handraiseUserId = 0;
+
+            console.log('==@@@', typeof $('#to-broadcast').val());
+            if ($('#to-broadcast').val() != undefined) {
+                handraiseUserId = $('#to-broadcast').val().trim();
+            }
+
+            for(let i in audience){
+
+              if (onscreenUsers.indexOf(audience[i].id) !== -1) {
+                  addUserAttribute(audience[i].id, 'isSubscribe', 1);
+              } else {
+                  
+                  // if user already select from audience dropdown then not need to initialize
+                  //if(audience[i].id != $('#to-broadcast').val().trim()){
+                  if(audience[i].id != handraiseUserId) {
+                      console.log('switchAudienceToBroadcaster ***************', audience);
+                      sendPushIntoSessionMessage(audience[i].id)
+                      break;
+                  }
               }
             }
         }

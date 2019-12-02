@@ -240,14 +240,20 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
       channel.on('MemberJoined', memberId => { 
 
+        console.log('MemberJoined ================MemberJoined ', memberId);
+        
         addUserAttribute(convertEmailToId(memberId), 'currentStatus', 1);
 
         if (storeData.userType == 1) {
             let onlineUserCount = getOnlineUserCount('currentStatus');
             $('#online-users').text(onlineUserCount);
+
+            let len = $('#subscribers-list .newcss').length;
+            if(len < storeData.default.maxUserLimit) {
+                switchAudienceToBroadcaster();
+            }
         }
 
-        console.log('MemberJoined ================MemberJoined ', memberId);
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-status').attr('src', '/images/online.png');
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-online-status').html('online');
 
@@ -311,6 +317,12 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
           let onlineUserCount = getOnlineUserCount('currentStatus');
           $('#online-users').text(onlineUserCount);
+
+          let len = $('#subscribers-list .newcss').length;
+          console.log('memleft pre-main-------length', typeof len);
+          if(len < storeData.default.maxUserLimit) {
+              switchAudienceToBroadcaster();
+          }
         }
 
         removeUserAttribute(convertEmailToId(memberId), 'subscribeTime');
@@ -2322,6 +2334,10 @@ function signalHandler(uid, signalData, userType) {
       localStorage.setItem("tempUsers", JSON.stringify(tempUsers));
   }
 
+  function switchAudienceToBroadcaster(){
+    console.log('pre-main function switchAudienceToBroadcaster called');
+    //should call main.js function as script is calling
+  }
       
   $(document).ready(function(){
 

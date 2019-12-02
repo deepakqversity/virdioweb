@@ -349,7 +349,7 @@ return (
           <h4 className="title">Participant View (<span id="joined_users">0</span>/<span id="online-users">0{/*newulength*/}</span>)</h4>
           <a href="" className="move-list"  id="partlist"  data-toggle="modal" data-target="#attendy-list" className="open-list"><img src="images/move-list.png" /></a>
           {/* <a href="" className="move-list1" onClick={this.showpart.bind(this)}><img src="images/swipe-list.png" /></a> */}
-          <a href="" className="move-list"><img src="images/swipe-list.png" /></a>
+          {/* <a href="" className="move-list"><img src="images/swipe-list.png" /></a> */}
           <div className="hand-raise-list">
             <div className="dropdown">
               <button className="dropdown-toggle circle-ripple d-none" type="button" id="dropdownMenuButton" data-toggle="dropdown">

@@ -2713,7 +2713,7 @@ function signalHandler(uid, signalData, userType) {
         var switchRef = setInterval( function(){
           switchBroadcasterToAudience();
         //} , 1000 * storeData.default.switchDuration); 
-        } , 1000);
+        } , 15000);
       }
     }
 
@@ -2795,7 +2795,8 @@ function signalHandler(uid, signalData, userType) {
                   if(audience[i].id != handraiseUserId) {
                       console.log('switchAudienceToBroadcaster ***************', audience);
                       sendPushIntoSessionMessage(audience[i].id)
-                      break;
+                      //break;
+                      return;
                   }
               }
             }

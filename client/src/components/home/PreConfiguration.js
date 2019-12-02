@@ -357,7 +357,7 @@ class PreConfiguration extends Component {
             //   $("#participent_host_alert").attr({'style':'display:block'});
             // }
 
-            $('.countdown-timer').text('Session Is Started After Host Join');
+            $('.countdown-timer').text('The session will be started once Host joins');
        
             }
 
@@ -998,7 +998,7 @@ render() {
               <button type="button" className="close white closepopup" onClick={this.modalClose.bind(this)} data-dismiss="modal">&times;</button>
             </div>
             <div className="modal-body">
-              <div>Click the X icon in the URL bar above to give Virdio access to your camera and microphone</div>
+              <div>Click the X icon in the popup window to logout from this browser/device</div>
             </div>
           </div>
         </div>

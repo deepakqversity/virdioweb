@@ -899,8 +899,8 @@ console.log('rtm remove====', memberId);
 
                     let resultant = text.split(sep);
                     if (resultant[0] == '200') {
-                        addUserAttribute(peerId, 'subscribeTime', (new Date()).getTime());
-                        addUserAttribute(peerId, 'isSubscribe', 0);
+                        addUserAttribute(convertEmailToId(peerId), 'subscribeTime', (new Date()).getTime());
+                        addUserAttribute(convertEmailToId(peerId), 'isSubscribe', 0);
                     }
 
                     retryCounter = 0;

@@ -2740,7 +2740,7 @@ function signalHandler(uid, signalData, userType) {
         }
     }
 
-    /*function switchAudienceToBroadcaster(){
+    function switchAudienceToBroadcaster(){
         let audience = getAllAudience();
         if(audience != null) {
             for(let i in audience){
@@ -2760,9 +2760,9 @@ function signalHandler(uid, signalData, userType) {
               }
             }
         }
-    }*/
+    }
 
-    function switchAudienceToBroadcaster(){
+    /*function switchAudienceToBroadcaster(){
         let audience = getAllAudience();
         if(audience != null) {
 
@@ -2801,7 +2801,7 @@ function signalHandler(uid, signalData, userType) {
               }
             }
         }
-    }
+    }*/
 
     function pushIntoSessionByHost(){
       let uid = '';

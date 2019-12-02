@@ -436,7 +436,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
           // remove from audience list
           removeAudienceInList(evt.uid);
         }
-        
+
         $('#agora_remote' + evt.uid).remove();
         //localStorage.removeItem("swap-subscriber-id");
 
@@ -502,9 +502,11 @@ if(!AgoraRTC.checkSystemRequirements()) {
     client.on("peer-online", function (evt) {
       console.log('peer-online ====== ', evt.uid)
 
-      addUserAttribute(evt.uid, 'currentStatus', 1);
-      addUserAttribute(evt.uid, 'subscribeTime', (new Date()).getTime());
-      addUserAttribute(evt.uid, 'isSubscribe', 0);
+      // addUserAttribute(evt.uid, 'currentStatus', 1);
+      // addUserAttribute(evt.uid, 'subscribeTime', (new Date()).getTime());
+      // addUserAttribute(evt.uid, 'isSubscribe', 0);
+
+      setSwappingAttributes(evt.uid);
 
       var storeData = getCurrentUserData();
 
@@ -748,7 +750,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
                 console.log('------------memberjoineddeepak-------',memberId);
 
-                addUserAttribute(convertEmailToId(memberId), 'currentStatus', 1);
+                setSwappingAttributes(convertEmailToId(memberId));
+                //addUserAttribute(convertEmailToId(memberId), 'currentStatus', 1);
 
                 var massages="208"+sep+memberId+sep+"joined"+sep;        
                 channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
@@ -4648,8 +4651,12 @@ console.log('onscreenUsers===', onscreenUsers);
 
   } 
 
-
-
+  function setSwappingAttributes(uId) {
+      console.log('in setSwappingAttributes function=======for user---', uId);
+      addUserAttribute(uId, 'subscribeTime', (new Date()).getTime());
+      addUserAttribute(uId, 'isSubscribe', 0);
+      addUserAttribute(uId, 'currentStatus', 1);
+  }
 
   $(document).ready(function() {
     onPageResize();

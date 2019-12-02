@@ -162,7 +162,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
                 channel = newclient.createChannel(channelName1);
                 console.log('rtm channel instance==', channel);
                 channel.join().then(() => {
-                    //@todo
+                    publish();
                 });
             });
         }
@@ -2340,7 +2340,11 @@ function signalHandler(uid, signalData, userType) {
   }
 
   function setSwappingAttributes(uId) {
-      console.log('in pre-main attributes----');
+      console.log('in pre-main attributes----', uId);
+  }
+
+  function publish(){
+      console.log('in pre-main publish function----', uId);
   }
 
   $(document).ready(function(){

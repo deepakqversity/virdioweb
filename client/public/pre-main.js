@@ -1112,6 +1112,8 @@ function attendeeScreenHeight(){
     localStorage.removeItem("hostStreamMuted");
     localStorage.removeItem("mediaAccessAllowed");
     localStorage.removeItem("set_host_online_state");
+    localStorage.removeItem("handraise-swap_auto-subscriber-id");
+    localStorage.removeItem("handraise-swap-subscriber-id");
   }
   
   var resetCount = '';

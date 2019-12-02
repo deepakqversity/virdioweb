@@ -2361,7 +2361,8 @@ function signalHandler(uid, signalData, userType) {
             id : strArray[1],
             firstName : strArray[2],
             email : strArray[3],
-            handRaisedAt : strArray[4]
+            //handRaisedAt : strArray[4]
+            handRaisedAt : new Date().getTime()
           });
           localStorage.setItem("audience-list", JSON.stringify(audienceList));
           $('#dropdownMenuButton').removeClass('d-none');

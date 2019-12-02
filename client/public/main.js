@@ -283,7 +283,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
                                                                       
                      if(audienceList111[i].id == stream.getId()){
                       $('#selected-participent-id').val(stream.getId());
-                      localStorage.setItem("handraise-swap-subscriber-id", stream.getId());
+                      localStorage.setItem("handraise-swap_auto-subscriber-id", stream.getId());
                       
                       console.log('-------changeUserToBroadcaster---dropdownMenuButtonnormalswap22222 = ',stream.getId())
         
@@ -309,9 +309,14 @@ if(!AgoraRTC.checkSystemRequirements()) {
             }
 
             if (localStorage.getItem("handraise-swap-subscriber-id") !== null && localStorage.getItem("handraise-swap-subscriber-id") !== '') {
-              addUserSelectionAndAudio1(localStorage.getItem("handraise-swap-subscriber-id"));
+              addUserSelectionAndAudio(localStorage.getItem("handraise-swap-subscriber-id"));
               localStorage.setItem("handraise-swap-subscriber-id", '');
-          }
+          } 
+          if (localStorage.getItem("handraise-swap_auto-subscriber-id") !== null && localStorage.getItem("handraise-swap_auto-subscriber-id") !== '') {
+            addUserSelectionAndAudio1(localStorage.getItem("handraise-swap_auto-subscriber-id"));
+            localStorage.setItem("handraise-swap_auto-subscriber-id", '');
+        }
+          
         } else {
             console.log('extra participant trying to enter, kick him subscribe', stream.getId());
             kickUser(stream.getId());
@@ -1944,6 +1949,9 @@ function changeImage(){
     localStorage.removeItem("swap-subscriber-id");
     localStorage.removeItem("hostStreamMuted");
     localStorage.removeItem("mediaAccessAllowed");
+    localStorage.removeItem("set_host_online_state");
+    localStorage.removeItem("handraise-swap_auto-subscriber-id");
+    localStorage.removeItem("handraise-swap-subscriber-id");
   }
 
   function sessionTimer(){

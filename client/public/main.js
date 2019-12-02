@@ -779,9 +779,9 @@ console.log('rtm remove====', memberId);
                 removeUserAttribute(convertEmailToId(memberId), 'isSubscribe');
                 removeUserAttribute(convertEmailToId(memberId), 'currentStatus');
 
-                $('#agora_remote' + convertEmailToId(memberId)).remove();
-
                 if (storeData.userType == 1) {
+                    $('#agora_remote' + convertEmailToId(memberId)).remove();
+
                     let onlineUserCount = getOnlineUserCount('currentStatus');
                     $('#online-users').text(onlineUserCount);
 
@@ -2778,6 +2778,8 @@ function signalHandler(uid, signalData, userType) {
 
               if (onscreenUsers.indexOf(audience[i].id) !== -1) {
                   addUserAttribute(audience[i].id, 'isSubscribe', 1);
+                  addUserAttribute(audience[i].id, 'currentStatus', 1);
+                  addUserAttribute(audience[i].id, 'subscribeTime', (new Date()).getTime());
               } else {
                   
                   // if user already select from audience dropdown then not need to initialize

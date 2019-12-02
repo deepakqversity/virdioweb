@@ -319,6 +319,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
             
           }
 
+          $('#agora_remote' + convertEmailToId(memberId)).remove();
+          
           let onlineUserCount = getOnlineUserCount('currentStatus');
           $('#online-users').text(onlineUserCount);
 

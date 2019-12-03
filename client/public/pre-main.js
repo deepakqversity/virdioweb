@@ -319,6 +319,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
             
           }
 
+          $('#agora_remote' + convertEmailToId(memberId)).remove();
+          
           let onlineUserCount = getOnlineUserCount('currentStatus');
           $('#online-users').text(onlineUserCount);
 
@@ -588,7 +590,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
               if (err.type == 'error' && (err.msg === 'NotAllowedError' || err.msg === 'NotFoundError' || err.msg === 'NotReadableError')) {
               // if (err.type == 'error' && err.msg === 'NotAllowedError') {
-                  $('#media-access-alert').modal('show');
+                  // $('#media-access-alert').modal('show');
+                  $('#media-access-alert').removeClass('d-none');
               }
             });
       }, function(err) {

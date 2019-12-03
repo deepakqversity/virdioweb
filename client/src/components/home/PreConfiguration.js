@@ -346,19 +346,8 @@ class PreConfiguration extends Component {
               }
 
             if(userData.userType == 2) {
-              
-
-            //   let host_online_state = localStorage.getItem("set_host_online_state");
-
-            //  // console.log('------set_host_online_state33333-------',host_online_state)
-
-            // if(host_online_state != 1)  
-            // {
-            //   $("#participent_host_alert").attr({'style':'display:block'});
-            // }
-
-            $('.countdown-timer').text('The session will be started once Host joins');
-       
+                $('.countdown-timer').text('The session will be started once Host joins');
+                $('.countdown-timer').css({'font-size':'19px'})
             }
 
           }
@@ -528,7 +517,11 @@ render() {
             <div className="session-details bg-gray flex-grow-1 my-2 my-md-0 mx-md-2">
                 <div className="row">
                   <div className="col-lg-8">
-                    <h4 className="small-heading">Your Upcoming Session</h4>
+                   
+                    <h4 class="small-heading">Your Upcoming Session
+                        
+                    </h4>
+                        
                     <h3 className="popup-heading">{sessionData.name}<span>by <label className="welcome-title trim-text">{sessionData.hostFirstName.toLowerCase()}  {sessionData.hostLastName.toLowerCase()}</label></span>
                       {localstoragedata.userType == 1 ? (
                           <span className="green-online online-status" id="online_state"><span>ONLINE</span></span>
@@ -581,7 +574,12 @@ render() {
         <div className="prescreen-body modal-body bg-gray rounded my-2" id="media-content">
           
           <div className="row">
-            <div className="col-12"><h6 className="small-heading mb-2">Select Video Camera</h6></div>           
+            <div className="col-sm-12">
+              <h6 className="small-heading mb-2">Select Video Camera</h6>
+            </div>
+            
+              <p class="alrt_txt d-none" id="media-access-alert">Virdio can't access your camera and microphone 
+              <i class="fa fa-exclamation-circle ml-2" aria-hidden="true"></i></p>
             
           </div>
           <div className="row justify-content-center video-streams select-camera" id="video-media-content"></div>
@@ -990,7 +988,7 @@ render() {
         </div>
       </div>
 
-      <div id="media-access-alert" className="modal fade" data-backdrop="static" data-keyboard="false">
+      {/*<div id="media-access-alert" className="modal fade" data-backdrop="static" data-keyboard="false">
         <div className="modal-dialog modal-confirm">
           <div className="modal-content">
             <div className="modal-header">
@@ -1002,7 +1000,7 @@ render() {
             </div>
           </div>
         </div>
-      </div>
+      </div>*/}
 
       <div id="multi-media-access-alert" className="modal fade" data-backdrop="static" data-keyboard="false">
         <div className="modal-dialog modal-confirm">

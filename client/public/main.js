@@ -2025,6 +2025,7 @@ function signalHandler(uid, signalData, userType) {
       } else if(resultant[0] == "1001"){
         // audience only raise hand by participant
         addAudienceInList(resultant);
+        console.log('-------changeUserToBroadcaster-----addAudienceInList-----',resultant)
       }
       else if(resultant[0] == '216')
       {       
@@ -2395,13 +2396,21 @@ function signalHandler(uid, signalData, userType) {
 
      function addAudienceInList(strArray) {
       console.log('-------changeUserToBroadcaster----------str array ',strArray)
+        let audienceList2 = JSON.parse(localStorage.getItem("audience-list"));
+         console.log('-------changeUserToBroadcaster----------audienceList2222222 ',typeof audienceList2, audienceList2)
         let audienceList = [];
-        let audienceListId = [];
-        let f = true;
 
+        if(audienceList2 !== null)
+        {
+          audienceList=audienceList2;
+        }
+
+       // console.log('audienceList.length=====', audienceList.length);
+        let f = true;
+  
         if(audienceList.length > 0){
           console.log('-------changeUserToBroadcaster----------audienceList.length ',audienceList.length)
-        let audienceList = [];
+        //let audienceList = [];
           for(let i in audienceList){
             if(audienceList[i].id == strArray[1]){
               f = false;
@@ -2411,6 +2420,10 @@ function signalHandler(uid, signalData, userType) {
         }
         
         if(f){
+        
+   /// console.log('-------changeUserToBroadcaster---- audienceList2222222-----',audienceList2222222)
+       // audienceList=json.parse(localStorage.getItem("audience-list"));
+      
           audienceList.push({
             id : strArray[1],
             firstName : strArray[2],
@@ -2418,7 +2431,7 @@ function signalHandler(uid, signalData, userType) {
             //handRaisedAt : strArray[4]
             handRaisedAt : new Date().getTime()
           });
-          console.log('-------changeUserToBroadcaster----------audienceList---- ',audienceList)
+          console.log('-------changeUserToBroadcaster----------addAudienceInList---- ',audienceList)
           localStorage.setItem("audience-list", JSON.stringify(audienceList));
           $('#dropdownMenuButton').removeClass('d-none');
           //$('.hand-raise-list .dropdown-menu').addClass('show');
@@ -2480,13 +2493,13 @@ function signalHandler(uid, signalData, userType) {
      }
 
      function showHandAtHost(){
-      console.log('!!!!!!!!!!!changeUserToBroadcaster!!!!!!!!!!!!!showHandAtHost!!!!!')
+      console.log('!!!!!!!!!!!changeUserToBroadcaster!!!!!!!!!!!!!showHandAtHostfn!!!!!')
         let audienceList = localStorage.getItem("audience-list");
         
         if(audienceList == null) return '';
 
         audienceList = JSON.parse(audienceList);
-        console.log('audienceList', audienceList, audienceList.length)
+        console.log('-------changeUserToBroadcaster-------audienceList11', audienceList, audienceList.length)
         if(audienceList.length > 0){
           
           let list='';

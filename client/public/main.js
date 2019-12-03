@@ -696,6 +696,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
     var peer=storeData.email;
     // newclient.login({uid: peer.toString(), token});
     console.log('newclient , channel =========== ', newclient , channel)
+
+
     if(newclient == undefined || channel == undefined){
 
       newclient = AgoraRTM.createInstance(appId1);
@@ -728,7 +730,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
               let onlineUserCount = getOnlineUserCount('currentStatus');
 
-              if (storeData.userType == 1) {                  
+              if (storeData.userType == 1) {
                   $('#online-users').text(parseInt(onlineUserCount));
               }
 
@@ -757,8 +759,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
                 console.log('------------memberjoineddeepak-------',memberId);
 
-                setSwappingAttributes(convertEmailToId(memberId));
-                //addUserAttribute(convertEmailToId(memberId), 'currentStatus', 1);
+                addUserAttribute(convertEmailToId(memberId), 'currentStatus', 1);
 
                 var massages="208"+sep+memberId+sep+"joined"+sep;        
                 channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
@@ -2774,7 +2775,7 @@ function signalHandler(uid, signalData, userType) {
                     onscreenUsers.push(parseInt($(this).find('.video-holder').attr('id')));
                 });
             }
-
+            console.log('switchAudienceToBroadcaster========onscreenUsers', onscreenUsers);
             let handraiseUserId = 0;
 
             console.log('==@@@', typeof $('#to-broadcast').val());
@@ -2785,6 +2786,7 @@ function signalHandler(uid, signalData, userType) {
             for(let i in audience){
 
               if (onscreenUsers.indexOf(audience[i].id) !== -1) {
+                  console.log('switchAudienceToBroadcaster========on screen user', audience[i].id, audience[i].email);
                   addUserAttribute(audience[i].id, 'isSubscribe', 1);
                   addUserAttribute(audience[i].id, 'currentStatus', 1);
                   addUserAttribute(audience[i].id, 'subscribeTime', (new Date()).getTime());
@@ -4745,6 +4747,28 @@ console.log('onscreenUsers===', onscreenUsers);
      // $('#agora_remote'+id).find('.mute-unmute .fa').addClass('fa-volume-off');
 
   } 
+
+  
+
+
+  setTimeout(function(){
+        
+      var storeData = getCurrentUserData();
+      let resetCount = setInterval(function() {
+          
+          let onscreenCount = $('#subscribers-list .newcss').length;
+          let onlineUserCount = getOnlineUserCount('currentStatus');
+
+          if(onscreenCount < storeData.default.maxUserLimit && onlineUserCount >= storeData.default.maxUserLimit) {
+              
+              switchAudienceToBroadcaster();
+
+          }
+
+      }, 5000);
+
+  }, 60000);
+
 
   function setSwappingAttributes(uId) {
       console.log('in setSwappingAttributes function=======for user---', uId);

@@ -250,7 +250,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
             let len = $('#subscribers-list .newcss').length;
             if(len < storeData.default.maxUserLimit) {
-                switchAudienceToBroadcaster();
+                //switchAudienceToBroadcaster();
             }
         }
 
@@ -327,7 +327,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
           let len = $('#subscribers-list .newcss').length;
           console.log('memleft pre-main-------length', typeof len);
           if(len < storeData.default.maxUserLimit) {
-              switchAudienceToBroadcaster();
+              //switchAudienceToBroadcaster();
           }
         }
 

@@ -454,7 +454,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
             let len = $('#subscribers-list .newcss').length;
             if(len < storeData.default.maxUserLimit) {
-                switchAudienceToBroadcaster();
+                //switchAudienceToBroadcaster();
             }
 
             let onlineUserCount = getOnlineUserCount('currentStatus');
@@ -759,7 +759,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
                 console.log('------------memberjoineddeepak-------',memberId);
 
-                addUserAttribute(convertEmailToId(memberId), 'currentStatus', 1);
+                //addUserAttribute(convertEmailToId(memberId), 'currentStatus', 1);
+                setSwappingAttributes(convertEmailToId(memberId));
 
                 var massages="208"+sep+memberId+sep+"joined"+sep;        
                 channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
@@ -772,7 +773,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
                     let len = $('#subscribers-list .newcss').length;
                     if(len < storeData.default.maxUserLimit) {
-                        switchAudienceToBroadcaster();
+                        //switchAudienceToBroadcaster();
                     }
                 }
               })
@@ -793,7 +794,7 @@ console.log('rtm remove====', memberId);
 
                     let len = $('#subscribers-list .newcss').length;
                     if(len < storeData.default.maxUserLimit) {
-                        switchAudienceToBroadcaster();
+                        //switchAudienceToBroadcaster();
                     }
                 }
 

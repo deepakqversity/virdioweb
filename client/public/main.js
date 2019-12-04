@@ -278,17 +278,21 @@ if(!AgoraRTC.checkSystemRequirements()) {
             console.log('-----changeUserToBroadcaster2000----------audienceList111-----',audienceList111);
          
             if (audienceList111 !== null && audienceList111 !== '') {
+                 
+              console.log('-----changeUserToBroadcaster2100----------audienceList111-----',audienceList111);
                if(audienceList111.length > 0){
+                console.log('-----changeUserToBroadcaster2200----------audienceList111-----',audienceList111.length);
                  for(let i in audienceList111){
-                                                                      
-                     if(audienceList111[i].id == stream.getId()){
+                  console.log('-----changeUserToBroadcaster2300----------audienceList111-----',audienceList111[i].id);                                                
+                     if(audienceList111[i].id == stream.getId()){                      
+                      removeAudienceInList(stream.getId());  
+                      $('#audience-'+stream.getId()).remove();
+                      $('#total-raised-hands').html(audienceList111.length-1);                                      
+                      console.log('-----changeUserToBroadcaster2400----------audienceList111-----',audienceList111[i].id,stream.getId());
                       $('#selected-participent-id').val(stream.getId());
-                      localStorage.setItem("handraise-swap_auto-subscriber-id", stream.getId());
-                      
+                      localStorage.setItem("handraise-swap_auto-subscriber-id", stream.getId());                      
                       console.log('-------changeUserToBroadcaster---dropdownMenuButtonnormalswap22222 = ',stream.getId())
-        
-                      removeAudienceInList(stream.getId());
-
+                         
                      }
                  }
                }
@@ -1035,8 +1039,8 @@ console.log('rtm remove====', memberId);
       console.log('-----dropdownMenuButtonnormalswap22222 = ',participentId)
 
       let participentEmail = convertIdToEmail(participentId);
-      var massages="203"+sep; 
-      sendMessage(participentEmail, massages);
+      // var massages="203"+sep; 
+      // sendMessage(participentEmail, massages);
   
       let allVdo = $('#subscribers-list video');   
       let allAdo = $('#subscribers-list audio');   
@@ -1044,25 +1048,11 @@ console.log('rtm remove====', memberId);
       let vdo = $('#subscribers-list #agora_remote'+ participentId + ' video' )[0];   
       let ado = $('#subscribers-list #agora_remote'+ participentId + ' audio' )[0];
       
-      
-  
-      // $.each(allVdo, function (index, value) {
-      //   allVdo[index].muted = true;
-      //   allAdo[index].muted = true;
-      // });
-  
-      // if(vdo.muted || ado.muted){
-      //   console.log('unmute successfully')
-      //   vdo.muted = false;
-      //   ado.muted = false;
-      // }
-      
+            
       $('#agora_remote'+ participentId + ' .microphone-icon').addClass("d-none");
 
       $('#subscribers-list #agora_remote'+ participentId).find('.hand-icon').removeClass('d-none');
 
-      // $('#errmsg').html('Client HandRaise');
-      // setTimeout(function(){ $('#errmsg').html(''); }, 10000);
 
       $('#selected-participent-id').val(participentId );
       $('#subscribers-list #agora_remote'+participentId).find('video').addClass('video-selected');
@@ -1101,9 +1091,7 @@ console.log('rtm remove====', memberId);
 
       $('#subscribers-list #agora_remote'+ participentId).find('.microphone-icon').removeClass('d-none');
 
-      // $('#errmsg').html('Client HandRaise');
-      // setTimeout(function(){ $('#errmsg').html(''); }, 10000);
-
+  
       $('#selected-participent-id').val(participentId );
       $('#subscribers-list #agora_remote'+participentId).find('video').addClass('video-selected');
       $('#subscribers-list #agora_remote'+participentId).find(".click-zoom").addClass("d-block").removeClass("d-none");
@@ -2442,28 +2430,33 @@ function signalHandler(uid, signalData, userType) {
       
       if(localStorage.getItem("audience-list") == null) return false;
 
-      console.log('--changeUserToBroadcaster---dropdownMenuButtonnormalswap4444 = ',id)
+      console.log('--changeUserToBroadcaster---removeAudienceInListrrr = ',id)
 
       let audienceList = JSON.parse(localStorage.getItem("audience-list"));
 
-       console.log('----changeUserToBroadcaster------dropdownMenuButton7777----------',id,'------',audienceList)
+       console.log('----changeUserToBroadcaster------removeAudienceInListrrr----------',id,'------',audienceList)
 
       let newAudienceList = [];
 
       if(audienceList.length > 0){
+        let j = 0;
         for(let i in audienceList){
           console.log('removeAudienceInList = ', audienceList[i].id, id);
-          console.log('----changeUserToBroadcaster---dropdownMenuButton000----- = ', audienceList[i].id, id);
+          console.log('----changeUserToBroadcaster---removeAudienceInListrrr----- = ', audienceList[i].id, id);
           if(audienceList[i].id != id){
-            console.log('---changeUserToBroadcaster----dropdownMenuButton999999----- = ', audienceList[i]);
-            newAudienceList[i] = audienceList[i];
+            console.log('---changeUserToBroadcaster----removeAudienceInListrrr----- = ', audienceList[i]);
+            newAudienceList[j] = audienceList[i];
+            j++;
           }
         }
+
+        console.log('final array=======', newAudienceList);
+        localStorage.setItem("audience-list", JSON.stringify(newAudienceList));
       }
 
       if(newAudienceList.length <= 0){
 
-        console.log('---changeUserToBroadcaster---dropdownMenuButton3333----------',newAudienceList.length)
+        console.log('---changeUserToBroadcaster---removeAudienceInListrrr---------',newAudienceList.length)
        // $('#dropdownMenuButton').click();
        $('#dropdownMenuButton').addClass('d-none');
        $('.hand-raise-list .dropdown-menu').removeClass('show')
@@ -2471,7 +2464,7 @@ function signalHandler(uid, signalData, userType) {
        $('#dropdownmenuitem11').addClass('d-none');
       }
       
-      localStorage.setItem("audience-list", JSON.stringify(newAudienceList));
+      //localStorage.setItem("audience-list", JSON.stringify(newAudienceList));
     }
      
      function checkTime(timeDur){
@@ -2490,6 +2483,28 @@ function signalHandler(uid, signalData, userType) {
         }
         return tm;
      }
+
+     function showHandAtHost1(){
+      console.log('!!!!!!!!!!!changeUserToBroadcaster!!!!!!!!!!!!!showHandAtHostfn!!!!!')
+        let audienceList = localStorage.getItem("audience-list");
+        
+        audienceList = JSON.parse(audienceList);
+        console.log('-------changeUserToBroadcaster-------audienceList11', audienceList, audienceList.length)
+          
+          let list='';
+          for(let i in audienceList){
+            if($('#audience-'+audienceList[i].id).length != 0){
+              $('#audience-'+audienceList[i].id).remove();
+            }
+              let timeDur = (new Date()).getTime() - audienceList[i].handRaisedAt;
+
+
+              list += '<li id="audience-'+audienceList[i].id+'"><a class="dropdown-item media" href="javascript:;" onClick="changeUserToBroadcaster(\''+audienceList[i].id+'\')"><img src="images/avtar.png" /><div class="media-body"><span class="welcome-title">'+audienceList[i].firstName+', '+getUserDataFromList(audienceList[i].id, 'city')+'</span><span>'+checkTime(timeDur)+' ago</span></div></a></li>';          
+          }
+          $('#total-raised-hands').html(audienceList.length);
+          $('#raised-list').append(list);
+                
+    }
 
      function showHandAtHost(){
       console.log('!!!!!!!!!!!changeUserToBroadcaster!!!!!!!!!!!!!showHandAtHostfn!!!!!')

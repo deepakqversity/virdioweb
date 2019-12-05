@@ -278,21 +278,20 @@ if(!AgoraRTC.checkSystemRequirements()) {
             console.log('-----changeUserToBroadcaster2000----------audienceList111-----',audienceList111);
          
             if (audienceList111 !== null && audienceList111 !== '') {
-                 
-              console.log('-----changeUserToBroadcaster2100----------audienceList111-----',audienceList111);
                if(audienceList111.length > 0){
-                console.log('-----changeUserToBroadcaster2200----------audienceList111-----',audienceList111.length);
                  for(let i in audienceList111){
-                  console.log('-----changeUserToBroadcaster2300----------audienceList111-----',audienceList111[i].id);                                                
-                     if(audienceList111[i].id == stream.getId()){                      
-                      removeAudienceInList(stream.getId());  
-                      $('#audience-'+stream.getId()).remove();
-                      $('#total-raised-hands').html(audienceList111.length-1);                                      
-                      console.log('-----changeUserToBroadcaster2400----------audienceList111-----',audienceList111[i].id,stream.getId());
+                                                                      
+                     if(audienceList111[i].id == stream.getId()){
+                        $('#audience-'+stream.getId()).remove();
+                      $('#total-raised-hands').html(audienceList111.length-1);
                       $('#selected-participent-id').val(stream.getId());
-                      localStorage.setItem("handraise-swap_auto-subscriber-id", stream.getId());                      
+                      removeAudienceInList(stream.getId());
+                      localStorage.setItem("handraise-swap_auto-subscriber-id", stream.getId());
+                      
                       console.log('-------changeUserToBroadcaster---dropdownMenuButtonnormalswap22222 = ',stream.getId())
-                         
+        
+                     // removeAudienceInList(stream.getId());
+
                      }
                  }
                }
@@ -379,10 +378,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
       // check user role and decrease number
       if(getUserDataFromList(stream.getId(), 'userType') == 2){
-        if(totalBrodcaster > 0){
-          //totalBrodcaster--;
-        }
-
+     
         // remove from audience list
         removeAudienceInList(stream.getId())
       }
@@ -445,7 +441,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         // check user role and decrease number
         if(getUserDataFromList(evt.uid, 'userType') == 2){
           // remove from audience list
-          removeAudienceInList(evt.uid);
+          //removeAudienceInList(evt.uid);
         }
 
         $('#agora_remote' + evt.uid).remove();
@@ -2384,15 +2380,15 @@ function signalHandler(uid, signalData, userType) {
      }
 
      function addAudienceInList(strArray) {
-      console.log('-------changeUserToBroadcaster----------str array ',strArray)
-        let audienceList2 = JSON.parse(localStorage.getItem("audience-list"));
-         console.log('-------changeUserToBroadcaster----------audienceList2222222 ',typeof audienceList2, audienceList2)
-        let audienceList = [];
+      console.log('-------audienceHandraise----------str array ',strArray)
+      let audienceList2 = JSON.parse(localStorage.getItem("audience-list"));
+       console.log('-------changeUserToBroadcaster----------audienceList2222222 ',typeof audienceList2, audienceList2)
+      let audienceList = [];
 
-        if(audienceList2 !== null)
-        {
-          audienceList=audienceList2;
-        }
+      if(audienceList2 !== null)
+      {
+        audienceList=audienceList2;
+      }
 
        // console.log('audienceList.length=====', audienceList.length);
         let f = true;
@@ -2432,11 +2428,11 @@ function signalHandler(uid, signalData, userType) {
       
       if(localStorage.getItem("audience-list") == null) return false;
 
-      console.log('--changeUserToBroadcaster---removeAudienceInListrrr = ',id)
+      console.log('--changeUserToBroadcaster---dropdownMenuButtonnormalswap4444 = ',id)
 
       let audienceList = JSON.parse(localStorage.getItem("audience-list"));
 
-       console.log('----changeUserToBroadcaster------removeAudienceInListrrr----------',id,'------',audienceList)
+       console.log('----changeUserToBroadcaster------dropdownMenuButton7777----------',id,'------',audienceList)
 
       let newAudienceList = [];
 
@@ -2444,24 +2440,23 @@ function signalHandler(uid, signalData, userType) {
         let j = 0;
         for(let i in audienceList){
           console.log('removeAudienceInList = ', audienceList[i].id, id);
-          console.log('----changeUserToBroadcaster---removeAudienceInListrrr----- = ', audienceList[i].id, id);
+          console.log('----changeUserToBroadcaster---dropdownMenuButton000----- = ', audienceList[i].id, id);
           if(audienceList[i].id != id){
-            console.log('---changeUserToBroadcaster----removeAudienceInListrrr----- = ', audienceList[i]);
+            console.log('---changeUserToBroadcaster----dropdownMenuButton999999----- = ', audienceList[i]);
             newAudienceList[j] = audienceList[i];
             j++;
           }
         }
-
         console.log('final array=======', newAudienceList);
-        localStorage.setItem("audience-list", JSON.stringify(newAudienceList));
+         localStorage.setItem("audience-list", JSON.stringify(newAudienceList));
       }
 
       if(newAudienceList.length <= 0){
 
-        console.log('---changeUserToBroadcaster---removeAudienceInListrrr---------',newAudienceList.length)
+        console.log('---changeUserToBroadcaster---dropdownMenuButton3333----------',newAudienceList.length)
        // $('#dropdownMenuButton').click();
        $('#dropdownMenuButton').addClass('d-none');
-       $('.hand-raise-list .dropdown-menu').removeClass('show')
+      // $('.hand-raise-list .dropdown-menu').removeClass('show')
       // $('.hand-raise-list .dropdown-menu').removeClass('show')
        $('#dropdownmenuitem11').addClass('d-none');
       }
@@ -2486,36 +2481,15 @@ function signalHandler(uid, signalData, userType) {
         return tm;
      }
 
-     function showHandAtHost1(){
-      console.log('!!!!!!!!!!!changeUserToBroadcaster!!!!!!!!!!!!!showHandAtHostfn!!!!!')
-        let audienceList = localStorage.getItem("audience-list");
-        
-        audienceList = JSON.parse(audienceList);
-        console.log('-------changeUserToBroadcaster-------audienceList11', audienceList, audienceList.length)
-          
-          let list='';
-          for(let i in audienceList){
-            if($('#audience-'+audienceList[i].id).length != 0){
-              $('#audience-'+audienceList[i].id).remove();
-            }
-              let timeDur = (new Date()).getTime() - audienceList[i].handRaisedAt;
-
-
-              list += '<li id="audience-'+audienceList[i].id+'"><a class="dropdown-item media" href="javascript:;" onClick="changeUserToBroadcaster(\''+audienceList[i].id+'\')"><img src="images/avtar.png" /><div class="media-body"><span class="welcome-title">'+audienceList[i].firstName+', '+getUserDataFromList(audienceList[i].id, 'city')+'</span><span>'+checkTime(timeDur)+' ago</span></div></a></li>';          
-          }
-          $('#total-raised-hands').html(audienceList.length);
-          $('#raised-list').append(list);
-                
-    }
 
      function showHandAtHost(){
-      console.log('!!!!!!!!!!!changeUserToBroadcaster!!!!!!!!!!!!!showHandAtHostfn!!!!!')
+      console.log('!!!!!!!!!!!audienceHandraise!!!!!!!!!!!!!showHandAtHostfn!!!!!')
         let audienceList = localStorage.getItem("audience-list");
         
         if(audienceList == null) return '';
 
         audienceList = JSON.parse(audienceList);
-        console.log('-------changeUserToBroadcaster-------audienceList11', audienceList, audienceList.length)
+        console.log('-------audienceHandraise-------audienceList11', audienceList, audienceList.length)
         if(audienceList.length > 0){
           
           let list='';
@@ -2534,11 +2508,11 @@ function signalHandler(uid, signalData, userType) {
           $('.hand-raise-list .dropdown-menu').removeClass('d-none');
           console.log('---changeUserToBroadcaster----dropdownMenuButton666666-------------')
         } else {
-          $('#dropdownMenuButton').addClass('d-none');
+         $('#dropdownMenuButton').addClass('d-none');
           console.log('---changeUserToBroadcaster----dropdownMenuButton55555-------------')
           $('#raised-list').html('');
           $('#total-raised-hands').html(0);
-          $('.hand-raise-list .dropdown-menu').removeClass('show');
+          //$('.hand-raise-list .dropdown-menu').removeClass('show');
          // $('.hand-raise-list .dropdown-menu').addClass('hide');
           $('.hand-raise-list .dropdown-menu').addClass('d-none');
           $('#dropdownmenuitem11').addClass('d-none');
@@ -2857,7 +2831,7 @@ function signalHandler(uid, signalData, userType) {
           console.log('-----changeUserToBroadcaster--------dropdownMenuButton7777777--------',len)
 
           $('#dropdownMenuButton').addClass('d-none');
-          $('.hand-raise-list .dropdown-menu').removeClass('show');
+         // $('.hand-raise-list .dropdown-menu').removeClass('show');
            //$('.hand-raise-list .dropdown-menu').addClass('d-none');
            $('#dropdownmenuitem11').addClass('d-none');
         }
@@ -3958,7 +3932,8 @@ console.log('removed from rtm order====', memberId);
         $('#dropdownMenuButton').on('click', function (e) {
           console.log('------dropdownMenuButton111--------')
           // alert($('.hand-raise-list .dropdown-menu').hasClass('show'))
-            if($('.hand-raise-list .dropdown-menu').hasClass('show') != true){
+            if($('.hand-raise-list .dropdown-menu').hasClass('d-none') == true){
+             // if($('.hand-raise-list .dropdown-menu').hasClass('show') != true){
               console.log('------dropdownMenuButton2222--------')
               showHandAtHost();
             }
@@ -4777,8 +4752,6 @@ console.log('onscreenUsers===', onscreenUsers);
 
   } 
 
-  
-
 
   setTimeout(function(){
         
@@ -4790,7 +4763,7 @@ console.log('onscreenUsers===', onscreenUsers);
 
           if(onscreenCount < storeData.default.maxUserLimit && onlineUserCount >= storeData.default.maxUserLimit) {
               
-              switchAudienceToBroadcaster();
+              //switchAudienceToBroadcaster();
 
           }
 

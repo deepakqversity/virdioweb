@@ -29,7 +29,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     return localStorage.getItem("tempUsers") != undefined ? JSON.parse(localStorage.getItem("tempUsers")) : [];
   }    
 
-  function getOnlineUserCount(key) {
+  /*function getOnlineUserCount(key) {
     let userList = getTempUsers();
     let onlineUsers = 0;
 
@@ -42,7 +42,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
     }
 
     return onlineUsers;
-  }
+  }*/
 
   function convertIdToEmail(id){
     let userList = getTempUsers();
@@ -162,7 +162,12 @@ if(!AgoraRTC.checkSystemRequirements()) {
                 channel = newclient.createChannel(channelName1);
                 console.log('rtm channel instance==', channel);
                 channel.join().then(() => {
-                    publish();
+                    //publish();
+
+                    if (storeData.userType == 2) {
+                        let message = "1000" + sep + storeData.id;
+                        sendConnectedAgainMessage(storeData.sessionData.hostEmail, message);
+                    }
                 });
             });
         }
@@ -242,17 +247,14 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
         console.log('MemberJoined ================MemberJoined ', memberId);
 
-        setSwappingAttributes(convertEmailToId(memberId));
+        //addUserAttribute(convertEmailToId(memberId), 'currentStatus', 1);
 
-        if (storeData.userType == 1) {
+        //setSwappingAttributes(convertEmailToId(memberId));
+
+        /*if (storeData.userType == 1) {
             let onlineUserCount = getOnlineUserCount('currentStatus');
             $('#online-users').text(onlineUserCount);
-
-            let len = $('#subscribers-list .newcss').length;
-            if(len < storeData.default.maxUserLimit) {
-                //switchAudienceToBroadcaster();
-            }
-        }
+        }*/
 
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-status').attr('src', '/images/online.png');
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-online-status').html('online');
@@ -305,12 +307,12 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
         removeFromRtmOrder(memberId);
 
-        var massages="208"+sep+memberId+sep+"left"+sep;  
+        var massages = "208"+sep+memberId+sep+"left"+sep;  
         channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"left"}), storeData.userType);
       
-        removeUserAttribute(convertEmailToId(memberId), 'subscribeTime');
-        removeUserAttribute(convertEmailToId(memberId), 'isSubscribe');
-        removeUserAttribute(convertEmailToId(memberId), 'currentStatus');
+        // removeUserAttribute(convertEmailToId(memberId), 'subscribeTime');
+        // removeUserAttribute(convertEmailToId(memberId), 'isSubscribe');
+        // removeUserAttribute(convertEmailToId(memberId), 'currentStatus');
 
         if(storeData.userType == 1){
           if( $('#joinee-' + convertEmailToId(memberId)).length != 0 ){
@@ -319,16 +321,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
             
           }
 
-          $('#agora_remote' + convertEmailToId(memberId)).remove();
+          //$('#agora_remote' + convertEmailToId(memberId)).remove();
           
-          let onlineUserCount = getOnlineUserCount('currentStatus');
-          $('#online-users').text(onlineUserCount);
-
-          let len = $('#subscribers-list .newcss').length;
-          console.log('memleft pre-main-------length', typeof len);
-          if(len < storeData.default.maxUserLimit) {
-              //switchAudienceToBroadcaster();
-          }
+          // let onlineUserCount = getOnlineUserCount('currentStatus');
+          // $('#online-users').text(onlineUserCount);
         }
 
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-status').attr('src', '/images/offline.png');
@@ -418,7 +414,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
                 setTimeout(function(){
                     sendMessageToChannel(channelName1, text);
-                }, 500);
+                }, 1000);
             } else {
                 console.log('retryCounter====limit exceeded', retryCounter);
                 retryCounter = 0;
@@ -426,19 +422,16 @@ if(!AgoraRTC.checkSystemRequirements()) {
           });
       }
 
-      function joinChannel(){
+      function joinChannel() {
 
         var resp_data = JSON.parse(localStorage.getItem("userData"));
         console.log('-----------hhhhhhhhh-------------------', channelName1, resp_data.userType);
         if(resp_data.userType == 1)
         {     
-          
-          var text ="222"+sep;
-          sendMessageToChannel(channelName1, text);
-          // getMemberList();
+            var text = "222" + sep;
+            sendMessageToChannel(channelName1, text);
         }
       }
-
 
 
       function getMemberList()
@@ -1249,7 +1242,6 @@ function signalHandler(uid, signalData, userType) {
           
           var bandwidthCheckCounter = setInterval(function() {
 
-            //if(localStorage.getItem("video-resolution") != null &&  $('#media-access-alert').hasClass('show') === false) {
             if(localStorage.getItem("video-resolution") != null && localStorage.getItem('mediaAccessAllowed')  !== null && localStorage.getItem('mediaAccessAllowed')  == "true") {
 
                 console.log('inside 216--');
@@ -1263,7 +1255,7 @@ function signalHandler(uid, signalData, userType) {
                 } else {
                     $('#participent-stream-redirect-alert').modal('show');
                     $('#set-temp-sesstion').click();
-                    
+
                     let duration = parseInt(storeData.default.streamRedirectDuration);
 
                     let ref2 = setInterval( function() {
@@ -1386,7 +1378,7 @@ function signalHandler(uid, signalData, userType) {
             if (uTyp == 2 && storeData.id == convertEmailToId(userList[i].id)) {
               //alert(userList[i].id);
                 
-                var bandwidthCheckCounter1 = setInterval(function() {
+                var bandwidthCheckCounter = setInterval(function() {
 
                   //if(localStorage.getItem("video-resolution") != null &&  $('#media-access-alert').hasClass('show') === false) {
                   if(localStorage.getItem("video-resolution") != null && localStorage.getItem('mediaAccessAllowed') !== null && localStorage.getItem('mediaAccessAllowed') == "true") {
@@ -1397,7 +1389,7 @@ function signalHandler(uid, signalData, userType) {
                       console.log('inside 222--current user id', storeData.id);
                       console.log('inside 222--list user id', userList[i].id, convertEmailToId(userList[i].id));
 
-                      clearInterval(bandwidthCheckCounter1);
+                      clearInterval(bandwidthCheckCounter);
 
                       if($('#video-media-content .col-md-3').length > 1 || $('#audio-media-content div').length > 1) {
                           multimediaAccessAlert();
@@ -2348,8 +2340,12 @@ function signalHandler(uid, signalData, userType) {
       console.log('in pre-main attributes----', uId);
   }
 
-  function publish(){
+  function publish() {
       console.log('in pre-main publish function----', uId);
+  }
+
+  function sendConnectedAgainMessage(peerId, text) {
+      console.log('in pre-main sendConnectedAgainMessage---');
   }
 
   $(document).ready(function(){

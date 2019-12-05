@@ -377,11 +377,11 @@ if(!AgoraRTC.checkSystemRequirements()) {
       }
 
       // check user role and decrease number
-      if(getUserDataFromList(stream.getId(), 'userType') == 2){
+      // if(getUserDataFromList(stream.getId(), 'userType') == 2){
      
-        // remove from audience list
-        removeAudienceInList(stream.getId())
-      }
+      //   // remove from audience list
+      //   removeAudienceInList(stream.getId())
+      // }
 
       addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
       addUserAttribute(stream.getId(), 'isSubscribe', 0);
@@ -439,10 +439,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
         removeUserAttribute(evt.uid, 'currentStatus');
 
         // check user role and decrease number
-        if(getUserDataFromList(evt.uid, 'userType') == 2){
-          // remove from audience list
-          //removeAudienceInList(evt.uid);
-        }
+        // if(getUserDataFromList(evt.uid, 'userType') == 2){
+        //   // remove from audience list
+        //   //removeAudienceInList(evt.uid);
+        // }
 
         $('#agora_remote' + evt.uid).remove();
         //localStorage.removeItem("swap-subscriber-id");
@@ -1051,6 +1051,8 @@ console.log('rtm remove====', memberId);
 
       $('#subscribers-list #agora_remote'+ participentId).find('.hand-icon').removeClass('d-none');
 
+      $('#subscribers-list #agora_hand_raise'+participentId).removeClass("d-none");
+      $('#subscribers-list #audion_on'+participentId).addClass("d-none");
 
       $('#selected-participent-id').val(participentId );
       $('#subscribers-list #agora_remote'+participentId).find('video').addClass('video-selected');
@@ -1089,7 +1091,9 @@ console.log('rtm remove====', memberId);
 
       $('#subscribers-list #agora_remote'+ participentId).find('.microphone-icon').removeClass('d-none');
 
-  
+      $('#subscribers-list #agora_hand_raise'+participentId).addClass("d-none");
+      $('#subscribers-list #audion_on'+participentId).removeClass("d-none");
+
       $('#selected-participent-id').val(participentId );
       $('#subscribers-list #agora_remote'+participentId).find('video').addClass('video-selected');
       $('#subscribers-list #agora_remote'+participentId).find(".click-zoom").addClass("d-block").removeClass("d-none");
@@ -3815,10 +3819,14 @@ console.log('removed from rtm order====', memberId);
 
     $(document).ready(function(){
 
-      $('#dropdownMenuButton').on('click', function(){
-       console.log('-----changeUserToBroadcaster1222221-------')
-        $('#dropdownmenuitem11').slideToggle();
-      });
+
+
+
+
+      // $('#dropdownMenuButton').on('click', function(){
+      //  console.log('-----changeUserToBroadcaster1222221-------')
+      //   $('#dropdownmenuitem11').slideToggle();
+      // });
 
       $('#switch-camera').on('click', function(){
         getDevices();
@@ -3931,11 +3939,12 @@ console.log('removed from rtm order====', memberId);
         
         $('#dropdownMenuButton').on('click', function (e) {
           console.log('------dropdownMenuButton111--------')
-          // alert($('.hand-raise-list .dropdown-menu').hasClass('show'))
-            if($('.hand-raise-list .dropdown-menu').hasClass('d-none') == true){
-             // if($('.hand-raise-list .dropdown-menu').hasClass('show') != true){
+           // if($('.hand-raise-list .dropdown-menu').hasClass('show') != true){
+            if($('#dropdownMenuButton').hasClass('d-none') == true){            
               console.log('------dropdownMenuButton2222--------')
               showHandAtHost();
+            }else{
+              $('#dropdownmenuitem11').slideToggle();
             }
         });
         
@@ -4763,7 +4772,7 @@ console.log('onscreenUsers===', onscreenUsers);
 
           if(onscreenCount < storeData.default.maxUserLimit && onlineUserCount >= storeData.default.maxUserLimit) {
               
-              //switchAudienceToBroadcaster();
+              switchAudienceToBroadcaster();
 
           }
 

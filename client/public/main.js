@@ -22,6 +22,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
   var currentPublishedUser = [];
   var changedRole = 'audience';
   var retryCounter = 0;
+  var rtmRetryCounter = 0;
+  var rtmStatus = false;
 
   function join() {
 
@@ -148,36 +150,30 @@ if(!AgoraRTC.checkSystemRequirements()) {
       }
     });
 
+
+    // new remote stream has been added
     client.on('stream-added', function (evt) {
 
-        console.log('stream-added======', evt);
         let storeData = getCurrentUserData();
         let allBroadcasters = getAllBroadcster();
         var stream = evt.stream;
 
-        addUserAttribute(convertEmailToId(memberId), 'currentStatus', 1);
+        console.log('###stream-added======user id', stream.getId(), evt);
+
+        addUserAttribute(stream.getId(), 'currentStatus', 1);
 
         if(storeData.userType == 1) {
-            console.log('in host--');
-            console.log('all broadcasters===', allBroadcasters);
+
+            console.log('in host stream-added--');
 
             let onscreenCount = $('#subscribers-list .newcss').length;
             let onscreenUserIds = [];
-
-            /*if (onscreenCount > 0) {
-                $('#subscribers-list .newcss').each(function (index, value) {
-                    onscreenUserIds.push(parseInt($(this).find('.video-holder').attr('id')));
-                });
-
-                if (onscreenUserIds.length > 0 && onscreenUserIds.indexOf()) {
-
-                }
-            }*/
+console.log('onscreenCount!!!!!====', onscreenCount, localStorage.getItem("swap-subscriber-id"));
 
             if ((localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') || onscreenCount < storeData.default.maxUserLimit) {
 
-                // addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
-                // addUserAttribute(stream.getId(), 'isSubscribe', 1);
+                addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
+                addUserAttribute(stream.getId(), 'isSubscribe', 1);
 
                 client.subscribe(stream, function (err) {
                   console.log("Subscribe stream failed", err);
@@ -205,8 +201,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
         }
     });
 
-    var count=1;
-    // var totalScreenUsers = 0;
+
+    // subscribe to remote stream
     client.on('stream-subscribed', function (evt) {
 
       var storeData = getCurrentUserData();
@@ -218,11 +214,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
       // for host user
       if(storeData.userType == 1) {
 
-        let allBroadcasters = getAllBroadcster();
-        let onscreenCount = $('#subscribers-list .newcss').length;
+        //let onscreenCount = $('#subscribers-list .newcss').length;
 
         //if ((localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') || allBroadcasters.length < storeData.default.maxUserLimit) {
-          if ((localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') || onscreenCount < storeData.default.maxUserLimit) {
+          //if ((localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') || onscreenCount < storeData.default.maxUserLimit) {
 
             let prevDivId = '';
             let len = $('#subscribers-list .newcss').length;
@@ -285,8 +280,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
               checkMuteUnmute(stream.getId());
             }
 
-            addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
-            addUserAttribute(stream.getId(), 'isSubscribe', 1);
+            // addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
+            // addUserAttribute(stream.getId(), 'isSubscribe', 1);
 
             console.log('-----dropdownMenuButtonnormalswap = ',stream.getId())
             let audienceList111 = JSON.parse(localStorage.getItem("audience-list"));
@@ -335,12 +330,14 @@ if(!AgoraRTC.checkSystemRequirements()) {
             localStorage.setItem("handraise-swap_auto-subscriber-id", '');
         }
           
-        } else {
+        /*} else {
             console.log('extra participant trying to enter, kick him subscribe', stream.getId());
             kickUser(stream.getId());
-        }
+        }*/
       } else {
+          
           let subscribeUserId = getUserDataFromList(stream.getId(), 'userType');
+
           if(1 == subscribeUserId){
 
             if ($('#agora_host #agora_remote'+stream.getId()).length === 0) {
@@ -379,102 +376,113 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
     client.on('stream-removed', function (evt) {
       
-      var storeData = getCurrentUserData();
-      var stream = evt.stream;
-      
-      console.log('Peer leave = stream removed');
-      console.log('Peer leave = isPlaying', stream.isPlaying);
-      console.log('Peer leave = getId()', stream.getId());
-
-      if (stream.isPlaying === true) {
-          console.log('stream stopped===', stream.getId());
-          stream.stop();
-      }
-
-      // check user role and decrease number
-      if(getUserDataFromList(stream.getId(), 'userType') == 2){
-        if(totalBrodcaster > 0){
-          //totalBrodcaster--;
-        }
-
-        // remove from audience list
-        removeAudienceInList(stream.getId())
-      }
-
-      addUserAttribute(stream.getId(), 'currentStatus', 1);
-      addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
-      addUserAttribute(stream.getId(), 'isSubscribe', 0);
-      
-      /*if(storeData.userType == 1){
-        // add stream after leaving current stream on hand raise event
-
-        console.log('-----changeUserToBroadcaster7777----------');
-
-        pushIntoSessionByHost();
+        var storeData = getCurrentUserData();
+        var stream = evt.stream;
         
-        // switch user every specific time duration
-        switchAudienceToBroadcaster();
-      }*/
+        if (storeData.userType == 1) {
+            console.log('###stream-removed== user id--', stream.getId());
 
-      //new code     
-      /*if (localStorage.getItem("swap-subscriber-id") != null && localStorage.getItem("swap-subscriber-id") != '') {
-          $('#agora_remote' + stream.getId()).find('.heart-rate-icon').remove();
-          $('#agora_remote' + stream.getId()).find('.att-details').remove();
-          $('#agora_remote' + stream.getId()).addClass('removeBroadcaster');
-      } else {
-          $('#agora_remote' + stream.getId()).remove();
-      }*/
+            if (stream.isPlaying === true) {
+                console.log('stream stopped===', stream.getId());
+                stream.stop();
+            }
 
-      $('#agora_remote' + stream.getId()).remove();
+            // check user role and decrease number
+            if(getUserDataFromList(stream.getId(), 'userType') == 2){
+                removeAudienceInList(stream.getId())
+            }
 
-      switchVideoSize();
+            setSwappingAttributes(stream.getId());
 
-      if(storeData.userType == 1){
-          //if stream is removed due to network conjetion
-          let len = $('#subscribers-list .newcss').length;
-          if(len < storeData.default.maxUserLimit) {
-              //switchAudienceToBroadcaster();
-          }
-      }
+            $('#agora_remote' + stream.getId()).remove();
+
+            switchVideoSize();
+        }
     });
 
     client.on('peer-leave', function (evt) {
-      console.log('Peer leave === ', evt)
+      
+        console.log('###Peer leave === ', evt.uid, evt)
+        console.log(evt.uid + " leaved from this channel");
 
-      var storeData = getCurrentUserData();
-      var stream = evt.stream;
+        var uid = evt.uid;
+        //var reason = evt.stream.reason;
+        console.log("###remote user left-- ", uid);
 
-      if (stream) {
+        var storeData = getCurrentUserData();
+        var stream = evt.stream;
 
-        console.log('Peer leave = isPlaying', stream.isPlaying);
-        console.log('Peer leave = getId()', evt.uid);
+        if (storeData.userType == 1) {
 
-        if (stream.isPlaying === true) {
-            stream.stop();
-        }
-        
-        removeUserAttribute(evt.uid, 'subscribeTime');
-        removeUserAttribute(evt.uid, 'isSubscribe');
-        removeUserAttribute(evt.uid, 'currentStatus');
+            if (stream) {
 
-        // check user role and decrease number
-        if(getUserDataFromList(evt.uid, 'userType') == 2){
-          // remove from audience list
-          removeAudienceInList(evt.uid);
-        }
+                console.log('###Peer leave === in if condition', evt.uid)
 
-        $('#agora_remote' + evt.uid).remove();
+                removeUserAttribute(evt.uid, 'subscribeTime');
+                removeUserAttribute(evt.uid, 'isSubscribe');
+                removeUserAttribute(evt.uid, 'currentStatus');
 
-        if (localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') {
-            if (parseInt(localStorage.getItem("swap-subscriber-id")) == evt.uid) {
-                localStorage.removeItem("swap-subscriber-id");
+                if (stream.isPlaying === true) {
+                    stream.stop();
+                }
+
+                // check user role and decrease number
+                if(getUserDataFromList(evt.uid, 'userType') == 2) {
+                    removeAudienceInList(evt.uid);
+                }
+
+                if (localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '' && localStorage.getItem("swap-subscriber-id") == evt.uid) {
+                    localStorage.setItem("swap-subscriber-id", '');
+                }
+
+                $('#agora_remote' + evt.uid).remove();
+
+                switchVideoSize();
+            } else {
+                //@todo
+                //send RTM to user to check online status
+
+                let peerId = convertIdToEmail(evt.uid);
+                let text = "1100" + sep;
+
+                checkRTMStatus(peerId, text);
+
+                setTimeout(function(){ 
+
+                    console.log('###rtm status---user id', evt.uid, localStorage.getItem("rtm-status-"+evt.uid));
+
+                    if (localStorage.getItem("rtm-status-"+evt.uid) !== null && localStorage.getItem("rtm-status-"+evt.uid) == "false") {
+
+                        console.log('###inside if', evt.uid, localStorage.getItem("rtm-status-"+evt.uid));
+
+                        removeUserAttribute(evt.uid, 'subscribeTime');
+                        removeUserAttribute(evt.uid, 'isSubscribe');
+                        removeUserAttribute(evt.uid, 'currentStatus');
+
+                        // check user role and decrease number
+                        if(getUserDataFromList(evt.uid, 'userType') == 2) {
+                            removeAudienceInList(evt.uid);
+                        }
+
+                        if (localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '' && localStorage.getItem("swap-subscriber-id") == evt.uid) {
+                            localStorage.setItem("swap-subscriber-id", '');
+                        }
+
+                        $('#agora_remote' + evt.uid).remove();
+
+                        switchVideoSize();
+                    }
+
+                    localStorage.removeItem("rtm-status-"+evt.uid);
+
+                }, 3000);
             }
         }
-
-        switchVideoSize();
-        console.log(evt.uid + " leaved from this channel");
-      }
     });
+
+    client.on("connection-state-change", function(evt) {
+        console.log('###connection-state-change===', evt.prevState, evt.curState, evt);
+    })
 
     client.on('mute-audio', function (evt) {
       console.log('-----lalit-------audio muted for user-----', evt.uid);
@@ -515,13 +523,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
     });
 
     client.on("peer-online", function (evt) {
-      console.log('peer-online ====== ', evt.uid)
+      console.log('###peer-online ====== ', evt.uid)
 
       // addUserAttribute(evt.uid, 'currentStatus', 1);
       // addUserAttribute(evt.uid, 'subscribeTime', (new Date()).getTime());
       // addUserAttribute(evt.uid, 'isSubscribe', 0);
 
-      var storeData = getCurrentUserData();
+      /*var storeData = getCurrentUserData();
 
       if (storeData.userType == 1) {
 
@@ -539,9 +547,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
                 }
               }
           }
-      }
+      }*/
     });
-
   }
 
   function countCurrentSubscribers()
@@ -749,10 +756,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
               let onlineUserCount = getOnlineUserCount('currentStatus');
 
-              /*if (storeData.userType == 1) {
-                  $('#online-users').text(parseInt(onlineUserCount));
-              }*/
-
               let membersList = getTempUsers();
               let membersListArray = [];
 
@@ -764,59 +767,26 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
               channelSignalHandler(JSON.stringify({code:"208",member:onlineUserCount, totalmember:membersListArray, msgtype:"totalcount"}), storeData.userType);
 
-              // channel.getMembers().then(membersList => {    
-              //     console.log('membersList', membersList)
-                  
-              //   channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
-              // }).catch(error => {
-              //   //displayError(error);
-              //   console.log('**********shiv*********There Is a problem to join a channel**********', error);
-              // });
-
 
               channel.on('MemberJoined', memberId => { 
 
                 console.log('------------memberjoineddeepak-------',memberId);
 
                 //addUserAttribute(convertEmailToId(memberId), 'currentStatus', 1);
-                //setSwappingAttributes(convertEmailToId(memberId));
-
-                addUserAttribute(convertEmailToId(memberId), 'currentStatus', 1);
 
                 var massages="208"+sep+memberId+sep+"joined"+sep;        
                 channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
 
                 console.log('------------memberafterjoineddeepak-------',memberId);
-
-                /*if (storeData.userType == 1) {
-                    let onlineUserCount = getOnlineUserCount('currentStatus');
-                    $('#online-users').text(parseInt(onlineUserCount));
-                }*/
-              })
+              });
            
               channel.on('MemberLeft', memberId => { 
 console.log('rtm remove====', memberId);
                 removeFromRtmOrder(memberId);
 
-                // removeUserAttribute(convertEmailToId(memberId), 'subscribeTime');
-                // removeUserAttribute(convertEmailToId(memberId), 'isSubscribe');
-                // removeUserAttribute(convertEmailToId(memberId), 'currentStatus');
-
-                if (storeData.userType == 1) {
-                    //$('#agora_remote' + convertEmailToId(memberId)).remove();
-
-                    /*let onlineUserCount = getOnlineUserCount('currentStatus');
-                    $('#online-users').text(onlineUserCount);
-
-                    let len = $('#subscribers-list .newcss').length;
-                    if(len < storeData.default.maxUserLimit) {
-                        //switchAudienceToBroadcaster();
-                    }*/
-                }
-
                 var massages="208"+sep+memberId+sep+"left"+sep;  
                 channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"left"}), storeData.userType);
-              })
+              });
            
               channel.on('ChannelMessage', (message, senderId) => {         
                   var msg=message.text;
@@ -846,10 +816,10 @@ console.log('rtm remove====', memberId);
                         console.log('rtm channel instance==', channel);
                         channel.join().then(() => {
 
-                            if (storeData.userType == 2) {
+                            /*if (storeData.userType == 2) {
                                 let message = "1000" + sep + storeData.id;
                                 sendConnectedAgainMessage(storeData.sessionData.hostEmail, message);
-                            }
+                            }*/
                         });
                     });
                 }
@@ -869,10 +839,6 @@ console.log('rtm remove====', memberId);
         
         let onlineUserCount = getOnlineUserCount('currentStatus');
 
-        /*if (storeData.userType == 1) {
-            $('#online-users').text(parseInt(onlineUserCount));
-        }*/
-
         let membersList = getTempUsers();
         let membersListArray = [];
 
@@ -883,16 +849,6 @@ console.log('rtm remove====', memberId);
         }
 
         channelSignalHandler(JSON.stringify({code:"208",member:onlineUserCount, totalmember:membersListArray, msgtype:"totalcount"}), storeData.userType);
-
-        // channel.getMembers().then(membersList => {    
-        //   console.log('------------membersListlalit-------',membersList);  
-
-        //   channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
-        
-        // }).catch(error => {
-        //     //displayError(error);
-        //     console.log('*************There is an errorkkkkkkkkkk******', error);
-        // });
       }
     }
 
@@ -935,7 +891,6 @@ console.log('rtm remove====', memberId);
                         for(let i in tempUsers) {
                             if(tempUsers[i].id == userId && tempUsers[i].hasOwnProperty('isSubscribe') === true && tempUsers[i].isSubscribe == 0) {
                                 
-                                //addUserAttribute(userId, 'currentStatus', 1);
                                 addUserAttribute(userId, 'subscribeTime', (new Date()).getTime());
 
                                 return;
@@ -1215,11 +1170,10 @@ console.log('rtm remove====', memberId);
         }
       });
       client.on('stream-published', function (evt) {
-        console.log('client ============', client);
-        console.log('-----changeUserToBroadcaster2000----------stream-published-----');
-        $('#strm-unpublish').removeClass('d-none');
-        $('#strm-publish').addClass('d-none');
-
+          console.log('client ============', client);
+          console.log('-----changeUserToBroadcaster2000----------stream-published-----');
+          $('#strm-unpublish').removeClass('d-none');
+          $('#strm-publish').addClass('d-none');
       });
     }
   }
@@ -2744,6 +2698,34 @@ function signalHandler(uid, signalData, userType) {
 
         console.log('allBroadcaster ***************', broadcster);
         console.log('allParticipants ***************', allUsers);
+
+        //
+        if (broadcster.length > storeData.default.maxUserLimit) {
+
+            let len = $('#subscribers-list .newcss').length;
+            var userList  = getTempUsers();
+            let onscreenUserIds = [];
+
+            if (len > 0) {
+                $('#subscribers-list .newcss').each(function (index, value) {
+                    onscreenUserIds.push(parseInt($(this).find('.video-holder').attr('id')));
+                });
+
+                if(userList != '') {
+              
+                    for(let i = 0; i < userList.length; i++){
+                      if(onscreenUserIds.indexOf(userList[i].id) == -1 && userList[i].hasOwnProperty('isSubscribe') === true && userList[i].isSubscribe === 1) {
+
+                          console.log('broadcaster length greater than onscreen limit=====', userList[i].id, userList[i].email, userList[i].firstName, typeof userList[i].isSubscribe);
+                          
+                          //setSwappingAttributes(userList[i].id);
+                          kickUser(userList[i].id);
+                      }
+                  }
+                }
+            }
+        }
+
         //if(broadcster.length > 0 && allUsers.length > broadcster.length && broadcster.length == storeData.default.maxUserLimit){
         if(broadcster.length > 0 && allUsers.length > broadcster.length){
           for(let i in broadcster){
@@ -4836,6 +4818,40 @@ console.log('onscreenUsers===', onscreenUsers);
   function sendConnectedAgainMessage(peerId, text) {
       console.log('in main.js sendConnectedAgainMessage---');
       sendMessage(peerId, text);
+  }
+
+  function checkRTMStatus(peerId, text) {
+
+      console.log("###rtm sendPeerMessage", text, peerId);
+
+      newclient.sendMessageToPeer({text}, peerId).then(sendResult => {
+
+        console.log('###rtm sendResult---', sendResult, peerId);
+
+        if (sendResult.hasPeerReceived) {
+
+            rtmRetryCounter = 0;
+
+            localStorage.setItem("rtm-status-"+convertEmailToId(peerId), true);
+        } else {            
+            console.log('rtm retryCounter====', rtmRetryCounter, peerId);    
+
+            if (rtmRetryCounter <= 1) {
+                rtmRetryCounter++;
+
+                checkRTMStatus(peerId, text);
+            } else {
+                console.log('rtm retryCounter====limit exceeded', rtmRetryCounter, peerId);
+
+                localStorage.setItem("rtm-status-"+convertEmailToId(peerId), false);
+                rtmRetryCounter = 0;
+            }
+        }
+      }).catch(error => {
+          localStorage.setItem("rtm-status-"+convertEmailToId(peerId), true);
+          console.log('peererror=======', error);
+          rtmRetryCounter = 0;
+      });
   }
 
   $(document).ready(function() {

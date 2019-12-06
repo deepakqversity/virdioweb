@@ -2769,6 +2769,7 @@ function signalHandler(uid, signalData, userType) {
             }
         }
     }*/
+    
 
     function switchAudienceToBroadcaster(){
         let audience = getAllAudience();

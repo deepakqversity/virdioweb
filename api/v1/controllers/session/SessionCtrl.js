@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const underscore = require("underscore");
 const sessionModel = require('../../models/Session');
 const sessionUserModel = require('../../models/SessionUser');
+const userModel = require('../../models/User');
 const sessionConfigMappingModel = require('../../models/SessionConfigMapping');
 const sessionScriptModel = require('../../models/SessionScript');
 const sessionScriptMappingModel = require('../../models/SessionScriptMapping');
@@ -627,8 +628,28 @@ class SessionCtrl {
 						}
 					}
 	
+
+					console.log('----------scriptAttributeId------------------',sessionId)
+					let sessId=sessionId+100;
+					let optcode=sessId+'#'+'virdio';
+	
+					console.log('----------script------------------',optcode)
+					let resultant_code = await utils.encodedDecodedString(optcode,0);
+	
+					console.log('-------resultant_code--------',resultant_code)
+	
+					let urlcode=process.env.DOMAIN_URL_FOR_USER+"/"+resultant_code;
+	
+					console.log('-------urlcode--------',urlcode)
+								
+				let sessionDt = await sessionModel.findSessionDetailBySessId(sessionId);
+	
+				console.log('------sessionDt-----------',sessionDt)
+	
+					response.resp(res, 200, {urlcode,sessionDt})
+
 					// res.status(200).send({logId : insertedId});
-					response.resp(res, 200, {})
+					//response.resp(res, 200, {})
 				} else {
 					response.resp(res, 500, {message:"Something went wrong."})
 				} 
@@ -704,7 +725,24 @@ class SessionCtrl {
 
 			let userId=11;
 			console.log('------lalitgethost---------',req.param)
+			
 			let hostsList = await channelHostModel.getChannelHostsList(req.params.channelId,userId);
+
+			console.log('------lalitgethostlist---------',hostsList)
+
+			response.resp(res, 200, hostsList);
+	    } catch(exception) {
+			response.resp(res, 500, exception);
+	    }
+	}
+
+	async getHostsForChannel(req, res) {
+	    try {
+
+			let userId=11;
+			console.log('------lalitgethost---------',req.param)
+			let hostsList = await userModel.getUserById(userId);
+			//let hostsList = await channelHostModel.getChannelHostsList(req.params.channelId,userId);
 
 			console.log('------lalitgethostlist---------',hostsList)
 

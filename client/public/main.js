@@ -300,12 +300,15 @@ if(!AgoraRTC.checkSystemRequirements()) {
                  for(let i in audienceList111){
                                                                       
                      if(audienceList111[i].id == stream.getId()){
+                        $('#audience-'+stream.getId()).remove();
+                      $('#total-raised-hands').html(audienceList111.length-1);
                       $('#selected-participent-id').val(stream.getId());
+                      removeAudienceInList(stream.getId());
                       localStorage.setItem("handraise-swap_auto-subscriber-id", stream.getId());
                       
                       console.log('-------changeUserToBroadcaster---dropdownMenuButtonnormalswap22222 = ',stream.getId())
         
-                      removeAudienceInList(stream.getId());
+                     // removeAudienceInList(stream.getId());
 
                      }
                  }
@@ -392,14 +395,11 @@ if(!AgoraRTC.checkSystemRequirements()) {
       }
 
       // check user role and decrease number
-      if(getUserDataFromList(stream.getId(), 'userType') == 2){
-        if(totalBrodcaster > 0){
-          //totalBrodcaster--;
-        }
-
-        // remove from audience list
-        removeAudienceInList(stream.getId())
-      }
+      // if(getUserDataFromList(stream.getId(), 'userType') == 2){
+     
+      //   // remove from audience list
+      //   removeAudienceInList(stream.getId())
+      // }
 
       addUserAttribute(stream.getId(), 'currentStatus', 1);
       addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
@@ -458,10 +458,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
         removeUserAttribute(evt.uid, 'currentStatus');
 
         // check user role and decrease number
-        if(getUserDataFromList(evt.uid, 'userType') == 2){
-          // remove from audience list
-          removeAudienceInList(evt.uid);
-        }
+        // if(getUserDataFromList(evt.uid, 'userType') == 2){
+        //   // remove from audience list
+        //   //removeAudienceInList(evt.uid);
+        // }
 
         $('#agora_remote' + evt.uid).remove();
 
@@ -1068,8 +1068,8 @@ console.log('rtm remove====', memberId);
       console.log('-----dropdownMenuButtonnormalswap22222 = ',participentId)
 
       let participentEmail = convertIdToEmail(participentId);
-      var massages="203"+sep; 
-      sendMessage(participentEmail, massages);
+      // var massages="203"+sep; 
+      // sendMessage(participentEmail, massages);
   
       let allVdo = $('#subscribers-list video');   
       let allAdo = $('#subscribers-list audio');   
@@ -1077,25 +1077,13 @@ console.log('rtm remove====', memberId);
       let vdo = $('#subscribers-list #agora_remote'+ participentId + ' video' )[0];   
       let ado = $('#subscribers-list #agora_remote'+ participentId + ' audio' )[0];
       
-      
-  
-      // $.each(allVdo, function (index, value) {
-      //   allVdo[index].muted = true;
-      //   allAdo[index].muted = true;
-      // });
-  
-      // if(vdo.muted || ado.muted){
-      //   console.log('unmute successfully')
-      //   vdo.muted = false;
-      //   ado.muted = false;
-      // }
-      
+            
       $('#agora_remote'+ participentId + ' .microphone-icon').addClass("d-none");
 
       $('#subscribers-list #agora_remote'+ participentId).find('.hand-icon').removeClass('d-none');
 
-      // $('#errmsg').html('Client HandRaise');
-      // setTimeout(function(){ $('#errmsg').html(''); }, 10000);
+      $('#subscribers-list #agora_hand_raise'+participentId).removeClass("d-none");
+      $('#subscribers-list #audion_on'+participentId).addClass("d-none");
 
       $('#selected-participent-id').val(participentId );
       $('#subscribers-list #agora_remote'+participentId).find('video').addClass('video-selected');
@@ -1134,8 +1122,8 @@ console.log('rtm remove====', memberId);
 
       $('#subscribers-list #agora_remote'+ participentId).find('.microphone-icon').removeClass('d-none');
 
-      // $('#errmsg').html('Client HandRaise');
-      // setTimeout(function(){ $('#errmsg').html(''); }, 10000);
+      $('#subscribers-list #agora_hand_raise'+participentId).addClass("d-none");
+      $('#subscribers-list #audion_on'+participentId).removeClass("d-none");
 
       $('#selected-participent-id').val(participentId );
       $('#subscribers-list #agora_remote'+participentId).find('video').addClass('video-selected');
@@ -2401,15 +2389,15 @@ function signalHandler(uid, signalData, userType) {
      }
 
      function addAudienceInList(strArray) {
-      console.log('-------changeUserToBroadcaster----------str array ',strArray)
-        let audienceList2 = JSON.parse(localStorage.getItem("audience-list"));
-         console.log('-------changeUserToBroadcaster----------audienceList2222222 ',typeof audienceList2, audienceList2)
-        let audienceList = [];
+      console.log('-------audienceHandraise----------str array ',strArray)
+      let audienceList2 = JSON.parse(localStorage.getItem("audience-list"));
+       console.log('-------changeUserToBroadcaster----------audienceList2222222 ',typeof audienceList2, audienceList2)
+      let audienceList = [];
 
-        if(audienceList2 !== null)
-        {
-          audienceList=audienceList2;
-        }
+      if(audienceList2 !== null)
+      {
+        audienceList=audienceList2;
+      }
 
        // console.log('audienceList.length=====', audienceList.length);
         let f = true;
@@ -2458,14 +2446,18 @@ function signalHandler(uid, signalData, userType) {
       let newAudienceList = [];
 
       if(audienceList.length > 0){
+        let j = 0;
         for(let i in audienceList){
           console.log('removeAudienceInList = ', audienceList[i].id, id);
           console.log('----changeUserToBroadcaster---dropdownMenuButton000----- = ', audienceList[i].id, id);
           if(audienceList[i].id != id){
             console.log('---changeUserToBroadcaster----dropdownMenuButton999999----- = ', audienceList[i]);
-            newAudienceList[i] = audienceList[i];
+            newAudienceList[j] = audienceList[i];
+            j++;
           }
         }
+        console.log('final array=======', newAudienceList);
+         localStorage.setItem("audience-list", JSON.stringify(newAudienceList));
       }
 
       if(newAudienceList.length <= 0){
@@ -2473,12 +2465,12 @@ function signalHandler(uid, signalData, userType) {
         console.log('---changeUserToBroadcaster---dropdownMenuButton3333----------',newAudienceList.length)
        // $('#dropdownMenuButton').click();
        $('#dropdownMenuButton').addClass('d-none');
-       $('.hand-raise-list .dropdown-menu').removeClass('show')
+      // $('.hand-raise-list .dropdown-menu').removeClass('show')
       // $('.hand-raise-list .dropdown-menu').removeClass('show')
        $('#dropdownmenuitem11').addClass('d-none');
       }
       
-      localStorage.setItem("audience-list", JSON.stringify(newAudienceList));
+      //localStorage.setItem("audience-list", JSON.stringify(newAudienceList));
     }
      
      function checkTime(timeDur){
@@ -2498,14 +2490,15 @@ function signalHandler(uid, signalData, userType) {
         return tm;
      }
 
+
      function showHandAtHost(){
-      console.log('!!!!!!!!!!!changeUserToBroadcaster!!!!!!!!!!!!!showHandAtHostfn!!!!!')
+      console.log('!!!!!!!!!!!audienceHandraise!!!!!!!!!!!!!showHandAtHostfn!!!!!')
         let audienceList = localStorage.getItem("audience-list");
         
         if(audienceList == null) return '';
 
         audienceList = JSON.parse(audienceList);
-        console.log('-------changeUserToBroadcaster-------audienceList11', audienceList, audienceList.length)
+        console.log('-------audienceHandraise-------audienceList11', audienceList, audienceList.length)
         if(audienceList.length > 0){
           
           let list='';
@@ -2524,11 +2517,11 @@ function signalHandler(uid, signalData, userType) {
           $('.hand-raise-list .dropdown-menu').removeClass('d-none');
           console.log('---changeUserToBroadcaster----dropdownMenuButton666666-------------')
         } else {
-          $('#dropdownMenuButton').addClass('d-none');
+         $('#dropdownMenuButton').addClass('d-none');
           console.log('---changeUserToBroadcaster----dropdownMenuButton55555-------------')
           $('#raised-list').html('');
           $('#total-raised-hands').html(0);
-          $('.hand-raise-list .dropdown-menu').removeClass('show');
+          //$('.hand-raise-list .dropdown-menu').removeClass('show');
          // $('.hand-raise-list .dropdown-menu').addClass('hide');
           $('.hand-raise-list .dropdown-menu').addClass('d-none');
           $('#dropdownmenuitem11').addClass('d-none');
@@ -2869,7 +2862,7 @@ function signalHandler(uid, signalData, userType) {
           console.log('-----changeUserToBroadcaster--------dropdownMenuButton7777777--------',len)
 
           $('#dropdownMenuButton').addClass('d-none');
-          $('.hand-raise-list .dropdown-menu').removeClass('show');
+         // $('.hand-raise-list .dropdown-menu').removeClass('show');
            //$('.hand-raise-list .dropdown-menu').addClass('d-none');
            $('#dropdownmenuitem11').addClass('d-none');
         }
@@ -3853,10 +3846,14 @@ console.log('removed from rtm order====', memberId);
 
     $(document).ready(function(){
 
-      $('#dropdownMenuButton').on('click', function(){
-       console.log('-----changeUserToBroadcaster1222221-------')
-        $('#dropdownmenuitem11').slideToggle();
-      });
+
+
+
+
+      // $('#dropdownMenuButton').on('click', function(){
+      //  console.log('-----changeUserToBroadcaster1222221-------')
+      //   $('#dropdownmenuitem11').slideToggle();
+      // });
 
       $('#switch-camera').on('click', function(){
         getDevices();
@@ -3969,10 +3966,12 @@ console.log('removed from rtm order====', memberId);
         
         $('#dropdownMenuButton').on('click', function (e) {
           console.log('------dropdownMenuButton111--------')
-          // alert($('.hand-raise-list .dropdown-menu').hasClass('show'))
-            if($('.hand-raise-list .dropdown-menu').hasClass('show') != true){
+           // if($('.hand-raise-list .dropdown-menu').hasClass('show') != true){
+            if($('#dropdownMenuButton').hasClass('d-none') == true){            
               console.log('------dropdownMenuButton2222--------')
               showHandAtHost();
+            }else{
+              $('#dropdownmenuitem11').slideToggle();
             }
         });
         
@@ -4783,8 +4782,6 @@ console.log('onscreenUsers===', onscreenUsers);
      // $('#agora_remote'+id).find('.mute-unmute .fa').addClass('fa-volume-off');
 
   } 
-
-  
 
 
   setTimeout(function(){

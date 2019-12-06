@@ -317,8 +317,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
         if(storeData.userType == 1){
           if( $('#joinee-' + convertEmailToId(memberId)).length != 0 ){
             $('#joiners').find("#joinee-"+convertEmailToId(memberId)).remove();
-            addNewAfterRemove(memberId);
-            
+            addNewAfterRemove(memberId);           
           }
 
           //$('#agora_remote' + convertEmailToId(memberId)).remove();

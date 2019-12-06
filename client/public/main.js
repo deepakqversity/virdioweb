@@ -3405,7 +3405,7 @@ function signalHandler(uid, signalData, userType) {
 
       function leaveLogout(){
           // localStream.stop();
-          updateJoinSessionStatus();
+          //updateJoinSessionStatus();
           leave_channel();
           removeSession();
           location.href  = '/login';

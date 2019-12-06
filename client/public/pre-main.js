@@ -1937,7 +1937,7 @@ function signalHandler(uid, signalData, userType) {
       }
 
       function leaveLogout(){
-        updateJoinSessionStatus();
+          //updateJoinSessionStatus();
           leave_channel();
           removeSession();
           location.href  = '/login';

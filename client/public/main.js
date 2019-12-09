@@ -939,6 +939,8 @@ console.log('rtm remove====', memberId);
                         }
                     } else if (resultant[0] == '209') {
 
+                        console.log('###kicked user but peer msg not received==', peerId);
+
                         let userId = convertEmailToId(peerId);
                         let tempUsers = getTempUsers();
 
@@ -1219,11 +1221,13 @@ console.log('rtm remove====', memberId);
         console.log("Publish local stream error: " + err);
         if (err == 'STREAM_ALREADY_PUBLISHED') {
 
-            if(storeData.userType == 2) {
+            unpublish();
+            
+            /*if(storeData.userType == 2) {
                 let receiverEmail = storeData.sessionData.hostEmail;
                 var message = "1101" + sep + storeData.id;
                 sendMessage(receiverEmail, message);
-            }
+            }*/
         }
       });
       client.on('stream-published', function (evt) {

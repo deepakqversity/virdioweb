@@ -1222,7 +1222,7 @@ console.log('rtm remove====', memberId);
         if (err == 'STREAM_ALREADY_PUBLISHED') {
 
             unpublish();
-            
+
             /*if(storeData.userType == 2) {
                 let receiverEmail = storeData.sessionData.hostEmail;
                 var message = "1101" + sep + storeData.id;
@@ -4872,7 +4872,8 @@ console.log('onscreenUsers===', onscreenUsers);
               console.log('timeoutfunc onscreenCount=======', onscreenCount);
               console.log('timeoutfunc onlineUserCount=======', onlineUserCount);
 
-              if(onscreenCount < storeData.default.maxUserLimit && onlineUserCount >= storeData.default.maxUserLimit) {
+              //if(onscreenCount < storeData.default.maxUserLimit && onlineUserCount >= storeData.default.maxUserLimit) {
+              if(onscreenCount < storeData.default.maxUserLimit && onlineUserCount > onscreenCount) {
 
                   console.log('timeoutfunc in if=======yes');
 

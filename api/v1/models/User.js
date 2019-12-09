@@ -33,11 +33,11 @@ class User{
 	async getUserById(id){
 
 		let table = this.table;
-		
+		console.log('------table-----------',table)
 		return await new Promise((resolve, reject) => {
 			db.query('SELECT * FROM ?? WHERE id = ? AND status = 1', [table, id], function (error, results, fields) {
 			  if (error) reject(error);
-			  // console.log('================== results ', results)
+			   console.log('================== results ', error)
 			  // db.end();
 			  return resolve(results[0]);
 			});

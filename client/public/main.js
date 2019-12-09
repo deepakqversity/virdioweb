@@ -381,7 +381,7 @@ console.log('onscreenCount!!!!!====', onscreenCount, localStorage.getItem("swap-
         if (storeData.userType == 1) { 
             console.log('###stream-removed== user id--', stream.getId(), evt);
 
-            if (localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '' && localStorage.getItem("swap-subscriber-id") == evt.uid) {
+            if (localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '' && localStorage.getItem("swap-subscriber-id") == stream.getId()) {
                 localStorage.setItem("swap-subscriber-id", '');
             }
 

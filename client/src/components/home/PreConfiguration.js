@@ -518,7 +518,7 @@ render() {
                 <div className="row">
                   <div className="col-lg-8">
                    
-                    <h4 class="small-heading">Your Upcoming Session
+                    <h4 className="small-heading">Your Upcoming Session
                         
                     </h4>
                         
@@ -578,8 +578,8 @@ render() {
               <h6 className="small-heading mb-2">Select Video Camera</h6>
             </div>
             
-              <p class="alrt_txt d-none" id="media-access-alert">Virdio can't access your camera and microphone 
-              <i class="fa fa-exclamation-circle ml-2" aria-hidden="true"></i></p>
+              <p className="alrt_txt d-none" id="media-access-alert">Virdio can't access your camera and microphone 
+              <i className="fa fa-exclamation-circle ml-2" aria-hidden="true"></i></p>
             
           </div>
           <div className="row justify-content-center video-streams select-camera" id="video-media-content"></div>
@@ -1064,8 +1064,8 @@ render() {
      
       </div>
  
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger"  onClick={this.modalClose.bind(this)} data-dismiss="modal">OK</button>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-danger"  onClick={this.modalClose.bind(this)} data-dismiss="modal">OK</button>
       </div> 
 
     </div>
@@ -1093,8 +1093,8 @@ render() {
       </div>
 
 
-      {/* <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      {/* <div className="modal-footer">
+        <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
       </div> */}
 
     </div>

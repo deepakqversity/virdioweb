@@ -378,8 +378,12 @@ console.log('onscreenCount!!!!!====', onscreenCount, localStorage.getItem("swap-
         var storeData = getCurrentUserData();
         var stream = evt.stream;
         
-        if (storeData.userType == 1) {
-            console.log('###stream-removed== user id--', stream.getId());
+        if (storeData.userType == 1) { 
+            console.log('###stream-removed== user id--', stream.getId(), evt);
+
+            if (localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '' && localStorage.getItem("swap-subscriber-id") == evt.uid) {
+                localStorage.setItem("swap-subscriber-id", '');
+            }
 
             if (stream.isPlaying === true) {
                 console.log('stream stopped===', stream.getId());
@@ -438,15 +442,53 @@ console.log('onscreenCount!!!!!====', onscreenCount, localStorage.getItem("swap-
 
                 switchVideoSize();
             } else {
-                //@todo
-                //send RTM to user to check online status
+
+                localStorage.removeItem("rtm-status-"+evt.uid);
 
                 let peerId = convertIdToEmail(evt.uid);
                 let text = "1100" + sep;
 
                 checkRTMStatus(peerId, text);
 
-                setTimeout(function(){ 
+
+                let rtmStatusCounter = setInterval( function() {
+
+                    console.log('###rtm status---user id', evt.uid, localStorage.getItem("rtm-status-"+evt.uid));
+
+                    if (localStorage.getItem("rtm-status-"+evt.uid) !== null && localStorage.getItem("rtm-status-"+evt.uid) == "false") {
+
+                        console.log('###inside if', evt.uid, localStorage.getItem("rtm-status-"+evt.uid));
+
+                        removeUserAttribute(evt.uid, 'subscribeTime');
+                        removeUserAttribute(evt.uid, 'isSubscribe');
+                        removeUserAttribute(evt.uid, 'currentStatus');
+
+                        // check user role and decrease number
+                        if(getUserDataFromList(evt.uid, 'userType') == 2) {
+                            //removeAudienceInList(evt.uid);
+                        }
+
+                        if (localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '' && localStorage.getItem("swap-subscriber-id") == evt.uid) {
+                            localStorage.setItem("swap-subscriber-id", '');
+                        }
+
+                        $('#agora_remote' + evt.uid).remove();
+
+                        localStorage.removeItem("rtm-status-"+evt.uid);
+
+                        switchVideoSize();
+
+                        clearInterval(rtmStatusCounter);
+
+                    } else if (localStorage.getItem("rtm-status-"+evt.uid) !== null && localStorage.getItem("rtm-status-"+evt.uid) == "true") {
+
+                        localStorage.removeItem("rtm-status-"+evt.uid);
+
+                        clearInterval(rtmStatusCounter);
+                    }
+                }, 1000 );
+
+                /*setTimeout(function(){
 
                     console.log('###rtm status---user id', evt.uid, localStorage.getItem("rtm-status-"+evt.uid));
 
@@ -474,7 +516,7 @@ console.log('onscreenCount!!!!!====', onscreenCount, localStorage.getItem("swap-
 
                     localStorage.removeItem("rtm-status-"+evt.uid);
 
-                }, 6000);
+                }, 6000);*/
             }
         }
     });
@@ -2924,7 +2966,7 @@ function signalHandler(uid, signalData, userType) {
     }
 
 
-    function incrementcountOnStreming(signalData,type)      
+    /*function incrementcountOnStreming(signalData,type)      
     { 
 
       if(type == 'welcome'){          
@@ -2942,8 +2984,6 @@ function signalHandler(uid, signalData, userType) {
        $('#joined_users_at_client').empty(); 
 
        console.log('------------atStremCount----------------',atStremCount);
-
-       // $('#joined_users_at_client').html(atStremCount); 
 
        let localstoragedata = JSON.parse(localStorage.getItem('allloginuser'));
        let newmem=signalData;
@@ -2988,7 +3028,7 @@ function signalHandler(uid, signalData, userType) {
 
 
       }
-    }
+    }*/
 
       function incrementcountAtAttendies(signalData,userType)
       {
@@ -3086,7 +3126,7 @@ function signalHandler(uid, signalData, userType) {
     
        console.log('*******totallist*************** signalData ', count4);
        //arr.shift();
-   
+      
       }
 
       let storeData = getCurrentUserData();    
@@ -3122,7 +3162,6 @@ function signalHandler(uid, signalData, userType) {
         count4 = 0;
       }
       console.log('*******finalcountatattendies11*************** element ', count4);
-        // $('#joined_users_at_client').empty(); 
         $('#joined_users_at_client').html(count4); 
     
       }
@@ -4851,7 +4890,12 @@ console.log('onscreenUsers===', onscreenUsers);
 
           let onlineUserCount = getOnlineUserCount('currentStatus');
           $('#online-users').text(onlineUserCount);
-      }
+      } /*else if (storeData.userType == 2) {
+          let onlineUserCount = getOnlineUserCount('currentStatus');
+          $('#online-users').text(onlineUserCount);
+
+          $('#joined_users_at_client').text(onlineUserCount);
+      }*/
   }, 2000);
 
   function setSwappingAttributes(uId) {

@@ -47,15 +47,6 @@ class PreConfiguration extends Component {
   }
 
   removeScript = function (src) {
-    console.log('src========', src)
-    // let scpt = $('script');
-    // $('script').each(function(i){
-    //   console.log('_________________',$(this).attr('src'),src);
-    //   if($(this).attr('src').indexOf(src) !== -1){
-    //     $(this).remove();
-    //     return '';
-    //   }
-    // })
 
     // function removejscssfile(filename, filetype){
     var targetelement="script" //determine element type to create nodelist from
@@ -65,8 +56,6 @@ class PreConfiguration extends Component {
     if (allsuspects[i] && allsuspects[i].getAttribute(targetattr)!=null && allsuspects[i].getAttribute(targetattr).indexOf(src)!=-1)
         allsuspects[i].parentNode.removeChild(allsuspects[i]) //remove element by calling parentNode.removeChild()
     }
-    // }
-
   }
 
 
@@ -152,7 +141,7 @@ class PreConfiguration extends Component {
       this.removeScript('/AgoraRTCSDK-2.7.1.js');
       this.removeScript('/agora-rtm-sdk-1.0.0.js');
       this.removeScript('/pre-main.js');
-      this.loadScript('/check-rule.js');
+      this.removeScript('/check-rule.js');
 
       window.participentTimerAlertClose();
       window.participentStreamTimerAlertClose();
@@ -243,7 +232,7 @@ class PreConfiguration extends Component {
 
   modalClose = e => {
     window.leaveLogout();
-    $("#sessionAlert").attr({'style':'display:none'});
+    //$("#sessionAlert").attr({'style':'display:none'});
   }
 
 
@@ -261,9 +250,17 @@ class PreConfiguration extends Component {
     let day=new Date(sessionDateTime).getDate();
     let hrs1=new Date(sessionDateTime).getHours();
     let minute= "0" +new Date(sessionDateTime).getMinutes();
-    let second= "0" +new Date(sessionDateTime).getSeconds();
-   
-   let date= year+'-'+month+'-'+day+' '+hrs1 + ':' + minute.substr(-2) + ':' + second.substr(-2);
+    //let second= "0" +new Date(sessionDateTime).getSeconds();
+                   
+    // Check whether AM or PM 
+    let newformat = hrs1 >= 12 ? 'PM' : 'AM';                 
+    // Find current hour in AM-PM Format 
+    hrs1 = hrs1 % 12;                 
+    // To display "0" as "12" 
+    hrs1 = hrs1 ? hrs1 : 12;  
+    //minutes = minutes < 10 ? '0' + minutes : minutes; 
+                
+   let date= month+'/'+day+'/'+year+' '+hrs1 + ':' + minute.substr(-2) + ' ' + newformat;
 
    //alert(date);
 
@@ -349,19 +346,8 @@ class PreConfiguration extends Component {
               }
 
             if(userData.userType == 2) {
-              
-
-            //   let host_online_state = localStorage.getItem("set_host_online_state");
-
-            //  // console.log('------set_host_online_state33333-------',host_online_state)
-
-            // if(host_online_state != 1)  
-            // {
-            //   $("#participent_host_alert").attr({'style':'display:block'});
-            // }
-
-            $('.countdown-timer').text('Session Is Started After Host Join');
-       
+                $('.countdown-timer').text('The session will be started once Host joins');
+                $('.countdown-timer').css({'font-size':'19px'})
             }
 
           }
@@ -531,7 +517,11 @@ render() {
             <div className="session-details bg-gray flex-grow-1 my-2 my-md-0 mx-md-2">
                 <div className="row">
                   <div className="col-lg-8">
-                    <h4 className="small-heading">Your Upcoming Session</h4>
+                   
+                    <h4 className="small-heading">Your Upcoming Session
+                        
+                    </h4>
+                        
                     <h3 className="popup-heading">{sessionData.name}<span>by <label className="welcome-title trim-text">{sessionData.hostFirstName.toLowerCase()}  {sessionData.hostLastName.toLowerCase()}</label></span>
                       {localstoragedata.userType == 1 ? (
                           <span className="green-online online-status" id="online_state"><span>ONLINE</span></span>
@@ -584,7 +574,12 @@ render() {
         <div className="prescreen-body modal-body bg-gray rounded my-2" id="media-content">
           
           <div className="row">
-            <div className="col-12"><h6 className="small-heading mb-2">Select Video Camera</h6></div>           
+            <div className="col-sm-12">
+              <h6 className="small-heading mb-2">Select Video Camera</h6>
+            </div>
+            
+              <p className="alrt_txt d-none" id="media-access-alert">Virdio can't access your camera and microphone 
+              <i className="fa fa-exclamation-circle ml-2" aria-hidden="true"></i></p>
             
           </div>
           <div className="row justify-content-center video-streams select-camera" id="video-media-content"></div>
@@ -993,18 +988,19 @@ render() {
         </div>
       </div>
 
-      <div id="media-access-alert" className="modal fade" data-backdrop="static" data-keyboard="false">
+      {/*<div id="media-access-alert" className="modal fade" data-backdrop="static" data-keyboard="false">
         <div className="modal-dialog modal-confirm">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title">Virdio can't access your camera and microphone</h5>  
+              <h5 className="modal-title">Virdio can't access your camera and microphone</h5>
+              <button type="button" className="close white closepopup" onClick={this.modalClose.bind(this)} data-dismiss="modal">&times;</button>
             </div>
             <div className="modal-body">
-              <div>Click the X icon in the URL bar above to give Virdio access to your camera and microphone</div>
+              <div>Click the X icon in the popup window to logout from this browser/device</div>
             </div>
           </div>
         </div>
-      </div>
+      </div>*/}
 
       <div id="multi-media-access-alert" className="modal fade" data-backdrop="static" data-keyboard="false">
         <div className="modal-dialog modal-confirm">
@@ -1063,14 +1059,14 @@ render() {
 
       <div className="modal-body">
         <p>
-          Hey  {this.state.userName}, You don't have any session in next {this.state.defaultsessionjointime} minute. Your next session  will be at {this.state.sessionDate}. You are allowed to login  {this.state.defaultsessionjointime} minutes before the session.         
+          Hi  {this.state.userName}, your next session is on {this.state.sessionDate}.Please login up to {this.state.defaultsessionjointime} minutes prior to the session.         
         </p>
      
       </div>
  
-      {/* <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div> */}
+      <div className="modal-footer">
+        <button type="button" className="btn btn-danger"  onClick={this.modalClose.bind(this)} data-dismiss="modal">OK</button>
+      </div> 
 
     </div>
   </div>
@@ -1097,8 +1093,8 @@ render() {
       </div>
 
 
-      {/* <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      {/* <div className="modal-footer">
+        <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
       </div> */}
 
     </div>

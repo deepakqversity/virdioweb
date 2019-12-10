@@ -1605,14 +1605,14 @@ outline:0;
   stroke-dasharray: 172px;
 }
 .header svg circle{
-  stroke-dasharray: 171px;
+  stroke-dasharray: 174px;
   stroke-dashoffset: 0px;
   stroke-linecap: round;
   stroke-width: 6px;
   stroke: #9b51e0 !important;
   fill: none;
-  animation: countdown 30s linear infinite forwards;
-  animation-direction: reverse;
+  /*animation: countdown 30s linear infinite forwards;
+  animation-direction: reverse;*/
 }
 
 .footer-fitness-script .fitness-guest .swiper-slide-next svg circle{
@@ -3458,7 +3458,10 @@ position: absolute;
     text-shadow: none;
     font-size: 40px !important;
 }
-
+#sessionAlert
+{
+    background: black !important;
+}
 .suborder{
 
     margin: 0 auto;

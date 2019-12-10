@@ -24,6 +24,21 @@ button.cross_btn_guest {
 .minimize_btn {
     display: none;
 }
+.alrt_txt
+{
+    color: red;
+    background-color: white;
+    padding: 4px 12px;
+    border-radius: 8px;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+}
+.fa-exclamation-circle
+{
+    color: red;
+}
 button.show-everyone.btn.btn-outline-secondary.mb-3.mx-auto {
     position: absolute;
     bottom: -17px;

@@ -20,11 +20,13 @@ function startSlider(){
   var countdown = 0;
   var resetCount = null;
   var isPaused = "false";
+  //var isparticipentrestart = "false";
   var scriptDuration = 0;
 
   function countDown(){
 
     console.log('------isPauseddddddddddd--------',isPaused)
+
     
     let disCtr = 0;
     if($('#fitness-counter').length > 0){
@@ -93,6 +95,7 @@ function startSlider(){
         }
         
       }
+     
     } else {      
       //activeEle.find('svg circle').attr("style","animation-play-state:paused");
       activeEle.find('svg circle').css({"animation-play-state":"paused"});
@@ -130,6 +133,29 @@ function startSlider(){
     });
     clearInterval(resetCount);
     
+  }
+
+
+  function participentrestart() {
+
+    console.log('----------newhtt333333333------')
+
+    let activeEle = $('.newcounter');
+    var indexNum1 = parseInt(activeEle.attr('data1-index'));
+
+    console.log('----------newhtt444444------',indexNum1)
+
+    activeEle.each(function(i, val){
+      //console.log('-----------loadSwiperSlide1111------------------',parseInt($(this).attr('data-number')))
+     // var indexNum1 = parseInt(activeEle.attr('data1-index'));
+      console.log('----------newhtt55555------',parseInt(activeEle.attr('data1-index')))
+      if(indexNum1 == 4)
+      {
+        console.log('----------newhtt666666------',parseInt(activeEle.attr('data1-index')))
+      }
+     // $(this).html( parseInt($(this).attr('data-number')) + '\ SEC')
+    });
+
   }
 
 

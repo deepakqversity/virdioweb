@@ -207,7 +207,6 @@ class SessionCtrl {
 
 			console.log('----------req.bodylalit111------------------',req.body)
 
-		
 			let insertData = {	
 				interestId : 2,	
 				channelId : req.body.session.channelId,

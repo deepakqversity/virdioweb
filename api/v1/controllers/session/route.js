@@ -36,7 +36,8 @@ route
   .get('/:channelId/product-list', SessionCtrl.getProductList)
   .get('/:interestId/attributeList', SessionCtrl.getAttributeList)
   .post('/addProduct', SessionCtrl.addNewProduct)
-  .get('/:channelId/interest', SessionCtrl.getInterestBychannelId)
+  //.get('/:channelId/interest', SessionCtrl.getInterestBychannelId)
+  .get('/:channelId/allInterest', SessionCtrl.getInterest)
   .post('/createchannel', SessionCtrl.createNewChannel)
   .post('/verifyuser', SessionCtrl.verifyUser)
 

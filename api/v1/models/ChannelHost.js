@@ -28,6 +28,26 @@ class ChannelHost{
 			});
         });
 	}
+
+	async addChannelHost(data) {
+
+		console.log('------channelHostData11---------',data)
+		
+		return await new Promise((resolve, reject) => {
+            
+        	db.query('INSERT INTO ?? (hostId, channelId,channelAdmin) VALUES ?', [this.table, data], function (error, results, fields) {
+                if (error) reject(error);
+
+				console.log('----------sessionuser------------------',error)
+				
+				console.log('----------channelHostData22------------------',results)
+
+				//return resolve(isEmpty(results) ? 0 : results);
+				return resolve(results);
+              });
+		});
+	}
+
 }
 
 module.exports = new ChannelHost();

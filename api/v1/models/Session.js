@@ -188,7 +188,7 @@ class Session{
 	async add(data){
 		console.log('============output====== ************ results ',this.table, data)
 		return await new Promise((resolve, reject) => {
-			db.query('INSERT INTO ?? SET interestId=?, name=?, description=?, hostId=?, scheduleDate=?, duration=?, level=?, minAttendee=?, maxAttendee=?, currency=?, chargeForSession=?,sessionChargeAllowed=?, showParticipantsCount=?, hostReminder=?, participantReminder=?, cutOffTime=?, minNotMetNoticeTime=?, participantDisableDM=?, participantsPickPlaylist=?, showParticipantsPicToOtherPartcipants=?, allowGroupLocation=?, activity=?, heartRateMonitor=?, zoneTracking=?,sessionProperty=?, status=1', [
+			db.query('INSERT INTO ?? SET interestId=?, name=?, description=?, hostId=?, scheduleDate=?, duration=?, level=?, minAttendee=?, maxAttendee=?, currency=?, chargeForSession=?,sessionChargeAllowed=?, showParticipantsCount=?, hostReminder=?, participantReminder=?, cutOffTime=?, minNotMetNoticeTime=?, participantDisableDM=?, participantsPickPlaylist=?, showParticipantsPicToOtherPartcipants=?, allowGroupLocation=?, activity=?, heartRateMonitor=?, zoneTracking=?,sessionProperty=?,onDemand=?,orderWine=?, status=1', [
 						this.table,
 						data.interestId, 
 						data.name, 
@@ -214,7 +214,9 @@ class Session{
 						data.activity,
 						data.heartRateMonitor,
 						data.zoneTracking,
-						data.sessionProperty
+						data.sessionProperty,
+						data.onDemand,
+						data.orderWine
 						], function (error, results, fields) {
 			  if (error) reject(error);
 			  console.log('==========lalitErr======== ************ results ', error)

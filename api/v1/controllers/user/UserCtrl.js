@@ -180,6 +180,12 @@ class UserCtrl {
 					lastName : req.body.lastName,
 					email : req.body.email,
 					password : password,
+					address1 : req.body.address1,
+					address2 : req.body.address2,
+					city : req.body.city,
+					state : req.body.state,
+					zip : req.body.zip,
+					image : req.body.image,
 					phone : req.body.phone
 				};
 				let insertedId = await userModel.add(userData);

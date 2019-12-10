@@ -223,8 +223,11 @@ class SessionCtrl {
 				currency : 'USD',
 				chargeForSession  : req.body.session.amountCharge ? req.body.session.amountCharge : 0,
 				sessionChargeAllowed  : req.body.session.session_charge == true ? 1 : 0,
-				showParticipantsCount : req.body.session.show_particpants_count == true ? 1 : 0,
+				//showParticipantsCount : req.body.session.show_particpants_count == true ? 1 : 0,
+				showParticipantsCount : req.body.session.searchParticipant == true ? 1 : 0,
 				sessionProperty : req.body.session.sessionProperty == true ? 1 : 0,
+				onDemand : req.body.session.onDemand == true ? 1 : 0,
+				orderWine : req.body.session.orderWine == true ? 1 : 0,
 				hostReminder : req.body.reminder.host_reminder,
 				participantReminder : req.body.reminder.participants_reminder,
 				cutOffTime : req.body.reminder.cutoff_date_time,
@@ -443,7 +446,6 @@ class SessionCtrl {
 			}
 		}
 
-
 		async createWineSession(req, res) {
 			try {
 	
@@ -464,8 +466,11 @@ class SessionCtrl {
 					currency : 'USD',
 					chargeForSession  : req.body.session.amountCharge ? req.body.session.amountCharge : 0,
 					sessionChargeAllowed  : req.body.session.session_charge == true ? 1 : 0,
-					showParticipantsCount : req.body.session.show_particpants_count == true ? 1 : 0,
-					sessionProperty : req.body.session.sessionProperty == true ? 1 : 0,
+					//showParticipantsCount : req.body.session.show_particpants_count == true ? 1 : 0,
+					showParticipantsCount : req.body.session.searchParticipant == true ? 1 : 0,
+					sessionProperty : req.body.session.sessionProperty == true ? 1 : 0,					
+					onDemand : req.body.session.onDemand == true ? 1 : 0,
+					orderWine : req.body.session.orderWine == true ? 1 : 0,
 					hostReminder : req.body.reminder.host_reminder,
 					participantReminder : req.body.reminder.participants_reminder,
 					cutOffTime : req.body.reminder.cutoff_date_time,
@@ -858,11 +863,11 @@ class SessionCtrl {
 			
 			if(false === isEmpty(req.body)){
 					
-				let newproducts = req.body;
+				let newproducts = req.body.saveProduct;
 
 				console.log('----------products------------------',newproducts)
 
-				for(let i in newproducts){
+			//	for(let i in newproducts){
 
 					//var newproducts = [];
 					var attributesnewArr = [];
@@ -878,7 +883,6 @@ class SessionCtrl {
 					 // insert into session_script table
 					let sessionScriptId = await sessionScriptModel.add(sessionScriptInsertData);
 
-				
 
 					let productsAttributes = newproducts.attributes;
 					for(let j in productsAttributes){
@@ -902,7 +906,7 @@ class SessionCtrl {
 					var scriptAttributeres = await scriptAttributesModel.add(attributesnewArr);
 
 					console.log('------scriptAttributeres---------',scriptAttributeres)
-				}
+				//}
 			}
 
 		
@@ -913,12 +917,27 @@ class SessionCtrl {
 	}
 
 	
-	async getInterestBychannelId(req, res) {
+	// async getInterestBychannelId(req, res) {
+	//     try {
+	// 		//let inerestId = 1;
+	// 		console.log('------channelId---------',req.params.channelId)
+			
+	// 		let interestList = await ChannelInterestModel.getInterestBychannel(req.params.channelId);
+
+	// 		console.log('------interestList---------',interestList)
+
+	// 		response.resp(res, 200, interestList);
+	//     } catch(exception) {
+	// 		response.resp(res, 500, exception);
+	//     }
+	// }
+
+
+	async getInterest(req, res) {
 	    try {
 			//let inerestId = 1;
-			console.log('------channelId---------',req.params.channelId)
-			
-			let interestList = await ChannelInterestModel.getInterestBychannel(req.params.channelId);
+						
+			let interestList = await ChannelInterestModel.getInterestforaChannel(req.params.channelId);
 
 			console.log('------interestList---------',interestList)
 
@@ -931,7 +950,7 @@ class SessionCtrl {
 
 	async createNewChannel(req, res) {
 	    try {
-
+			let user_id=11;
 			console.log('-------lllt------------',req.body)
 
 			if(false === isEmpty(req.body)){
@@ -969,6 +988,57 @@ class SessionCtrl {
 
 			// insert into sessions table
 			var channelId = await ChannelsModel.addchannel(insertData);
+
+			console.log('----------insertData1111------------------',channelId)
+
+			if(channelId)
+			{
+				let channelhost=req.body.channelHost.channel_Host;
+				console.log('----------insertData2222------------------',channelhost)				
+				//var channelHost = await ChannelsHostModel.addchannelHost(channelId,);
+
+
+				if(channelhost.length != 0)
+				{
+					let hostlist=[];
+					 hostlist=channelhost;					 
+
+					 let channelHostData;
+
+					 for(let i in hostlist){
+						channelHostData = [[hostlist[i],channelId,user_id]]
+						console.log('----------channelHostData------------------',channelHostData)
+
+					let channelUserRes = await channelHostModel.addChannelHost(channelHostData);
+					console.log('----------channelUserRes------------------',channelUserRes)
+					 }
+
+
+				}
+
+				let Interesthost=req.body.InterestHost.Interest_Host;
+
+				if(Interesthost.length != 0)
+				{
+					let interestList=[];
+					 interestList=Interesthost;					 
+
+					 let interestListData;
+
+					 for(let i in interestList){
+						interestListData = [[channelId,interestList[i]]]
+						console.log('----------interestListData------------------',interestListData)
+
+					let InterestUserRes = await ChannelInterestModel.addChannelInterest(interestListData);
+					console.log('----------InterestUserRes------------------',InterestUserRes)
+					 }
+
+
+				}
+
+
+
+			}
 
 		}
 

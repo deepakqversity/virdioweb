@@ -182,7 +182,7 @@ console.log('@@@onscreenCount!!!!!====', stream.getId(), onscreenCount, localSto
                 }
 
                 console.log('@@@in if for user====', stream.getId());
-
+ 
                 // addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
                 // addUserAttribute(stream.getId(), 'isSubscribe', 1);
 
@@ -2824,7 +2824,8 @@ function signalHandler(uid, signalData, userType) {
             if (len > 0) {
                 //$('#subscribers-list .newcss').each(function (index, value) {
                 $('.video-holder').each(function (index, value) {
-                    onscreenUserIds.push(parseInt($(this).find('.video-holder').attr('id')));
+                    //onscreenUserIds.push(parseInt($(this).find('.video-holder').attr('id')));
+                    onscreenUserIds.push(parseInt($(this).attr('id')));
                 });
 
                 if(userList != '') {
@@ -2891,7 +2892,8 @@ function signalHandler(uid, signalData, userType) {
         if (len > 0) {
             //$('#subscribers-list .newcss').each(function (index, value) {
             $('.video-holder').each(function (index, value) {
-                onscreenUserIds.push(parseInt($(this).find('.video-holder').attr('id')));
+                //onscreenUserIds.push(parseInt($(this).find('.video-holder').attr('id')));
+                onscreenUserIds.push(parseInt($(this).attr('id')));
             });
 
             if(userList != '') {

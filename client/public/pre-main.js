@@ -218,7 +218,9 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
         console.log('MemberJoined ================MemberJoined ', memberId);
 
-        //addUserAttribute(convertEmailToId(memberId), 'currentStatus', 1);
+        if (storeData.userType == 2) {
+            addUserAttribute(convertEmailToId(memberId), 'currentStatus', 1);
+        }
 
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-status').attr('src', '/images/online.png');
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-online-status').html('online');
@@ -280,6 +282,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
             addNewAfterRemove(memberId);           
           }
+        }
+
+        if (storeData.userType == 2) {
+            removeUserAttribute(convertEmailToId(memberId), 'currentStatus');
         }
 
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-status').attr('src', '/images/offline.png');
@@ -389,7 +395,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
       }
 
 
-      function getMemberList()
+      /*function getMemberList()
       {
           channel.getMembers().then(membersList => {    
           
@@ -419,7 +425,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
           console.log('*************There is an error******');
       });
 
-      }
+      }*/
 
       function createString(code){
           return code + sep;

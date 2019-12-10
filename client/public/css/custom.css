@@ -17,7 +17,6 @@
 
 
 
-
 /* 1. Fonts */
 @font-face {
 	font-family: "Avenir-Black";
@@ -1381,9 +1380,9 @@ display:none;
 }
 .show-hide-script, .show-fitness-script{
 position: absolute;
-    right: 10px;
+    right: 12px;
     z-index: 6;
-    top: 10px;
+    top: 12px;
     width: 24px;
 	    outline: none;
 }
@@ -2272,7 +2271,7 @@ img.user-login{
 
 .prescreen-popup .countdown-timer{
 	    color: #fff;
-    font-size: 27px;
+    font-size: 25px;
     font-family: Avenir-Book;
 	    float: right;
 }
@@ -2599,7 +2598,11 @@ display: inline-block;
 @media (max-width:1280px){
 	.prescreen-popup .signup-number, .prescreen-popup .online-number{      
 		
-	}
+    }
+    .heart-rate
+    {
+        width: 25%;
+    }
 }
 @media (max-width:1100px){
 	.prescreen-popup .small-heading{
@@ -2609,8 +2612,9 @@ display: inline-block;
 		font-size:20px;
 	}
 	.prescreen-popup .countdown-timer{
-		font-size:26px;
-	}
+		font-size:22px;
+    }
+    
 }
 .time-session{
     display: flex;

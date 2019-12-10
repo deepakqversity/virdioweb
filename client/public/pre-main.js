@@ -574,11 +574,11 @@ if(!AgoraRTC.checkSystemRequirements()) {
               $('#set-media-access').click();
             }, function (err) {
               //alert('err media=='+err.type+'===='+err.msg+'====='+err.info);
-              localStorage.setItem('mediaAccessAllowed', false);
+              localStorage.setItem('mediaAccessAllowed', true);
               console.log("getUserMedia failed", err);
 
-              if (err.type == 'error' && (err.msg === 'NotAllowedError' || err.msg === 'NotFoundError')) {
-              //if (err.type == 'error' && err.msg === 'NotAllowedError') {
+              //if (err.type == 'error' && (err.msg === 'NotAllowedError' || err.msg === 'NotFoundError')) {
+              if (err.type == 'error' && err.msg === 'NotAllowedError') {
                   $('#media-access-alert').modal('show');
               }
             });
@@ -1247,19 +1247,19 @@ function signalHandler(uid, signalData, userType) {
                 if($('#video-media-content .col-md-3').length > 1 || $('#audio-media-content div').length > 1) {
                     multimediaAccessAlert();
                 } else {
-                    $('#participent-stream-redirect-alert').modal('show');
-                    $('#set-temp-sesstion').click();
+                    // $('#participent-stream-redirect-alert').modal('show');
+                    // $('#set-temp-sesstion').click();
                     
-                    let duration = parseInt(storeData.default.streamRedirectDuration);
+                    // let duration = parseInt(storeData.default.streamRedirectDuration);
 
-                    let ref2 = setInterval( function() {
-                        $('#stream-rem-join-timer').html(duration < 0 ? 0 : duration);
-                        if(duration <= 0){
-                          clearInterval(ref2);
-                          $('#continue-join').click();
-                        }
-                        duration--;
-                    }, 1000 );
+                    // let ref2 = setInterval( function() {
+                    //     $('#stream-rem-join-timer').html(duration < 0 ? 0 : duration);
+                    //     if(duration <= 0){
+                    //       clearInterval(ref2);
+                    //       $('#continue-join').click();
+                    //     }
+                    //     duration--;
+                    // }, 1000 );
                 }
             }
           }, 1000);

@@ -24,6 +24,7 @@ route
   //.get('/hosts-list/:channelId', auth.verifyToken, SessionCtrl.getHosts)
   //.get('/hosts-list1/:channelId', SessionCtrl.getHosts)
   .get('/:channelId/hosts-list1', SessionCtrl.getHosts)
+  .get('/:channelId/hosts-user-list', SessionCtrl.getHostsForChannel)
   //.get('/equipments/:interestId', SessionCtrl.getEquipments)
   .get('/:interestId/equipments', SessionCtrl.getEquipments)
   //.get('/shoppinglist/:interestId', SessionCtrl.getShoppingList)

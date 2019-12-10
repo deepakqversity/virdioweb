@@ -455,10 +455,7 @@ max-width: 75%;
     font-size: 22px;
     margin-right: 15px;
 }
-.joined-attendees
-{
-    height: 250px;
-}
+
 .details_model p, #show-details2 p
 {
     font-size: .9vw;
@@ -469,8 +466,8 @@ max-width: 75%;
 }
 .translatee .btn-primary, .btn-primary.border-right
     {
-        padding: 10px 25px;
-        font-size: 21px;      
+        /*padding: 10px 25px;*/
+        /*font-size: 21px;      */
         
     }
     .logout-btn i
@@ -507,7 +504,16 @@ h3.main-heading span{
     {
         max-height: 300px;
     }
+    .joined-member-list
+{
+    height: 250px;
+}
+.joined-attendees{
+        
+    height: 330px;
     
+    
+}
     .transparent-gray .btn-primary, .time-session .btn-primary
     {
         height: 55px !important;

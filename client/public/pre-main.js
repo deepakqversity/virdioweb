@@ -29,21 +29,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
     return localStorage.getItem("tempUsers") != undefined ? JSON.parse(localStorage.getItem("tempUsers")) : [];
   }    
 
-  function getOnlineUserCount(key) {
-    let userList = getTempUsers();
-    let onlineUsers = 0;
-
-    if(userList != '') {
-      for(let i= 0; i < userList.length; i++){
-        if(userList[i].hasOwnProperty(key) && userList[i][key] == 1 && userList[i]['userType'] != 1){
-          onlineUsers++
-        }
-      }
-    }
-
-    return onlineUsers;
-  }
-
   function convertIdToEmail(id){
     let userList = getTempUsers();
     if(userList != ''){
@@ -162,7 +147,11 @@ if(!AgoraRTC.checkSystemRequirements()) {
                 channel = newclient.createChannel(channelName1);
                 console.log('rtm channel instance==', channel);
                 channel.join().then(() => {
-                    publish();
+
+                    /*if (storeData.userType == 2) {
+                        let message = "1000" + sep + storeData.id;
+                        sendConnectedAgainMessage(storeData.sessionData.hostEmail, message);
+                    }*/
                 });
             });
         }
@@ -187,19 +176,13 @@ if(!AgoraRTC.checkSystemRequirements()) {
       channel = newclient.createChannel(channelName1);
       channel.join().then(() => {
 
-      addUserAttribute(convertEmailToId(peer), 'currentStatus', 1);
+      //addUserAttribute(convertEmailToId(peer), 'currentStatus', 1);
 
       if(storeData.userType == 1){
         recentlyJoinedChannelUser();
       }
       setTimeout(function(){}, 1000);
       console.log('**********shiv*********channel joined successfully**********');
-
-      /*var today = new Date();
-      var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
-      var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()+'.'+today.getMilliseconds();
-      var dateTime = date+' '+time;
-      var text="208" +sep+ dateTime;*/
 
       var text = "208" + sep + storeData.serverTimestamp;
 
@@ -231,27 +214,12 @@ if(!AgoraRTC.checkSystemRequirements()) {
         console.log('-------There is error in joining a channel------', error)
       });
 
-      // channel.getMembers().then(membersList => {    
-      //   channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
-      // }).catch(error => {
-      //   displayError(error);
-      //   console.log('*************There is an error******');
-      // });
-
       channel.on('MemberJoined', memberId => { 
 
         console.log('MemberJoined ================MemberJoined ', memberId);
 
-        setSwappingAttributes(convertEmailToId(memberId));
-
-        if (storeData.userType == 1) {
-            let onlineUserCount = getOnlineUserCount('currentStatus');
-            $('#online-users').text(onlineUserCount);
-
-            let len = $('#subscribers-list .newcss').length;
-            if(len < storeData.default.maxUserLimit) {
-                //switchAudienceToBroadcaster();
-            }
+        if (storeData.userType == 2) {
+            addUserAttribute(convertEmailToId(memberId), 'currentStatus', 1);
         }
 
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-status').attr('src', '/images/online.png');
@@ -305,29 +273,19 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
         removeFromRtmOrder(memberId);
 
-        var massages="208"+sep+memberId+sep+"left"+sep;  
+        var massages = "208"+sep+memberId+sep+"left"+sep;  
         channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"left"}), storeData.userType);
       
-        removeUserAttribute(convertEmailToId(memberId), 'subscribeTime');
-        removeUserAttribute(convertEmailToId(memberId), 'isSubscribe');
-        removeUserAttribute(convertEmailToId(memberId), 'currentStatus');
-
         if(storeData.userType == 1){
           if( $('#joinee-' + convertEmailToId(memberId)).length != 0 ){
             $('#joiners').find("#joinee-"+convertEmailToId(memberId)).remove();
+
             addNewAfterRemove(memberId);           
           }
+        }
 
-          $('#agora_remote' + convertEmailToId(memberId)).remove();
-          
-          let onlineUserCount = getOnlineUserCount('currentStatus');
-          $('#online-users').text(onlineUserCount);
-
-          let len = $('#subscribers-list .newcss').length;
-          console.log('memleft pre-main-------length', typeof len);
-          if(len < storeData.default.maxUserLimit) {
-              //switchAudienceToBroadcaster();
-          }
+        if (storeData.userType == 2) {
+            removeUserAttribute(convertEmailToId(memberId), 'currentStatus');
         }
 
         $('#online-user-row-'+convertEmailToId(memberId)).find('.user-status').attr('src', '/images/offline.png');
@@ -417,7 +375,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
                 setTimeout(function(){
                     sendMessageToChannel(channelName1, text);
-                }, 500);
+                }, 1000);
             } else {
                 console.log('retryCounter====limit exceeded', retryCounter);
                 retryCounter = 0;
@@ -425,22 +383,19 @@ if(!AgoraRTC.checkSystemRequirements()) {
           });
       }
 
-      function joinChannel(){
+      function joinChannel() {
 
         var resp_data = JSON.parse(localStorage.getItem("userData"));
         console.log('-----------hhhhhhhhh-------------------', channelName1, resp_data.userType);
         if(resp_data.userType == 1)
         {     
-          
-          var text ="222"+sep;
-          sendMessageToChannel(channelName1, text);
-          // getMemberList();
+            var text = "222" + sep;
+            sendMessageToChannel(channelName1, text);
         }
       }
 
 
-
-      function getMemberList()
+      /*function getMemberList()
       {
           channel.getMembers().then(membersList => {    
           
@@ -470,7 +425,7 @@ if(!AgoraRTC.checkSystemRequirements()) {
           console.log('*************There is an error******');
       });
 
-      }
+      }*/
 
       function createString(code){
           return code + sep;
@@ -1187,7 +1142,7 @@ function signalHandler(uid, signalData, userType) {
         incrementcountAtHost(uid, "welcome");
         
         addRtmJoinOrder(uid, resultant[1]);
-        addUserAttribute(convertEmailToId(uid), 'currentStatus', 1);
+        //addUserAttribute(convertEmailToId(uid), 'currentStatus', 1);
       }else if(resultant[0] == "237")
       {
         console.log('---------237---------------')
@@ -1248,7 +1203,6 @@ function signalHandler(uid, signalData, userType) {
           
           var bandwidthCheckCounter = setInterval(function() {
 
-            //if(localStorage.getItem("video-resolution") != null &&  $('#media-access-alert').hasClass('show') === false) {
             if(localStorage.getItem("video-resolution") != null && localStorage.getItem('mediaAccessAllowed')  !== null && localStorage.getItem('mediaAccessAllowed')  == "true") {
 
                 console.log('inside 216--');
@@ -1262,7 +1216,7 @@ function signalHandler(uid, signalData, userType) {
                 } else {
                     $('#participent-stream-redirect-alert').modal('show');
                     $('#set-temp-sesstion').click();
-                    
+
                     let duration = parseInt(storeData.default.streamRedirectDuration);
 
                     let ref2 = setInterval( function() {
@@ -1331,10 +1285,10 @@ function signalHandler(uid, signalData, userType) {
         //let peerId=senderId;
 
         console.log('********Deepak************** signalData ', senderId);
-        let rtmJoinOrder = JSON.parse(localStorage.getItem("rtm-join-order"));
+        //let rtmJoinOrder = JSON.parse(localStorage.getItem("rtm-join-order"));
         let localUserDta= JSON.parse(localStorage.getItem("userData"));
 
-        rtmJoinOrder.forEach(ele => {
+        /*rtmJoinOrder.forEach(ele => {
 
           if(ele.id == localUserDta.email )
           {
@@ -1349,7 +1303,10 @@ function signalHandler(uid, signalData, userType) {
              sendMessage(senderId, text);
           }
 
-        });
+        });*/
+
+        let text = "216" + sep + localUserDta.serverTimestamp + sep + 0;
+        sendMessage(senderId, text);
 
         if(getUserDataFromList(convertEmailToId(senderId), 'userType') == 1){
           $('#online_state').removeClass('d-none');
@@ -1385,7 +1342,7 @@ function signalHandler(uid, signalData, userType) {
             if (uTyp == 2 && storeData.id == convertEmailToId(userList[i].id)) {
               //alert(userList[i].id);
                 
-                var bandwidthCheckCounter1 = setInterval(function() {
+                var bandwidthCheckCounter = setInterval(function() {
 
                   //if(localStorage.getItem("video-resolution") != null &&  $('#media-access-alert').hasClass('show') === false) {
                   if(localStorage.getItem("video-resolution") != null && localStorage.getItem('mediaAccessAllowed') !== null && localStorage.getItem('mediaAccessAllowed') == "true") {
@@ -1396,7 +1353,7 @@ function signalHandler(uid, signalData, userType) {
                       console.log('inside 222--current user id', storeData.id);
                       console.log('inside 222--list user id', userList[i].id, convertEmailToId(userList[i].id));
 
-                      clearInterval(bandwidthCheckCounter1);
+                      clearInterval(bandwidthCheckCounter);
 
                       if($('#video-media-content .col-md-3').length > 1 || $('#audio-media-content div').length > 1) {
                           multimediaAccessAlert();
@@ -1987,7 +1944,7 @@ function signalHandler(uid, signalData, userType) {
       }
 
       function leaveLogout(){
-        updateJoinSessionStatus();
+          //updateJoinSessionStatus();
           leave_channel();
           removeSession();
           location.href  = '/login';
@@ -2338,17 +2295,8 @@ function signalHandler(uid, signalData, userType) {
       localStorage.setItem("tempUsers", JSON.stringify(tempUsers));
   }
 
-  function switchAudienceToBroadcaster() {
-    //should call main.js function as script is calling
-    console.log('pre-main function switchAudienceToBroadcaster called');
-  }
-
-  function setSwappingAttributes(uId) {
-      console.log('in pre-main attributes----', uId);
-  }
-
-  function publish(){
-      console.log('in pre-main publish function----', uId);
+  function sendConnectedAgainMessage(peerId, text) {
+      console.log('in pre-main sendConnectedAgainMessage---');
   }
 
   $(document).ready(function(){

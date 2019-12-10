@@ -22,6 +22,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
   var currentPublishedUser = [];
   var changedRole = 'audience';
   var retryCounter = 0;
+  var rtmRetryCounter = 0;
+  var rtmStatus = false;
 
   function join() {
 
@@ -148,20 +150,32 @@ if(!AgoraRTC.checkSystemRequirements()) {
       }
     });
 
+
+    // new remote stream has been added
     client.on('stream-added', function (evt) {
 
         let storeData = getCurrentUserData();
         let allBroadcasters = getAllBroadcster();
         var stream = evt.stream;
 
+        console.log('###stream-added======user id', stream.getId(), evt);
+
+        addUserAttribute(stream.getId(), 'currentStatus', 1);
+
         if(storeData.userType == 1) {
-            console.log('in host--');
-            console.log('all broadcasters===', allBroadcasters);
 
-            if ((localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') || allBroadcasters.length < storeData.default.maxUserLimit) {
+            console.log('in host stream-added--');
 
-                //addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
-                //addUserAttribute(stream.getId(), 'isSubscribe', 1);
+            let onscreenCount = $('#subscribers-list .newcss').length;
+            let onscreenUserIds = [];
+console.log('@@@onscreenCount!!!!!====', onscreenCount, localStorage.getItem("swap-subscriber-id"));
+
+            if ((localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') || onscreenCount < storeData.default.maxUserLimit) {
+
+                console.log('@@@in if fot user====', stream.getId());
+
+                addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
+                addUserAttribute(stream.getId(), 'isSubscribe', 1);
 
                 client.subscribe(stream, function (err) {
                   console.log("Subscribe stream failed", err);
@@ -189,8 +203,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
         }
     });
 
-    var count=1;
-    // var totalScreenUsers = 0;
+
+    // subscribe to remote stream
     client.on('stream-subscribed', function (evt) {
 
       var storeData = getCurrentUserData();
@@ -202,9 +216,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
       // for host user
       if(storeData.userType == 1) {
 
-        let allBroadcasters = getAllBroadcster();
+        //let onscreenCount = $('#subscribers-list .newcss').length;
 
-        if ((localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') || allBroadcasters.length < storeData.default.maxUserLimit) {
+        //if ((localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') || allBroadcasters.length < storeData.default.maxUserLimit) {
+          //if ((localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') || onscreenCount < storeData.default.maxUserLimit) {
 
             let prevDivId = '';
             let len = $('#subscribers-list .newcss').length;
@@ -231,30 +246,40 @@ if(!AgoraRTC.checkSystemRequirements()) {
               if (prevDivId === '') {
 
                   if (localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') {
-                    console.log('if swap-subscriber-id=====', localStorage.getItem("swap-subscriber-id"));
+                    console.log('@@@if swap-subscriber-id=====', localStorage.getItem("swap-subscriber-id"));
 
                       $('#agora_remote' + localStorage.getItem("swap-subscriber-id")).attr('id', 'agora_remote'+stream.getId());
                       let newStreamer = '<div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" onclick="zoomVideo(\''+stream.getId()+'\')">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute d-none" id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><small class="click-zoom d-none" onclick="zoomVideo(\''+stream.getId()+'\')"><i class="fa fa-search-plus" aria-hidden="true"></i></small><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="heart-rate-icon d-none" data-attr="'+stream.getId()+'><img src="images/red-heart.png" /><span class="heart-icon" data-attr="'+stream.getId()+'">80</span></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-like d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-dislike d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-easy d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-too-hard d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-perfect d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-awesome d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div>';
                       $('#agora_remote' + stream.getId()).html(newStreamer);
                   } else {
-                      console.log('else swap-subscriber-id=====', localStorage.getItem("swap-subscriber-id"));
+                      console.log('@@@else swap-subscriber-id=====', localStorage.getItem("swap-subscriber-id"));
                       $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" onclick="zoomVideo(\''+stream.getId()+'\')">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute d-none" id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><small class="click-zoom d-none" onclick="zoomVideo(\''+stream.getId()+'\')"><i class="fa fa-search-plus" aria-hidden="true"></i></small><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="heart-rate-icon d-none" data-attr="'+stream.getId()+'"><img src="images/red-heart.png" /><span class="heart-icon" data-attr="'+stream.getId()+'">80</span></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-like d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-dislike d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-easy d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-too-hard d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-perfect d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-awesome d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
                   }
 
               } else {
-                  console.log('in-- else===', stream.getId());
+                  console.log('@@@in-- else===', stream.getId());
                   if (localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') {
                       console.log('in-- else if===swap-subscriber-id', localStorage.getItem("swap-subscriber-id"));
                       $('#agora_remote' + localStorage.getItem("swap-subscriber-id")).attr('id', 'agora_remote'+stream.getId());
                       let newStreamer = '<div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" onclick="zoomVideo(\''+stream.getId()+'\')">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute d-none" id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><small class="click-zoom d-none" onclick="zoomVideo(\''+stream.getId()+'\')"><i class="fa fa-search-plus" aria-hidden="true"></i></small><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="heart-rate-icon d-none" data-attr="'+stream.getId()+'"><img src="images/red-heart.png" /><span class="heart-icon" data-attr="'+stream.getId()+'">80</span></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-like d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-dislike d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-easy d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-too-hard d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-perfect d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-awesome d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div>';
                       $('#agora_remote' + stream.getId()).html(newStreamer);
                   } else {
-                    console.log('in-- else else===', stream.getId());
+                    console.log('@@@in-- else else===', stream.getId());
                       $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" onclick="zoomVideo(\''+stream.getId()+'\')">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute d-none" id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><small class="click-zoom d-none" onclick="zoomVideo(\''+stream.getId()+'\')"><i class="fa fa-search-plus" aria-hidden="true"></i></small><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="heart-rate-icon d-none" data-attr="'+stream.getId()+'"><img src="images/red-heart.png" /><span class="heart-icon" data-attr="'+stream.getId()+'">80</span></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-like d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-dislike d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-easy d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-too-hard d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-perfect d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-awesome d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
                   }
               }
 
               $('#agora_remote' + stream.getId()).removeClass('removeBroadcaster');
+            }
+
+            if (localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') {
+                
+                let swapId = localStorage.getItem("swap-subscriber-id");
+                localStorage.setItem("swap-subscriber-id", '');
+
+                totalBrodcaster--;
+                
+                kickUser(swapId);
             }
 
             if ($('#subscribers-list #agora_remote'+stream.getId()).length === 1) {
@@ -267,8 +292,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
               checkMuteUnmute(stream.getId());
             }
 
-            addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
-            addUserAttribute(stream.getId(), 'isSubscribe', 1);
+            // addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
+            // addUserAttribute(stream.getId(), 'isSubscribe', 1);
 
             console.log('-----dropdownMenuButtonnormalswap = ',stream.getId())
             let audienceList111 = JSON.parse(localStorage.getItem("audience-list"));
@@ -288,10 +313,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
                       removeAudienceInList(stream.getId());
                       localStorage.setItem("handraise-swap_auto-subscriber-id", stream.getId());
                       
-                      console.log('-------changeUserToBroadcaster---dropdownMenuButtonnormalswap22222 = ',stream.getId())
-        
-                     // removeAudienceInList(stream.getId());
-
                      }
                  }
                }
@@ -305,27 +326,30 @@ if(!AgoraRTC.checkSystemRequirements()) {
               }
             }, 10);
 
-            if (localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') {
+            /*if (localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') {
                 totalBrodcaster--;
                 kickUser(localStorage.getItem("swap-subscriber-id"));
                 localStorage.setItem("swap-subscriber-id", '');
-            }
+            }*/
 
             if (localStorage.getItem("handraise-swap-subscriber-id") !== null && localStorage.getItem("handraise-swap-subscriber-id") !== '') {
-              addUserSelectionAndAudio(localStorage.getItem("handraise-swap-subscriber-id"));
-              localStorage.setItem("handraise-swap-subscriber-id", '');
-          } 
-          if (localStorage.getItem("handraise-swap_auto-subscriber-id") !== null && localStorage.getItem("handraise-swap_auto-subscriber-id") !== '') {
-            addUserSelectionAndAudio1(localStorage.getItem("handraise-swap_auto-subscriber-id"));
-            localStorage.setItem("handraise-swap_auto-subscriber-id", '');
-        }
+                addUserSelectionAndAudio(localStorage.getItem("handraise-swap-subscriber-id"));
+                localStorage.setItem("handraise-swap-subscriber-id", '');
+            } 
+
+            if (localStorage.getItem("handraise-swap_auto-subscriber-id") !== null && localStorage.getItem("handraise-swap_auto-subscriber-id") !== '') {
+                addUserSelectionAndAudio1(localStorage.getItem("handraise-swap_auto-subscriber-id"));
+                localStorage.setItem("handraise-swap_auto-subscriber-id", '');
+            }
           
-        } else {
+        /*} else {
             console.log('extra participant trying to enter, kick him subscribe', stream.getId());
             kickUser(stream.getId());
-        }
+        }*/
       } else {
+          
           let subscribeUserId = getUserDataFromList(stream.getId(), 'userType');
+
           if(1 == subscribeUserId){
 
             if ($('#agora_host #agora_remote'+stream.getId()).length === 0) {
@@ -364,104 +388,153 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
     client.on('stream-removed', function (evt) {
       
-      var storeData = getCurrentUserData();
-      var stream = evt.stream;
-      
-      console.log('Peer leave = stream removed');
-      console.log('Peer leave = isPlaying', stream.isPlaying);
-      console.log('Peer leave = getId()', stream.getId());
-
-      if (stream.isPlaying === true) {
-          console.log('stream stopped===', stream.getId());
-          stream.stop();
-      }
-
-      // check user role and decrease number
-      // if(getUserDataFromList(stream.getId(), 'userType') == 2){
-     
-      //   // remove from audience list
-      //   removeAudienceInList(stream.getId())
-      // }
-
-      addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
-      addUserAttribute(stream.getId(), 'isSubscribe', 0);
-      
-      /*if(storeData.userType == 1){
-        // add stream after leaving current stream on hand raise event
-
-        console.log('-----changeUserToBroadcaster7777----------');
-
-        pushIntoSessionByHost();
+        var storeData = getCurrentUserData();
+        var stream = evt.stream;
         
-        // switch user every specific time duration
-        switchAudienceToBroadcaster();
-      }*/
+        if (storeData.userType == 1) { 
+            console.log('###stream-removed== user id--', stream.getId(), evt);
 
-      //new code     
-      /*if (localStorage.getItem("swap-subscriber-id") != null && localStorage.getItem("swap-subscriber-id") != '') {
-          $('#agora_remote' + stream.getId()).find('.heart-rate-icon').remove();
-          $('#agora_remote' + stream.getId()).find('.att-details').remove();
-          $('#agora_remote' + stream.getId()).addClass('removeBroadcaster');
-      } else {
-          $('#agora_remote' + stream.getId()).remove();
-      }*/
+            if (localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '' && localStorage.getItem("swap-subscriber-id") == stream.getId()) {
+                localStorage.setItem("swap-subscriber-id", '');
+            }
 
-      $('#agora_remote' + stream.getId()).remove();
+            if (stream.isPlaying === true) {
+                console.log('stream stopped===', stream.getId());
+                stream.stop();
+            }
 
-      switchVideoSize();
+            // check user role and decrease number
+            if(getUserDataFromList(stream.getId(), 'userType') == 2){
+                removeAudienceInList(stream.getId())
+            }
 
-      if(storeData.userType == 1){
-          //if stream is removed due to network conjetion
-          let len = $('#subscribers-list .newcss').length;
-          if(len < storeData.default.maxUserLimit) {
-              switchAudienceToBroadcaster();
-          }
-      }
+            setSwappingAttributes(stream.getId());
+
+            $('#agora_remote' + stream.getId()).remove();
+
+            switchVideoSize();
+        }
     });
 
     client.on('peer-leave', function (evt) {
-      console.log('Peer leave === ', evt)
-
-      var storeData = getCurrentUserData();
-      var stream = evt.stream;
-
-      if (stream) {
-
-        console.log('Peer leave = isPlaying', stream.isPlaying);
-        console.log('Peer leave = getId()', evt.uid);
-
-        if (stream.isPlaying === true) {
-            stream.stop();
-        }
-        
-        removeUserAttribute(evt.uid, 'subscribeTime');
-        removeUserAttribute(evt.uid, 'isSubscribe');
-        removeUserAttribute(evt.uid, 'currentStatus');
-
-        // check user role and decrease number
-        // if(getUserDataFromList(evt.uid, 'userType') == 2){
-        //   // remove from audience list
-        //   //removeAudienceInList(evt.uid);
-        // }
-
-        $('#agora_remote' + evt.uid).remove();
-        //localStorage.removeItem("swap-subscriber-id");
-
-        switchVideoSize();
+      
+        console.log('###Peer leave === ', evt.uid, evt)
         console.log(evt.uid + " leaved from this channel");
 
-        if(storeData.userType == 1){
+        var uid = evt.uid;
+        //var reason = evt.stream.reason;
+        console.log("###remote user left-- ", uid);
 
-            let len = $('#subscribers-list .newcss').length;
-            if(len < storeData.default.maxUserLimit) {
-                //switchAudienceToBroadcaster();
+        var storeData = getCurrentUserData();
+        var stream = evt.stream;
+
+        if (storeData.userType == 1) {
+
+            if (stream) {
+
+                console.log('###Peer leave === in if condition', evt.uid)
+
+                removeUserAttribute(evt.uid, 'subscribeTime');
+                removeUserAttribute(evt.uid, 'isSubscribe');
+                removeUserAttribute(evt.uid, 'currentStatus');
+
+                if (stream.isPlaying === true) {
+                    stream.stop();
+                }
+
+                // check user role and decrease number
+                if(getUserDataFromList(evt.uid, 'userType') == 2) {
+                    removeAudienceInList(evt.uid);
+                }
+
+                if (localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '' && localStorage.getItem("swap-subscriber-id") == evt.uid) {
+                    localStorage.setItem("swap-subscriber-id", '');
+                }
+
+                $('#agora_remote' + evt.uid).remove();
+
+                switchVideoSize();
+            } else {
+
+                localStorage.removeItem("rtm-status-"+evt.uid);
+
+                let peerId = convertIdToEmail(evt.uid);
+                let text = "1100" + sep;
+
+                checkRTMStatus(peerId, text);
+
+
+                let rtmStatusCounter = setInterval( function() {
+
+                    if (localStorage.getItem("rtm-status-"+evt.uid) !== null && localStorage.getItem("rtm-status-"+evt.uid) == "false") {
+
+                        console.log('###inside if', evt.uid, localStorage.getItem("rtm-status-"+evt.uid));
+
+                        removeUserAttribute(evt.uid, 'subscribeTime');
+                        removeUserAttribute(evt.uid, 'isSubscribe');
+                        removeUserAttribute(evt.uid, 'currentStatus');
+
+                        // check user role and decrease number
+                        if(getUserDataFromList(evt.uid, 'userType') == 2) {
+                            //removeAudienceInList(evt.uid);
+                        }
+
+                        if (localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '' && localStorage.getItem("swap-subscriber-id") == evt.uid) {
+                            localStorage.setItem("swap-subscriber-id", '');
+                        }
+
+                        $('#agora_remote' + evt.uid).remove();
+
+                        localStorage.removeItem("rtm-status-"+evt.uid);
+
+                        switchVideoSize();
+
+                        clearInterval(rtmStatusCounter);
+
+                    } else if (localStorage.getItem("rtm-status-"+evt.uid) !== null && localStorage.getItem("rtm-status-"+evt.uid) == "true") {
+
+                        localStorage.removeItem("rtm-status-"+evt.uid);
+
+                        clearInterval(rtmStatusCounter);
+                    }
+                }, 1000 );
+
+                /*setTimeout(function(){
+
+                    console.log('###rtm status---user id', evt.uid, localStorage.getItem("rtm-status-"+evt.uid));
+
+                    if (localStorage.getItem("rtm-status-"+evt.uid) !== null && localStorage.getItem("rtm-status-"+evt.uid) == "false") {
+
+                        console.log('###inside if', evt.uid, localStorage.getItem("rtm-status-"+evt.uid));
+
+                        removeUserAttribute(evt.uid, 'subscribeTime');
+                        removeUserAttribute(evt.uid, 'isSubscribe');
+                        removeUserAttribute(evt.uid, 'currentStatus');
+
+                        // check user role and decrease number
+                        if(getUserDataFromList(evt.uid, 'userType') == 2) {
+                            //removeAudienceInList(evt.uid);
+                        }
+
+                        if (localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '' && localStorage.getItem("swap-subscriber-id") == evt.uid) {
+                            localStorage.setItem("swap-subscriber-id", '');
+                        }
+
+                        $('#agora_remote' + evt.uid).remove();
+
+                        switchVideoSize();
+                    }
+
+                    localStorage.removeItem("rtm-status-"+evt.uid);
+
+                }, 6000);*/
             }
-
-            let onlineUserCount = getOnlineUserCount('currentStatus');
-            $('#online-users').text(onlineUserCount);
         }
-      }
     });
+
+    client.on("connection-state-change", function(evt) {
+        console.log('###connection-state-change===', evt.prevState, evt.curState, evt);
+    })
 
     client.on('mute-audio', function (evt) {
       console.log('-----lalit-------audio muted for user-----', evt.uid);
@@ -497,32 +570,37 @@ if(!AgoraRTC.checkSystemRequirements()) {
     });
 
     client.on("client-role-changed", function (evt) {
-      console.log('client-role-changed = ', evt)
-      changedRole = evt.role;
-      // var stream = evt.stream;
-      // if (stream) {
-
-      //   console.log(evt.uid + "===> role changed");
-      // }
+        console.log('client-role-changed = ', evt)
+        changedRole = evt.role;
     });
 
     client.on("peer-online", function (evt) {
-      console.log('peer-online ====== ', evt.uid)
+      console.log('###peer-online ====== ', evt.uid)
 
       // addUserAttribute(evt.uid, 'currentStatus', 1);
       // addUserAttribute(evt.uid, 'subscribeTime', (new Date()).getTime());
       // addUserAttribute(evt.uid, 'isSubscribe', 0);
 
-      setSwappingAttributes(evt.uid);
-
-      var storeData = getCurrentUserData();
+      /*var storeData = getCurrentUserData();
 
       if (storeData.userType == 1) {
-          let onlineUserCount = getOnlineUserCount('currentStatus');
-          $('#online-users').text(onlineUserCount);
-      }
-    });
 
+          var userList = getTempUsers();
+          if(userList != '') {
+        
+              for(let i = 0; i < userList.length; i++){
+                if(userList[i].id == evt.uid && userList[i].hasOwnProperty('isSubscribe') === false && userList[i].hasOwnProperty('subscribeTime') === false) {
+
+                    console.log('peer-online set swapping attributes=====', userList[i].id, userList[i].email, userList[i].firstName);
+                    
+                    setSwappingAttributes(evt.uid);
+
+                    return;
+                }
+              }
+          }
+      }*/
+    });
   }
 
   function countCurrentSubscribers()
@@ -730,10 +808,6 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
               let onlineUserCount = getOnlineUserCount('currentStatus');
 
-              if (storeData.userType == 1) {
-                  $('#online-users').text(parseInt(onlineUserCount));
-              }
-
               let membersList = getTempUsers();
               let membersListArray = [];
 
@@ -745,62 +819,32 @@ if(!AgoraRTC.checkSystemRequirements()) {
 
               channelSignalHandler(JSON.stringify({code:"208",member:onlineUserCount, totalmember:membersListArray, msgtype:"totalcount"}), storeData.userType);
 
-              // channel.getMembers().then(membersList => {    
-              //     console.log('membersList', membersList)
-                  
-              //   channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
-              // }).catch(error => {
-              //   //displayError(error);
-              //   console.log('**********shiv*********There Is a problem to join a channel**********', error);
-              // });
-
 
               channel.on('MemberJoined', memberId => { 
 
                 console.log('------------memberjoineddeepak-------',memberId);
 
-                //addUserAttribute(convertEmailToId(memberId), 'currentStatus', 1);
-                setSwappingAttributes(convertEmailToId(memberId));
+                if (storeData.userType == 2) {
+                    addUserAttribute(convertEmailToId(memberId), 'currentStatus', 1);
+                }
 
                 var massages="208"+sep+memberId+sep+"joined"+sep;        
                 channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"Joined"}), storeData.userType);
 
                 console.log('------------memberafterjoineddeepak-------',memberId);
-
-                if (storeData.userType == 1) {
-                    let onlineUserCount = getOnlineUserCount('currentStatus');
-                    $('#online-users').text(parseInt(onlineUserCount));
-
-                    let len = $('#subscribers-list .newcss').length;
-                    if(len < storeData.default.maxUserLimit) {
-                        //switchAudienceToBroadcaster();
-                    }
-                }
-              })
+              });
            
               channel.on('MemberLeft', memberId => { 
 console.log('rtm remove====', memberId);
-                //removeFromRtmOrder(memberId);
+                removeFromRtmOrder(memberId);
 
-                removeUserAttribute(convertEmailToId(memberId), 'subscribeTime');
-                removeUserAttribute(convertEmailToId(memberId), 'isSubscribe');
-                removeUserAttribute(convertEmailToId(memberId), 'currentStatus');
-
-                if (storeData.userType == 1) {
-                    $('#agora_remote' + convertEmailToId(memberId)).remove();
-
-                    let onlineUserCount = getOnlineUserCount('currentStatus');
-                    $('#online-users').text(onlineUserCount);
-
-                    let len = $('#subscribers-list .newcss').length;
-                    if(len < storeData.default.maxUserLimit) {
-                        //switchAudienceToBroadcaster();
-                    }
+                if (storeData.userType == 2) {
+                    removeUserAttribute(convertEmailToId(memberId), 'currentStatus');
                 }
 
                 var massages="208"+sep+memberId+sep+"left"+sep;  
                 channelSignalHandler(JSON.stringify({code:"208",member:memberId, message:massages,msgtype:"left"}), storeData.userType);
-              })
+              });
            
               channel.on('ChannelMessage', (message, senderId) => {         
                   var msg=message.text;
@@ -829,7 +873,11 @@ console.log('rtm remove====', memberId);
                         channel = newclient.createChannel(channelName1);
                         console.log('rtm channel instance==', channel);
                         channel.join().then(() => {
-                            publish();
+
+                            /*if (storeData.userType == 2) {
+                                let message = "1000" + sep + storeData.id;
+                                sendConnectedAgainMessage(storeData.sessionData.hostEmail, message);
+                            }*/
                         });
                     });
                 }
@@ -849,10 +897,6 @@ console.log('rtm remove====', memberId);
         
         let onlineUserCount = getOnlineUserCount('currentStatus');
 
-        if (storeData.userType == 1) {
-            $('#online-users').text(parseInt(onlineUserCount));
-        }
-
         let membersList = getTempUsers();
         let membersListArray = [];
 
@@ -863,16 +907,6 @@ console.log('rtm remove====', memberId);
         }
 
         channelSignalHandler(JSON.stringify({code:"208",member:onlineUserCount, totalmember:membersListArray, msgtype:"totalcount"}), storeData.userType);
-
-        // channel.getMembers().then(membersList => {    
-        //   console.log('------------membersListlalit-------',membersList);  
-
-        //   channelSignalHandler(JSON.stringify({code:"208",member:membersList.length, totalmember:membersList, msgtype:"totalcount"}), storeData.userType);
-        
-        // }).catch(error => {
-        //     //displayError(error);
-        //     console.log('*************There is an errorkkkkkkkkkk******', error);
-        // });
       }
     }
 
@@ -908,8 +942,33 @@ console.log('rtm remove====', memberId);
 
                     let resultant = text.split(sep);
                     if (resultant[0] == '200') {
-                        addUserAttribute(convertEmailToId(peerId), 'subscribeTime', (new Date()).getTime());
-                        addUserAttribute(convertEmailToId(peerId), 'isSubscribe', 0);
+
+                        let userId = convertEmailToId(peerId);
+                        let tempUsers = getTempUsers();
+
+                        for(let i in tempUsers) {
+                            if(tempUsers[i].id == userId && tempUsers[i].hasOwnProperty('isSubscribe') === true && tempUsers[i].isSubscribe == 0) {
+                                
+                                addUserAttribute(userId, 'subscribeTime', (new Date()).getTime());
+
+                                return;
+                            }
+                        }
+                    } else if (resultant[0] == '209') {
+
+                        console.log('###kicked user but peer msg not received==', peerId);
+
+                        let userId = convertEmailToId(peerId);
+                        let tempUsers = getTempUsers();
+
+                        for(let i in tempUsers) {
+                            if(tempUsers[i].id == userId) {
+                                
+                                setSwappingAttributes(userId);
+
+                                return;
+                            }
+                        }
                     }
 
                     retryCounter = 0;
@@ -944,7 +1003,7 @@ console.log('rtm remove====', memberId);
       }
 
 
-      function getMemberList()
+      /*function getMemberList()
       {
         let memberlist='';
         channel.getMembers().then(membersList => {    
@@ -957,11 +1016,11 @@ console.log('rtm remove====', memberId);
           });
 
           return memberlist;
-      }
+      }*/
 
    
 
-      function getAudienceList()
+      /*function getAudienceList()
       {
           channel.getMembers().then(membersList => {    
         
@@ -989,7 +1048,7 @@ console.log('rtm remove====', memberId);
           console.log('*************There is an error******');
       });
 
-      }
+      }*/
 
       function createString(code){
           return code + sep;
@@ -1087,12 +1146,22 @@ console.log('rtm remove====', memberId);
         ado.muted = false;
       }
 
-      $('#agora_remote'+ participentId + ' .hand-icon').addClass("d-none");
+      //$('#agora_remote'+ participentId + ' .hand-icon').addClass("d-none");
+      $('#subscribers-list #agora_remote'+participentId).find('.hand-icon').addClass("d-none");
 
-      $('#subscribers-list #agora_remote'+ participentId).find('.microphone-icon').removeClass('d-none');
 
-      $('#subscribers-list #agora_hand_raise'+participentId).addClass("d-none");
-      $('#subscribers-list #audion_on'+participentId).removeClass("d-none");
+      let classCheckCounter = setInterval(function() {
+          if($('#subscribers-list #agora_remote'+ participentId).find('.hand-icon').hasClass('d-none') === false){
+            
+            $('#subscribers-list #agora_remote'+ participentId).find('.hand-icon').addClass('d-none');
+            $('#subscribers-list #agora_remote'+ participentId).find('.microphone-icon').removeClass('d-none');
+
+            clearInterval(classCheckCounter);
+          }
+      }, 100);
+
+      // $('#subscribers-list #agora_hand_raise'+participentId).addClass("d-none");
+      // $('#subscribers-list #audion_on'+participentId).removeClass("d-none");
 
       $('#selected-participent-id').val(participentId );
       $('#subscribers-list #agora_remote'+participentId).find('video').addClass('video-selected');
@@ -1168,15 +1237,21 @@ console.log('rtm remove====', memberId);
       client.publish(localStream, function (err) {
         console.log("Publish local stream error: " + err);
         if (err == 'STREAM_ALREADY_PUBLISHED') {
+
             unpublish();
+
+            /*if(storeData.userType == 2) {
+                let receiverEmail = storeData.sessionData.hostEmail;
+                var message = "1101" + sep + storeData.id;
+                sendMessage(receiverEmail, message);
+            }*/
         }
       });
       client.on('stream-published', function (evt) {
-        console.log('client ============', client);
-        console.log('-----changeUserToBroadcaster2000----------stream-published-----');
-        $('#strm-unpublish').removeClass('d-none');
-        $('#strm-publish').addClass('d-none');
-
+          console.log('client ============', client);
+          console.log('-----changeUserToBroadcaster2000----------stream-published-----');
+          $('#strm-unpublish').removeClass('d-none');
+          $('#strm-publish').addClass('d-none');
       });
     }
   }
@@ -1629,7 +1704,7 @@ console.log('rtm order======', userList[i].id);
     }
   }
 
-  function continueJoinBkup(){
+  /*function continueJoinBkup(){
 
     let mediaSetting = {};
     if($('#set-default').prop('checked')){
@@ -1662,7 +1737,7 @@ console.log('rtm order======', userList[i].id);
 
     // $(".host-script-section").height("255px");
     $(".host-section").css({"min-width": "380px", "max-width": "380px"});
-  }
+  }*/
 
   function toggleFullScreen() {
     if ((document.fullScreenElement && document.fullScreenElement !== null) ||    
@@ -1976,7 +2051,7 @@ function changeImage(){
 function signalHandler(uid, signalData, userType) {
 
 
-  let resultant=signalData.split(sep);
+  let resultant = signalData.split(sep);
      
   let nlocalDta= JSON.parse(localStorage.getItem("userData"));
 
@@ -2005,6 +2080,7 @@ function signalHandler(uid, signalData, userType) {
         let tempUsers = getTempUsers();
         for(let i in tempUsers){
             if(tempUsers[i].id == convertEmailToId(uid) && tempUsers[i].hasOwnProperty('isSubscribe') === false){
+                addUserAttribute(convertEmailToId(uid), 'currentStatus', 1);
                 addUserAttribute(convertEmailToId(uid), 'subscribeTime', (new Date()).getTime());
                 addUserAttribute(convertEmailToId(uid), 'isSubscribe', 0);
 
@@ -2020,49 +2096,12 @@ function signalHandler(uid, signalData, userType) {
       {       
           addRtmJoinOrder(uid, resultant[1]);
       } else if(resultant[0] == '211') {   
-        
+
         playSlider();
-      // $(" #play-slider").trigger('click');
-      
-        // if(!isPaused)
-        // {
-        //   console.log('------------ispaused=false--------------')
-        //   isPaused = false;
-        // $(".start span a").trigger('click');
-        // //$("#ftnsStart").trigger('click');
-
-        // let storeData = getCurrentUserData();
-     
-        // let ftnsStartCode=storeData.rtm.ftnsStart.code;                  
-        // messages=ftnsStartCode+sep;        
-        // sendMessageToChannel(channelName1,messages);
-        // }else{
-        //   console.log('------------ispaused=true--------------')
-        //   isPaused = false;
-        //   $(".start span a").trigger('click');
-        //   //$("#ftnsStart").trigger('click');
-
-        //   let storeData = getCurrentUserData();
-     
-        //   let ftnsResumeCode=storeData.rtm.ftnsResume.code;                  
-        //   messages=ftnsResumeCode+sep;        
-        //   sendMessageToChannel(channelName1,messages);
-
-        // }
-
-      }
-      else if(resultant[0] == '212') {        
+      } else if(resultant[0] == '212') {        
         $("#stop-slider").trigger('click');
-
-        // let storeData2 = getCurrentUserData();
-     
-        // let ftnsStopCode=storeData2.rtm.ftnsStop.code;                  
-        // messages=ftnsStopCode+sep;        
-        // sendMessageToChannel(channelName1,messages);
-
       }else if(resultant[0] == '213') { 
-        pauseSlider();       
-        //$("#pause-slider").trigger('click');
+        pauseSlider();
 
       }else if(resultant[0] == "214")
       {
@@ -2180,7 +2219,28 @@ function signalHandler(uid, signalData, userType) {
         console.log('---------239---------------')
         $("#logout_button").trigger('click');
       }
-          
+      else if(resultant[0] == "1101")
+      {
+        console.log('###---------1101---------------')
+        
+        let len = $('#subscribers-list .newcss').length;
+        let onscreenUserIds = [];
+
+        if (len > 0) {
+            $('#subscribers-list .newcss').each(function (index, value) {
+                onscreenUserIds.push(parseInt($(this).find('.video-holder').attr('id')));
+            });
+
+            if(onscreenUserIds.indexOf(resultant[1]) == -1) {
+
+                console.log('###stream already published, kick the user=====', resultant[1]);
+                
+                kickUser(resultant[1]);
+            }
+        } else {
+            kickUser(resultant[1]);
+        }
+      }   
   } else { // Attendy
 
     
@@ -2284,12 +2344,11 @@ function signalHandler(uid, signalData, userType) {
         // {
         //addRtmJoinOrder(senderId, newDateFormat(res1[1]));
         addRtmJoinOrder(senderId, res1[1]);
-        let message = "User " + senderId+" has joined on  " + res1[1];
 
-        let rtmJoinOrder = JSON.parse(localStorage.getItem("rtm-join-order"));
+        //let rtmJoinOrder = JSON.parse(localStorage.getItem("rtm-join-order"));
         let localUserDta= JSON.parse(localStorage.getItem("userData"));
 
-        rtmJoinOrder.forEach(ele => {
+        /*rtmJoinOrder.forEach(ele => {
 
           if(ele.id == localUserDta.email )
           {
@@ -2314,8 +2373,19 @@ function signalHandler(uid, signalData, userType) {
              sendMessage(senderId, text);
           }
 
-        });
+        });*/
 
+        console.log('===jagatlocalUserDta----', localUserDta.userType);
+
+        let text = '';
+
+        if (localUserDta.userType == 1) {
+            text = "216" + sep + localUserDta.serverTimestamp + sep + 1;
+        } else {
+            text = "216" + sep + localUserDta.serverTimestamp + sep + 0;
+        }
+        
+        sendMessage(senderId, text);
       }else if(res1[0] == "222")
       {
       //  $('#continue-join').removeAttr("disabled");
@@ -2501,7 +2571,7 @@ function signalHandler(uid, signalData, userType) {
             if($('#audience-'+audienceList[i].id).length != 0){
               $('#audience-'+audienceList[i].id).remove();
             }
-              let timeDur = (new Date()).getTime() - audienceList[i].handRaisedAt;
+              let timeDur = new Date().getTime() - audienceList[i].handRaisedAt;
 
 
               list += '<li id="audience-'+audienceList[i].id+'"><a class="dropdown-item media" href="javascript:;" onClick="changeUserToBroadcaster(\''+audienceList[i].id+'\')"><img src="images/avtar.png" /><div class="media-body"><span class="welcome-title">'+audienceList[i].firstName+', '+getUserDataFromList(audienceList[i].id, 'city')+'</span><span>'+checkTime(timeDur)+' ago</span></div></a></li>';          
@@ -2668,20 +2738,21 @@ function signalHandler(uid, signalData, userType) {
           //if(ctr < limit && checkKickRule(userList[i])){
             if(checkKickRuleInHandraise(broadcster[i])){
 
-            console.log('-----changeUserToBroadcaster44444----------',id);
-            //kickUser(id);
+                console.log('-----changeUserToBroadcaster44444----------',id);
+                //kickUser(id);
 
-            localStorage.setItem("swap-subscriber-id", id);
-           
-            pushIntoSessionByHost();
+                localStorage.setItem("swap-subscriber-id", id);
+               
+                pushIntoSessionByHost();
 
-            // switch user every specific time duration
-            //switchAudienceToBroadcaster();
+                // switch user every specific time duration
+                //switchAudienceToBroadcaster();
 
-            if($('#to-broadcast').val().trim() != ''){
-              removeAudienceInList($('#to-broadcast').val());
-            }
-            break;
+                if($('#to-broadcast').val().trim() != ''){
+                  removeAudienceInList($('#to-broadcast').val());
+                }
+            //break;
+            return;
           }
           //ctr++;
         }
@@ -2717,7 +2788,6 @@ function signalHandler(uid, signalData, userType) {
       let storeData = getCurrentUserData();
       if(storeData.userType == 1){
 
-        //console.log('switchUsers ***************');
         var switchRef = setInterval( function(){
           switchBroadcasterToAudience();
         //} , 1000 * storeData.default.switchDuration);
@@ -2733,6 +2803,34 @@ function signalHandler(uid, signalData, userType) {
 
         console.log('allBroadcaster ***************', broadcster);
         console.log('allParticipants ***************', allUsers);
+
+        //
+        if (broadcster.length > storeData.default.maxUserLimit) {
+
+            let len = $('#subscribers-list .newcss').length;
+            var userList  = getTempUsers();
+            let onscreenUserIds = [];
+
+            if (len > 0) {
+                $('#subscribers-list .newcss').each(function (index, value) {
+                    onscreenUserIds.push(parseInt($(this).find('.video-holder').attr('id')));
+                });
+
+                if(userList != '') {
+              
+                    for(let i = 0; i < userList.length; i++){
+                      if(onscreenUserIds.indexOf(userList[i].id) == -1 && userList[i].hasOwnProperty('isSubscribe') === true && userList[i].isSubscribe === 1) {
+
+                          console.log('broadcaster length greater than onscreen limit=====', userList[i].id, userList[i].email, userList[i].firstName, typeof userList[i].isSubscribe);
+                          
+                          //setSwappingAttributes(userList[i].id);
+                          kickUser(userList[i].id);
+                      }
+                  }
+                }
+            }
+        }
+
         //if(broadcster.length > 0 && allUsers.length > broadcster.length && broadcster.length == storeData.default.maxUserLimit){
         if(broadcster.length > 0 && allUsers.length > broadcster.length){
           for(let i in broadcster){
@@ -2773,9 +2871,32 @@ function signalHandler(uid, signalData, userType) {
 
     function switchAudienceToBroadcaster(){
         let audience = getAllAudience();
+
+        let len = $('#subscribers-list .newcss').length;
+        var userList  = getTempUsers();
+        let onscreenUserIds = [];
+
+        if (len > 0) {
+            $('#subscribers-list .newcss').each(function (index, value) {
+                onscreenUserIds.push(parseInt($(this).find('.video-holder').attr('id')));
+            });
+
+            if(userList != '') {
+          
+                for(let i = 0; i < userList.length; i++){
+                  if(onscreenUserIds.indexOf(userList[i].id) == -1 && userList[i].hasOwnProperty('isSubscribe') === true && userList[i].isSubscribe === 1) {
+
+                      console.log('user not onscreen but isSubscribe flag on=====', userList[i].id, userList[i].email, userList[i].firstName, typeof userList[i].isSubscribe);
+                      
+                      setSwappingAttributes(userList[i].id);
+
+                  }
+              }
+            }
+        }
+
         if(audience != null) {
 
-            let len = $('#subscribers-list .newcss').length;
             let onscreenUsers = [];
 
             if (len > 0) {
@@ -2794,7 +2915,7 @@ function signalHandler(uid, signalData, userType) {
             for(let i in audience){
 
               if (onscreenUsers.indexOf(audience[i].id) !== -1) {
-                  console.log('switchAudienceToBroadcaster========on screen user', audience[i].id, audience[i].email);
+                  console.log('switchAudienceToBroadcaster========on screen user details', audience[i].id, audience[i].email);
                   addUserAttribute(audience[i].id, 'isSubscribe', 1);
                   addUserAttribute(audience[i].id, 'currentStatus', 1);
                   addUserAttribute(audience[i].id, 'subscribeTime', (new Date()).getTime());
@@ -2867,7 +2988,7 @@ function signalHandler(uid, signalData, userType) {
     }
 
 
-    function incrementcountOnStreming(signalData,type)      
+    /*function incrementcountOnStreming(signalData,type)      
     { 
 
       if(type == 'welcome'){          
@@ -2885,8 +3006,6 @@ function signalHandler(uid, signalData, userType) {
        $('#joined_users_at_client').empty(); 
 
        console.log('------------atStremCount----------------',atStremCount);
-
-       // $('#joined_users_at_client').html(atStremCount); 
 
        let localstoragedata = JSON.parse(localStorage.getItem('allloginuser'));
        let newmem=signalData;
@@ -2931,7 +3050,7 @@ function signalHandler(uid, signalData, userType) {
 
 
       }
-    }
+    }*/
 
       function incrementcountAtAttendies(signalData,userType)
       {
@@ -2971,15 +3090,18 @@ function signalHandler(uid, signalData, userType) {
 
         console.log('*******totallist444444*************** signalData ',signalData,'----mmm----', count3);
 
-        let localstoragealdata = JSON.parse(localStorage.getItem('allloginuser'));
-        
+        let localstoragealdata = getUniqueData(JSON.parse(localStorage.getItem('allloginuser')));
+console.log('final allloginuser before ---', localstoragealdata);        
         let mememail=signalData.member;
        
         let index = localstoragealdata.indexOf(mememail);
-     
+     console.log('index of mememail', mememail, index);
         if (index > -1) {
           localstoragealdata.splice(index, 1);
         }
+
+        console.log('final allloginuser---', localstoragealdata);
+
         localStorage.setItem("allloginuser", JSON.stringify(localstoragealdata));
 
         let str=signalData.message;
@@ -3029,7 +3151,7 @@ function signalHandler(uid, signalData, userType) {
     
        console.log('*******totallist*************** signalData ', count4);
        //arr.shift();
-   
+      
       }
 
       let storeData = getCurrentUserData();    
@@ -3045,6 +3167,12 @@ function signalHandler(uid, signalData, userType) {
       arrayToDispaly = getUniqueData(arrayToDispaly);
       console.log('----------------------uniquearrayToDispaly', arrayToDispaly);
 
+      var addStyle = false;
+      if ($('#show-everyone').hasClass('d-none') === true) {
+          addStyle = true;
+      }
+
+
       arrayToDispaly.forEach(element => {
 
       console.log('---------------arrayToDispaly', element)
@@ -3054,9 +3182,14 @@ function signalHandler(uid, signalData, userType) {
          
       console.log('*******element*************** element ', element,'-----memberID-----',memberID);
      
-      if(getUserDataFromList(memberID, 'userType') == 2){
-        count4++;
-        $('#all_joined_member_list').append('<div class="attendee-list"><img src="images/attendee.png" /><span class="title">'+userName+'</span><div class="vid-icons"> <span class="icon-appearance d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-appearance1 d-none"   data-attr="'+memberID+'"></span><span class="icon-appearance2 d-none"  data-attr="'+memberID+'"></span><span class="icon-appearance3 d-none"  data-attr="'+memberID+'"></span><span class="icon-appearance4 d-none"  data-attr="'+memberID+'"></span><span class="icon-aroma d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma1 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma2 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma3 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma4 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-palate d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate1 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate2 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate3 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate4 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-like d-none"  data-attr="'+memberID+'"></span><span class="icon-dislike d-none"  data-attr="'+memberID+'"></span><span class="icon-easy d-none"  data-attr="'+memberID+'"></span><span class="icon-too-hard d-none"  data-attr="'+memberID+'"></span><span class="icon-perfect d-none"  data-attr="'+memberID+'"></span><span class="icon-awesome d-none"  data-attr="'+memberID+'"></span><span class="icon-score d-none"  id="emojies_sc'+memberID+'"  data-attr="'+memberID+'"></span></div></div>');
+        if(getUserDataFromList(memberID, 'userType') == 2){
+            count4++;
+
+            if (addStyle === true) {
+                $('#all_joined_member_list').append('<div class="attendee-list"><img src="images/attendee.png" /><span class="title" style="display:inline">'+userName+'</span><div class="vid-icons"> <span class="icon-appearance d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-appearance1 d-none"   data-attr="'+memberID+'"></span><span class="icon-appearance2 d-none"  data-attr="'+memberID+'"></span><span class="icon-appearance3 d-none"  data-attr="'+memberID+'"></span><span class="icon-appearance4 d-none"  data-attr="'+memberID+'"></span><span class="icon-aroma d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma1 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma2 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma3 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma4 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-palate d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate1 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate2 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate3 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate4 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-like d-none"  data-attr="'+memberID+'"></span><span class="icon-dislike d-none"  data-attr="'+memberID+'"></span><span class="icon-easy d-none"  data-attr="'+memberID+'"></span><span class="icon-too-hard d-none"  data-attr="'+memberID+'"></span><span class="icon-perfect d-none"  data-attr="'+memberID+'"></span><span class="icon-awesome d-none"  data-attr="'+memberID+'"></span><span class="icon-score d-none"  id="emojies_sc'+memberID+'"  data-attr="'+memberID+'"></span></div></div>');
+            } else {
+                $('#all_joined_member_list').append('<div class="attendee-list"><img src="images/attendee.png" /><span class="title">'+userName+'</span><div class="vid-icons"> <span class="icon-appearance d-none"  id="emojies_app'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-appearance1 d-none"   data-attr="'+memberID+'"></span><span class="icon-appearance2 d-none"  data-attr="'+memberID+'"></span><span class="icon-appearance3 d-none"  data-attr="'+memberID+'"></span><span class="icon-appearance4 d-none"  data-attr="'+memberID+'"></span><span class="icon-aroma d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma1 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma2 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma3 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-aroma4 d-none" id="emojies_ar'+memberID+'" data-attr="'+memberID+'"></span><span class="icon-palate d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate1 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate2 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate3 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-palate4 d-none"  id="emojies_pal'+memberID+'"  data-attr="'+memberID+'"></span><span class="icon-like d-none"  data-attr="'+memberID+'"></span><span class="icon-dislike d-none"  data-attr="'+memberID+'"></span><span class="icon-easy d-none"  data-attr="'+memberID+'"></span><span class="icon-too-hard d-none"  data-attr="'+memberID+'"></span><span class="icon-perfect d-none"  data-attr="'+memberID+'"></span><span class="icon-awesome d-none"  data-attr="'+memberID+'"></span><span class="icon-score d-none"  id="emojies_sc'+memberID+'"  data-attr="'+memberID+'"></span></div></div>');
+            }
         }
       }); 
       console.log('*******finalcountatattendies*************** element ', count4);
@@ -3065,7 +3198,6 @@ function signalHandler(uid, signalData, userType) {
         count4 = 0;
       }
       console.log('*******finalcountatattendies11*************** element ', count4);
-        // $('#joined_users_at_client').empty(); 
         $('#joined_users_at_client').html(count4); 
     
       }
@@ -3390,7 +3522,7 @@ function signalHandler(uid, signalData, userType) {
 
       function leaveLogout(){
           // localStream.stop();
-          updateJoinSessionStatus();
+          //updateJoinSessionStatus();
           leave_channel();
           removeSession();
           location.href  = '/login';
@@ -3618,7 +3750,7 @@ console.log('removed from rtm order====', memberId);
 
 
       function totalChannelMembers(){
-        console.log('%%%%%%%%%%%%%%%%%%%%%%',channel.getMembers());
+        /*console.log('%%%%%%%%%%%%%%%%%%%%%%',channel.getMembers());
         let localData = getCurrentUserData();
         channel.getMembers().then(membersList => {
             let totMember = membersList.length -1;
@@ -3629,7 +3761,7 @@ console.log('removed from rtm order====', memberId);
             
           }).catch(error => {
             console.log('*************There is an error******');
-          });
+          });*/
       }
 
       function rtmAction(id) {
@@ -3945,6 +4077,14 @@ console.log('removed from rtm order====', memberId);
               console.log('------dropdownMenuButton2222--------')
               showHandAtHost();
             }else{
+              
+              // if ($('#dropdownmenuitem11').hasClass('show') == false) {
+              //     showHandAtHost();
+              //     $('#dropdownmenuitem11').slideDown();
+              // } else {
+              //     $('#dropdownmenuitem11').slideUp();
+              // }
+              
               $('#dropdownmenuitem11').slideToggle();
             }
         });
@@ -4167,11 +4307,6 @@ console.log('removed from rtm order====', memberId);
       // GoInFullscreen();
 
     // }
-    
-    let onscreenInterval = setInterval(function(){
-        let len = $('#subscribers-list .newcss').length;
-        $('#joined_users').text(len);
-    }, 2000);
 
     $(document).on('click', '#join', function(){
       join();
@@ -4766,27 +4901,92 @@ console.log('onscreenUsers===', onscreenUsers);
   setTimeout(function(){
         
       var storeData = getCurrentUserData();
-      let resetCount = setInterval(function() {
+
+      if (storeData.userType == 1) {
+
+          let resetCount = setInterval(function() {
           
-          let onscreenCount = $('#subscribers-list .newcss').length;
-          let onlineUserCount = getOnlineUserCount('currentStatus');
+              let onscreenCount = $('#subscribers-list .newcss').length;
+              let onlineUserCount = getOnlineUserCount('currentStatus');
 
-          if(onscreenCount < storeData.default.maxUserLimit && onlineUserCount >= storeData.default.maxUserLimit) {
-              
-              switchAudienceToBroadcaster();
+              console.log('timeoutfunc onscreenCount=======', onscreenCount);
+              console.log('timeoutfunc onlineUserCount=======', onlineUserCount);
 
-          }
+              //if(onscreenCount < storeData.default.maxUserLimit && onlineUserCount >= storeData.default.maxUserLimit) {
+              if(onscreenCount < storeData.default.maxUserLimit && onlineUserCount > onscreenCount) {
 
-      }, 5000);
+                  console.log('timeoutfunc in if=======yes');
+
+                  switchAudienceToBroadcaster();
+              }
+
+          }, 5000);
+      }
 
   }, 60000);
 
+  let onscreenInterval = setInterval(function(){
+
+      let storeData = getCurrentUserData();
+
+      if (storeData.userType == 1) {
+          let len = $('#subscribers-list .newcss').length;
+          $('#joined_users').text(len);
+
+          let onlineUserCount = getOnlineUserCount('currentStatus');
+          $('#online-users').text(onlineUserCount);
+      } /*else if (storeData.userType == 2) {
+          let onlineUserCount = getOnlineUserCount('currentStatus');
+          $('#online-users').text(onlineUserCount);
+
+          $('#joined_users_at_client').text(onlineUserCount);
+      }*/
+  }, 2000);
 
   function setSwappingAttributes(uId) {
       console.log('in setSwappingAttributes function=======for user---', uId);
       addUserAttribute(uId, 'subscribeTime', (new Date()).getTime());
       addUserAttribute(uId, 'isSubscribe', 0);
       addUserAttribute(uId, 'currentStatus', 1);
+  }
+
+  function sendConnectedAgainMessage(peerId, text) {
+      console.log('in main.js sendConnectedAgainMessage---');
+      sendMessage(peerId, text);
+  }
+
+  function checkRTMStatus(peerId, text) {
+
+      console.log("###rtm sendPeerMessage", text, peerId);
+
+      newclient.sendMessageToPeer({text}, peerId).then(sendResult => {
+
+        console.log('###rtm sendResult---', sendResult, peerId);
+
+        if (sendResult.hasPeerReceived) {
+
+            rtmRetryCounter = 0;
+
+            localStorage.setItem("rtm-status-"+convertEmailToId(peerId), true);
+        } else {            
+            console.log('rtm retryCounter====', rtmRetryCounter, peerId);    
+
+            if (rtmRetryCounter <= 1) {
+                rtmRetryCounter++;
+
+                checkRTMStatus(peerId, text);
+            } else {
+                console.log('rtm retryCounter====limit exceeded', rtmRetryCounter, peerId);
+
+                localStorage.setItem("rtm-status-"+convertEmailToId(peerId), false);
+                rtmRetryCounter = 0;
+            }
+        }
+      }).catch(error => {
+          localStorage.setItem("rtm-status-"+convertEmailToId(peerId), true);
+          console.log('peererror=======', error);
+          rtmRetryCounter = 0;
+      });
   }
 
   $(document).ready(function() {

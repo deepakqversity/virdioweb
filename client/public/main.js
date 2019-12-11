@@ -2446,6 +2446,37 @@ function signalHandler(uid, signalData, userType) {
         }
         
         sendMessage(senderId, text);
+
+        //script syncing code
+        console.log('===jagatlocalUserDta---script', typeof $('#host_slider_ftnes').attr('style'));
+        if(typeof $('#host_slider_ftnes').attr('style') !== 'undefined') {
+
+            let scriptIndex = 0;
+            let totalTime = 0
+            let time = 0;
+
+            $('.swiper-slide').each(function (index, value) {
+
+                if($(this).hasClass('swiper-slide-next')) {
+
+                    scriptIndex = parseInt($(this).find('.data-slide').attr('data-index'));
+                    totalTime = parseInt($(this).find('.countdown-number').attr('data-number'));
+                    time = parseInt($(this).find('.countdown-number').text());
+
+                    return;
+                }
+
+            });
+
+            console.log('jagatlocalUserDta====index', scriptIndex);
+            console.log('jagatlocalUserDta====total time', totalTime);
+            console.log('jagatlocalUserDta====time', time);
+            console.log('jagatlocalUserDta====time elapsed', totalTime - time);
+
+            let timeElapsed = totalTime - time;
+            let message = "240"+sep+1+sep+scriptIndex+sep+timeElapsed;
+            sendMessage(senderId, text);
+        }
       }else if(res1[0] == "222")
       {
       //  $('#continue-join').removeAttr("disabled");

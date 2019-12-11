@@ -3969,10 +3969,13 @@ console.log('removed from rtm order====', memberId);
  
       
     function zoomVideo(id){
-      if($('#agora_remote'+id).find('.video-holder').hasClass('zoom-video'))
-        $('#agora_remote'+id).find('.video-holder').removeClass('zoom-video');
-      else
-        $('#agora_remote'+id).find('.video-holder').addClass('zoom-video');
+        if ($('#agora_remote'+id).find('.video-holder').hasClass('zoom-video')) {
+          $('#agora_remote'+id).find('.video-holder').removeClass('zoom-video');
+          $('#agora_remote'+id+' .video-holder').find('i').removeClass('fa-search-minus');
+        } else {
+          $('#agora_remote'+id).find('.video-holder').addClass('zoom-video');
+          $('#agora_remote'+id+' .video-holder').find('i').addClass('fa-search-minus');
+        }
     }
 
     function starthostslider(){
@@ -5073,5 +5076,22 @@ console.log('onscreenUsers===', onscreenUsers);
   }
 
   $(document).ready(function() {
-    onPageResize();
-});
+      onPageResize();
+  });
+
+  $(document).keyup(function(e) {
+
+      if (e.keyCode === 27) { // escape key maps to keycode `27`
+          
+          if ($('.video-holder').length > 0) {
+
+              $('.video-holder').each(function (index, value) {
+                  if($(this).hasClass('zoom-video')) {
+                      $(this).removeClass('zoom-video');
+                      $(this).find('i').removeClass('fa-search-minus');
+                  }
+              });
+          }
+      }
+
+  });

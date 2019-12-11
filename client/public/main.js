@@ -2481,9 +2481,15 @@ function signalHandler(uid, signalData, userType) {
             console.log('jagatlocalUserDta====time', time);
             console.log('jagatlocalUserDta====time elapsed', totalTime - time);
 
+            let isPlaying = 1;
+            if ($('#play-slider').hasClass('d-none') === false) {
+                isPlaying = 2;
+            }
+
             let timeElapsed = totalTime - time;
-            let message = "240"+sep+1+sep+scriptIndex+sep+timeElapsed;
-            sendMessage(senderId, text);
+            let message = "240"+sep+isPlaying+sep+scriptIndex+sep+timeElapsed;
+            console.log('jagatlocalUserDta====rtm message', message);
+            sendMessage(senderId, message);
         }
       }else if(res1[0] == "222")
       {
@@ -5103,9 +5109,8 @@ console.log('onscreenUsers===', onscreenUsers);
 
             localStorage.setItem("rtm-status-"+convertEmailToId(peerId), true);
         } else {            
-            console.log('rtm retryCounter====', rtmRetryCounter, peerId);    
 
-            if (rtmRetryCounter <= 1) {
+            if (rtmRetryCounter < 1) {
                 rtmRetryCounter++;
 
                 checkRTMStatus(peerId, text);

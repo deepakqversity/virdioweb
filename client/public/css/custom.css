@@ -1154,6 +1154,7 @@ display:none;
 }
 .zoom-video .video-streams video, .zoom-video .zoom-box, .zoom-video .zoom-box .video-streams {
     height: auto;
+    
 }{
 	height:auto !important;
 }

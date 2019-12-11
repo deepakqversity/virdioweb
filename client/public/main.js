@@ -5074,7 +5074,7 @@ console.log('onscreenUsers===', onscreenUsers);
         } else {            
             console.log('rtm retryCounter====', rtmRetryCounter, peerId);    
 
-            if (rtmRetryCounter <= 1) {
+            if (rtmRetryCounter < 1) {
                 rtmRetryCounter++;
 
                 checkRTMStatus(peerId, text);

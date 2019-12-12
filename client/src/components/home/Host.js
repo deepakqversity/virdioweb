@@ -358,7 +358,7 @@ return (
               <div className="dropdown-menu d-none" id="dropdownmenuitem11" aria-labelledby="dropdownMenuButton">
                 <div className="raised-hands">
                   <h4>Raised Hands (<span id="total-raised-hands">3</span>)</h4>
-                  <a href="#"><i className="fa fa-times"></i></a>
+                  <a href="javascript:void(0)" id="close-dd"><i className="fa fa-times"></i></a>
                 </div>
                 <ul className="raised-list" id="raised-list">
                   {/*<li><a className="dropdown-item media" href="#"><img src="images/avtar.png" /> 
@@ -873,7 +873,7 @@ return (
     </div>
 
       <input type="hidden" id="switch-counter" />
-      <input type="hidden" id="selected-participent-id" />
+      <input type="hidden" id="selected-participent-id" value="" />
       <input type="hidden" id="to-broadcast" />
       <input type="hidden" id="current-camera" />
       <input type="hidden" id="current-microphone" />

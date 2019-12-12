@@ -25,6 +25,8 @@ if(!AgoraRTC.checkSystemRequirements()) {
   var rtmRetryCounter = 0;
   var rtmStatus = false;
 
+  localStorage.setItem("auto-swap", true);
+
   function join() {
 
     let camera = microphone= null;
@@ -169,26 +171,62 @@ if(!AgoraRTC.checkSystemRequirements()) {
             //let onscreenCount = $('#subscribers-list .newcss').length;
             let onscreenCount = $('.video-holder').length;
             let onscreenUserIds = [];
-console.log('@@@onscreenCount!!!!!====', stream.getId(), onscreenCount, localStorage.getItem("swap-subscriber-id"));
+console.log('@@@stream-added new !!!!!====user id->', stream.getId(), '==onscreenCount->', onscreenCount, '--swap-id->', localStorage.getItem("swap-subscriber-id"));
 
             if ((localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') || onscreenCount < storeData.default.maxUserLimit) {
 
-                if (localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') {
+                if (localStorage.getItem("handraise-swap-subscriber-id") !== null && localStorage.getItem("handraise-swap-subscriber-id") !== '' && parseInt(localStorage.getItem("handraise-swap-subscriber-id")) == stream.getId()) {
                     
-                    let swapId = localStorage.getItem("swap-subscriber-id");
-                    localStorage.removeItem("swap-subscriber-id");
+                    console.log('@@@###stream-added inside hand raise =====handraise-user-id->', localStorage.getItem("handraise-swap-subscriber-id"), typeof localStorage.getItem("handraise-swap-subscriber-id"), parseInt(localStorage.getItem("handraise-swap-subscriber-id")), '===swap-id->', localStorage.getItem("swap-subscriber-id"));
+                    
+                    if (localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') {
+                    
+                        let swapId = localStorage.getItem("swap-subscriber-id");
+                        localStorage.removeItem("swap-subscriber-id");
 
-                    localStorage.setItem("swap-subscriber-id-v1", swapId);
+                        localStorage.setItem("swap-subscriber-id-v1", swapId);
+                    }
+
+                    client.subscribe(stream, function (err) {
+                      console.log("Subscribe stream failed", err);
+                    });
+                } else if (onscreenCount < storeData.default.maxUserLimit) {
+                    
+                    console.log('@@@###stream-added onscreenCount lessa than max limit====onscreenCount->', onscreenCount, 'maxlimit->', storeData.default.maxUserLimit, '--swap id->', localStorage.getItem("swap-subscriber-id"));
+                    
+                    if (localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') {
+                    
+                        let swapId = localStorage.getItem("swap-subscriber-id");
+                        localStorage.removeItem("swap-subscriber-id");
+
+                        localStorage.setItem("swap-subscriber-id-v1", swapId);
+                    }
+
+                    client.subscribe(stream, function (err) {
+                      console.log("Subscribe stream failed", err);
+                    });
+                } else if ((localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '' && (localStorage.getItem("handraise-swap-subscriber-id") === null || localStorage.getItem("handraise-swap-subscriber-id") === '')) || onscreenCount < storeData.default.maxUserLimit) {
+                    
+                    console.log('@@@###stream-added 2 condition failed handraise-user-id->', localStorage.getItem("handraise-swap-subscriber-id"), '==swap-id->', localStorage.getItem("swap-subscriber-id"), '==onscreenCount->', onscreenCount);
+
+                    if (localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') {
+                    
+                        let swapId = localStorage.getItem("swap-subscriber-id");
+                        localStorage.removeItem("swap-subscriber-id");
+
+                        localStorage.setItem("swap-subscriber-id-v1", swapId);
+                    }
+     
+                    // addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
+                    // addUserAttribute(stream.getId(), 'isSubscribe', 1);
+
+                    client.subscribe(stream, function (err) {
+                      console.log("Subscribe stream failed", err);
+                    });
+                } else {
+                    console.log('@@@###stream-added hand raise final else =====kick user', stream.getId());
+                    kickUser(stream.getId());
                 }
-
-                console.log('@@@in if for user====', stream.getId());
- 
-                // addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
-                // addUserAttribute(stream.getId(), 'isSubscribe', 1);
-
-                client.subscribe(stream, function (err) {
-                  console.log("Subscribe stream failed", err);
-                });
             } else {
                 console.log('extra participant trying to enter, kick him', stream.getId());
                 kickUser(stream.getId());
@@ -258,11 +296,11 @@ console.log('@@@onscreenCount!!!!!====', stream.getId(), onscreenCount, localSto
                     console.log('@@@if swap-subscriber-id-v1=====', localStorage.getItem("swap-subscriber-id-v1"));
 
                       $('#agora_remote' + localStorage.getItem("swap-subscriber-id-v1")).attr('id', 'agora_remote'+stream.getId());
-                      let newStreamer = '<div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" onclick="zoomVideo(\''+stream.getId()+'\')">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute d-none" id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><small class="click-zoom d-none" onclick="zoomVideo(\''+stream.getId()+'\')"><i class="fa fa-search-plus" aria-hidden="true"></i></small><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="heart-rate-icon d-none" data-attr="'+stream.getId()+'><img src="images/red-heart.png" /><span class="heart-icon" data-attr="'+stream.getId()+'">80</span></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-like d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-dislike d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-easy d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-too-hard d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-perfect d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-awesome d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div>';
+                      let newStreamer = '<div id="'+stream.getId()+'" class="video-holder position-relative h-100"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" onclick="zoomVideo(\''+stream.getId()+'\')">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box h-100"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams h-100"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute d-none" id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><small class="click-zoom d-none" onclick="zoomVideo(\''+stream.getId()+'\')"><i class="fa fa-search-plus" aria-hidden="true"></i></small><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="heart-rate-icon d-none" data-attr="'+stream.getId()+'><img src="images/red-heart.png" /><span class="heart-icon" data-attr="'+stream.getId()+'">80</span></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-like d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-dislike d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-easy d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-too-hard d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-perfect d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-awesome d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div>';
                       $('#agora_remote' + stream.getId()).html(newStreamer);
                   } else {
                       console.log('@@@else swap-subscriber-id-v1=====', localStorage.getItem("swap-subscriber-id-v1"));
-                      $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" onclick="zoomVideo(\''+stream.getId()+'\')">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute d-none" id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><small class="click-zoom d-none" onclick="zoomVideo(\''+stream.getId()+'\')"><i class="fa fa-search-plus" aria-hidden="true"></i></small><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="heart-rate-icon d-none" data-attr="'+stream.getId()+'"><img src="images/red-heart.png" /><span class="heart-icon" data-attr="'+stream.getId()+'">80</span></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-like d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-dislike d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-easy d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-too-hard d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-perfect d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-awesome d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
+                      $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative h-100"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" onclick="zoomVideo(\''+stream.getId()+'\')">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box h-100"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams h-100"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute d-none" id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><small class="click-zoom d-none" onclick="zoomVideo(\''+stream.getId()+'\')"><i class="fa fa-search-plus" aria-hidden="true"></i></small><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="heart-rate-icon d-none" data-attr="'+stream.getId()+'"><img src="images/red-heart.png" /><span class="heart-icon" data-attr="'+stream.getId()+'">80</span></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-like d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-dislike d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-easy d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-too-hard d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-perfect d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-awesome d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
                   }
 
               } else {
@@ -270,16 +308,18 @@ console.log('@@@onscreenCount!!!!!====', stream.getId(), onscreenCount, localSto
                   if (localStorage.getItem("swap-subscriber-id-v1") !== null && localStorage.getItem("swap-subscriber-id-v1") !== '') {
                       console.log('in-- else if===swap-subscriber-id-v1', localStorage.getItem("swap-subscriber-id-v1"));
                       $('#agora_remote' + localStorage.getItem("swap-subscriber-id-v1")).attr('id', 'agora_remote'+stream.getId());
-                      let newStreamer = '<div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" onclick="zoomVideo(\''+stream.getId()+'\')">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute d-none" id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><small class="click-zoom d-none" onclick="zoomVideo(\''+stream.getId()+'\')"><i class="fa fa-search-plus" aria-hidden="true"></i></small><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="heart-rate-icon d-none" data-attr="'+stream.getId()+'"><img src="images/red-heart.png" /><span class="heart-icon" data-attr="'+stream.getId()+'">80</span></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-like d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-dislike d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-easy d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-too-hard d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-perfect d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-awesome d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div>';
+                      let newStreamer = '<div id="'+stream.getId()+'" class="video-holder position-relative h-100"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" onclick="zoomVideo(\''+stream.getId()+'\')">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box h-100"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams h-100"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute d-none" id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><small class="click-zoom d-none" onclick="zoomVideo(\''+stream.getId()+'\')"><i class="fa fa-search-plus" aria-hidden="true"></i></small><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="heart-rate-icon d-none" data-attr="'+stream.getId()+'"><img src="images/red-heart.png" /><span class="heart-icon" data-attr="'+stream.getId()+'">80</span></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-like d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-dislike d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-easy d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-too-hard d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-perfect d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-awesome d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div>';
                       $('#agora_remote' + stream.getId()).html(newStreamer);
                   } else {
                     console.log('@@@in-- else else===', stream.getId());
-                      $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" onclick="zoomVideo(\''+stream.getId()+'\')">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute d-none" id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><small class="click-zoom d-none" onclick="zoomVideo(\''+stream.getId()+'\')"><i class="fa fa-search-plus" aria-hidden="true"></i></small><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="heart-rate-icon d-none" data-attr="'+stream.getId()+'"><img src="images/red-heart.png" /><span class="heart-icon" data-attr="'+stream.getId()+'">80</span></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-like d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-dislike d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-easy d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-too-hard d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-perfect d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-awesome d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
+                      $('#subscribers-list').append('<div id="agora_remote'+stream.getId()+'" class="col-md-4 col-lg-3 col-sm-6 col-6 newcss popup-removed"><div id="'+stream.getId()+'" class="video-holder position-relative h-100"><div class="eject-popup"><button type="button" class="close-model-btn close float-left" onclick="zoomVideo(\''+stream.getId()+'\')">&times;</button><a href="#" class="eject-this eject-session" id="">Eject from Session <img src="images/eject.png" /></a></div><div class="zoom-box h-100"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams h-100"></div><span class="hand-icon position-absolute hand d-none" onclick="onclickhandRaise(\''+stream.getId()+'\')"></span><span class="microphone-icon position-absolute d-none" id="audion_on'+stream.getId()+'"  onclick="onclickaudioOn(\''+stream.getId()+'\')"></span><small class="click-zoom d-none" onclick="zoomVideo(\''+stream.getId()+'\')"><i class="fa fa-search-plus" aria-hidden="true"></i></small><div class="col-lg-8 col-12 col-sm-12"><div class="kick-out"><div class="row"><div class="col-lg-8 col-sm-12"><span>Kicking out</span><span>Sarah P from the session. Are you sure?</span></div> <div class="col-lg-4 col-sm-12 d-flex justify-content-between align-items-center"><a href="#" class="btn py-3 px-4 rounded btn-primary">YES</a><a href="#" class="btn py-3 px-4 btn-outline-secondary rounded">NO</a></div>  </div></div></div><div class="heart-rate-icon d-none" data-attr="'+stream.getId()+'"><img src="images/red-heart.png" /><span class="heart-icon" data-attr="'+stream.getId()+'">80</span></div><div class="att-details"><marquee behavior="slide"><span class="att-name welcome-title">'+getNameById(stream.getId())+'</span></marquee><div class="vid-icons"  data-attr="'+stream.getId()+'" ><span class="icon-appearance d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-appearance4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-aroma4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate1 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate2 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate3 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-palate4 d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-like d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-dislike d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-easy d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-too-hard d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-perfect d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-awesome d-none"  data-attr="'+stream.getId()+'"></span><span class="icon-score d-none"  data-attr="'+stream.getId()+'"></span></div></div></div><div class="guest-video-footer"><div class="conversations"><a href="#"><img src="images/private-conversation.png" />Public Conversation</a><a href="#"><img src="images/private-conversation.png" />Private Conversation</a><a href="#" class="float-right mr-0">Emotions <img class="ml-3" src="images/quote-circular-button.png" /></a></div></div></div></div>');
                   }
               }
 
               $('#agora_remote' + stream.getId()).removeClass('removeBroadcaster');
             }
+
+            localStorage.setItem("auto-swap", true);
 
             if (localStorage.getItem("swap-subscriber-id-v1") !== null && localStorage.getItem("swap-subscriber-id-v1") !== '') {
                 
@@ -293,7 +333,7 @@ console.log('@@@onscreenCount!!!!!====', stream.getId(), onscreenCount, localSto
             }
 
             if ($('#subscribers-list #agora_remote'+stream.getId()).length === 1) {
-              console.log('i am in streamer----');
+              console.log('i am in streamer----', stream.getId());
              // stream.play('agora_remote_vdo' + stream.getId(), {muted:true});
 
               stream.play('agora_remote_vdo' + stream.getId());
@@ -358,18 +398,23 @@ console.log('@@@onscreenCount!!!!!====', stream.getId(), onscreenCount, localSto
         }*/
       } else {
           
+          console.log('in participant view----', stream.getId());
+
           let subscribeUserId = getUserDataFromList(stream.getId(), 'userType');
+console.log('in participant view----subscribeUserId', subscribeUserId);
 
           if(1 == subscribeUserId){
+console.log('in participant view----subscribeUserId', subscribeUserId, stream.getId(), $('#agora_host #agora_remote'+stream.getId()).length);
+            //if ($('#agora_host #agora_remote'+stream.getId()).length === 0) {
 
-            if ($('#agora_host #agora_remote'+stream.getId()).length === 0) {
-              
-              $('#agora_host').append('<div id="agora_remote'+stream.getId()+'"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div></div>');
+              $('#agora_host').html('<div id="agora_remote'+stream.getId()+'"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div></div>');
 
-            }
+            //}
 
-            stream.play('agora_remote_vdo' + stream.getId());
-
+            setTimeout(function(){
+                stream.play('agora_remote_vdo' + stream.getId());
+            }, 2000);
+            
             console.log('hostStreamMuted===', typeof localStorage.getItem('hostStreamMuted'));
             if (localStorage.getItem('hostStreamMuted') !== null && localStorage.getItem('hostStreamMuted') == "true") {
                 let ado = $('#agora_host audio')[0];
@@ -421,6 +466,10 @@ console.log('@@@onscreenCount!!!!!====', stream.getId(), onscreenCount, localSto
             setSwappingAttributes(stream.getId());
 
             $('#agora_remote' + stream.getId()).remove();
+
+            if (parseInt($('#selected-participent-id').val()) == stream.getId()) {
+                $('#selected-participent-id').val('');
+            }
 
             switchVideoSize();
         }
@@ -538,6 +587,10 @@ console.log('@@@onscreenCount!!!!!====', stream.getId(), onscreenCount, localSto
                     localStorage.removeItem("rtm-status-"+evt.uid);
 
                 }, 6000);*/
+            }
+
+            if (parseInt($('#selected-participent-id').val()) == evt.uid) {
+                $('#selected-participent-id').val('');
             }
         }
     });
@@ -928,7 +981,9 @@ console.log('rtm remove====', memberId);
 
       function sendMessage(peerId, text)
       {
-          console.log("sendPeerMessage", text, peerId);
+          let resultant = text.split(sep);
+
+          console.log("sendPeerMessage", text, peerId, resultant[2]);
           newclient.sendMessageToPeer({text}, peerId).then(sendResult => {
             console.log('sendResult---', sendResult, peerId);
             if (sendResult.hasPeerReceived) {
@@ -952,6 +1007,10 @@ console.log('rtm remove====', memberId);
 
                     let resultant = text.split(sep);
                     if (resultant[0] == '200') {
+
+                        if (resultant[2] != undefined && resultant[2] == 'handraiseclick') {
+                            localStorage.setItem("auto-swap", true);
+                        }
 
                         let userId = convertEmailToId(peerId);
                         let tempUsers = getTempUsers();
@@ -987,6 +1046,26 @@ console.log('rtm remove====', memberId);
           }).catch(error => {
               console.log('peererror=======', error);
               retryCounter = 0;
+
+              let resultant = text.split(sep);
+              if (resultant[0] == '200') {
+
+                  if (resultant[2] != undefined && resultant[2] == 'handraiseclick') {
+                      localStorage.setItem("auto-swap", true);
+                  }
+
+                  let userId = convertEmailToId(peerId);
+                  let tempUsers = getTempUsers();
+
+                  for(let i in tempUsers) {
+                      if(tempUsers[i].id == userId && tempUsers[i].hasOwnProperty('isSubscribe') === true && tempUsers[i].isSubscribe == 0) {
+                          
+                          addUserAttribute(userId, 'subscribeTime', (new Date()).getTime());
+
+                          return;
+                      }
+                  }
+              }
           });
       }
 
@@ -1168,7 +1247,7 @@ console.log('rtm remove====', memberId);
 
             clearInterval(classCheckCounter);
           }
-      }, 100);
+      }, 10);
 
       // $('#subscribers-list #agora_hand_raise'+participentId).addClass("d-none");
       // $('#subscribers-list #audion_on'+participentId).removeClass("d-none");
@@ -2503,6 +2582,11 @@ function signalHandler(uid, signalData, userType) {
           console.log('-------changeUserToBroadcaster----------addAudienceInList---- ',audienceList)
           localStorage.setItem("audience-list", JSON.stringify(audienceList));
           $('#dropdownMenuButton').removeClass('d-none');
+
+          if ($('#dropdownmenuitem11').hasClass('show') === false) {
+              $('#dropdownmenuitem11').css({"display":"none"});
+          }
+
           //$('.hand-raise-list .dropdown-menu').addClass('show');
           showHandAtHost();
         }
@@ -2605,6 +2689,9 @@ function signalHandler(uid, signalData, userType) {
 
 
     function changeUserToBroadcaster(uId){
+
+        localStorage.setItem("auto-swap", false);
+
         $('#to-broadcast').val(uId);
         localStorage.setItem("handraise-swap-subscriber-id", uId);
 
@@ -2663,13 +2750,13 @@ function signalHandler(uid, signalData, userType) {
       let rule = false
       console.log('=========== dataObj', dataObj)
 
-      console.log('-----changeUserToBroadcaster444445----------',dataObj);
+      //console.log('-----changeUserToBroadcaster444445----------',dataObj);
       //let id = convertEmailToId(dataObj.id);
       let id = dataObj.id;
       let vdo = $('#subscribers-list #agora_remote'+ id + ' video' )[0];  
-      console.log('subscribers-list video = ', vdo);
+      //console.log('subscribers-list video = ', vdo);
 
-      console.log('-----changeUserToBroadcaster444446-----subscribers-list video = -----',vdo);
+      //console.log('-----changeUserToBroadcaster444446-----subscribers-list video = -----',vdo);
       let storeData = getCurrentUserData();
 
       // check current user in mute state
@@ -2770,11 +2857,17 @@ function signalHandler(uid, signalData, userType) {
     }
 
     function sendPushIntoSessionMessage(uid){
-     // console.log('-------sendPushIntoSessionMessage--------------',uid)
 
-     console.log('-----changeUserToBroadcaster9999999----------sendPushIntoSessionMessage-----',uid);
+        console.log('-----changeUserToBroadcaster9999999----------sendPushIntoSessionMessage-----',uid);
 
-        let text = "200"+sep+" in session";
+        let text = '';
+
+        if (localStorage.getItem("auto-swap") == "false") {
+            text = "200"+sep+" in session"+sep+'handraiseclick';
+        } else {
+            text = "200"+sep+" in session"; 
+        }
+        
         sendMessage(convertIdToEmail(uid), text);
     }
 
@@ -2807,55 +2900,63 @@ function signalHandler(uid, signalData, userType) {
 
     function switchBroadcasterToAudience(){
 
-        let storeData = getCurrentUserData();
-        let allUsers = getAllParticipent();
-        let broadcster = getAllBroadcster();
+        console.log("auto swapping-----", localStorage.getItem("auto-swap"));
 
-        console.log('allBroadcaster ***************', broadcster);
-        console.log('allParticipants ***************', allUsers);
+        if (localStorage.getItem("auto-swap") == "true") {
+            
+            let broadcster = getAllBroadcster();
+            console.log('allBroadcaster ***************', broadcster);
 
-        //
-        if (broadcster.length > storeData.default.maxUserLimit) {
+            let storeData = getCurrentUserData();
 
-            let len = $('#subscribers-list .newcss').length;
-            var userList  = getTempUsers();
-            let onscreenUserIds = [];
+            let allUsers = getAllParticipent();
 
-            if (len > 0) {
-                //$('#subscribers-list .newcss').each(function (index, value) {
-                $('.video-holder').each(function (index, value) {
-                    //onscreenUserIds.push(parseInt($(this).find('.video-holder').attr('id')));
-                    onscreenUserIds.push(parseInt($(this).attr('id')));
-                });
+            console.log('allParticipants ***************', allUsers);
 
-                if(userList != '') {
-              
-                    for(let i = 0; i < userList.length; i++){
-                      if(onscreenUserIds.indexOf(userList[i].id) == -1 && userList[i].hasOwnProperty('isSubscribe') === true && userList[i].isSubscribe === 1) {
+            if (broadcster.length > storeData.default.maxUserLimit) {
 
-                          console.log('broadcaster length greater than onscreen limit=====', userList[i].id, userList[i].email, userList[i].firstName, typeof userList[i].isSubscribe);
-                          
-                          //setSwappingAttributes(userList[i].id);
-                          kickUser(userList[i].id);
-                      }
-                  }
+                //let len = $('#subscribers-list .newcss').length;
+                let len = $('.video-holder').length;
+                var userList  = getTempUsers();
+                let onscreenUserIds = [];
+
+                if (len > 0) {
+                    //$('#subscribers-list .newcss').each(function (index, value) {
+                    $('.video-holder').each(function (index, value) {
+                        //onscreenUserIds.push(parseInt($(this).find('.video-holder').attr('id')));
+                        onscreenUserIds.push(parseInt($(this).attr('id')));
+                    });
+
+
+                    if(userList != '') {
+                  
+                        for(let i = 0; i < userList.length; i++){
+                            if(onscreenUserIds.indexOf(userList[i].id) == -1 && userList[i].hasOwnProperty('isSubscribe') === true && userList[i].isSubscribe === 1) {
+
+                                console.log('broadcaster length greater than onscreen limit=====', userList[i].id, userList[i].email, userList[i].firstName, typeof userList[i].isSubscribe);
+                                
+                                kickUser(userList[i].id);
+                            }
+                        }
+                    }
                 }
             }
-        }
 
-        //if(broadcster.length > 0 && allUsers.length > broadcster.length && broadcster.length == storeData.default.maxUserLimit){
-        if(broadcster.length > 0 && allUsers.length > broadcster.length){
-          for(let i in broadcster){
-            if(checkKickRule({id : broadcster[i].email})){
+            //if(broadcster.length > 0 && allUsers.length > broadcster.length && broadcster.length == storeData.default.maxUserLimit){
+            if(broadcster.length > 0 && allUsers.length > broadcster.length){
+              for(let i in broadcster){
+                if(checkKickRule({id : broadcster[i].email})){
 
-              localStorage.setItem("swap-subscriber-id", broadcster[i].id);
+                  localStorage.setItem("swap-subscriber-id", broadcster[i].id);
 
-              $('#agora_remote' + broadcster[i].id).addClass('removeBroadcaster');
+                  $('#agora_remote' + broadcster[i].id).addClass('removeBroadcaster');
 
-              switchAudienceToBroadcaster();
-              break;
+                  switchAudienceToBroadcaster();
+                  break;
+                }
+              }
             }
-          }
+
         }
     }
 
@@ -2952,7 +3053,7 @@ function signalHandler(uid, signalData, userType) {
     function pushIntoSessionByHost(){
       let uid = '';
 
-      setTimeout(function(){}, 1000);
+      //setTimeout(function(){}, 1000);
 
       if($('#to-broadcast').length > 0 && $('#to-broadcast').val().trim() != ''){
 
@@ -3902,10 +4003,13 @@ console.log('removed from rtm order====', memberId);
  
       
     function zoomVideo(id){
-      if($('#agora_remote'+id).find('.video-holder').hasClass('zoom-video'))
-        $('#agora_remote'+id).find('.video-holder').removeClass('zoom-video');
-      else
-        $('#agora_remote'+id).find('.video-holder').addClass('zoom-video');
+        if ($('#agora_remote'+id).find('.video-holder').hasClass('zoom-video')) {
+          $('#agora_remote'+id).find('.video-holder').removeClass('zoom-video');
+          $('#agora_remote'+id+' .video-holder').find('i').removeClass('fa-search-minus');
+        } else {
+          $('#agora_remote'+id).find('.video-holder').addClass('zoom-video');
+          $('#agora_remote'+id+' .video-holder').find('i').addClass('fa-search-minus');
+        }
     }
 
     function starthostslider(){
@@ -4093,14 +4197,14 @@ console.log('removed from rtm order====', memberId);
               showHandAtHost();
             }else{
               
-              // if ($('#dropdownmenuitem11').hasClass('show') == false) {
-              //     showHandAtHost();
-              //     $('#dropdownmenuitem11').slideDown();
-              // } else {
-              //     $('#dropdownmenuitem11').slideUp();
-              // }
+              if ($('#dropdownmenuitem11').hasClass('show') === false) {
+                  showHandAtHost();
+                  $('#dropdownmenuitem11').slideDown();
+              } else {
+                  $('#dropdownmenuitem11').slideUp();
+              }
               
-              $('#dropdownmenuitem11').slideToggle();
+              //$('#dropdownmenuitem11').slideToggle();
             }
         });
         
@@ -4365,6 +4469,10 @@ console.log('removed from rtm order====', memberId);
       // downHand()
       $('#mocrophone-off').removeClass('d-none');
       $('#mocrophone-on').addClass('d-none');
+    })
+
+    $('#close-dd').on('click', function(){
+      $('#dropdownmenuitem11').slideUp();
     })
 
     // attendy
@@ -4862,20 +4970,27 @@ console.log('onscreenUsers===', onscreenUsers);
     }*/
 
 
-
   function checkMuteUnmute(id) {
 
-    console.log('----------checkMuteUnmute-------------',id)
+    console.log('----------checkMuteUnmute-------------',id);
 
-      let vdo = $('#video'+ id )[0];   
-      let ado = $('#audio'+ id )[0];   
+    console.log('%%%%%mute----', $('#video'+ id )[0], typeof $('#video'+ id )[0], $('#audio'+ id )[0], typeof $('#audio'+ id )[0]);
 
-      vdo.muted = true;
-      ado.muted = true;
+    let ref = setInterval(function() {
+      console.log('##@@----------checkMuteUnmute-------------', id);
+      if($('#video'+ id )[0] != undefined && $('#audio'+ id )[0] != undefined) {
+          
+          console.log('##@@----------in if checkMuteUnmute-------------', id);
 
-      // $('#agora_remote'+id).find('.mute-unmute').addClass('mute');
-     // $('#agora_remote'+id).find('.mute-unmute .fa').addClass('fa-volume-off');
+          let vdo = $('#video'+ id )[0];   
+          let ado = $('#audio'+ id )[0];   
 
+          vdo.muted = true;
+          ado.muted = true;
+
+          clearInterval(ref);
+      }
+    }, 500);
   } 
   
   function checkMuteUnmutepart(id) {
@@ -4987,7 +5102,7 @@ console.log('onscreenUsers===', onscreenUsers);
         } else {            
             console.log('rtm retryCounter====', rtmRetryCounter, peerId);    
 
-            if (rtmRetryCounter <= 1) {
+            if (rtmRetryCounter < 1) {
                 rtmRetryCounter++;
 
                 checkRTMStatus(peerId, text);
@@ -5006,5 +5121,22 @@ console.log('onscreenUsers===', onscreenUsers);
   }
 
   $(document).ready(function() {
-    onPageResize();
-});
+      onPageResize();
+  });
+
+  $(document).keyup(function(e) {
+
+      if (e.keyCode === 27) { // escape key maps to keycode `27`
+          
+          if ($('.video-holder').length > 0) {
+
+              $('.video-holder').each(function (index, value) {
+                  if($(this).hasClass('zoom-video')) {
+                      $(this).removeClass('zoom-video');
+                      $(this).find('i').removeClass('fa-search-minus');
+                  }
+              });
+          }
+      }
+
+  });

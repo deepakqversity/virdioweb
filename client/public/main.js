@@ -171,12 +171,14 @@ if(!AgoraRTC.checkSystemRequirements()) {
             //let onscreenCount = $('#subscribers-list .newcss').length;
             let onscreenCount = $('.video-holder').length;
             let onscreenUserIds = [];
-console.log('@@@onscreenCount!!!!!====', stream.getId(), onscreenCount, localStorage.getItem("swap-subscriber-id"));
+console.log('@@@stream-added new !!!!!====user id->', stream.getId(), '==onscreenCount->', onscreenCount, '--swap-id->', localStorage.getItem("swap-subscriber-id"));
 
             if ((localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') || onscreenCount < storeData.default.maxUserLimit) {
 
                 if (localStorage.getItem("handraise-swap-subscriber-id") !== null && localStorage.getItem("handraise-swap-subscriber-id") !== '' && parseInt(localStorage.getItem("handraise-swap-subscriber-id")) == stream.getId()) {
-                    console.log('@@@inside hand raise =====', localStorage.getItem("handraise-swap-subscriber-id"), typeof localStorage.getItem("handraise-swap-subscriber-id"), parseInt(localStorage.getItem("handraise-swap-subscriber-id")));
+                    
+                    console.log('@@@###stream-added inside hand raise =====handraise-user-id->', localStorage.getItem("handraise-swap-subscriber-id"), typeof localStorage.getItem("handraise-swap-subscriber-id"), parseInt(localStorage.getItem("handraise-swap-subscriber-id")), '===swap-id->', localStorage.getItem("swap-subscriber-id"));
+                    
                     if (localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') {
                     
                         let swapId = localStorage.getItem("swap-subscriber-id");
@@ -184,16 +186,14 @@ console.log('@@@onscreenCount!!!!!====', stream.getId(), onscreenCount, localSto
 
                         localStorage.setItem("swap-subscriber-id-v1", swapId);
                     }
-
-                    console.log('@@@in if for user====', stream.getId());
-     
-                    // addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
-                    // addUserAttribute(stream.getId(), 'isSubscribe', 1);
 
                     client.subscribe(stream, function (err) {
                       console.log("Subscribe stream failed", err);
                     });
                 } else if (onscreenCount < storeData.default.maxUserLimit) {
+                    
+                    console.log('@@@###stream-added onscreenCount lessa than max limit====onscreenCount->', onscreenCount, 'maxlimit->', storeData.default.maxUserLimit, '--swap id->', localStorage.getItem("swap-subscriber-id"));
+                    
                     if (localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') {
                     
                         let swapId = localStorage.getItem("swap-subscriber-id");
@@ -201,16 +201,14 @@ console.log('@@@onscreenCount!!!!!====', stream.getId(), onscreenCount, localSto
 
                         localStorage.setItem("swap-subscriber-id-v1", swapId);
                     }
-
-                    console.log('@@@in if for user====', stream.getId());
-     
-                    // addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
-                    // addUserAttribute(stream.getId(), 'isSubscribe', 1);
 
                     client.subscribe(stream, function (err) {
                       console.log("Subscribe stream failed", err);
                     });
-                } else if (localStorage.getItem("handraise-swap-subscriber-id") == null || localStorage.getItem("handraise-swap-subscriber-id") == '') {
+                } else if ((localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '' && (localStorage.getItem("handraise-swap-subscriber-id") === null || localStorage.getItem("handraise-swap-subscriber-id") === '')) || onscreenCount < storeData.default.maxUserLimit) {
+                    
+                    console.log('@@@###stream-added 2 condition failed handraise-user-id->', localStorage.getItem("handraise-swap-subscriber-id"), '==swap-id->', localStorage.getItem("swap-subscriber-id"), '==onscreenCount->', onscreenCount);
+
                     if (localStorage.getItem("swap-subscriber-id") !== null && localStorage.getItem("swap-subscriber-id") !== '') {
                     
                         let swapId = localStorage.getItem("swap-subscriber-id");
@@ -218,8 +216,6 @@ console.log('@@@onscreenCount!!!!!====', stream.getId(), onscreenCount, localSto
 
                         localStorage.setItem("swap-subscriber-id-v1", swapId);
                     }
-
-                    console.log('@@@in if for user====', stream.getId());
      
                     // addUserAttribute(stream.getId(), 'subscribeTime', (new Date()).getTime());
                     // addUserAttribute(stream.getId(), 'isSubscribe', 1);
@@ -228,7 +224,7 @@ console.log('@@@onscreenCount!!!!!====', stream.getId(), onscreenCount, localSto
                       console.log("Subscribe stream failed", err);
                     });
                 } else {
-                    console.log('@@@inside hand raise =====kick user', stream.getId());
+                    console.log('@@@###stream-added hand raise final else =====kick user', stream.getId());
                     kickUser(stream.getId());
                 }
             } else {
@@ -337,7 +333,7 @@ console.log('@@@onscreenCount!!!!!====', stream.getId(), onscreenCount, localSto
             }
 
             if ($('#subscribers-list #agora_remote'+stream.getId()).length === 1) {
-              console.log('i am in streamer----');
+              console.log('i am in streamer----', stream.getId());
              // stream.play('agora_remote_vdo' + stream.getId(), {muted:true});
 
               stream.play('agora_remote_vdo' + stream.getId());
@@ -402,18 +398,23 @@ console.log('@@@onscreenCount!!!!!====', stream.getId(), onscreenCount, localSto
         }*/
       } else {
           
+          console.log('in participant view----', stream.getId());
+
           let subscribeUserId = getUserDataFromList(stream.getId(), 'userType');
+console.log('in participant view----subscribeUserId', subscribeUserId);
 
           if(1 == subscribeUserId){
+console.log('in participant view----subscribeUserId', subscribeUserId, stream.getId(), $('#agora_host #agora_remote'+stream.getId()).length);
+            //if ($('#agora_host #agora_remote'+stream.getId()).length === 0) {
 
-            if ($('#agora_host #agora_remote'+stream.getId()).length === 0) {
-              
-              $('#agora_host').append('<div id="agora_remote'+stream.getId()+'"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div></div>');
+              $('#agora_host').html('<div id="agora_remote'+stream.getId()+'"><div id="agora_remote_vdo'+stream.getId()+'" class="video-streams"></div></div>');
 
-            }
+            //}
 
-            stream.play('agora_remote_vdo' + stream.getId());
-
+            setTimeout(function(){
+                stream.play('agora_remote_vdo' + stream.getId());
+            }, 2000);
+            
             console.log('hostStreamMuted===', typeof localStorage.getItem('hostStreamMuted'));
             if (localStorage.getItem('hostStreamMuted') !== null && localStorage.getItem('hostStreamMuted') == "true") {
                 let ado = $('#agora_host audio')[0];
@@ -1045,6 +1046,26 @@ console.log('rtm remove====', memberId);
           }).catch(error => {
               console.log('peererror=======', error);
               retryCounter = 0;
+
+              let resultant = text.split(sep);
+              if (resultant[0] == '200') {
+
+                  if (resultant[2] != undefined && resultant[2] == 'handraiseclick') {
+                      localStorage.setItem("auto-swap", true);
+                  }
+
+                  let userId = convertEmailToId(peerId);
+                  let tempUsers = getTempUsers();
+
+                  for(let i in tempUsers) {
+                      if(tempUsers[i].id == userId && tempUsers[i].hasOwnProperty('isSubscribe') === true && tempUsers[i].isSubscribe == 0) {
+                          
+                          addUserAttribute(userId, 'subscribeTime', (new Date()).getTime());
+
+                          return;
+                      }
+                  }
+              }
           });
       }
 
@@ -4949,20 +4970,27 @@ console.log('onscreenUsers===', onscreenUsers);
     }*/
 
 
-
   function checkMuteUnmute(id) {
 
-    console.log('----------checkMuteUnmute-------------',id)
+    console.log('----------checkMuteUnmute-------------',id);
 
-      let vdo = $('#video'+ id )[0];   
-      let ado = $('#audio'+ id )[0];   
+    console.log('%%%%%mute----', $('#video'+ id )[0], typeof $('#video'+ id )[0], $('#audio'+ id )[0], typeof $('#audio'+ id )[0]);
 
-      vdo.muted = true;
-      ado.muted = true;
+    let ref = setInterval(function() {
+      console.log('##@@----------checkMuteUnmute-------------', id);
+      if($('#video'+ id )[0] != undefined && $('#audio'+ id )[0] != undefined) {
+          
+          console.log('##@@----------in if checkMuteUnmute-------------', id);
 
-      // $('#agora_remote'+id).find('.mute-unmute').addClass('mute');
-     // $('#agora_remote'+id).find('.mute-unmute .fa').addClass('fa-volume-off');
+          let vdo = $('#video'+ id )[0];   
+          let ado = $('#audio'+ id )[0];   
 
+          vdo.muted = true;
+          ado.muted = true;
+
+          clearInterval(ref);
+      }
+    }, 500);
   } 
   
   function checkMuteUnmutepart(id) {

@@ -6,6 +6,10 @@ const route = express.Router();
 
 route
   .post('/login', UserValidation.login, UserCtrl.login)
+  .post('/createGroup',  UserCtrl.create_group)
+  .post('/adminLogin', UserValidation.login, UserCtrl.admin_login)
+  .post('/adminPastSessionData', UserCtrl.admin_past_sessiondData)
+  .post('/adminDashboardData', UserCtrl.admin_dashboardData)
   .post('/register', UserValidation.register, UserCtrl.register)
   .post('/verify-otp', UserValidation.verifyOtp, UserCtrl.verifyOtp)
   .post('/client-token', UserCtrl.createClientToken)

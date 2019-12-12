@@ -55,7 +55,7 @@ class User{
 		let table = this.table;
 	
 		return await new Promise((resolve, reject) => {
-			db.query('SELECT id, firstName, lastName, email, password, image, status, isBanned FROM ?? WHERE email = ? AND status = 1 limit 1', [table, email], function (error, results, fields) {
+			db.query('SELECT id, firstName, lastName, email, password, image, status,type, isBanned FROM ?? WHERE email = ? AND status = 1 limit 1', [table, email], function (error, results, fields) {
 			  if (error) reject(error);
 			  // console.log('================== results ', results)
 			  // db.end();
@@ -109,7 +109,7 @@ class User{
 	async add(userData) {
 		let table = this.table;
 		return await new Promise((resolve, reject) => {
-			db.query('INSERT INTO ?? SET firstName=?, lastName=?, email=?, password=?, phone=?, status=0', [table, userData.firstName, userData.lastName, userData.email, userData.password, userData.phone], function (error, results, fields) {
+			db.query('INSERT INTO ?? SET name=?, firstName=?, lastName=?, email=?, password=?,address1=?,address2=?,city=?,state=?,zip=?,image=?,type=?, phone=?, status=0', [table,userData.name, userData.firstName, userData.lastName, userData.email, userData.password, userData.address1, userData.address2, userData.city, userData.state, userData.zip, userData.image, userData.type, userData.phone], function (error, results, fields) {
 			  if (error) reject(error);
 			  // console.log('================== results ', results)
 			  // db.end();

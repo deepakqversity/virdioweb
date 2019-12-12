@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const isEmpty = require("is-empty");
 const underscore = require("underscore");
 const userModel = require('../../models/User');
+const interestGroupModel = require('../../models/InterestGroup');
 const tokenModel = require('../../models/AuthToken');
 const sessionModel = require('../../models/Session');
 const settingModel = require('../../models/Settings');
@@ -29,6 +30,185 @@ class UserCtrl {
 			response.resp(res, 500, exception)
 	    }
 	}
+
+	async create_group(req, res) {
+	    try {
+
+			console.log('--------req.body----------',req.body)
+	    	let name = req.body.group_name;
+			let group = await interestGroupModel.addInterestGroup(name);
+			// res.status(200).send(user1);
+			response.resp(res, 200, group)
+				
+	    } catch(exception) {
+			// res.status(500).send(exception)
+			response.resp(res, 500, exception)
+	    }
+	}
+
+	async admin_login(req, res) {
+	    try {
+			console.log('--------req.body----------',req.body)
+	    	let email = req.body.email;
+	    	let password = req.body.password;
+			let userObj = await userModel.getUserByEmail(email);
+			console.log('--------userObj----------',userObj);
+	    	let currentTS = Date.now();
+
+			if(!isEmpty(userObj)){
+
+    			if(userObj.status == 0){
+    				// res.status(400).send({message:"user already exists but inactive."})
+    				response.resp(res, 400, {message:"user already exists but inactive."})
+    			} else {
+
+    				userObj = underscore.extend(userObj, {serverTimestamp:currentTS});
+
+	        		let t = await bcrypt.compare(password, userObj.password);
+					if(t){
+						if(userObj.isBanned == 1){
+		    				// res.status(400).send({message:"Sorry! You cannot login."})
+		    				response.resp(res, 400, {message:"Sorry! You cannot login."})
+		    			} else {
+
+							if(isEmpty(userObj.image)){
+								userObj.image = process.env.IMAGES + 'profile.png';
+							} else {
+								userObj.image = process.env.IMAGES + userObj.image;
+							}
+
+							const token = await auth.createToken(userObj.id);
+							 //console.log('token-1111------------',token);
+							let updateUser = await tokenModel.updateToken(userObj.id, token);
+							
+							userObj = underscore.extend(userObj, {token:token});
+
+							userObj = underscore.omit(userObj, 'password');
+							userObj = underscore.omit(userObj, 'status');
+							userObj = underscore.omit(userObj, 'isBanned');
+							
+							//underscore.extend(userObj, defaultConfig);
+
+							// let settings = await settingModel.getSettings();
+
+							// underscore.extend(userObj, {default: settings});
+						
+							response.resp(res, 200, userObj)
+						}
+					} else {
+						// res.status(400).send({password:"Invalid password"})
+						response.resp(res, 400, {password:"Invalid password"})
+					}
+				}
+			} else {
+				// res.status(400).send({email:"User doesn\'t exists in system."});
+				response.resp(res, 400, {email:"User doesn\'t exists in system."})
+			}
+				
+	    } catch(exception) {
+			// res.status(500).send(exception)
+			response.resp(res, 500, exception)
+	    }
+	}
+
+	async admin_dashboardData(req, res) {
+		try {
+		//if(!isEmpty(req.body)){
+		let val=req.body;
+		let email = val.email;
+		let userType = val.type;
+		let userObj = await userModel.getUserByEmail(email);
+		console.log('-------userObj-------',userObj)
+		if(!isEmpty(userObj)){
+			if(userObj.status == 0){
+				// res.status(400).send({message:"user already exists but inactive."})
+				response.resp(res, 400, {message:"user already exists but inactive."})
+			} else {
+			let currentSession = await sessionModel.getNextSession(userObj.id);
+				console.log('----currentSession-----------',currentSession)
+			let sessionData = {};
+			if(!isEmpty(currentSession)){
+		
+				console.log('----currentSession11-----------',currentSession)
+
+				userObj = underscore.omit(userObj, 'password');
+				userObj = underscore.omit(userObj, 'status');
+				userObj = underscore.omit(userObj, 'isBanned');
+	
+
+				userObj = underscore.extend(userObj, {sessionData:currentSession});
+
+			
+			response.resp(res, 200, userObj)
+		} else {
+
+			underscore.extend({ message : "There are no sessions available."});
+			// underscore.extend(userObj, { sessionData : []});
+		}
+	}
+			}else {
+				// res.status(400).send({email:"User doesn\'t exists in system."});
+				response.resp(res, 400, {email:"User doesn\'t exists in system."})
+			}
+				
+
+		}catch(exception) {
+			// res.status(500).send(exception)
+			response.resp(res, 500, exception)
+	    }
+
+	}
+
+
+	async admin_past_sessiondData(req, res) {
+		try {
+		//if(!isEmpty(req.body)){
+		let val=req.body;
+		let email = val.email;
+		let userType = val.type;
+		let userObj = await userModel.getUserByEmail(email);
+		console.log('-------userObj-------',userObj)
+		if(!isEmpty(userObj)){
+			if(userObj.status == 0){
+				// res.status(400).send({message:"user already exists but inactive."})
+				response.resp(res, 400, {message:"user already exists but inactive."})
+			} else {
+			let currentSession = await sessionModel.getPastSession(userObj.id);
+				console.log('----currentSession-----------',currentSession)
+			let sessionData = {};
+			if(!isEmpty(currentSession)){
+		
+				console.log('----currentSession11-----------',currentSession)
+
+				userObj = underscore.omit(userObj, 'password');
+				userObj = underscore.omit(userObj, 'status');
+				userObj = underscore.omit(userObj, 'isBanned');
+	
+
+				userObj = underscore.extend(userObj, {sessionData:currentSession});
+
+			
+			response.resp(res, 200, userObj)
+		} else {
+
+			underscore.extend({ message : "There are no sessions available."});
+			// underscore.extend(userObj, { sessionData : []});
+		}
+	}
+			}else {
+				// res.status(400).send({email:"User doesn\'t exists in system."});
+				response.resp(res, 400, {email:"User doesn\'t exists in system."})
+			}
+				
+
+		}catch(exception) {
+			// res.status(500).send(exception)
+			response.resp(res, 500, exception)
+	    }
+
+	}
+	
+	
 
 	async login(req, res) {
 	    try {
@@ -167,64 +347,80 @@ class UserCtrl {
 
 	async register(req, res) {
 	    try {
-	    	let email = req.body.email;
+			//let participent=req.body.participentDetail;
+			let participent=req.body;
+	    	let email = participent.email;
 
 	    	let userObj = await userModel.getExistsUserByEmail(email);
 	    	
 			if(isEmpty(userObj)){
 
-				let password = await bcrypt.hash(req.body.password, saltRounds);
+				let password = await bcrypt.hash(participent.password, saltRounds);
 
 				let userData = {
-					firstName	 : req.body.firstName,
-					lastName : req.body.lastName,
-					email : req.body.email,
+					name:participent.firstName+" "+participent.lastName,
+					firstName	 : participent.firstName,
+					lastName : participent.lastName,
+					email : participent.email,
+					type : participent.type,
 					password : password,
-					address1 : req.body.address1,
-					address2 : req.body.address2,
-					city : req.body.city,
-					state : req.body.state,
-					zip : req.body.zip,
-					image : req.body.image,
-					phone : req.body.phone
+					address1 : participent.address1,
+					address2 : participent.address2,
+					city : participent.city,
+					state : participent.state,
+					zip : participent.zip,
+					image : participent.image,
+					phone : participent.phone
 				};
+				console.log('--------userData-------------',userData)
 				let insertedId = await userModel.add(userData);
 				if(insertedId > 0){
 
 					let msg = 'Your account created successfully, Please check';
-					let emailUpdate = await otpModel.add(insertedId, utils.encodedString(), 0);
+					let encodedstring=utils.encodedString(4);
+					let emailUpdate = await otpModel.add(insertedId, encodedstring, 0);
+					//console.log('------emailUpdate-------',emailUpdate)
 					if(emailUpdate > 0){
-						msg += ' email for verification link';
-					}
-					if(req.body.phone != ''){
-						let otpUpdate = await otpModel.add(insertedId, utils.generateOtp(4), 1);
-						if(otpUpdate){
-							msg += ' or OTP sent';
-						}
-					} 
+						//msg += ' email for verification link';
+						msg += ' email for OTP';
+						
+						let html="<p>Please put this OTP  </p>"+encodedstring;
 
-					// res.status(200).send({message : msg+". Please verify account."});
+						console.log('-------html--------',html)
+		
+						let to=participent.email;
+						let subject='Mail From Virdio For OTP';
+						let text='Please Check ur Mail';
+		
+						let sendmail = await SendMail.emailInput(to,subject,html);
+
+					}
+
+					// if(participent.phone != ''){
+					// 	//let otpUpdate = await otpModel.add(insertedId, utils.generateOtp(4), 1);
+					// 	let otpUpdate = await otpModel.add(insertedId, encodedstring, 1);
+					// 	if(otpUpdate){
+					// 		msg += ' or OTP sent';
+					// 	}
+					// } 
+
 					response.resp(res, 200, {message : msg+". Please verify account."})
 				} else {
 
-					// res.status(400).send({message:"Something went wrong."})
 					response.resp(res, 400, {message:"Something went wrong."})
 				}
 			} else {
 				if(userObj.status == 0){
 
-					// res.status(400).send({message:"Email already exists but inactive."})
 					response.resp(res, 400, {message:"Email already exists but inactive."})
 				} else {
 
-					// res.status(400).send({message:"user already exists."})
 					response.resp(res, 400, {message:"user already exists."})
 				}
 			}
 				
 	    } catch(exception) {
 
-			// res.status(500).send(exception)
 			response.resp(res, 500, exception)
 	    }
 	}
@@ -240,11 +436,9 @@ class UserCtrl {
 				sessionObj = underscore.omit(sessionObj, 'appCertificate');
 			}
 
-			// res.status(200).send(sessionObj);
 			response.resp(res, 200, sessionObj)
 				
 	    } catch(exception) {
-			// res.status(500).send(exception);
 			response.resp(res, 500, exception)
 	    }
 	}
@@ -256,22 +450,25 @@ class UserCtrl {
 	 */
 	async verifyOtp(req, res){
 		try {
-			let email = req.body.email != undefined ? req.body.email : '';
-			let phone = req.body.phone != undefined ? req.body.phone : '';
+			let dta=req.body;
+			let email = dta.email != undefined ? dta.email : '';
+			let phone = dta.phone != undefined ? dta.phone : '';
 
 	    	let userObj = await userModel.getExistsUserByEmailOrMobile(email, phone);
 
 			if(!isEmpty(userObj)){
 
-				let verifyChannel = phone != '' ? 1 : 0;
+				//let verifyChannel = phone != '' ? 1 : 0;
 
-				let otpObj = await otpModel.verify(req.body.code, userObj.id, verifyChannel);
+				let verifyChannel = email != '' ? 0 : 1;
+
+				let otpObj = await otpModel.verify(dta.code, userObj.id, verifyChannel);
 
 				if(!isEmpty(otpObj)){
 					console.log('otpObj.status = ', otpObj.status);
 					if(otpObj.status == 0){
 
-						let updateOtp = await otpModel.updateOtp(req.body.code, userObj.id);
+						let updateOtp = await otpModel.updateOtp(dta.code, userObj.id);
 						
 						if(updateOtp){
 							// res.status(200).send({message:"Account activated successfully."});

@@ -9,6 +9,34 @@ class Session{
 	}
 
 	/**
+	 * Get next session
+	 * @param  {int} userId 
+	 * @return {obj} 
+	 */
+	async getNextSession(userId) {
+        return await new Promise((resolve, reject) => {
+        	db.query('SELECT s.*, i.code, su.sessionId, su.userId, su.type, u.firstName as hostFirstName, u.lastName as hostLastName, u.email as hostEmail, u.image as hostImage FROM sessions s INNER JOIN sessions sess on sess.id=s.id LEFT JOIN session_users su ON su.sessionId = s.id JOIN users u ON u.id = s.hostId LEFT JOIN interest i ON i.id = s.interestId WHERE su.userId = ? AND su.status = 1 AND s.status = 1 AND sess.status = 1 AND sess.scheduleDate IS NOT NULL AND s.scheduleDate IS NOT NULL AND s.scheduleDate >  NOW()  ORDER BY s.scheduleDate ASC', [userId], function (error, results, fields) {
+			  if (error) reject(error);
+			  // console.log('================== results ', results)
+			  // db.end();
+			  return resolve(results);
+			});
+        });
+	}
+
+	async getPastSession(userId) {
+        return await new Promise((resolve, reject) => {
+        	db.query('SELECT s.*, i.code, su.sessionId, su.userId, su.type, u.firstName as hostFirstName, u.lastName as hostLastName, u.email as hostEmail, u.image as hostImage FROM sessions s INNER JOIN sessions sess on sess.id=s.id LEFT JOIN session_users su ON su.sessionId = s.id JOIN users u ON u.id = s.hostId LEFT JOIN interest i ON i.id = s.interestId WHERE su.userId = ? AND su.status = 1 AND s.status = 1 AND sess.status = 1 AND sess.scheduleDate IS NOT NULL AND s.scheduleDate IS NOT NULL AND s.scheduleDate < NOW()  ORDER BY s.scheduleDate ASC', [userId], function (error, results, fields) {
+			  if (error) reject(error);
+			  // console.log('================== results ', results)
+			  // db.end();
+			  return resolve(results);
+			});
+        });
+	}
+
+
+		/**
 	 * Get upcomming session
 	 * @param  {int} userId 
 	 * @return {obj} 

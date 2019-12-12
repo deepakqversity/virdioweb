@@ -39,9 +39,10 @@ class UserValidation {
 
 	static register(req, res, next) {
 		
+		//let data = req.body.participentDetail;
 		let data = req.body;
 		let errors = {};
-
+		console.log('---------data--------------------',data)
 		// Convert empty fields to an empty string so we can use validator functions
 		data.firstName = !isEmpty(data.firstName) ? data.firstName : "";
 		data.lastName = !isEmpty(data.lastName) ? data.lastName : "";
@@ -83,7 +84,7 @@ class UserValidation {
 		let errors = {};
 
 		// Convert empty fields to an empty string so we can use validator functions
-		let code = !isEmpty(req.body.code) ? req.body.code : "";
+		let code = !isEmpty(data.code) ? data.code : "";
 
 		// Name checks
 		if (Validator.isEmpty(code)) {

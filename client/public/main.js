@@ -937,10 +937,10 @@ console.log('rtm remove====', memberId);
                         console.log('rtm channel instance==', channel);
                         channel.join().then(() => {
 
-                            /*if (storeData.userType == 2) {
+                            if (storeData.userType == 2) {
                                 let message = "1000" + sep + storeData.id;
                                 sendConnectedAgainMessage(storeData.sessionData.hostEmail, message);
-                            }*/
+                            }
                         });
                     });
                 }
@@ -1008,6 +1008,8 @@ console.log('rtm remove====', memberId);
                     let resultant = text.split(sep);
                     if (resultant[0] == '200') {
 
+                        localStorage.removeItem('swap-subscriber-id');
+
                         if (resultant[2] != undefined && resultant[2] == 'handraiseclick') {
                             localStorage.setItem("auto-swap", true);
                         }
@@ -1050,8 +1052,11 @@ console.log('rtm remove====', memberId);
               let resultant = text.split(sep);
               if (resultant[0] == '200') {
 
+                  localStorage.removeItem('swap-subscriber-id');
+
                   if (resultant[2] != undefined && resultant[2] == 'handraiseclick') {
                       localStorage.setItem("auto-swap", true);
+                      localStorage.removeItem('handraise-swap-subscriber-id');
                   }
 
                   let userId = convertEmailToId(peerId);

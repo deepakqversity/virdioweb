@@ -148,10 +148,10 @@ if(!AgoraRTC.checkSystemRequirements()) {
                 console.log('rtm channel instance==', channel);
                 channel.join().then(() => {
 
-                    /*if (storeData.userType == 2) {
+                    if (storeData.userType == 2) {
                         let message = "1000" + sep + storeData.id;
                         sendConnectedAgainMessage(storeData.sessionData.hostEmail, message);
-                    }*/
+                    }
                 });
             });
         }

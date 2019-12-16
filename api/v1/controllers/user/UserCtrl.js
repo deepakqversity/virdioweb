@@ -4,6 +4,7 @@ const isEmpty = require("is-empty");
 const underscore = require("underscore");
 const userModel = require('../../models/User');
 const interestGroupModel = require('../../models/InterestGroup');
+const interestModel = require('../../models/Interest');
 const tokenModel = require('../../models/AuthToken');
 const sessionModel = require('../../models/Session');
 const settingModel = require('../../models/Settings');
@@ -37,6 +38,51 @@ class UserCtrl {
 			console.log('--------req.body----------',req.body)
 	    	let name = req.body.group_name;
 			let group = await interestGroupModel.addInterestGroup(name);
+			// res.status(200).send(user1);
+			response.resp(res, 200, group)
+				
+	    } catch(exception) {
+			// res.status(500).send(exception)
+			response.resp(res, 500, exception)
+	    }
+	}
+
+	async get_group(req, res) {
+	    try {
+
+			let group = await interestGroupModel.addInterestGroup(name);
+			// res.status(200).send(user1);
+			response.resp(res, 200, group)
+				
+	    } catch(exception) {
+			// res.status(500).send(exception)
+			response.resp(res, 500, exception)
+	    }
+	}
+
+	async add_interest(req, res) {
+	    try {
+
+			console.log('--------req.body----------',req.body)
+			let interest = req.body.interest;
+			
+			let insertData = {		
+				interestCode : interest.interestCode ? interest.interestCode :0,
+				title : interest.title,
+				groupId : interest.groupId,
+				description : interest.description ? interest.description : 0,
+				image : interest.image ? interest.image : 0,
+				video : interest.video ? interest.video :0,
+				haveShoppingList : interest.haveShoppingList == true ? 1 : 0,
+				haveEquipment : interest.haveEquipment == true ? 1 : 0,
+				haveProductList : interest.haveProductList == true ? 1 : 0,
+				attendeesAreCalled : interest.attendeesAreCalled ? interest.attendeesAreCalled : Participent,
+				virtualRoomIsCalled : interest.virtualRoomIsCalled ? interest.virtualRoomIsCalled : virtualRoom, 
+				inProduction  : interest.inProduction ? interest.inProduction : 0
+			};
+			console.log('----------insertData------------------',insertData)
+
+			let group = await interestModel.addInterest(insertData);
 			// res.status(200).send(user1);
 			response.resp(res, 200, group)
 				

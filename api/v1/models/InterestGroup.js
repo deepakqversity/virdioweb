@@ -14,12 +14,12 @@ class InterestGroup{
 	 * @param  {int} userId 
 	 * @return {obj} 
 	 */
-	async getChannelHostsList(channelId,userId) {
+	async getGroupInterest(channelId,userId) {
 
 		console.log('------lalitgetchannel---------',channelId,userId)
 		
         return await new Promise((resolve, reject) => {
-        	db.query('SELECT ch.hostId as userId, CONCAT(u.firstName, " ", u.lastName) as username FROM channel_host as ch INNER JOIN users as u WHERE ch.hostId = u.id AND u.isBanned = 0  AND ch.channelAdmin = 0  AND  u.id !=?  AND ch.channelId = ?', [userId,channelId], function (error, results, fields) {
+        	db.query('SELECT ig.name as groupName,int.title as interestName FROM interest_group as ig Left JOIN interest as inter ON inter.groupId = ig.id WHERE  inter.statue = 0  AND ig.status = 1', [userId,channelId], function (error, results, fields) {
 				  if (error) reject(error);
 				  
 				  console.log('------getchannel---------',error)
